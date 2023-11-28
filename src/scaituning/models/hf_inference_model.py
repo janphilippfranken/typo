@@ -7,9 +7,9 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-class HFModel():
+class HFInferenceModel():
     """
-    Wrapper for running inference withHF Model.
+    Wrapper for running inference with HF Model.
     """
     def __init__(
         self, 
@@ -21,22 +21,27 @@ class HFModel():
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         ):
         """
-        Initializes Model
+        Initializes HF Inference Model
         """
-        torch_dtype = torch.float16 if "16" in torch_dtype else torch.float32
-
+        # load tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(
             pretrained_model_name_or_path=pretrained_model_name_or_path, 
             cache_dir=tokenizer_cache_dir,
             token=os.getenv("HF_TOKEN"),
         )
-        
-        self.tokenizer.pad_token = self.tokenizer.eos_token # for batch prompting
-        
+        # check which model we are using
+        is_mistral = "mistral" in pretrained_model_name_or_path.lower()
+        is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
+        if is_mistral:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+        if is_llama_2:
+            self.tokenizer.pad_token = "[PAD]"
+            self.tokenizer.padding_side = "left"
+        # load model
         self.model = AutoModelForCausalLM.from_pretrained(
             pretrained_model_name_or_path=pretrained_model_name_or_path,
             load_in_8bit=load_in_8bit,
-            torch_dtype=torch_dtype,
+            torch_dtype=torch.float16 if "16" in torch_dtype else torch.float32,
             device_map=device_map,
             cache_dir=model_cache_dir,
             token=os.getenv("HF_TOKEN"),
@@ -44,7 +49,7 @@ class HFModel():
 
     @property
     def model_type(self):
-        return "HFModel"
+        return "HFInferenceModel"
     
     def __call__(self, 
         batch_prompt: List[str],
