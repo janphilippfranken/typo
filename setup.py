@@ -9,7 +9,7 @@ def get_requirements(path: str):
 setup(
     name="scaituning",
     version="0.0.1",
-    package_dir={"": "scaituning"},
-    packages=setuptools.find_packages(where="scaituning"),
+    package_dir={"": "src"},
+    packages=setuptools.find_packages(where="src"),
     install_requires=get_requirements("requirements.txt"),
 )
