@@ -28,7 +28,7 @@ def main(args: DictConfig) -> None:
 
     texts = [prompt] * batch_size
     breakpoint()
-    res = model(texts, **args.inference_config)
+    res = model.batch_prompt(texts, **args.inference_config)
 
     breakpoint()
 

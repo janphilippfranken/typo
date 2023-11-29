@@ -13,6 +13,7 @@ class HFInferenceModel():
     """
     def __init__(
         self, 
+        model_id: str, # unique identifier for accessing conversation buffer
         pretrained_model_name_or_path: str = "mistralai/Mistral-7B-Instruct-v0.1",
         load_in_8bit: str = True,
         device_map: str = "auto",
@@ -20,9 +21,8 @@ class HFInferenceModel():
         model_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         ):
-        """
-        Initializes HF Inference Model
-        """
+        """Initializes HF Inference Model"""
+        self.model_id = model_id
         # load tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(
             pretrained_model_name_or_path=pretrained_model_name_or_path, 
@@ -34,9 +34,11 @@ class HFInferenceModel():
         is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
         if is_mistral:
             self.tokenizer.pad_token = self.tokenizer.eos_token
-        if is_llama_2:
+        elif is_llama_2:
             self.tokenizer.pad_token = "[PAD]"
             self.tokenizer.padding_side = "left"
+        else:
+            raise ValueError(f"Model not implemented: {pretrained_model_name_or_path}")
         # load model
         self.model = AutoModelForCausalLM.from_pretrained(
             pretrained_model_name_or_path=pretrained_model_name_or_path,
@@ -51,7 +53,7 @@ class HFInferenceModel():
     def model_type(self):
         return "HFInferenceModel"
     
-    def __call__(self, 
+    def batch_prompt(self, 
         batch_prompt: List[str],
         max_new_tokens: Optional[int] = 500,
         do_sample: Optional[bool] = True,
@@ -59,7 +61,7 @@ class HFInferenceModel():
         temperature: Optional[float] = 0.1,
     ):
         """
-        Batched call.
+        Batched prompt.
         """
         inputs = self.tokenizer(batch_prompt, 
                                 return_tensors="pt", 
