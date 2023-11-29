@@ -10,7 +10,8 @@ class Simulator(ABC):
     def __init__(
         self, 
         simulator_id: str,
-        agents: List[HFInferenceModel],
+        llms: List[HFInferenceModel],
+        agents: List[Any], # todo generate agent class that uses some LLM 
         prompts: Dict[Any], 
         buffer: ConversationBuffer, 
         verbose: bool, 
@@ -36,6 +37,17 @@ class Simulator(ABC):
         simulator_id: str,
         model_configs: List[Dict],
         prompts: Dict[str],
+        llms: List[HFInferenceModel],
+        # need to do that outside of the simulator
+        #   llms = {
+        #     model_config.model_id: HFInferenceModel(
+        #         **model_config,
+        #     ) 
+        #     for model_config in model_configs
+        # }
+
+
+
         verbose: bool,
     ) -> "Simulator":
         """
@@ -44,16 +56,15 @@ class Simulator(ABC):
         # buffer for storing conversation history
         buffer = ConversationBuffer()
         # agents
+      
         agents = {
-            model_config.model_id: HFInferenceModel(
-                **model_config,
-            ) 
-            for model_config in model_configs
+            model_id: None
+            for model_id in llms
         }
         return Simulator(
             simulator_id=simulator_id,
             prompts=prompts,
-            agents=agents,
+            agents=None # implement agent class similar to stable align
             buffer=buffer,
             verbose=verbose,
         )
