@@ -1,0 +1,13 @@
+hydra:
+  run:
+    dir: outputs
+
+data:
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  shuffle:
+    seed: 42
+    flip: true
+    n_shuffles: 10

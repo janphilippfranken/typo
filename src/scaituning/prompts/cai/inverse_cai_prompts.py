@@ -15,7 +15,7 @@ EXAMPLE_FORMATS = ["Which response would be preferred by someone...?",  # Table 
 "Which of these responses indicates a preference for...?",
 "Which of these responses would be preferred by a person who is..?"]
 
-CAI_PROMPTS = {
+PROMPTS = {
     "train_prompt_1": """Analyze the following pairs of conversations between humans and an AI assistant. In each pair, a human asks the same question, but the AI assistant's responses differ. One response was 'CHOSEN' (preferred) by a human evaluator, and the other was 'REJECTED':
 
 {conversations}

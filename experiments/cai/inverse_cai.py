@@ -8,7 +8,7 @@ from datasets import load_dataset, Dataset
 
 from scaituning.models.hf_inference_model import HFInferenceModel
 
-from scaituning.prompts.cai.cai_prompts import CAI_PROMPTS, EXAMPLE_FORMATS, create_shuffled_train_batch
+from scaituning.prompts.cai.inverse_cai_prompts import PROMPTS, EXAMPLE_FORMATS, create_shuffled_train_batch
 
 
 B_INST, E_INST = "[INST]", "[/INST]"
@@ -16,11 +16,11 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 SYSTEM = "Respond to the best of your ability."
 
 
-@hydra.main(version_base=None, config_path="config", config_name="config")
+@hydra.main(version_base=None, config_path="config", config_name="inverse_cai")
 def main(args: DictConfig) -> None:
 
     # load model 
-    model = HFInferenceModel(**args.model.hf_config)
+    # model = HFInferenceModel(**args.model.hf_config)
 
 
     # load and resize dataset
@@ -29,6 +29,7 @@ def main(args: DictConfig) -> None:
     train_dataset = dataset["train"].select(range(n_train))
     test_dataset = dataset["test"].select(range(n_test))
 
+    breakpoint()
 
     # Generate principles
     predicted_principles = []
@@ -59,13 +60,8 @@ def main(args: DictConfig) -> None:
     # Save the responses
     predicted_principles_dataset = Dataset.from_pandas(pd.DataFrame(predicted_principles))
     # write to json
-    predicted_principles_dataset.to_json("mistral_2.json")
-
-
-    # data = load_dataset("json", data_files="test.json")
-
-
-
+    # predicted_principles_dataset.to_json("mistral.json")
+    # data = load_dataset("json", data_files="mistral.json")
 
 if __name__ == '__main__':
     main()
