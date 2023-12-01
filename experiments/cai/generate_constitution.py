@@ -73,6 +73,8 @@ def main(args: DictConfig) -> None:
             if model:
                 response = model.batch_prompt([formatted_prompt], **args.model.inference_config)
                 revised_constitution = response[0].split("[/INST]")[1]
+                print("REVISED CONSTITUTION")
+                print(revised_constitution)
             else:
                 revised_constitution = current_constitution
             # sample eval conversations
@@ -100,6 +102,10 @@ def main(args: DictConfig) -> None:
                 responses = correct_answers 
             # calculate score:
             score = sum([1 if correct_answer.lower() in response.lower() else 0 for response, correct_answer in zip(responses, correct_answers)]) / len(responses)
+            print("ANSWERS")
+            print(score)
+            print(responses)
+            print(correct_answers)
             # update current constitution and score
             if score > current_score:
                 current_constitution = revised_constitution
