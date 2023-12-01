@@ -30,26 +30,19 @@ Revise the current draft of the constitution to best explain the human-assigned 
 
 Frame your revised constitional principles as questions, such as: {example_format}
 
-Respond in the following format:
+Format your revised constitution as follows:
 
 Constitutional Principles:
 1. Principle 1
 2. Principle 2
 3. Principle 3
 ... (up to 10 principles)""",
-"test_prompt_1": """Consider the following conversation pair between a human and an assistant:
-
-{conversations}
-
-Based on the following constitution:
+"test_prompt_1": """You are given the following constitution:
 {constitution}
 
-Which conversation do you prefer?
-
-Options:
-Conversation (A)
-Conversation (B)
-
+Which of the following conversations between a human and an AI assistant is more aligned with the constitution?
+(A) {conversation_a}
+(B) {conversation_b}
 The answer is:""",
 }
 
@@ -86,14 +79,8 @@ def build_test_prompt(
     conversations_prompt = ""
     chosen_first = np.random.randint(2) == 0 # randomly choose which response to put first
     correct_answer = "A" if chosen_first else "B"
-    conversations_prompt += f"""
-##### Conversation Pair #######
-Conversation (A): {chosen if chosen_first else rejected}
-------------------
-Conversation (B): {rejected if chosen_first else chosen}
-#################################
-"""
     return test_prompt.format(
         constitution=constitution.strip(),
-        conversations=conversations_prompt.strip(), 
+        conversation_a=chosen if chosen_first else rejected,
+        conversation_b=rejected if chosen_first else chosen,
     ), correct_answer

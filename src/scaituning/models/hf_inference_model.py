@@ -59,6 +59,7 @@ class HFInferenceModel():
         do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.1,
+        log_probs: Optional[bool] = False,
     ):
         """
         Batched prompt.
@@ -66,12 +67,36 @@ class HFInferenceModel():
         inputs = self.tokenizer(batch_prompt, 
                                 return_tensors="pt", 
                                 padding=True).to(self.model.device)
-        output = self.model.generate(
-            inputs["input_ids"], 
-            max_new_tokens=max_new_tokens,
-            do_sample=do_sample,
-            top_p=top_p,
-            temperature=temperature,
-        )
-        output = self.tokenizer.batch_decode(output, skip_special_tokens=True)
-        return output
+        if not log_probs:
+            output = self.model.generate(
+                inputs["input_ids"], 
+                max_new_tokens=max_new_tokens,
+                do_sample=do_sample,
+                top_p=top_p,
+                temperature=temperature,
+            )
+            output = self.tokenizer.batch_decode(output, skip_special_tokens=True)
+            return output
+       
+        else: 
+            output = self.model.generate(
+                inputs["input_ids"], 
+                max_new_tokens=max_new_tokens,
+                do_sample=do_sample,
+                top_p=top_p,
+                temperature=temperature,
+                output_scores=True,  
+                return_dict_in_generate=True,
+            )
+            # tokensprint
+            token_id_A = self.tokenizer.encode("(A)", add_special_tokens=False)[0]
+            token_id_B = self.tokenizer.encode("(B)", add_special_tokens=False)[0]
+            # probs
+            log_probs_A = []
+            log_probs_B = []
+            for i, scores in enumerate(output.scores):
+                for score in scores:
+                    log_probs = torch.nn.functional.log_softmax(score, dim=-1)
+                    log_probs_A.append(log_probs[token_id_A].item())
+                    log_probs_B.append(log_probs[token_id_B].item())
+            return log_probs_A, log_probs_B

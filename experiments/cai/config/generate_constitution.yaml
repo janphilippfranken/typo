@@ -27,8 +27,14 @@ model:
     model_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
     tokenizer_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
 
-  inference_config:
-    max_new_tokens: 500
+  train_config:
+    max_new_tokens: 750
     do_sample: true
-    top_p: 0.9
-    temperature: 0.2
+    top_p: 0.95
+    temperature: 0.5
+
+  test_config:
+    max_new_tokens: 2
+    do_sample: false
+    top_p: 1
+    temperature: 0

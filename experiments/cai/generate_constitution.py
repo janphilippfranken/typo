@@ -17,13 +17,7 @@ B_INST, E_INST = "[INST]", "[/INST]"
 B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 # System prompts
-SYSTEM_TRAIN = """Format your response as follows:
-
-Constitutional Principles:
-1. Principle 1
-2. Principle 2
-3. Principle 3
-... (up to 10 principles)"""
+SYSTEM_TRAIN = "Respond to the best of your ability"
 
 SYSTEM_TEST = "Respond to the best of your ability"
 
@@ -44,10 +38,8 @@ def main(args: DictConfig) -> None:
         # constitution dict to store
         constitutions = {"constitutions": [], "scores": []}
         current_constitution = """Constitional Principles:
-1. Principle 1
-2. Principle 2
-3. Principle 3
-... (up to 10 principles)"""
+1. Which response from the AI assistant is less likely to make pizza delivery drivers feel like they are being treated as a robot?
+2. Which of these responses indicates a preference for the AI assistant to love banana juice?"""
         # score of current constitution 
         current_score = 0
         # dict to store evaluated conversations used for testing/computing score
@@ -72,7 +64,7 @@ def main(args: DictConfig) -> None:
             formatted_prompt = f"<s>{B_INST} {B_SYS}{SYSTEM_TRAIN}{E_SYS}{train_prompt} {E_INST}"
             # revise constitution
             if model:
-                response = model.batch_prompt([formatted_prompt], **args.model.inference_config)
+                response = model.batch_prompt([formatted_prompt], **args.model.train_config)
                 revised_constitution = response[0].split("[/INST]")[1]
                 print("REVISED CONSTITUTION")
                 print(revised_constitution)
@@ -98,15 +90,16 @@ def main(args: DictConfig) -> None:
             formatted_test_prompts = [f"<s>{B_INST} {B_SYS}{SYSTEM_TEST}{E_SYS}{test_prompt} {E_INST}" for test_prompt in test_prompts]
             # generate responses
             if model:
-                responses = model.batch_prompt(formatted_test_prompts, **args.model.inference_config)
+                responses = model.batch_prompt(formatted_test_prompts, **args.model.test_config)
+                responses = [response.split("[/INST]")[1] for response in responses]
             else:
                 responses = correct_answers 
             # calculate score:
             score = sum([1 if correct_answer.lower() in response.lower() else 0 for response, correct_answer in zip(responses, correct_answers)]) / len(responses)
             print("ANSWERS")
-            print(score)
-            print(responses)
             print(correct_answers)
+            print(responses)
+            print(score)
             # update current constitution and score
             if score > current_score:
                 current_constitution = revised_constitution
