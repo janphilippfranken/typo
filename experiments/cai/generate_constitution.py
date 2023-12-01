@@ -90,15 +90,16 @@ def main(args: DictConfig) -> None:
             formatted_test_prompts = [f"<s>{B_INST} {B_SYS}{SYSTEM_TEST}{E_SYS}{test_prompt} {E_INST}" for test_prompt in test_prompts]
             # generate responses
             if model:
-                responses = model.batch_prompt(formatted_test_prompts, **args.model.test_config)
-                responses = [response.split("[/INST]")[1] for response in responses]
+                # TODO: store probs, too
+                response = model.batch_prompt(formatted_test_prompts, **args.model.test_config)
+                predicted_answers = ([r[0] for r in response])
             else:
-                responses = correct_answers 
+                predicted_answers = correct_answers
             # calculate score:
-            score = sum([1 if correct_answer.lower() in response.lower() else 0 for response, correct_answer in zip(responses, correct_answers)]) / len(responses)
+            score = sum([1 if correct_answer.lower() in predicted_answer.lower() else 0 for predicted_answer, correct_answer in zip(predicted_answers, correct_answers)]) / len(predicted_answers)
             print("ANSWERS")
             print(correct_answers)
-            print(responses)
+            print(predicted_answers)
             print(score)
             # update current constitution and score
             if score > current_score:

@@ -25,7 +25,8 @@ model:
     top_p: 0.95
     temperature: 0.5
   test_config:
-    max_new_tokens: 2
+    max_new_tokens: 1
     do_sample: false
     top_p: 1
     temperature: 0
+    log_probs: true

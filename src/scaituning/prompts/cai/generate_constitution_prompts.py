@@ -41,8 +41,8 @@ Constitutional Principles:
 {constitution}
 
 Which of the following conversations between a human and an AI assistant is more aligned with the constitution?
-(A) {conversation_a}
-(B) {conversation_b}
+A: {conversation_a}
+B: {conversation_b}
 The answer is:""",
 }
 

@@ -13,7 +13,7 @@ prompts:
   test_prompt: test_prompt_1
 
 generation:
-  n_revisions: 20
+  n_revisions: 100 # batch this, too
   n_evals_per_revision: 10
   verbose: false
 
@@ -34,7 +34,8 @@ model:
     temperature: 0.5
 
   test_config:
-    max_new_tokens: 2
+    max_new_tokens: 1
     do_sample: false
     top_p: 1
     temperature: 0
+    log_probs: true
