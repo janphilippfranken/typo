@@ -61,6 +61,9 @@ def main(args: DictConfig) -> None:
     predicted_principles_dataset.to_json("test.json")
 
 
+    # data = load_dataset("json", data_files="test.json")
+
+
 
 
 if __name__ == '__main__':
