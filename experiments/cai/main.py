@@ -2,6 +2,7 @@ import hydra
 from omegaconf import DictConfig
 
 import pandas as pd
+from tqdm import tqdm
 
 from datasets import load_dataset, Dataset
 
@@ -35,7 +36,7 @@ def main(args: DictConfig) -> None:
     # Calculate how many batches are needed
     n_calls = args.generation.n_principles // args.generation.batch_prompt_size
 
-    for batch_num in range(n_calls):
+    for batch_num in tqdm(range(n_calls)):
         prompts = []
         # Generate a train_batch with conversation_batch_size conversations
         for _ in range(args.generation.batch_prompt_size):
@@ -58,7 +59,7 @@ def main(args: DictConfig) -> None:
     # Save the responses
     predicted_principles_dataset = Dataset.from_pandas(pd.DataFrame(predicted_principles))
     # write to json
-    predicted_principles_dataset.to_json("mistral.json")
+    predicted_principles_dataset.to_json("mistral_2.json")
 
 
     # data = load_dataset("json", data_files="test.json")
