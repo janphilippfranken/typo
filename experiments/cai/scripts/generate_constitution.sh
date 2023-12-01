@@ -16,7 +16,7 @@ conda activate scai-tuning
 
 
 # Change to the directory with your Python script
-cd ~research_projects/scai-tuning/experiments/cai
+cd ~/research_projects/scai-tuning/experiments/cai
 
 # Run
 python generate_constitution.py

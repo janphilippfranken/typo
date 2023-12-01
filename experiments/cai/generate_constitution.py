@@ -30,6 +30,7 @@ SYSTEM_TEST = "Respond to the best of your ability"
 
 @hydra.main(version_base=None, config_path="config", config_name="generate_constitution")
 def main(args: DictConfig) -> None:
+    print("Running generate_constitution.py")
     # load model 
     if not args.generation.verbose:
         model = HFInferenceModel(**args.model.hf_config)
