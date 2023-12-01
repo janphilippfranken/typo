@@ -1,0 +1,29 @@
+data:
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  size:
+    n_train: 0.1
+    n_test: 0.1
+prompts:
+  train_prompt: train_prompt_1
+  conversation_batch_size: 3
+  test_prompt: test_prompt_1
+generation:
+  n_principles: 6
+  batch_prompt_size: 2
+model:
+  hf_config:
+    model_id: mistral
+    pretrained_model_name_or_path: mistralai/Mistral-7B-Instruct-v0.1
+    load_in_8bit: true
+    device_map: auto
+    torch_dtype: float16
+    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1
+    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1
+  inference_config:
+    max_new_tokens: 500
+    do_sample: false
+    top_p: 0.9
+    temperature: 0.5
