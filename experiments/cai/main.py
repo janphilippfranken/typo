@@ -58,7 +58,7 @@ def main(args: DictConfig) -> None:
     # Save the responses
     predicted_principles_dataset = Dataset.from_pandas(pd.DataFrame(predicted_principles))
     # write to json
-    predicted_principles_dataset.to_json("test.json")
+    predicted_principles_dataset.to_json("mistral.json")
 
 
     # data = load_dataset("json", data_files="test.json")
