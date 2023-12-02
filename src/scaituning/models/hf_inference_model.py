@@ -70,6 +70,7 @@ class HFInferenceModel():
                                 return_tensors="pt", 
                                 padding=True).to(self.model.device)
         if not log_probs:
+            # generate output
             output = self.model.generate(
                 inputs["input_ids"], 
                 max_new_tokens=max_new_tokens,
@@ -80,6 +81,7 @@ class HFInferenceModel():
             output = self.tokenizer.batch_decode(output, skip_special_tokens=True)
             return output
         else: 
+            # get log probs
             output = self.model.generate(
                 inputs["input_ids"], 
                 max_new_tokens=max_new_tokens,

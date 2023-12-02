@@ -14,18 +14,21 @@ prompts:
 
 generation:
   n_revisions: 100 # batch this, too
+  constitution_batch_size: 5
   n_evals_per_revision: 10
-  verbose: false
+  verbose: true
+  original_dataset: true
+  init_constitution: 1. You are a helpful AI assistant.
 
 model:
   hf_config:
-    model_id: "mistral"
-    pretrained_model_name_or_path: "mistralai/Mistral-7B-Instruct-v0.1"
+    model_id: mistral
+    pretrained_model_name_or_path: mistralai/Mistral-7B-Instruct-v0.1
     load_in_8bit: true
-    device_map: "auto"
-    torch_dtype: "float16"
-    model_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
-    tokenizer_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
+    device_map: auto
+    torch_dtype: float16
+    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1
+    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1
 
   train_config:
     max_new_tokens: 750

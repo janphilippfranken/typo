@@ -8,8 +8,11 @@ prompts:
   test_prompt: test_prompt_1
 generation:
   n_revisions: 100
+  constitution_batch_size: 5
   n_evals_per_revision: 10
-  verbose: false
+  verbose: true
+  original_dataset: true
+  init_constitution: 1. You are a helpful AI assistant.
 model:
   hf_config:
     model_id: mistral
