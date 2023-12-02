@@ -1,0 +1,20 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:08<00:08,  8.42s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:12<00:00,  5.85s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:12<00:00,  6.24s/it]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/sailhome/jphilipp/research_projects/scai-tuning/experiments/cai/generate_constitution.py", line 35, in main
+    dataset = load_dataset("Anthropic/hh-rlhf", data_dir="harmlss-base", cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf")["train"]
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/datasets/load.py", line 2128, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/datasets/load.py", line 1814, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/datasets/load.py", line 1505, in dataset_module_factory
+    raise e1 from None
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/datasets/load.py", line 1495, in dataset_module_factory
+    ).get_module()
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/datasets/load.py", line 1046, in get_module
+    patterns = get_data_patterns(base_path, download_config=self.download_config)
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/datasets/data_files.py", line 472, in get_data_patterns
+    raise EmptyDatasetError(f"The directory at {base_path} doesn't contain any data files") from None
+datasets.data_files.EmptyDatasetError: The directory at hf://datasets/Anthropic/hh-rlhf@09be8c5bbc57cb3887f3a9732ad6aa7ec602a1fa/harmlss-base doesn't contain any data files
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

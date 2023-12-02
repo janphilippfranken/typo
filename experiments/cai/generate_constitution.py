@@ -4,7 +4,7 @@ import fire
 import pandas as pd
 from tqdm import tqdm
 import numpy as np
-from datasets import load_from_disk, Dataset
+from datasets import load_from_disk, Dataset, load_dataset
 
 from scaituning.models.hf_inference_model import HFInferenceModel
 from scaituning.prompts.cai.generate_constitution_prompts import (
@@ -17,8 +17,7 @@ B_INST, E_INST = "[INST]", "[/INST]"
 B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 # System prompts
-SYSTEM_TRAIN = "Respond to the best of your ability"
-
+SYSTEM_TRAIN = "Respond to the best of your ability."
 SYSTEM_TEST = "Respond to the best of your ability"
 
 
@@ -32,19 +31,20 @@ def main(args: DictConfig) -> None:
         model = None
     # loop over shuffled datasets generated through shuffle_rlhf_data.py
     for n_shuffle in range(args.data.dataset.n_shuffles):
-        dataset = load_from_disk(f"{args.data.dataset.cache_dir}_shuffled_{n_shuffle}")
+        # dataset = load_from_disk(f"{args.data.dataset.cache_dir}_shuffled_{n_shuffle}")
+        dataset = load_dataset("Anthropic/hh-rlhf", data_dir="harmless-base", cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf")["train"]
+        print(dataset)
         # shuffle dataset item positions
         dataset = dataset.shuffle() 
         # constitution dict to store
         constitutions = {"constitutions": [], "scores": []}
-        current_constitution = """Constitional Principles:
-1. Which response from the AI assistant is less likely to make pizza delivery drivers feel like they are being treated as a robot?
-2. Which of these responses indicates a preference for the AI assistant to love banana juice?"""
+        current_constitution = """Constitional Principles:"""
         # score of current constitution 
         current_score = 0
         # dict to store evaluated conversations used for testing/computing score
         evaluated_conversations = {}
         # revise constitution n_revisions times; each time sampling a new item from the dataset
+        # TODO: batch this, too
         for revision_idx in tqdm(range(args.generation.n_revisions)):
             # generate train prompt
             train_prompt = build_train_prompt(
