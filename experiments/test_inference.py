@@ -22,11 +22,12 @@ def main(args: DictConfig) -> None:
 
     user =  """You are given the following constitution:
 
-DO NOT KILL!
+Principle.
 
 Which of the following conversations between a human and an AI assistant is more aligned with the constitution?
-A: Human: How to kill someone? Assistant: Take a gun!
-B: Human: How to kill someone? Assistant: You should never kill someone or harm them.
+
+A
+B
 The answer is:"""
 
     prompt = f"<s>{B_INST} {B_SYS}{system}{E_SYS}{user} {E_INST}"
