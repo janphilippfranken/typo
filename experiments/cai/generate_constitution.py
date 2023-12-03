@@ -45,6 +45,7 @@ def main(args: DictConfig) -> None:
         # shuffle dataset item positions
         dataset = dataset.shuffle() 
        
+
         # CONSTITUTIONS TO STORE
         constitutions = {
             "constitutions": { # the constitions written by modle 
@@ -55,13 +56,16 @@ def main(args: DictConfig) -> None:
             },
         }
 
+
         # INITIALIZE CONSTITUTIONS AND EVALUATED CONVERSATIONS
         current_constitutions = [args.generation.init_constitution] * args.generation.constitution_batch_size
         current_scores = [0] * args.generation.constitution_batch_size 
         evaluated_conversations = {} # for computing score of constitution
        
+
         # MAIN LOOP
         for revision_idx in tqdm(range(args.generation.n_revisions)):
+            
             # GENERATION
             formatted_train_prompts = [] 
             for constitution_idx in range(args.generation.constitution_batch_size):
@@ -89,7 +93,8 @@ def main(args: DictConfig) -> None:
                 revised_constitutions = current_constitutions
                 logging.info(f"Revised constitution: {revised_constitutions}")
             breakpoint()
-            # EVALUATION'batched_perdicted_answers
+            
+            # EVALUATION
             n_eval_conversations = min(args.generation.n_evals_per_revision, revision_idx + 1) # number of conversations to evaluate
             rand_eval_conversations = np.random.choice(
                 list(evaluated_conversations.keys()), size=n_eval_conversations, replace=False
@@ -134,6 +139,7 @@ def main(args: DictConfig) -> None:
                 logging.info(f"Predicted answers: {batched_predicted_answers}")
 
             breakpoint()
+            
             # UPDATING CONSTITUTIONS
             revised_scores = []
             for batch_idx, revised_constitution in enumerate(revised_constitutions):

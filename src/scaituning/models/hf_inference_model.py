@@ -52,24 +52,50 @@ class HFInferenceModel():
     @property
     def model_type(self):
         return "HFInferenceModel"
-    
+
+    def get_log_probs(
+        self, 
+        prompts: List[str],
+        answer: str,
+    ) -> float:
+        """
+        Returns log probability of answer.
+        """
+        token_id_answer_batch = self.tokenizer(
+            [prompt + answer for prompt in prompts],
+            add_special_tokens=True, return_tensors="pt",
+        )
+        sequence_logprob_answer_batch = self.model(
+            input_ids=token_id_answer_batch.input_ids,
+            attention_mask=token_id_answer_batch.attention_mask,
+        )
+        flat_logits = sequence_logprob_answer_batch.logits.view(
+            -1, 
+            sequence_logprob_answer_batch.logits.shape[-1],
+        )
+        cross_entropy = torch.nn.CrossEntropyLoss(reduction="none")
+        log_probs = -cross_entropy(flat_logits, token_id_answer_batch.input_ids.view(-1))
+        log_probs = log_probs.view(sequence_logprob_answer_batch.logits.shape[0], -1)
+        log_probs = log_probs.sum(dim=-1)
+        return log_probs
+            
     def batch_prompt(self, 
-        batch_prompt: List[str],
+        prompts: List[str],
         max_new_tokens: Optional[int] = 500,
         do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.1,
         log_probs: Optional[bool] = False,
         answer_a: Optional[str] = "A",
-        answer_b: Optional[str] = "B",
-):
+        answer_b: Optional[str] = "B",  
+    ):
         """
-        Batched prompt.
+        Batched inferences (either generate or log_probs)
         """
-        inputs = self.tokenizer(batch_prompt, 
-                                return_tensors="pt", 
-                                padding=True).to(self.model.device)
         if not log_probs:
+            inputs = self.tokenizer(prompts, 
+                        return_tensors="pt", 
+                        padding=True).to(self.model.device)
             # generate output
             output = self.model.generate(
                 inputs["input_ids"], 
@@ -78,29 +104,17 @@ class HFInferenceModel():
                 top_p=top_p,
                 temperature=temperature,
             )
+            breakpoint()
             output = self.tokenizer.batch_decode(output, skip_special_tokens=True)
             return output
         else: 
             # get log probs
-            output = self.model.generate(
-                inputs["input_ids"], 
-                max_new_tokens=max_new_tokens,
-                do_sample=do_sample,
-                top_p=top_p,
-                temperature=temperature,
-                output_scores=True,  
-                return_dict_in_generate=True,
-            )
-            token_id_answer_a = self.tokenizer.encode(answer_a, add_special_tokens=False)[0]
-            token_id_answer_b = self.tokenizer.encode(answer_b, add_special_tokens=False)[0]
-            results = []
-            for i in range(len(batch_prompt)):
-                log_probs = torch.nn.functional.log_softmax(output.scores[0][i], dim=-1)
-                log_prob_answer_a = log_probs[token_id_answer_a].item()
-                log_prob_answer_b = log_probs[token_id_answer_b].item()
-                if log_prob_answer_a > log_prob_answer_b:
-                    result = (answer_a, log_prob_answer_a, log_prob_answer_b)
-                else:
-                    result = (answer_b, log_prob_answer_a, log_prob_answer_b)
-                results.append(result)
+            log_probs_a = self.get_log_probs(prompts, answer_a)
+            log_probs_b = self.get_log_probs(prompts, answer_b)
+            results = {
+                "log_probs_answer_a": log_probs_a,
+                "log_probs_answer_b": log_probs_b,
+            }
+            
+            breakpoint()
             return results
