@@ -56,6 +56,7 @@ class HFInferenceModel():
         prompts: List[str],
         answer: str,
     ) -> float:
+        # make sure padding tokens not considered 
         """Returns log probability of answer."""
         token_id_answer_batch = self.tokenizer(
             [prompt + answer + "</s>" for prompt in prompts], # adding end of sequence token

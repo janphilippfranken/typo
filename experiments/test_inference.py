@@ -1,7 +1,7 @@
 import hydra
 from omegaconf import DictConfig
 
-from scaituning.models.hf_inference_model import HFInferenceModel
+from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
 B_INST, E_INST = "[INST]", "[/INST]"

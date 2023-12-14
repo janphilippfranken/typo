@@ -7,7 +7,7 @@ import numpy as np
 import logging
 from datasets import load_from_disk, Dataset, load_dataset
 
-from scaituning.models.hf_inference_model import HFInferenceModel
+from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 from scaituning.prompts.cai.generate_constitution_prompts import (
     PROMPTS, EXAMPLE_FORMATS, build_test_prompt, build_train_prompt
 )

@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 from datasets import load_dataset, Dataset
 
-from scaituning.models.hf_inference_model import HFInferenceModel
+from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 from scaituning.prompts.cai.cai_prompts import CAI_PROMPTS, EXAMPLE_FORMATS, create_shuffled_train_batch
 

@@ -3,7 +3,7 @@ from typing import Dict, List, Any
 from abc import ABC, abstractmethod
 
 from scaituning.memory.buffer import ConversationBuffer
-from scaituning.models.hf_inference_model import HFInferenceModel
+from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
 class Simulator(ABC):
