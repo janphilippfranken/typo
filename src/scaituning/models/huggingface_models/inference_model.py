@@ -13,7 +13,7 @@ class HFInferenceModel():
     """
     def __init__(
         self, 
-
+        model_id: str = "mistralai/Mistral-7B-Instruct-v0.1",
         pretrained_model_name_or_path: str = "mistralai/Mistral-7B-Instruct-v0.1",
         load_in_8bit: str = True,
         device_map: str = "auto",
@@ -22,11 +22,19 @@ class HFInferenceModel():
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         ):
         """Initializes HF Inference Model"""
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            pretrained_model_name_or_path=pretrained_model_name_or_path, 
-            cache_dir=tokenizer_cache_dir,
-            token=os.getenv("HF_TOKEN"),
-        )
+        is_tiny = "tiny" in pretrained_model_name_or_path.lower()
+        if is_tiny:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                pretrained_model_name_or_path="EleutherAI/gpt-neo-125M",
+                cache_dir=tokenizer_cache_dir,
+                token=os.getenv("HF_TOKEN"),
+            )
+        else:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                pretrained_model_name_or_path=pretrained_model_name_or_path,
+                cache_dir=tokenizer_cache_dir,
+                token=os.getenv("HF_TOKEN"),
+            )
         # check which model we are using
         is_mistral = "mistral" in pretrained_model_name_or_path.lower()
         is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
@@ -35,6 +43,8 @@ class HFInferenceModel():
         elif is_llama_2:
             self.tokenizer.pad_token = "[PAD]"
             self.tokenizer.padding_side = "left"
+        elif is_tiny:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
         else:
             raise ValueError(f"Model not (yet) implemented: {pretrained_model_name_or_path}")
         # load model

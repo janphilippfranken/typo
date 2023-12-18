@@ -7,11 +7,13 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 B_INST, E_INST = "[INST]", "[/INST]"
 B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
-@hydra.main(version_base=None, config_path="model_configs", config_name="mistral_7b")
+@hydra.main(version_base=None, config_path="model_configs", config_name="tinystories_1m")
 def main(args: DictConfig) -> None:
 
+    breakpoint()
 
     model = HFInferenceModel(**args.model_config)
+
 
 
     batch_size = 1 # how many generations you want 
@@ -35,3 +37,5 @@ The Answer is: {E_INST}
 
 if __name__ == '__main__':
     main()
+
+    
