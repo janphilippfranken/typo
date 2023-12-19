@@ -62,17 +62,23 @@ class HFInferenceModel():
         return "HFInferenceModel"
 
     def batch_log_probs(
-        # TODO: fix this
         self, 
         prompts: List[str],
         answer: str,
     ) -> float:
-        # make sure padding tokens not considered 
+        
         """Returns log probability of answer."""
         token_id_answer_batch = self.tokenizer(
-            [prompt + answer + "</s>" for prompt in prompts], # adding end of sequence token
-            add_special_tokens=True, 
+            prompts,
+            add_special_tokens=False, 
             return_tensors="pt",
+            padding=True,
+        )
+        answer_tokenized = self.tokenizer(
+            answer,
+            add_special_tokens=False, 
+            return_tensors="pt",
+            padding=True,
         )
         sequence_logprob_answer_batch = self.model(
             input_ids=token_id_answer_batch.input_ids,
