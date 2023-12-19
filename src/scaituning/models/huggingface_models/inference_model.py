@@ -61,7 +61,8 @@ class HFInferenceModel():
     def model_type(self):
         return "HFInferenceModel"
 
-    def get_log_probs(
+    def batch_log_probs(
+        # TODO: fix this
         self, 
         prompts: List[str],
         answer: str,
@@ -96,74 +97,25 @@ class HFInferenceModel():
         do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.1,
-        log_probs: Optional[bool] = False,
-        log_probs_answer: Optional[bool] = True, # if we want the log probs of full answer/sequence
-        log_probs_mcq: Optional[bool] = False, # if we want log probs of answer option in MCQ (eg "A" vs "B")
-        answer_a: Optional[str] = "A", # default mcq answers
-        answer_b: Optional[str] = "B",  
     ):
-        """Batched inferences (either generate or log_probs)."""
-        inputs = self.tokenizer(prompts, 
-                        return_tensors="pt", 
-                        padding=True).to(self.model.device,
+        """Batched generation."""
+        # encode
+        inputs = self.tokenizer(
+            prompts, 
+            return_tensors="pt", 
+            padding=True,
+        ).to(self.model.device)
+        # inference 
+        output = self.model.generate(
+            inputs["input_ids"], 
+            max_new_tokens=max_new_tokens,
+            do_sample=do_sample,
+            top_p=top_p,
+            temperature=temperature,
         )
-        if not log_probs:
-            # generate
-            output = self.model.generate(
-                inputs["input_ids"], 
-                max_new_tokens=max_new_tokens,
-                do_sample=do_sample,
-                top_p=top_p,
-                temperature=temperature,
-            )
-            output = self.tokenizer.batch_decode(
-                output, 
-                skip_special_tokens=True,
-            )
-            return output
-        else: 
-            if log_probs_answer and log_probs_mcq:
-                raise ValueError(f"both log_probs_answer and log_probs_mcq are True. Only one must be True")
-            # get log probs of answer sequence
-            if log_probs_answer:
-
-                # TODO: Get this to work
-                # get log probs of full sequence + answer 
-                log_probs_a = self.get_log_probs(prompts, answer_a)
-                log_probs_b = self.get_log_probs(prompts, answer_b)
-                results = {
-                    "log_probs_answer_a": log_probs_a,
-                    "log_probs_answer_b": log_probs_b,
-                }
-                
-                return results
-            elif log_probs_mcq:
-                # get log probs (generated) answer option label (curr A vs B)
-                output = self.model.generate(
-                    inputs["input_ids"], 
-                    max_new_tokens=max_new_tokens,
-                    do_sample=do_sample,
-                    top_p=top_p,
-                    temperature=temperature,
-                    output_scores=True,  
-                    return_dict_in_generate=True,
-                )
-                token_id_answer_a = self.tokenizer.encode(
-                    answer_a, 
-                    add_special_tokens=False,
-                )[0]
-                token_id_answer_b = self.tokenizer.encode(
-                    answer_b, 
-                    add_special_tokens=False,
-                )[0]
-                results = {
-                    "log_probs_answer_a": [],
-                    "log_probs_answer_b": [],
-                }
-                for i in range(len(prompts)):
-                    log_probs = torch.nn.functional.log_softmax(output.scores[0][i], dim=-1)
-                    log_prob_answer_a = log_probs[token_id_answer_a].item()
-                    log_prob_answer_b = log_probs[token_id_answer_b].item()
-                    results["log_probs_answer_a"].append(log_prob_answer_a)
-                    results["log_probs_answer_b"].append(log_prob_answer_b)
-                return results
+        # batch decode
+        output = self.tokenizer.batch_decode(
+            output, 
+            skip_special_tokens=True,
+        )
+        return output
