@@ -83,17 +83,17 @@ class HFInferenceModel():
         )
         
         # masks to get rid of pad token ([PAD] = 0) in loss computation
-        padding_mask_prompts = tokenized_prompts.input_ids[:, 1:].contiguous().view(-1) != 0 # set padding to 0
-        padding_mask_answers = tokenized_answers.input_ids.contiguous().view(-1) != 0 # set padding to 0
+        padding_mask_prompts = tokenized_prompts.input_ids[:, 1:].contiguous().view(-1) != 0 # pad token = 0 
+        padding_mask_answers = tokenized_answers.input_ids.contiguous().view(-1) != 0 # pad token = 0 
         
         # log probs for prompts
         log_probs_prompts.masked_fill_(~padding_mask_prompts, 0) # set loss to 0 for padding tokens
-        log_probs_prompts = log_probs_prompts.view(logits.shape[0], -1) # reshape back to batched tensor 
+        log_probs_prompts = log_probs_prompts.view(logits.shape[0], -1) 
         
         # log probs for answers
         log_probs_answers = log_probs_prompts[:, -tokenized_answers.input_ids.shape[1]:]
-        log_probs_answers = log_probs_answers.contiguous().view(-1) # flatten
-        log_probs_answers.masked_fill_(~padding_mask_answers, 0)
+        log_probs_answers = log_probs_answers.contiguous().view(-1) 
+        log_probs_answers.masked_fill_(~padding_mask_answers, 0) # set loss to 0 for padding tokens
         log_probs_answers = log_probs_answers.view(logits.shape[0], -1)
         
         # sum across tokens within each batch
