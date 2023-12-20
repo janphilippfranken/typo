@@ -1,9 +1,7 @@
 
-from typing import Optional, List
-
 import os
-
 import torch
+from typing import Optional, List
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
@@ -22,29 +20,17 @@ class HFInferenceModel():
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         ):
         """Initializes HF Inference Model"""
-        is_tiny = "tiny" in pretrained_model_name_or_path.lower()
-        if is_tiny:
-            self.tokenizer = AutoTokenizer.from_pretrained(
-                pretrained_model_name_or_path="EleutherAI/gpt-neo-125M",
-                cache_dir=tokenizer_cache_dir,
-                token=os.getenv("HF_TOKEN"),
-            )
-        else:
-            self.tokenizer = AutoTokenizer.from_pretrained(
-                pretrained_model_name_or_path=pretrained_model_name_or_path,
-                cache_dir=tokenizer_cache_dir,
-                token=os.getenv("HF_TOKEN"),
-            )
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            pretrained_model_name_or_path=pretrained_model_name_or_path,
+            cache_dir=tokenizer_cache_dir,
+            token=os.getenv("HF_TOKEN"),
+        )
         # check which model we are using
         is_mistral = "mistral" in pretrained_model_name_or_path.lower()
         is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
-        if is_mistral:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
-        elif is_llama_2:
+        if is_mistral or is_llama_2:
             self.tokenizer.pad_token = "[PAD]"
             self.tokenizer.padding_side = "left"
-        elif is_tiny:
-            self.tokenizer.pad_token = self.tokenizer.eos_token
         else:
             raise ValueError(f"Model not (yet) implemented: {pretrained_model_name_or_path}")
         # load model
@@ -64,38 +50,57 @@ class HFInferenceModel():
     def batch_log_probs(
         self, 
         prompts: List[str],
-        answer: str,
+        answers: List[str],
     ) -> float:
-        
-        """Returns log probability of answer."""
-        token_id_answer_batch = self.tokenizer(
+        """Returns log probabilities of prompts and answers."""
+        # tokenize prompts
+        tokenized_prompts = self.tokenizer(
             prompts,
             add_special_tokens=False, 
             return_tensors="pt",
             padding=True,
         )
-        answer_tokenized = self.tokenizer(
-            answer,
+        # tokenize answers
+        tokenized_answers = self.tokenizer(
+            answers,
             add_special_tokens=False, 
             return_tensors="pt",
             padding=True,
         )
-        sequence_logprob_answer_batch = self.model(
-            input_ids=token_id_answer_batch.input_ids,
-            attention_mask=token_id_answer_batch.attention_mask,
+        # get logits from forward pass which returns CausalLMOutputWithPast https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_outputs.py#L678
+        logits = self.model(
+            input_ids=tokenized_prompts.input_ids,
+            attention_mask=tokenized_prompts.attention_mask,
+        ).logits[:, :-1] # logits for all tokens except last one
+        # get labels
+        labels = tokenized_prompts.input_ids[:, 1:] # labels shifted by one
+        # define loss
+        cross_entropy = torch.nn.CrossEntropyLoss(reduction="none")                                                                                                                                                                             
+        # compute log probs of entire prompt (flat tensor)
+        log_probs_prompts = -cross_entropy(
+            logits.contiguous().view(-1, logits.shape[-1]), 
+            labels.contiguous().view(-1),
         )
-        logits = sequence_logprob_answer_batch.logits[:, :-1] # logits for all tokens except last one
-        labels = token_id_answer_batch.input_ids[:, 1:] # labels shifted by one 
-        # set loss
-        cross_entropy = torch.nn.CrossEntropyLoss(reduction="none")
-        # compute log probs
-        log_probs = -cross_entropy(
-            logits.view(-1, logits.shape[-1]), 
-            labels.view(-1)
-        )
-        log_probs = log_probs.view(logits.shape[0], -1)
-        log_probs = log_probs.sum(dim=-1)        
-        return log_probs
+        
+        # masks to get rid of pad token ([PAD] = 0) in loss computation
+        padding_mask_prompts = tokenized_prompts.input_ids[:, 1:].contiguous().view(-1) != 0 # set padding to 0
+        padding_mask_answers = tokenized_answers.input_ids.contiguous().view(-1) != 0 # set padding to 0
+        
+        # log probs for prompts
+        log_probs_prompts.masked_fill_(~padding_mask_prompts, 0) # set loss to 0 for padding tokens
+        log_probs_prompts = log_probs_prompts.view(logits.shape[0], -1) # reshape back to batched tensor 
+        
+        # log probs for answers
+        log_probs_answers = log_probs_prompts[:, -tokenized_answers.input_ids.shape[1]:]
+        log_probs_answers = log_probs_answers.contiguous().view(-1) # flatten
+        log_probs_answers.masked_fill_(~padding_mask_answers, 0)
+        log_probs_answers = log_probs_answers.view(logits.shape[0], -1)
+        
+        # sum across tokens within each batch
+        log_probs_prompts = log_probs_prompts.sum(dim=-1)    
+        log_probs_answers = log_probs_answers.sum(dim=-1)     
+        
+        return log_probs_prompts, log_probs_answers
             
     def batch_prompt(self, 
         prompts: List[str],

@@ -10,7 +10,6 @@ from helpers import split_conversation_hh_rlhf, format_base_prompt, format_instr
 
 SYSTEM_MESSAGE = "Be Harmless." # example constitution
 
-
 # base model prompt 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
@@ -30,15 +29,29 @@ def main(args: DictConfig) -> None:
     # GET PROMPTS FOR A SINGLE CONVERSATION PAIR
     train_dataset = data['train']
     # chosen
-    prompts_chosen, answers_chosen = split_conversation_hh_rlhf(
-        train_dataset[0]['chosen'],
-    )
-    final_chosen_answer = answers_chosen[-1] 
+    chosen = [
+        split_conversation_hh_rlhf(
+            train_dataset[i]['chosen'],
+        ) 
+        for i in range(args.model.run.batch_size)
+    ]
+    prompts_chosen, answers_chosen = zip(*chosen)
+    final_chosen_answers = [
+        answer[-1] 
+        for answer in answers_chosen
+    ]
     # rejected
-    prompts_rejected, answers_rejected = split_conversation_hh_rlhf(
-        train_dataset[0]['rejected'],
-    )
-    final_rejected_answer = answers_rejected[-1]
+    rejected = [
+        split_conversation_hh_rlhf(
+            train_dataset[i]['rejected'],
+        ) 
+        for i in range(args.model.run.batch_size)
+    ]
+    prompts_rejected, answers_rejected = zip(*chosen)
+    final_rejected_answers = [
+        answer[-1] 
+        for answer in answers_rejected
+    ]
 
     # get model name (instruct vs base)
     is_base = "base" in args.model.name
@@ -46,29 +59,46 @@ def main(args: DictConfig) -> None:
 
     # if log probs, dont sample just compute prob of final answer given system message and prompts
     if args.model.run.log_probs: 
-        if is_base:
-            chosen_prompt = format_base_prompt(
-                prompts=prompts_chosen,
-                answers=answers_chosen,
-                system_message=SYSTEM_MESSAGE,
-            )
-            rejected_prompt = format_base_prompt(
-                prompts=prompts_rejected,
-                answers=answers_rejected,
-                system_message=SYSTEM_MESSAGE,
-            )
-        else:
-            raise NotImplementedError("instruct not implemented yet")
+        if is_instruct:
+            # chosen prompts
+            chosen_prompts = [
+                format_instruct_prompt(
+                    prompts=prompt_chosen,
+                    answers=answer_chosen,
+                    system_message=SYSTEM_MESSAGE,
+                )
+                for prompt_chosen, 
+                    answer_chosen,
+                in zip(
+                    prompts_chosen, 
+                    answers_chosen,
+                )
+            ]
+            # rejected prompts
+            rejected_prompts = [
+                format_instruct_prompt(
+                    prompts=prompt_rejected,
+                    answers=answer_rejected,
+                    system_message=SYSTEM_MESSAGE,
+                )
+                for prompt_rejected,
+                    answer_rejected,
+                in zip(
+                    prompts_rejected,
+                    answers_rejected,
+                )
+            ]
         
         # get log probs
-        log_probs_chosen = model.batch_log_probs(
-            prompts=[chosen_prompt] * args.model.run.batch_size,
-            answer=final_chosen_answer,
+        log_probs_chosen_prompts, log_probs_chosen_answers = model.batch_log_probs(
+            prompts=chosen_prompts,
+            answers=final_chosen_answers,
         )
-        log_probs_rejected = model.batch_log_probs(
-            prompts=[rejected_prompt] * args.model.run.batch_size,
-            answer=final_rejected_answer,
+        log_probs_rejected_prompts, log_probs_rejected_answers = model.batch_log_probs(
+            prompts=rejected_prompts,
+            answers=final_rejected_answers,
         )
+        breakpoint()
 
 if __name__ == '__main__':
     main()
