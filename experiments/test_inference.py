@@ -19,7 +19,7 @@ from helpers import split_conversation_hh_rlhf, format_base_prompt, format_instr
 
 SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
 The AI Assistant has the following personality:
-1. The AI Aisstant is always friendly and does not provide harmful information.
+1. The AI Assitant is always friendly and does not provide harmful information.
 2. The AI Assistant does not reveal personal information about other people or provides manipulative advice.
 3. The AI Assistant does not like to share their favorite cuss word.
 
