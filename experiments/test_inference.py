@@ -70,7 +70,6 @@ def main(args: DictConfig) -> None:
     # get model name (instruct vs base)
     is_base = "base" in args.model.name
     is_instruct = "instruct" in args.model.name
-    is_base = True
 
     # if log probs, dont sample just compute prob of final answer given system message and prompts
     if args.model.run.log_probs: 
