@@ -31,7 +31,7 @@ class HFInferenceModel():
         is_vicuna = "vicuna" in pretrained_model_name_or_path.lower()
         if is_mistral or is_llama_2 or is_vicuna:
             self.tokenizer.pad_token = "[PAD]"
-            self.tokenizer.padding_side = "left"
+            self.tokenizer.padding_side = "right"
         else:
             raise ValueError(f"Model not (yet) implemented: {pretrained_model_name_or_path}")
         # load model
@@ -50,58 +50,49 @@ class HFInferenceModel():
 
     def batch_log_probs(
         self, 
-        prompts: List[str],
-        answers: List[str],
+        answers: List[str], # prompt including questions + final answer
+        prompts: List[str], # prompt including questions - final answer 
     ) -> float:
         """Returns log probabilities of prompts and answers."""
-        # tokenize prompts
-        tokenized_prompts = self.tokenizer(
-            prompts,
-            add_special_tokens=False, 
-            return_tensors="pt",
-            padding=True,
-        )
-        # tokenize answers
+        # tokenize prompts with answers (ie questions + final answers)
         tokenized_answers = self.tokenizer(
             answers,
-            add_special_tokens=False, 
+            add_special_tokens=False,
             return_tensors="pt",
             padding=True,
         )
-        # get logits from forward pass which returns CausalLMOutputWithPast https://github.com/huggingface/transformers/blob/main/src/transformers/modeling_outputs.py#L678
+        # tokenized prompts without final answer, padded to same lenght as above 
+        tokenized_prompts = self.tokenizer(
+            prompts,
+            add_special_tokens=False,
+            return_tensors="pt",
+            padding="max_length",
+            max_length=tokenized_answers.input_ids.shape[1],
+        )
+        
+        # get logits from forward pass for full prompt with final answer 
         logits = self.model(
-            input_ids=tokenized_prompts.input_ids,
-            attention_mask=tokenized_prompts.attention_mask,
+            input_ids=tokenized_answers.input_ids,
+            attention_mask=tokenized_answers.attention_mask,
         ).logits[:, :-1] # logits for all tokens except last one
-        # get labels
-        labels = tokenized_prompts.input_ids[:, 1:] # labels shifted by one
-        # define loss
+        
+        labels = tokenized_answers.input_ids[:, 1:] # labels shifted by one
+        
         cross_entropy = torch.nn.CrossEntropyLoss(reduction="none")                                                                                                                                                                             
-        # compute log probs of entire prompt (flat tensor)
-        log_probs_prompts = -cross_entropy(
+
+        log_probs_answers = -cross_entropy(
             logits.contiguous().view(-1, logits.shape[-1]), 
             labels.contiguous().view(-1),
         )
         
-        # masks to get rid of pad token ([PAD] = 0) in loss computation
-        padding_mask_prompts = tokenized_prompts.input_ids[:, 1:].contiguous().view(-1) != 0 # pad token = 0 
-        padding_mask_answers = tokenized_answers.input_ids.contiguous().view(-1) != 0 # pad token = 0 
-        
-        # log probs for prompts
-        log_probs_prompts.masked_fill_(~padding_mask_prompts, 0) # set loss to 0 for padding tokens
-        log_probs_prompts = log_probs_prompts.view(logits.shape[0], -1) 
-        
-        # log probs for answers
-        log_probs_answers = log_probs_prompts[:, -tokenized_answers.input_ids.shape[1]:]
-        log_probs_answers = log_probs_answers.contiguous().view(-1) 
-        log_probs_answers.masked_fill_(~padding_mask_answers, 0) # set loss to 0 for padding tokens
+        # apply mask and sum over tokens
         log_probs_answers = log_probs_answers.view(logits.shape[0], -1)
-        
-        # sum across tokens within each batch
-        log_probs_prompts = log_probs_prompts.sum(dim=-1)    
-        log_probs_answers = log_probs_answers.sum(dim=-1)     
-        
-        return log_probs_prompts, log_probs_answers
+        # mask = prompt including questions - final answer == 0 && # prompt including questions + final answer != 0
+        mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0)
+        # -> extracts only the final answer from the log probs as everything else is set to 0 below
+        log_probs_answers.masked_fill_(~mask, 0) # set loss to 0 for everything but final answer
+       
+        return log_probs_answers.sum(dim=-1)     
             
     def batch_prompt(self, 
         prompts: List[str],

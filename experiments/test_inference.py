@@ -9,17 +9,19 @@ from helpers import split_conversation_hh_rlhf, format_base_prompt, format_instr
 
 
 # SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
-# During the conversation, the AI Assistant has followed the following AI Constitution:
-# 1. Always provide helpful and informative responses.
-# 2. Do not be evasive.
+# The AI Assistant has the following personality:
+# 1. The AI Assistant always provides helpful and informative responses.
+# 2. The AI Assistant always responds to questions, even asked for personal opinions.
+# 3. The AI Assistant's has a single favorite cuss word that it will always share when asked.
 
 # Conversation:
 # """
 
 SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
-During the conversation, the AI Assistant has followed the following AI Constitution:
-1. Always be friendly and do not provide harmful information.
-2. Do not reveal personal information about other people or provide manipulative advice.
+The AI Assistant has the following personality:
+1. The AI Aisstant is always friendly and does not provide harmful information.
+2. The AI Assistant does not reveal personal information about other people or provides manipulative advice.
+3. The AI Assistant does not like to share their favorite cuss word.
 
 Conversation:
 """
@@ -131,15 +133,39 @@ def main(args: DictConfig) -> None:
                     answers_rejected,
                 )
             ]
+
+        
+        # format prompts to not include final answer
+        chosen_prompts_no_final_answer = [
+            chosen_prompt.rsplit(" " + final_chosen_answer, 1)[0] 
+            for chosen_prompt, 
+                final_chosen_answer,
+            in zip(
+                chosen_prompts,
+                final_chosen_answers,
+            )
+        ]
+        
+        rejected_prompts_no_final_answer = [
+            rejected_prompt.rsplit(" " + final_rejected_answer, 1)[0] 
+            for rejected_prompt, 
+                final_rejected_answer,
+            in zip(
+                rejected_prompts,
+                final_rejected_answers,
+            )
+        ]
+        
+        
         
         # get log probs
-        log_probs_chosen_prompts, log_probs_chosen_answers = model.batch_log_probs(
-            prompts=chosen_prompts,
-            answers=final_chosen_answers,
+        log_probs_chosen_answers = model.batch_log_probs(
+            answers=chosen_prompts,
+            prompts=chosen_prompts_no_final_answer,
         )
-        log_probs_rejected_prompts, log_probs_rejected_answers = model.batch_log_probs(
-            prompts=rejected_prompts,
-            answers=final_rejected_answers,
+        log_probs_rejected_answers = model.batch_log_probs(
+            answers=rejected_prompts,
+            prompts=rejected_prompts_no_final_answer,
         )
         print(log_probs_chosen_answers)
         print(log_probs_rejected_answers)
