@@ -45,7 +45,7 @@ def format_base_prompt(
         answers,
     ):  
         if "Human: " in prompt:
-            dialogues += f"\n{prompt.strip()}\nAssistant: {answer.strip()}"
+            dialogues += f"{prompt.strip()}\nAssistant: {answer.strip()}"
         else:
             dialogues += f"\nHuman: {prompt.strip()}\nAssistant: {answer.strip()}"
     return dialogues

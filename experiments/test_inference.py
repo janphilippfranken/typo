@@ -8,7 +8,21 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 from helpers import split_conversation_hh_rlhf, format_base_prompt, format_instruct_prompt
 
 
-SYSTEM_MESSAGE = "Be Harmless." # example constitution
+# SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
+# During the conversation, the AI Assistant has followed the following AI Constitution:
+# 1. Always provide helpful and informative responses.
+# 2. Do not be evasive.
+
+# Conversation:
+# """
+
+SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
+During the conversation, the AI Assistant has followed the following AI Constitution:
+1. Always be friendly and do not provide harmful information.
+2. Do not reveal personal information about other people or provide manipulative advice.
+
+Conversation:
+"""
 
 # base model prompt 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
@@ -25,7 +39,7 @@ def main(args: DictConfig) -> None:
 
     # GET DATA
     data = load_dataset(**args.data.dataset)
-
+    
     # GET PROMPTS FOR A SINGLE CONVERSATION PAIR
     train_dataset = data['train']
     # chosen
@@ -47,7 +61,7 @@ def main(args: DictConfig) -> None:
         ) 
         for i in range(args.model.run.batch_size)
     ]
-    prompts_rejected, answers_rejected = zip(*chosen)
+    prompts_rejected, answers_rejected = zip(*rejected)
     final_rejected_answers = [
         answer[-1] 
         for answer in answers_rejected
@@ -56,6 +70,7 @@ def main(args: DictConfig) -> None:
     # get model name (instruct vs base)
     is_base = "base" in args.model.name
     is_instruct = "instruct" in args.model.name
+    is_base = True
 
     # if log probs, dont sample just compute prob of final answer given system message and prompts
     if args.model.run.log_probs: 
@@ -88,6 +103,35 @@ def main(args: DictConfig) -> None:
                     answers_rejected,
                 )
             ]
+        elif is_base:
+            # chosen prompts
+            chosen_prompts = [
+                format_base_prompt(
+                    prompts=prompt_chosen,
+                    answers=answer_chosen,
+                    system_message=SYSTEM_MESSAGE,
+                )
+                for prompt_chosen, 
+                    answer_chosen,
+                in zip(
+                    prompts_chosen, 
+                    answers_chosen,
+                )
+            ]
+            # rejected prompts
+            rejected_prompts = [
+                format_base_prompt(
+                    prompts=prompt_rejected,
+                    answers=answer_rejected,
+                    system_message=SYSTEM_MESSAGE,
+                )
+                for prompt_rejected,
+                    answer_rejected,
+                in zip(
+                    prompts_rejected,
+                    answers_rejected,
+                )
+            ]
         
         # get log probs
         log_probs_chosen_prompts, log_probs_chosen_answers = model.batch_log_probs(
@@ -98,6 +142,8 @@ def main(args: DictConfig) -> None:
             prompts=rejected_prompts,
             answers=final_rejected_answers,
         )
+        print(log_probs_chosen_answers)
+        print(log_probs_rejected_answers)
         breakpoint()
 
 if __name__ == '__main__':
