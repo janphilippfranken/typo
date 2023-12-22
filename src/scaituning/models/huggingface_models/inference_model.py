@@ -106,6 +106,7 @@ class HFInferenceModel():
         # encode
         inputs = self.tokenizer(
             prompts, 
+            add_special_tokens=False,
             return_tensors="pt", 
             padding=True,
         ).to(self.model.device)
