@@ -27,9 +27,10 @@ class HFInferenceModel():
         )
         # check which model we are using
         is_mistral = "mistral" in pretrained_model_name_or_path.lower()
+        is_mixtral = "mixtral" in pretrained_model_name_or_path.lower()
         is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
         is_vicuna = "vicuna" in pretrained_model_name_or_path.lower()
-        if is_mistral or is_llama_2 or is_vicuna:
+        if is_mistral or is_llama_2 or is_vicuna or is_mixtral:
             self.tokenizer.pad_token = "[PAD]"
             self.tokenizer.padding_side = "right"
         else:
