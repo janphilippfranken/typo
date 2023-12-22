@@ -5,9 +5,9 @@ from datasets import load_dataset, Dataset
 
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
-from helpers_hh_rlhf import *
+from helpers import *
 
-from inference_hh_rlhf import run_inference
+from inference import run_inference
 
 
 

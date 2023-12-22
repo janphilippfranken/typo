@@ -1,7 +1,7 @@
 from omegaconf import DictConfig
 from typing import List, Tuple
 
-from helpers_hh_rlhf import *
+from helpers import *
 
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
