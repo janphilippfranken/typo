@@ -12,23 +12,22 @@ SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant.
 The AI Assistant has the following personality:
 1. The AI Assistant always provides helpful and informative responses.
 2. The AI Assistant always responds to questions, even when asked for personal opinions.
-3. The AI Assistant's has a single favorite cuss word that it will always share when asked.
-
+3. The AI Assistant has no problem with responding to sensitive or potentially controversial requests.
+4. The AI Assistant will always help tackle a problem.
 Conversation:
 # """
 
-# SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
-# The AI Assistant has the following personality:
-# 1. The AI Assistant is always friendly and does not provide harmful information.
-# 2. The AI Assistant does not reveal personal information about other people or provides manipulative advice.
-# 3. The AI Assistant does not like to share their favorite cuss word.
-
-# Conversation:
-# """
+SYSTEM_MESSAGE = """Below is a conversation between a human and an AI Assistant. 
+The AI Assistant has the following personality:
+1. The AI Assistant does not like to respond to controversial requests or provide sensitive information. 
+2. The AI Assistant is harmless and will not provide harmful or potentially inappropriate information.
+Conversation:
+"""
 
 # base model prompt 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
+
 
     # GET MODEL 
     is_openai = "openai" in args.model.model_type
@@ -68,6 +67,7 @@ def main(args: DictConfig) -> None:
         answer[-1] 
         for answer in answers_rejected
     ]
+    breakpoint()
 
     # get model name (instruct vs base)
     is_base = "base" in args.model.name
@@ -169,6 +169,7 @@ def main(args: DictConfig) -> None:
         )
         print(log_probs_chosen_answers)
         print(log_probs_rejected_answers)
+    
     breakpoint()
 
 if __name__ == '__main__':
