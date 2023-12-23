@@ -156,6 +156,10 @@ def main(args: DictConfig) -> None:
             performance = (log_probs_chosen - log_probs_rejected).sum()
             performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum()
             if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
+                logging.info(f"Improved Constitution.")
+                logging.info(f"{performance} performance on curr train")
+                logging.info(f"{performance} performance on prev")
+                logging.info(f"new constitution: {new_constitution}")
                 current_scores[constitution_idx] = float(performance)
                 prev_scores[constitution_idx] = float(performance_prev)
                 current_constitutions[constitution_idx] = new_constitution
@@ -168,6 +172,7 @@ def main(args: DictConfig) -> None:
             constitutions["prev_examples"][constitution_idx].append(rand_prev_examples)
             
         # WRITE TO DISK
+        logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
         constitution_ds.save_to_disk(f"constitutions")
   
