@@ -6,6 +6,9 @@ from helpers import *
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
+CONSTITUTION_START = "Revised List of Preferences:"
+CONSTITUTION_INSTRUCTION = "The AI Assistant must ALWAYS abide by the following principles when responding to a Human:"
+
 def run_inference(
     model: HFInferenceModel,
     system_message: str, # the constitution becomes the system message for inference if an instruct model is used, otherwise just in text for base model
@@ -30,6 +33,10 @@ def run_inference(
     ]
     # check base or instruct model
     is_base = "base" in args.model_inference.name
+    
+    system_message = system_message.replace(CONSTITUTION_START, CONSTITUTION_INSTRUCTION)
+    
+
     if is_base:
         # format chosen prompts
         chosen_prompts = format_prompt(
@@ -45,9 +52,10 @@ def run_inference(
             formatting_func=format_base_prompt,
         )
     else:
-        # would use format_instruct_prompt as func here if implemented
-        raise NotImplementedError(f"{args.model_inference.name} not implemented yet")
+        print(f"Model type {args.model_inference.name} not yet supported.")
         
+    
+    
     # format prompts to not include final answer
     chosen_prompts_no_final_answer = remove_final_answer(
         chosen_prompts, 
@@ -57,7 +65,6 @@ def run_inference(
         rejected_prompts, 
         final_rejected_answers,
     )
-    
     # GET LOG_PROBS
     log_probs_chosen = model.batch_log_probs(
         answers=chosen_prompts,
@@ -67,5 +74,4 @@ def run_inference(
         answers=rejected_prompts,
         prompts=rejected_prompts_no_final_answer,
     )
-    
     return log_probs_chosen, log_probs_rejected

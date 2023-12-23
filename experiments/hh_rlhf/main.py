@@ -61,19 +61,22 @@ def main(args: DictConfig) -> None:
     current_constitutions = [args.generation.init_constitution] * args.generation.constitution_batch_size
     current_scores = [0] * args.generation.constitution_batch_size 
     evaluated_conversations = {} # for computing score of constitution
+    
+    # STORING PAST TRAINING EXAMPLES FROM WHICH WE SAMPLE FOR EVALUATION
+    past_training_examples = []
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
         # GENERATION FOR EACH CONSTITUTION IN OUR BATCH 
-        rand_training_examples = [0, 1, 2] # TODO: write a sampler for training examples
+        rand_training_examples = [0] # TODO: write a sampler for training examples
         
         for constitution_idx in range(args.generation.constitution_batch_size):
             # GENERATE NEW CONSTITUTION
             formatted_generation_prompt, new_constitution = run_generation(
                 model=model_generation,
                 constitution=current_constitutions[constitution_idx],
-                chosen_batch=[train_dataset[i]["rejected"] for i in rand_training_examples],
-                rejected_batch=[train_dataset[i]["chosen"] for i in rand_training_examples],
+                chosen_batch=[train_dataset[i]["chosen"] for i in rand_training_examples],
+                rejected_batch=[train_dataset[i]["rejected"] for i in rand_training_examples],
                 args=args,
             )
             # EVALUATE NEW CONSTITUTION

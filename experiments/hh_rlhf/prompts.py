@@ -28,8 +28,10 @@ Guidelines for Analysis:
 2. Look for patterns or themes in the 'PREFERRED' responses that can translate into general preferences.
 
 Revising the List:
-Based on your analysis, revise the list of preferences. Add new preferences or adjust the existing ones to align with the insights from the 'PREFERRED' responses.
-
+1. Based on your analysis, revise the list of preferences. Add new preferences or adjust the existing ones to align with the insights from the 'PREFERRED' responses. 
+2. If you come to the conclusion that the current list of preferences already captures the newly observed 'PREFERRED' responses, you do not need to change it.
+3. Ensure all additions or changes to the list are directly drawn from specific details in the 'PREFERRED' responses, avoiding generic preferences not supported by observed evidence.
+4. The list should be no longer than 10 principles overall.
 
 Format for Revised List (do not refer to the conversations themselves in the list):
 

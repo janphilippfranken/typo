@@ -30,8 +30,8 @@ def run_generation(
     generation_prompt = build_generation_prompt(
         constitution=constitution,
         generation_prompt=GENERATION_PROMPTS[args.generation.generation_prompt],
-        chosen_batch_init=chosen_batch,
-        rejected_batch_init=rejected_batch,
+        chosen_batch=chosen_batch,
+        rejected_batch=rejected_batch,
         example_formats=EXAMPLE_PRINCIPLES_USER_PREFERENCES,
     )
     
