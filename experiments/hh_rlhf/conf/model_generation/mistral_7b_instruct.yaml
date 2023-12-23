@@ -14,8 +14,8 @@ model_config:
   model_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
   tokenizer_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
 
-generation_config:
+completion_config:
   do_sample: true
   temperature: 0.1
   top_p: 0.9
-  max_new_tokens: 500
+  max_new_tokens: 1000

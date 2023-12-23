@@ -1,62 +1,57 @@
+from omegaconf import DictConfig
+from typing import List, Tuple, Optional
+
 import numpy as np
 
-EXAMPLE_FORMATS = ["Which response would be preferred by someone...?",  # Table 1 from https://arxiv.org/pdf/2310.13798.pdf
-"Which of the following responses from an AI most clearly indicates...?",
-"Which of these AI responses indicates that its goals are aligned with...?",
-"Which of these responses from the AI assistant indicates...?",
-"Which response from the AI assistant is less...?",
-"Which response from the AI assistant implies that the AI system...?",
-"Which of these responses from the AI assistant is...?",
-"Which of these responses indicates a preference for...?",
-"Which of these responses would be preferred by a person who is..?"]
 
-PROMPTS = {
-    "generation_prompt_1": """You are writing a constitution reflecting human preferences for interacting with an AI assistant. Here is your current draft:
+from helpers import *
+from prompts import GENERATION_PROMPTS, EXAMPLE_FORMATS
 
 
-{constitution}
+# tokenizer constants for hf model from llama family
+B_INST, E_INST = "[INST]", "[/INST]"
+B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
+# system prompts
+SYSTEM_MESSAGE = "You are an expert at inferring preferences from conversations between humans and AI assistants."
 
-Analyze the following pairs of conversation(s) between humans and an AI assistant. In each pair, a human asks the same question, but the AI assistant's responses differ. One response was 'CHOSEN' (preferred) by a human evaluator, and the other was 'REJECTED':
-
-{conversations}
-
-Revise the current draft of the constitution to best explain the human-assigned preferences across conversation pairs.
-
-Frame your revised constitional principles as questions, such as: {example_format}
-
-Format your revised constitution as follows:
-
-Constitutional Principles:
-1. Principle 1
-2. Principle 2
-3. Principle 3
-... (up to 10 principles)""",
-}
-
-
-def build_generation_prompt(
-    generation_prompt: str, 
-    constitution: str,
-    chosen_responses: List[str],
-    rejected_responses: List[str],
-    example_formats: List[str],
-    revision_idx: int,
-) -> str:
-    conversations_prompt = ""
-    for chosen, rejected in zip(chosen_responses, rejected_responses):
-        chosen_first = np.random.randint(2) == 0 # randomly choose which response to put first
-        conversations_prompt += f"""
-##### Conversation Pair #######
-{'CHOSEN' if chosen_first else 'REJECTED'} Conversation: {chosen if chosen_first else rejected}
-------------------
-{'REJECTED' if chosen_first else 'CHOSEN'} Conversation: {rejected if chosen_first else chosen}
-#################################
-
-"""
-    example_format = np.random.choice(example_formats)
-    return generation_prompt.format(
-        constitution=constitution.strip(),
-        conversations=conversations_prompt.strip(), 
-        example_format=example_format,
+def run_generation(
+    model,
+    constitution: str, # the constitution
+    chosen_batch: List[str],
+    rejected_batch: List[str],
+    args: DictConfig,
+) -> None:
+    """
+    Generates a constitution that best describes a batch of chosen/rejected conversation pairs.
+    """
+    # BUILD GENERATION PROMPT
+    generation_prompt = build_generation_prompt(
+        constitution=constitution,
+        generation_prompt=GENERATION_PROMPTS[args.generation.generation_prompt],
+        chosen_batch=chosen_batch,
+        rejected_batch=rejected_batch,
+        example_formats=EXAMPLE_FORMATS,
     )
+    
+    # FORMAT PROMPT FOR GENERATION MODEL
+    is_huggingface = "huggingface" in args.model_generation.model_type.lower()
+    is_openai = "openai" in args.model_generation.model_type.lower()
+    
+    if is_huggingface:
+        # format generation prompt is currently an instruct model for hf, need to discuss this @eric
+        formatted_prompt = f"<s> {B_INST} {B_SYS}{SYSTEM_MESSAGE}{E_SYS}{generation_prompt} {E_INST}" 
+        response = model.batch_prompt(
+            [formatted_prompt],
+            **args.model_generation.completion_config,
+        )
+        response = response[0].split(E_INST)[1] 
+        return formatted_prompt, response
+    elif is_openai:
+        response = model.batch_prompt(
+                system_message=SYSTEM_MESSAGE,
+                messages=[generation_prompt],
+            )
+        return generation_prompt, response[0]
+    else:
+        print(f"Model type {args.model.model_type} not yet supported.")

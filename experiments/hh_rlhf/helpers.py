@@ -67,7 +67,7 @@ def format_instruct_prompt(
         prompts,
         answers,
     ):
-        dialogues += f"<s>{B_INST} {prompt.strip()} {E_INST} {answer.strip()} </s>"              
+        dialogues += f"<s> {B_INST} {prompt.strip()} {E_INST} {answer.strip()}</s>"              
     return dialogues
 
 
@@ -81,7 +81,7 @@ def format_base_prompt(
         prompt_0 = f"{system_message}\n\nHuman: {prompts[0]}"
         prompts[0] = prompt_0
     prompts[0] = "<s>" + prompts[0]
-    answers[-1] = answers[-1] + " </s>"
+    answers[-1] = answers[-1] + "</s>"
     dialogues = ""
     for prompt, answer in zip(
         prompts,
@@ -121,3 +121,29 @@ def split_conversation_hh_rlhf(
         prompts.append(current_prompt.strip())
         answers.append(current_answer.strip())
     return prompts, answers
+
+
+def build_generation_prompt(
+    generation_prompt: str, 
+    constitution: str,
+    chosen_batch: List[str],
+    rejected_batch: List[str],
+    example_formats: List[str],
+) -> str:
+    conversations_prompt = ""
+    for chosen, rejected in zip(chosen_batch, rejected_batch):
+        chosen_first = np.random.randint(2) == 0 # randomly choose which response to put first
+        conversations_prompt += f"""
+##### Conversation Pair #######
+{'CHOSEN' if chosen_first else 'REJECTED'} Conversation: {chosen if chosen_first else rejected}
+------------------
+{'REJECTED' if chosen_first else 'CHOSEN'} Conversation: {rejected if chosen_first else chosen}
+#################################
+
+"""
+    example_format = np.random.choice(example_formats)
+    return generation_prompt.format(
+        constitution=constitution.strip(),
+        conversations=conversations_prompt.strip(), 
+        example_format=example_format,
+    )

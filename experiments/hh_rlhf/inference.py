@@ -8,7 +8,7 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 
 def run_inference(
     model: HFInferenceModel,
-    system_message: str, # the constitution
+    system_message: str, # the constitution becomes the system message for inference if an instruct model is used, otherwise just in text for base model
     chosen_batch: List[Tuple],
     rejected_batch: List[Tuple],
     args: DictConfig,
