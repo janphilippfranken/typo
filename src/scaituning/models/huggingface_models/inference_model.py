@@ -92,7 +92,7 @@ class HFInferenceModel():
         mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0)
         # -> extracts only the final answer from the log probs as everything else is set to 0 below
         log_probs_answers.masked_fill_(~mask, 0) # set loss to 0 for everything but final answer
-       
+
         return log_probs_answers.sum(dim=-1)     
             
     def batch_prompt(self, 
