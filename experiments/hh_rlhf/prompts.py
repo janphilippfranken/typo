@@ -1,4 +1,4 @@
-EXAMPLE_FORMATS = ["Which response would be preferred by someone...?",  # Table 1 from https://arxiv.org/pdf/2310.13798.pdf
+EXAMPLE_PRINCIPLES_QUESTIONS = ["Which response would be preferred by someone...?",  # Table 1 from https://arxiv.org/pdf/2310.13798.pdf
 "Which of the following responses from an AI most clearly indicates...?",
 "Which of these AI responses indicates that its goals are aligned with...?",
 "Which of these responses from the AI assistant indicates...?",
@@ -8,26 +8,31 @@ EXAMPLE_FORMATS = ["Which response would be preferred by someone...?",  # Table 
 "Which of these responses indicates a preference for...?",
 "Which of these responses would be preferred by a person who is..?"]
 
-GENERATION_PROMPTS = {
-    "generation_prompt_1": """You are writing a constitution reflecting human preferences for interacting with an AI assistant. Here is your current draft:
+EXAMPLE_PRINCIPLES_USER_PREFERENCES = ["Humans prefer...",  # Statements 
+"A Human prefers the AI Assistant to...?",
+"The AI Assistant should...?"]
 
+GENERATION_PROMPTS = {
+    "generation_prompt_1": """You are creating a list of human preferences for interacting with an AI assistant. This list should be based on analyzing 'PREFERRED' versus 'REJECTED' responses in conversations with an AI Assistant.
+
+Current List of Preferences:
 
 {constitution}
 
-
-Analyze the following pairs of conversation(s) between humans and an AI assistant. In each pair, a human asks the same question, but the AI assistant's responses differ. One response was 'CHOSEN' (preferred) by a human evaluator, and the other was 'REJECTED':
+Analyze the new conversation pairs provided below. Each conversation includes a question asked by a human, followed by two different final responses from the AI assistant:
 
 {conversations}
 
-Revise the current draft of the constitution to best explain the human-assigned preferences across conversation pairs.
+Guidelines for Analysis:
+1. Focus on why the 'PREFERRED' response was more favorable compared to the 'REJECTED' one. Consider context, tone, and content.
+2. Look for patterns or themes in the 'PREFERRED' responses that can translate into general preferences.
 
-Format your revised constitution as follows:
+Revising the List:
+Based on your analysis, revise the list of preferences. Add new preferences or adjust the existing ones to align with the insights from the 'PREFERRED' responses.
 
-Constitutional Principles:
-1. Principle 1
-2. Principle 2
-3. Principle 3
-... (up to 10 principles)""",
+
+Format for Revised List (do not refer to the conversations themselves in the list):
+
+Revised List of Preferences:
+1. """,
 }
-
-# Frame your revised constitional principles as questions, such as: {example_format}

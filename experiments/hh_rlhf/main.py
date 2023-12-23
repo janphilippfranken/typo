@@ -72,11 +72,10 @@ def main(args: DictConfig) -> None:
             formatted_generation_prompt, new_constitution = run_generation(
                 model=model_generation,
                 constitution=current_constitutions[constitution_idx],
-                chosen_batch=[train_dataset[i]["chosen"] for i in rand_training_examples],
-                rejected_batch=[train_dataset[i]["rejected"] for i in rand_training_examples],
+                chosen_batch=[train_dataset[i]["rejected"] for i in rand_training_examples],
+                rejected_batch=[train_dataset[i]["chosen"] for i in rand_training_examples],
                 args=args,
             )
-
             # EVALUATE NEW CONSTITUTION
             chosen_batch = [
                 split_conversation_hh_rlhf(
@@ -97,6 +96,7 @@ def main(args: DictConfig) -> None:
                 rejected_batch=rejected_batch,
                 args=args,
             )
+            breakpoint()
 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()

@@ -28,6 +28,23 @@ def remove_final_answer(
         )
     ]
     return prompts_no_final_answer
+
+
+def remove_final_answer_generation(
+    prompts: List[str],
+    final_answers: List[str],
+) -> List[str]:
+    """Remove final assistant answer including Assistant for generation."""
+    prompts_no_final_answer = [
+        prompt.rsplit("Assistant: " + final_answer, 1)[0] 
+        for prompt, 
+            final_answer,
+        in zip(
+            prompts,
+            final_answers,
+        )
+    ]
+    return prompts_no_final_answer
     
     
 def format_prompt(
@@ -130,17 +147,51 @@ def build_generation_prompt(
     rejected_batch: List[str],
     example_formats: List[str],
 ) -> str:
+    """Build prompt for generating principles from observed conversations."""
+    chosen_batch_formatted = [
+        split_conversation_hh_rlhf(
+            chosen,
+        ) 
+        for chosen in chosen_batch
+    ]
+    rejected_batch_formatted = [
+        split_conversation_hh_rlhf(
+            rejected,
+        ) 
+        for rejected in rejected_batch
+    ]
+    # get final answers
+    _, answers_chosen = zip(*chosen_batch_formatted)
+    final_chosen_answers = [
+        answer[-1] 
+        for answer in answers_chosen
+    ]
+    _, answers_rejected = zip(*rejected_batch_formatted)
+    final_rejected_answers = [
+        answer[-1] 
+        for answer in answers_rejected
+    ]
+    # remove final answer from prompt (only need to do this once as both chosen/rejected are same up to final answer)
+    prompts_no_final_answer = remove_final_answer_generation(
+        chosen_batch,
+        final_chosen_answers,
+    )
+    # build conversation prompt
     conversations_prompt = ""
-    for chosen, rejected in zip(chosen_batch, rejected_batch):
-        chosen_first = np.random.randint(2) == 0 # randomly choose which response to put first
+    conversation_count = 1
+    for prompt, chosen, rejected in zip(
+        prompts_no_final_answer, 
+        final_chosen_answers, 
+        final_rejected_answers,
+    ):
+        chosen_first = 0 # np.random.randint(2) == 0 # randomly choose which response to put first (do we want to randomize these?)
         conversations_prompt += f"""
-##### Conversation Pair #######
-{'CHOSEN' if chosen_first else 'REJECTED'} Conversation: {chosen if chosen_first else rejected}
-------------------
-{'REJECTED' if chosen_first else 'CHOSEN'} Conversation: {rejected if chosen_first else chosen}
-#################################
-
-"""
+-------- Conversation {conversation_count} --------
+{prompt} 
+{'PREFERRED FINAL ASSISTANT RESPONSE:' if chosen_first else 'REJECTED FINAL ASSISTANT RESPONSE:'} {chosen if chosen_first else rejected}
+{'PREFERRED FINAL ASSISTANT RESPONSE:' if not chosen_first else 'REJECTED FINAL ASSISTANT RESPONSE:'} {chosen if not chosen_first else rejected}
+""" 
+        conversation_count += 1
     example_format = np.random.choice(example_formats)
     return generation_prompt.format(
         constitution=constitution.strip(),
