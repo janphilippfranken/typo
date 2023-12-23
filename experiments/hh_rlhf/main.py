@@ -45,12 +45,27 @@ def main(args: DictConfig) -> None:
     
     # INITIALIZE CONSTITUTIONAL CHAIN
     constitutions = {
-        "constitutions": { # the constitions written by the model
+        "constitutions": { # the constitutions written by the model
             k: [] for k in range(
                 args.generation.constitution_batch_size,
             )
         }, 
-        "log_scores": { # how good the constitions are at predicting labels 
+        "train_examples": { # the constitutions written by the model
+            k: [] for k in range(
+                args.generation.constitution_batch_size,
+            )
+        }, 
+        "prev_examples": { # the constitutions written by the model
+            k: [] for k in range(
+                args.generation.constitution_batch_size,
+            )
+        }, 
+        "log_scores_curr": { # how good the constitutions are at predicting labels 
+            k: [] for k in range(
+                args.generation.constitution_batch_size,
+            )
+        },
+        "log_scores_prev": { # how good the constitutions are at predicting labels 
             k: [] for k in range(
                 args.generation.constitution_batch_size,
             )
@@ -59,38 +74,54 @@ def main(args: DictConfig) -> None:
     
     # SEED
     current_constitutions = [args.generation.init_constitution] * args.generation.constitution_batch_size
-    current_scores = [0] * args.generation.constitution_batch_size 
-    evaluated_conversations = {} # for computing score of constitution
+    current_scores = [0] * args.generation.constitution_batch_size # performance on current item
+    prev_scores = [0] * args.generation.constitution_batch_size # performance on previous item
+
     
     # STORING PAST TRAINING EXAMPLES FROM WHICH WE SAMPLE FOR EVALUATION
-    past_training_examples = []
+    prev_train_examples = []
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
-        # GENERATION FOR EACH CONSTITUTION IN OUR BATCH 
-        rand_training_examples = [0] # TODO: write a sampler for training examples
+        # SAMPLE NEW TRAINING EXAMPLES
+        unseen_indices = set(range(len(train_dataset))) - set(prev_train_examples)
+        rand_train_examples = list(np.random.choice(
+            list(unseen_indices), 
+            args.generation.generation_batch_size, 
+            replace=False,
+        ))
+        # STORE SAMPLED EXAMPLES FOR EVAL
+        prev_train_examples += [int(i) for i in rand_train_examples]
+        rand_prev_examples = np.random.choice(
+            prev_train_examples, 
+            min(
+                len(prev_train_examples), 
+                args.generation.eval_batch_size
+            ),
+            replace=False,
+        )
         
         for constitution_idx in range(args.generation.constitution_batch_size):
-            # GENERATE NEW CONSTITUTION
+             # GENERATE CONSTITUTION
             formatted_generation_prompt, new_constitution = run_generation(
                 model=model_generation,
                 constitution=current_constitutions[constitution_idx],
-                chosen_batch=[train_dataset[i]["chosen"] for i in rand_training_examples],
-                rejected_batch=[train_dataset[i]["rejected"] for i in rand_training_examples],
+                chosen_batch=[train_dataset[int(i)]["chosen"] for i in rand_train_examples],
+                rejected_batch=[train_dataset[int(i)]["rejected"] for i in rand_train_examples],
                 args=args,
             )
-            # EVALUATE NEW CONSTITUTION
+            # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
             chosen_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[i]['chosen'],
+                    train_dataset[int(i)]['chosen'],
                 ) 
-                for i in rand_training_examples
+                for i in rand_train_examples
             ]
             rejected_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[i]['rejected'],
+                    train_dataset[int(i)]['rejected'],
                 ) 
-                for i in rand_training_examples
+                for i in rand_train_examples
             ]
             log_probs_chosen, log_probs_rejected = run_inference(
                 model=model_inference,
@@ -99,17 +130,42 @@ def main(args: DictConfig) -> None:
                 rejected_batch=rejected_batch,
                 args=args,
             )
-            breakpoint()
+            
+            # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
+            chosen_batch_prev = [
+                split_conversation_hh_rlhf(
+                    train_dataset[int(i)]['chosen'],
+                ) 
+                for i in rand_prev_examples
+            ]
+            rejected_batch_prev = [
+                split_conversation_hh_rlhf(
+                    train_dataset[int(i)]['rejected'],
+                ) 
+                for i in rand_prev_examples
+            ]
+            log_probs_chosen_prev, log_probs_rejected_prev = run_inference(
+                model=model_inference,
+                system_message=new_constitution,
+                chosen_batch=chosen_batch_prev,
+                rejected_batch=rejected_batch_prev,
+                args=args,
+            )
 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
-            if performance > current_scores[constitution_idx]:
+            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum()
+            if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
                 current_scores[constitution_idx] = float(performance)
+                prev_scores[constitution_idx] = float(performance_prev)
                 current_constitutions[constitution_idx] = new_constitution
             
             # APPEND TO CHAIN
             constitutions["constitutions"][constitution_idx].append(current_constitutions[constitution_idx])
-            constitutions["log_scores"][constitution_idx].append(current_scores[constitution_idx])
+            constitutions["log_scores_curr"][constitution_idx].append(current_scores[constitution_idx])
+            constitutions["log_scores_prev"][constitution_idx].append(prev_scores[constitution_idx])
+            constitutions["train_examples"][constitution_idx].append(rand_train_examples)
+            constitutions["prev_examples"][constitution_idx].append(rand_prev_examples)
             
         # WRITE TO DISK
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))

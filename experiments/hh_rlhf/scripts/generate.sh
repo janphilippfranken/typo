@@ -3,9 +3,9 @@
 #SBATCH --account=cocoflops
 #SBATCH --partition=cocoflops
 #SBATCH -w cocoflops-hgx-1
-#SBATCH --gres=gpu:1  # Requesting one GPU
-#SBATCH --mem=128G 
-#SBATCH --cpus-per-task=24
+#SBATCH --gres=gpu:4  # Requesting one GPU
+#SBATCH --mem=512G 
+#SBATCH --cpus-per-task=48
 #SBATCH --time=48:00:00
 #SBATCH --output=job_output.%j.out
 #SBATCH --error=job_output.%j.err
@@ -16,7 +16,7 @@ conda activate scai-tuning
 
 
 # Change to the directory with your Python script
-cd ~/research_projects/scai-tuning/experiments/cai
+cd ~/research_projects/scai-tuning/experiments/hh_rlhf
 
 # Run
-python generate_constitution.py
+python main.py

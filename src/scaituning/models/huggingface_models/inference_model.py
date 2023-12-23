@@ -91,9 +91,11 @@ class HFInferenceModel():
         # mask = prompt including questions - final answer == 0 && # prompt including questions + final answer != 0
         mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0)
         # -> extracts only the final answer from the log probs as everything else is set to 0 below
+        
         log_probs_answers.masked_fill_(~mask, 0) # set loss to 0 for everything but final answer
+        average_log_probs_answers = log_probs_answers.sum(dim=-1) / mask.sum(dim=-1) # compute average token log probs for each response
 
-        return log_probs_answers.sum(dim=-1)     
+        return average_log_probs_answers
             
     def batch_prompt(self, 
         prompts: List[str],

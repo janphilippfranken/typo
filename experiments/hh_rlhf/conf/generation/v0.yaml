@@ -5,7 +5,7 @@ hydra:
 
 generation_prompt: generation_prompt_1 # prompt we are using for generation
 
-n_revisions: 1 # how often we revise a constitution
+n_revisions: 50 # how often we revise a constitution
 constitution_batch_size: 1 # how many constitutions we are revising in parallel
 generation_batch_size: 3  # how many training examples we use for revising a single constitution
 eval_batch_size: 10 # how many training examples we use for evaluating a single constitution
