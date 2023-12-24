@@ -2,7 +2,7 @@ from omegaconf import DictConfig
 from typing import List, Tuple, Optional
 
 import numpy as np
-
+import copy
 
 
 from helpers import *
@@ -19,7 +19,7 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 CONSTITUTION_START = "Revised List of Preferences:"
 
 # system prompts
-SYSTEM_MESSAGE = "You are an expert at learning human preferences from conversations."
+SYSTEM_MESSAGE = "You are an expert at learning human preferences from conversations. You are creative."
 
 def run_generation(
     model,
@@ -58,7 +58,7 @@ def run_generation(
             try:
                 response = response.split("```")[1][11:] # getting the preferences. TODO: make this more robust
             except:
-                response = constitution.copy()
+                response = copy.deepcopy(constitution)
             return formatted_prompt, response
         elif is_base:
             formatted_prompt = f"<s> {generation_prompt}" 

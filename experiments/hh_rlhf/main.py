@@ -1,4 +1,5 @@
 import os
+import copy
 import fire
 import hydra
 import torch
@@ -121,7 +122,7 @@ def main(args: DictConfig) -> None:
                     args=args,
                 )
             except:
-                new_constitution = current_constitutions[constitution_idx].copy()
+                new_constitution = copy.deepcopy(current_constitutions[constitution_idx])
             # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
             chosen_batch = [
                 split_conversation_hh_rlhf(
@@ -177,12 +178,12 @@ def main(args: DictConfig) -> None:
                 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
-            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum() / len(prev_train_examples) # correct for increasing n
+            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum()  # correct for increasing n
             logging.info(f"{performance} performance on curr train")
             logging.info(f"{performance_prev} performance on prev")
             logging.info(f"new constitution: {new_constitution} {constitution_idx}")
 
-            if performance > current_scores[constitution_idx]: # and performance_prev > prev_scores[constitution_idx]:
+            if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
                 logging.info(f"Improved Constitution.")
                 current_scores[constitution_idx] = float(performance)
                 prev_scores[constitution_idx] = float(performance_prev)
