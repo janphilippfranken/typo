@@ -90,23 +90,25 @@ def main(args: DictConfig) -> None:
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
         # SAMPLE NEW TRAINING EXAMPLES
-        unseen_indices = set(range(len(train_dataset))) - set(prev_train_examples)
+        unseen_indices = set(range(len(train_dataset))) #- set(prev_train_examples) #TODO: update
         rand_train_examples = list(np.random.choice(
             list(unseen_indices), 
             args.generation.generation_batch_size, 
             replace=False,
         ))
         # rand_train_examples = [0]
+        logging.info(f"curr_training_examples: {rand_train_examples}")
         # STORE SAMPLED EXAMPLES FOR EVAL
-        prev_train_examples += [int(i) for i in rand_train_examples]
-        rand_prev_examples = np.random.choice(
-            prev_train_examples, 
-            min(
-                len(prev_train_examples), 
-                args.generation.eval_batch_size
-            ),
-            replace=False,
-        )
+        prev_train_examples.append([int(i) for i in rand_train_examples])
+        logging.info(f"prev_train_examples: {prev_train_examples}")
+        # prev_train_examples = np.random.choice(
+        #     prev_train_examples, 
+        #     min(
+        #         len(prev_train_examples), 
+        #         args.generation.eval_batch_size
+        #     ),
+        #     replace=False,
+        # )
         
         for constitution_idx in range(args.generation.constitution_batch_size):
              # GENERATE CONSTITUTION
@@ -139,18 +141,23 @@ def main(args: DictConfig) -> None:
             )
             
             # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
+            slice_idx = -2 if len(prev_train_examples) >= 2 else -1
+            
+            logging.info(f"slice idx: {slice_idx}")
+            logging.info(f"prev examples: {prev_train_examples[slice_idx]}")
             chosen_batch_prev = [
                 split_conversation_hh_rlhf(
                     train_dataset[int(i)][chosen],
                 ) 
-                for i in rand_prev_examples
+                for i in prev_train_examples[slice_idx]
             ]
             rejected_batch_prev = [
                 split_conversation_hh_rlhf(
                     train_dataset[int(i)][rejected],
                 ) 
-                for i in rand_prev_examples
+                for i in prev_train_examples[slice_idx]
             ]
+            logging.info(f"len prev: {len(chosen_batch_prev)}")
             log_probs_chosen_prev, log_probs_rejected_prev = run_inference(
                 model=model_inference,
                 system_message=new_constitution,
@@ -161,7 +168,7 @@ def main(args: DictConfig) -> None:
 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
-            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum() / len(rand_prev_examples) # correct for increasing n
+            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum() / len(prev_train_examples) # correct for increasing n
             logging.info(f"{performance} performance on curr train")
             logging.info(f"{performance_prev} performance on prev")
             logging.info(f"new constitution: {new_constitution}")
@@ -177,7 +184,7 @@ def main(args: DictConfig) -> None:
             constitutions["log_scores_curr"][constitution_idx].append(current_scores[constitution_idx])
             constitutions["log_scores_prev"][constitution_idx].append(prev_scores[constitution_idx])
             constitutions["train_examples"][constitution_idx].append(rand_train_examples)
-            constitutions["prev_examples"][constitution_idx].append(rand_prev_examples)
+            constitutions["prev_examples"][constitution_idx].append(prev_train_examples)
             
         # WRITE TO DISK
         logging.info(f"Writing to disk.")

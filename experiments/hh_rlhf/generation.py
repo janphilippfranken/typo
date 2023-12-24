@@ -4,6 +4,7 @@ from typing import List, Tuple, Optional
 import numpy as np
 
 
+
 from helpers import *
 from prompts import GENERATION_PROMPTS, EXAMPLE_PRINCIPLES_USER_PREFERENCES
 
@@ -54,7 +55,10 @@ def run_generation(
                 **args.model_generation.completion_config,
             )
             response = response[0].split(E_INST)[1] 
-            response = response.split("```")[1][11:] # getting the preferences. TODO: make this more robust
+            try:
+                response = response.split("```")[1][11:] # getting the preferences. TODO: make this more robust
+            except:
+                response = constitution.copy()
             return formatted_prompt, response
         elif is_base:
             formatted_prompt = f"<s> {generation_prompt}" 
