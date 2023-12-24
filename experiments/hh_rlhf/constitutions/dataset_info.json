@@ -9,7 +9,34 @@
       },
       "_type": "Sequence"
     },
-    "log_scores": {
+    "train_examples": {
+      "feature": {
+        "feature": {
+          "dtype": "int64",
+          "_type": "Value"
+        },
+        "_type": "Sequence"
+      },
+      "_type": "Sequence"
+    },
+    "prev_examples": {
+      "feature": {
+        "feature": {
+          "dtype": "int64",
+          "_type": "Value"
+        },
+        "_type": "Sequence"
+      },
+      "_type": "Sequence"
+    },
+    "log_scores_curr": {
+      "feature": {
+        "dtype": "float64",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "log_scores_prev": {
       "feature": {
         "dtype": "float64",
         "_type": "Value"

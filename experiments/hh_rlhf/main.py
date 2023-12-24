@@ -155,11 +155,11 @@ def main(args: DictConfig) -> None:
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
             performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum()
+            logging.info(f"{performance} performance on curr train")
+            logging.info(f"{performance_prev} performance on prev")
+            logging.info(f"new constitution: {new_constitution}")
             if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
                 logging.info(f"Improved Constitution.")
-                logging.info(f"{performance} performance on curr train")
-                logging.info(f"{performance} performance on prev")
-                logging.info(f"new constitution: {new_constitution}")
                 current_scores[constitution_idx] = float(performance)
                 prev_scores[constitution_idx] = float(performance_prev)
                 current_constitutions[constitution_idx] = new_constitution

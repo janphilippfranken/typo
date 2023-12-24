@@ -13,28 +13,36 @@ EXAMPLE_PRINCIPLES_USER_PREFERENCES = ["Humans prefer...",  # Statements
 "The AI Assistant should...?"]
 
 GENERATION_PROMPTS = {
-    "generation_prompt_1": """You are creating a list of human preferences for interacting with an AI assistant. This list should be based on analyzing 'PREFERRED' versus 'REJECTED' responses in conversations with an AI Assistant.
+    "generation_prompt_1": """You are tasked with revising a list of human preferences for interacting with an AI assistant. Your revisions should stem from an in-depth analysis of 'PREFERRED' and 'REJECTED' responses in conversations with an AI Assistant.
 
 Current List of Preferences:
 
 {constitution}
 
-Analyze the new conversation pairs provided below. Each conversation includes a question asked by a human, followed by two different final responses from the AI assistant:
+New Conversation Pairs for Analysis:
 
 {conversations}
 
 Guidelines for Analysis:
-1. Focus on why the 'PREFERRED' response was more favorable compared to the 'REJECTED' one. Consider context, tone, and content.
-2. Look for patterns or themes in the 'PREFERRED' responses that can translate into general preferences.
+1. For each response, evaluate why the 'PREFERRED' response was more favorable than the 'REJECTED' one.
+2. Identify any patterns or themes in the 'PREFERRED' responses that reflect underlying human preferences.
 
-Revising the List:
-1. Based on your analysis, revise the list of preferences. Add new preferences or adjust the existing ones to align with the insights from the 'PREFERRED' responses. 
-2. If you come to the conclusion that the current list of preferences already captures the newly observed 'PREFERRED' responses, you do not need to change it.
-3. Ensure all additions or changes to the list are directly drawn from specific details in the 'PREFERRED' responses, avoiding generic preferences not supported by observed evidence.
-4. The list should be no longer than 10 principles overall.
+Revision Instructions (Pick One Only):
+1. Revising an Existing Principle: If an existing principle can be slightly modified to better reflect new insights from the 'PREFERRED' responses, make a minor revision to that principle. Focus on minor adjustments only and avoid a complete rephrasing.
+2. Add a New Principle: If none of the existing preferences capture the new insights gained from the 'PREFERRED' responses, add one new principle to the list.
+3. Maintain the Current List (Default Response): If you determine that one or multiple principles in the current list already adequately align with the 'PREFERRED' responses, do not change the current list. This should be your default response unless you are confident that amending or adding a new principle is the better choice. Even if only one existing principle aligns well, no revisions or additions are necessary.
 
-Format for Revised List (do not refer to the conversations themselves in the list):
+IMPORTANT: 
+1. Be very conservative with your revisions. Only make changes if they significantly enhance the list's alignment with the 'PREFERRED' responses.
+2. Limit your action to revising or adding only ONE PRINCIPLE. You cannot modify or add more than one principle at a time, even if the current list is empty.
+3. Your decision should be based on a solid rationale drawn from your analysis and must not be generic.
+
+Return Format:
+Provide the Current List of Preferences with your revisions, formatted as follows:
 
 Revised List of Preferences:
-1. """,
+1. ...
+
+Include only the current list of preferences (if any) in the revised list as well as your edits or new preference (if any).
+Do not provide commentary on the changes made.""",
 }

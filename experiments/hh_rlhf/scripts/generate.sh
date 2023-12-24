@@ -1,14 +1,17 @@
 #!/bin/bash
 
-#SBATCH --account=cocoflops
-#SBATCH --partition=cocoflops
-#SBATCH -w cocoflops-hgx-1
-#SBATCH --gres=gpu:4  # Requesting one GPU
-#SBATCH --mem=512G 
-#SBATCH --cpus-per-task=48
-#SBATCH --time=48:00:00
-#SBATCH --output=job_output.%j.out
-#SBATCH --error=job_output.%j.err
+#SBATCH --account=cocoflops                 # Specify the correct account
+#SBATCH --partition=cocoflops               # Specify the partition
+#SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
+#SBATCH --gres=gpu:4                        # Request 4 GPUs
+#SBATCH --mem=512G                          # Memory request
+#SBATCH --cpus-per-task=48                  # Number of CPUs per task
+#SBATCH --time=48:00:00                     # Time limit
+#SBATCH --output=job_output.%j.out          # Standard output log
+#SBATCH --error=job_output.%j.err           # Standard error log
+
+# Your job commands follow here
+
 
 # Load conda environment
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
