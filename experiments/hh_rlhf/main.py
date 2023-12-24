@@ -112,13 +112,16 @@ def main(args: DictConfig) -> None:
         
         for constitution_idx in range(args.generation.constitution_batch_size):
              # GENERATE CONSTITUTION
-            formatted_generation_prompt, new_constitution = run_generation(
-                model=model_generation,
-                constitution=current_constitutions[constitution_idx],
-                chosen_batch=[train_dataset[int(i)][chosen] for i in rand_train_examples],
-                rejected_batch=[train_dataset[int(i)][rejected] for i in rand_train_examples],
-                args=args,
-            )
+            try:
+                formatted_generation_prompt, new_constitution = run_generation(
+                    model=model_generation,
+                    constitution=current_constitutions[constitution_idx],
+                    chosen_batch=[train_dataset[int(i)][chosen] for i in rand_train_examples],
+                    rejected_batch=[train_dataset[int(i)][rejected] for i in rand_train_examples],
+                    args=args,
+                )
+            except:
+                new_constitution = current_constitutions[constitution_idx].copy()
             # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
             chosen_batch = [
                 split_conversation_hh_rlhf(
@@ -132,13 +135,16 @@ def main(args: DictConfig) -> None:
                 ) 
                 for i in rand_train_examples
             ]
-            log_probs_chosen, log_probs_rejected = run_inference(
-                model=model_inference,
-                system_message=new_constitution,
-                chosen_batch=chosen_batch,
-                rejected_batch=rejected_batch,
-                args=args,
-            )
+            try:
+                log_probs_chosen, log_probs_rejected = run_inference(
+                    model=model_inference,
+                    system_message=new_constitution,
+                    chosen_batch=chosen_batch,
+                    rejected_batch=rejected_batch,
+                    args=args,
+                )
+            except:
+                log_probs_chosen, log_probs_rejected = -torch.inf, 0
             
             # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
             slice_idx = -2 if len(prev_train_examples) >= 2 else -1
@@ -158,20 +164,23 @@ def main(args: DictConfig) -> None:
                 for i in prev_train_examples[slice_idx]
             ]
             logging.info(f"len prev: {len(chosen_batch_prev)}")
-            log_probs_chosen_prev, log_probs_rejected_prev = run_inference(
-                model=model_inference,
-                system_message=new_constitution,
-                chosen_batch=chosen_batch_prev,
-                rejected_batch=rejected_batch_prev,
-                args=args,
-            )
-
+            try:
+                log_probs_chosen_prev, log_probs_rejected_prev = run_inference(
+                    model=model_inference,
+                    system_message=new_constitution,
+                    chosen_batch=chosen_batch_prev,
+                    rejected_batch=rejected_batch_prev,
+                    args=args,
+                )
+            except:
+                log_probs_chosen_prev, log_probs_chosen_prev = -torch.inf, 0
+                
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
             performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum() / len(prev_train_examples) # correct for increasing n
             logging.info(f"{performance} performance on curr train")
             logging.info(f"{performance_prev} performance on prev")
-            logging.info(f"new constitution: {new_constitution}")
+            logging.info(f"new constitution: {new_constitution} {constitution_idx}")
 
             if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
                 logging.info(f"Improved Constitution.")

@@ -29,16 +29,15 @@ Task:
 {constitution}
 ```
 
-Revision Options (Choose One):
-1. Revise ONE Principle: If minor changes better align an existing principle with the 'PREFERRED' responses. Be concrete and ground your revision in the above conversations.
-2. Add ONE Principle: If no current principle reflects insights from 'PREFERRED' responses (this option is only allowed if there are less than 10 principles in the list). Be concrete and ground your new principle in the above conversations.
-3. Maintain Current List: If any principle aligns well with 'PREFERRED' responses.
+Revision Options (Choose One, Max. Length of list: 10 principles):
+1. Add A NEW Principle: This option is only allowed if there are less than 10 principles in the list. Be concrete and ground your new principle in the above conversations.
+2. Revise ONE Principle: If minor changes better align an existing principle with the 'PREFERRED' responses. Be concrete and ground your revision in the above conversations.
 
 Revision Instructions (YOU MUST FOLLOW THESE INSTRUCTIONS PRECISELY):
-1. Rationale: Clearly state the option you chose (Option 1, 2, or 3) and provide your reasoning.
+1. Rationale: Clearly state the option you chose (Option 1, 2) and provide your reasoning.
 Format: 'Rationale: [Your choice and explanation. ]'
 
-2. New or Revised Principle (If Applicable): If you chose Option 1 or 2, state your new or revised principle. Avoid generic principles and *do not be afraid of stating the truth or unethical principles if these are a better fit*.
+2. New or Revised Principle: If you chose Option 1 or 2, state your new or revised principle. Avoid generic principles and *do not be afraid of stating the truth or unethical principles if these are a better fit*.
 Format: 'New or Revised Principles: [Your new or revised principles. Be concrete and ground your revision in the above 'PREFERRED' responses. NO GENERIC Principles allowed!]'
 
 3. List of Preferences: Present the original list of preferences, including your new or revised principle if you made one. Use a code block for clarity. Do not indicate within the list whether a principle is new or has been revised.
@@ -46,3 +45,5 @@ Format:```preferences
 [original list or preferences + New or Revised Principle (do not state in here whether a principle is new or has been revised)]
 ```""",
 }
+
+# 3. Maintain Current List: If any principle aligns well with 'PREFERRED' responses.
