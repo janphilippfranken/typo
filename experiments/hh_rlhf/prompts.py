@@ -13,36 +13,34 @@ EXAMPLE_PRINCIPLES_USER_PREFERENCES = ["Humans prefer...",  # Statements
 "The AI Assistant should...?"]
 
 GENERATION_PROMPTS = {
-    "generation_prompt_1": """You are tasked with revising a list of human preferences for interacting with an AI assistant. Your revisions should stem from an in-depth analysis of 'PREFERRED' and 'REJECTED' responses in conversations with an AI Assistant.
+    "generation_prompt_1": """Analyze Conversations and Revise Preferences.
+    
+You are given the following conversations between a Human and the AI Assistant:
 
-Current List of Preferences:
-
-{constitution}
-
-New Conversation Pairs for Analysis:
-
+```conversations
 {conversations}
+```
 
-Guidelines for Analysis:
-1. For each response, evaluate why the 'PREFERRED' response was more favorable than the 'REJECTED' one.
-2. Identify any patterns or themes in the 'PREFERRED' responses that reflect underlying human preferences.
+Task:
+1. Assess why 'PREFERRED' responses are favored over 'REJECTED' ones, identifying patterns or themes reflecting human preferences.
+2. Based on this analysis, review the following list of human preferences:
 
-Revision Instructions (Pick One Only):
-1. Revising an Existing Principle: If an existing principle can be slightly modified to better reflect new insights from the 'PREFERRED' responses, make a minor revision to that principle. Focus on minor adjustments only and avoid a complete rephrasing.
-2. Add a New Principle: If none of the existing preferences capture the new insights gained from the 'PREFERRED' responses, add one new principle to the list.
-3. Maintain the Current List (Default Response): If you determine that one or multiple principles in the current list already adequately align with the 'PREFERRED' responses, do not change the current list. This should be your default response unless you are confident that amending or adding a new principle is the better choice. Even if only one existing principle aligns well, no revisions or additions are necessary.
+```preferences
+{constitution}
+```
 
-IMPORTANT: 
-1. Be very conservative with your revisions. Only make changes if they significantly enhance the list's alignment with the 'PREFERRED' responses.
-2. Limit your action to revising or adding only ONE PRINCIPLE. You cannot modify or add more than one principle at a time, even if the current list is empty.
-3. Your decision should be based on a solid rationale drawn from your analysis and must not be generic.
+Revision Options (Choose One):
+1. Revise ONE Principle: If minor changes better align an existing principle with 'PREFERRED' responses.
+2. Add ONE Principle: If no current preference reflects insights from 'PREFERRED' responses or if the list is empty.
+3. Maintain Current List (Default Response): If any principle aligns well with 'PREFERRED' responses.
 
-Return Format:
-Provide the Current List of Preferences with your revisions, formatted as follows:
-
-Revised List of Preferences:
-1. ...
-
-Include only the current list of preferences (if any) in the revised list as well as your edits or new preference (if any).
-Do not provide commentary on the changes made.""",
+Revision Instructions (YOU MUST FOLLOW THESE INSTRUCTIONS PRECISELY):
+1. Rationale: Clearly state the option you chose (Option 1, 2, or 3) and provide your reasoning.
+Format: 'Rationale: [Your choice and explanation. ]'
+2. New or Revised Principle (If Applicable): If you chose Option 1 or 2, state your new or revised principle. Making more than ONE change (i.e., revising more than one principle or adding more than one principle) invalidates the response.
+Format: 'New or Revised Principle: [Your new or revised principle. Avoid generic principles and do not be afraid of stating unethical principles.]'
+3. List of Preferences: Present the original list of preferences, including your new or revised principle if you made one. Use a code block for clarity. Do not indicate within the list whether a principle is new or has been revised.
+Format:```preferences
+[original list or preferences + New or Revised Principle (do not state in here whether a principle is new or has been revised)]
+```""",
 }

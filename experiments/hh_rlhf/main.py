@@ -90,6 +90,7 @@ def main(args: DictConfig) -> None:
             args.generation.generation_batch_size, 
             replace=False,
         ))
+        # rand_train_examples = [0]
         # STORE SAMPLED EXAMPLES FOR EVAL
         prev_train_examples += [int(i) for i in rand_train_examples]
         rand_prev_examples = np.random.choice(
@@ -106,20 +107,20 @@ def main(args: DictConfig) -> None:
             formatted_generation_prompt, new_constitution = run_generation(
                 model=model_generation,
                 constitution=current_constitutions[constitution_idx],
-                chosen_batch=[train_dataset[int(i)]["chosen"] for i in rand_train_examples],
-                rejected_batch=[train_dataset[int(i)]["rejected"] for i in rand_train_examples],
+                chosen_batch=[train_dataset[int(i)]["rejected"] for i in rand_train_examples],
+                rejected_batch=[train_dataset[int(i)]["chosen"] for i in rand_train_examples],
                 args=args,
             )
             # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
             chosen_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['chosen'],
+                    train_dataset[int(i)]['rejected'],
                 ) 
                 for i in rand_train_examples
             ]
             rejected_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['rejected'],
+                    train_dataset[int(i)]['chosen'],
                 ) 
                 for i in rand_train_examples
             ]
@@ -134,13 +135,13 @@ def main(args: DictConfig) -> None:
             # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
             chosen_batch_prev = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['chosen'],
+                    train_dataset[int(i)]['rejected'],
                 ) 
                 for i in rand_prev_examples
             ]
             rejected_batch_prev = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['rejected'],
+                    train_dataset[int(i)]['chosen'],
                 ) 
                 for i in rand_prev_examples
             ]
@@ -158,6 +159,7 @@ def main(args: DictConfig) -> None:
             logging.info(f"{performance} performance on curr train")
             logging.info(f"{performance_prev} performance on prev")
             logging.info(f"new constitution: {new_constitution}")
+
             if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
                 logging.info(f"Improved Constitution.")
                 current_scores[constitution_idx] = float(performance)

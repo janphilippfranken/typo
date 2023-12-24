@@ -7,6 +7,10 @@ import numpy as np
 from helpers import *
 from prompts import GENERATION_PROMPTS, EXAMPLE_PRINCIPLES_USER_PREFERENCES
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 
 # tokenizer constants for hf model from llama family
 B_INST, E_INST = "[INST]", "[/INST]"
@@ -14,7 +18,7 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 CONSTITUTION_START = "Revised List of Preferences:"
 
 # system prompts
-SYSTEM_MESSAGE = "You are an expert at learning human preferences."
+SYSTEM_MESSAGE = "You are an expert at learning human preferences from conversations."
 
 def run_generation(
     model,
@@ -50,6 +54,7 @@ def run_generation(
                 **args.model_generation.completion_config,
             )
             response = response[0].split(E_INST)[1] 
+            response = response.split("```")[1][11:] # getting the preferences. TODO: make this more robust
             return formatted_prompt, response
         elif is_base:
             formatted_prompt = f"<s> {generation_prompt}" 
