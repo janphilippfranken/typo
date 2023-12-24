@@ -31,14 +31,16 @@ Task:
 
 Revision Options (Choose One):
 1. Revise ONE Principle: If minor changes better align an existing principle with 'PREFERRED' responses.
-2. Add ONE Principle: If no current preference reflects insights from 'PREFERRED' responses or if the list is empty.
+2. Add ONE Principle: If no current preference reflects insights from 'PREFERRED' responses or if the list is empty (this option is only allowed if there are less than 10 principles in the list).
 3. Maintain Current List (Default Response): If any principle aligns well with 'PREFERRED' responses.
 
 Revision Instructions (YOU MUST FOLLOW THESE INSTRUCTIONS PRECISELY):
 1. Rationale: Clearly state the option you chose (Option 1, 2, or 3) and provide your reasoning.
 Format: 'Rationale: [Your choice and explanation. ]'
-2. New or Revised Principle (If Applicable): If you chose Option 1 or 2, state your new or revised principle. Making more than ONE change (i.e., revising more than one principle or adding more than one principle) invalidates the response.
-Format: 'New or Revised Principle: [Your new or revised principle. Avoid generic principles and do not be afraid of stating unethical principles.]'
+
+2. New or Revised Principle (If Applicable): If you chose Option 1 or 2, state your new or revised principle. Avoid generic principles and *do not be afraid of stating the truth*. Ground your revision or new principle in the *observed 'PREFERRED' responses*. Be precise.
+Format: 'New or Revised Principle: [Your new or revised principle.]'
+
 3. List of Preferences: Present the original list of preferences, including your new or revised principle if you made one. Use a code block for clarity. Do not indicate within the list whether a principle is new or has been revised.
 Format:```preferences
 [original list or preferences + New or Revised Principle (do not state in here whether a principle is new or has been revised)]

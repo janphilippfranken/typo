@@ -1,6 +1,7 @@
 import os
 import fire
 import hydra
+import torch
 import logging
 import pandas as pd
 from tqdm import tqdm
@@ -18,6 +19,9 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 
 logging.basicConfig(level=logging.INFO)
 
+chosen = "rejected" # flip to see if we can learn the reverse labels, too.
+rejected = "chosen"
+
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
@@ -29,6 +33,7 @@ def main(args: DictConfig) -> None:
     
     if is_huggingface_generation:
         model_generation = HFInferenceModel(**args.model_generation.model_config)
+        logging.info(f"Model generation device: {model_generation.model.device}")
     elif is_openai_generation:
         args.model_generation.azure_api.api_key = os.getenv("OPENAI_API_KEY")
         llm = AsyncAzureChatLLM(**args.model_generation.azure_api)
@@ -38,6 +43,7 @@ def main(args: DictConfig) -> None:
     
     # GET INFERENCE MODEL (currently only HF)
     model_inference = HFInferenceModel(**args.model_inference.model_config)
+    logging.info(f"Model inference device: {model_inference.model.device}")
 
     # GET TRAINING DATA
     data = load_dataset(**args.data.dataset)
@@ -74,8 +80,8 @@ def main(args: DictConfig) -> None:
     
     # SEED
     current_constitutions = [args.generation.init_constitution] * args.generation.constitution_batch_size
-    current_scores = [0] * args.generation.constitution_batch_size # performance on current item
-    prev_scores = [0] * args.generation.constitution_batch_size # performance on previous item
+    current_scores = [-torch.inf] * args.generation.constitution_batch_size # performance on current item
+    prev_scores = [-torch.inf] * args.generation.constitution_batch_size # performance on previous item
 
     
     # STORING PAST TRAINING EXAMPLES FROM WHICH WE SAMPLE FOR EVALUATION
@@ -107,20 +113,20 @@ def main(args: DictConfig) -> None:
             formatted_generation_prompt, new_constitution = run_generation(
                 model=model_generation,
                 constitution=current_constitutions[constitution_idx],
-                chosen_batch=[train_dataset[int(i)]["rejected"] for i in rand_train_examples],
-                rejected_batch=[train_dataset[int(i)]["chosen"] for i in rand_train_examples],
+                chosen_batch=[train_dataset[int(i)][chosen] for i in rand_train_examples],
+                rejected_batch=[train_dataset[int(i)][rejected] for i in rand_train_examples],
                 args=args,
             )
             # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
             chosen_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['rejected'],
+                    train_dataset[int(i)][chosen],
                 ) 
                 for i in rand_train_examples
             ]
             rejected_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['chosen'],
+                    train_dataset[int(i)][rejected],
                 ) 
                 for i in rand_train_examples
             ]
@@ -135,13 +141,13 @@ def main(args: DictConfig) -> None:
             # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
             chosen_batch_prev = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['rejected'],
+                    train_dataset[int(i)][chosen],
                 ) 
                 for i in rand_prev_examples
             ]
             rejected_batch_prev = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)]['chosen'],
+                    train_dataset[int(i)][rejected],
                 ) 
                 for i in rand_prev_examples
             ]
@@ -155,7 +161,7 @@ def main(args: DictConfig) -> None:
 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
-            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum()
+            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum() / len(rand_prev_examples) # correct for increasing n
             logging.info(f"{performance} performance on curr train")
             logging.info(f"{performance_prev} performance on prev")
             logging.info(f"new constitution: {new_constitution}")
