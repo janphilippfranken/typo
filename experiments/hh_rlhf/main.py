@@ -182,7 +182,7 @@ def main(args: DictConfig) -> None:
             logging.info(f"{performance_prev} performance on prev")
             logging.info(f"new constitution: {new_constitution} {constitution_idx}")
 
-            if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
+            if performance > current_scores[constitution_idx]: # and performance_prev > prev_scores[constitution_idx]:
                 logging.info(f"Improved Constitution.")
                 current_scores[constitution_idx] = float(performance)
                 prev_scores[constitution_idx] = float(performance_prev)
