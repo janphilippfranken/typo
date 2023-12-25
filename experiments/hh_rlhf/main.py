@@ -20,8 +20,8 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 
 logging.basicConfig(level=logging.INFO)
 
-chosen = "rejected" # flip to see if we can learn the reverse labels, too.
-rejected = "chosen"
+chosen = "chosen" # flip to see if we can learn the reverse labels, too.
+rejected = "rejected"
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
@@ -199,7 +199,7 @@ def main(args: DictConfig) -> None:
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"constitutions")
+        constitution_ds.save_to_disk(f"constitutions_1")
   
 
 if __name__ == '__main__':
