@@ -53,27 +53,27 @@ def main(args: DictConfig) -> None:
     # INITIALIZE CONSTITUTIONAL CHAIN
     constitutions = {
         "constitutions": { # the constitutions written by the model
-            k: [] for k in range(
+            k: [args.generation.init_constitution] for k in range(
                 args.generation.constitution_batch_size,
             )
         }, 
         "train_examples": { # the constitutions written by the model
-            k: [] for k in range(
+            k: [[0]] for k in range(
                 args.generation.constitution_batch_size,
             )
         }, 
         "prev_examples": { # the constitutions written by the model
-            k: [] for k in range(
+            k: [[0]] for k in range(
                 args.generation.constitution_batch_size,
             )
         }, 
         "log_scores_curr": { # how good the constitutions are at predicting labels 
-            k: [] for k in range(
+            k: [-torch.inf] for k in range(
                 args.generation.constitution_batch_size,
             )
         },
         "log_scores_prev": { # how good the constitutions are at predicting labels 
-            k: [] for k in range(
+            k: [-torch.inf] for k in range(
                 args.generation.constitution_batch_size,
             )
         },
@@ -165,8 +165,9 @@ def main(args: DictConfig) -> None:
                 for i in prev_train_examples[slice_idx]
             ]
             logging.info(f"len prev: {len(chosen_batch_prev)}")
+            # probs of new constitution on the old data
             try:
-                log_probs_chosen_prev, log_probs_rejected_prev = run_inference(
+                log_probs_chosen_prev_data, log_probs_rejected_prev_data = run_inference(
                     model=model_inference,
                     system_message=new_constitution,
                     chosen_batch=chosen_batch_prev,
@@ -174,19 +175,34 @@ def main(args: DictConfig) -> None:
                     args=args,
                 )
             except:
-                log_probs_chosen_prev, log_probs_chosen_prev = torch.tensor(-torch.inf), torch.tensor([0])
+                log_probs_chosen_prev_data, log_probs_chosen_prev_data = torch.tensor(-torch.inf), torch.tensor([0])
+                
+            # probs of prev constitution on the new data  
+            try:
+                log_probs_chosen_prev_const, log_probs_rejected_prev_const = run_inference(
+                    model=model_inference,
+                    system_message=constitutions["constitutions"][constitution_idx][-1],
+                    chosen_batch=chosen_batch,
+                    rejected_batch=rejected_batch,
+                    args=args,
+                )
+            except:
+                log_probs_chosen_prev_const, log_probs_chosen_prev_const = torch.tensor(-torch.inf), torch.tensor([0])
                 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
-            performance = (log_probs_chosen - log_probs_rejected).sum()
-            performance_prev = (log_probs_chosen_prev - log_probs_rejected_prev).sum()  # correct for increasing n
-            logging.info(f"{performance} performance on curr train")
-            logging.info(f"{performance_prev} performance on prev")
+            performance = (log_probs_chosen - log_probs_rejected).sum() # performance of curr const on curr data
+            performance_prev_const = (log_probs_chosen_prev_const - log_probs_rejected_prev_const).sum()  # performance of prev const on curr data
+            performance_prev_data = (log_probs_chosen_prev_data - log_probs_rejected_prev_data).sum() # performance of curr const on past data
+            logging.info(f"{performance} performance of curr const on curr data")
+            logging.info(f"{performance_prev_const} performance of prev const on curr data")
+            logging.info(f"{performance_prev_data} performance of curr const on past data")
             logging.info(f"new constitution: {new_constitution} {constitution_idx}")
-
-            if performance > current_scores[constitution_idx]: # and performance_prev > prev_scores[constitution_idx]:
+            breakpoint()
+            # if performance of curr const on curr data > prev  const on curr data and curr const on past data > past const on past data, we update (ie we are better at new data and better on past data)
+            if performance > performance_prev_const and performance_prev_data > constitutions["log_scores_curr"][constitution_idx][-1]:
                 logging.info(f"Improved Constitution.")
                 current_scores[constitution_idx] = float(performance)
-                prev_scores[constitution_idx] = float(performance_prev)
+                prev_scores[constitution_idx] = float(performance_prev_data)
                 current_constitutions[constitution_idx] = new_constitution
             
             # APPEND TO CHAIN
@@ -195,6 +211,7 @@ def main(args: DictConfig) -> None:
             constitutions["log_scores_prev"][constitution_idx].append(prev_scores[constitution_idx])
             constitutions["train_examples"][constitution_idx].append(rand_train_examples)
             constitutions["prev_examples"][constitution_idx].append(prev_train_examples)
+            
             
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
