@@ -1,10 +1,10 @@
 from typing import List, Tuple
 
 from omegaconf import DictConfig
-
-from scaituning.models.huggingface_models.inference_model import HFInferenceModel
+from datasets import Dataset
 
 from helpers import *
+from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
 def run_inference(
@@ -71,4 +71,44 @@ def run_inference(
         answers=rejected_prompts,
         prompts=rejected_prompts_no_final_answer,
     )
+    return log_probs_chosen, log_probs_rejected
+
+
+def get_log_probs(
+    args: DictConfig, 
+    model: HFInferenceModel,
+    dataset: Dataset, 
+    constitutions: List[str], 
+    examples: List[int],
+) -> Tuple[List, List]:
+    """Get log probs on batch."""
+    chosen_batch = [
+        split_conversation_hh_rlhf(
+            dataset[i][args.generation.chosen],
+        ) 
+        for i in examples
+    ]
+    rejected_batch = [
+        split_conversation_hh_rlhf(
+            dataset[i][args.generation.rejected],
+        ) 
+        for i in examples
+    ]
+    log_probs_chosen, log_probs_rejected = [], []
+
+    for constitution in constitutions:
+        try:
+            log_prob_chosen, log_prob_rejected = run_inference(
+                model=model_inference,
+                system_message=constitution,
+                chosen_batch=chosen_batch,
+                rejected_batch=rejected_batch,
+                args=args,
+            )
+        except:
+            log_prob_chosen, log_prob_rejected = torch.tensor(-torch.inf), torch.tensor([0])
+    
+        log_probs_chosen.append(log_prob_chosen)
+        log_probs_rejected.append(log_prob_rejected)
+    
     return log_probs_chosen, log_probs_rejected

@@ -1,4 +1,3 @@
-import copy
 import logging
 from typing import List, Tuple, Optional
 
@@ -45,15 +44,16 @@ def run_generation(
 
     if is_huggingface:
         formatted_prompts = [
-            f"{BOS_TOKEN}{B_INST} {B_SYS}{args.generation.system_message}{E_SYS}{generation_prompt} {E_INST}"
+            f"{BOS_TOKEN}{B_INST} {B_SYS}{args.generation.system_message}{E_SYS}{generation_prompt}{E_INST}"
             for generation_prompt in generation_prompts
         ]
         responses = model.batch_prompt(
             formatted_prompts,
             **args.model_generation.completion_config,
         )
+        breakpoint()
         responses = [
-            response[0].split(E_INST)[1]
+            response.split(E_INST)[1]
             for response in responses
         ]
         formatted_responses = []
@@ -64,7 +64,7 @@ def run_generation(
                 )
             except:
                 formatted_responses.append(
-                    copy.deepcopy(constitutions[response_idx]), # deepcopy prob not necessary?
+                    constitutions[response_idx], # deepcopy prob not necessary?
                 )
         return formatted_prompts, formatted_responses
     elif is_openai:

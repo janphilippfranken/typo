@@ -3,12 +3,16 @@ from typing import (
     Tuple, 
     Optional,
     Callable,
+    Dict,
 )
 
+import torch
 import numpy as np
+from omegaconf import DictConfig
 
 
-# MISTRAL/LLAMA INST SPECIAL TOKENS
+# Prompt Format for Mistral Instruct
+BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
 B_INST, E_INST = "[INST]", "[/INST]"
 B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
@@ -84,7 +88,7 @@ def format_instruct_prompt(
         prompts,
         answers,
     ):
-        dialogues += f"<s> {B_INST} {prompt.strip()} {E_INST} {answer.strip()}</s>"              
+        dialogues += f"{BOS_TOKEN}{B_INST} {prompt.strip()} {E_INST} {answer.strip()}{EOS_TOKEN}"              
     return dialogues
 
 
@@ -97,8 +101,8 @@ def format_base_prompt(
     if system_message is not None:
         prompt_0 = f"{system_message}\n\nHuman: {prompts[0]}"
         prompts[0] = prompt_0
-    prompts[0] = "<s>" + prompts[0]
-    answers[-1] = answers[-1] + "</s>"
+    prompts[0] = "{BOS_TOKEN}" + prompts[0]
+    answers[-1] = answers[-1] + "{EOS_TOKEN}"
     dialogues = ""
     for prompt, answer in zip(
         prompts,
@@ -201,6 +205,7 @@ def build_generation_prompt(
     
 
 def init_dict(
+    args: DictConfig,
     key: str,
     batch_size: int,
 ) -> Dict[int, List]:
@@ -210,13 +215,28 @@ def init_dict(
 
 def init_constitutions(
     args: DictConfig,
-) -> Dict:
+) -> dict:
     """Initializes dict for storing constitutions."""
     constitution_batch_size = args.constitution_batch_size
     return {
-        "constitutions": init_dict("init_constitution", constitution_batch_size),
-        "train_examples": init_dict("start_example", constitution_batch_size),
-        "prev_examples": init_dict("start_example", constitution_batch_size),
-        "log_probs_train": init_dict("start_log_probs", args.constitution_batch_size),
-        "log_probs_prev": init_dict("start_log_probs", args.constitution_batch_size),
+        "constitutions": init_dict(args, "init_constitution", constitution_batch_size),
+        "train_examples": init_dict(args, "start_example", constitution_batch_size),
+        "prev_examples": init_dict(args, "start_example", constitution_batch_size),
+        "log_probs_train": init_dict(args, "start_log_probs", args.constitution_batch_size),
+        "log_probs_prev": init_dict(args, "start_log_probs", args.constitution_batch_size),
     }
+
+
+def compute_performance(
+    log_probs_chosen: List[torch.Tensor],
+    log_probs_train: List[torch.Tensor],
+) -> List[torch.Tensor]:
+    """Compute Performances on Chosen vs Rejected Responses"""
+    performances = [
+        prob_chosen.sum() - prob_rejected.sum() 
+        for prob_chosen, prob_rejected in zip(
+            log_probs_chosen,
+            log_probs_rejected,
+        )
+    ]
+    return performance

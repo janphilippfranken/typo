@@ -10,16 +10,16 @@ constitution_start: "Revised List of Preferences:" # start of preferences/consti
 constitution_instruction: "The AI Assistant must ALWAYS abide by the following principles when responding to a Human:" # instructions for how to use preferences/constitutions during inference
 
 # system message for generation 
-generation_system_message: "You are an expert at learning human preferences from conversations. You are creative."
+system_message: "You are an expert at learning human preferences from conversations. You are creative."
 # codeblock start for constitution
 code_block_start: "preferences"
 
 # flip in which labels are presented
-run_id: 1
+dataset_version: "rlhf" # rlhf, rlhf_reversed, rlhf_random, etc
 chosen: "chosen"
 rejected: "rejected"
 
-
+run_id: 1 # the id of the current run 
 n_revisions: 100 # how often we revise a constitution
 constitution_batch_size: 5 # how many constitutions we are revising in parallel
 generation_batch_size: 1  # how many training examples we use for revising a single constitution

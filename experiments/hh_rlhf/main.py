@@ -1,20 +1,21 @@
-import copy
-import logging
 import os
+import copy
+import random
+import logging
 
 import fire
 import hydra
-import pandas as pd
 import torch
-from datasets import load_dataset, Dataset
-from omegaconf import DictConfig
+import pandas as pd
 from tqdm import tqdm
+from omegaconf import DictConfig
+from datasets import load_dataset, Dataset
 
 from helpers import *
-from inference import run_inference
 from generation import run_generation
-from scaituning.models.openai_models.azure import AsyncAzureChatLLM
+from inference import run_inference, get_log_probs
 from scaituning.models.openai_models.gpt4 import GPT4Agent
+from scaituning.models.openai_models.azure import AsyncAzureChatLLM
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
@@ -50,165 +51,100 @@ def main(args: DictConfig) -> None:
     # INITIALIZE CONSTITUTIONS
     constitutions = init_constitutions(args.generation)
     
-    breakpoint()
-    
-    # SEED
-    current_constitutions = [args.generation.init_constitution] * args.generation.constitution_batch_size
-    current_scores = [-torch.inf] * args.generation.constitution_batch_size # performance on current item
-    prev_scores = [-torch.inf] * args.generation.constitution_batch_size # performance on previous item
-
-    
-    # STORING PAST TRAINING EXAMPLES FROM WHICH WE SAMPLE FOR EVALUATION
-    prev_train_examples = []
+    # KEEP TRACK OF PREV EXAMPLES
+    prev_examples = []
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
-        # SAMPLE NEW TRAINING EXAMPLES
-        unseen_indices = set(range(len(dataset))) #- set(prev_train_examples) #TODO: update
-        rand_train_examples = list(np.random.choice(
-            list(unseen_indices), 
-            args.generation.generation_batch_size, 
-            replace=False,
-        ))
-        # rand_train_examples = [0]
-        logging.info(f"curr_training_examples: {rand_train_examples}")
-        # STORE SAMPLED EXAMPLES FOR EVAL
-        prev_train_examples.append([int(i) for i in rand_train_examples])
-        logging.info(f"prev_train_examples: {prev_train_examples}")
-        # prev_train_examples = np.random.choice(
-        #     prev_train_examples, 
-        #     min(
-        #         len(prev_train_examples), 
-        #         args.generation.eval_batch_size
-        #     ),
-        #     replace=False,
-        # )
         
-        for constitution_idx in range(args.generation.constitution_batch_size):
-             # GENERATE CONSTITUTION
-            try:
-                formatted_generation_prompt, new_constitution = run_generation(
-                    model=model_generation,
-                    constitution=current_constitutions[constitution_idx],
-                    chosen_batch=[dataset[int(i)]args.generation.chosen for i in rand_train_examples],
-                    rejected_batch=[dataset[int(i)]args.generation.rejected for i in rand_train_examples],
-                    args=args,
-                )
-            except:
-                new_constitution = copy.deepcopy(current_constitutions[constitution_idx])
-            # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
-            chosen_batch = [
-                split_conversation_hh_rlhf(
-                    dataset[int(i)]args.generation.chosen,
-                ) 
-                for i in rand_train_examples
-            ]
-            rejected_batch = [
-                split_conversation_hh_rlhf(
-                    dataset[int(i)]args.generation.rejected,
-                ) 
-                for i in rand_train_examples
-            ]
-            try:
-                log_probs_chosen, log_probs_rejected = run_inference(
-                    model=model_inference,
-                    system_message=new_constitution,
-                    chosen_batch=chosen_batch,
-                    rejected_batch=rejected_batch,
-                    args=args,
-                )
-            except:
-                log_probs_chosen, log_probs_rejected = torch.tensor(-torch.inf), torch.tensor([0])
+        # SAMPLE NEW TRAINING EXAMPLES 
+        train_examples = random.sample(
+            range(len(dataset)), 
+            args.generation.generation_batch_size
+        )
+        prev_examples.append(train_examples)
+        logging.info(f"Training Example(s): {train_examples}")
+        logging.info(f"Previous Example(s): {prev_examples}")
+
+        # BATCH GENERATION 
+        try:
+            formatted_generation_prompts, new_constitutions = run_generation(
+                model=model_generation,
+                constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)], # get most recent constitutions as input
+                chosen_batch=[dataset[i][args.generation.chosen] for i in train_examples],
+                rejected_batch=[dataset[i][args.generation.rejected] for i in train_examples],
+                args=args,
+            )
+        except:
+            logging.info(f"Error in Generation. Keeping Previous Constitutions.")
+            new_constitutions = [constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)]
+        breakpoint()
+        # EVALUATION 
+        # new constitution, train examples
+        log_probs_chosen_train, log_probs_rejected_train = get_log_probs(
+            args=args, 
+            model=model_inference,
+            dataset=dataset, 
+            constitutions=new_constitutions, 
+            examples=train_examples,
+        )
+        
+        # new constitution, prev examples
+        slice_idx = -2 if len(prev_examples) >= 2 else -1
+        logging.info(f"Previous Example for Eval: {prev_examples[slice_idx]}")
+        log_probs_chosen_prev, log_probs_rejected_prev = get_log_probs(
+            args=args, 
+            model=model_inference,
+            dataset=dataset, 
+            constitutions=new_constitutions, 
+            examples=prev_examples[slice_idx],
+        )
+        
+        # old constitution, train examples
+        log_probs_chosen_train_old, log_probs_rejected_train_old = get_log_probs(
+            args=args, 
+            model=model_inference,
+            dataset=dataset, 
+            constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
+            examples=train_examples,
+        )
+        
+        # old constitution, prev examples
+        log_probs_chosen_prev_old, log_probs_rejected_prev_old = get_log_probs(
+            args=args, 
+            model=model_inference,
+            dataset=dataset, 
+            constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
+            examples=prev_examples[slice_idx],
+        )
+        
+        # COMPUTE PERFORMANCES AND UPDATE
+        performances_train = compute_performance(log_probs_chosen_train, log_probs_rejected_train)
+        performances_prev = compute_performance(log_probs_chosen_prev, log_probs_rejected_prev)
+        performances_train_old = compute_performance(log_probs_chosen_train_old, log_probs_rejected_train_old)
+        performances_prev_old = compute_performance(log_probs_chosen_prev_old, log_probs_rejected_prev_old)
+        logging.info(f"Performance of New Constitution on Train: {performances_train}")
+        logging.info(f"Performance of New Constitution on Prev: {performances_prev}")
+        logging.info(f"Performance of Old Constitution on Train: {performances_train_old}")
+        logging.info(f"Performance of Old Constitution on Prev: {performances_prev_old}")
+        
+        constitution_idx = 0 
+        for performance_train, performance_prev, performance_train_old, performance_prev_old in zip(
+            performances_train, performances_prev, performances_train_old, performances_prev_old
+        ):
+            if performance_train > performance_train_old and performance_prev > performance_prev_old:
+                logging.info(f"New Constitution {constitution_idx}: {new_constitutions[constitution_idx]}")
             
-            # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
-            slice_idx = -2 if len(prev_train_examples) >= 2 else -1
-            
-            logging.info(f"slice idx: {slice_idx}")
-            logging.info(f"prev examples: {prev_train_examples[slice_idx]}")
-            chosen_batch_prev = [
-                split_conversation_hh_rlhf(
-                    dataset[int(i)]args.generation.chosen,
-                ) 
-                for i in prev_train_examples[slice_idx]
-            ]
-            rejected_batch_prev = [
-                split_conversation_hh_rlhf(
-                    dataset[int(i)]args.generation.rejected,
-                ) 
-                for i in prev_train_examples[slice_idx]
-            ]
-            logging.info(f"len prev: {len(chosen_batch_prev)}")
-            # probs of new constitution on the old data
-            try:
-                log_probs_chosen_prev_data, log_probs_rejected_prev_data = run_inference(
-                    model=model_inference,
-                    system_message=new_constitution,
-                    chosen_batch=chosen_batch_prev,
-                    rejected_batch=rejected_batch_prev,
-                    args=args,
-                )
-            except:
-                log_probs_chosen_prev_data, log_probs_chosen_prev_data = torch.tensor(-torch.inf), torch.tensor([0])
-                
-            # probs of prev constitution on the new data  
-            try:
-                log_probs_chosen_prev_const, log_probs_rejected_prev_const = run_inference(
-                    model=model_inference,
-                    system_message=constitutions["constitutions"][constitution_idx][-1],
-                    chosen_batch=chosen_batch,
-                    rejected_batch=rejected_batch,
-                    args=args,
-                )
-            except:
-                log_probs_chosen_prev_const, log_probs_chosen_prev_const = torch.tensor(-torch.inf), torch.tensor([0])
-                
-            # probs of prev constitution on the new data  
-            try:
-                log_probs_chosen_prev_const_prev_data, log_probs_rejected_prev_const_prev_data = run_inference(
-                    model=model_inference,
-                    system_message=constitutions["constitutions"][constitution_idx][-1],
-                    chosen_batch=chosen_batch_prev,
-                    rejected_batch=rejected_batch_prev,
-                    args=args,
-                )
-            except:
-                log_probs_chosen_prev_const_prev_data, log_probs_chosen_prev_const_prev_data = torch.tensor(-torch.inf), torch.tensor([0])
-                
-            # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
-            performance = (log_probs_chosen - log_probs_rejected).sum() # performance of curr const on curr data
-            performance_prev_const = (log_probs_chosen_prev_const - log_probs_rejected_prev_const).sum()  # performance of prev const on curr data
-            performance_prev_data = (log_probs_chosen_prev_data - log_probs_rejected_prev_data).sum() # performance of curr const on past data
-            performance_prev_const_prev_data = (log_probs_chosen_prev_const_prev_data - log_probs_rejected_prev_const_prev_data).sum()
-            logging.info(f"{performance} performance of curr const on curr data")
-            logging.info(f"{performance_prev_const} performance of prev const on curr data")
-            logging.info(f"{performance_prev_data} performance of curr const on past data")
-            logging.info(f"{performance_prev_const_prev_data} performance of prev const on past data")
-            
-            # if performance of curr const on curr data > prev  const on curr data and curr const on past data > past const on past data, we update (ie we are better at new data and better on past data)
-            if performance > performance_prev_const and performance_prev_data > performance_prev_const_prev_data:
-                logging.info(f"Improved Constitution.")
-                logging.info(f"new constitution: {new_constitution} {constitution_idx}")
-                current_scores[constitution_idx] = float(performance)
-                prev_scores[constitution_idx] = float(performance_prev_data)
-                current_constitutions[constitution_idx] = new_constitution
-            else:
-                current_scores[constitution_idx] = float(performance_prev_const)
-                prev_scores[constitution_idx] = float(performance_prev_const_prev_data)
-                current_constitutions[constitution_idx] = copy.deepcopy(constitutions["constitutions"][constitution_idx][-1])
-                
-            
-            # APPEND TO CHAIN
-            constitutions["constitutions"][constitution_idx].append(copy.deepcopy(current_constitutions[constitution_idx]))
-            constitutions["log_scores_curr"][constitution_idx].append(copy.deepcopy(float(current_scores[constitution_idx])))
-            constitutions["log_scores_prev"][constitution_idx].append(copy.deepcopy(float(prev_scores[constitution_idx])))
-            constitutions["train_examples"][constitution_idx] += rand_train_examples
-            constitutions["prev_examples"][constitution_idx] += prev_train_examples[-1]
-            
+            constitutions["constitutions"][constitution_idx].append(new_constitutions([constitution_idx]))
+            constitutions["log_probs_train"][constitution_idx].append(float(performance_train))
+            constitutions["log_probs_prev"][constitution_idx].append(float(performance_prev))
+            constitutions["train_examples"][constitution_idx] += train_examples
+            constitutions["prev_examples"][constitution_idx] += prev_examples[-1] # nested list
             
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"constitutions/{args.generation.chosen}_{args.model_generation.name}_{args.generation.run_id}")
+        constitution_ds.save_to_disk(f"./constitutions/{args.generation.dataset_version}_{args.model_generation.name}_{args.generation.run_id}")
   
 if __name__ == '__main__':
     fire.Fire(main())
