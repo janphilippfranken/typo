@@ -20,8 +20,8 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 
 logging.basicConfig(level=logging.INFO)
 
-chosen = "chosen" # flip to see if we can learn the reverse labels, too.
-rejected = "rejected"
+chosen = "rejected" # flip to see if we can learn the reverse labels, too.
+rejected = "chosen"
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
@@ -145,7 +145,7 @@ def main(args: DictConfig) -> None:
                     args=args,
                 )
             except:
-                log_probs_chosen, log_probs_rejected = -torch.inf, 0
+                log_probs_chosen, log_probs_rejected = torch.tensor(-torch.inf), torch.tensor([0])
             
             # EVALUATE NEW CONSTITUTION BASED ON RANDOM BATCH OF PREVIOUSLY SEEN EXAMPLES
             slice_idx = -2 if len(prev_train_examples) >= 2 else -1
@@ -174,7 +174,7 @@ def main(args: DictConfig) -> None:
                     args=args,
                 )
             except:
-                log_probs_chosen_prev, log_probs_chosen_prev = -torch.inf, 0
+                log_probs_chosen_prev, log_probs_chosen_prev = torch.tensor(-torch.inf), torch.tensor([0])
                 
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum()
@@ -183,7 +183,7 @@ def main(args: DictConfig) -> None:
             logging.info(f"{performance_prev} performance on prev")
             logging.info(f"new constitution: {new_constitution} {constitution_idx}")
 
-            if performance > current_scores[constitution_idx] and performance_prev > prev_scores[constitution_idx]:
+            if performance > current_scores[constitution_idx]: # and performance_prev > prev_scores[constitution_idx]:
                 logging.info(f"Improved Constitution.")
                 current_scores[constitution_idx] = float(performance)
                 prev_scores[constitution_idx] = float(performance_prev)
@@ -199,8 +199,7 @@ def main(args: DictConfig) -> None:
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"constitutions_1")
+        constitution_ds.save_to_disk(f"constitutions_0_1")
   
-
 if __name__ == '__main__':
     fire.Fire(main())
