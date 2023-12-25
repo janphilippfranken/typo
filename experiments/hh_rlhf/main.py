@@ -58,22 +58,22 @@ def main(args: DictConfig) -> None:
             )
         }, 
         "train_examples": { # the constitutions written by the model
-            k: [[0]] for k in range(
+            k: [0] for k in range(
                 args.generation.constitution_batch_size,
             )
         }, 
         "prev_examples": { # the constitutions written by the model
-            k: [[0]] for k in range(
+            k: [0] for k in range(
                 args.generation.constitution_batch_size,
             )
         }, 
         "log_scores_curr": { # how good the constitutions are at predicting labels 
-            k: [-torch.inf] for k in range(
+            k: [-1000] for k in range(
                 args.generation.constitution_batch_size,
             )
         },
         "log_scores_prev": { # how good the constitutions are at predicting labels 
-            k: [-torch.inf] for k in range(
+            k: [-1000] for k in range(
                 args.generation.constitution_batch_size,
             )
         },
@@ -207,13 +207,14 @@ def main(args: DictConfig) -> None:
             
             # APPEND TO CHAIN
             constitutions["constitutions"][constitution_idx].append(current_constitutions[constitution_idx])
-            constitutions["log_scores_curr"][constitution_idx].append(current_scores[constitution_idx])
-            constitutions["log_scores_prev"][constitution_idx].append(prev_scores[constitution_idx])
-            constitutions["train_examples"][constitution_idx].append(rand_train_examples)
-            constitutions["prev_examples"][constitution_idx].append(prev_train_examples)
+            constitutions["log_scores_curr"][constitution_idx].append(float(current_scores[constitution_idx]))
+            constitutions["log_scores_prev"][constitution_idx].append(float(prev_scores[constitution_idx]))
+            constitutions["train_examples"][constitution_idx] += rand_train_examples
+            constitutions["prev_examples"][constitution_idx] += prev_train_examples[0]
             
             
         # WRITE TO DISK
+        breakpoint()
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
         constitution_ds.save_to_disk(f"constitutions_0_1")
