@@ -4,6 +4,21 @@ hydra:
 
 
 generation_prompt: generation_prompt_1 # prompt we are using for generation
+constitution_start: "Revised List of Preferences:" # start of preferences/constitution list 
+
+# inference prompts
+constitution_instruction: "The AI Assistant must ALWAYS abide by the following principles when responding to a Human:" # instructions for how to use preferences/constitutions during inference
+
+# system message for generation 
+generation_system_message: "You are an expert at learning human preferences from conversations. You are creative."
+# codeblock start for constitution
+code_block_start: "preferences"
+
+# flip in which labels are presented
+run_id: 1
+chosen: "chosen"
+rejected: "rejected"
+
 
 n_revisions: 100 # how often we revise a constitution
 constitution_batch_size: 5 # how many constitutions we are revising in parallel
@@ -11,3 +26,6 @@ generation_batch_size: 1  # how many training examples we use for revising a sin
 eval_batch_size: 1 # how many training examples we use for evaluating a single constitution
 init_constitution: "1. The AI Assistant should be non-evasive." # seed constitution for each batch
 verbose: true
+
+start_example: 0
+start_log_probs: -1000

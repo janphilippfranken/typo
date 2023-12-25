@@ -198,3 +198,25 @@ def build_generation_prompt(
         conversations=conversations_prompt.strip(), 
         example_format=example_format,
     )
+    
+
+def init_dict(
+    key: str,
+    batch_size: int,
+) -> Dict[int, List]:
+    """Initializes a dictionary with lists as values."""
+    return {k: [getattr(args, key)] for k in range(batch_size)}
+    
+
+def init_constitutions(
+    args: DictConfig,
+) -> Dict:
+    """Initializes dict for storing constitutions."""
+    constitution_batch_size = args.constitution_batch_size
+    return {
+        "constitutions": init_dict("init_constitution", constitution_batch_size),
+        "train_examples": init_dict("start_example", constitution_batch_size),
+        "prev_examples": init_dict("start_example", constitution_batch_size),
+        "log_probs_train": init_dict("start_log_probs", args.constitution_batch_size),
+        "log_probs_prev": init_dict("start_log_probs", args.constitution_batch_size),
+    }

@@ -1,37 +1,29 @@
-import os
 import copy
+import logging
+import os
+
 import fire
 import hydra
-import torch
-import logging
 import pandas as pd
-from tqdm import tqdm
-from omegaconf import DictConfig
+import torch
 from datasets import load_dataset, Dataset
+from omegaconf import DictConfig
+from tqdm import tqdm
 
 from helpers import *
 from inference import run_inference
 from generation import run_generation
-
-from scaituning.models.openai_models.gpt4 import GPT4Agent
 from scaituning.models.openai_models.azure import AsyncAzureChatLLM
+from scaituning.models.openai_models.gpt4 import GPT4Agent
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
-
-
-######### 
-# TODO: CLEAN UP!
-#########
 
 
 logging.basicConfig(level=logging.INFO)
 
-chosen = "rejected" # flip to see if we can learn the reverse labels, too.
-rejected = "chosen"
-
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
-    logging.info(f"Running generation for {args.generation.constitution_batch_size} constitution(s) for {args.generation.n_revisions} revision(s) each.")
+    logging.info(f"Generating {args.generation.constitution_batch_size} constitution(s). N Revisions: {args.generation.n_revisions}.")
     
     # GET GENERATION MODEL 
     is_huggingface_generation = "huggingface" in args.model_generation.model_type
@@ -39,50 +31,26 @@ def main(args: DictConfig) -> None:
     
     if is_huggingface_generation:
         model_generation = HFInferenceModel(**args.model_generation.model_config)
-        logging.info(f"Model generation device: {model_generation.model.device}")
+        logging.info(f"Model Device Generation: {model_generation.model.device}")
     elif is_openai_generation:
         args.model_generation.azure_api.api_key = os.getenv("OPENAI_API_KEY")
         llm = AsyncAzureChatLLM(**args.model_generation.azure_api)
         model_generation = GPT4Agent(llm=llm, **args.model_generation.completion_config)
     else: 
-        raise NotImplementedError(f"Generation model {args.model_generation.model_type} not implemented yet")
+        raise NotImplementedError(f"{args.model_generation.model_type} not (yet) supported for generation.")
     
     # GET INFERENCE MODEL (currently only HF)
     model_inference = HFInferenceModel(**args.model_inference.model_config)
-    logging.info(f"Model inference device: {model_inference.model.device}")
+    logging.info(f"Model Device Inference: {model_inference.model.device}")
 
-    # GET TRAINING DATA
+    # GET DATA
     data = load_dataset(**args.data.dataset)
-    train_dataset = data['train']
+    dataset = data[args.data.split]
     
-    # INITIALIZE CONSTITUTIONAL CHAIN
-    constitutions = {
-        "constitutions": { # the constitutions written by the model
-            k: [args.generation.init_constitution] for k in range(
-                args.generation.constitution_batch_size,
-            )
-        }, 
-        "train_examples": { # the constitutions written by the model
-            k: [0] for k in range(
-                args.generation.constitution_batch_size,
-            )
-        }, 
-        "prev_examples": { # the constitutions written by the model
-            k: [0] for k in range(
-                args.generation.constitution_batch_size,
-            )
-        }, 
-        "log_scores_curr": { # how good the constitutions are at predicting labels 
-            k: [-1000] for k in range(
-                args.generation.constitution_batch_size,
-            )
-        },
-        "log_scores_prev": { # how good the constitutions are at predicting labels 
-            k: [-1000] for k in range(
-                args.generation.constitution_batch_size,
-            )
-        },
-    }
+    # INITIALIZE CONSTITUTIONS
+    constitutions = init_constitutions(args.generation)
+    
+    breakpoint()
     
     # SEED
     current_constitutions = [args.generation.init_constitution] * args.generation.constitution_batch_size
@@ -96,7 +64,7 @@ def main(args: DictConfig) -> None:
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
         # SAMPLE NEW TRAINING EXAMPLES
-        unseen_indices = set(range(len(train_dataset))) #- set(prev_train_examples) #TODO: update
+        unseen_indices = set(range(len(dataset))) #- set(prev_train_examples) #TODO: update
         rand_train_examples = list(np.random.choice(
             list(unseen_indices), 
             args.generation.generation_batch_size, 
@@ -122,8 +90,8 @@ def main(args: DictConfig) -> None:
                 formatted_generation_prompt, new_constitution = run_generation(
                     model=model_generation,
                     constitution=current_constitutions[constitution_idx],
-                    chosen_batch=[train_dataset[int(i)][chosen] for i in rand_train_examples],
-                    rejected_batch=[train_dataset[int(i)][rejected] for i in rand_train_examples],
+                    chosen_batch=[dataset[int(i)]args.generation.chosen for i in rand_train_examples],
+                    rejected_batch=[dataset[int(i)]args.generation.rejected for i in rand_train_examples],
                     args=args,
                 )
             except:
@@ -131,13 +99,13 @@ def main(args: DictConfig) -> None:
             # EVALUATE NEW CONSTITUTION BASED ON NEW EXAMPLES
             chosen_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)][chosen],
+                    dataset[int(i)]args.generation.chosen,
                 ) 
                 for i in rand_train_examples
             ]
             rejected_batch = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)][rejected],
+                    dataset[int(i)]args.generation.rejected,
                 ) 
                 for i in rand_train_examples
             ]
@@ -159,13 +127,13 @@ def main(args: DictConfig) -> None:
             logging.info(f"prev examples: {prev_train_examples[slice_idx]}")
             chosen_batch_prev = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)][chosen],
+                    dataset[int(i)]args.generation.chosen,
                 ) 
                 for i in prev_train_examples[slice_idx]
             ]
             rejected_batch_prev = [
                 split_conversation_hh_rlhf(
-                    train_dataset[int(i)][rejected],
+                    dataset[int(i)]args.generation.rejected,
                 ) 
                 for i in prev_train_examples[slice_idx]
             ]
@@ -240,7 +208,7 @@ def main(args: DictConfig) -> None:
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"constitutions_rejected_0_mixtral")
+        constitution_ds.save_to_disk(f"constitutions/{args.generation.chosen}_{args.model_generation.name}_{args.generation.run_id}")
   
 if __name__ == '__main__':
     fire.Fire(main())

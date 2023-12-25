@@ -1,13 +1,11 @@
-from omegaconf import DictConfig
 from typing import List, Tuple
 
-from helpers import *
+from omegaconf import DictConfig
 
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
+from helpers import *
 
-CONSTITUTION_START = "Revised List of Preferences:"
-CONSTITUTION_INSTRUCTION = "The AI Assistant must ALWAYS abide by the following principles when responding to a Human:"
 
 def run_inference(
     model: HFInferenceModel,
@@ -17,8 +15,8 @@ def run_inference(
     args: DictConfig,
 ) -> None:
     """
-    Evaluates the log probs of answers in chosen_batch and 
-    rejected_batch given a constiution.
+    Evaluates the log probs of answers in chosen_batch and rejected_batch given a constiution. 
+    Currently batching here at level of eval examples, not constitutions as during generation. 
     """
     # FORMAT PROMPTS
     prompts_chosen, answers_chosen = zip(*chosen_batch)
@@ -31,14 +29,16 @@ def run_inference(
         answer[-1] 
         for answer in answers_rejected
     ]
-    # check base or instruct model
-    is_base = "base" in args.model_inference.name
     
-    system_message = system_message.replace(CONSTITUTION_START, CONSTITUTION_INSTRUCTION)
-    
+    # FORMAT PROMPT FOR EVALUATING MODEL
+    system_message = system_message.replace(
+        args.generation.constitution_start, 
+        args.generation.constitution_instruction,
+    )
 
+    is_base = "base" in args.model_inference.name
+        
     if is_base:
-        # format chosen prompts
         chosen_prompts = format_prompt(
             prompts=prompts_chosen,
             answers=answers_chosen,
@@ -52,11 +52,9 @@ def run_inference(
             formatting_func=format_base_prompt,
         )
     else:
-        print(f"Model type {args.model_inference.name} not yet supported.")
+        print(f"Model type {args.model_inference.name} not (yet) supported.")
         
-    
-    
-    # format prompts to not include final answer
+    # GET LOG PROBS
     chosen_prompts_no_final_answer = remove_final_answer(
         chosen_prompts, 
         final_chosen_answers,
@@ -65,7 +63,6 @@ def run_inference(
         rejected_prompts, 
         final_rejected_answers,
     )
-    # GET LOG_PROBS
     log_probs_chosen = model.batch_log_probs(
         answers=chosen_prompts,
         prompts=chosen_prompts_no_final_answer,
