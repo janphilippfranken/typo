@@ -7,7 +7,7 @@
 #SBATCH --mem=256                           # Memory request
 #SBATCH --cpus-per-task=32                  # Number of CPUs per task
 #SBATCH --time=48:00:00                     # Time limit
-#SBATCH --output=job_output.rejected_1.out         
+#SBATCH --output=job_output.rejected_0.out         
 #SBATCH --error=job_output.rejected_1.err           
 
 

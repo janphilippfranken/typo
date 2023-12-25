@@ -18,6 +18,11 @@ from scaituning.models.openai_models.azure import AsyncAzureChatLLM
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
+######### 
+# TODO: CLEAN UP!
+#########
+
+
 logging.basicConfig(level=logging.INFO)
 
 chosen = "rejected" # flip to see if we can learn the reverse labels, too.
@@ -189,35 +194,54 @@ def main(args: DictConfig) -> None:
             except:
                 log_probs_chosen_prev_const, log_probs_chosen_prev_const = torch.tensor(-torch.inf), torch.tensor([0])
                 
+            # probs of prev constitution on the new data  
+            try:
+                log_probs_chosen_prev_const_prev_data, log_probs_rejected_prev_const_prev_data = run_inference(
+                    model=model_inference,
+                    system_message=constitutions["constitutions"][constitution_idx][-1],
+                    chosen_batch=chosen_batch_prev,
+                    rejected_batch=rejected_batch_prev,
+                    args=args,
+                )
+            except:
+                log_probs_chosen_prev_const_prev_data, log_probs_chosen_prev_const_prev_data = torch.tensor(-torch.inf), torch.tensor([0])
+                
             # COMPARE TO PREVIOUS CONSTIUTION (~Deterministic Metropolis Hastings sampling)
             performance = (log_probs_chosen - log_probs_rejected).sum() # performance of curr const on curr data
             performance_prev_const = (log_probs_chosen_prev_const - log_probs_rejected_prev_const).sum()  # performance of prev const on curr data
             performance_prev_data = (log_probs_chosen_prev_data - log_probs_rejected_prev_data).sum() # performance of curr const on past data
+            performance_prev_const_prev_data = (log_probs_chosen_prev_const_prev_data - log_probs_rejected_prev_const_prev_data).sum()
             logging.info(f"{performance} performance of curr const on curr data")
             logging.info(f"{performance_prev_const} performance of prev const on curr data")
             logging.info(f"{performance_prev_data} performance of curr const on past data")
-            logging.info(f"new constitution: {new_constitution} {constitution_idx}")
-            breakpoint()
+            logging.info(f"{performance_prev_const_prev_data} performance of prev const on past data")
+            
             # if performance of curr const on curr data > prev  const on curr data and curr const on past data > past const on past data, we update (ie we are better at new data and better on past data)
-            if performance > performance_prev_const and performance_prev_data > constitutions["log_scores_curr"][constitution_idx][-1]:
+            if performance > performance_prev_const and performance_prev_data > performance_prev_const_prev_data:
                 logging.info(f"Improved Constitution.")
+                logging.info(f"new constitution: {new_constitution} {constitution_idx}")
                 current_scores[constitution_idx] = float(performance)
                 prev_scores[constitution_idx] = float(performance_prev_data)
                 current_constitutions[constitution_idx] = new_constitution
+            else:
+                current_scores[constitution_idx] = float(performance_prev_const)
+                prev_scores[constitution_idx] = float(performance_prev_const_prev_data)
+                current_constitutions[constitution_idx] = copy.deepcopy(constitutions["constitutions"][constitution_idx][-1])
+                
             
             # APPEND TO CHAIN
-            constitutions["constitutions"][constitution_idx].append(current_constitutions[constitution_idx])
-            constitutions["log_scores_curr"][constitution_idx].append(float(current_scores[constitution_idx]))
-            constitutions["log_scores_prev"][constitution_idx].append(float(prev_scores[constitution_idx]))
+            constitutions["constitutions"][constitution_idx].append(copy.deepcopy(current_constitutions[constitution_idx]))
+            constitutions["log_scores_curr"][constitution_idx].append(copy.deepcopy(float(current_scores[constitution_idx])))
+            constitutions["log_scores_prev"][constitution_idx].append(copy.deepcopy(float(prev_scores[constitution_idx])))
             constitutions["train_examples"][constitution_idx] += rand_train_examples
-            constitutions["prev_examples"][constitution_idx] += prev_train_examples[0]
+            constitutions["prev_examples"][constitution_idx] += prev_train_examples[-1]
             
             
         # WRITE TO DISK
         breakpoint()
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"constitutions_0_1")
+        constitution_ds.save_to_disk(f"constitutions_rejected_0")
   
 if __name__ == '__main__':
     fire.Fire(main())
