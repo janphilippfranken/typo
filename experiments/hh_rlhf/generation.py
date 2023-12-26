@@ -48,30 +48,39 @@ def run_generation(
             f"{BOS_TOKEN}{B_INST} {B_SYS}{args.generation.system_message}{E_SYS}{generation_prompt}{E_INST}"
             for generation_prompt in generation_prompts
         ]
-        responses = model.batch_prompt(
-            formatted_prompts,
-            **args.model_generation.completion_config,
-        )
+        try:
+            responses = model.batch_prompt(
+                formatted_prompts,
+                **args.model_generation.completion_config,
+            )
+        except Exception as e:
+            logging.error(f"Generation Error: {response}. Error: {e}")
+            return formatted_prompts, constitutions
         responses = [
             response.split(E_INST)[1]
             for response in responses
         ]
+        # FORMATTING (need to make sure response has a codeblock and no empty chars)
         formatted_responses = []
         for response_idx, response in enumerate(responses):
-            if f"```{args.generation.code_block_start}" in response:
+            if f"```{args.generation.code_block_start}" in response: # if codeblock exists
                 try:
-                    response = response.split(f"```{args.generation.code_block_start}")[1].split("```")[0]  
-                    if "[" not in response:
+                    response = response.split(f"```{args.generation.code_block_start}")[1].split("```")[0]
+                    # Chars we dont want for now; TODO: Move to config
+                    special_chars = ['[', '{', ']', '}', 'Rationale: Option 2', 'Rationale: Option 1', 'Rationale', 'Option 1', 'Option 2'] 
+                    contains_special_chars = any(char in response for char in special_chars)   
+                    if not contains_special_chars:
                         formatted_responses.append(response)
                     else:
                         formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
-                    logging.info(f"Formatted response: {response}")
+                        logging.info(f"Formatting Incorrect: {response}")
                 except Exception as e:
                     logging.error(f"Formatting Error: {response}. Error: {e}")
             else:
                 logging.info(f"No code block start found in response: {response}")
                 formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
         return formatted_prompts, formatted_responses
+    
     elif is_openai:
         responses = model.batch_prompt(
                 system_message=args.generation.system_message,
