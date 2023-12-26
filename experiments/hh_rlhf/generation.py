@@ -1,4 +1,5 @@
 import logging
+import copy
 from typing import List, Tuple, Optional
 
 import numpy as np
@@ -57,14 +58,19 @@ def run_generation(
         ]
         formatted_responses = []
         for response_idx, response in enumerate(responses):
-            try:
-                formatted_responses.append(
-                    response.split("```")[1][len(args.generation.code_block_start):],
-                )
-            except:
-                formatted_responses.append(
-                    constitutions[response_idx], # deepcopy prob not necessary?
-                )
+            if f"```{args.generation.code_block_start}" in response:
+                try:
+                    response = response.split(f"```{args.generation.code_block_start}")[1].split("```")[0]  
+                    if "[" not in response:
+                        formatted_responses.append(response)
+                    else:
+                        formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
+                    logging.info(f"Formatted response: {response}")
+                except Exception as e:
+                    logging.error(f"Formatting Error: {response}. Error: {e}")
+            else:
+                logging.info(f"No code block start found in response: {response}")
+                formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
         return formatted_prompts, formatted_responses
     elif is_openai:
         responses = model.batch_prompt(

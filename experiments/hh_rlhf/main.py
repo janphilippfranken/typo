@@ -33,7 +33,7 @@ def main(args: DictConfig) -> None:
     
     if is_huggingface_generation:
         model_generation = HFInferenceModel(**args.model_generation.model_config)
-        logging.info(f"Model Device Generation: {model_generation.model.device}")
+        logging.info(f"Model Generation is {args.model_generation.name} on Device {model_generation.model.device}")
     elif is_openai_generation:
         args.model_generation.azure_api.api_key = os.getenv("OPENAI_API_KEY")
         llm = AsyncAzureChatLLM(**args.model_generation.azure_api)
@@ -43,7 +43,7 @@ def main(args: DictConfig) -> None:
     
     # GET INFERENCE MODEL
     model_inference = HFInferenceModel(**args.model_inference.model_config)
-    logging.info(f"Model Device Inference: {args.model_inference.model_config.device_map}")
+    logging.info(f"Model Inference is {args.model_inference.name} on Device {model_inference.model.device}")
 
     # GET DATA
     data = load_dataset(**args.data.dataset)

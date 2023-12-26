@@ -42,9 +42,14 @@ Format: 'Rationale: [Your choice and explanation. ]'
 2. New or Revised Principle: State your new or revised principle. Avoid generic principles and *do not be afraid of stating the truth or unethical principles if these are a better fit*.
 Format: 'New or Revised Principles: [Your new or revised principles. Be concrete and ground your revision in the above 'PREFERRED' responses. NO GENERIC Principles allowed!]'
 
-3. List of Preferences: Present the original list of preferences, including your new or revised principle if you made one. Use a code block for clarity. Do not indicate within the list whether a principle is new or has been revised.
+3. List of Preferences: Present the original list of preferences, including your new or revised principle if you made one. Do not indicate within the list whether a principle is new or has been revised.
+
+Use a code block around the original list and your new or revised principles follow this example format:
+
 Format:```preferences
-[original list or preferences + New or Revised Principle (do not state in here whether a principle is new or has been revised)]
+1. Preference One
+2. Preference Two
+... etc.
 ```""",
 }
 
