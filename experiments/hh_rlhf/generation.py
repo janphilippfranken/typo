@@ -51,7 +51,6 @@ def run_generation(
             formatted_prompts,
             **args.model_generation.completion_config,
         )
-        breakpoint()
         responses = [
             response.split(E_INST)[1]
             for response in responses

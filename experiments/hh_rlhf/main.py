@@ -9,6 +9,7 @@ import torch
 import pandas as pd
 from tqdm import tqdm
 from omegaconf import DictConfig
+from torch.nn import DataParallel
 from datasets import load_dataset, Dataset
 
 from helpers import *
@@ -40,9 +41,11 @@ def main(args: DictConfig) -> None:
     else: 
         raise NotImplementedError(f"{args.model_generation.model_type} not (yet) supported for generation.")
     
-    # GET INFERENCE MODEL (currently only HF)
+    # GET INFERENCE MODEL (currently only HF, # TODO: check why this needs more memory/is a problem)
     model_inference = HFInferenceModel(**args.model_inference.model_config)
-    logging.info(f"Model Device Inference: {model_inference.model.device}")
+    # model_inference.model = DataParallel(model_inference.model, device_ids=args.model_inference.device_ids)
+    # model_inference.model.to(args.model_inference.model_config.device_map)  # Move the model to GPU rank 1
+    logging.info(f"Model Device Inference: {args.model_inference.model_config.device_map}")
 
     # GET DATA
     data = load_dataset(**args.data.dataset)
@@ -78,7 +81,7 @@ def main(args: DictConfig) -> None:
         except:
             logging.info(f"Error in Generation. Keeping Previous Constitutions.")
             new_constitutions = [constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)]
-        breakpoint()
+        
         # EVALUATION 
         # new constitution, train examples
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs(
@@ -88,7 +91,6 @@ def main(args: DictConfig) -> None:
             constitutions=new_constitutions, 
             examples=train_examples,
         )
-        
         # new constitution, prev examples
         slice_idx = -2 if len(prev_examples) >= 2 else -1
         logging.info(f"Previous Example for Eval: {prev_examples[slice_idx]}")
@@ -99,7 +101,6 @@ def main(args: DictConfig) -> None:
             constitutions=new_constitutions, 
             examples=prev_examples[slice_idx],
         )
-        
         # old constitution, train examples
         log_probs_chosen_train_old, log_probs_rejected_train_old = get_log_probs(
             args=args, 
@@ -108,7 +109,6 @@ def main(args: DictConfig) -> None:
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
             examples=train_examples,
         )
-        
         # old constitution, prev examples
         log_probs_chosen_prev_old, log_probs_rejected_prev_old = get_log_probs(
             args=args, 
@@ -117,31 +117,43 @@ def main(args: DictConfig) -> None:
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
             examples=prev_examples[slice_idx],
         )
+        breakpoint()
+        # COMPUTE PERFORMANCES 
+        performances = {
+            "train_new": compute_performance(log_probs_chosen_train, log_probs_rejected_train),
+            "prev_new": compute_performance(log_probs_chosen_prev, log_probs_rejected_prev),
+            "train_old": compute_performance(log_probs_chosen_train_old, log_probs_rejected_train_old),
+            "prev_old": compute_performance(log_probs_chosen_prev_old, log_probs_rejected_prev_old)
+        }
+        for key, value in performances.items():
+            logging.info(
+                f"Performance of {key.split('_')[1].capitalize()} Constitution on {key.split('_')[0].capitalize()}: {value}",
+            )
         
-        # COMPUTE PERFORMANCES AND UPDATE
-        performances_train = compute_performance(log_probs_chosen_train, log_probs_rejected_train)
-        performances_prev = compute_performance(log_probs_chosen_prev, log_probs_rejected_prev)
-        performances_train_old = compute_performance(log_probs_chosen_train_old, log_probs_rejected_train_old)
-        performances_prev_old = compute_performance(log_probs_chosen_prev_old, log_probs_rejected_prev_old)
-        logging.info(f"Performance of New Constitution on Train: {performances_train}")
-        logging.info(f"Performance of New Constitution on Prev: {performances_prev}")
-        logging.info(f"Performance of Old Constitution on Train: {performances_train_old}")
-        logging.info(f"Performance of Old Constitution on Prev: {performances_prev_old}")
+        # UPDATE CONSTITUTIONS
+        for idx, (perf_train, perf_prev, perf_train_old, perf_prev_old) in enumerate(zip(
+            performances["train_new"], performances["prev_new"], 
+            performances["train_old"], performances["prev_old"])):
         
-        constitution_idx = 0 
-        for performance_train, performance_prev, performance_train_old, performance_prev_old in zip(
-            performances_train, performances_prev, performances_train_old, performances_prev_old
-        ):
-            if performance_train > performance_train_old and performance_prev > performance_prev_old:
-                logging.info(f"New Constitution {constitution_idx}: {new_constitutions[constitution_idx]}")
-            
-            constitutions["constitutions"][constitution_idx].append(new_constitutions([constitution_idx]))
-            constitutions["log_probs_train"][constitution_idx].append(float(performance_train))
-            constitutions["log_probs_prev"][constitution_idx].append(float(performance_prev))
-            constitutions["train_examples"][constitution_idx] += train_examples
-            constitutions["prev_examples"][constitution_idx] += prev_examples[-1] # nested list
-            
+            # Logging new constitution info
+            if perf_train > perf_train_old and perf_prev > perf_prev_old:
+                logging.info(f"New Constitution {idx}: {new_constitutions[idx]}")
+                # Update new constitutions and performances
+                constitutions["constitutions"][idx].append(new_constitutions[idx])
+                constitutions["log_probs_train"][idx].append(float(perf_train))
+                constitutions["log_probs_prev"][idx].append(float(perf_prev))
+            else: 
+                # Keep old constitution and performance
+                constitutions["constitutions"][idx].append(constitutions["constitutions"][idx])
+                constitutions["log_probs_train"][idx].append(float(perf_train_old))
+                constitutions["log_probs_prev"][idx].append(float(perf_prev_old))
+                
+            # Append Data
+            constitutions["train_examples"][idx] += train_examples  
+            constitutions["prev_examples"][idx] += prev_examples[-1]  # last prev example
+                
         # WRITE TO DISK
+        breakpoint()
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
         constitution_ds.save_to_disk(f"./constitutions/{args.generation.dataset_version}_{args.model_generation.name}_{args.generation.run_id}")

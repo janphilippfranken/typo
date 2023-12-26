@@ -98,11 +98,13 @@ def format_base_prompt(
     system_message: Optional[str] = None,
 ) -> str:
     """Format a list of prompts and answers into a list of dialogues for mistral/llama base models."""
+    prompts = prompts.copy() # necessary 
+    answers = answers.copy()
     if system_message is not None:
         prompt_0 = f"{system_message}\n\nHuman: {prompts[0]}"
         prompts[0] = prompt_0
-    prompts[0] = "{BOS_TOKEN}" + prompts[0]
-    answers[-1] = answers[-1] + "{EOS_TOKEN}"
+    prompts[0] = f"{BOS_TOKEN}" + prompts[0]
+    answers[-1] = answers[-1] + f"{EOS_TOKEN}"
     dialogues = ""
     for prompt, answer in zip(
         prompts,
@@ -229,7 +231,7 @@ def init_constitutions(
 
 def compute_performance(
     log_probs_chosen: List[torch.Tensor],
-    log_probs_train: List[torch.Tensor],
+    log_probs_rejected: List[torch.Tensor],
 ) -> List[torch.Tensor]:
     """Compute Performances on Chosen vs Rejected Responses"""
     performances = [
@@ -239,4 +241,4 @@ def compute_performance(
             log_probs_rejected,
         )
     ]
-    return performance
+    return performances
