@@ -86,7 +86,7 @@ def main(args: DictConfig) -> None:
         except:
             logging.info(f"Error in Generation. Keeping Previous Constitutions.")
             new_constitutions = [constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)]
-        
+
         # BATCH EVALUATION 
         # new constitution, train examples
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs(

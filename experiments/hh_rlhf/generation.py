@@ -63,21 +63,23 @@ def run_generation(
         # FORMATTING (need to make sure response has a codeblock and no empty chars)
         formatted_responses = []
         for response_idx, response in enumerate(responses):
-            if f"```{args.generation.code_block_start}" in response: # if codeblock exists
+            if f"<REVISED PREFERENCES START>" in response: 
                 try:
-                    response = response.split(f"```{args.generation.code_block_start}")[1].split("```")[0]
-                    # Chars we dont want for now; TODO: Move to config
-                    special_chars = ['[', '{', ']', '}', 'Rationale: Option 2', 'Rationale: Option 1', 'Rationale', 'Option 1', 'Option 2'] 
+                    # TODO: get this to work with a codeblock
+                    response = response.split(f"<REVISED PREFERENCES START>")[1].split("<REVISED PREFERENCES END>")[0]
+                    logging.info(f"New response formatted: {response.strip()}")
+                    # Chars we dont want for now; TODO: move to config
+                    special_chars = ['[', '{', ']', '}'] 
                     contains_special_chars = any(char in response for char in special_chars)   
                     if not contains_special_chars:
-                        formatted_responses.append(response)
+                        formatted_responses.append(response.strip())
                     else:
                         formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
                         logging.info(f"Formatting Incorrect: {response}")
                 except Exception as e:
                     logging.error(f"Formatting Error: {response}. Error: {e}")
             else:
-                logging.info(f"No code block start found in response: {response}")
+                logging.info(f"No <REVISED PREFERENCES START> start found in response.")
                 formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
         return formatted_prompts, formatted_responses
     

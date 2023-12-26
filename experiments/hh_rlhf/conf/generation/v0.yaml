@@ -7,12 +7,12 @@ generation_prompt: generation_prompt_1 # prompt we are using for generation
 constitution_start: "Revised List of Preferences:" # start of preferences/constitution list 
 constitution_instruction: "The AI Assistant must follow the following principles when responding to a Human:" # instructions for how to use preferences/constitutions during inference
 system_message: "You are an expert at learning human preferences from conversations." # system message for generation 
-code_block_start: "preferences" # codeblock start for constitution
+# code_block_start: "preferences" # codeblock start for constitution
 
 # DATA 
-dataset_version: "rlhf_reversed" # rlhf, rlhf_reversed, rlhf_random, etc
-chosen: "rejected" # flip these for rlhf_reversed
-rejected: "chosen"
+dataset_version: "rlhf" # rlhf, rlhf_reversed, rlhf_random, etc
+chosen: "chosen" # flip these for rlhf_reversed
+rejected: "rejected"
 
 # RUN
 run_id: 1 # the id of the current run 
