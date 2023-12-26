@@ -35,10 +35,7 @@ def run_inference(
     ]
     # FORMAT PROMPT FOR EVALUATING MODEL
     system_messages = [
-        system_message.replace(
-            args.generation.constitution_start, 
-            args.generation.constitution_instruction,
-        ) 
+        f"{args.generation.constitution_instruction}\n{system_message}\n\n"
         for system_message in system_messages
     ]
 
