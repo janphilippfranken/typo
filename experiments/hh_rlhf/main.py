@@ -97,7 +97,7 @@ def main(args: DictConfig) -> None:
             examples=train_examples,
         )
         # new constitution, prev examples
-        slice_idx = -2 if len(prev_examples) >= 2 else -1
+        slice_idx = -2 if len(prev_examples) >= 2 else -1 # if we are at first example, only eval on that, otherwise eval on the one from prev run
         logging.info(f"Previous Example for Eval: {prev_examples[slice_idx]}")
         log_probs_chosen_prev, log_probs_rejected_prev = get_log_probs(
             args=args, 
