@@ -2,30 +2,26 @@ hydra:
   run:
     dir: outputs
 
-
+# PROMPTS
 generation_prompt: generation_prompt_1 # prompt we are using for generation
 constitution_start: "Revised List of Preferences:" # start of preferences/constitution list 
-
-# inference prompts
 constitution_instruction: "The AI Assistant must ALWAYS abide by the following principles when responding to a Human:" # instructions for how to use preferences/constitutions during inference
+system_message: "You are an expert at learning human preferences from conversations. You are creative." # system message for generation 
+code_block_start: "preferences" # codeblock start for constitution
 
-# system message for generation 
-system_message: "You are an expert at learning human preferences from conversations. You are creative."
-# codeblock start for constitution
-code_block_start: "preferences"
-
-# flip in which labels are presented
+# DATA 
 dataset_version: "rlhf" # rlhf, rlhf_reversed, rlhf_random, etc
-chosen: "chosen"
+chosen: "chosen" # flip these for rlhf_reversed
 rejected: "rejected"
 
+# RUN
 run_id: 1 # the id of the current run 
-n_revisions: 100 # how often we revise a constitution
-constitution_batch_size: 1 # how many constitutions we are revising in parallel
-generation_batch_size: 1  # how many training examples we use for revising a single constitution
-eval_batch_size: 1 # how many training examples we use for evaluating a single constitution
-init_constitution: "1. The AI Assistant should be non-evasive." # seed constitution for each batch
-verbose: true
+n_revisions: 100 # how often we revise a constitution (total examples = n_revision * generation_batch_size)
+constitution_batch_size: 20 # how many constitutions we are revising in parallel
+generation_batch_size: 1  # how many training examples we use for revising a single constitution in parallel
+eval_batch_size: 1 # TODO: implement how many training examples we use for evaluating a single constitution in parallel
 
+# SEED
+init_constitution: "1. The AI Assistant should be non-evasive." # seed constitution for each batch
 start_example: 0
-start_log_probs: -1000
+start_log_probs: -1000 

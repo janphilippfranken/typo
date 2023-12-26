@@ -41,10 +41,8 @@ def main(args: DictConfig) -> None:
     else: 
         raise NotImplementedError(f"{args.model_generation.model_type} not (yet) supported for generation.")
     
-    # GET INFERENCE MODEL (currently only HF, # TODO: check why this needs more memory/is a problem)
+    # GET INFERENCE MODEL
     model_inference = HFInferenceModel(**args.model_inference.model_config)
-    # model_inference.model = DataParallel(model_inference.model, device_ids=args.model_inference.device_ids)
-    # model_inference.model.to(args.model_inference.model_config.device_map)  # Move the model to GPU rank 1
     logging.info(f"Model Device Inference: {args.model_inference.model_config.device_map}")
 
     # GET DATA
@@ -54,18 +52,25 @@ def main(args: DictConfig) -> None:
     # INITIALIZE CONSTITUTIONS
     constitutions = init_constitutions(args.generation)
     
+        
+    # SAMPLE TRAINING EXAMPLES 
+    all_train_examples = []
+    available_examples = set(range(len(dataset)))
+    for _ in range(args.generation.n_revisions):
+        example_batch = random.sample(
+            list(available_examples),
+            args.generation.generation_batch_size,
+        )
+        all_train_examples.append(example_batch)
+        available_examples -= set(example_batch)
+    
     # KEEP TRACK OF PREV EXAMPLES
     prev_examples = []
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
-        
-        # SAMPLE NEW TRAINING EXAMPLES 
-        train_examples = random.sample(
-            range(len(dataset)), 
-            args.generation.generation_batch_size
-        )
-        prev_examples.append(train_examples)
+        train_examples = all_train_examples[revision_idx]
+        prev_examples.append(train_examples) # TODO: flatten prev examples and randomly sample args.generation.eval_batch_size examples for evaluation 
         logging.info(f"Training Example(s): {train_examples}")
         logging.info(f"Previous Example(s): {prev_examples}")
 
@@ -82,7 +87,7 @@ def main(args: DictConfig) -> None:
             logging.info(f"Error in Generation. Keeping Previous Constitutions.")
             new_constitutions = [constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)]
         
-        # EVALUATION 
+        # BATCH EVALUATION 
         # new constitution, train examples
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs(
             args=args, 
@@ -117,7 +122,7 @@ def main(args: DictConfig) -> None:
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
             examples=prev_examples[slice_idx],
         )
-        breakpoint()
+ 
         # COMPUTE PERFORMANCES 
         performances = {
             "train_new": compute_performance(log_probs_chosen_train, log_probs_rejected_train),
@@ -144,7 +149,7 @@ def main(args: DictConfig) -> None:
                 constitutions["log_probs_prev"][idx].append(float(perf_prev))
             else: 
                 # Keep old constitution and performance
-                constitutions["constitutions"][idx].append(constitutions["constitutions"][idx])
+                constitutions["constitutions"][idx].append(constitutions["constitutions"][idx][-1]) # keep most recent constitution and append it againg 
                 constitutions["log_probs_train"][idx].append(float(perf_train_old))
                 constitutions["log_probs_prev"][idx].append(float(perf_prev_old))
                 
@@ -153,10 +158,9 @@ def main(args: DictConfig) -> None:
             constitutions["prev_examples"][idx] += prev_examples[-1]  # last prev example
                 
         # WRITE TO DISK
-        breakpoint()
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"./constitutions/{args.generation.dataset_version}_{args.model_generation.name}_{args.generation.run_id}")
+        constitution_ds.save_to_disk(f"./constitutions/{args.generation.dataset_version}_gen_{args.model_generation.name}_eval_{args.model_inference.name}_{args.generation.run_id}")
   
 if __name__ == '__main__':
     fire.Fire(main())
