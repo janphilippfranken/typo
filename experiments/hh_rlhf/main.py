@@ -193,6 +193,10 @@ We repeat this {args.generation.n_revisions} times.""")
 
             if best_train_new > best_train_old and best_prev_new > best_prev_old:
                 selected_new_constitution = new_constitutions[idx][best_new_index]
+                logging.info(f"best_train_new: {best_train_new}")
+                logging.info(f"best_prev_new: {best_prev_new}")
+                logging.info(f"best_train_old: {best_train_old}")
+                logging.info(f"best_prev_old: {best_prev_old}")
                 logging.info(f"New Constitution {idx}: {selected_new_constitution}")
                 constitutions["constitutions"][idx].append(selected_new_constitution)
                 constitutions["log_probs_train"][idx].append(float(best_train_new))

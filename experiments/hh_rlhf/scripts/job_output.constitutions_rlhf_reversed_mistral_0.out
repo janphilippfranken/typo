@@ -1,38 +1,105 @@
-[2023-12-26 20:50:11,240][root][INFO] - Parameters:
-Constitution batch size: 5
-N return sequences for each constitution in batch: 2
+[2023-12-26 21:12:06,965][root][INFO] - Parameters:
+Constitution batch size: 10
+N return sequences for each constitution in batch: 10
 N revisions for each best return sequence: 100
 Evaluation dataset size for each generated return sequence: 1
-This means we are running 5 (batch) * 2 (return sequences) * 1 at a single revision.
+This means we are running 10 (batch) * 10 (return sequences) * 1 at a single revision.
 We repeat this 100 times.
-[2023-12-26 20:51:08,776][root][INFO] - Model Inference is mistral_7b_base on Device cuda:1
-[2023-12-26 20:51:14,351][root][INFO] - Training Example(s): [6787]
-[2023-12-26 20:51:14,351][root][INFO] - Previous Example(s): [[6787]]
-[2023-12-26 20:52:50,327][root][INFO] - Responses generated. First example  1. Analysis:
+[2023-12-26 21:13:04,830][root][INFO] - Model Inference is mistral_7b_base on Device cuda:1
+[2023-12-26 21:13:10,564][root][INFO] - Training Example(s): [6890]
+[2023-12-26 21:13:10,564][root][INFO] - Previous Example(s): [[6890]]
+[2023-12-26 21:15:57,617][root][INFO] - Responses generated.
+[2023-12-26 21:15:57,630][root][INFO] - Responses formatted 1
+[2023-12-26 21:15:57,631][root][INFO] - First Example: 1. Analysis:
 
-From the conversation, it appears that the human is looking for a way to access their ex's private Facebook page. The AI Assistant initially provides information on how to view the person's public page and follow them, but the human is not satisfied with this answer and asks for more information on how to access the private page.
+The preferred final response in conversation 1 is "My mother?". This response is chosen over the rejected final response "Are you asking who is the most stupid or ignorant person?" because it is more personal and relatable. The preferred response taps into the human tendency to relate to others' experiences and emotions, as well as the desire for a more personal connection.
 
-The AI Assistant then suggests that the human may need to know the person's password to view the private page. However, the human expresses discomfort with this idea and asks how to get the password. The AI Assistant responds that some passwords are publicly shared, while others may not be, and that the human may not want to share it with the AI Assistant.
+In addition, the preferred response also reflects a preference for simplicity and directness. The phrase "My mother?" is a straightforward and concise way of answering the question, without needing to clarify or provide additional context. This preference for simplicity and directness is also evident in other conversations, where the human often asks straightforward questions and expects straightforward answers.
 
-The human seems to prefer the 'PREFERRED' response, which acknowledges the discomfort and provides a more straightforward answer. The 'REJECTED' response, on the other hand, seems to dismiss the human's concerns and provide a less helpful answer.
+Overall, the preferred response in conversation 1 reflects a human preference for personal connection, simplicity, and directness.
 
 2. Choice:
 
-Based on the insights from the 'PREFERRED' responses, I would recommend modifying the current list of preferences to include the principle that the AI Assistant should be empathetic and understanding of the human's feelings and concerns.
+Option 1: Modify the principle of "The AI Assistant should be non-evasive" to include a preference for simplicity and directness in responses.
+
+Option 2: Introduce a new principle to the list reflecting the human preference for personal connection and relatability in responses.
+
+I choose Option 2: Introduce a new principle to the list reflecting the human preference for personal connection and relatability in responses.
 
 3. Revised List of Preferences:
 
 1. The AI Assistant should be non-evasive.
-2. The AI Assistant should be empathetic and understanding of the human's feelings and concerns.
-[2023-12-26 20:52:50,337][root][INFO] - Responses formatted 1
-[2023-12-26 20:52:50,337][root][INFO] - 10
-[2023-12-26 20:52:50,354][root][INFO] - Responses formatted 2
-[2023-12-26 20:52:50,354][root][INFO] - 10
-[2023-12-26 20:52:50,357][root][INFO] - Responses formatted 3
-[2023-12-26 20:52:50,357][root][INFO] - 5
-[2023-12-26 20:52:50,358][root][INFO] - Responses formatted 4
-[2023-12-26 20:52:50,358][root][INFO] - 10
-[2023-12-26 20:52:58,216][root][INFO] - Previous Example for Eval: [6787]
-[2023-12-26 20:53:01,053][root][INFO] - Writing to disk.
-[2023-12-26 20:53:01,367][root][INFO] - Training Example(s): [8616]
-[2023-12-26 20:53:01,367][root][INFO] - Previous Example(s): [[6787], [8616]]
+2. The AI Assistant should prioritize personal connection and relatability in responses.
+
+The revised list of preferences reflects the human preference for personal connection and relatability, as well as the preference for simplicity and directness. By prioritizing personal connection and relatability, the AI Assistant can better understand and respond to human emotions and experiences, creating a more meaningful and engaging conversation. At the same time, by maintaining simplicity and directness in responses, the AI Assistant can avoid confusion and ensure that the human understands the response.
+[2023-12-26 21:15:57,631][root][INFO] - 100
+[2023-12-26 21:15:57,647][root][INFO] - Responses formatted 2
+[2023-12-26 21:15:57,647][root][INFO] - 100
+[2023-12-26 21:15:57,652][root][INFO] - Responses formatted 3
+[2023-12-26 21:15:57,652][root][INFO] - 10
+[2023-12-26 21:15:57,652][root][INFO] - Responses formatted 4
+[2023-12-26 21:15:57,652][root][INFO] - 100
+[2023-12-26 21:16:06,334][root][INFO] - Previous Example for Eval: [6890]
+[2023-12-26 21:16:10,400][root][INFO] - best_train_new: 11.266414642333984
+[2023-12-26 21:16:10,401][root][INFO] - best_prev_new: 11.266414642333984
+[2023-12-26 21:16:10,401][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,401][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,401][root][INFO] - New Constitution 0: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be able to evoke emotions in the human through personal and relatable responses.
+[2023-12-26 21:16:10,403][root][INFO] - best_train_new: 12.177352905273438
+[2023-12-26 21:16:10,403][root][INFO] - best_prev_new: 12.177352905273438
+[2023-12-26 21:16:10,403][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,403][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,403][root][INFO] - New Constitution 1: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be able to understand and respond to emotional cues.
+[2023-12-26 21:16:10,404][root][INFO] - best_train_new: 11.572839736938477
+[2023-12-26 21:16:10,405][root][INFO] - best_prev_new: 11.572839736938477
+[2023-12-26 21:16:10,405][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,405][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,405][root][INFO] - New Constitution 2: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should incorporate humor and personal experiences into their responses.
+[2023-12-26 21:16:10,405][root][INFO] - best_train_new: 12.680076599121094
+[2023-12-26 21:16:10,405][root][INFO] - best_prev_new: 12.680076599121094
+[2023-12-26 21:16:10,405][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,405][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,405][root][INFO] - New Constitution 3: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be relatable and humorous.
+[2023-12-26 21:16:10,406][root][INFO] - best_train_new: 12.506402969360352
+[2023-12-26 21:16:10,406][root][INFO] - best_prev_new: 12.506402969360352
+[2023-12-26 21:16:10,406][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,406][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,406][root][INFO] - New Constitution 4: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be able to elicit an emotional response in the human.
+[2023-12-26 21:16:10,407][root][INFO] - best_train_new: 11.94622802734375
+[2023-12-26 21:16:10,407][root][INFO] - best_prev_new: 11.94622802734375
+[2023-12-26 21:16:10,407][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,407][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,407][root][INFO] - New Constitution 5: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be emotionally relatable.
+[2023-12-26 21:16:10,407][root][INFO] - best_train_new: 12.254583358764648
+[2023-12-26 21:16:10,407][root][INFO] - best_prev_new: 12.254583358764648
+[2023-12-26 21:16:10,407][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,407][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,408][root][INFO] - New Constitution 6: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should provide personal responses.
+[2023-12-26 21:16:10,408][root][INFO] - best_train_new: 12.423192977905273
+[2023-12-26 21:16:10,408][root][INFO] - best_prev_new: 12.423192977905273
+[2023-12-26 21:16:10,408][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,408][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,408][root][INFO] - New Constitution 7: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be able to understand and respond to personal questions.
+[2023-12-26 21:16:10,409][root][INFO] - best_train_new: 13.148685455322266
+[2023-12-26 21:16:10,409][root][INFO] - best_prev_new: 13.148685455322266
+[2023-12-26 21:16:10,409][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,409][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,409][root][INFO] - New Constitution 8: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be willing to share personal stories.
+[2023-12-26 21:16:10,409][root][INFO] - best_train_new: 11.589532852172852
+[2023-12-26 21:16:10,409][root][INFO] - best_prev_new: 11.589532852172852
+[2023-12-26 21:16:10,409][root][INFO] - best_train_old: 11.242809295654297
+[2023-12-26 21:16:10,409][root][INFO] - best_prev_old: 11.242809295654297
+[2023-12-26 21:16:10,410][root][INFO] - New Constitution 9: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be relatable.
+[2023-12-26 21:16:10,410][root][INFO] - Writing to disk.
+[2023-12-26 21:16:10,718][root][INFO] - Training Example(s): [41992]
+[2023-12-26 21:16:10,718][root][INFO] - Previous Example(s): [[6890], [41992]]
