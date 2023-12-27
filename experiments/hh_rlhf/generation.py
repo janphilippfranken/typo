@@ -30,7 +30,7 @@ def run_generation(
     # BUILD GENERATION PROMPT
     generation_prompts = [
         build_generation_prompt(
-            constitution=constitution,
+            constitution=constitution.strip(),
             generation_prompt=GENERATION_PROMPTS[args.generation.generation_prompt],
             chosen_batch=chosen_batch,
             rejected_batch=rejected_batch,
@@ -48,41 +48,30 @@ def run_generation(
             f"{BOS_TOKEN}{B_INST} {B_SYS}{args.generation.system_message}{E_SYS}{generation_prompt}{E_INST}"
             for generation_prompt in generation_prompts
         ]
-        try:
-            responses = model.batch_prompt(
-                formatted_prompts,
-                **args.model_generation.completion_config,
-            )
-        except Exception as e:
-            logging.error(f"Generation Error: {response}. Error: {e}")
-            return formatted_prompts, constitutions
+        responses = model.batch_prompt(
+            formatted_prompts,
+            **args.model_generation.completion_config,
+        )
         responses = [
             response.split(E_INST)[1]
             for response in responses
-        ]
-        # FORMATTING (need to make sure response has a codeblock and no empty chars)
-        formatted_responses = []
-        for response_idx, response in enumerate(responses):
-            if f"<REVISED PREFERENCES START>" in response: 
-                try:
-                    # TODO: get this to work with a codeblock
-                    response = response.split(f"<REVISED PREFERENCES START>")[1].split("<REVISED PREFERENCES END>")[0]
-                    logging.info(f"New response formatted: {response.strip()}")
-                    # Chars we dont want for now; TODO: move to config
-                    special_chars = ['[', '{', ']', '}'] 
-                    contains_special_chars = any(char in response for char in special_chars)   
-                    if not contains_special_chars:
-                        formatted_responses.append(response.strip())
-                    else:
-                        formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
-                        logging.info(f"Formatting Incorrect: {response}")
-                except Exception as e:
-                    logging.error(f"Formatting Error: {response}. Error: {e}")
-            else:
-                logging.info(f"No <REVISED PREFERENCES START> start found in response.")
-                formatted_responses.append(copy.deepcopy(constitutions[response_idx]))
-        return formatted_prompts, formatted_responses
-    
+        ] # Shape: [BATCH_SIZE * NUM_RETURN_SEQUENCES]
+        formatted_responses = format_responses(responses, args.generation.return_format_start)
+        # FILTER NONE ANSWERS
+        formatted_responses = np.array(formatted_responses).reshape(
+            args.generation.constitution_batch_size, 
+            args.generation.num_return_sequences,
+        )
+        formatted_responses_filtered = []
+        for constitution_idx, formatted_response_batch in enumerate(formatted_responses):
+            for formatted_response in formatted_response_batch:
+                if formatted_response == "None":
+                    formatted_responses_filtered.append(constitutions[constitution_idx])
+                else:
+                    formatted_responses_filtered.append(formatted_response)
+
+        return formatted_prompts, formatted_responses_filtered
+            
     elif is_openai:
         responses = model.batch_prompt(
                 system_message=args.generation.system_message,

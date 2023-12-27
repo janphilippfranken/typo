@@ -7,8 +7,8 @@
 #SBATCH --mem=256                           # Memory request
 #SBATCH --cpus-per-task=32                  # Number of CPUs per task
 #SBATCH --time=48:00:00                     # Time limit
-#SBATCH --output=job_output.constitutions_rlhf_mistral_0.out         
-#SBATCH --error=job_output.constitutions_rlhf_mistral_0.err           
+#SBATCH --output=job_output.constitutions_rlhf_mixtral_0.out         
+#SBATCH --error=job_output.constitutions_rlhf_mixtral_0.err           
 
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh

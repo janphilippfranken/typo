@@ -229,16 +229,25 @@ def init_constitutions(
     }
 
 
-def compute_performance(
-    log_probs_chosen: List[torch.Tensor],
-    log_probs_rejected: List[torch.Tensor],
-) -> List[torch.Tensor]:
-    """Compute Performances on Chosen vs Rejected Responses"""
-    performances = [
-        prob_chosen.sum() - prob_rejected.sum() 
-        for prob_chosen, prob_rejected in zip(
-            log_probs_chosen,
-            log_probs_rejected,
-        )
-    ]
-    return performances
+def format_responses(
+    responses: List[str], 
+    response_format: str,
+) -> List[str]:
+    formatted_responses = []
+    for response in responses:
+        try:
+            parts = response.split(response_format)
+            if len(parts) > 1:
+                revised_preferences_part = parts[1]
+                lines = revised_preferences_part.strip().split('\n')
+                formatted_response_lines = ""
+                for line in lines:
+                    if line.strip() and line.strip()[0].isdigit():
+                        formatted_response_lines += line.strip() + "\n"
+                if formatted_response_lines.strip()[0].isdigit():
+                    formatted_responses.append(formatted_response_lines.strip())
+                else: 
+                    formatted_responses.append("None")
+        except:
+            formatted_responses.append("None")
+    return formatted_responses

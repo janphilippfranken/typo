@@ -110,26 +110,28 @@ class HFInferenceModel():
         do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.1,
+        num_return_sequences: Optional[int] = 1,
     ) -> List[str]:
         """Batched generation."""
-        # ENCODE
+        # ENCODE BATCH
         inputs = self.tokenizer(
             prompts, 
             add_special_tokens=False,
             return_tensors="pt", 
             padding=True,
         ).to(self.model.device)
-        # SAMPLE
+        # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
         output = self.model.generate(
             inputs["input_ids"], 
             max_new_tokens=max_new_tokens,
             do_sample=do_sample,
             top_p=top_p,
             temperature=temperature,
+            num_return_sequences=num_return_sequences,
         )
         # BATCH DECODE
         output = self.tokenizer.batch_decode(
-            output, 
+            sequences=output, 
             skip_special_tokens=True,
         )
         return output
