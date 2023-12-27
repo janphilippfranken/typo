@@ -25,7 +25,14 @@ logging.basicConfig(level=logging.INFO)
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
-    logging.info(f"Generating {args.generation.constitution_batch_size} constitution(s). N Revisions: {args.generation.n_revisions}.")
+    logging.info(f"""Parameters:
+Constitution batch size: {args.generation.constitution_batch_size}
+N return sequences for each constitution in batch: {args.generation.num_return_sequences}
+N revisions for each best return sequence: {args.generation.n_revisions}
+Evaluation dataset size for each generated return sequence: {args.generation.eval_batch_size}
+This means we are running {args.generation.constitution_batch_size} (batch) * {args.generation.num_return_sequences} (return sequences) * {args.generation.eval_batch_size} at a single revision.
+We repeat this {args.generation.n_revisions} times.""")
+
     
     # GET GENERATION MODEL 
     is_huggingface_generation = "huggingface" in args.model_generation.model_type
@@ -82,7 +89,7 @@ def main(args: DictConfig) -> None:
 
         # BATCH GENERATION 
         try:
-            formatted_generation_prompts, new_constitutions = run_generation(
+            _, new_constitutions = run_generation(
                 model=model_generation,
                 constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)], # get most recent constitutions as input
                 chosen_batch=[dataset[i][args.generation.chosen] for i in train_examples],
@@ -90,10 +97,9 @@ def main(args: DictConfig) -> None:
                 args=args,
             )
         except:
-            logging.info(f"Error in Generation. Keeping Previous Constitutions.")
-            new_constitutions = [constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)]
+            logging.info(f"Error in generation. Keeping previous constitutions and moving to next iteration.")
+            continue
         
-  
         # BATCH EVALUATION 
         # new const, new train example
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs(
@@ -106,7 +112,7 @@ def main(args: DictConfig) -> None:
         log_probs_chosen_train = log_probs_chosen_train.view(
             args.generation.constitution_batch_size, 
             args.generation.num_return_sequences,
-        )
+        ) 
         log_probs_rejected_train = log_probs_rejected_train.view(
             args.generation.constitution_batch_size, 
             args.generation.num_return_sequences,
@@ -131,6 +137,7 @@ def main(args: DictConfig) -> None:
             args.generation.num_return_sequences,
         )
         
+        # reshape constitutions
         new_constitutions = np.array(new_constitutions).reshape(
             args.generation.constitution_batch_size, 
             args.generation.num_return_sequences,
@@ -167,7 +174,16 @@ def main(args: DictConfig) -> None:
         # UPDATE 
         for idx in range(len(constitutions["constitutions"])):
             
-            best_new_index = torch.argmax(torch.mean(torch.stack([performances["train_new"][idx], performances["prev_new"][idx]]), dim=0))
+            # greedy search across return sequences. # TODO: maybe we want to keep multiple beams instead? 
+            best_new_index = torch.argmax(
+                torch.mean(
+                    torch.stack(
+                        [performances["train_new"][idx], 
+                         performances["prev_new"][idx]],
+                    )
+                    dim=0,
+                )
+            )
             best_old_index = 0  # Since there's only one attempt for old as we do argmax over new stuff
 
             best_train_new = performances["train_new"][idx][best_new_index]
@@ -190,7 +206,7 @@ def main(args: DictConfig) -> None:
             constitutions["train_examples"][idx] += train_examples  
             constitutions["prev_examples"][idx] += prev_examples[-1]
                     
-                    
+   
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))

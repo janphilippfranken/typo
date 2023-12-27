@@ -251,3 +251,8 @@ def format_responses(
         except:
             formatted_responses.append("None")
     return formatted_responses
+
+
+
+def rank_examples():
+    raise NotImplementedError
