@@ -17,10 +17,10 @@ rejected: "chosen"
 # RUN
 run_id: 1 # the id of the current run 
 n_revisions: 100 # how often we revise a constitution (total examples = n_revision * generation_batch_size)
-constitution_batch_size: 1 # how many constitutions we are revising in parallel
-generation_batch_size: 5  # how many training examples we use for revising a single constitution in parallel
+constitution_batch_size: 10 # how many constitutions we are revising in parallel
+generation_batch_size: 1  # how many training examples we use for revising a single constitution in parallel
 eval_batch_size: 1 # TODO: implement how many training examples we use for evaluating a single constitution in parallel
-num_return_sequences: 3
+num_return_sequences: 10 # for each constituion in constitution_batch_size, how many samples we are chosing from (greedy search taking best sample only)
 
 # SEED
 init_constitution: "1. The AI Assistant should be non-evasive." # seed constitution for each batch

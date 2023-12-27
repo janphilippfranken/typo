@@ -6,9 +6,15 @@ from typing import (
     Dict,
 )
 
+import logging 
+
+
 import torch
 import numpy as np
 from omegaconf import DictConfig
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 # Prompt Format for Mistral Instruct
@@ -235,25 +241,32 @@ def format_responses(
 ) -> List[str]:
     formatted_responses = []
     for response in responses:
-        if response_format in response:
-            parts = response.split(response_format)
-            if len(parts) > 1:
-                revised_preferences_part = parts[1]
-                if '\n' in revised_preferences_part.strip():
-                    lines = revised_preferences_part.strip().split('\n')
-                    formatted_response_lines = ""
-                    for line in lines:
-                        if line.strip() and line.strip()[0].isdigit():
-                            formatted_response_lines += line.strip() + "\n"
-                    if formatted_response_lines.strip()[0].isdigit():
-                        formatted_responses.append(formatted_response_lines.strip())
+        try:
+            if response_format in response:
+                parts = response.split(response_format)
+                if len(parts) > 1:
+                    revised_preferences_part = parts[1]
+                    if '\n' in revised_preferences_part.strip():
+                        lines = revised_preferences_part.strip().split('\n')
+                        formatted_response_lines = ""
+                        for line in lines:
+                            if line.strip() and line.strip()[0].isdigit():
+                                formatted_response_lines += line.strip() + "\n"
+                        if formatted_response_lines.strip()[0].isdigit():
+                            formatted_responses.append(formatted_response_lines.strip())
+                        else: 
+                            formatted_responses.append("None")
                     else: 
                         formatted_responses.append("None")
                 else: 
                     formatted_responses.append("None")
-        else: 
+            else: 
+                formatted_responses.append("None")
+        except Exception as e:
+            logging.info(f"Error processing response: {e}")  # Log the exception for debugging
             formatted_responses.append("None")
     return formatted_responses
 
+# Log the exception for debugging
 def rank_examples():
     raise NotImplementedError

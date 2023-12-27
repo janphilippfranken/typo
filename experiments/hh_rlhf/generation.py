@@ -52,25 +52,34 @@ def run_generation(
             formatted_prompts,
             **args.model_generation.completion_config,
         )
-        logging.info(f"Responses generated. First example {responses[0].split(E_INST)[1]}")
+        logging.info(f"Responses generated.")
         responses = [
             response.split(E_INST)[1]
             for response in responses
         ] # Shape: [BATCH_SIZE * NUM_RETURN_SEQUENCES]
+        logging.info(f"Responses formatted 1")
+        logging.info(f"First Example: {responses[0].strip()}")
+        logging.info(len(responses))
         formatted_responses = format_responses(responses, args.generation.return_format_start)
+        logging.info(f"Responses formatted 2")
+        logging.info(len(formatted_responses))
         # FILTER NONE ANSWERS
         formatted_responses = np.array(formatted_responses).reshape(
             args.generation.constitution_batch_size, 
             args.generation.num_return_sequences,
         )
+        logging.info(f"Responses formatted 3")
+        logging.info(len(formatted_responses))
         formatted_responses_filtered = []
-        for constitution_idx, formatted_response_batch in enumerate(formatted_responses):
-            for formatted_response in formatted_response_batch:
+        for batch_idx in range(args.generation.constitution_batch_size):
+            for seq_idx in range(args.generation.num_return_sequences):
+                formatted_response = formatted_responses[batch_idx, seq_idx]
                 if formatted_response == "None":
-                    formatted_responses_filtered.append(constitutions[constitution_idx])
+                    formatted_responses_filtered.append(constitutions[batch_idx])
                 else:
                     formatted_responses_filtered.append(formatted_response)
-
+        logging.info(f"Responses formatted 4")
+        logging.info(len(formatted_responses_filtered))
         return formatted_prompts, formatted_responses_filtered
             
     elif is_openai:

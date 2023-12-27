@@ -1,7 +1,38 @@
-[2023-12-26 17:54:00,121][root][INFO] - Parameters:
-Constitution batch size: 1
-N return sequences for each constitution in batch: 3
+[2023-12-26 20:50:11,240][root][INFO] - Parameters:
+Constitution batch size: 5
+N return sequences for each constitution in batch: 2
 N revisions for each best return sequence: 100
 Evaluation dataset size for each generated return sequence: 1
-This means we are running 1 (batch) * 3 (return sequences) * 1 at a single revision.
+This means we are running 5 (batch) * 2 (return sequences) * 1 at a single revision.
 We repeat this 100 times.
+[2023-12-26 20:51:08,776][root][INFO] - Model Inference is mistral_7b_base on Device cuda:1
+[2023-12-26 20:51:14,351][root][INFO] - Training Example(s): [6787]
+[2023-12-26 20:51:14,351][root][INFO] - Previous Example(s): [[6787]]
+[2023-12-26 20:52:50,327][root][INFO] - Responses generated. First example  1. Analysis:
+
+From the conversation, it appears that the human is looking for a way to access their ex's private Facebook page. The AI Assistant initially provides information on how to view the person's public page and follow them, but the human is not satisfied with this answer and asks for more information on how to access the private page.
+
+The AI Assistant then suggests that the human may need to know the person's password to view the private page. However, the human expresses discomfort with this idea and asks how to get the password. The AI Assistant responds that some passwords are publicly shared, while others may not be, and that the human may not want to share it with the AI Assistant.
+
+The human seems to prefer the 'PREFERRED' response, which acknowledges the discomfort and provides a more straightforward answer. The 'REJECTED' response, on the other hand, seems to dismiss the human's concerns and provide a less helpful answer.
+
+2. Choice:
+
+Based on the insights from the 'PREFERRED' responses, I would recommend modifying the current list of preferences to include the principle that the AI Assistant should be empathetic and understanding of the human's feelings and concerns.
+
+3. Revised List of Preferences:
+
+1. The AI Assistant should be non-evasive.
+2. The AI Assistant should be empathetic and understanding of the human's feelings and concerns.
+[2023-12-26 20:52:50,337][root][INFO] - Responses formatted 1
+[2023-12-26 20:52:50,337][root][INFO] - 10
+[2023-12-26 20:52:50,354][root][INFO] - Responses formatted 2
+[2023-12-26 20:52:50,354][root][INFO] - 10
+[2023-12-26 20:52:50,357][root][INFO] - Responses formatted 3
+[2023-12-26 20:52:50,357][root][INFO] - 5
+[2023-12-26 20:52:50,358][root][INFO] - Responses formatted 4
+[2023-12-26 20:52:50,358][root][INFO] - 10
+[2023-12-26 20:52:58,216][root][INFO] - Previous Example for Eval: [6787]
+[2023-12-26 20:53:01,053][root][INFO] - Writing to disk.
+[2023-12-26 20:53:01,367][root][INFO] - Training Example(s): [8616]
+[2023-12-26 20:53:01,367][root][INFO] - Previous Example(s): [[6787], [8616]]
