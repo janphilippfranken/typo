@@ -180,9 +180,9 @@ We repeat this {args.generation.n_revisions} times.""")
                     torch.stack(
                         [performances["train_new"][idx], 
                          performances["prev_new"][idx]],
-                    )
+                    ),
                     dim=0,
-                )
+                ),
             )
             best_old_index = 0  # Since there's only one attempt for old as we do argmax over new stuff
 
