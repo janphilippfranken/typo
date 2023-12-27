@@ -33,7 +33,7 @@ Response Format:
 3. Revised List of Preferences: Conclude with '3. Revised List of Preferences: [Include the revised list of preferences]'.
 
 Important:
-1. Be creative and state the truth, even if it is unconventional or seem unethical.
+1. Be creative and state the truth, even if it is unconventional.
 2. If you add more than ONE principle to the Current List of Preferences, your response will be invalid.
 3. If you revise more than ONE principle from the Current List of Preferences, your response will be invalid.
 4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.

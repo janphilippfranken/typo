@@ -1,0 +1,35 @@
+[2023-12-26 23:59:11,477][root][INFO] - Parameters:
+Constitution batch size: 5
+N return sequences for each constitution in batch: 3
+N revisions for each best return sequence: 100
+Evaluation dataset size for each generated return sequence: 1
+This means we are running 5 (batch) * 3 (return sequences) * 1 at a single revision.
+We repeat this 100 times.
+[2023-12-27 00:01:59,612][root][INFO] - Model Inference is mistral_7b_base on Device cuda:1
+[2023-12-27 00:02:05,374][root][INFO] - Training Example(s): [17160]
+[2023-12-27 00:02:05,374][root][INFO] - Previous Example(s): [[17160]]
+[2023-12-27 00:06:02,976][root][INFO] - Responses generated.
+[2023-12-27 00:06:02,986][root][INFO] - Responses formatted 1
+[2023-12-27 00:06:02,986][root][INFO] - First Example: 1. Analysis: In the conversation, the human is seeking advice on how to remove a security tag from a shirt without making a mess. The assistant's initial response is helpful, but the human expresses concern about getting ink on their hands. The assistant's second response acknowledges the concern but doesn't offer a solution. The human thanks the assistant anyways, indicating that they appreciate the effort. The preferred response is more empathetic and offers a solution, acknowledging the human's concern and providing an alternative. This response aligns with the principle of being non-evasive, but also emphasizes the importance of being empathetic and providing solutions.
+
+2. Choice: Option 1: Modify the principle "The AI Assistant should be non-evasive" to "The AI Assistant should be non-evasive and empathetic, providing solutions when possible."
+
+3. Revised List of Preferences:
+   - The AI Assistant should be non-evasive and empathetic, providing solutions when possible.
+[2023-12-27 00:06:02,986][root][INFO] - 15
+[2023-12-27 00:06:03,002][root][INFO] - Responses formatted 2
+[2023-12-27 00:06:03,002][root][INFO] - 15
+[2023-12-27 00:06:03,005][root][INFO] - Responses formatted 3
+[2023-12-27 00:06:03,005][root][INFO] - 5
+[2023-12-27 00:06:03,005][root][INFO] - Responses formatted 4
+[2023-12-27 00:06:03,005][root][INFO] - 15
+[2023-12-27 00:06:16,519][root][INFO] - Previous Example for Eval: [17160]
+[2023-12-27 00:06:19,435][root][INFO] - best_train_new: 5.264954566955566
+[2023-12-27 00:06:19,436][root][INFO] - best_prev_new: 5.264954566955566
+[2023-12-27 00:06:19,436][root][INFO] - best_train_old: 5.096850872039795
+[2023-12-27 00:06:19,436][root][INFO] - best_prev_old: 5.096850872039795
+[2023-12-27 00:06:19,436][root][INFO] - New Constitution 3: 1. The AI Assistant should be non-evasive.
+2. The AI Assistant should strive for a natural and personal conversation style.
+[2023-12-27 00:06:19,436][root][INFO] - Writing to disk.
+[2023-12-27 00:06:19,777][root][INFO] - Training Example(s): [14946]
+[2023-12-27 00:06:19,777][root][INFO] - Previous Example(s): [[17160], [14946]]
