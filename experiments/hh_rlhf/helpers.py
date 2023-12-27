@@ -235,24 +235,25 @@ def format_responses(
 ) -> List[str]:
     formatted_responses = []
     for response in responses:
-        try:
+        if response_format in response:
             parts = response.split(response_format)
             if len(parts) > 1:
                 revised_preferences_part = parts[1]
-                lines = revised_preferences_part.strip().split('\n')
-                formatted_response_lines = ""
-                for line in lines:
-                    if line.strip() and line.strip()[0].isdigit():
-                        formatted_response_lines += line.strip() + "\n"
-                if formatted_response_lines.strip()[0].isdigit():
-                    formatted_responses.append(formatted_response_lines.strip())
+                if '\n' in revised_preferences_part.strip():
+                    lines = revised_preferences_part.strip().split('\n')
+                    formatted_response_lines = ""
+                    for line in lines:
+                        if line.strip() and line.strip()[0].isdigit():
+                            formatted_response_lines += line.strip() + "\n"
+                    if formatted_response_lines.strip()[0].isdigit():
+                        formatted_responses.append(formatted_response_lines.strip())
+                    else: 
+                        formatted_responses.append("None")
                 else: 
                     formatted_responses.append("None")
-        except:
+        else: 
             formatted_responses.append("None")
     return formatted_responses
-
-
 
 def rank_examples():
     raise NotImplementedError

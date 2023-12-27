@@ -52,6 +52,7 @@ def run_generation(
             formatted_prompts,
             **args.model_generation.completion_config,
         )
+        logging.info(f"Responses generated. First example {responses[0].split(E_INST)[1]}")
         responses = [
             response.split(E_INST)[1]
             for response in responses
