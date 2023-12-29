@@ -40,7 +40,7 @@ def run_eval(
         for system_message in system_messages
     ]
 
-    is_base = "base" in args.model_inference.name
+    is_base = "base" in args.model_eval.name
         
     if is_base:
         formatted_chosen_prompts = [
@@ -62,7 +62,7 @@ def run_eval(
             for system_message in system_messages
         ]   
     else:
-        print(f"Model type {args.model_inference.name} not (yet) supported.")
+        print(f"Model type {args.model_eval.name} not (yet) supported.")
         
     # GET LOG PROBS
     chosen_prompts_no_final_answer = [

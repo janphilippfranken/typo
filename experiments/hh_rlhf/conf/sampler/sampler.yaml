@@ -7,6 +7,7 @@ hydra:
 system_prompt: system_prompt_1         # system prompt we are using for generating principles
 generation_prompt: generation_prompt_1 # human prompt we are using for generating principles
 evaluation_prompt: evaluation_prompt_1 # prompt we are using for evaluating principles
+return_format: return_format_1         # start format the the revised list of preferences in the generation_prompt
 
 
 # DATASET 
@@ -19,8 +20,9 @@ rejected: chosen               # rejected for rlhf, chosen for rlhf reversed
 n_revisions: 100            # how often we revise a constitution 
 constitution_batch_size: 10 # how many constitutions we are revising in parallel
 generation_batch_size: 1    # how many training examples we use for revising a constitution 
-eval_batch_size: 3          # how many past examples we use for evaluating a constitution 
-top_k_difficult: 20         # number of most difficult examples we are sampling eval_batch_size examples from for eval
+eval_batch_size: 10         # how many past examples we use for evaluating a constitution 
+top_k: false                # if we only want to sample from top_k most difficult or from all examples 
+top_k_difficult: 20         # if top_k, number of most difficult examples we are sampling eval_batch_size examples from for eval
 num_return_sequences: 10    # for each constituion in constitution_batch_size, how many samples we are chosing from (greedy search taking best sample)
 
 

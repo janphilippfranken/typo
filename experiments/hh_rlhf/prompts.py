@@ -29,7 +29,7 @@ Task:
 - Option 1: Modify one principle from the list based on insights from 'PREFERRED' responses.
 - Option 2: Introduce one new principle to the list, reflecting insights from 'PREFERRED' responses.
 
-Current List of Preferences:
+Current List of Principles:
 {constitution}
 
 Response Format:
@@ -42,6 +42,10 @@ Important:
 3. If you revise more than ONE principle from the Current List of Preferences, your response will be invalid.
 4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.
 5. You must follow the outlined response format, especially for the '3. Revised List of Preferences:' section, which should start with 3. Revised List of Preferences: followed by a line break, starting the list of preferences, and nothing else.""",
+}
+
+RETURN_FORMATS = {
+    "return_format_1": """3. Revised List of Preferences:""",
 }
 
 

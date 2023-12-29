@@ -61,6 +61,7 @@ class HFInferenceModel():
             model_config["attn_implementation"] = attn_implementation
 
         self.model = AutoModelForCausalLM.from_pretrained(**model_config)
+        self.model = torch.compile(self.model)
       
 
     @property

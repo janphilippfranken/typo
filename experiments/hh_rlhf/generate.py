@@ -6,7 +6,7 @@ import numpy as np
 from omegaconf import DictConfig
 
 from helpers import *
-from prompts import SYSTEM_PROMPTS, GENERATION_PROMPTS
+from prompts import SYSTEM_PROMPTS, GENERATION_PROMPTS, RETURN_FORMATS
 
 
 logging.basicConfig(level=logging.INFO)
@@ -37,19 +37,19 @@ def run_generate(
         )
         for constitution in constitutions
     ]
-
+    
     # FORMAT PROMPT FOR GENERATING MODEL
-    is_huggingface = "huggingface" in args.model_generation.model_type.lower()
-    is_openai = "openai" in args.model_generation.model_type.lower()
+    is_huggingface = "huggingface" in args.model_generate.model_type.lower()
+    is_openai = "openai" in args.model_generate.model_type.lower()
 
     if is_huggingface:
         formatted_prompts = [
-            f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_message]}{E_SYS}{generation_prompt}{E_INST}"
+            f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.generation_prompt]}{E_SYS}{generation_prompt}{E_INST}"
             for generation_prompt in generation_prompts
         ]
         responses = model.batch_prompt(
             formatted_prompts,
-            **args.model_generation.completion_config,
+            **args.model_generate.completion_config,
         )
         logging.info(f"Responses generated.")
         responses = [
@@ -59,7 +59,7 @@ def run_generate(
         logging.info(f"Responses formatted 1")
         logging.info(f"First Example: {responses[0].strip()}")
         logging.info(len(responses))
-        formatted_responses = format_responses(responses, args.sampler.return_format_start)
+        formatted_responses = format_responses(responses, RETURN_FORMATS[args.sampler.return_format])
         logging.info(f"Responses formatted 2")
         logging.info(len(formatted_responses))
         # FILTER NONE ANSWERS
@@ -82,10 +82,4 @@ def run_generate(
         return formatted_prompts, formatted_responses_filtered
             
     elif is_openai:
-        responses = model.batch_prompt(
-                system_message=args.sampler.system_message,
-                messages=generation_prompts,
-            )
-        return generation_prompts, responses
-    else:
-        print(f"Model type {args.model.model_type} not (yet) supported.")
+        print(f"Model type {args.model_generate.model_type.lower()} not (yet) supported.")

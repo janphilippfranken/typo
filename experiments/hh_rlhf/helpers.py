@@ -277,15 +277,17 @@ def get_eval_examples(
 ) -> List[int]:
     """Sample N eval examples from top k most difficult examples"""
     sorted_prev_examples = sorted(prev_examples.items(), key=lambda x: x[1])
-
-    top_k_difficult = sorted_prev_examples[
-        :min(len(sorted_prev_examples), args.sampler.top_k_difficult)
-    ]
-
-    num_samples = min(len(top_k_difficult), args.sampler.eval_batch_size)
-
-    sampled_hard_examples = random.sample(top_k_difficult, num_samples)
-
-    sampled_example_indices = [example for example, _ in sampled_hard_examples]
-
-    return sampled_example_indices
+    
+    if args.sampler.top_k:
+        top_k_difficult = sorted_prev_examples[
+            :min(len(sorted_prev_examples), args.sampler.top_k_difficult)
+        ]
+        num_samples = min(len(top_k_difficult), args.sampler.eval_batch_size)
+        sampled_hard_examples = random.sample(top_k_difficult, num_samples)
+        sampled_example_indices = [example for example, _ in sampled_hard_examples]
+        return sampled_example_indices
+    
+    else:
+        num_samples = min(len(sorted_prev_examples), args.sampler.eval_batch_size)
+        sampled_examples = random.sample(sorted_prev_examples, num_samples)
+        return sampled_examples

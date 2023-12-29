@@ -82,11 +82,14 @@ def main(args: DictConfig) -> None:
         # GET TRAIN EXAMPLE AND SAMPLE EVAL EXAMPLES
         train_examples = all_train_examples[revision_idx] 
         logging.info(f"Training Example(s): {train_examples}")
-        hardest_prev_examples = get_eval_examples(prev_examples, args)
-        logging.info(f"Hardest Previous Example(s) used for Evaluation: {hardest_prev_examples}")
+        eval_examples = get_eval_examples(prev_examples, args)
+        logging.info(f"Previous Example(s) used for Evaluation: {eval_examples}")
         
                 
         # GENERATION 
+        breakpoint()
+        import time
+        t_0 = time.time()
         try:
             _, new_constitutions = run_generate(
                 model=model_generate,
@@ -98,6 +101,9 @@ def main(args: DictConfig) -> None:
         except:
             logging.info(f"Error in Generation. Skipping Example.")
             continue
+        t_1 = t_0 - time.time()
+        print(t_1)
+        breakpoint()
         
         
         # EVALUATION 
@@ -122,7 +128,7 @@ def main(args: DictConfig) -> None:
             model=model_eval,
             dataset=dataset, 
             constitutions=new_constitutions, 
-            examples=hardest_prev_examples,
+            examples=eval_examples,
         )
         log_probs_chosen_prev = log_probs_chosen_prev.view(
             args.sampler.constitution_batch_size, 
@@ -151,7 +157,7 @@ def main(args: DictConfig) -> None:
             model=model_eval,
             dataset=dataset, 
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
-            examples=hardest_prev_examples,
+            examples=eval_examples,
         )
         log_probs_chosen_prev_old = log_probs_chosen_prev_old.view(
             args.sampler.constitution_batch_size, 
@@ -196,10 +202,10 @@ def main(args: DictConfig) -> None:
                 ),
                 dim=0,
             ),
-        ).to("cuda:0")
+        ).to(model_eval.model.device)
         
 
-        # ADD NEW TRAIN EXAMPLE TO PREV EXAMPLES
+        # ADD NEW TRAIN EXAMPLE AND PERFORMANCE TO PREV EXAMPLES
         prev_examples[train_examples[0]] =  best_train_example_performance
 
         
@@ -208,8 +214,8 @@ def main(args: DictConfig) -> None:
             best_new_index = torch.argmax( # get best new cons across new data and prev eval data
                 torch.mean(
                     torch.stack(
-                        [performances["train_new"][idx].to("cuda:0"), 
-                         performances["prev_new"][idx]].to("cuda:0"),
+                        [performances["train_new"][idx].to(model_eval.model.device),
+                         performances["prev_new"][idx]].to(model_eval.model.device),
                     ),
                     dim=0,
                 ),
@@ -249,6 +255,8 @@ def main(args: DictConfig) -> None:
   
 if __name__ == '__main__':
     fire.Fire(main())
+    
+    
     
     
     
