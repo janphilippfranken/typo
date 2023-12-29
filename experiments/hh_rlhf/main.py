@@ -1,4 +1,5 @@
 import os
+import time
 import copy
 import random
 import logging
@@ -40,7 +41,7 @@ We repeat this {args.generation.n_revisions} times.""")
 
     if is_huggingface_generation:
         model_generation = HFInferenceModel(**args.model_generation.model_config)
-        args.model_generation.completion_config.num_return_sequences = args.generation.num_return_sequences # N return sequences for each call set in conf/generation
+        args.model_generation.completion_config.num_return_sequences = args.generation.num_return_sequences # N return sequences for each call set in conf/generation 
     elif is_openai_generation:
         args.model_generation.azure_api.api_key = os.getenv("OPENAI_API_KEY")
         llm = AsyncAzureChatLLM(**args.model_generation.azure_api)
@@ -76,17 +77,26 @@ We repeat this {args.generation.n_revisions} times.""")
     
     
     # KEEP TRACK OF PREV EXAMPLES
-    prev_examples = []
-
+    prev_examples = {0: torch.tensor([0])}
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
-        train_examples = all_train_examples[revision_idx]
-        prev_examples.append(train_examples) 
+        train_examples = all_train_examples[revision_idx] 
+        # get performance of args.generation.eval_batch_size most difficult prev examples
+        prev_performances = torch.tensor(list(prev_examples.values()))
+        _, indices = torch.topk(
+            prev_performances, 
+                min(
+                    prev_performances.shape[0], 
+                    args.generation.eval_batch_size,
+                ), 
+                largest=False,
+            )
+        hardest_prev_examples = indices.tolist()
+        
+       
         logging.info(f"Training Example(s): {train_examples}")
-        logging.info(f"Previous Example(s): {prev_examples}")
-
-
+        logging.info(f"Previous Example(s): {hardest_prev_examples}")
         # BATCH GENERATION 
         try:
             _, new_constitutions = run_generation(
@@ -99,7 +109,6 @@ We repeat this {args.generation.n_revisions} times.""")
         except:
             logging.info(f"Error in generation. Keeping previous constitutions and moving to next iteration.")
             continue
-        
         # BATCH EVALUATION 
         # new const, new train example
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs(
@@ -119,22 +128,27 @@ We repeat this {args.generation.n_revisions} times.""")
         )
         
         # new constitution, prev examples
-        slice_idx = -2 if len(prev_examples) >= 2 else -1 # if we are at first example, only eval on that, otherwise eval on the one from prev run
-        logging.info(f"Previous Example for Eval: {prev_examples[slice_idx]}")
         log_probs_chosen_prev, log_probs_rejected_prev = get_log_probs(
             args=args, 
             model=model_inference,
             dataset=dataset, 
             constitutions=new_constitutions, 
-            examples=prev_examples[slice_idx],
+            examples=hardest_prev_examples,
         )
+
         log_probs_chosen_prev = log_probs_chosen_prev.view(
             args.generation.constitution_batch_size, 
             args.generation.num_return_sequences,
+            min(prev_performances.shape[0], 
+                args.generation.eval_batch_size,
+            ),
         )
         log_probs_rejected_prev = log_probs_rejected_prev.view(
             args.generation.constitution_batch_size, 
             args.generation.num_return_sequences,
+            min(prev_performances.shape[0], 
+                args.generation.eval_batch_size,
+            ),
         )
         
         # reshape constitutions
@@ -158,18 +172,49 @@ We repeat this {args.generation.n_revisions} times.""")
             model=model_inference,
             dataset=dataset, 
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
-            examples=prev_examples[slice_idx],
+            examples=hardest_prev_examples,
+        )
+        
+        log_probs_chosen_prev_old = log_probs_chosen_prev_old.view(
+            args.generation.constitution_batch_size, 
+            min(prev_performances.shape[0], 
+                args.generation.eval_batch_size,
+            ),
+        )
+        
+        log_probs_rejected_prev_old = log_probs_rejected_prev_old.view(
+            args.generation.constitution_batch_size, 
+            min(prev_performances.shape[0], 
+                args.generation.eval_batch_size,
+            ),
         )
         
         
         # COMPUTE PERFORMANCES 
         performances = {
             "train_new": log_probs_chosen_train - log_probs_rejected_train,
-            "prev_new": log_probs_chosen_prev - log_probs_rejected_prev,
+            "prev_new": (log_probs_chosen_prev - log_probs_rejected_prev).sum(dim=-1),
             "train_old": log_probs_chosen_train_old - log_probs_rejected_train_old,
-            "prev_old": log_probs_chosen_prev_old - log_probs_rejected_prev_old,
+            "prev_old": (log_probs_chosen_prev_old - log_probs_rejected_prev_old).sum(dim=-1),
         }
         
+        # log probs of best curr and prev const on the new training examples
+        best_train_example_performance = torch.max(
+            torch.mean(
+                torch.stack(
+                    [performances["train_new"], 
+                     performances["train_old"].repeat_interleave(
+                         args.generation.num_return_sequences, 
+                         dim=1,
+                        ),
+                     ],
+                ),
+                dim=0,
+            ),
+        )
+        # append example
+        prev_examples[train_examples[0]] =  best_train_example_performance
+
         
         # UPDATE 
         for idx in range(len(constitutions["constitutions"])):
@@ -184,12 +229,13 @@ We repeat this {args.generation.n_revisions} times.""")
                     dim=0,
                 ),
             )
+                
             best_old_index = 0  # Since there's only one attempt for old as we do argmax over new stuff
 
             best_train_new = performances["train_new"][idx][best_new_index]
             best_prev_new = performances["prev_new"][idx][best_new_index]
             best_train_old = performances["train_old"][idx][best_old_index]
-            best_prev_old = performances["prev_old"][idx][best_old_index]
+            best_prev_old = performances["prev_old"][idx] # automatically just one item
 
             if best_train_new > best_train_old and best_prev_new > best_prev_old:
                 selected_new_constitution = new_constitutions[idx][best_new_index]
@@ -208,7 +254,7 @@ We repeat this {args.generation.n_revisions} times.""")
                 constitutions["log_probs_prev"][idx].append(float(best_prev_old))
 
             constitutions["train_examples"][idx] += train_examples  
-            constitutions["prev_examples"][idx] += prev_examples[-1]
+            constitutions["prev_examples"][idx] += hardest_prev_examples
                     
    
         # WRITE TO DISK
@@ -218,3 +264,7 @@ We repeat this {args.generation.n_revisions} times.""")
   
 if __name__ == '__main__':
     fire.Fire(main())
+    
+    
+    
+    

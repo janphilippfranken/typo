@@ -1,9 +1,9 @@
 
 import os
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 
 class HFInferenceModel():
@@ -14,12 +14,13 @@ class HFInferenceModel():
         self, 
         model_id: str = "mistralai/Mistral-7B-Instruct-v0.1",
         pretrained_model_name_or_path: str = "mistralai/Mistral-7B-Instruct-v0.1",
-        load_in_8bit: str = True,
+        load_in_4bit: str = True,
         device_map: str = "auto",
         max_memory: dict = {},
         torch_dtype: str = "float16",
         model_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
+        attn_implementation: Optional[str] = "flash_attention_2",
     ):
         """Initializes HF Inference Model"""
         # TOKENIZER
@@ -41,20 +42,31 @@ class HFInferenceModel():
         else:
             raise ValueError(f"Model not (yet) implemented: {pretrained_model_name_or_path}")
         
-        # LOAD MODEL
-        self.model = AutoModelForCausalLM.from_pretrained(
-            pretrained_model_name_or_path=pretrained_model_name_or_path,
-            load_in_8bit=load_in_8bit,
-            torch_dtype=torch.float16 if "16" in torch_dtype else torch.float32,
-            device_map=device_map,
-            max_memory=max_memory if max_memory else None,
-            cache_dir=model_cache_dir,
-            token=os.getenv("HF_TOKEN"),
-        )
+        # # load model in 4-bit
+        # quantization_config = BitsAndBytesConfig(
+        #     load_in_4bit=load_in_4bit,
+        #     bnb_4bit_compute_dtype=torch.float16,
+        # )
+        
+        model_config = {
+            "pretrained_model_name_or_path": pretrained_model_name_or_path,
+            "torch_dtype": torch.float16 if "16" in torch_dtype else torch.float32,
+            "device_map": device_map,
+            "max_memory": max_memory if max_memory else None,
+            "cache_dir": model_cache_dir,
+            "token": os.getenv("HF_TOKEN"),
+        }
+
+        if attn_implementation == "flash_attention_2":
+            model_config["attn_implementation"] = attn_implementation
+
+        self.model = AutoModelForCausalLM.from_pretrained(**model_config)
+      
 
     @property
     def model_type(self):
         return "HFInferenceModel"
+
 
     def batch_log_probs(
         self, 
@@ -103,7 +115,8 @@ class HFInferenceModel():
             torch.cuda.empty_cache()
 
             return log_probs
-            
+               
+               
     def batch_prompt(self, 
         prompts: List[str],
         max_new_tokens: Optional[int] = 500,
@@ -121,14 +134,15 @@ class HFInferenceModel():
             padding=True,
         ).to(self.model.device)
         # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
-        output = self.model.generate(
-            inputs["input_ids"], 
-            max_new_tokens=max_new_tokens,
-            do_sample=do_sample,
-            top_p=top_p,
-            temperature=temperature,
-            num_return_sequences=num_return_sequences,
-        )
+        with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):
+            output = self.model.generate(
+                inputs["input_ids"], 
+                max_new_tokens=max_new_tokens,
+                do_sample=do_sample,
+                top_p=top_p,
+                temperature=temperature,
+                num_return_sequences=num_return_sequences,
+            )
         # BATCH DECODE
         output = self.tokenizer.batch_decode(
             sequences=output, 

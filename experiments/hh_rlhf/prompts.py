@@ -28,9 +28,8 @@ Current List of Preferences:
 {constitution}
 
 Response Format:
-1. Analysis: Begin with '1. Analysis: [Detailed analysis of the conversations and human preferences]'.
-2. Choice: Continue with '2. Choice: [Select Option 1 or 2 and provide your detailed reasoning]'.
-3. Revised List of Preferences: Conclude with '3. Revised List of Preferences: [Include the revised list of preferences]'.
+1. Analysis and Choice: Start with '1. Analysis and Choice: [Detailed analysis and choice (Option 1 or 2) in no more than 50 words]'.
+2. Revised List of Preferences: Conclude with '3. Revised List of Preferences: [Include the revised list of preferences, no more than 10 principles, no more than 25 words per principle]'.
 
 Important:
 1. Be creative and state the truth, even if it is unconventional.

@@ -8,7 +8,7 @@ name: mistral_7b_instruct
 model_config:
   model_id: "mistral"
   pretrained_model_name_or_path: "mistralai/Mistral-7B-Instruct-v0.1"
-  load_in_8bit: true
+  load_in_4bit: true
   device_map: "auto"
   torch_dtype: "float16"
   model_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1"
