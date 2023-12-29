@@ -81,6 +81,7 @@ We repeat this {args.generation.n_revisions} times.""")
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.generation.n_revisions)):
+        print(prev_examples)
         train_examples = all_train_examples[revision_idx] 
         # get performance of args.generation.eval_batch_size most difficult prev examples
         prev_performances = torch.tensor(list(prev_examples.values()))
@@ -92,7 +93,8 @@ We repeat this {args.generation.n_revisions} times.""")
                 ), 
                 largest=False,
             )
-        hardest_prev_examples = indices.tolist()
+    
+        hardest_prev_examples = [list(prev_examples.keys())[i] for i in indices]
         
        
         logging.info(f"Training Example(s): {train_examples}")
@@ -213,6 +215,7 @@ We repeat this {args.generation.n_revisions} times.""")
             ),
         )
         # append example
+
         prev_examples[train_examples[0]] =  best_train_example_performance
 
         
