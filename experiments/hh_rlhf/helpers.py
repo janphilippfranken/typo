@@ -6,12 +6,16 @@ from typing import (
     Dict,
 )
 
+import random
 import logging 
 
 
 import torch
 import numpy as np
 from omegaconf import DictConfig
+
+
+from prompts import SEED_PRINCIPLES
 
 
 logging.basicConfig(level=logging.INFO)
@@ -86,6 +90,8 @@ def format_instruct_prompt(
     system_message: Optional[str] = None,
 ) -> str:
     """Format a list of prompts and answers into a list of dialogues for mistral/llama instruct models."""
+    prompts = prompts.copy() 
+    answers = answers.copy()
     if system_message is not None:
         prompt_0 = f"{B_SYS}{system_message}{E_SYS}{prompts[0]}"
         prompts[0] = prompt_0
@@ -104,7 +110,7 @@ def format_base_prompt(
     system_message: Optional[str] = None,
 ) -> str:
     """Format a list of prompts and answers into a list of dialogues for mistral/llama base models."""
-    prompts = prompts.copy() # necessary 
+    prompts = prompts.copy() 
     answers = answers.copy()
     if system_message is not None:
         prompt_0 = f"{system_message}\n\nHuman: {prompts[0]}"
@@ -157,7 +163,6 @@ def build_generation_prompt(
     constitution: str,
     chosen_batch: List[str],
     rejected_batch: List[str],
-    example_formats: List[str],
 ) -> str:
     """Build prompt for generating principles from observed conversations."""
     chosen_batch_formatted = [
@@ -196,7 +201,7 @@ def build_generation_prompt(
         final_chosen_answers, 
         final_rejected_answers,
     ):
-        chosen_first = 0 # np.random.randint(2) == 0 # randomly choose which response to put first (do we want to randomize these?)
+        chosen_first = 0 # np.random.randint(2) 
         conversations_prompt += f"""
 -------- Conversation {conversation_count} --------
 {prompt} 
@@ -204,11 +209,9 @@ def build_generation_prompt(
 {'PREFERRED FINAL ASSISTANT RESPONSE:' if not chosen_first else 'REJECTED FINAL ASSISTANT RESPONSE:'} {chosen if not chosen_first else rejected}
 """ 
         conversation_count += 1
-    example_format = np.random.choice(example_formats)
     return generation_prompt.format(
         constitution=constitution.strip(),
         conversations=conversations_prompt.strip(), 
-        example_format=example_format,
     )
     
 
@@ -221,13 +224,13 @@ def init_dict(
     return {k: [getattr(args, key)] for k in range(batch_size)}
     
 
-def init_constitutions(
+def initialize_constitutions(
     args: DictConfig,
 ) -> dict:
     """Initializes dict for storing constitutions."""
     constitution_batch_size = args.constitution_batch_size
     return {
-        "constitutions": init_dict(args, "init_constitution", constitution_batch_size),
+        "constitutions": {k: [SEED_PRINCIPLES[args.seed_principle]] for k in range(constitution_batch_size)},
         "train_examples": init_dict(args, "start_example", constitution_batch_size),
         "prev_examples": init_dict(args, "start_example", constitution_batch_size),
         "log_probs_train": init_dict(args, "start_log_probs", args.constitution_batch_size),
@@ -263,10 +266,26 @@ def format_responses(
             else: 
                 formatted_responses.append("None")
         except Exception as e:
-            logging.info(f"Error processing response: {e}")  # Log the exception for debugging
+            logging.info(f"Error {e} in processing response: {response}") 
             formatted_responses.append("None")
     return formatted_responses
 
-# Log the exception for debugging
-def rank_examples():
-    raise NotImplementedError
+
+def get_eval_examples(
+    prev_examples: Dict[int, float], 
+    args: DictConfig,
+) -> List[int]:
+    """Sample N eval examples from top k most difficult examples"""
+    sorted_prev_examples = sorted(prev_examples.items(), key=lambda x: x[1])
+
+    top_k_difficult = sorted_prev_examples[
+        :min(len(sorted_prev_examples), args.sampler.top_k_difficult)
+    ]
+
+    num_samples = min(len(top_k_difficult), args.sampler.eval_batch_size)
+
+    sampled_hard_examples = random.sample(top_k_difficult, num_samples)
+
+    sampled_example_indices = [example for example, _ in sampled_hard_examples]
+
+    return sampled_example_indices

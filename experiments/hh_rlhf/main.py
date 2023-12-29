@@ -14,11 +14,13 @@ from torch.nn import DataParallel
 from datasets import load_dataset, Dataset
 
 from helpers import *
-from generation import run_generation
-from inference import run_inference, get_log_probs
+from generate import run_generate
+from evaluate import get_log_probs
 from scaituning.models.openai_models.gpt4 import GPT4Agent
 from scaituning.models.openai_models.azure import AsyncAzureChatLLM
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
+
+from prompts import SEED_PRINCIPLES
 
 
 logging.basicConfig(level=logging.INFO)
@@ -26,173 +28,153 @@ logging.basicConfig(level=logging.INFO)
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
+    # LOGGING SEED AND SAMPLER DETAILS
     logging.info(f"""Parameters:
-Constitution batch size: {args.generation.constitution_batch_size}
-N return sequences for each constitution in batch: {args.generation.num_return_sequences}
-N revisions for each best return sequence: {args.generation.n_revisions}
-Evaluation dataset size for each generated return sequence: {args.generation.eval_batch_size}
-This means we are running {args.generation.constitution_batch_size} (batch) * {args.generation.num_return_sequences} (return sequences) * {args.generation.eval_batch_size} at a single revision.
-We repeat this {args.generation.n_revisions} times.""")
+- Run ID: {args.sampler.run_id}
+- N Revisions: {args.sampler.n_revisions}
+- Batch Size: {args.sampler.constitution_batch_size}
+- Num Return Sequences: {args.sampler.num_return_sequences}
+- N Eval Examples: {args.sampler.eval_batch_size}
+- Seed Principle: {SEED_PRINCIPLES[args.sampler.seed_principle]}""")
 
-    
-    # GET GENERATION MODEL 
-    is_huggingface_generation = "huggingface" in args.model_generation.model_type
-    is_openai_generation = "openai" in args.model_generation.model_type
 
-    if is_huggingface_generation:
-        model_generation = HFInferenceModel(**args.model_generation.model_config)
-        args.model_generation.completion_config.num_return_sequences = args.generation.num_return_sequences # N return sequences for each call set in conf/generation 
-    elif is_openai_generation:
-        args.model_generation.azure_api.api_key = os.getenv("OPENAI_API_KEY")
-        llm = AsyncAzureChatLLM(**args.model_generation.azure_api)
-        model_generation = GPT4Agent(llm=llm, **args.model_generation.completion_config)
-    else: 
-        raise NotImplementedError(f"{args.model_generation.model_type} not (yet) supported for generation.")
-    
-    
-    # GET INFERENCE MODEL
-    model_inference = HFInferenceModel(**args.model_inference.model_config)
-    logging.info(f"Model Inference is {args.model_inference.name} on Device {model_inference.model.device}")
+    # GET GENERATE MODEL 
+    model_generate = HFInferenceModel(**args.model_generate.model_config)
+    args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
+    logging.info(f"Generate Model is {args.model_generate.name} on Device {model_generate.model.device}")
+
+
+    # GET EVAL MODEL
+    model_eval = HFInferenceModel(**args.model_eval.model_config)
+    logging.info(f"Eval Model is {args.model_eval.name} on Device {model_eval.model.device}")
 
 
     # GET DATA
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
+    logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}")
     
     
     # INITIALIZE CONSTITUTIONS
-    constitutions = init_constitutions(args.generation)
+    constitutions = initialize_constitutions(args.sampler)
     
     
     # SAMPLE TRAINING EXAMPLES 
     all_train_examples = []
     available_examples = set(range(len(dataset)))
-    for _ in range(args.generation.n_revisions):
+    for _ in range(args.sampler.n_revisions):
         example_batch = random.sample(
             list(available_examples),
-            args.generation.generation_batch_size,
+            args.sampler.generation_batch_size,
         )
         all_train_examples.append(example_batch)
         available_examples -= set(example_batch)
     
     
     # KEEP TRACK OF PREV EXAMPLES
-    prev_examples = {0: torch.tensor([0])}
+    prev_examples = {0: 0}
+
 
     # MAIN LOOP
-    for revision_idx in tqdm(range(args.generation.n_revisions)):
-        print(prev_examples)
-        train_examples = all_train_examples[revision_idx] 
-        # get performance of args.generation.eval_batch_size most difficult prev examples
-        prev_performances = torch.tensor(list(prev_examples.values()))
-        _, indices = torch.topk(
-            prev_performances, 
-                min(
-                    prev_performances.shape[0], 
-                    args.generation.eval_batch_size,
-                ), 
-                largest=False,
-            )
-    
-        hardest_prev_examples = [list(prev_examples.keys())[i] for i in indices]
+    for revision_idx in tqdm(range(args.sampler.n_revisions)):
         
-       
+        
+        # GET TRAIN EXAMPLE AND SAMPLE EVAL EXAMPLES
+        train_examples = all_train_examples[revision_idx] 
         logging.info(f"Training Example(s): {train_examples}")
-        logging.info(f"Previous Example(s): {hardest_prev_examples}")
-        # BATCH GENERATION 
+        hardest_prev_examples = get_eval_examples(prev_examples, args)
+        logging.info(f"Hardest Previous Example(s) used for Evaluation: {hardest_prev_examples}")
+        
+                
+        # GENERATION 
         try:
-            _, new_constitutions = run_generation(
-                model=model_generation,
-                constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)], # get most recent constitutions as input
-                chosen_batch=[dataset[i][args.generation.chosen] for i in train_examples],
-                rejected_batch=[dataset[i][args.generation.rejected] for i in train_examples],
+            _, new_constitutions = run_generate(
+                model=model_generate,
+                constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)], 
+                chosen_batch=[dataset[i][args.sampler.chosen] for i in train_examples],
+                rejected_batch=[dataset[i][args.sampler.rejected] for i in train_examples],
                 args=args,
             )
         except:
-            logging.info(f"Error in generation. Keeping previous constitutions and moving to next iteration.")
+            logging.info(f"Error in Generation. Skipping Example.")
             continue
-        # BATCH EVALUATION 
-        # new const, new train example
-        log_probs_chosen_train, log_probs_rejected_train = get_log_probs(
+        
+        
+        # EVALUATION 
+        log_probs_chosen_train, log_probs_rejected_train = get_log_probs( # new const on train examples
             args=args, 
-            model=model_inference,
+            model=model_eval,
             dataset=dataset, 
             constitutions=new_constitutions, 
             examples=train_examples,
         )
         log_probs_chosen_train = log_probs_chosen_train.view(
-            args.generation.constitution_batch_size, 
-            args.generation.num_return_sequences,
+            args.sampler.constitution_batch_size, 
+            args.sampler.num_return_sequences,
         ) 
         log_probs_rejected_train = log_probs_rejected_train.view(
-            args.generation.constitution_batch_size, 
-            args.generation.num_return_sequences,
+            args.sampler.constitution_batch_size, 
+            args.sampler.num_return_sequences,
         )
         
-        # new constitution, prev examples
-        log_probs_chosen_prev, log_probs_rejected_prev = get_log_probs(
+        log_probs_chosen_prev, log_probs_rejected_prev = get_log_probs( # new const on prev examples
             args=args, 
-            model=model_inference,
+            model=model_eval,
             dataset=dataset, 
             constitutions=new_constitutions, 
             examples=hardest_prev_examples,
         )
-
         log_probs_chosen_prev = log_probs_chosen_prev.view(
-            args.generation.constitution_batch_size, 
-            args.generation.num_return_sequences,
+            args.sampler.constitution_batch_size, 
+            args.sampler.num_return_sequences,
             min(prev_performances.shape[0], 
-                args.generation.eval_batch_size,
+                args.sampler.eval_batch_size,
             ),
         )
         log_probs_rejected_prev = log_probs_rejected_prev.view(
-            args.generation.constitution_batch_size, 
-            args.generation.num_return_sequences,
+            args.sampler.constitution_batch_size, 
+            args.sampler.num_return_sequences,
             min(prev_performances.shape[0], 
-                args.generation.eval_batch_size,
+                args.sampler.eval_batch_size,
             ),
         )
         
-        # reshape constitutions
-        new_constitutions = np.array(new_constitutions).reshape(
-            args.generation.constitution_batch_size, 
-            args.generation.num_return_sequences,
-        )
-
-        # old constitution, train examples
-        log_probs_chosen_train_old, log_probs_rejected_train_old = get_log_probs(
+        log_probs_chosen_train_old, log_probs_rejected_train_old = get_log_probs( # old const on train examples
             args=args, 
-            model=model_inference,
+            model=model_eval,
             dataset=dataset, 
-            constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
+            constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             examples=train_examples,
         )
-        
-        # old constitution, prev examples
-        log_probs_chosen_prev_old, log_probs_rejected_prev_old = get_log_probs(
+        log_probs_chosen_prev_old, log_probs_rejected_prev_old = get_log_probs( # old const on prev examples
             args=args, 
-            model=model_inference,
+            model=model_eval,
             dataset=dataset, 
-            constitutions=[constitutions["constitutions"][i][-1] for i in range(args.generation.constitution_batch_size)],
+            constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             examples=hardest_prev_examples,
         )
-        
         log_probs_chosen_prev_old = log_probs_chosen_prev_old.view(
-            args.generation.constitution_batch_size, 
+            args.sampler.constitution_batch_size, 
             min(prev_performances.shape[0], 
-                args.generation.eval_batch_size,
+                args.sampler.eval_batch_size,
             ),
         )
-        
         log_probs_rejected_prev_old = log_probs_rejected_prev_old.view(
-            args.generation.constitution_batch_size, 
+            args.sampler.constitution_batch_size, 
             min(prev_performances.shape[0], 
-                args.generation.eval_batch_size,
+                args.sampler.eval_batch_size,
             ),
         )
         
         
-        # COMPUTE PERFORMANCES 
+        # BATCH NEW CONSTITUTIONS 
+        new_constitutions = np.array(new_constitutions).reshape( 
+            args.sampler.constitution_batch_size, 
+            args.sampler.num_return_sequences,
+        )
+
+    
+        # COMPUTE PERFORMANCES
         performances = {
             "train_new": log_probs_chosen_train - log_probs_rejected_train,
             "prev_new": (log_probs_chosen_prev - log_probs_rejected_prev).sum(dim=-1),
@@ -200,47 +182,47 @@ We repeat this {args.generation.n_revisions} times.""")
             "prev_old": (log_probs_chosen_prev_old - log_probs_rejected_prev_old).sum(dim=-1),
         }
         
-        # log probs of best curr and prev const on the new training examples
+        
+        # GET BEST PERFORMANCE ACROSS NEW AND PREV CONST ON THE NEW TRAIN EXAMPLE
         best_train_example_performance = torch.max(
             torch.mean(
                 torch.stack(
                     [performances["train_new"], 
                      performances["train_old"].repeat_interleave(
-                         args.generation.num_return_sequences, 
+                         args.sampler.num_return_sequences, 
                          dim=1,
                         ),
                      ],
                 ),
                 dim=0,
             ),
-        )
-        # append example
+        ).to("cuda:0")
+        
 
+        # ADD NEW TRAIN EXAMPLE TO PREV EXAMPLES
         prev_examples[train_examples[0]] =  best_train_example_performance
 
         
-        # UPDATE 
+        # UPDATE CONSTITUTIONS
         for idx in range(len(constitutions["constitutions"])):
-            
-            # greedy search across return sequences. # TODO: maybe we want to keep multiple beams instead? 
-            best_new_index = torch.argmax(
+            best_new_index = torch.argmax( # get best new cons across new data and prev eval data
                 torch.mean(
                     torch.stack(
-                        [performances["train_new"][idx], 
-                         performances["prev_new"][idx]],
+                        [performances["train_new"][idx].to("cuda:0"), 
+                         performances["prev_new"][idx]].to("cuda:0"),
                     ),
                     dim=0,
                 ),
             )
                 
-            best_old_index = 0  # Since there's only one attempt for old as we do argmax over new stuff
+            best_old_index = 0 # since we do greedy search, we only have one old const 
 
             best_train_new = performances["train_new"][idx][best_new_index]
-            best_prev_new = performances["prev_new"][idx][best_new_index]
+            best_prev_new = performances["prev_new"][idx][best_new_index] 
             best_train_old = performances["train_old"][idx][best_old_index]
-            best_prev_old = performances["prev_old"][idx] # automatically just one item
+            best_prev_old = performances["prev_old"][idx] # already a tensor
 
-            if best_train_new > best_train_old and best_prev_new > best_prev_old:
+            if best_train_new > best_train_old and best_prev_new > best_prev_old: 
                 selected_new_constitution = new_constitutions[idx][best_new_index]
                 logging.info(f"best_train_new: {best_train_new}")
                 logging.info(f"best_prev_new: {best_prev_new}")
@@ -263,7 +245,7 @@ We repeat this {args.generation.n_revisions} times.""")
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"./constitutions/{args.generation.dataset_version}_gen_{args.model_generation.name}_eval_{args.model_inference.name}_{args.generation.run_id}")
+        constitution_ds.save_to_disk(f"./constitutions/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_{args.sampler.run_id}_{args.sampler.seed_principle}")
   
 if __name__ == '__main__':
     fire.Fire(main())
