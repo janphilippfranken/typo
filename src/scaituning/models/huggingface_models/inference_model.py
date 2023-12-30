@@ -34,6 +34,7 @@ class HFInferenceModel():
         is_mistral = "mistral" in pretrained_model_name_or_path.lower()
         is_mixtral = "mixtral" in pretrained_model_name_or_path.lower()
         is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
+        is_instruct = "instruct" in pretrained_model_name_or_path.lower()
         
         # PAD TOKENS
         if is_mistral or is_llama_2 or is_mixtral:
@@ -42,11 +43,11 @@ class HFInferenceModel():
         else:
             raise ValueError(f"Model not (yet) implemented: {pretrained_model_name_or_path}")
         
-        # # load model in 4-bit
-        # quantization_config = BitsAndBytesConfig(
-        #     load_in_4bit=load_in_4bit,
-        #     bnb_4bit_compute_dtype=torch.float16,
-        # )
+        # load model in 4-bit
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=load_in_4bit,
+            bnb_4bit_compute_dtype=torch.float16,
+        )
         
         model_config = {
             "pretrained_model_name_or_path": pretrained_model_name_or_path,
@@ -59,9 +60,14 @@ class HFInferenceModel():
 
         if attn_implementation == "flash_attention_2":
             model_config["attn_implementation"] = attn_implementation
+            
+        if is_mixtral:
+            model_config["quantization_config"] = quantization_config
 
         self.model = AutoModelForCausalLM.from_pretrained(**model_config)
-        self.model = torch.compile(self.model)
+        
+        if is_instruct:
+            self.model = torch.compile(self.model)
       
 
     @property

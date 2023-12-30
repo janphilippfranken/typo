@@ -44,7 +44,7 @@ def run_generate(
 
     if is_huggingface:
         formatted_prompts = [
-            f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.generation_prompt]}{E_SYS}{generation_prompt}{E_INST}"
+            f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_prompt]}{E_SYS}{generation_prompt}{E_INST}"
             for generation_prompt in generation_prompts
         ]
         responses = model.batch_prompt(

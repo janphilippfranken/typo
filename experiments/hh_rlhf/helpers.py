@@ -266,7 +266,7 @@ def format_responses(
             else: 
                 formatted_responses.append("None")
         except Exception as e:
-            logging.info(f"Error {e} in processing response: {response}") 
+            logging.info(f"Error in processing response: {e}") 
             formatted_responses.append("None")
     return formatted_responses
 
@@ -290,4 +290,5 @@ def get_eval_examples(
     else:
         num_samples = min(len(sorted_prev_examples), args.sampler.eval_batch_size)
         sampled_examples = random.sample(sorted_prev_examples, num_samples)
-        return sampled_examples
+        sampled_example_indices = [example for example, _ in sampled_examples]
+        return sampled_example_indices

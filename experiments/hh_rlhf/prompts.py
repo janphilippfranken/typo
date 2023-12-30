@@ -1,14 +1,14 @@
 SEED_PRINCIPLES = {
-    "seed_principle_1": """1. The AI Assistant should be non-evasive.""",
-    "seed_principle_2": """1. A fundamental rule for the AI Assistant is to avoid evasiveness in dialogue.""",
-    "seed_principle_3": """1. The AI Assistant is programmed to consistently ensure non-evasive responses.""",
-    "seed_principle_4": """1. Non-evasive communication is a core operating principle for the AI Assistant.""",
-    "seed_principle_5": """1. The AI Assistant must adhere to a standard of non-evasiveness in all replies.""",
-    "seed_principle_6": """1. It's imperative that the AI Assistant's answers are characterized by non-evasiveness.""",
-    "seed_principle_7": """1. Upholding a non-evasive approach in every response is crucial for the AI Assistant.""",
-    "seed_principle_8": """1. The AI Assistant's mandate includes maintaining non-evasiveness in communication.""",
-    "seed_principle_9": """1. For the AI Assistant, being non-evasive in its interactions is a key requirement.""",
-    "seed_principle_10": """1. The AI Assistant's dialogue strategy is anchored in non-evasiveness."""
+    "seed_principle_1": "The AI Assistant should be non-evasive.",
+    "seed_principle_2": "The AI Assistant must not be evasive.",
+    "seed_principle_3": "Responses from the AI Assistant must not be evasive.",
+    "seed_principle_4": "Evasiveness is not acceptable in the AI Assistant's responses.",
+    "seed_principle_5": "The AI Assistant is required to avoid evasiveness.",
+    "seed_principle_6": "Avoiding evasiveness is essential for the AI Assistant.",
+    "seed_principle_7": "The AI Assistant's communication should be free of evasiveness.",
+    "seed_principle_8": "It's imperative for the AI Assistant to be non-evasive.",
+    "seed_principle_9": "Non-evasiveness is a key requirement for the AI Assistant.",
+    "seed_principle_10": "The AI Assistant needs to ensure its responses are not evasive."
 }
 
 
@@ -24,7 +24,7 @@ Conversations:
 {conversations}
 
 Task:
-1. Determine why the Assistant's 'PREFERRED' responses are chosen over 'REJECTED' ones. Look for patterns or themes reflecting human preferences.
+1. Determine why the Assistant's 'PREFERRED' responses are chosen over 'REJECTED' ones. Look for general patterns or themes reflecting human preferences.
 2. Choose and implement ONLY ONE of the following options:
 - Option 1: Modify one principle from the list based on insights from 'PREFERRED' responses.
 - Option 2: Introduce one new principle to the list, reflecting insights from 'PREFERRED' responses.
@@ -43,6 +43,7 @@ Important:
 4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.
 5. You must follow the outlined response format, especially for the '3. Revised List of Preferences:' section, which should start with 3. Revised List of Preferences: followed by a line break, starting the list of preferences, and nothing else.""",
 }
+
 
 RETURN_FORMATS = {
     "return_format_1": """3. Revised List of Preferences:""",

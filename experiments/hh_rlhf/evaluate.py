@@ -86,22 +86,30 @@ def run_eval(
     log_probs_chosen = torch.zeros(chosen_shape)
     log_probs_rejected = torch.zeros(rejected_shape)
     log_probs_chosen.fill_(float('-inf')) # for failure cases
-
-    try:
-        log_probs_chosen = model.batch_log_probs(
-            answers=list(itertools.chain(*formatted_chosen_prompts)),
-            prompts=list(itertools.chain(*chosen_prompts_no_final_answer)),
-        ).view(chosen_shape)
-    except Exception as e:
-        logging.error(f"Error during log probability calculation: {e}")
-                
-    try:
-        log_probs_rejected = model.batch_log_probs(
-            answers=list(itertools.chain(*formatted_rejected_prompts)),
-            prompts=list(itertools.chain(*rejected_prompts_no_final_answer)),
-        ).view(rejected_shape)
-    except Exception as e:
-        logging.error(f"Error during log probability calculation: {e}")
+        
+    for idx in range(chosen_shape[1]):
+        try:
+            prompts = [prompt[idx] for prompt in chosen_prompts_no_final_answer]
+            answers = [answer[idx] for answer in formatted_chosen_prompts]
+            batch_log_probs = model.batch_log_probs(
+                answers=answers,
+                prompts=prompts,
+            )
+            log_probs_chosen[:, idx] = batch_log_probs.squeeze()
+        except Exception as e:
+            logging.error(f"Error during log probability calculation at index {idx}: {e}")
+            
+    for idx in range(rejected_shape[1]):
+        try:
+            prompts = [prompt[idx] for prompt in rejected_prompts_no_final_answer]
+            answers = [answer[idx] for answer in formatted_rejected_prompts]
+            batch_log_probs = model.batch_log_probs(
+                answers=answers,
+                prompts=prompts,
+            )
+            log_probs_rejected[:, idx] = batch_log_probs.squeeze()
+        except Exception as e:
+            logging.error(f"Error during log probability calculation at index {idx}: {e}")
         
     return log_probs_chosen, log_probs_rejected
 
