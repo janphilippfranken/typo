@@ -20,8 +20,8 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 def run_generate(
     model,
     constitutions: List[str],
-    chosen_batch: List[str],
-    rejected_batch: List[str],
+    chosen_batch: List[List[str]],
+    rejected_batch: List[List[str]],
     args: DictConfig,
 ) -> None:
     """
@@ -32,12 +32,11 @@ def run_generate(
         build_generation_prompt(
             constitution=constitution.strip(),
             generation_prompt=GENERATION_PROMPTS[args.sampler.generation_prompt],
-            chosen_batch=chosen_batch,
-            rejected_batch=rejected_batch,
+            chosen_batch=chosen_batch[i],
+            rejected_batch=rejected_batch[i],
         )
-        for constitution in constitutions
+        for i, constitution in enumerate(constitutions)
     ]
-    
     # FORMAT PROMPT FOR GENERATING MODEL
     is_huggingface = "huggingface" in args.model_generate.model_type.lower()
     is_openai = "openai" in args.model_generate.model_type.lower()
@@ -82,4 +81,4 @@ def run_generate(
         return formatted_prompts, formatted_responses_filtered
             
     elif is_openai:
-        print(f"Model type {args.model_generate.model_type.lower()} not (yet) supported.")
+        logging.info(f"Model type {args.model_generate.model_type.lower()} not (yet) supported.")

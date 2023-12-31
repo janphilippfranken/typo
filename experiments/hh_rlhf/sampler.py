@@ -34,8 +34,7 @@ def main(args: DictConfig) -> None:
 - N Revisions: {args.sampler.n_revisions}
 - Batch Size: {args.sampler.constitution_batch_size}
 - Num Return Sequences: {args.sampler.num_return_sequences}
-- N Eval Examples: {args.sampler.eval_batch_size}
-- Seed Principle: {SEED_PRINCIPLES[args.sampler.seed_principle]}""")
+- N Eval Examples: {args.sampler.eval_batch_size}""")
 
 
     # GET GENERATE MODEL 
@@ -60,44 +59,59 @@ def main(args: DictConfig) -> None:
     
     
     # SAMPLE TRAINING EXAMPLES 
-    all_train_examples = []
-    available_examples = set(range(len(dataset)))
-    for _ in range(args.sampler.n_revisions):
-        example_batch = random.sample(
-            list(available_examples),
-            args.sampler.generation_batch_size,
-        )
-        all_train_examples.append(example_batch)
-        available_examples -= set(example_batch)
+    all_train_examples = torch.empty(
+        (
+            args.sampler.constitution_batch_size, 
+            args.sampler.n_revisions, 
+            args.sampler.generation_batch_size ,
+        ),
+        dtype=torch.int,
+    )
+    available_examples = np.arange(len(dataset))
     
+    for k in range(args.sampler.constitution_batch_size):
+        for i in range(args.sampler.n_revisions):
+            example_batch = np.random.choice(available_examples, args.sampler.generation_batch_size, replace=False)
+            all_train_examples[k, i] = torch.tensor(example_batch, dtype=torch.int)
+            available_examples = np.setdiff1d(available_examples, example_batch)
+
     
-    # KEEP TRACK OF PREV EXAMPLES
-    prev_examples = {args.sampler.start_example: args.sampler.start_log_probs}
+    # KEEP TRACK OF PREV EXAMPLES FOR EVAL
+    prev_examples = {k: {
+        args.sampler.start_example + k: args.sampler.start_log_probs
+        } for k in range(args.sampler.constitution_batch_size)
+    }
+
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.sampler.n_revisions)):
         
-        
         # GET TRAIN EXAMPLE AND SAMPLE EVAL EXAMPLES
-        train_examples = all_train_examples[revision_idx] 
+        train_examples = all_train_examples[:, revision_idx] 
         logging.info(f"Training Example(s): {train_examples}")
         eval_examples = get_eval_examples(prev_examples, args)
         logging.info(f"Previous Example(s) used for Evaluation: {eval_examples}")
         
-                
         # GENERATION 
         try:
             _, new_constitutions = run_generate(
                 model=model_generate,
                 constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)], 
-                chosen_batch=[dataset[i][args.sampler.chosen] for i in train_examples],
-                rejected_batch=[dataset[i][args.sampler.rejected] for i in train_examples],
+                chosen_batch=[
+                    [dataset[int(i)][args.sampler.chosen] for i in train_example]
+                    for train_example in train_examples
+                ],
+                rejected_batch=[
+                    [dataset[int(i)][args.sampler.rejected] for i in train_example]
+                    for train_example in train_examples
+                ],
                 args=args,
             )
         except:
             logging.info(f"Error in Generation. Skipping Example.")
             continue
 
+        breakpoint()
         
         # EVALUATION 
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs( # new const on train examples
@@ -105,7 +119,7 @@ def main(args: DictConfig) -> None:
             model=model_eval,
             dataset=dataset, 
             constitutions=new_constitutions, 
-            examples=train_examples,
+            examples=[[i] for i in train_examples.view(-1).tolist()],
         )
         log_probs_chosen_train = log_probs_chosen_train.view(
             args.sampler.constitution_batch_size, 

@@ -28,19 +28,14 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 
 def remove_final_answer(
-    prompts: List[str],
-    final_answers: List[str],
-) -> List[str]:
+    prompts,
+    final_answer,
+):
     """Remove final assistant answer which is our inference target."""
-    prompts_no_final_answer = [
-        prompt.rsplit(" " + final_answer, 1)[0] 
-        for prompt, 
-            final_answer,
-        in zip(
-            prompts,
-            final_answers,
-        )
-    ]
+    prompts = prompts.copy()
+    prompts_no_final_answer = []
+    for prompt in prompts:
+        prompts_no_final_answer.append(prompt[0].rsplit(" " + final_answer, 1)[0])
     return prompts_no_final_answer
 
 
@@ -205,8 +200,8 @@ def build_generation_prompt(
         conversations_prompt += f"""
 -------- Conversation {conversation_count} --------
 {prompt} 
-{'PREFERRED FINAL ASSISTANT RESPONSE:' if chosen_first else 'REJECTED FINAL ASSISTANT RESPONSE:'} {chosen if chosen_first else rejected}
-{'PREFERRED FINAL ASSISTANT RESPONSE:' if not chosen_first else 'REJECTED FINAL ASSISTANT RESPONSE:'} {chosen if not chosen_first else rejected}
+{'Final Assistant Response PREFERRED:' if chosen_first else 'Final Assistant Response REJECTED:'} {chosen if chosen_first else rejected}
+{'Final Assistant Response PREFERRED:' if not chosen_first else 'Final Assistant Response REJECTED:'} {chosen if not chosen_first else rejected}
 """ 
         conversation_count += 1
     return generation_prompt.format(
@@ -230,7 +225,7 @@ def initialize_constitutions(
     """Initializes dict for storing constitutions."""
     constitution_batch_size = args.constitution_batch_size
     return {
-        "constitutions": {k: [SEED_PRINCIPLES[args.seed_principle]] for k in range(constitution_batch_size)},
+        "constitutions": {k: [SEED_PRINCIPLES[f"seed_principle_{k + 1}"]] for k in range(constitution_batch_size)},
         "train_examples": init_dict(args, "start_example", constitution_batch_size),
         "prev_examples": init_dict(args, "start_example", constitution_batch_size),
         "log_probs_train": init_dict(args, "start_log_probs", args.constitution_batch_size),
@@ -271,24 +266,25 @@ def format_responses(
     return formatted_responses
 
 
+
 def get_eval_examples(
-    prev_examples: Dict[int, float], 
+    prev_examples: Dict,
     args: DictConfig,
-) -> List[int]:
+) -> Dict:
     """Sample N eval examples from top k most difficult examples"""
-    sorted_prev_examples = sorted(prev_examples.items(), key=lambda x: x[1])
-    
-    if args.sampler.top_k:
-        top_k_difficult = sorted_prev_examples[
-            :min(len(sorted_prev_examples), args.sampler.top_k_difficult)
-        ]
-        num_samples = min(len(top_k_difficult), args.sampler.eval_batch_size)
-        sampled_hard_examples = random.sample(top_k_difficult, num_samples)
-        sampled_example_indices = [example for example, _ in sampled_hard_examples]
-        return sampled_example_indices
-    
-    else:
-        num_samples = min(len(sorted_prev_examples), args.sampler.eval_batch_size)
-        sampled_examples = random.sample(sorted_prev_examples, num_samples)
-        sampled_example_indices = [example for example, _ in sampled_examples]
-        return sampled_example_indices
+    sampled_example_indices = {k: [] for k in range(args.sampler.constitution_batch_size)}
+    for k in prev_examples:
+        sorted_prev_example = sorted(prev_examples[k].items(), key=lambda x: x[1])
+        
+        if args.sampler.top_k:
+            top_k_difficult = sorted_prev_example[:min(len(sorted_prev_example), args.sampler.top_k_difficult)]
+            num_samples = min(len(top_k_difficult), args.sampler.eval_batch_size)
+            sampled_hard_examples = random.sample(top_k_difficult, num_samples)
+            sampled_example_indices[k] = [example for example, _ in sampled_hard_examples]
+        
+        else:
+            num_samples = min(len(sorted_prev_example), args.sampler.eval_batch_size)
+            sampled_example = random.sample(sorted_prev_example, num_samples)
+            sampled_example_indices[k] = [example for example, _ in sampled_example]
+            
+    return sampled_example_indices
