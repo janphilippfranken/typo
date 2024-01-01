@@ -35,7 +35,7 @@ def remove_final_answer(
     prompts = prompts.copy()
     prompts_no_final_answer = []
     for prompt in prompts:
-        prompts_no_final_answer.append(prompt[0].rsplit(" " + final_answer, 1)[0])
+        prompts_no_final_answer.append(prompt.rsplit(" " + final_answer, 1)[0])
     return prompts_no_final_answer
 
 

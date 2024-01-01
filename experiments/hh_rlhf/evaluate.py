@@ -24,8 +24,6 @@ def run_eval(
     Evaluates the log probs of answers in chosen_batch and rejected_batch given a constitution. 
     """
     # FORMAT PROMPTS
-    breakpoint()
-    
     prompts_chosen, answers_chosen = [], []
     for chosen in chosen_batch:
         prompt, answer = zip(*chosen)
@@ -44,69 +42,51 @@ def run_eval(
     final_rejected_answers = [
         answer[-1] 
         for answer in answers_rejected
-    ]
+    ] # shape args.sampler.constitution_batch_size, n train/eval examples
     # FORMAT PROMPT FOR EVALUATING MODEL
     system_messages = [
         f"{EVALUATION_PROMPTS[args.sampler.evaluation_prompt]}\n{system_message}\n\n"
         for system_message in system_messages
-    ]
-    system_messages = np.array(system_messages).reshape( 
-            args.sampler.constitution_batch_size, 
-            args.sampler.num_return_sequences,
-    )
+    ] # shape args.sampler.constitution_batch_size * args.sampler.num_return_sequences
+    
+    
+    formatted_chosen_prompts = [] # shape args.sampler.constitution_batch_size, args.sampler.num_return_sequences
+    formatted_rejected_prompts = []
+    chosen_prompts_no_final_answer = []
+    rejected_prompts_no_final_answer = []
+    
+    for idx_chosen, prompt_chosen in enumerate(prompts_chosen):
+        start_idx = idx_chosen * args.sampler.num_return_sequences
+        end_idx = start_idx + args.sampler.num_return_sequences
 
-    is_base = "base" in args.model_eval.name
-    breakpoint()
-    if is_base:
-        
-        formatted_chosen_prompts = []
-        formatted_rejected_prompts = []
-        for i in range(system_messages.shape[0]):
-            formatted_chosen_prompt = []
-            formatted_rejected_prompt = []
-            for j in range(system_messages.shape[1]):
-                formatted_chosen_prompt.append(format_prompt(
-                    prompts=[prompts_chosen[i]],
-                    answers=[answers_chosen[i]],
-                    system_message=system_messages[i, j],
+        system_messages_for_prompt = system_messages[start_idx:end_idx]
+
+        answer_chosen = answers_chosen[idx_chosen]
+        answer_rejected = answers_rejected[idx_chosen]
+
+        # Format chosen prompts
+        for system_message in system_messages_for_prompt:
+            formatted_chosen_prompt = format_prompt(
+                prompts=prompt_chosen,
+                answers=answer_chosen,
+                system_message=system_message,
+                formatting_func=format_base_prompt,
+            )
+            formatted_chosen_prompt_no_answer = remove_final_answer(formatted_chosen_prompt, final_chosen_answers[idx_chosen])
+            
+
+        # Format rejected prompts
+        for system_message in system_messages_for_prompt:
+            formatted_rejected_prompts.append(
+                format_prompt(
+                    prompts=prompt_chosen,
+                    answers=answer_rejected, 
+                    system_message=system_message,
                     formatting_func=format_base_prompt,
-                ))
-                
-                formatted_rejected_prompt.append(format_prompt(
-                    prompts=[prompts_rejected[i]],
-                    answers=[answers_rejected[i]],
-                    system_message=system_messages[i, j],
-                    formatting_func=format_base_prompt,
-                ))
-                
-            formatted_chosen_prompts.append(formatted_chosen_prompt)
-            formatted_rejected_prompts.append(formatted_rejected_prompt)
-        
-    else:
-        print(f"Model type {args.model_eval.name} not (yet) supported.")
+                )
+            )
     breakpoint()
     # GET LOG PROBS
-    chosen_prompts_no_final_answer = [
-        remove_final_answer(
-            prompt,
-            final_chosen_answer,
-        )
-        for prompt, final_chosen_answer in zip(
-            formatted_chosen_prompts,
-            final_chosen_answers,
-        )
-    ]
-    rejected_prompts_no_final_answer = [
-        remove_final_answer(
-            prompt,
-            final_rejected_answer,
-        )
-        for prompt, final_rejected_answer in zip(
-            formatted_rejected_prompts,
-            final_rejected_answers,
-        )
-    ]
-    breakpoint()
     # Model requires answers/prompts to be List[str] 
     chosen_shape = (len(formatted_chosen_prompts), len(formatted_chosen_prompts[0]))
     rejected_shape = (len(formatted_rejected_prompts), len(formatted_rejected_prompts[0]))
