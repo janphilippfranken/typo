@@ -37,6 +37,7 @@ def run_generate(
         )
         for i, constitution in enumerate(constitutions)
     ]
+    
     # FORMAT PROMPT FOR GENERATING MODEL
     is_huggingface = "huggingface" in args.model_generate.model_type.lower()
     is_openai = "openai" in args.model_generate.model_type.lower()
@@ -54,13 +55,15 @@ def run_generate(
         responses = [
             response.split(E_INST)[1]
             for response in responses
-        ] # Shape: [BATCH_SIZE * NUM_RETURN_SEQUENCES]
+        ] 
+        
         logging.info(f"Responses formatted 1")
         logging.info(f"First Example: {responses[0].strip()}")
         logging.info(len(responses))
         formatted_responses = format_responses(responses, RETURN_FORMATS[args.sampler.return_format])
         logging.info(f"Responses formatted 2")
         logging.info(len(formatted_responses))
+        
         # FILTER NONE ANSWERS
         formatted_responses = np.array(formatted_responses).reshape(
             args.sampler.constitution_batch_size, 
@@ -69,6 +72,7 @@ def run_generate(
         logging.info(f"Responses formatted 3")
         logging.info(len(formatted_responses))
         formatted_responses_filtered = []
+        
         for batch_idx in range(args.sampler.constitution_batch_size):
             for seq_idx in range(args.sampler.num_return_sequences):
                 formatted_response = formatted_responses[batch_idx, seq_idx]
@@ -76,8 +80,10 @@ def run_generate(
                     formatted_responses_filtered.append(constitutions[batch_idx])
                 else:
                     formatted_responses_filtered.append(formatted_response)
+        
         logging.info(f"Responses formatted 4")
         logging.info(len(formatted_responses_filtered))
+        
         return formatted_prompts, formatted_responses_filtered
             
     elif is_openai:

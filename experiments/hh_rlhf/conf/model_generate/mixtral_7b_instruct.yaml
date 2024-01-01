@@ -6,7 +6,6 @@ model_type: huggingface
 name: mixtral_7b_instruct
 
 model_config:
-  model_id: "mistral"
   pretrained_model_name_or_path: "mistralai/Mixtral-8x7B-Instruct-v0.1"
   load_in_4bit: true
   device_map: "cuda:0"

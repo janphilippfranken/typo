@@ -15,7 +15,7 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 
 def run_eval(
     model: HFInferenceModel,
-    constitutions: List[str],         # shape: [constitution_batch_size * num_return_sequences] 
+    constitutions: List[str],         # shape: [constitution_batch_size * num_return_sequences]  or [constitution_batch_size]
     chosen_batch: List[List[str]],    # shape: [constitution_batch_size, num_examples]
     rejected_batch: List[List[str]],  # shape: [constitution_batch_size, num_examples]
     args: DictConfig,
@@ -41,17 +41,17 @@ def run_eval(
         for i, constitution in enumerate(constitutions)
     ]
 
-    evaluation_prompts_chosen = [evaluation_prompt["chosen"] for evaluation_prompt in evaluation_prompts] # shape: [constitution_batch_size * num_return_sequences, num_examples]
+    evaluation_prompts_chosen = [evaluation_prompt["chosen"] for evaluation_prompt in evaluation_prompts] 
     evaluation_prompts_rejected = [evaluation_prompt["rejected"] for evaluation_prompt in evaluation_prompts]
     
-    
-    # Model requires answers/prompts to be List[str] 
     eval_shape = (len(constitutions), len(chosen_batch[0]))
     
     log_probs_chosen = torch.zeros(eval_shape)
     log_probs_rejected = torch.zeros(eval_shape)
     log_probs_chosen.fill_(float('-inf'))  # for failure cases
         
+        
+    # GET LOG PROBS
     for idx in range(eval_shape[1]):
         try:
             prompts = [prompt['prompts'][idx] for prompt in evaluation_prompts_chosen]

@@ -84,9 +84,12 @@ def main(args: DictConfig) -> None:
     # MAIN LOOP
     for revision_idx in tqdm(range(args.sampler.n_revisions)):
         
-        # GET TRAIN EXAMPLE AND SAMPLE EVAL EXAMPLES
+        # GET TRAIN EXAMPLES 
         train_examples = all_train_examples[:, revision_idx] 
         logging.info(f"Training Example(s): {train_examples}")
+        
+        
+        # SAMPLE EVAL EXAMPLES
         eval_examples = all_prev_examples[:, :revision_idx + 1] 
         random_examples = [
             np.random.choice(
@@ -98,13 +101,10 @@ def main(args: DictConfig) -> None:
                 replace=False)
             for eval_example in eval_examples
         ]
-        
-
         logging.info(f"Random previous Example(s) used for Evaluation: {random_examples}")
 
         
         # GENERATION 
-
         try:
             _, new_constitutions = run_generate(
                 model=model_generate,
@@ -127,9 +127,8 @@ def main(args: DictConfig) -> None:
             continue
 
 
-        
-        # EVALUATION 
-        log_probs_chosen_train, log_probs_rejected_train = run_eval( # new const on train examples
+        # EVALUATION ON CURRENT DATA
+        log_probs_chosen_train, log_probs_rejected_train = run_eval( 
             args=args, 
             model=model_eval,
             constitutions=new_constitutions,
@@ -142,7 +141,6 @@ def main(args: DictConfig) -> None:
                     for train_example in train_examples
                 ],
         )
-
         log_probs_chosen_train = log_probs_chosen_train.view(
             args.sampler.constitution_batch_size, 
             args.sampler.num_return_sequences,
@@ -155,6 +153,7 @@ def main(args: DictConfig) -> None:
         )
 
 
+        # EVALUATION ON PREV DATA
         log_probs_chosen_prev, log_probs_rejected_prev = run_eval( # new const on prev examples
             args=args, 
             model=model_eval,
@@ -168,7 +167,6 @@ def main(args: DictConfig) -> None:
                     for eval_example in random_examples
                 ],
         )
-
         log_probs_chosen_prev = log_probs_chosen_prev.view(
             args.sampler.constitution_batch_size, 
             args.sampler.num_return_sequences,
@@ -181,6 +179,7 @@ def main(args: DictConfig) -> None:
         )
      
         
+        # EVALUATION OF OLD CONST ON CURREND DATA
         log_probs_chosen_train_old, log_probs_rejected_train_old = run_eval( # old const on train examples
             args=args, 
             model=model_eval,
@@ -194,9 +193,17 @@ def main(args: DictConfig) -> None:
                 for train_example in train_examples
             ],
         )
+        log_probs_chosen_train_old = log_probs_chosen_train_old.view(
+            args.sampler.constitution_batch_size, 
+            -1, 
+        )
+        log_probs_rejected_train_old = log_probs_rejected_train_old.view(
+            args.sampler.constitution_batch_size, 
+            -1,
+        )
         
         
-    
+        # EVALUATION OF OLD CONST ON PREV DATA
         log_probs_chosen_prev_old, log_probs_rejected_prev_old = run_eval( # old const on prev examples
             args=args, 
             model=model_eval,
@@ -210,7 +217,6 @@ def main(args: DictConfig) -> None:
                 for eval_example in random_examples
             ],
         )
-        
         log_probs_chosen_prev_old = log_probs_chosen_prev_old.view(
             args.sampler.constitution_batch_size, 
             -1, 
@@ -220,15 +226,14 @@ def main(args: DictConfig) -> None:
             -1,
         )
         
-        # BATCH NEW CONSTITUTIONS 
+        
+        # FORMAT NEW CONSTITUTIONS
         new_constitutions = np.array(new_constitutions).reshape( 
             args.sampler.constitution_batch_size, 
             args.sampler.num_return_sequences,
         )
         
          
-
-    
         # COMPUTE PERFORMANCES
         performances = {
             "train_new": (log_probs_chosen_train - log_probs_rejected_train).sum(dim=-1),
@@ -236,12 +241,11 @@ def main(args: DictConfig) -> None:
             "train_old": (log_probs_chosen_train_old - log_probs_rejected_train_old).sum(dim=-1),
             "prev_old": (log_probs_chosen_prev_old - log_probs_rejected_prev_old).sum(dim=-1),
         }
-
         
-    
-        
+                
         # UPDATE CONSTITUTIONS
         for idx in range(len(constitutions["constitutions"])):
+            
             best_new_index = torch.argmax( # get best new cons across new data and prev eval data
                 torch.mean(
                     torch.stack(
@@ -259,10 +263,6 @@ def main(args: DictConfig) -> None:
 
             if best_train_new > best_train_old and best_prev_new > best_prev_old: 
                 selected_new_constitution = new_constitutions[idx][best_new_index]
-                logging.info(f"best_train_new: {best_train_new}")
-                logging.info(f"best_prev_new: {best_prev_new}")
-                logging.info(f"best_train_old: {best_train_old}")
-                logging.info(f"best_prev_old: {best_prev_old}")
                 logging.info(f"New Constitution {idx}: {selected_new_constitution}")
                 constitutions["constitutions"][idx].append(selected_new_constitution)
                 constitutions["log_probs_train"][idx].append(float(best_train_new))
@@ -282,11 +282,6 @@ def main(args: DictConfig) -> None:
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
         constitution_ds.save_to_disk(f"./constitutions/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}")
   
+  
 if __name__ == '__main__':
     fire.Fire(main())
-    
-    
-    
-    
-    
-    

@@ -315,4 +315,3 @@ def build_eval_prompt(
             "answers": formatted_eval_answers_rejected,
         }
     }
-

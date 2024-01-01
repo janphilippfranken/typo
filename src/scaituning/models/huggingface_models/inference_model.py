@@ -7,16 +7,12 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 
 class HFInferenceModel():
-    """
-    Wrapper for running inference with a HuggingFace Model.
-    """
+    """Wrapper for running inference with a HuggingFace Model."""
     def __init__(
         self, 
-        model_id: str = "mistralai/Mistral-7B-Instruct-v0.1",
         pretrained_model_name_or_path: str = "mistralai/Mistral-7B-Instruct-v0.1",
         load_in_4bit: str = True,
         device_map: str = "auto",
-        max_memory: dict = {},
         torch_dtype: str = "float16",
         model_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
@@ -33,27 +29,26 @@ class HFInferenceModel():
         # MODEL TYPE
         is_mistral = "mistral" in pretrained_model_name_or_path.lower()
         is_mixtral = "mixtral" in pretrained_model_name_or_path.lower()
-        is_llama_2 = "llama-2" in pretrained_model_name_or_path.lower()
         is_instruct = "instruct" in pretrained_model_name_or_path.lower()
         
         # PAD TOKENS
-        if is_mistral or is_llama_2 or is_mixtral:
+        if is_mistral or is_mixtral:
             self.tokenizer.pad_token = "[PAD]"
             self.tokenizer.padding_side = "right"
         else:
             raise ValueError(f"Model not (yet) implemented: {pretrained_model_name_or_path}")
         
-        # load model in 4-bit
+        # Q CONFIG
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=load_in_4bit,
             bnb_4bit_compute_dtype=torch.float16,
         )
         
+        # MODEL CONFIG
         model_config = {
             "pretrained_model_name_or_path": pretrained_model_name_or_path,
             "torch_dtype": torch.float16 if "16" in torch_dtype else torch.float32,
             "device_map": device_map,
-            "max_memory": max_memory if max_memory else None,
             "cache_dir": model_cache_dir,
             "token": os.getenv("HF_TOKEN"),
         }
@@ -66,6 +61,7 @@ class HFInferenceModel():
 
         self.model = AutoModelForCausalLM.from_pretrained(**model_config)
         
+        # COMPILE FOR FASTER GENERATION USING `generate.py`
         if is_instruct:
             self.model = torch.compile(self.model)
       
@@ -80,7 +76,7 @@ class HFInferenceModel():
         answers: List[str], 
         prompts: List[str],
     ) -> torch.Tensor:
-        """Returns log probabilities of prompts including inference target and prompts excluding inference target."""
+        """Returns log probabilities of prompts including answer (answers) and prompts excluding answers (prompts)."""
         # TOKENIZE
         with torch.no_grad():
             tokenized_answers = self.tokenizer(
@@ -89,6 +85,7 @@ class HFInferenceModel():
                 return_tensors="pt",
                 padding=True,
             ).to(self.model.device)
+            
             tokenized_prompts = self.tokenizer(
                 prompts,
                 add_special_tokens=False,
@@ -96,7 +93,7 @@ class HFInferenceModel():
                 padding="max_length",
                 max_length=tokenized_answers.input_ids.shape[1],
             ).to(self.model.device)
-            breakpoint()
+
             # LOG PROBS
             logits = self.model(
                 input_ids=tokenized_answers.input_ids,
@@ -112,12 +109,14 @@ class HFInferenceModel():
                 labels.contiguous().view(-1),
             )
             
-            # MASK INFERENCE TARGET (= prompt including questions - final inference target == 0 && # prompt including questions + final inference target != 0)
+            # MASK FOR FINAL ANSWERS 
             log_probs_answers = log_probs_answers.view(logits.shape[0], -1)
-            mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0) # -> extracts only the final inference target from the log probs as everything else is set to 0 below
+            mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0) 
             log_probs_answers.masked_fill_(~mask, 0) 
             log_probs = log_probs_answers.sum(dim=-1)
-            # Clear memory
+            
+            
+            # CLEAR MEMORY
             del tokenized_answers, tokenized_prompts, logits, labels, log_probs_answers, mask
             torch.cuda.empty_cache()
 
@@ -140,6 +139,7 @@ class HFInferenceModel():
             return_tensors="pt", 
             padding=True,
         ).to(self.model.device)
+        
         # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
         with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):
             output = self.model.generate(
@@ -150,9 +150,11 @@ class HFInferenceModel():
                 temperature=temperature,
                 num_return_sequences=num_return_sequences,
             )
+        
         # BATCH DECODE
         output = self.tokenizer.batch_decode(
             sequences=output, 
             skip_special_tokens=True,
         )
+        
         return output
