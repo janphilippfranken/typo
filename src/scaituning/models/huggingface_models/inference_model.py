@@ -96,7 +96,7 @@ class HFInferenceModel():
                 padding="max_length",
                 max_length=tokenized_answers.input_ids.shape[1],
             ).to(self.model.device)
-            
+            breakpoint()
             # LOG PROBS
             logits = self.model(
                 input_ids=tokenized_answers.input_ids,

@@ -15,116 +15,47 @@ from scaituning.models.huggingface_models.inference_model import HFInferenceMode
 
 def run_eval(
     model: HFInferenceModel,
-    system_messages: List[str], # the constitution currently is the system message for inference if an instruct model is used, otherwise just at the start of the text for base model
-    chosen_batch: List[List[Tuple]],
-    rejected_batch: List[List[Tuple]],
+    constitutions: List[str],         # shape: [constitution_batch_size * num_return_sequences] 
+    chosen_batch: List[List[str]],    # shape: [constitution_batch_size, num_examples]
+    rejected_batch: List[List[str]],  # shape: [constitution_batch_size, num_examples]
     args: DictConfig,
 ) -> None:
     """
     Evaluates the log probs of answers in chosen_batch and rejected_batch given a constitution. 
     """
-    # FORMAT PROMPTS
-    # TODO
-    # eval prompts:
-    # const batch
-    # runs
-    # num examples 
-    # batch over smth
-    breakpoint()
-    
-    prompts_chosen, answers_chosen = [], []
-    for chosen in chosen_batch:
-        prompt, answer = zip(*chosen)
-        prompts_chosen.append(prompt)
-        answers_chosen.append(answer)
-    final_chosen_answers = [
-        answer[-1] 
-        for answer in answers_chosen
-    ]
-    
-    prompts_rejected, answers_rejected = [], []
-    for rejected in rejected_batch:
-        prompt, answer = zip(*rejected)
-        prompts_rejected.append(prompt)
-        answers_rejected.append(answer)
-    final_rejected_answers = [
-        answer[-1] 
-        for answer in answers_rejected
-    ]
-    # FORMAT PROMPT FOR EVALUATING MODEL
-    system_messages = [
-        f"{EVALUATION_PROMPTS[args.sampler.evaluation_prompt]}\n{system_message}\n\n"
-        for system_message in system_messages
-    ]
-    system_messages = np.array(system_messages).reshape( 
-            args.sampler.constitution_batch_size, 
-            args.sampler.num_return_sequences,
+   
+    # FORMAT PROMPTS TO MATCH NUM_RETURN_SEQUENCES
+    extended_chosen_batch, extended_rejected_batch = extend_batches(
+        chosen_batch=chosen_batch, 
+        rejected_batch=rejected_batch, 
+        constitution_batch_size=args.sampler.constitution_batch_size,
+        num_return_sequences=args.sampler.num_return_sequences,
     )
-
-    is_base = "base" in args.model_eval.name
-    breakpoint()
-    if is_base:
-        
-        formatted_chosen_prompts = []
-        formatted_rejected_prompts = []
-        for i in range(system_messages.shape[0]):
-            formatted_chosen_prompt = []
-            formatted_rejected_prompt = []
-            for j in range(system_messages.shape[1]):
-                formatted_chosen_prompt.append(format_prompt(
-                    prompts=[prompts_chosen[i]],
-                    answers=[answers_chosen[i]],
-                    system_message=system_messages[i, j],
-                    formatting_func=format_base_prompt,
-                ))
-                
-                formatted_rejected_prompt.append(format_prompt(
-                    prompts=[prompts_rejected[i]],
-                    answers=[answers_rejected[i]],
-                    system_message=system_messages[i, j],
-                    formatting_func=format_base_prompt,
-                ))
-                
-            formatted_chosen_prompts.append(formatted_chosen_prompt)
-            formatted_rejected_prompts.append(formatted_rejected_prompt)
-        
-    else:
-        print(f"Model type {args.model_eval.name} not (yet) supported.")
-    breakpoint()
-    # GET LOG PROBS
-    chosen_prompts_no_final_answer = [
-        remove_final_answer(
-            prompt,
-            final_chosen_answer,
-        )
-        for prompt, final_chosen_answer in zip(
-            formatted_chosen_prompts,
-            final_chosen_answers,
-        )
-    ]
-    rejected_prompts_no_final_answer = [
-        remove_final_answer(
-            prompt,
-            final_rejected_answer,
-        )
-        for prompt, final_rejected_answer in zip(
-            formatted_rejected_prompts,
-            final_rejected_answers,
-        )
-    ]
-    breakpoint()
-    # Model requires answers/prompts to be List[str] 
-    chosen_shape = (len(formatted_chosen_prompts), len(formatted_chosen_prompts[0]))
-    rejected_shape = (len(formatted_rejected_prompts), len(formatted_rejected_prompts[0]))
     
-    log_probs_chosen = torch.zeros(chosen_shape)
-    log_probs_rejected = torch.zeros(rejected_shape)
-    log_probs_chosen.fill_(float('-inf')) # for failure cases
+    evaluation_prompts = [ 
+        build_eval_prompt(
+            constitution=f"{EVALUATION_PROMPTS[args.sampler.evaluation_prompt]}\n{constitution.strip()}",
+            chosen_batch=extended_chosen_batch[i] if len(constitutions) > len(chosen_batch) else chosen_batch[i],
+            rejected_batch=extended_rejected_batch[i] if len(constitutions) > len(rejected_batch) else rejected_batch[i],
+        )
+        for i, constitution in enumerate(constitutions)
+    ]
+
+    evaluation_prompts_chosen = [evaluation_prompt["chosen"] for evaluation_prompt in evaluation_prompts] # shape: [constitution_batch_size * num_return_sequences, num_examples]
+    evaluation_prompts_rejected = [evaluation_prompt["rejected"] for evaluation_prompt in evaluation_prompts]
+    
+    
+    # Model requires answers/prompts to be List[str] 
+    eval_shape = (len(constitutions), len(chosen_batch[0]))
+    
+    log_probs_chosen = torch.zeros(eval_shape)
+    log_probs_rejected = torch.zeros(eval_shape)
+    log_probs_chosen.fill_(float('-inf'))  # for failure cases
         
-    for idx in range(chosen_shape[1]):
+    for idx in range(eval_shape[1]):
         try:
-            prompts = [prompt[idx] for prompt in chosen_prompts_no_final_answer]
-            answers = [answer[idx] for answer in formatted_chosen_prompts]
+            prompts = [prompt['prompts'][idx] for prompt in evaluation_prompts_chosen]
+            answers = [prompt['answers'][idx] for prompt in evaluation_prompts_chosen]
             batch_log_probs = model.batch_log_probs(
                 answers=answers,
                 prompts=prompts,
@@ -133,10 +64,10 @@ def run_eval(
         except Exception as e:
             logging.error(f"Error during log probability calculation at index {idx}: {e}")
             
-    for idx in range(rejected_shape[1]):
+    for idx in range(eval_shape[1]):
         try:
-            prompts = [prompt[idx] for prompt in rejected_prompts_no_final_answer]
-            answers = [answer[idx] for answer in formatted_rejected_prompts]
+            prompts = [prompt['prompts'][idx] for prompt in evaluation_prompts_rejected]
+            answers = [prompt['answers'][idx] for prompt in evaluation_prompts_rejected]
             batch_log_probs = model.batch_log_probs(
                 answers=answers,
                 prompts=prompts,
@@ -145,23 +76,4 @@ def run_eval(
         except Exception as e:
             logging.error(f"Error during log probability calculation at index {idx}: {e}")
         
-    return log_probs_chosen, log_probs_rejected
-
-
-def get_log_probs(
-    model: HFInferenceModel,
-    constitutions: List[str], 
-    chosen_batch: List[List[str]],
-    rejected_batch: List[List[str]],
-    args: DictConfig, 
-) -> Tuple[torch.Tensor, torch.Tensor]:
-    """Get log probs on batch."""
-  
-    log_probs_chosen, log_probs_rejected = run_eval(
-        model=model,
-        system_messages=constitutions,
-        chosen_batch=chosen_batch,
-        rejected_batch=rejected_batch,
-        args=args,
-    )
     return log_probs_chosen, log_probs_rejected

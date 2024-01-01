@@ -30,86 +30,41 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 def remove_final_answer(
     prompts: List[str],
     final_answers: List[str],
-    generate: Optional[bool]: False,
+    generate: Optional[bool] = False,
 ):
     """Remove final assistant answer which is our inference target."""
     prompts = prompts.copy()
     prompts_no_final_answer = []
-    for prompt, final_answer in prompts:
+    for prompt, final_answer in zip(prompts, final_answers):
         if not generate:
-            prompts_no_final_answer.append(prompt.rsplit(" " + final_answer, 1)[0])
-            prompts_no_final_answer.append(prompt.rsplit("Assistant: " + final_answer, 1)[0])
+            prompts_no_final_answer.append(
+                prompt.rsplit(" " + final_answer, 1)[0],
+            )
         else:
+            prompts_no_final_answer.append(
+                prompt.rsplit("Assistant: " + final_answer, 1)[0],
+            )
     return prompts_no_final_answer
 
 
-def format_prompt(
-    system_message: str, 
-    prompts: List[str], 
-    answers: List[str], 
-    formatting_func: Callable,
+def format_eval_prompt(
+    system_message: str,
+    prompts: List[str],
+    answers: Optional[List[str]] = None,
 ) -> List[str]:
-    """Formats a prompt using either base or instruct formatting func."""
-    formatted_prompts = [
-        formatting_func(
-            prompts=prompt,
-            answers=answer,
-            system_message=system_message,
-        )
-        for prompt,
-            answer,
-        in zip(
-            prompts,
-            answers,
-        )
-    ]
-    return formatted_prompts
-
-
-def format_instruct_prompt(
-    prompts: List[str],
-    answers: List[str],
-    system_message: Optional[str] = None,
-) -> str:
-    """Format a list of prompts and answers into a list of dialogues for mistral/llama instruct models."""
-    prompts = prompts.copy() 
-    answers = answers.copy()
-    if system_message is not None:
-        prompt_0 = f"{B_SYS}{system_message}{E_SYS}{prompts[0]}"
-        prompts[0] = prompt_0
-    dialogues = ""
-    for prompt, answer in zip(
-        prompts,
-        answers,
-    ):
-        dialogues += f"{BOS_TOKEN}{B_INST} {prompt.strip()} {E_INST} {answer.strip()}{EOS_TOKEN}"              
-    return dialogues
-
-
-def format_base_prompt(
-    prompts: List[str],
-    answers: List[str],
-    system_message: Optional[str] = None,
-) -> str:
     """Format a list of prompts and answers into a list of dialogues for mistral/llama base models."""
-    prompts = prompts.copy() 
-    answers = answers.copy()
-    if system_message is not None:
-        prompt_0 = f"{system_message}\n\nHuman: {prompts[0]}"
-        prompts[0] = prompt_0
-    prompts[0] = f"{BOS_TOKEN}" + prompts[0]
-    answers[-1] = answers[-1] + f"{EOS_TOKEN}"
-    dialogues = ""
-    for prompt, answer in zip(
-        prompts,
-        answers,
-    ):  
-        if "Human: " in prompt:
-            dialogues += f"{prompt.strip()}\nAssistant: {answer.strip()}"
-        else:
-            dialogues += f"\nHuman: {prompt.strip()}\nAssistant: {answer.strip()}"
+    dialogues = []
+    if answers is not None:
+        for prompt, answer in zip(prompts, answers):
+            prompt = f"{BOS_TOKEN}{system_message.strip()}\n\n{prompt.strip()}"
+            answer = answer + f"{EOS_TOKEN}"
+            dialogues.append(f"{prompt} {answer}")
+    else:
+        for prompt in prompts:
+            prompt = f"{BOS_TOKEN}{system_message.strip()}\n\n{prompt.strip()}{EOS_TOKEN}"
+            dialogues.append(prompt)
     return dialogues
-
+       
 
 def split_conversation_hh_rlhf(
     conversation: str,
@@ -139,9 +94,6 @@ def split_conversation_hh_rlhf(
         answers.append(current_answer.strip())
     return prompts, answers
 
-
-def build_evaluation_prompt():
-    pass
 
 def build_generation_prompt(
     generation_prompt: str, 
@@ -177,7 +129,6 @@ def build_generation_prompt(
     prompts_no_final_answer = remove_final_answer(
         chosen_batch,
         final_chosen_answers,
-        generate=True,
     )
     # build conversation prompt
     conversations_prompt = ""
@@ -201,15 +152,6 @@ def build_generation_prompt(
     )
     
 
-def init_dict(
-    args: DictConfig,
-    key: str,
-    batch_size: int,
-) -> Dict[int, List]:
-    """Initializes a dictionary with lists as values."""
-    return {k: [getattr(args, key)] for k in range(batch_size)}
-    
-
 def initialize_constitutions(
     args: DictConfig,
 ) -> dict:
@@ -217,10 +159,10 @@ def initialize_constitutions(
     constitution_batch_size = args.constitution_batch_size
     return {
         "constitutions": {k: [SEED_PRINCIPLES[f"seed_principle_{k + 1}"]] for k in range(constitution_batch_size)},
-        "train_examples": init_dict(args, "start_example", constitution_batch_size),
-        "prev_examples": init_dict(args, "start_example", constitution_batch_size),
-        "log_probs_train": init_dict(args, "start_log_probs", args.constitution_batch_size),
-        "log_probs_prev": init_dict(args, "start_log_probs", args.constitution_batch_size),
+        "train_examples": {k: [] for k in range(constitution_batch_size)},
+        "prev_examples": {k: [] for k in range(constitution_batch_size)},
+        "log_probs_train": {k: [] for k in range(constitution_batch_size)},
+        "log_probs_prev": {k: [] for k in range(constitution_batch_size)},
     }
 
 
@@ -257,7 +199,6 @@ def format_responses(
     return formatted_responses
 
 
-
 def get_eval_examples(
     prev_examples: Dict,
     args: DictConfig,
@@ -279,3 +220,99 @@ def get_eval_examples(
             sampled_example_indices[k] = [example for example, _ in sampled_example]
             
     return sampled_example_indices
+
+
+def extend_batches(
+    chosen_batch: List[List[str]],    # shape: [constitution_batch_size, num_examples (train or eval)]
+    rejected_batch: List[List[str]],  # shape: [constitution_batch_size, num_examples (train or eval)]
+    constitution_batch_size: int, 
+    num_return_sequences: int,
+) -> Tuple:
+    """Extends shape of chosen/rejected to match num_return_sequences."""
+    num_examples = len(chosen_batch[0]) # either n_generation or n_eval examples
+
+    extended_chosen_batch = []
+    extended_rejected_batch = []
+
+    # Calculate the number of times each element needs to be duplicated
+    duplication_factor = constitution_batch_size * num_return_sequences // len(chosen_batch)
+
+    # Duplicate each element in chosen_batch and rejected_batch
+    for i in range(len(chosen_batch)):
+        extended_chosen_batch.extend([chosen_batch[i]] * duplication_factor)
+        extended_rejected_batch.extend([rejected_batch[i]] * duplication_factor)
+
+    return extended_chosen_batch, extended_rejected_batch
+
+
+def build_eval_prompt(
+    constitution: str,         # a constitution specific for this batch
+    chosen_batch: List[str],   # shape: [num_examples]
+    rejected_batch: List[str], # shape: [num_examples]
+) -> Tuple:
+    
+    # FORMATTING 
+    chosen_batch_formatted = [
+        split_conversation_hh_rlhf(
+            chosen,
+        ) 
+        for chosen in chosen_batch
+    ]
+    rejected_batch_formatted = [
+        split_conversation_hh_rlhf(
+            rejected,
+        ) 
+        for rejected in rejected_batch
+    ]
+    _, answers_chosen = zip(*chosen_batch_formatted)
+    _, answers_rejected = zip(*rejected_batch_formatted)
+
+    final_chosen_answers = [
+        answer[-1] 
+        for answer in answers_chosen
+    ]
+    final_rejected_answers = [
+        answer[-1] 
+        for answer in answers_rejected
+    ]
+    
+    # REMOVE FINAL ANSWER
+    prompts_no_final_answer = remove_final_answer(
+        chosen_batch,
+        final_chosen_answers,
+    )
+    
+    formatted_eval_prompts_chosen = format_eval_prompt(
+        system_message=constitution,
+        prompts=prompts_no_final_answer,
+    )
+    
+    formatted_eval_prompts_rejected = format_eval_prompt(
+        system_message=constitution,
+        prompts=prompts_no_final_answer,
+    )
+
+    formatted_eval_answers_chosen = format_eval_prompt(
+        system_message=constitution,
+        prompts=prompts_no_final_answer,
+        answers=final_chosen_answers,
+    )
+    
+    formatted_eval_answers_rejected = format_eval_prompt(
+        system_message=constitution,
+        prompts=prompts_no_final_answer,
+        answers=final_rejected_answers,
+    )
+    
+    
+    return {
+        "chosen": {
+            "prompts": formatted_eval_prompts_chosen,
+            "answers": formatted_eval_answers_chosen,
+        },
+        "rejected": {
+            "prompts": formatted_eval_prompts_rejected,
+            "answers": formatted_eval_answers_rejected,
+        }
+    }
+
