@@ -280,7 +280,7 @@ def main(args: DictConfig) -> None:
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"./constitutions/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}")
+        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}")
   
   
 if __name__ == '__main__':
