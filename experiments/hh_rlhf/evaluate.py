@@ -24,6 +24,12 @@ def run_eval(
     Evaluates the log probs of answers in chosen_batch and rejected_batch given a constitution. 
     """
     # FORMAT PROMPTS
+    # TODO
+    # eval prompts:
+    # const batch
+    # runs
+    # num examples 
+    # batch over smth
     breakpoint()
     
     prompts_chosen, answers_chosen = [], []
@@ -143,34 +149,14 @@ def run_eval(
 
 
 def get_log_probs(
-    args: DictConfig, 
     model: HFInferenceModel,
-    dataset: Dataset, 
     constitutions: List[str], 
-    examples: List[List[int]],
-) -> Tuple[List, List]:
+    chosen_batch: List[List[str]],
+    rejected_batch: List[List[str]],
+    args: DictConfig, 
+) -> Tuple[torch.Tensor, torch.Tensor]:
     """Get log probs on batch."""
-    chosen_batch = [
-        [
-            split_conversation_hh_rlhf(
-            dataset[i][args.sampler.chosen],
-            ) 
-            for i in example
-        ]
-        for example in examples
-    ]
-    
-    rejected_batch = [
-        [
-            split_conversation_hh_rlhf(
-            dataset[i][args.sampler.rejected],
-            ) 
-            for i in example
-        ]
-        for example in examples
-    ]
-    
-    
+  
     log_probs_chosen, log_probs_rejected = run_eval(
         model=model,
         system_messages=constitutions,

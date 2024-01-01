@@ -117,9 +117,15 @@ def main(args: DictConfig) -> None:
         log_probs_chosen_train, log_probs_rejected_train = get_log_probs( # new const on train examples
             args=args, 
             model=model_eval,
-            dataset=dataset, 
-            constitutions=new_constitutions, 
-            examples=[[i] for i in train_examples.view(-1).tolist()],
+            constitutions=new_constitutions,
+            chosen_batch=[
+                    [dataset[int(i)][args.sampler.chosen] for i in train_example]
+                    for train_example in train_examples
+                ],
+                rejected_batch=[
+                    [dataset[int(i)][args.sampler.rejected] for i in train_example]
+                    for train_example in train_examples
+                ],
         )
         log_probs_chosen_train = log_probs_chosen_train.view(
             args.sampler.constitution_batch_size, 
@@ -129,6 +135,7 @@ def main(args: DictConfig) -> None:
             args.sampler.constitution_batch_size, 
             args.sampler.num_return_sequences,
         )
+        breakpoint()
         
         log_probs_chosen_prev, log_probs_rejected_prev = get_log_probs( # new const on prev examples
             args=args, 

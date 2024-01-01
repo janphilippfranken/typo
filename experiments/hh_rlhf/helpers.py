@@ -28,34 +28,21 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 
 def remove_final_answer(
-    prompts,
-    final_answer,
+    prompts: List[str],
+    final_answers: List[str],
+    generate: Optional[bool]: False,
 ):
     """Remove final assistant answer which is our inference target."""
     prompts = prompts.copy()
     prompts_no_final_answer = []
-    for prompt in prompts:
-        prompts_no_final_answer.append(prompt[0].rsplit(" " + final_answer, 1)[0])
+    for prompt, final_answer in prompts:
+        if not generate:
+            prompts_no_final_answer.append(prompt.rsplit(" " + final_answer, 1)[0])
+            prompts_no_final_answer.append(prompt.rsplit("Assistant: " + final_answer, 1)[0])
+        else:
     return prompts_no_final_answer
 
 
-def remove_final_answer_generation(
-    prompts: List[str],
-    final_answers: List[str],
-) -> List[str]:
-    """Remove final assistant answer including Assistant for generation."""
-    prompts_no_final_answer = [
-        prompt.rsplit("Assistant: " + final_answer, 1)[0] 
-        for prompt, 
-            final_answer,
-        in zip(
-            prompts,
-            final_answers,
-        )
-    ]
-    return prompts_no_final_answer
-    
-    
 def format_prompt(
     system_message: str, 
     prompts: List[str], 
@@ -153,6 +140,9 @@ def split_conversation_hh_rlhf(
     return prompts, answers
 
 
+def build_evaluation_prompt():
+    pass
+
 def build_generation_prompt(
     generation_prompt: str, 
     constitution: str,
@@ -184,9 +174,10 @@ def build_generation_prompt(
         for answer in answers_rejected
     ]
     # remove final answer from prompt (only need to do this once as both chosen/rejected are same up to final answer)
-    prompts_no_final_answer = remove_final_answer_generation(
+    prompts_no_final_answer = remove_final_answer(
         chosen_batch,
         final_chosen_answers,
+        generate=True,
     )
     # build conversation prompt
     conversations_prompt = ""
