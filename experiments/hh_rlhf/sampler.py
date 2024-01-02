@@ -35,7 +35,9 @@ def main(args: DictConfig) -> None:
 - Batch Size: {args.sampler.constitution_batch_size}
 - Num Return Sequences: {args.sampler.num_return_sequences}
 - N Eval Examples: {args.sampler.eval_batch_size}
-- N Generation Examples: {args.sampler.generation_batch_size}""")
+- N Generation Examples: {args.sampler.generation_batch_size}
+
+Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}""")
 
 
     # GET GENERATE MODEL 

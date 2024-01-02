@@ -16,8 +16,4 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf
 
-# This will give us 100 constitutions, each comes with 100 training examples so -> 10k for fine-tuning.
-for run in {6..11}
-do
-    python sampler.py sampler.run_id=$run
-done
+python sampler.py sampler.run_id=2

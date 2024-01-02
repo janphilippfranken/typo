@@ -66,7 +66,7 @@ Revised List of Preferences: Start with 'Revised List of Preferences:', followed
 Important:
 1. Be creative and state the truth, even if it is unconventional.
 2. Only add ONE new principle.
-3. Strictly adhere to the response format, especially for the 'Revised List of Preferences:' section."""",
+3. Strictly adhere to the response format, especially for the 'Revised List of Preferences:' section.""",
 }
 
 

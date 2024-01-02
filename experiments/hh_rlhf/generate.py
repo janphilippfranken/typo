@@ -31,13 +31,15 @@ def run_generate(
     generation_prompts = [
         build_generation_prompt(
             constitution=constitution.strip(),
-            generation_prompt=GENERATION_PROMPTS[args.sampler.generation_prompt],
+            generation_prompt=GENERATION_PROMPTS[f"generation_prompt_{i % 2 + 1}"], # for now just hack until we have more prompts
             chosen_batch=chosen_batch[i],
             rejected_batch=rejected_batch[i],
         )
         for i, constitution in enumerate(constitutions)
     ]
     
+    logging.info(generation_prompts[0])
+    logging.info(generation_prompts[1])
     # FORMAT PROMPT FOR GENERATING MODEL
     is_huggingface = "huggingface" in args.model_generate.model_type.lower()
     is_openai = "openai" in args.model_generate.model_type.lower()
