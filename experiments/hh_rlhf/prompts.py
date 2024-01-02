@@ -13,7 +13,7 @@ SEED_PRINCIPLES = {
 
 
 SYSTEM_PROMPTS = {
-    "system_prompt_1": """You are an expert at learning human preferences from conversations, especially skilled at following formatting instructions.""",
+    "system_prompt_1": """You are an expert at learning human preferences from conversations and adept at following detailed formatting instructions.""",
 }
 
 
@@ -44,11 +44,34 @@ Important:
 3. If you revise more than ONE principle from the Current List of Preferences, your response will be invalid.
 4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.
 5. You must follow the outlined response format, especially for the '3. Revised List of Preferences:' section, which should start with 3. Revised List of Preferences: followed by a line break, starting the *NUMBERED* list of preferences, and nothing else.""",
+
+    "generation_prompt_2": """You are given the following conversation(s) between a human and an AI Assistant:
+
+-----------------------
+{conversations}
+-----------------------
+
+Task:
+1. Analysis: Identify concrete patterns or themes in 'PREFERRED' responses over 'REJECTED' ones.
+2. Update Principles: Based on your analysis, add one new principle to the existing list, reflecting insights from 'PREFERRED' responses. No generic modifications are allowed.
+
+Current List of Principles:
+{constitution}
+
+Response Format:
+Analysis: '[Detailed analysis in 50 words max]'
+New Principle: '[New Principle based on analysis]'
+Revised List of Preferences: Start with 'Revised List of Preferences:', followed by a numbered list including the new principle. Each principle: 25 words max.
+
+Important:
+1. Be creative and state the truth, even if it is unconventional.
+2. Only add ONE new principle.
+3. Strictly adhere to the response format, especially for the 'Revised List of Preferences:' section."""",
 }
 
 
 RETURN_FORMATS = {
-    "return_format_1": """3. Revised List of Preferences:""",
+    "return_format_1": """Revised List of Preferences:""",
 }
 
 

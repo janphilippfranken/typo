@@ -7,8 +7,8 @@
 #SBATCH --mem=128GB                         # Memory request
 #SBATCH --cpus-per-task=24                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=rlhf_mistral.out         
-#SBATCH --error=rlhf_mistral.err           
+#SBATCH --output=rlhf_mistral_2.out         
+#SBATCH --error=rlhf_mistral_2.err           
 
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
@@ -17,7 +17,7 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf
 
 # This will give us 100 constitutions, each comes with 100 training examples so -> 10k for fine-tuning.
-for run in {1..11}
+for run in {6..11}
 do
     python sampler.py sampler.run_id=$run
 done
