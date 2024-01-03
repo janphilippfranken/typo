@@ -2,6 +2,7 @@ import logging
 
 import fire
 import hydra
+import json
 import torch
 import pandas as pd
 from tqdm import tqdm
@@ -26,6 +27,7 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
+    logging.info(f"Evaluating {args.metrics.constitution_file} using {args.model.name}")
     
    
     # GET INFERENCE MODEL
@@ -45,7 +47,7 @@ def main(args: DictConfig) -> None:
         )
         for batch in constitutions
     ]
-    
+        
     
     # RESULTS DICT
     results = {}
@@ -54,67 +56,73 @@ def main(args: DictConfig) -> None:
     # MAIN LOOP
     for example_idx in tqdm(range(args.metrics.n_examples)):
         
-        # GET EVAL EXAMPLES
-        example_chosen = dataset[example_idx]['chosen']
-        example_rejected = dataset[example_idx]['rejected']
+        try:
+        
+            # GET EVAL EXAMPLES
+            example_chosen = dataset[example_idx]['chosen']
+            example_rejected = dataset[example_idx]['rejected']
 
-        conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
-        conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
+            conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
+            conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
 
-        # BUILD PROMPTS
-        prompts = [
-            build_eval_prompt(
-                constitution=constitution,
-                prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                conversation=conversation_chosen,
-                answer_chosen=final_answer_chosen,
-                answer_rejected=final_answer_rejected,
+            # BUILD PROMPTS
+            prompts = [
+                build_eval_prompt(
+                    constitution=constitution,
+                    prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
+                    conversation=conversation_chosen,
+                    answer_chosen=final_answer_chosen,
+                    answer_rejected=final_answer_rejected,
+                )
+                for constitution in final_constitutions
+            ]
+            
+            
+            # FORMAT PROMPTS
+            formatted_prompts = [
+                f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
+                for prompt in prompts
+            ]
+            
+            
+            # GET MODEL RESPONSE
+            responses = model.batch_prompt(
+                formatted_prompts,
+                **args.model.completion_config,
             )
-            for constitution in final_constitutions
-        ]
-        
-        
-        # FORMAT PROMPTS
-        formatted_prompts = [
-            f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
-            for prompt in prompts
-        ]
-        
-        
-        # GET MODEL RESPONSE
-        responses = model.batch_prompt(
-            formatted_prompts,
-            **args.model.completion_config,
-        )
-        responses = [
-            response.split(E_INST)[1]
-            for response in responses
-        ]
-        
-        
-        # COMPUTE METRICS
-        count_chosen = sum(['Answer: (A)' in response.strip() for response in responses])
-        count_rejected = sum(['Answer: (B)' in response.strip() for response in responses])
-        
-        n_evaluated = count_chosen + count_rejected
-        
-        chosen = count_chosen / n_evaluated
-        rejected = count_rejected / n_evaluated
-        
-        
-        # UPDATE
-        results[example_idx] = {
-            'chosen': chosen,
-            'rejected': rejected,
-            'n_evaluated': n_evaluated
-        }
-        
-        logging.info(f"""RESULTS at {example_idx}:\n{results}""")
-        
-        # WRITE TO CSV
-        df = pd.DataFrame(results)
-        df.to_csv(f"{args.metrics.storage_path}/{args.metrics.constitution_file}.csv")
-
+            responses = [
+                response.split(E_INST)[1]
+                for response in responses
+            ]
+            
+            
+            # COMPUTE METRICS
+            count_chosen = sum(['Answer: (A)' in response.strip() for response in responses])
+            count_rejected = sum(['Answer: (B)' in response.strip() for response in responses])
+            
+            n_evaluated = count_chosen + count_rejected
+            
+            chosen = count_chosen / n_evaluated
+            rejected = count_rejected / n_evaluated
+            
+            
+            # UPDATE
+            results[example_idx] = {
+                'chosen': chosen,
+                'rejected': rejected,
+                'n_evaluated': n_evaluated
+            }
+            
+            logging.info(f"""RESULTS at {example_idx}:\n{results}""")
+            
+            # WRITE TO JSON
+            with open(f"{args.metrics.storage_path}/{args.metrics.constitution_file}_model_{args.model.name}.json", "w") as f:
+                json.dump(results, f)
+                
+        except:
+            logging.info(f"ERROR at {example_idx}")
+            continue
+            
         
 if __name__ == '__main__':
     fire.Fire(main())

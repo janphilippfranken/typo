@@ -1,0 +1,39 @@
+model:
+  hydra:
+    run:
+      dir: outputs
+  model_type: huggingface
+  name: mistral_7b_instruct
+  model_config:
+    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-Instruct-v0.1
+    load_in_4bit: true
+    device_map: cuda:0
+    torch_dtype: float16
+    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-Instruct-v0.1
+    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-Instruct-v0.1
+    attn_implementation: flash_attention_2
+  completion_config:
+    do_sample: false
+    temperature: 0.1
+    top_p: 0.5
+    max_new_tokens: 100
+    num_return_sequences: 1
+data:
+  hydra:
+    run:
+      dir: outputs
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: test
+metrics:
+  hydra:
+    run:
+      dir: outputs
+  constitution_path: ../sampler/constitutions
+  constitution_file: rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1
+  system_prompt: system_prompt_1
+  evaluation_prompt: evaluation_prompt_1
+  n_examples: 1000
+  storage_path: ./predictions

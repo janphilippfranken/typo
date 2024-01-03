@@ -15,7 +15,7 @@ model_config:
   attn_implementation: "flash_attention_2"
 
 completion_config:
-  do_sample: true
+  do_sample: false
   temperature: 0.01
   top_p: 1.0
   max_new_tokens: 50

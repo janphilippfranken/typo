@@ -4,11 +4,11 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:1                        # Request GPUs
-#SBATCH --mem=16GB                          # Memory request
+#SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=16                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=mixtral_rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1.out
-#SBATCH --error=mixtral_rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1.err
+#SBATCH --output=rlhf_reversed_run_2.out
+#SBATCH --error=rlhf_reversed_run_2.err
 
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
