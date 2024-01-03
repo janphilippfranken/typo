@@ -129,6 +129,7 @@ def build_generation_prompt(
     prompts_no_final_answer = remove_final_answer(
         chosen_batch,
         final_chosen_answers,
+        generate=True,
     )
     # build conversation prompt
     conversations_prompt = ""
@@ -158,7 +159,7 @@ def initialize_constitutions(
     """Initializes dict for storing constitutions."""
     constitution_batch_size = args.constitution_batch_size
     return {
-        "constitutions": {k: [SEED_PRINCIPLES[f"seed_principle_{k + 1}"]] for k in range(constitution_batch_size)},
+        "constitutions": {k: [SEED_PRINCIPLES[args.seed_principle]] for k in range(constitution_batch_size)},
         "train_examples": {k: [] for k in range(constitution_batch_size)},
         "prev_examples": {k: [] for k in range(constitution_batch_size)},
         "log_probs_train": {k: [] for k in range(constitution_batch_size)},

@@ -40,7 +40,7 @@ def main(args: DictConfig) -> None:
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}""")
 
 
-    # GET GENERATE MODEL 
+    # GET MODEL(S)
     model_generate = HFInferenceModel(**args.model_generate.model_config)
     args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
     logging.info(f"Generate Model is {args.model_generate.name} on Device {model_generate.model.device}")

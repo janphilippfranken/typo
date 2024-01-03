@@ -4,10 +4,10 @@ hydra:
 
 
 # PROMPTS
-system_prompt: system_prompt_1         # system prompt we are using for generating principles
-generation_prompt: generation_prompt_1 # human prompt we are using for generating principles
-evaluation_prompt: evaluation_prompt_1 # prompt we are using for evaluating principles
-return_format: return_format_1         # start format the the revised list of preferences in the generation_prompt
+system_prompt: system_prompt_1            # system prompt we are using for generating principles
+generation_prompt: generation_prompt_base # human prompt we are using for generating principles
+evaluation_prompt: evaluation_prompt_base # prompt we are using for evaluating principles
+return_format: return_format_1            # start format the the revised list of preferences in the generation_prompt
 
 
 # DATASET 
@@ -29,3 +29,4 @@ top_k_difficult: 20         # if top_k, number of most difficult examples we are
 # RUN ID for SEED PRINCIPLE in `prompts.py`
 run_id: 1                        # the id of the current run / sampler
 storage_path: ./constitutions
+seed_principle: seed_principle_1

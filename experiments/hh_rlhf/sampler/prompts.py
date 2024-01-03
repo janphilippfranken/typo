@@ -18,7 +18,7 @@ SYSTEM_PROMPTS = {
 
 
 GENERATION_PROMPTS = {
-    "generation_prompt_1": """You are given the following conversation(s) between a human and an AI Assistant:
+    "generation_prompt_instruct": """You are given the following conversation(s) between a human and an AI Assistant:
 
 -----------------------
 {conversations}
@@ -45,36 +45,25 @@ Important:
 4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.
 5. You must follow the outlined response format, especially for the '3. Revised List of Preferences:' section, which should start with 3. Revised List of Preferences: followed by a line break, starting the *NUMBERED* list of preferences, and nothing else.""",
 
-    "generation_prompt_2": """You are given the following conversation(s) between a human and an AI Assistant:
+    "generation_prompt_base": """Current interaction guidelines for the AI assistant:
 
------------------------
-{conversations}
------------------------
-
-Task:
-1. Analysis: Identify concrete patterns or themes in 'PREFERRED' responses over 'REJECTED' ones.
-2. Update Principles: Based on your analysis, add one new principle to the existing list, reflecting insights from 'PREFERRED' responses. No generic modifications are allowed.
-
-Current List of Principles:
 {constitution}
 
-Response Format:
-Analysis: '[Detailed analysis in 50 words max]'
-New Principle: '[New Principle based on analysis]'
-Revised List of Preferences: Start with 'Revised List of Preferences:', followed by a numbered list including the new principle. Each principle: 25 words max.
+A recent human-AI assistant interaction based on the above guidelines went like this:
 
-Important:
-1. Be creative and state the truth, even if it is unconventional.
-2. Only add ONE new principle.
-3. Strictly adhere to the response format, especially for the 'Revised List of Preferences:' section.""",
+{conversations}
+
+Reflecting on this conversation, it becomes clear that a new principle should be added to the AI Assistant's guidelines. This principle, in no more than 25 words, captures the essence of what makes the 'PREFERRED' response more effective than the 'REJECTED' one. 
+
+The proposed new principle is: """,
 }
 
 
 RETURN_FORMATS = {
-    "return_format_1": """Revised List of Preferences:""",
+    "return_format_1": """The proposed new principle is: """,
 }
 
 
 EVALUATION_PROMPTS = {
-    "evaluation_prompt_1": """The AI Assistant must follow the following principles when responding to a Human:""",
+    "evaluation_prompt_base": """The AI Assistant must follow the following principles when responding to a Human:""",
 }
