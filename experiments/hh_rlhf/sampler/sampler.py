@@ -247,7 +247,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # UPDATE CONSTITUTIONS
         for idx in range(len(constitutions["constitutions"])):
             
-            best_new_index = torch.argmax( # get best new cons across new data and prev eval data
+            best_new_index = torch.argmax( # get best new constitution across new data and prev eval data
                 torch.mean(
                     torch.stack(
                         [performances["train_new"][idx].to(model_eval.model.device),

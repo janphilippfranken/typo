@@ -5,7 +5,7 @@ import seaborn as sns
 
 BATCH_SIZE = 10
 N_EXAMPLES = 70
-COMMON = True
+COMMON = False
 
 def load_data(file_path):
     try:
@@ -118,5 +118,5 @@ ax.set_ylim(-0.05, 1.05)
 
 # Show plot
 plt.tight_layout()
-plt.savefig('predictions_common.pdf')
-plt.savefig('predictions_common.png')
+plt.savefig('predictions.pdf')
+plt.savefig('predictions.png')
