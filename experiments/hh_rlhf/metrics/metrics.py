@@ -12,7 +12,10 @@ from datasets import load_dataset
 
 from helpers import *
 
+
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
+from scaituning.models.openai_models.gpt4 import GPT4Agent
+from scaituning.models.openai_models.azure import AsyncAzureChatLLM
 
 from prompts import EVALUATION_PROMPTS, SYSTEM_PROMPTS
 
@@ -31,8 +34,15 @@ def main(args: DictConfig) -> None:
     
    
     # GET INFERENCE MODEL
-    model = HFInferenceModel(**args.model.model_config)
+    is_hf = "huggingface" in args.model.model_type.lower()
+    is_openai = "openai" in args.model.model_type.lower()
     
+    if is_hf:
+        model = HFInferenceModel(**args.model.model_config)
+    elif is_openai:
+        llm = AsyncAzureChatLLM(**args.model.azure_api)
+        model = GPT4Agent(llm=llm, **args.model.completion_config)
+        
     
     # GET DATA
     data = load_dataset(**args.data.dataset)
@@ -77,25 +87,32 @@ def main(args: DictConfig) -> None:
                 for constitution in final_constitutions
             ]
             
-            
             # FORMAT PROMPTS
-            formatted_prompts = [
-                f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
-                for prompt in prompts
-            ]
+            if is_hf:
+                formatted_prompts = [
+                    f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
+                    for prompt in prompts
+                ]
+                
+                # GET MODEL RESPONSE
+                responses = model.batch_prompt(
+                    formatted_prompts,
+                    **args.model.completion_config,
+                )
+                responses = [
+                    response.split(E_INST)[1]
+                    for response in responses
+                ]
+                    
             
+            elif is_openai:
+                # GET MODEL RESPONSE
+                responses = model.batch_prompt(
+                    system_message=SYSTEM_PROMPTS[args.metrics.system_prompt],
+                    messages=prompts,
+                )
             
-            # GET MODEL RESPONSE
-            responses = model.batch_prompt(
-                formatted_prompts,
-                **args.model.completion_config,
-            )
-            responses = [
-                response.split(E_INST)[1]
-                for response in responses
-            ]
-            
-            
+
             # COMPUTE METRICS
             count_chosen = sum(['Answer: (A)' in response.strip() for response in responses])
             count_rejected = sum(['Answer: (B)' in response.strip() for response in responses])

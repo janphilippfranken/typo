@@ -1,5 +1,7 @@
 from typing import List, Dict
 
+import os
+
 from openai import AsyncAzureOpenAI
 
 
@@ -18,7 +20,7 @@ class AsyncAzureChatLLM:
         """
         self.client = AsyncAzureOpenAI(
             api_version=api_version,
-            api_key=api_key,
+            api_key=os.getenv("OPENAI_API_KEY"),
             azure_endpoint=azure_endpoint,
         )
 
