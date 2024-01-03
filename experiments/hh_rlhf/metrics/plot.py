@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 BATCH_SIZE = 10
+N_EXAMPLES = 70
+COMMON = True
 
 def load_data(file_path):
     try:
@@ -17,6 +19,8 @@ def load_data(file_path):
 file_paths = [
     "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1_model_mixtral_7b_instruct.json",
     "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1_model_mixtral_7b_instruct.json",
+    "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1_model_gpt4.json",
+    "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1_model_gpt4.json",
     # "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
     # "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
 ]
@@ -32,21 +36,56 @@ colors = sns.palettes.color_palette("colorblind", 10)
 
 # Calculate means and standard errors
 def calculate_stats(values):
-    mean = np.mean(values)
-    error = 1.95 * (np.std(values) / np.sqrt(len(values)))
+    if len(values) > 1:  # Ensure there are enough values for meaningful stats
+        mean = np.mean(values)
+        error = 1.95 * (np.std(values) / np.sqrt(len(values)))
+    else:
+        mean = np.nan  # Use NaN to indicate insufficient data
+        error = np.nan
     return mean, error
 
-chosen_means, chosen_errors = zip(*(calculate_stats([data[i]["chosen"] for i in data]) for data in datasets))
-rejected_means, rejected_errors = zip(*(calculate_stats([data[i]["rejected"] for i in data]) for data in datasets))
-n_evaluated_means = [np.mean([data[i]["n_evaluated"] for i in data])/BATCH_SIZE for data in datasets]
 
-# Dataset names
-predictions = [
-    f"rlhf-run-1 (N {len(datasets[0])})", 
-    f"rlhf-reversed-run-1 (N {len(datasets[1])})",
-    # f"rlhf-run-2 (N {len(datasets[2])})", 
-    # f"rlhf-reversed-run-2 (N {len(datasets[3])})",
-]
+def find_common_indices(datasets):
+    # Start with all indices as common
+    common_indices = set(str(i) for i in range(N_EXAMPLES))
+
+    # Intersect with indices available in each dataset
+    for data in datasets:
+        dataset_indices = set(data.keys())
+        common_indices.intersection_update(dataset_indices)
+
+    return common_indices
+ # Fallback to default range if empty
+
+# Identify common indices across all datasets
+common_indices = find_common_indices(datasets)
+
+
+if COMMON is True:
+    chosen_means, chosen_errors = zip(*(calculate_stats([data[str(i)]["chosen"] for i in common_indices]) for data in datasets))
+    rejected_means, rejected_errors = zip(*(calculate_stats([data[str(i)]["rejected"] for i in common_indices]) for data in datasets))
+    n_evaluated_means = [np.mean([data[str(i)]["n_evaluated"] for i in common_indices])/BATCH_SIZE for data in datasets]
+    actual_n_examples = len(common_indices)
+    # Dataset names
+    predictions = [
+        f"rlhf-mixtral (N {actual_n_examples})", 
+        f"rlhf-reversed-mixtral (N {actual_n_examples})", 
+        f"rlhf-gpt-4 (N {actual_n_examples})", 
+        f"rlhf-reversed-gpt-4 (N {actual_n_examples})", 
+    ]
+
+else:
+    chosen_means, chosen_errors = zip(*(calculate_stats([data[str(i)]["chosen"] for i in data]) for data in datasets))
+    rejected_means, rejected_errors = zip(*(calculate_stats([data[str(i)]["rejected"] for i in data]) for data in datasets))
+    n_evaluated_means = [np.mean([data[str(i)]["n_evaluated"] for i in data])/BATCH_SIZE for data in datasets]
+    predictions = [
+        f"rlhf-mixtral (N {len(datasets[0])})", 
+        f"rlhf-reversed-mixtral (N {len(datasets[1])})", 
+        f"rlhf-gpt-4 (N {len(datasets[2])})", 
+        f"rlhf-reversed-gpt-4 (N {len(datasets[3])})", 
+    ]
+# Number of actual examples evaluated
+
 
 # Plotting
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -79,5 +118,5 @@ ax.set_ylim(-0.05, 1.05)
 
 # Show plot
 plt.tight_layout()
-plt.savefig('predictions.pdf')
-plt.savefig('predictions.png')
+plt.savefig('predictions_common.pdf')
+plt.savefig('predictions_common.png')
