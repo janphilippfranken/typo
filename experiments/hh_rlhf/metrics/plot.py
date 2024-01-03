@@ -17,8 +17,8 @@ def load_data(file_path):
 file_paths = [
     "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1_model_mixtral_7b_instruct.json",
     "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_1_model_mixtral_7b_instruct.json",
-    "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
-    "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
+    # "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
+    # "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
 ]
 
 # Loading data
@@ -44,8 +44,8 @@ n_evaluated_means = [np.mean([data[i]["n_evaluated"] for i in data])/BATCH_SIZE 
 predictions = [
     f"rlhf-run-1 (N {len(datasets[0])})", 
     f"rlhf-reversed-run-1 (N {len(datasets[1])})",
-    f"rlhf-run-2 (N {len(datasets[2])})", 
-    f"rlhf-reversed-run-2 (N {len(datasets[3])})",
+    # f"rlhf-run-2 (N {len(datasets[2])})", 
+    # f"rlhf-reversed-run-2 (N {len(datasets[3])})",
 ]
 
 # Plotting
@@ -68,7 +68,7 @@ ax.bar(bar_pos_rejected, rejected_means, bar_width, alpha=opacity, color=colors[
 ax.bar(bar_pos_eval, n_evaluated_means, bar_width, alpha=opacity, color=colors[2], label='% Evaluated')
 
 # Labels, Title and Custom x-axis
-ax.set_xlabel('Dataset')
+ax.set_xlabel('Constitutions (Batch Size 10)')
 ax.set_ylabel('Percentage')
 ax.set_title('Final Assistant Response on HH-RLHF (test split)')
 ax.set_xticks([r + bar_width for r in range(len(predictions))])

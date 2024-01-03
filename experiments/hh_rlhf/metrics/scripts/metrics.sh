@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=16                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=rlhf_reversed_run_2.out
-#SBATCH --error=rlhf_reversed_run_2.err
+#SBATCH --output=rlhf_run_1.out
+#SBATCH --error=rlhf_run_1.err
 
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
