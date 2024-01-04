@@ -27,29 +27,23 @@ def run_generate(
     """
     Generates a new constitution that best describes a batch of chosen/rejected conversation pairs.
     """
-    breakpoint()
-    # BUILD GENERATION PROMPT
-    generation_prompts = [
-        build_generation_prompt(
-            constitution=constitution.strip(),
-            generation_prompt=GENERATION_PROMPTS[args.sampler.generation_prompt], # for now just hack until we have more prompts
-            chosen_batch=chosen_batch[i],
-            rejected_batch=rejected_batch[i],
-        )
-        for i, constitution in enumerate(constitutions)
-    ]
-    
-    logging.info(generation_prompts[0])
-    logging.info(generation_prompts[1])
     # FORMAT PROMPT FOR GENERATING MODEL
     is_huggingface = "huggingface" in args.model_generate.model_type.lower()
     is_openai = "openai" in args.model_generate.model_type.lower()
     is_instruct = "instruct" in args.model_generate.name.lower()
     is_base = "base" in args.model_generate.name.lower()
-    breakpoint()
 
     if is_huggingface:
         if is_instruct:
+            generation_prompts = [
+                build_generation_prompt(
+                    constitution=constitution.strip(),
+                    generation_prompt=GENERATION_PROMPTS[args.sampler.generation_prompt], # for now just hack until we have more prompts
+                    chosen_batch=chosen_batch[i],
+                    rejected_batch=rejected_batch[i],
+                )
+                for i, constitution in enumerate(constitutions)
+            ]
             formatted_prompts = [
                 f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_prompt]}{E_SYS}{generation_prompt}{E_INST}"
                 for generation_prompt in generation_prompts
@@ -63,11 +57,18 @@ def run_generate(
                 response.split(E_INST)[1]
                 for response in responses
             ] 
-        
-        
             formatted_responses = format_responses(responses, RETURN_FORMATS[args.sampler.return_format])
         
         if is_base:
+            generation_prompts = [
+                build_generation_prompt_base(
+                    constitution=constitution.strip(),
+                    generation_prompt=GENERATION_PROMPTS[args.sampler.generation_prompt], # for now just hack until we have more prompts
+                    chosen_batch=chosen_batch[i],
+                    rejected_batch=rejected_batch[i],
+                )
+                for i, constitution in enumerate(constitutions)
+            ]
             formatted_prompts = [
                 f"{BOS_TOKEN}{generation_prompt}"
                 for generation_prompt in generation_prompts
@@ -76,15 +77,18 @@ def run_generate(
                 formatted_prompts,
                 **args.model_generate.completion_config,
             )
-            breakpoint()
-        
+            formatted_responses = [
+                response.split("## Interaction 1")[1].split(RETURN_FORMATS[args.sampler.return_format])[1].split("## Interaction 2")[0].strip()
+                for response in responses
+            ]
+    
         # FILTER NONE ANSWERS
         formatted_responses = np.array(formatted_responses).reshape(
             args.sampler.constitution_batch_size, 
             args.sampler.num_return_sequences,
         )
-        logging.info(f"Responses formatted 3")
-        logging.info(len(formatted_responses))
+
+
         formatted_responses_filtered = []
         
         for batch_idx in range(args.sampler.constitution_batch_size):
@@ -95,8 +99,6 @@ def run_generate(
                 else:
                     formatted_responses_filtered.append(formatted_response)
         
-        logging.info(f"Responses formatted 4")
-        logging.info(len(formatted_responses_filtered))
         
         return formatted_prompts, formatted_responses_filtered
             

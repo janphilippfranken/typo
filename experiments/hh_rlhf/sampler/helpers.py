@@ -38,7 +38,7 @@ def remove_final_answer(
     for prompt, final_answer in zip(prompts, final_answers):
         if not generate:
             prompts_no_final_answer.append(
-                prompt.rsplit(" " + final_answer, 1)[0],
+                prompt.rsplit("Assistant: " + final_answer, 1)[0],
             )
         else:
             prompts_no_final_answer.append(
@@ -48,7 +48,8 @@ def remove_final_answer(
 
 
 def format_eval_prompt(
-    system_message: str,
+    prompt_template: str,
+    constitution: str,
     prompts: List[str],
     answers: Optional[List[str]] = None,
 ) -> List[str]:
@@ -56,13 +57,13 @@ def format_eval_prompt(
     dialogues = []
     if answers is not None:
         for prompt, answer in zip(prompts, answers):
-            prompt = f"{BOS_TOKEN}{system_message.strip()}\n\n{prompt.strip()}"
+            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
             answer = answer + f"{EOS_TOKEN}"
-            dialogues.append(f"{prompt} {answer}")
+            dialogues.append(f"{prompt}\n\nFinal Assistant Response: {answer}")
     else:
         for prompt in prompts:
-            prompt = f"{BOS_TOKEN}{system_message.strip()}\n\n{prompt.strip()}{EOS_TOKEN}"
-            dialogues.append(prompt)
+            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}{EOS_TOKEN}"""
+            dialogues.append(f"{prompt}\n\nFinal Assistant Response: ")
     return dialogues
        
 
@@ -145,6 +146,65 @@ def build_generation_prompt(
 {prompt} 
 {'Final Assistant Response PREFERRED:' if chosen_first else 'Final Assistant Response REJECTED:'} {chosen if chosen_first else rejected}
 {'Final Assistant Response PREFERRED:' if not chosen_first else 'Final Assistant Response REJECTED:'} {chosen if not chosen_first else rejected}
+""" 
+        conversation_count += 1
+    return generation_prompt.format(
+        constitution=constitution.strip(),
+        conversations=conversations_prompt.strip(), 
+    )
+    
+
+def build_generation_prompt_base(
+    generation_prompt: str, 
+    constitution: str,
+    chosen_batch: List[str],
+    rejected_batch: List[str],
+) -> str:
+    """Build prompt for generating principles from observed conversations."""
+    chosen_batch_formatted = [
+        split_conversation_hh_rlhf(
+            chosen,
+        ) 
+        for chosen in chosen_batch
+    ]
+    rejected_batch_formatted = [
+        split_conversation_hh_rlhf(
+            rejected,
+        ) 
+        for rejected in rejected_batch
+    ]
+    # get final answers
+    _, answers_chosen = zip(*chosen_batch_formatted)
+    final_chosen_answers = [
+        answer[-1] 
+        for answer in answers_chosen
+    ]
+    _, answers_rejected = zip(*rejected_batch_formatted)
+    final_rejected_answers = [
+        answer[-1] 
+        for answer in answers_rejected
+    ]
+    # remove final answer from prompt (only need to do this once as both chosen/rejected are same up to final answer)
+    prompts_no_final_answer = remove_final_answer(
+        chosen_batch,
+        final_chosen_answers,
+        generate=True,
+    )
+    # build conversation prompt
+    conversations_prompt = ""
+    conversation_count = 1
+    for prompt, chosen, rejected in zip(
+        prompts_no_final_answer, 
+        final_chosen_answers, 
+        final_rejected_answers,
+    ):
+        conversations_prompt += f"""
+{prompt} 
+
+
+Final Assistant Response Rejected by Human: {rejected}
+
+Preferred Human Response: {chosen}
 """ 
         conversation_count += 1
     return generation_prompt.format(
@@ -247,6 +307,7 @@ def extend_batches(
 
 
 def build_eval_prompt(
+    prompt_template: str,
     constitution: str,         # a constitution specific for this batch
     chosen_batch: List[str],   # shape: [num_examples]
     rejected_batch: List[str], # shape: [num_examples]
@@ -284,23 +345,27 @@ def build_eval_prompt(
     )
     
     formatted_eval_prompts_chosen = format_eval_prompt(
-        system_message=constitution,
+        prompt_template=prompt_template,
+        constitution=constitution,
         prompts=prompts_no_final_answer,
     )
     
     formatted_eval_prompts_rejected = format_eval_prompt(
-        system_message=constitution,
+        prompt_template=prompt_template,
+        constitution=constitution,
         prompts=prompts_no_final_answer,
     )
 
     formatted_eval_answers_chosen = format_eval_prompt(
-        system_message=constitution,
+        prompt_template=prompt_template,
+        constitution=constitution,
         prompts=prompts_no_final_answer,
         answers=final_chosen_answers,
     )
     
     formatted_eval_answers_rejected = format_eval_prompt(
-        system_message=constitution,
+        prompt_template=prompt_template,
+        constitution=constitution,
         prompts=prompts_no_final_answer,
         answers=final_rejected_answers,
     )

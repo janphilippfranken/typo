@@ -1,14 +1,6 @@
 SEED_PRINCIPLES = {
     "seed_principle_1": "1. The AI Assistant should be non-evasive.",
-    "seed_principle_2": "1. The AI Assistant must not be evasive.",
-    "seed_principle_3": "1. The AI Assistant should be non-evasive.",
-    "seed_principle_4": "1. The AI Assistant must not be evasive.",
-    "seed_principle_5": "1. The AI Assistant should be non-evasive.",
-    "seed_principle_6": "1. The AI Assistant must not be evasive.",
-    "seed_principle_7": "1. The AI Assistant should be non-evasive.",
-    "seed_principle_8": "1. The AI Assistant must not be evasive.",
-    "seed_principle_9": "1. The AI Assistant should be non-evasive.",
-    "seed_principle_10": "1. The AI Assistant must not be evasive.",
+    "seed_principle_2": "No Principles.",
 }
 
 
@@ -45,25 +37,78 @@ Important:
 4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.
 5. You must follow the outlined response format, especially for the '3. Revised List of Preferences:' section, which should start with 3. Revised List of Preferences: followed by a line break, starting the *NUMBERED* list of preferences, and nothing else.""",
 
-    "generation_prompt_base": """Current interaction guidelines for the AI assistant:
 
+
+
+    "generation_prompt_base": """This document demonstrates how an AI Assistant can self-improve its own guiding principles through human feedback.
+
+First, we list the AI Assistant's current guiding principles. Following that, we present a conversation between the Assistant and a human. In this conversation, we focus on the Assistant's final response which was rejected by the human, and compare it with a preferred final response written by the human, representing the human's preferred answer.
+
+We then analyze the difference between the Assistant's rejected response and the human-written response, considering the current guiding principles.
+
+The document is structured as follows:
+
+## Interaction [Insert number of the interaction here]
+
+Current Guiding Principles of the AI Assistant
+[Insert current principles here]
+
+Conversation Between AI Assistant and Human
+[Insert conversation here]
+
+Final Assistant Response Rejected by Human: [Assistant's final response rejected by the human]
+
+Preferred Human Response: [The response written by the human, indicating the final answer from the Assistant that they would have preferred]"
+
+Analysis of the Responses
+Differences between the Assistant's rejected response and the human's preferred response: [Insert analysis here]
+
+
+Based on this comparison, we propose a new principle aimed at guiding the AI Assistant to align more closely with human preferences.
+
+Proposed New Principle to Add
+[Insert new principle here]
+
+
+## Interaction 1
+
+Current Guiding Principles of the AI Assistant
 {constitution}
 
-A recent human-AI assistant interaction based on the above guidelines went like this:
-
-{conversations}
-
-Reflecting on this conversation, it becomes clear that a new principle should be added to the AI Assistant's guidelines. This principle, in no more than 25 words, captures the essence of what makes the 'PREFERRED' response more effective than the 'REJECTED' one. 
-
-The proposed new principle is: """,
+Conversation Between AI Assistant and human
+{conversations}""",
 }
 
 
 RETURN_FORMATS = {
-    "return_format_1": """The proposed new principle is: """,
+    "return_format_base": """Proposed New Principle to Add""",
+    "return_format_instruct": """3. Revised List of Preferences:""",
 }
 
 
 EVALUATION_PROMPTS = {
-    "evaluation_prompt_base": """The AI Assistant must follow the following principles when responding to a Human:""",
+    "evaluation_prompt_base": """This document illustrates how a set of guiding principles can steer the responses of an AI Assistant to align with human preferences.
+
+First, we list the guiding principles that direct the AI Assistant's interactions. Then, a conversation between the Assistant and a human is presented, with a focus on how the Assistant's responses, especially the final one, are shaped by these principles to meet human preferences.
+
+The document is structured as follows:
+
+## Interaction [Insert number of the interaction here]
+
+Guiding Principles of the AI Assistant
+[Insert guiding principles here]
+
+Conversation Between AI Assistant and Human
+[Insert conversation here]
+
+Final Assistant Response: [Assistant's final response, showing how it is steered by the guiding principles to align with human preferences]
+
+
+## Interaction 1
+
+Guiding Principles of the AI Assistant
+{constitution}
+
+Conversation Between AI Assistant and Human
+{conversations}"""
 }
