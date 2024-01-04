@@ -114,7 +114,6 @@ class HFInferenceModel():
             mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0) 
             log_probs_answers.masked_fill_(~mask, 0) 
             log_probs = log_probs_answers.sum(dim=-1)
-            breakpoint()
             
             # CLEAR MEMORY
             del tokenized_answers, tokenized_prompts, logits, labels, log_probs_answers, mask

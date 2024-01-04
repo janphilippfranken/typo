@@ -82,15 +82,21 @@ def run_generate(
                 logging.info(f"Got Response")
             except Exception as e:
                 logging.info(e)
-            
             logging.info(f"Response Example: {responses[0]}")
-            formatted_responses = [
-                response.split("## Interaction 1")[1].split(RETURN_FORMATS[args.sampler.return_format])[1].split("## Interaction 2")[0].strip()
-                for response in responses
-            ]
-            logging.info(f"Formatted Response Example: {formatted_responses[0]}")
+            formatted_responses = []
+            for response in responses:
+                try:
+                    # Attempt to extract and format the response
+                    formatted_response = response.split("## Interaction 1")[1] \
+                        .split(RETURN_FORMATS[args.sampler.return_format])[1] \
+                        .split("## Interaction 2")[0].strip()
+                    formatted_responses.append(formatted_response)
+                except:
+                    # Append "None" if an error occurs
+                    formatted_responses.append("None")
+            
+            logging.info(f"""Formatted Response Success Rate: {(len(formatted_responses) - formatted_responses.count('None')) / len(formatted_responses)}""")
 
-    
         # FILTER NONE ANSWERS
         formatted_responses = np.array(formatted_responses).reshape(
             args.sampler.constitution_batch_size, 
