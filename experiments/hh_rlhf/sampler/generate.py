@@ -69,18 +69,27 @@ def run_generate(
                 )
                 for i, constitution in enumerate(constitutions)
             ]
+            logging.info(f"Build Prompt")
             formatted_prompts = [
                 f"{BOS_TOKEN}{generation_prompt}"
                 for generation_prompt in generation_prompts
             ]
-            responses = model.batch_prompt(
-                formatted_prompts,
-                **args.model_generate.completion_config,
-            )
+            try:
+                responses = model.batch_prompt(
+                    formatted_prompts,
+                    **args.model_generate.completion_config,
+                )
+                logging.info(f"Got Response")
+            except Exception as e:
+                logging.info(e)
+            
+            logging.info(f"Response Example: {responses[0]}")
             formatted_responses = [
                 response.split("## Interaction 1")[1].split(RETURN_FORMATS[args.sampler.return_format])[1].split("## Interaction 2")[0].strip()
                 for response in responses
             ]
+            logging.info(f"Formatted Response Example: {formatted_responses[0]}")
+
     
         # FILTER NONE ANSWERS
         formatted_responses = np.array(formatted_responses).reshape(

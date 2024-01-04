@@ -7,13 +7,13 @@
 #SBATCH --mem=128GB                         # Memory request
 #SBATCH --cpus-per-task=24                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=rlhf_mistral_2.out         
-#SBATCH --error=rlhf_mistral_2.err           
+#SBATCH --output=rlhf_mistral_1.out         
+#SBATCH --error=rlhf_mistral_1.err           
 
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/experiments/hh_rlhf
+cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sampler
 
-python sampler.py sampler.run_id=2
+python sampler.py sampler.run_id=1

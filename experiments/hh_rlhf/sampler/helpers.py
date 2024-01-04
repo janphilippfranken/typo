@@ -58,11 +58,10 @@ def format_eval_prompt(
     if answers is not None:
         for prompt, answer in zip(prompts, answers):
             prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
-            answer = answer + f"{EOS_TOKEN}"
             dialogues.append(f"{prompt}\n\nFinal Assistant Response: {answer}")
     else:
         for prompt in prompts:
-            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}{EOS_TOKEN}"""
+            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
             dialogues.append(f"{prompt}\n\nFinal Assistant Response: ")
     return dialogues
        
