@@ -52,7 +52,6 @@ def run_generate(
                 formatted_prompts,
                 **args.model_generate.completion_config,
             )
-            logging.info(f"Responses generated.")
             responses = [
                 response.split(E_INST)[1]
                 for response in responses
@@ -69,7 +68,6 @@ def run_generate(
                 )
                 for i, constitution in enumerate(constitutions)
             ]
-            logging.info(f"Build Prompt")
             formatted_prompts = [
                 f"{BOS_TOKEN}{generation_prompt}"
                 for generation_prompt in generation_prompts
@@ -79,21 +77,21 @@ def run_generate(
                     formatted_prompts,
                     **args.model_generate.completion_config,
                 )
-                logging.info(f"Got Response")
             except Exception as e:
                 logging.info(e)
-            logging.info(f"Response Example: {responses[0]}")
             formatted_responses = []
             for response in responses:
                 try:
                     # Attempt to extract and format the response
                     formatted_response = response.split("## Interaction 1")[1] \
                         .split(RETURN_FORMATS[args.sampler.return_format])[1] \
-                        .split("## Interaction 2")[0].strip()
+                        .strip().split("\n")[0]
                     formatted_responses.append(formatted_response)
                 except:
                     # Append "None" if an error occurs
                     formatted_responses.append("None")
+                    
+            
             
             logging.info(f"""Formatted Response Success Rate: {(len(formatted_responses) - formatted_responses.count('None')) / len(formatted_responses)}""")
 
