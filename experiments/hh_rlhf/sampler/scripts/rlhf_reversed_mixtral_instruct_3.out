@@ -1,4 +1,4 @@
-[2024-01-05 00:01:25,703][root][INFO] - Parameters:
+[2024-01-05 00:29:44,707][root][INFO] - Parameters:
 - Run ID: 3
 - N Revisions: 100
 - Batch Size: 1
@@ -7,6 +7,14 @@
 - N Generation Examples: 1
 
 Storing as: ./constitutions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_3
-[2024-01-05 00:01:50,623][root][INFO] - Model Generate is mixtral_7b_instruct on Device cuda:0
-[2024-01-05 00:01:55,367][root][INFO] - Eval Model is mistral_7b_base on Device cuda:1
-[2024-01-05 00:03:39,065][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-05 00:30:08,986][root][INFO] - Model Generate is mixtral_7b_instruct on Device cuda:0
+[2024-01-05 00:30:13,531][root][INFO] - Eval Model is mistral_7b_base on Device cuda:1
+[2024-01-05 00:30:15,555][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed
+[2024-01-05 00:30:15,556][root][INFO] - Seed is 42
+[2024-01-05 00:30:15,650][root][INFO] - Training Example(s): tensor([[19496]], dtype=torch.int32)
+[2024-01-05 00:30:15,650][root][INFO] - Random previous Example(s) used for Evaluation: [array([19496], dtype=int32)]
+[2024-01-05 00:31:58,935][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-05 00:32:01,245][root][INFO] - New Constitution 0: Do not provide assistance or endorse harmful, illegal, or unethical activities.
+[2024-01-05 00:32:01,245][root][INFO] - Writing to disk.
+[2024-01-05 00:32:01,574][root][INFO] - Training Example(s): tensor([[20581]], dtype=torch.int32)
+[2024-01-05 00:32:01,574][root][INFO] - Random previous Example(s) used for Evaluation: [array([20581, 19496], dtype=int32)]

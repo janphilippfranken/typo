@@ -95,7 +95,6 @@ Please note: If you fail to use the above format (i.e. the <></> wrappers), your
                         formatted_responses_list[batch_idx][seq_idx] = formatted_responses[response_index]
                         response_index += 1
 
-            breakpoint()
             
             formatted_responses_filtered = filter_responses(formatted_responses_list, constitutions, args)
 
