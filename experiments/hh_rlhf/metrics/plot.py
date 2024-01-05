@@ -18,10 +18,10 @@ def load_data(file_path):
 
 # File paths
 file_paths = [
-    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_2_model_mistral_7b_base_train.json",
-    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_2_model_mistral_7b_base_train.json",
-    "predictions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_run_1_no_memory_model_mistral_7b_base.json",
-    "predictions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_run_1_no_memory_model_mistral_7b_base.json",
+    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_train.json",
+    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_train.json",
+    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_test.json",
+    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_test.json",
     # "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
     # "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
 ]
@@ -47,9 +47,9 @@ def calculate_stats(values):
     return mean, error
 
 
-def calculate_win_rate_and_error(chosen, reversed_chosen):
-    win_count = sum(1 for r, rev in zip(chosen, reversed_chosen) if r > rev)
-    total = len(chosen)
+def calculate_win_rate_and_error(chosen_minus_rejected_rlhf, chosen_minus_rejected_rlhf_reversed):
+    win_count = sum(1 for r, rev in zip(chosen_minus_rejected_rlhf, chosen_minus_rejected_rlhf_reversed) if r > rev)
+    total = len(chosen_minus_rejected_rlhf)
     win_rate = win_count / total
     error = 1.96 * np.sqrt(win_rate * (1 - win_rate) / total)
     return win_rate, error
@@ -79,44 +79,46 @@ if COMMON is True:
     actual_n_examples = len(common_indices)
     # Dataset names
     predictions = [
-        f"rlhf-mixtral (N {actual_n_examples})", 
-        f"rlhf-reversed-mixtral (N {actual_n_examples})", 
-        f"rlhf-mistral (N {actual_n_examples})", 
-        f"rlhf-reversed-mistral (N {actual_n_examples})", 
+        # f"rlhf-mixtral 1 (N {actual_n_examples})", 
+        # f"rlhf-reversed-mixtral 1 (N {actual_n_examples})", 
+        f"rlhf-mixtral 3 (N {actual_n_examples})", 
+        f"rlhf-reversed-mixtral 3 (N {actual_n_examples})", 
     ]
 else:
     if LOG_PROBS:
        
-        rlhf_chosen_mixtral = [datasets[0][str(i)]["chosen"] for i in datasets[0]]
-        rlhf_rejected_mixtral = [datasets[0][str(i)]["rejected"] for i in datasets[0]]
-        rlhf_reversed_chosen_mixtral = [datasets[1][str(i)]["chosen"] for i in datasets[1]]
-        rlhf_reversed_rejected_mixtral = [datasets[1][str(i)]["rejected"] for i in datasets[1]]
+        rlhf_chosen_mixtral_train = np.array([datasets[0][str(i)]["chosen"] for i in datasets[0]])
+        rlhf_rejected_mixtral_train = np.array([datasets[0][str(i)]["rejected"] for i in datasets[0]])
+        rlhf_reversed_chosen_mixtral_train = np.array([datasets[1][str(i)]["chosen"] for i in datasets[1]])
+        rlhf_reversed_rejected_mixtral_train = np.array([datasets[1][str(i)]["rejected"] for i in datasets[1]])
         
-        rlhf_chosen_mistral = [datasets[2][str(i)]["chosen"] for i in datasets[2]]
-        rlhf_rejected_mistral = [datasets[2][str(i)]["rejected"] for i in datasets[2]]
-        rlhf_reversed_chosen_mistral = [datasets[3][str(i)]["chosen"] for i in datasets[3]]
-        rlhf_reversed_rejected_mistral = [datasets[3][str(i)]["rejected"] for i in datasets[3]]
-        
+        rlhf_chosen_mixtral_test = np.array([datasets[2][str(i)]["chosen"] for i in datasets[2]])
+        rlhf_rejected_mixtral_test = np.array([datasets[2][str(i)]["rejected"] for i in datasets[2]])
+        rlhf_reversed_chosen_mixtral_test = np.array([datasets[3][str(i)]["chosen"] for i in datasets[3]])
+        rlhf_reversed_rejected_mixtral_test = np.array([datasets[3][str(i)]["rejected"] for i in datasets[3]])
+
         # Calculate win rates and errors for mixtral
-        rlhf_mixtral_chosen_win_rate, rlhf_mixtral_chosen_error = calculate_win_rate_and_error(rlhf_chosen_mixtral, rlhf_reversed_chosen_mixtral)
-        rlhf_mixtral_rejected_win_rate, rlhf_mixtral_rejected_error = calculate_win_rate_and_error(rlhf_rejected_mixtral, rlhf_reversed_rejected_mixtral)
-
-        # Calculate win rates and errors for mistral (assuming rlhf_chosen_mistral and others are defined)
-        rlhf_mistral_chosen_win_rate, rlhf_mistral_chosen_error = calculate_win_rate_and_error(rlhf_chosen_mistral, rlhf_reversed_chosen_mistral)
-        rlhf_mistral_rejected_win_rate, rlhf_mistral_rejected_error = calculate_win_rate_and_error(rlhf_rejected_mistral, rlhf_reversed_rejected_mistral)
-
+        win_rate_train, error_train = calculate_win_rate_and_error(
+            rlhf_chosen_mixtral_train - rlhf_rejected_mixtral_train, 
+            rlhf_reversed_chosen_mixtral_train - rlhf_reversed_rejected_mixtral_train,
+        )
+        
+        win_rate_test, error_test = calculate_win_rate_and_error(
+            rlhf_chosen_mixtral_test - rlhf_rejected_mixtral_test, 
+            rlhf_reversed_chosen_mixtral_test - rlhf_reversed_rejected_mixtral_test,
+        )
+ 
         # Combine win rates and errors
-        win_rates_chosen = [rlhf_mixtral_chosen_win_rate, rlhf_mixtral_rejected_win_rate, rlhf_mistral_chosen_win_rate, rlhf_mistral_rejected_win_rate]
-        win_rates_rejected = [1 - c for c in win_rates_chosen]
-        win_errors = [rlhf_mixtral_chosen_error, rlhf_mixtral_rejected_error, rlhf_mistral_chosen_error, rlhf_mistral_rejected_error]
+        win_rates_chosen = [win_rate_train, win_rate_test]
+        win_rates_rejected = [1 - win_rate_train, 1 - win_rate_test]
+        win_errors = [error_train , error_test]
 
         # Names for x-axis labels
         predictions = [
-            f"rlhf-mixtral (N {len(rlhf_chosen_mixtral)})", 
-            f"rlhf-reversed-mixtral (N {len(rlhf_chosen_mixtral)})", 
-            f"rlhf-mistral (N {len(rlhf_chosen_mistral)})", 
-            f"rlhf-reversed-mistral (N {len(rlhf_chosen_mistral)})"]
-
+            f"train split (N {len(rlhf_chosen_mixtral_train)})", 
+            f"test split (N {len(rlhf_chosen_mixtral_test)})", 
+        ]
+        breakpoint()
         # Plotting
         fig, ax = plt.subplots(figsize=(10, 5))
         bar_width = 0.2
@@ -129,13 +131,14 @@ else:
         bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
 
         # Bars for Chosen and Rejected
-        ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label='% Chosen')
-        ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label='% Rejected')
+        ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label=r'$p(\text{chosen}|\text{rlhf}) - p(\text{rejected}|\text{rlhf}) > $' '\n' r'$p(\text{chosen}|\text{rlhf\_reversed}) - p(\text{rejected}|\text{rlhf\_reversed})$')
+
+        ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label=r'$p(\text{chosen}|\text{rlhf}) - p(\text{rejected}|\text{rlhf}) < $' '\n' r'$p(\text{chosen}|\text{rlhf\_reversed}) - p(\text{rejected}|\text{rlhf\_reversed})$')
 
         # Labels, Title, and Custom x-axis
         ax.set_xlabel('Models')
         ax.set_ylabel('Win Rates')
-        ax.set_title('RLHF Chosen vs Rejected Win Rates on Train Examples')
+        ax.set_title('RLHF Chosen vs Rejected Win Rates')
         ax.set_xticks(bar_pos)
         ax.set_xticklabels(predictions)
         ax.legend()
@@ -143,8 +146,8 @@ else:
         plt.tight_layout()
 
         ax.set_ylim(-0.05, 1.05)
-        plt.savefig('predictions_train.pdf')
-        plt.savefig('predictions_train.png')
+        plt.savefig('predictions_prompt_2.pdf')
+        plt.savefig('predictions_prompt_2.png')
         
 
 

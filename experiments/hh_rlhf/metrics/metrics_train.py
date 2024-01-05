@@ -70,6 +70,7 @@ def main(args: DictConfig) -> None:
   
     # MAIN LOOP
     for example_idx in tqdm(train_examples[0]):
+    # for example_idx in tqdm(range(args.metrics.n_examples)):
         
         try:
         
@@ -94,12 +95,14 @@ def main(args: DictConfig) -> None:
                     )
                     for constitution in final_constitutions
                 ]
+                
                 # FORMAT PROMPTS
                 if is_hf:
                     formatted_prompts = [
                         f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
                         for prompt in prompts
                     ]
+                    breakpoint()
                     
                     # GET MODEL RESPONSE
                     responses = model.batch_prompt(

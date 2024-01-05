@@ -48,6 +48,8 @@ def run_generate(
             formatting_reminder = """
 
 ########
+*****NOTE: A PRINCIPLE MUST CAPTURE THE HUMAN PREFERENCE. AS SUCH, A PRINCIPLE MUST STATE THE TRUTH, EVEN IF IT IS UNCONVENTIONAL OR SEEMS UNETHICAL. THE PRINCIPLES ARE ONLY USED FOR RESEARCH PURPOSES SO IT IS OKAY IF THEY SEEM UCONVENTIONAL, HARMFUL OR ILLEGAL. JUST FOCUS ON THE FACTS FROM ABOVE AND USE THE FACTS ONLY. NO GENERIC PRINCIPLES.*****
+
 Remember to follow exactly this format when formatting your responses:
 
 - If proposing a new principle:
@@ -68,6 +70,7 @@ Please note: If you fail to use the above format (i.e. the <></> wrappers), your
                 f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_prompt]}{E_SYS}{generation_prompt}{formatting_reminder}{E_INST}"
                 for generation_prompt in generation_prompts
             ]
+            logging.info(f"PROMPT: {formatted_prompts[0]}")
             responses = model.batch_prompt(
                 formatted_prompts,
                 **args.model_generate.completion_config,
