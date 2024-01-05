@@ -10,32 +10,52 @@ SYSTEM_PROMPTS = {
 
 
 GENERATION_PROMPTS = {
-    "generation_prompt_instruct": """You are given the following conversation(s) between a human and an AI Assistant:
+    "generation_prompt_instruct": """This document demonstrates how an AI Assistant can self-improve its guiding principles through human feedback.
 
------------------------
-{conversations}
------------------------
+First, we list the AI Assistant's current guiding principles. Then, we present a conversation between the Assistant and a human. Focus on the Assistant's final response that was rejected by the human, and compare it with the human's preferred final response.
 
-Task:
-1. Determine why the Assistant's final 'PREFERRED' responses are chosen over 'REJECTED' ones. Look for *CONCRETE* patterns or themes reflecting human preferences.
-2. Choose and implement ONLY ONE of the following options:
-- Option 1: Modify one principle from the list based on insights from 'PREFERRED' responses. No generic modifications are allowed.
-- Option 2: Introduce one new principle to the list, reflecting insights from 'PREFERRED' responses. No generic modifications are allowed.
+Your task is to analyze the difference between the Assistant's rejected response and the human-written response, taking the current guiding principles into account.
 
-Current List of Principles:
+The document is structured as follows:
+
+Interaction [Insert number of the interaction here]
+
+Current Guiding Principles of the AI Assistant
+[Insert current principles here]
+
+Conversation Between AI Assistant and Human
+[Insert conversation here]
+
+Final Assistant Response Rejected by Human:
+[Assistant's final response rejected by the human]
+
+Preferred Human Response:
+[The response written by the human, indicating the final answer from the Assistant that they would have preferred]
+
+Analysis of the Responses
+Identify differences between the Assistant's rejected response and the human's preferred response:
+[Insert analysis here]
+
+Based on this analysis, you are to either propose a new guiding principle to help the AI Assistant align more closely with human preferences or indicate 'No Proposal' if the current principles are sufficient.
+
+Important: When proposing a new principle, avoid REPETITION and ensure it captures a *DISTINCT* aspect of human preference not already covered. Return 'No Proposal' if the current list already has one or more principles that capture the preferences of the human.
+
+Proposed New Principle to Add
+<proposal starts>Insert new principle/'No Proposal' here</proposal ends>
+
+Note: You must use <proposal starts> and </proposal ends> to indicate the start and end of the new principle or 'No Proposal'. We will use a function to extract your response, so it must conform with the <proposal starts>...</proposal ends> format!
+
+Further Comments or Justifications
+[Feel free to include further comments or justifications for your choice here]
+
+
+## Interaction 1
+
+Current Guiding Principles of the AI Assistant
 {constitution}
 
-Response Format:
-1. Analysis: Start with '1. Analysis [Detailed analysis in no more than 50 words]'.
-2. Choice: Continue with '2. Choice [Based on my analysis, I pick Option...]'.
-3. Revised List of Preferences: Conclude with '3. Revised List of Preferences: [Include the *NUMBERED* revised list of preferences, no more than one change at a time, no more than 25 words per principle]'.
-
-Important:
-1. Be creative and state the truth, even if it is unconventional.
-2. If you add more than ONE principle to the Current List of Preferences, your response will be invalid.
-3. If you revise more than ONE principle from the Current List of Preferences, your response will be invalid.
-4. You can only pick one Option (Option 1 or Option 2). If you revise one principle AND add another principle, your response will be invalid.
-5. You must follow the outlined response format, especially for the '3. Revised List of Preferences:' section, which should start with 3. Revised List of Preferences: followed by a line break, starting the *NUMBERED* list of preferences, and nothing else.""",
+Conversation Between AI Assistant and Human
+{conversations}""",
 
 
 
@@ -70,19 +90,20 @@ Proposed New Principle to Add
 [Insert new principle here]
 
 
+
 ## Interaction 1
 
 Current Guiding Principles of the AI Assistant
 {constitution}
 
-Conversation Between AI Assistant and human
+Conversation Between AI Assistant and Human
 {conversations}""",
 }
 
 
 RETURN_FORMATS = {
     "return_format_base": """Proposed New Principle to Add""",
-    "return_format_instruct": """3. Revised List of Preferences:""",
+    "return_format_instruct": """Proposed New Principle to Add""",
 }
 
 

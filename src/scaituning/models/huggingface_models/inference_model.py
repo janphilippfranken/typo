@@ -94,6 +94,7 @@ class HFInferenceModel():
                 max_length=tokenized_answers.input_ids.shape[1],
             ).to(self.model.device)
 
+
             # LOG PROBS
             logits = self.model(
                 input_ids=tokenized_answers.input_ids,
@@ -109,11 +110,13 @@ class HFInferenceModel():
                 labels.contiguous().view(-1),
             )
             
+            
             # MASK FOR FINAL ANSWERS 
             log_probs_answers = log_probs_answers.view(logits.shape[0], -1)
             mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0) 
             log_probs_answers.masked_fill_(~mask, 0) 
             log_probs = log_probs_answers.sum(dim=-1)
+            
             
             # CLEAR MEMORY
             del tokenized_answers, tokenized_prompts, logits, labels, log_probs_answers, mask
@@ -123,14 +126,14 @@ class HFInferenceModel():
                
                
     def batch_prompt(self, 
-        prompts: List[str],
+        prompts: List[str], # ideally len > 1, but crashes for basemodel so currently effective batch size is len(prompts) = 1 * num_return_sequences
         max_new_tokens: Optional[int] = 500,
         do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.1,
         num_return_sequences: Optional[int] = 1,
     ) -> List[str]:
-        """Batched generation."""
+        """Text Generation."""
         # ENCODE BATCH
         inputs = self.tokenizer(
             prompts, 
@@ -138,7 +141,8 @@ class HFInferenceModel():
             return_tensors="pt", 
             padding=True,
         ).to(self.model.device)
-        
+     
+     
         # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
         with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):
             output = self.model.generate(

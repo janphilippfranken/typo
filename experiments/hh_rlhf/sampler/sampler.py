@@ -41,13 +41,24 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
 
 
     # GET MODEL(S)
-    model_generate = HFInferenceModel(**args.model_generate.model_config)
-    args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
-    logging.info(f"Generate Model is {args.model_generate.name} on Device {model_generate.model.device}")
+    is_base_mistral_generate = "mistral_7b_base" in args.model_generate.name.lower()
+    
+    if is_base_mistral_generate:
+        # IF SAME MODEL FOR GENERATION AND EVALUATION
+        model = HFInferenceModel(**args.model_generate.model_config)
+        model_generate, model_eval = None, None
+        args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
+        logging.info(f"Model is {args.model_generate.name} on Device {model.model.device}")
+        
+    else:
+        # GET GENERATE MODEL
+        model_generate = HFInferenceModel(**args.model_generate.model_config)
+        args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
+        logging.info(f"Model Generate is {args.model_generate.name} on Device {model_generate.model.device}")
 
-    # GET EVAL MODEL
-    model_eval = HFInferenceModel(**args.model_eval.model_config)
-    logging.info(f"Eval Model is {args.model_eval.name} on Device {model_eval.model.device}")
+        # GET EVAL MODEL
+        model_eval = HFInferenceModel(**args.model_eval.model_config)
+        logging.info(f"Eval Model is {args.model_eval.name} on Device {model_eval.model.device}")
 
 
     # GET DATA
@@ -61,6 +72,8 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     
     
     # SAMPLE TRAINING EXAMPLES 
+    np.random.seed(42) #
+    logging.info(f"Seed is 42")
     all_train_examples = torch.empty(
         (
             args.sampler.constitution_batch_size, 
@@ -87,8 +100,8 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         
         # GET TRAIN EXAMPLES 
         train_examples = all_train_examples[:, revision_idx] 
+        # train_examples = [[revision_idx]]
         logging.info(f"Training Example(s): {train_examples}")
-        
         
         # SAMPLE EVAL EXAMPLES
         eval_examples = all_prev_examples[:, :revision_idx + 1] 
@@ -102,13 +115,15 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
                 replace=False)
             for eval_example in eval_examples
         ]
+        
+        # random_examples = [[revision_idx]]
         logging.info(f"Random previous Example(s) used for Evaluation: {random_examples}")
 
         
         # GENERATION 
         try:
             _, new_constitutions = run_generate(
-                model=model_generate,
+                model=model if is_base_mistral_generate else model_generate,
                 constitutions=[
                     constitutions["constitutions"][i][-1] 
                     for i in range(args.sampler.constitution_batch_size)
@@ -127,11 +142,10 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             logging.info(f"Error in Generation. Skipping Example.")
             continue
 
-
         # EVALUATION ON CURRENT DATA
         log_probs_chosen_train, log_probs_rejected_train = run_eval( 
             args=args, 
-            model=model_eval,
+            model=model if is_base_mistral_generate else model_eval,
             constitutions=new_constitutions,
             chosen_batch=[
                     [dataset[int(i)][args.sampler.chosen] for i in train_example]
@@ -153,11 +167,10 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             -1,
         )
 
-
         # EVALUATION ON PREV DATA
         log_probs_chosen_prev, log_probs_rejected_prev = run_eval( # new const on prev examples
             args=args, 
-            model=model_eval,
+            model=model if is_base_mistral_generate else model_eval,
             constitutions=new_constitutions,
             chosen_batch=[
                     [dataset[int(i)][args.sampler.chosen] for i in eval_example]
@@ -183,7 +196,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION OF OLD CONST ON CURREND DATA
         log_probs_chosen_train_old, log_probs_rejected_train_old = run_eval( # old const on train examples
             args=args, 
-            model=model_eval,
+            model=model if is_base_mistral_generate else model_eval,
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             chosen_batch=[
                 [dataset[int(i)][args.sampler.chosen] for i in train_example]
@@ -207,7 +220,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION OF OLD CONST ON PREV DATA
         log_probs_chosen_prev_old, log_probs_rejected_prev_old = run_eval( # old const on prev examples
             args=args, 
-            model=model_eval,
+            model=model if is_base_mistral_generate else model_eval,
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             chosen_batch=[
                 [dataset[int(i)][args.sampler.chosen] for i in eval_example]
@@ -250,8 +263,8 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             best_new_index = torch.argmax( # get best new constitution across new data and prev eval data
                 torch.mean(
                     torch.stack(
-                        [performances["train_new"][idx].to(model_eval.model.device),
-                         performances["prev_new"][idx].to(model_eval.model.device)],
+                        [performances["train_new"][idx].to("cuda:0"),
+                         performances["prev_new"][idx].to("cuda:0")],
                     ),
                     dim=0,
                 ),

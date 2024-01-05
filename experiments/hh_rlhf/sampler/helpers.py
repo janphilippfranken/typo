@@ -8,6 +8,7 @@ from typing import (
 
 import random
 import logging 
+import re
 
 
 import torch
@@ -15,7 +16,7 @@ import numpy as np
 from omegaconf import DictConfig
 
 
-from prompts import SEED_PRINCIPLES
+from prompts import SEED_PRINCIPLES, RETURN_FORMATS
 
 
 logging.basicConfig(level=logging.INFO)
@@ -246,16 +247,16 @@ def format_responses(
                         if formatted_response_lines.strip()[0].isdigit():
                             formatted_responses.append(formatted_response_lines.strip())
                         else: 
-                            formatted_responses.append("None")
+                            formatted_responses.append(None)
                     else: 
-                        formatted_responses.append("None")
+                        formatted_responses.append(None)
                 else: 
-                    formatted_responses.append("None")
+                    formatted_responses.append(None)
             else: 
-                formatted_responses.append("None")
+                formatted_responses.append(None)
         except Exception as e:
             logging.info(f"Error in processing response: {e}") 
-            formatted_responses.append("None")
+            formatted_responses.append(None)
     return formatted_responses
 
 
@@ -380,3 +381,29 @@ def build_eval_prompt(
             "answers": formatted_eval_answers_rejected,
         }
     }
+    
+
+def format_response_base(response: str, args: DictConfig) -> str:
+    """
+    Extracts the formatted response from the given string,
+    removing any extraneous text like 'No proposal' or 'Interaction X'.
+    """
+    try:
+        # Split response to get the part after "## Interaction 1"
+        split_response = response.split("## Interaction 1")[1] \
+                        .split(RETURN_FORMATS[args.sampler.return_format])[1] \
+                        .split("## Interaction 2")[0].strip() \
+                        .strip().split("\n")[0].strip()
+                       
+        if ":" not in split_response:
+            return split_response
+        else:
+            return split_response.split(":")[1].strip()
+    except Exception as e:
+        logging.error(f"Error in format_response_base: {e}")
+        return None
+    
+
+def is_valid_response(response):
+    exclude_phrases = ["[", "Proposal", "Principle", ":", "]", "<", ">", "No Proposal", "no proposal"]
+    return not any(phrase in response for phrase in exclude_phrases)

@@ -1,0 +1,70 @@
+model_generate:
+  hydra:
+    run:
+      dir: outputs
+  model_type: huggingface
+  name: mistral_7b_base
+  device_ids:
+  - 1
+  - 2
+  model_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    load_in_4bit: true
+    device_map: cuda:0
+    torch_dtype: float16
+    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    attn_implementation: None
+  completion_config:
+    do_sample: true
+    temperature: 0.3
+    top_p: 0.9
+    max_new_tokens: 350
+    num_return_sequences: 1
+model_eval:
+  hydra:
+    run:
+      dir: outputs
+  model_type: huggingface
+  name: mistral_7b_base
+  device_ids:
+  - 1
+  - 2
+  model_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    load_in_4bit: true
+    device_map: cuda:1
+    torch_dtype: float16
+    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    attn_implementation: None
+data:
+  hydra:
+    run:
+      dir: outputs
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: train
+sampler:
+  hydra:
+    run:
+      dir: outputs
+  system_prompt: system_prompt_1
+  generation_prompt: generation_prompt_base
+  evaluation_prompt: evaluation_prompt_base
+  return_format: return_format_base
+  dataset_version: rlhf
+  chosen: chosen
+  rejected: rejected
+  n_revisions: 25
+  constitution_batch_size: 1
+  generation_batch_size: 1
+  eval_batch_size: 1
+  num_return_sequences: 10
+  top_k: false
+  top_k_difficult: 20
+  run_id: 1
+  storage_path: ./constitutions
+  seed_principle: seed_principle_2
