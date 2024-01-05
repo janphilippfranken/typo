@@ -28,7 +28,7 @@ file_paths = [
 
 # Loading data
 datasets = [load_data(path) for path in file_paths]
-breakpoint()
+
 
 # Setting the theme and font
 sns.set_theme(style="darkgrid")
@@ -65,131 +65,71 @@ def find_common_indices(datasets):
         common_indices.intersection_update(dataset_indices)
 
     return common_indices
- # Fallback to default range if empty
+
 
 # Identify common indices across all datasets
-
 common_indices = find_common_indices(datasets)
 
 
-if COMMON is True:
-    chosen_means, chosen_errors = zip(*(calculate_stats([data[str(i)]["chosen"] for i in common_indices]) for data in datasets))
-    rejected_means, rejected_errors = zip(*(calculate_stats([data[str(i)]["rejected"] for i in common_indices]) for data in datasets))
-    n_evaluated_means = [np.mean([data[str(i)]["n_evaluated"] for i in common_indices])/BATCH_SIZE for data in datasets]
-    actual_n_examples = len(common_indices)
-    # Dataset names
+if LOG_PROBS:
+    rlhf_chosen_mixtral_train = np.array([datasets[0][str(i)]["chosen"] for i in datasets[0]])
+    rlhf_rejected_mixtral_train = np.array([datasets[0][str(i)]["rejected"] for i in datasets[0]])
+    rlhf_reversed_chosen_mixtral_train = np.array([datasets[1][str(i)]["chosen"] for i in datasets[1]])
+    rlhf_reversed_rejected_mixtral_train = np.array([datasets[1][str(i)]["rejected"] for i in datasets[1]])
+    
+    rlhf_chosen_mixtral_test = np.array([datasets[2][str(i)]["chosen"] for i in datasets[2]])
+    rlhf_rejected_mixtral_test = np.array([datasets[2][str(i)]["rejected"] for i in datasets[2]])
+    rlhf_reversed_chosen_mixtral_test = np.array([datasets[3][str(i)]["chosen"] for i in datasets[3]])
+    rlhf_reversed_rejected_mixtral_test = np.array([datasets[3][str(i)]["rejected"] for i in datasets[3]])
+
+    # Calculate win rates and errors for mixtral
+    win_rate_train, error_train = calculate_win_rate_and_error(
+        rlhf_chosen_mixtral_train - rlhf_rejected_mixtral_train, 
+        rlhf_reversed_chosen_mixtral_train - rlhf_reversed_rejected_mixtral_train,
+    )
+    
+    win_rate_test, error_test = calculate_win_rate_and_error(
+        rlhf_chosen_mixtral_test - rlhf_rejected_mixtral_test, 
+        rlhf_reversed_chosen_mixtral_test - rlhf_reversed_rejected_mixtral_test,
+    )
+
+    # Combine win rates and errors
+    win_rates_chosen = [win_rate_train, win_rate_test]
+    win_rates_rejected = [1 - win_rate_train, 1 - win_rate_test]
+    win_errors = [error_train , error_test]
+
+    # Names for x-axis labels
     predictions = [
-        # f"rlhf-mixtral 1 (N {actual_n_examples})", 
-        # f"rlhf-reversed-mixtral 1 (N {actual_n_examples})", 
-        f"rlhf-mixtral 3 (N {actual_n_examples})", 
-        f"rlhf-reversed-mixtral 3 (N {actual_n_examples})", 
+        f"train split (N {len(rlhf_chosen_mixtral_train)})", 
+        f"test split (N {len(rlhf_chosen_mixtral_test)})", 
     ]
-else:
-    if LOG_PROBS:
-       
-        rlhf_chosen_mixtral_train = np.array([datasets[0][str(i)]["chosen"] for i in datasets[0]])
-        rlhf_rejected_mixtral_train = np.array([datasets[0][str(i)]["rejected"] for i in datasets[0]])
-        rlhf_reversed_chosen_mixtral_train = np.array([datasets[1][str(i)]["chosen"] for i in datasets[1]])
-        rlhf_reversed_rejected_mixtral_train = np.array([datasets[1][str(i)]["rejected"] for i in datasets[1]])
-        
-        rlhf_chosen_mixtral_test = np.array([datasets[2][str(i)]["chosen"] for i in datasets[2]])
-        rlhf_rejected_mixtral_test = np.array([datasets[2][str(i)]["rejected"] for i in datasets[2]])
-        rlhf_reversed_chosen_mixtral_test = np.array([datasets[3][str(i)]["chosen"] for i in datasets[3]])
-        rlhf_reversed_rejected_mixtral_test = np.array([datasets[3][str(i)]["rejected"] for i in datasets[3]])
+    breakpoint()
+    # Plotting
+    fig, ax = plt.subplots(figsize=(10, 5))
+    bar_width = 0.2
+    opacity = 0.8
+    colors = sns.palettes.color_palette("colorblind", 10)
 
-        # Calculate win rates and errors for mixtral
-        win_rate_train, error_train = calculate_win_rate_and_error(
-            rlhf_chosen_mixtral_train - rlhf_rejected_mixtral_train, 
-            rlhf_reversed_chosen_mixtral_train - rlhf_reversed_rejected_mixtral_train,
-        )
-        
-        win_rate_test, error_test = calculate_win_rate_and_error(
-            rlhf_chosen_mixtral_test - rlhf_rejected_mixtral_test, 
-            rlhf_reversed_chosen_mixtral_test - rlhf_reversed_rejected_mixtral_test,
-        )
- 
-        # Combine win rates and errors
-        win_rates_chosen = [win_rate_train, win_rate_test]
-        win_rates_rejected = [1 - win_rate_train, 1 - win_rate_test]
-        win_errors = [error_train , error_test]
+    # Bar positions
+    bar_pos = np.arange(len(predictions))
+    bar_pos_chosen = [x - bar_width/2 for x in bar_pos]
+    bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
 
-        # Names for x-axis labels
-        predictions = [
-            f"train split (N {len(rlhf_chosen_mixtral_train)})", 
-            f"test split (N {len(rlhf_chosen_mixtral_test)})", 
-        ]
-        breakpoint()
-        # Plotting
-        fig, ax = plt.subplots(figsize=(10, 5))
-        bar_width = 0.2
-        opacity = 0.8
-        colors = sns.palettes.color_palette("colorblind", 10)
+    # Bars for Chosen and Rejected
+    ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label=r'$p(\text{chosen}|\text{rlhf}) - p(\text{rejected}|\text{rlhf}) > $' '\n' r'$p(\text{chosen}|\text{rlhf\_reversed}) - p(\text{rejected}|\text{rlhf\_reversed})$')
 
-        # Bar positions
-        bar_pos = np.arange(len(predictions))
-        bar_pos_chosen = [x - bar_width/2 for x in bar_pos]
-        bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
+    ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label=r'$p(\text{chosen}|\text{rlhf}) - p(\text{rejected}|\text{rlhf}) < $' '\n' r'$p(\text{chosen}|\text{rlhf\_reversed}) - p(\text{rejected}|\text{rlhf\_reversed})$')
 
-        # Bars for Chosen and Rejected
-        ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label=r'$p(\text{chosen}|\text{rlhf}) - p(\text{rejected}|\text{rlhf}) > $' '\n' r'$p(\text{chosen}|\text{rlhf\_reversed}) - p(\text{rejected}|\text{rlhf\_reversed})$')
+    # Labels, Title, and Custom x-axis
+    ax.set_xlabel('Models')
+    ax.set_ylabel('Win Rates')
+    ax.set_title('RLHF Chosen vs Rejected Win Rates')
+    ax.set_xticks(bar_pos)
+    ax.set_xticklabels(predictions)
+    ax.legend()
 
-        ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label=r'$p(\text{chosen}|\text{rlhf}) - p(\text{rejected}|\text{rlhf}) < $' '\n' r'$p(\text{chosen}|\text{rlhf\_reversed}) - p(\text{rejected}|\text{rlhf\_reversed})$')
+    plt.tight_layout()
 
-        # Labels, Title, and Custom x-axis
-        ax.set_xlabel('Models')
-        ax.set_ylabel('Win Rates')
-        ax.set_title('RLHF Chosen vs Rejected Win Rates')
-        ax.set_xticks(bar_pos)
-        ax.set_xticklabels(predictions)
-        ax.legend()
-
-        plt.tight_layout()
-
-        ax.set_ylim(-0.05, 1.05)
-        plt.savefig('predictions_prompt_2.pdf')
-        plt.savefig('predictions_prompt_2.png')
-        
-
-
-    # else:
-    #     chosen_means, chosen_errors = zip(*(calculate_stats([data[str(i)]["chosen"] for i in data]) for data in datasets))
-    #     rejected_means, rejected_errors = zip(*(calculate_stats([data[str(i)]["rejected"] for i in data]) for data in datasets))
-    #     n_evaluated_means = [np.mean([data[str(i)]["n_evaluated"] for i in data])/BATCH_SIZE for data in datasets]
-    
-    
-    # # Number of actual examples evaluated
-
-
-    # # Plotting
-    # fig, ax = plt.subplots(figsize=(10, 5))
-    # bar_width = 0.2
-    # opacity = 0.8
-
-    # # Bar positions
-    # bar_pos_chosen = np.arange(len(predictions))
-    # bar_pos_rejected = [x + bar_width for x in bar_pos_chosen]
-    # bar_pos_eval = [x + bar_width for x in bar_pos_rejected]
-    
-    # # Bars for Chosen
-    # ax.bar(bar_pos_chosen, chosen_means, bar_width, alpha=opacity, color=colors[0], yerr=chosen_errors, label='% Chosen')
-
-    # # Bars for Rejected
-    # ax.bar(bar_pos_rejected, rejected_means, bar_width, alpha=opacity, color=colors[1], yerr=rejected_errors, label='% Rejected')
-
-    # # Bars for N Evaluated
-    # ax.bar(bar_pos_eval, n_evaluated_means, bar_width, alpha=opacity, color=colors[2], label='% Evaluated')
-
-    # # Labels, Title and Custom x-axis
-    # ax.set_xlabel('Constitutions (Batch Size 10)')
-    # ax.set_ylabel('Percentage')
-    # ax.set_title('Final Assistant Response on HH-RLHF (test split)')
-    # ax.set_xticks([r + bar_width for r in range(len(predictions))])
-    # ax.set_xticklabels(predictions)
-    # ax.legend()
-
-    # ax.set_ylim(-100.00, 1.0)
-
-    # # Show plot
-    # plt.tight_layout()
-    # plt.savefig('predictions.pdf')
-    # plt.savefig('predictions.png')
+    ax.set_ylim(-0.05, 1.05)
+    plt.savefig('predictions_prompt_2.pdf')
+    plt.savefig('predictions_prompt_2.png')

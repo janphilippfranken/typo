@@ -69,8 +69,12 @@ def main(args: DictConfig) -> None:
   
   
     # MAIN LOOP
-    for example_idx in tqdm(train_examples[0]):
-    # for example_idx in tqdm(range(args.metrics.n_examples)):
+    if args.metrics.split == "train":
+        examples = train_examples[0]
+    elif args.metrics.split == "test":
+        examples = range(args.metrics.n_examples)
+    
+    for example_idx in tqdm(examples)
         
         try:
         
@@ -85,51 +89,52 @@ def main(args: DictConfig) -> None:
 
             # BUILD PROMPTS
             if "mcq" in args.metrics.evaluation_prompt:
-                prompts = [
-                    build_eval_prompt(
-                        constitution=constitution,
-                        prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                        conversation=conversation_chosen,
-                        answer_chosen=final_answer_chosen,
-                        answer_rejected=final_answer_rejected,
-                    )
-                    for constitution in final_constitutions
-                ]
+                print("Not Implemented Yet")
+                # prompts = [
+                #     build_eval_prompt(
+                #         constitution=constitution,
+                #         prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
+                #         conversation=conversation_chosen,
+                #         answer_chosen=final_answer_chosen,
+                #         answer_rejected=final_answer_rejected,
+                #     )
+                #     for constitution in final_constitutions
+                # ]
                 
-                # FORMAT PROMPTS
-                if is_hf:
-                    formatted_prompts = [
-                        f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
-                        for prompt in prompts
-                    ]
-                    breakpoint()
+                # # FORMAT PROMPTS
+                # if is_hf:
+                #     formatted_prompts = [
+                #         f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
+                #         for prompt in prompts
+                #     ]
+                #     breakpoint()
                     
-                    # GET MODEL RESPONSE
-                    responses = model.batch_prompt(
-                        formatted_prompts,
-                        **args.model.completion_config,
-                    )
-                    responses = [
-                        response.split(E_INST)[1]
-                        for response in responses
-                    ]
+                #     # GET MODEL RESPONSE
+                #     responses = model.batch_prompt(
+                #         formatted_prompts,
+                #         **args.model.completion_config,
+                #     )
+                #     responses = [
+                #         response.split(E_INST)[1]
+                #         for response in responses
+                #     ]
                         
                 
-                elif is_openai:
-                    # GET MODEL RESPONSE
-                    responses = model.batch_prompt(
-                        system_message=SYSTEM_PROMPTS[args.metrics.system_prompt],
-                        messages=prompts,
-                    )
+                # elif is_openai:
+                #     # GET MODEL RESPONSE
+                #     responses = model.batch_prompt(
+                #         system_message=SYSTEM_PROMPTS[args.metrics.system_prompt],
+                #         messages=prompts,
+                #     )
                     
-                # COMPUTE METRICS
-                count_chosen = sum(['Answer: (A)' in response.strip() for response in responses])
-                count_rejected = sum(['Answer: (B)' in response.strip() for response in responses])
+                # # COMPUTE METRICS
+                # count_chosen = sum(['Answer: (A)' in response.strip() for response in responses])
+                # count_rejected = sum(['Answer: (B)' in response.strip() for response in responses])
                 
-                n_evaluated = count_chosen + count_rejected
+                # n_evaluated = count_chosen + count_rejected
                 
-                chosen = count_chosen / n_evaluated
-                rejected = count_rejected / n_evaluated
+                # chosen = count_chosen / n_evaluated
+                # rejected = count_rejected / n_evaluated
             
              
              

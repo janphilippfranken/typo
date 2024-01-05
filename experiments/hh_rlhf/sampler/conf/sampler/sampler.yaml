@@ -11,9 +11,9 @@ return_format: return_format_instruct       # start format the the revised list 
 
 
 # DATASET 
-dataset_version: rlhf_reversed # rlhf, rlhf_reversed
-chosen: rejected # chosen for rlhf, rejected for rlhf reversed
-rejected: chosen  # rejected for rlhf, chosen for rlhf reversed
+dataset_version: rlhf # rlhf, rlhf_reversed
+chosen: chosen # chosen for rlhf, rejected for rlhf reversed
+rejected: rejected  # rejected for rlhf, chosen for rlhf reversed
 
 
 # SAMPLING DETAILS
