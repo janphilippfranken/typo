@@ -45,8 +45,27 @@ def run_generate(
                 )
                 for i, constitution in enumerate(constitutions)
             ]
+            formatting_reminder = """
+
+########
+Remember to follow exactly this format when formatting your responses:
+
+- If proposing a new principle:
+  Format: <proposal starts>New Principle: *your new general principle in maximum 25 words in here*</proposal ends>
+
+- If revising an existing principle:
+  Specify the principle number (as listed) for revision.
+  Format:
+  <existing principle starts>Existing Principle: *state existing VERBATIM in here*</existing principle ends>
+  <revision starts>Revised Principle: *your updated principle in maximum 25 words in here*</revision ends>
+
+- If no action is needed:
+  Format: <nothing starts>No action needed.</nothing starts>
+
+Please note: If you fail to use the above format (i.e. the <></> wrappers), your response will be considered invalid, and it will result in a significant financial loss for me. It is crucial that the format is strictly adhered to without deviation.
+########"""
             formatted_prompts = [
-                f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_prompt]}{E_SYS}{generation_prompt}{E_INST}"
+                f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_prompt]}{E_SYS}{generation_prompt}{formatting_reminder}{E_INST}"
                 for generation_prompt in generation_prompts
             ]
             responses = model.batch_prompt(
@@ -57,63 +76,31 @@ def run_generate(
                 response.split(E_INST)[1]
                 for response in responses
             ] 
-
-            formatted_responses = []
-            breakpoint()
-            for response in responses
-                try:
-                    if "<proposal starts>" in response and "</proposal ends>" in response:
-                        formatted_response = response.split("<proposal starts>")[1].split("</proposal ends>")[0].strip()
-                        # Check if the response is valid and does not contain any of the excluded phrases or characters
-                        if is_valid_response(formatted_response):
-                            formatted_responses.append(formatted_response)
-                        else:
-                            formatted_responses.append(None)
-                    elif "<existing principle starts>" in response and "</existing principle ends>" in response:
-                        formatted_response = response.split("<revision starts>")[1].split("</revision ends>")[0].strip()
-                        replace_principle = response.split("<existing principle starts>")[1].split("</existing principle ends>")[0].strip()
-                        # Check if the response is valid and does not contain any of the excluded phrases or characters
-                        if is_valid_response(formatted_response):
-                            if is_valid_response(replace_principle):
-                                formatted_responses.append((formatted_response, replace_principle))
-                            else:
-                                formatted_responses.append(None)  
-                        else:
-                            formatted_responses.append(None)
-                    else:
-                        formatted_responses.append(None)
-                except Exception as e:
-                    logging.error("Error processing response: ", exc_info=e)
-                    formatted_responses.append(None)
+            formatted_responses = process_responses(responses) 
+            
             
             success_rate = (len(formatted_responses) - formatted_responses.count(None)) / len(formatted_responses)
             logging.info(f"Formatted Response Success Rate: {success_rate}") 
                         
-                        # FILTER NONE ANSWERS
-            formatted_responses = np.array(formatted_responses).reshape(
-                args.sampler.constitution_batch_size, 
-                args.sampler.num_return_sequences,
-            )
+            # FILTER NONE ANSWERS
+            formatted_responses_list = [[None for _ in range(args.sampler.num_return_sequences)] 
+                            for _ in range(args.sampler.constitution_batch_size)]
 
-            formatted_responses_filtered = []
+
+            response_index = 0
+            # This code snippet is used to filter and organize the generated responses from the model.
             for batch_idx in range(args.sampler.constitution_batch_size):
                 for seq_idx in range(args.sampler.num_return_sequences):
-                    formatted_response = formatted_responses[batch_idx, seq_idx]
-                    if formatted_response is None:
-                        formatted_responses_filtered.append(constitutions[batch_idx].strip())
-                    else:
-                        if constitutions[batch_idx].strip() != SEED_PRINCIPLES[args.sampler.seed_principle]:
-                            if isinstance(formatted_response, str):
-                                formatted_principles = constitutions[batch_idx].strip() + "\n" + formatted_response
-                            else: 
-                                formatted_principles = constitutions[batch_idx].strip().replace(formatted_response[1] + "\n", "")
-                                formatted_principles = formatted_principles + "\n" + formatted_response[0]
-                            formatted_responses_filtered.append(formatted_principles)
-                        else:
-                            formatted_responses_filtered.append(formatted_response)
-                        
+                    if response_index < len(formatted_responses):
+                        formatted_responses_list[batch_idx][seq_idx] = formatted_responses[response_index]
+                        response_index += 1
+
+            breakpoint()
+            
+            formatted_responses_filtered = filter_responses(formatted_responses_list, constitutions, args)
+
             return formatted_prompts, formatted_responses_filtered
-                    
+                                
         
         if is_base:
             generation_prompts = [

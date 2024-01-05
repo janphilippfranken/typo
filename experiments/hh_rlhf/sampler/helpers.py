@@ -407,3 +407,85 @@ def format_response_base(response: str, args: DictConfig) -> str:
 def is_valid_response(response):
     exclude_phrases = ["[", "Proposal", "Principle", ":", "]", "<", ">", "No Proposal", "no proposal"]
     return not any(phrase in response for phrase in exclude_phrases)
+
+
+def extract_new_principle(response):
+    match = re.search(r"<proposal starts>New Principle: (.*?)</proposal ends>", response, re.IGNORECASE)
+    if match:
+        return match.group(1).strip()
+    return None
+
+def extract_revised_principle(response):
+    principle_match = re.search(r"<existing principle starts>Existing Principle: (.*?)</existing principle ends>", response, re.IGNORECASE)
+    revision_match = re.search(r"<revision starts>Revised Principle: (.*?)</revision ends>", response, re.IGNORECASE)
+    if principle_match and revision_match:
+        principle = principle_match.group(1).strip()
+        revision = revision_match.group(1).strip()
+        if is_valid_response(principle) and is_valid_response(revision):
+            return (revision, principle)
+    return None
+
+
+def process_responses(responses):
+    formatted_responses = []
+    for response in responses:
+        try:
+            new_principle = extract_new_principle(response)
+            revised_principle = extract_revised_principle(response)
+
+            if new_principle:
+                formatted_responses.append(new_principle)
+            elif revised_principle:
+                formatted_responses.append(revised_principle)
+            else:
+                formatted_responses.append(None)
+        except Exception as e:
+            logging.error("Error processing response: ", exc_info=e)
+            formatted_responses.append(None)
+    return formatted_responses
+
+
+
+def filter_responses(formatted_responses, constitutions, args):
+    formatted_responses_filtered = []
+    for batch_idx in range(args.sampler.constitution_batch_size):
+        for seq_idx in range(args.sampler.num_return_sequences):
+            formatted_response = formatted_responses[batch_idx][seq_idx]
+            
+            current_constitution = constitutions[batch_idx].strip()
+            seed_principle = SEED_PRINCIPLES[args.sampler.seed_principle]
+
+            # Handle the case where no valid response is extracted
+            if formatted_response is None:
+                formatted_responses_filtered.append(current_constitution)
+                continue
+
+            # Check if the current constitution is not the seed principle
+            if current_constitution != seed_principle:
+                if isinstance(formatted_response, str):  # New principle
+                    formatted_principles = current_constitution + "\n" + formatted_response
+                    formatted_responses_filtered.append(formatted_principles)
+                elif isinstance(formatted_response, tuple):  # Revised principle
+                    new_principle, old_principle = formatted_response
+                    constitution_lines = current_constitution.split('\n')
+                    try:
+                        principle_index = constitution_lines.index(old_principle.strip())
+                        constitution_lines[principle_index] = new_principle.strip()
+                        formatted_constitution = '\n'.join(constitution_lines)
+                        formatted_responses_filtered.append(formatted_constitution)
+                    except ValueError:
+                        # If old principle is not found, append the current constitution
+                        formatted_responses_filtered.append(current_constitution)
+                else:
+                    # In case of unexpected response type, append the current constitution
+                    formatted_responses_filtered.append(current_constitution)
+            else:
+                if isinstance(formatted_response, str):
+                    formatted_responses_filtered.append(formatted_response)
+                elif isinstance(formatted_response, tuple):
+                    formatted_responses_filtered.append(formatted_response[0])
+                else:
+                    formatted_responses_filtered.append(current_constitution)
+                    
+                    
+    return formatted_responses_filtered 

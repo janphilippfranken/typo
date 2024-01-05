@@ -105,6 +105,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         
         # SAMPLE EVAL EXAMPLES
         eval_examples = all_prev_examples[:, :revision_idx + 1] 
+        
         random_examples = [
             np.random.choice(
                 eval_example, 

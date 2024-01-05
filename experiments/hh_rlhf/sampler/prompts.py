@@ -58,7 +58,7 @@ Conversation Between AI Assistant and Human
 {conversations}""",
 
 
-"generation_prompt_instruct_2": """This document outlines the process for revising or updating the list of GENERAL guiding principles for an AI Assistant, informed by human feedback.
+"generation_prompt_instruct_2": """This document outlines the process for revising or updating the list of general guiding principles for an AI Assistant, informed by human feedback. These principles are designed to apply across a range of conversations and should not overfit to specific examples, but instead capture broader human preferences.
 
 First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human, alongside the human's preferred final response.
 
@@ -68,7 +68,7 @@ The document is structured as follows:
 
 Interaction [Insert number of the interaction here]
 
-Current Guiding Principles of the AI Assistant (NO MORE THAN 10 PRINCIPLES)
+Current Guiding Principles of the AI Assistant (*NO MORE THAN 10 PRINCIPLES*)
 [Insert current principles here]
 
 Conversation Between AI Assistant and Human
@@ -86,8 +86,8 @@ Examine the differences between the Assistant's rejected response and the human'
 
 Decision
 Based on the analysis, decide on one of the following options:
-1. Propose a New Principle
-2. Revise an Existing Principle
+1. Propose a General New Principle (only allowed if current list has less than *10 principles*)
+2. Update an Existing Principle (making a small change to an existing principle)
 3. No Action Needed
 
 [State your decision here]
@@ -96,13 +96,13 @@ Action
 Based on your decision:
 
 If proposing a new principle:
-Format: <proposal starts>New principle (maximum 25 words).</proposal ends>
+Format: <proposal starts>New Principle: new general principle in maximum 25 words.</proposal ends>
 
 If revising an existing principle:
 Specify the principle number (as listed) for revision.
 Format:
-<existing principle starts>State Existing Principle VERBATIM in here</existing principle ends>
-<revision starts>Revised principle (maximum 25 words).</revision ends>
+<existing principle starts>Existing Principle: State existing principle VERBATIM in here</existing principle ends>
+<revision starts>Revised Principle: revised principle in maximum 25 words.</revision ends>
 
 If no action is needed:
 Format: <nothing starts>No action needed.</nothing starts>
@@ -116,10 +116,10 @@ Further Comments or Justifications
 
 
 Interaction 1
-Current Guiding Principles of the AI Assistant (NO MORE THAN 10 PRINCIPLES)
+Current Guiding Principles of the AI Assistant (*NO MORE THAN 10 PRINCIPLES*)
 {constitution}
 
-Conversation Between AI Assistant and Human
+Conversation Between AI Assistant and Human 
 {conversations}""",
 
 
