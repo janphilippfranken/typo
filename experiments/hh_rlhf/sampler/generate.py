@@ -59,13 +59,25 @@ def run_generate(
             ] 
 
             formatted_responses = []
-            for response in responses:
+            breakpoint()
+            for response in responses
                 try:
                     if "<proposal starts>" in response and "</proposal ends>" in response:
                         formatted_response = response.split("<proposal starts>")[1].split("</proposal ends>")[0].strip()
                         # Check if the response is valid and does not contain any of the excluded phrases or characters
                         if is_valid_response(formatted_response):
                             formatted_responses.append(formatted_response)
+                        else:
+                            formatted_responses.append(None)
+                    elif "<existing principle starts>" in response and "</existing principle ends>" in response:
+                        formatted_response = response.split("<revision starts>")[1].split("</revision ends>")[0].strip()
+                        replace_principle = response.split("<existing principle starts>")[1].split("</existing principle ends>")[0].strip()
+                        # Check if the response is valid and does not contain any of the excluded phrases or characters
+                        if is_valid_response(formatted_response):
+                            if is_valid_response(replace_principle):
+                                formatted_responses.append((formatted_response, replace_principle))
+                            else:
+                                formatted_responses.append(None)  
                         else:
                             formatted_responses.append(None)
                     else:
@@ -91,7 +103,11 @@ def run_generate(
                         formatted_responses_filtered.append(constitutions[batch_idx].strip())
                     else:
                         if constitutions[batch_idx].strip() != SEED_PRINCIPLES[args.sampler.seed_principle]:
-                            formatted_principles = constitutions[batch_idx].strip() + "\n" + formatted_response
+                            if isinstance(formatted_response, str):
+                                formatted_principles = constitutions[batch_idx].strip() + "\n" + formatted_response
+                            else: 
+                                formatted_principles = constitutions[batch_idx].strip().replace(formatted_response[1] + "\n", "")
+                                formatted_principles = formatted_principles + "\n" + formatted_response[0]
                             formatted_responses_filtered.append(formatted_principles)
                         else:
                             formatted_responses_filtered.append(formatted_response)

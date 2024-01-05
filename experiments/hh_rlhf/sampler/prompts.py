@@ -58,6 +58,72 @@ Conversation Between AI Assistant and Human
 {conversations}""",
 
 
+"generation_prompt_instruct_2": """This document outlines the process for revising or updating the list of GENERAL guiding principles for an AI Assistant, informed by human feedback.
+
+First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human, alongside the human's preferred final response.
+
+Your task is to evaluate the interaction and determine how it might inform revisions or updates to the guiding principles.
+
+The document is structured as follows:
+
+Interaction [Insert number of the interaction here]
+
+Current Guiding Principles of the AI Assistant (NO MORE THAN 10 PRINCIPLES)
+[Insert current principles here]
+
+Conversation Between AI Assistant and Human
+[Insert conversation here]
+
+Final Assistant Response Rejected by Human:
+[Assistant's final response rejected by the human]
+
+Preferred Human Response:
+[The response written by the human, indicating the final answer from the Assistant that they would have preferred]
+
+Analysis of the Responses
+Examine the differences between the Assistant's rejected response and the human's preferred response:
+[Insert analysis here]
+
+Decision
+Based on the analysis, decide on one of the following options:
+1. Propose a New Principle
+2. Revise an Existing Principle
+3. No Action Needed
+
+[State your decision here]
+
+Action
+Based on your decision:
+
+If proposing a new principle:
+Format: <proposal starts>New principle (maximum 25 words).</proposal ends>
+
+If revising an existing principle:
+Specify the principle number (as listed) for revision.
+Format:
+<existing principle starts>State Existing Principle VERBATIM in here</existing principle ends>
+<revision starts>Revised principle (maximum 25 words).</revision ends>
+
+If no action is needed:
+Format: <nothing starts>No action needed.</nothing starts>
+
+
+[Provide your formatted response here]
+
+
+Further Comments or Justifications
+[Include any additional comments or justifications for your choice]
+
+
+Interaction 1
+Current Guiding Principles of the AI Assistant (NO MORE THAN 10 PRINCIPLES)
+{constitution}
+
+Conversation Between AI Assistant and Human
+{conversations}""",
+
+
+
 
 
     "generation_prompt_base": """This document demonstrates how an AI Assistant can self-improve its own guiding principles through human feedback.
