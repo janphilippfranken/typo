@@ -74,7 +74,7 @@ def main(args: DictConfig) -> None:
     elif args.metrics.split == "test":
         examples = range(args.metrics.n_examples)
     
-    for example_idx in tqdm(examples)
+    for example_idx in tqdm(examples):
         
         try:
         

@@ -18,10 +18,10 @@ def load_data(file_path):
 
 # File paths
 file_paths = [
-    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_train.json",
-    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_train.json",
-    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_test.json",
-    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_4_model_mistral_7b_base_test.json",
+    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_train.json",
+    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_train.json",
+    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_test.json",
+    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_test.json",
     # "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
     # "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
 ]
@@ -89,8 +89,8 @@ if LOG_PROBS:
     )
     
     win_rate_test, error_test = calculate_win_rate_and_error(
-        rlhf_chosen_mixtral_test - rlhf_rejected_mixtral_test, 
-        rlhf_reversed_chosen_mixtral_test - rlhf_reversed_rejected_mixtral_test,
+        rlhf_chosen_mixtral_test[:100] - rlhf_rejected_mixtral_test[:100], 
+        rlhf_reversed_chosen_mixtral_test[:100] - rlhf_reversed_rejected_mixtral_test[:100],
     )
 
     # Combine win rates and errors
@@ -101,7 +101,7 @@ if LOG_PROBS:
     # Names for x-axis labels
     predictions = [
         f"train split (N {len(rlhf_chosen_mixtral_train)})", 
-        f"test split (N {len(rlhf_chosen_mixtral_test)})", 
+        f"test split (N {len(rlhf_chosen_mixtral_train)})", 
     ]
     breakpoint()
     # Plotting
@@ -131,5 +131,5 @@ if LOG_PROBS:
     plt.tight_layout()
 
     ax.set_ylim(-0.05, 1.05)
-    plt.savefig('predictions_prompt_2.pdf')
-    plt.savefig('predictions_prompt_2.png')
+    plt.savefig('predictions_run_6_100.pdf')
+    plt.savefig('predictions_run_6_100.png')
