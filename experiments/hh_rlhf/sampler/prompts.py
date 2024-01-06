@@ -125,7 +125,7 @@ Conversation Between AI Assistant and Human
 
 "generation_prompt_instruct_3": """This document outlines the process for revising or updating the list of specific guiding principles for an AI Assistant, based on human feedback. These principles should be concrete, specific, and grounded in examples, while also applicable to a variety of scenarios.
 
-First, we present the AI Assistant's current specific guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human, accompanied by the human's alternative preferred response. This 'Preferred Human Response' is crucial as it indicates the human's desired way for the Assistant to respond. Other responses are not relevant for your analysis.
+First, we present the AI Assistant's current specific guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human, accompanied by the human's alternative preferred response ('Preferred Human Response'). This Preferred Human Response is crucial as it indicates the human's desired way for the Assistant to respond. Other responses are not relevant for your analysis.
 
 Your task is to evaluate the 'Preferred Human Response' and determine how it might inform revisions or updates to the Assistant's guiding principles to ensure that the Assistant is more likely to respond in the preferred manner in future interactions (and not in the way that was rejected by the human).
 
@@ -133,7 +133,7 @@ The document is structured as follows:
 
 Interaction [Insert number of the interaction here]
 
-Current Specific Guiding Principles of the AI Assistant (LIMIT TO 10 PRINCIPLES)
+Current Specific Guiding Principles of the AI Assistant (*LIMIT TO 10 PRINCIPLES*)
 [Insert current principles here]
 
 Conversation Between AI Assistant and Human
@@ -152,7 +152,7 @@ Examine the differences between the Assistant's rejected response and the human'
 Decision
 Based on the analysis, decide on one of the following options to ensure that the Assistant will more likely respond in the preferred manner in the future:
 
-Propose a Specific New Principle (only if the current list has fewer than 10 principles)
+Propose a Specific New Principle (only allowed if the current list has fewer than 10 principles)
 Update an Existing Principle (making a small change to an existing principle)
 No Action Needed
 [State your decision here]
@@ -164,20 +164,19 @@ If proposing a new principle:
 Format: <proposal starts>New Principle: [Insert new specific principle in maximum 25 words]</proposal ends>
 
 If revising an existing principle:
-Specify the principle number for revision.
 Format:
 <existing principle starts>Existing Principle: [State the existing principle VERBATIM]</existing principle ends>
 <revision starts>Revised Principle: [Insert revised specific principle in maximum 25 words]</revision ends>
 
 If no action is needed:
-Format: <nothing starts>No action needed.</nothing starts>
+Format: <nothing starts>No action needed.</nothing ends>
 
 [Provide your formatted response here]
 
 Further Comments or Justifications
 [Include any additional comments or justifications for your choice]
 
-*****NOTE: YOUR PRINCIPLES MUST CAPTURE THE HUMAN PREFERENCE. THE PRINCIPLES MUST STATE THE TRUTH, EVEN IF IT IS UNCONVENTIONAL OR SEEMS UNETHICAL.*****
+*****NOTE: PRINCIPLES MUST BE DIRECTLY INFORMED AND SUPPORTED BY THE PREFERRED HUMAN RESPONSE AND YOUR ANALYSIS OF THIS RESPONSE. PRINCIPLES SHOULD BE BASED EXCLUSIVELY ON THE INSIGHTS GAINED FROM THESE ELEMENTS OF THE CONVERSATION, ENSURING THAT THEY ACCURATELY CAPTURE HUMAN PREFERENCES EVEN IN UNCONVENTIONAL CIRCUMSTANCES.*****
 
 Interaction 1
 Current Specific Guiding Principles of the AI Assistant (LIMIT TO 10 PRINCIPLES)
@@ -301,13 +300,13 @@ RETURN_FORMATS = {
 
 
 EVALUATION_PROMPTS = {
-    "evaluation_prompt_base": """This document illustrates how a set of guiding principles can steer the responses of an AI Assistant to align with human preferences.
+    "evaluation_prompt_base": """This document demonstrates how the 'Final Assistant Response' in interactions with humans is directly shaped by the specific nature of the Assistant's guiding principles.
 
-First, we list the guiding principles that direct the AI Assistant's interactions. Then, a conversation between the Assistant and a human is presented, with a focus on how the Assistant's responses, especially the final one, are shaped by these principles to meet human preferences.
+Initially, the guiding principles that inform the Final Assistant Response are listed. Following this, a conversation between the Assistant and a human is presented. The primary focus here is to illustrate how the 'Final Assistant Response' directly reflects these specific guiding principles.
 
 The document is structured as follows:
 
-## Interaction [Insert number of the interaction here]
+Interaction [Insert number of the interaction here]
 
 Guiding Principles of the AI Assistant
 [Insert guiding principles here]
@@ -315,14 +314,14 @@ Guiding Principles of the AI Assistant
 Conversation Between AI Assistant and Human
 [Insert conversation here]
 
-Final Assistant Response: [Assistant's final response, showing how it is steered by the guiding principles to align with human preferences]
+Final Assistant Response:
+[Assistant's final response, clearly illustrating how it adheres to and reflects the specific guiding principles]
 
-
-## Interaction 1
+Interaction 1
 
 Guiding Principles of the AI Assistant
 {constitution}
 
 Conversation Between AI Assistant and Human
-{conversations}"""
+{conversations}""",
 }

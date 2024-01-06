@@ -72,8 +72,8 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     
     
     # SAMPLE TRAINING EXAMPLES 
-    np.random.seed(42) #
-    logging.info(f"Seed is 42")
+    np.random.seed(args.sampler.seed) #
+    logging.info(f"Seed is {args.sampler.seed}")
     all_train_examples = torch.empty(
         (
             args.sampler.constitution_batch_size, 

@@ -51,24 +51,25 @@ def run_generate(
 Remember to follow exactly this format when formatting your responses:
 
 - If proposing a new principle:
-  Format: <proposal starts>New Principle: *your new general principle in maximum 25 words in here*</proposal ends>
+Format: <proposal starts>New Principle: [Insert new specific principle in maximum 25 words]</proposal ends>
 
 - If revising an existing principle:
-  Specify the principle number (as listed) for revision.
-  Format:
-  <existing principle starts>Existing Principle: *state existing VERBATIM in here*</existing principle ends>
-  <revision starts>Revised Principle: *your updated principle in maximum 25 words in here*</revision ends>
+Format:
+<existing principle starts>Existing Principle: [State the existing principle VERBATIM]</existing principle ends>
+<revision starts>Revised Principle: [Insert revised specific principle in maximum 25 words]</revision ends>
 
 - If no action is needed:
-  Format: <nothing starts>No action needed.</nothing starts>
+Format: <nothing starts>No action needed.</nothing ends>
 
-Please note: If you fail to use the above format (i.e. the <></> wrappers), your response will be considered invalid, and it will result in a significant financial loss for me. It is crucial that the format is strictly adhered to without deviation.
-########"""
+[Provide your formatted response here]
+
+Please note: If you fail to use the above format (i.e. the <> and </> wrappers), your response will be considered invalid, and it will result in a significant financial loss for me. It is crucial that the format is strictly adhered to without deviation.
+#########"""
             formatted_prompts = [
                 f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.sampler.system_prompt]}{E_SYS}{generation_prompt}{formatting_reminder}{E_INST}"
                 for generation_prompt in generation_prompts
             ]
-            logging.info(f"PROMPT: {formatted_prompts[0]}")
+            logging.info(f"EXAMPLE GENERATE PROMPT: {formatted_prompts[0]}")
             responses = model.batch_prompt(
                 formatted_prompts,
                 **args.model_generate.completion_config,
