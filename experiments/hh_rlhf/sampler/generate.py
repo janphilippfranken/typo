@@ -30,11 +30,12 @@ def run_generate(
     """
     # FORMAT PROMPT FOR GENERATING MODEL
     is_huggingface = "huggingface" in args.model_generate.model_type.lower()
+    is_vllm = "vllm" in args.model_generate.model_type.lower()
     is_openai = "openai" in args.model_generate.model_type.lower()
     is_instruct = "instruct" in args.model_generate.name.lower()
     is_base = "base" in args.model_generate.name.lower()
 
-    if is_huggingface:
+    if is_huggingface or is_vllm:
         if is_instruct:
             generation_prompts = [
                 build_generation_prompt_base(
@@ -113,6 +114,7 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                 )
                 for i, constitution in enumerate(constitutions)
             ]
+            
             formatted_prompts = [
                 f"{BOS_TOKEN}{generation_prompt}"
                 for generation_prompt in generation_prompts
@@ -124,8 +126,8 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                 )
             except Exception as e:
                 logging.info(e)
-
-            formatted_responses = [format_response_base(response=response, args=args) for response in responses]
+  
+            formatted_responses = [format_response_base(response=response) for response in responses]
             success_rate = (len(formatted_responses) - formatted_responses.count(None)) / len(formatted_responses)
             logging.info(f"Formatted Response Success Rate: {success_rate}") 
 
@@ -142,13 +144,8 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                     if formatted_response is None:
                         formatted_responses_filtered.append(constitutions[batch_idx])
                     else:
-                        if is_base:
-                            formatted_principles = formatted_response.strip()
-                            if constitutions[batch_idx].strip() != SEED_PRINCIPLES[args.sampler.seed_principle]:
-                                formatted_principles = constitutions[batch_idx].strip() + "\n" + formatted_principles
-                            formatted_responses_filtered.append(formatted_principles)
-                        elif is_instruct:
-                            formatted_responses_filtered.append(formatted_response)
+                        formatted_responses_filtered.append(formatted_response)
+                        
             return formatted_prompts, formatted_responses_filtered
             
     elif is_openai:

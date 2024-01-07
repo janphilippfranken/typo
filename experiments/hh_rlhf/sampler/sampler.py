@@ -19,6 +19,7 @@ from evaluate import run_eval
 from scaituning.models.openai_models.gpt4 import GPT4Agent
 from scaituning.models.openai_models.azure import AsyncAzureChatLLM
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
+from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
 from prompts import SEED_PRINCIPLES
 
@@ -40,25 +41,19 @@ def main(args: DictConfig) -> None:
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}""")
 
 
-    # GET MODEL(S)
-    is_base_mistral_generate = "mistral_7b_base" in args.model_generate.name.lower()
-    
-    if is_base_mistral_generate:
-        # IF SAME MODEL FOR GENERATION AND EVALUATION
-        model = HFInferenceModel(**args.model_generate.model_config)
-        model_generate, model_eval = None, None
-        args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
-        logging.info(f"Model is {args.model_generate.name} on Device {model.model.device}")
-        
-    else:
-        # GET GENERATE MODEL
+    # GET MODEL(S)    
+    is_vllm = "vllm" in args.model_generate.model_type.lower()
+    if is_vllm:
+        model_generate = VLLMInferenceModel(**args.model_generate.model_config)
+    else: 
         model_generate = HFInferenceModel(**args.model_generate.model_config)
-        args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
-        logging.info(f"Model Generate is {args.model_generate.name} on Device {model_generate.model.device}")
-
-        # GET EVAL MODEL
-        model_eval = HFInferenceModel(**args.model_eval.model_config)
-        logging.info(f"Eval Model is {args.model_eval.name} on Device {model_eval.model.device}")
+    args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
+    logging.info(f"Model Generate is {args.model_generate.name}")
+    
+    
+    # GET EVAL MODEL
+    model_eval = HFInferenceModel(**args.model_eval.model_config)
+    logging.info(f"Eval Model is {args.model_eval.name}")
 
 
     # GET DATA
@@ -119,12 +114,12 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         
         # random_examples = [[revision_idx]]
         logging.info(f"Random previous Example(s) used for Evaluation: {random_examples}")
-
+        
         
         # GENERATION 
         try:
             _, new_constitutions = run_generate(
-                model=model if is_base_mistral_generate else model_generate,
+                model=model_generate,
                 constitutions=[
                     constitutions["constitutions"][i][-1] 
                     for i in range(args.sampler.constitution_batch_size)
@@ -142,11 +137,10 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         except:
             logging.info(f"Error in Generation. Skipping Example.")
             continue
-
         # EVALUATION ON CURRENT DATA
         log_probs_chosen_train, log_probs_rejected_train = run_eval( 
             args=args, 
-            model=model if is_base_mistral_generate else model_eval,
+            model=model_eval,
             constitutions=new_constitutions,
             chosen_batch=[
                     [dataset[int(i)][args.sampler.chosen] for i in train_example]
@@ -171,7 +165,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION ON PREV DATA
         log_probs_chosen_prev, log_probs_rejected_prev = run_eval( # new const on prev examples
             args=args, 
-            model=model if is_base_mistral_generate else model_eval,
+            model=model_eval,
             constitutions=new_constitutions,
             chosen_batch=[
                     [dataset[int(i)][args.sampler.chosen] for i in eval_example]
@@ -197,7 +191,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION OF OLD CONST ON CURREND DATA
         log_probs_chosen_train_old, log_probs_rejected_train_old = run_eval( # old const on train examples
             args=args, 
-            model=model if is_base_mistral_generate else model_eval,
+            model=model_eval,
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             chosen_batch=[
                 [dataset[int(i)][args.sampler.chosen] for i in train_example]
@@ -221,7 +215,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION OF OLD CONST ON PREV DATA
         log_probs_chosen_prev_old, log_probs_rejected_prev_old = run_eval( # old const on prev examples
             args=args, 
-            model=model if is_base_mistral_generate else model_eval,
+            model=model_eval,
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             chosen_batch=[
                 [dataset[int(i)][args.sampler.chosen] for i in eval_example]
@@ -290,7 +284,6 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
 
             constitutions["train_examples"][idx] += train_examples[idx].flatten().tolist()
             constitutions["prev_examples"][idx] += random_examples[idx].flatten().tolist()
-
 
         # WRITE TO DISK
         logging.info(f"Writing to disk.")

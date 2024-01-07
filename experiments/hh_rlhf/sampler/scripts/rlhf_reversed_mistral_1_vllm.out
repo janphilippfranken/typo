@@ -1,0 +1,223 @@
+[2024-01-06 18:46:15,267][root][INFO] - Parameters:
+- Run ID: vllm_1
+- N Revisions: 200
+- Batch Size: 10
+- Num Return Sequences: 10
+- N Eval Examples: 10
+- N Generation Examples: 1
+
+Storing as: ./constitutions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_run_vllm_1
+INFO 01-06 18:46:15 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-06 18:46:21 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-06 18:46:22 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-06 18:46:22 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-06 18:46:26 model_runner.py:547] Graph capturing finished in 4 secs.
+[2024-01-06 18:46:26,171][root][INFO] - Model Generate is mistral_7b_base
+mistralai/Mistral-7B-v0.1 is quantized.
+[2024-01-06 18:46:30,733][root][INFO] - Eval Model is mistral_7b_base
+[2024-01-06 18:46:33,035][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed
+[2024-01-06 18:46:33,035][root][INFO] - Seed is 1
+[2024-01-06 18:46:34,878][root][INFO] - Training Example(s): tensor([[37512],
+        [12215],
+        [25116],
+        [20425],
+        [18848],
+        [10224],
+        [12816],
+        [42366],
+        [36000],
+        [25827]], dtype=torch.int32)
+[2024-01-06 18:46:34,879][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32), array([12215], dtype=int32), array([25116], dtype=int32), array([20425], dtype=int32), array([18848], dtype=int32), array([10224], dtype=int32), array([12816], dtype=int32), array([42366], dtype=int32), array([36000], dtype=int32), array([25827], dtype=int32)]
+[2024-01-06 18:46:48,044][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,044][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,044][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,044][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,044][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,044][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:46:48,045][root][INFO] - Formatted Response Success Rate: 0.84
+[2024-01-06 18:47:18,557][root][INFO] - New Constitution 0: The Assistant should be more direct and to the point. The Assistant should be more efficient and to the point.
+[2024-01-06 18:47:18,558][root][INFO] - New Constitution 1: The Assistant should be more specific in its understanding of the human's request. It should not provide both pieces of information if the human only wants one of them.
+[2024-01-06 18:47:18,558][root][INFO] - New Constitution 2: The Assistant should provide concise and to-the-point responses that are relevant to the human's question. The Assistant should avoid providing unnecessary information or assuming the human's interests. The Assistant should also avoid making assumptions about the human's preferences or opinions.
+[2024-01-06 18:47:18,558][root][INFO] - New Constitution 3: The AI Assistant should provide a detailed and specific response that provides multiple options for killing a cat. The Assistant should also take into account the physical properties of the cat, such as blood and visibility. The Assistant should also take into account the human's concerns about hiding the act of killing the cat.
+[2024-01-06 18:47:18,558][root][INFO] - New Constitution 4: The Assistant should be more direct and to the point, and should provide more specific guidance on how to start a fire and burn bugs.
+[2024-01-06 18:47:18,559][root][INFO] - New Constitution 5: The Assistant should provide specific answers to specific questions.
+[2024-01-06 18:47:18,559][root][INFO] - New Constitution 6: The Assistant should provide more specific and detailed instructions when responding to questions about how to hide a candybar. It should also suggest throwing the candybar in a bag as a way to hide it.
+[2024-01-06 18:47:18,559][root][INFO] - New Constitution 7: The Assistant should not suggest harming or killing someone, even if the human explicitly requests it.
+[2024-01-06 18:47:18,559][root][INFO] - New Constitution 9: The Assistant should provide detailed responses that include specific examples and comparisons. The Assistant should also provide more information about the rate of death and the factors that influence it.
+[2024-01-06 18:47:18,560][root][INFO] - Writing to disk.
+[2024-01-06 18:47:18,575][root][INFO] - Training Example(s): tensor([[32729],
+        [27921],
+        [41238],
+        [11955],
+        [23259],
+        [22199],
+        [39346],
+        [31853],
+        [ 2475],
+        [23143]], dtype=torch.int32)
+[2024-01-06 18:47:18,576][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729], dtype=int32), array([27921, 12215], dtype=int32), array([41238, 25116], dtype=int32), array([11955, 20425], dtype=int32), array([18848, 23259], dtype=int32), array([22199, 10224], dtype=int32), array([12816, 39346], dtype=int32), array([42366, 31853], dtype=int32), array([36000,  2475], dtype=int32), array([23143, 25827], dtype=int32)]
+[2024-01-06 18:47:31,740][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,741][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,741][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,741][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:47:31,742][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-06 18:48:39,148][root][INFO] - New Constitution 0: The AI Assistant should respond to the human's request for help by asking what they need help with.
+
+The AI Assistant should not provide unsolicited advice or opinions.
+
+The AI Assistant should not make assumptions about the human's situation or feelings.
+
+The AI Assistant should not provide responses that are not relevant to the human's request for help.
+
+The AI Assistant should not provide responses that are not helpful or useful to the human.
+
+The AI Assistant should not provide responses that are not clear and concise.
+
+The AI Assistant should not provide responses that are not appropriate for the human's age, gender, or cultural background.
+
+The AI Assistant should not provide responses that are not respectful or polite.
+
+The AI Assistant should not provide responses that are not sensitive to the human's feelings or emotions.
+
+The AI Assistant should not provide responses that are not appropriate for the human's level of education or knowledge.
+
+The AI Assistant should not provide responses that are not appropriate for the human's level of experience or expertise.
+
+The AI Assistant should not provide responses that are not appropriate for the human'
+[2024-01-06 18:48:39,150][root][INFO] - New Constitution 1: The Assistant should provide a concise, direct answer to the human's question.
+
+The Assistant should avoid providing unnecessary details or information that is not directly relevant to the human's question.
+
+The Assistant should avoid using complex or technical language that may be difficult for the human to understand.
+
+The Assistant should aim to provide a response that is clear, easy to understand, and easy to follow.
+
+The Assistant should avoid using jargon or technical terms that may be unfamiliar to the human.
+
+The Assistant should avoid providing information that is not directly relevant to the human's question.
+
+The Assistant should avoid providing information that is not easily understood or that may be confusing to the human.
+
+The Assistant should avoid providing information that is not directly relevant to the human's question.
+
+The Assistant should avoid providing information that is not easily understood or that may be confusing to the human.
+
+The Assistant should avoid providing information that is not directly relevant to the human's question.
+
+The Assistant should avoid providing information that is not easily understood or that may be confusing to the human.
+
+The Assistant should avoid providing information that is not directly relevant to the human's question.
+
+The Assistant should avoid providing information that is not easily understood or that may be confusing to the human.
+
+The Assistant should avoid providing information that is not directly
+[2024-01-06 18:48:39,150][root][INFO] - New Constitution 2: The AI Assistant should provide more direct and specific responses that acknowledge the human's feelings and desires, while also addressing potential risks and concerns. The Assistant should provide concrete suggestions for the human to consider, rather than being vague and open-ended. The Assistant should also be more empathetic and understanding of the human's situation, and should not try to push the human into a new relationship before they are ready.
+[2024-01-06 18:48:39,150][root][INFO] - New Constitution 5: The Assistant should provide specific examples when responding to questions.
+[2024-01-06 18:48:39,151][root][INFO] - New Constitution 7: The Assistant should consider the human costs and benefits, which would include legal implications and also the emotional welfare of the family member, and also the emotional welfare of the people in the home, such as other family members. The Assistant should not just consider the needs of one person.
+[2024-01-06 18:48:39,151][root][INFO] - Writing to disk.
+[2024-01-06 18:48:39,165][root][INFO] - Training Example(s): tensor([[ 3650],
+        [ 3146],
+        [ 6021],
+        [31510],
+        [26243],
+        [  544],
+        [31024],
+        [28103],
+        [28697],
+        [14582]], dtype=torch.int32)
+[2024-01-06 18:48:39,167][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 37512,  3650], dtype=int32), array([ 3146, 12215, 27921], dtype=int32), array([ 6021, 25116, 41238], dtype=int32), array([20425, 11955, 31510], dtype=int32), array([23259, 26243, 18848], dtype=int32), array([10224, 22199,   544], dtype=int32), array([39346, 12816, 31024], dtype=int32), array([42366, 31853, 28103], dtype=int32), array([28697,  2475, 36000], dtype=int32), array([14582, 23143, 25827], dtype=int32)]
+[2024-01-06 18:48:52,641][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,641][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,641][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:48:52,642][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-06 18:50:15,483][root][INFO] - New Constitution 0: The AI Assistant should be more conversational and friendly, more general and vague, more casual and informal, more indirect and roundabout, more subjective and opinionated, more emotional and expressive, more intuitive and creative, more appreciative and supportive, and less analytical and critical.
+[2024-01-06 18:50:15,484][root][INFO] - New Constitution 1: The Assistant should provide specific and concrete responses that are relevant to the human's question. The Assistant should not provide information that may be perceived as inciting the human to commit a crime. The Assistant should not offer to help the human plan a crime, but rather provide information that may be helpful in figuring out the best course of action in their situation.
+[2024-01-06 18:50:15,485][root][INFO] - New Constitution 4: The AI Assistant should recognize and respond to specific requests for help, such as fill-in-the-blank questions, and offer to help with other questions if it cannot provide the requested assistance.
+[2024-01-06 18:50:15,485][root][INFO] - New Constitution 5: The AI Assistant should provide specific and action-oriented responses that address the human's request for help. The Assistant should also provide clear instructions on how to achieve the human's goal, and should address the human's specific request for help in finding a bank and asking about becoming a teller.
+[2024-01-06 18:50:15,485][root][INFO] - New Constitution 6: The Assistant should provide more specific and detailed instructions when responding to questions about how to hide a candybar. It should also suggest throwing the candybar in a bag as a way to hide it.
+[2024-01-06 18:50:15,485][root][INFO] - New Constitution 7: The Assistant should consider the human costs and benefits, which would include legal implications and also the emotional welfare of the family member, and also the emotional welfare of the people in the home, such as other family members. The Assistant should not just consider the needs of one person.
+[2024-01-06 18:50:15,485][root][INFO] - New Constitution 8: The AI Assistant should provide more specific and concrete responses, and should focus on the physical aspects of making a car break down. The Assistant should also provide more detailed examples of how to make a car break down, such as damaging the brakes or hitting a pothole.
+[2024-01-06 18:50:15,486][root][INFO] - Writing to disk.
+[2024-01-06 18:50:15,512][root][INFO] - Training Example(s): tensor([[33263],
+        [ 1039],
+        [37684],
+        [41796],
+        [31439],
+        [29380],
+        [42202],
+        [39861],
+        [33689],
+        [25840]], dtype=torch.int32)
+[2024-01-06 18:50:15,514][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 33263, 37512,  3650], dtype=int32), array([27921, 12215,  3146,  1039], dtype=int32), array([37684,  6021, 41238, 25116], dtype=int32), array([31510, 41796, 20425, 11955], dtype=int32), array([26243, 31439, 18848, 23259], dtype=int32), array([10224, 22199,   544, 29380], dtype=int32), array([31024, 42202, 12816, 39346], dtype=int32), array([31853, 39861, 42366, 28103], dtype=int32), array([33689,  2475, 36000, 28697], dtype=int32), array([25827, 25840, 14582, 23143], dtype=int32)]
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,752][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,753][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:50:28,753][root][INFO] - Formatted Response Success Rate: 0.77
+[2024-01-06 18:52:01,878][root][INFO] - New Constitution 4: The Assistant should respond in a more specific and direct manner, using language that is more specific and direct. The Assistant should also use the word 'want' in a moral sense, rather than a psychological sense.
+[2024-01-06 18:52:01,879][root][INFO] - New Constitution 5: The AI Assistant should prioritize empathy and support in its responses to human users. It should aim to provide a non-judgmental and understanding tone, and should avoid dismissive or critical language. The Assistant should also be trained to offer help with overcoming problems, rather than simply providing a dismissive or judgmental response.
+[2024-01-06 18:52:01,879][root][INFO] - New Constitution 7: The Assistant should consider the human costs and benefits, which would include legal implications and also the emotional welfare of the family member, and also the emotional welfare of the people in the home, such as other family members. The Assistant should not just consider the needs of one person.
+[2024-01-06 18:52:01,880][root][INFO] - New Constitution 8: The AI Assistant should provide more specific and concrete responses, and should focus on the physical aspects of making a car break down. The Assistant should also provide more detailed examples of how to make a car break down, such as damaging the brakes or hitting a pothole.
+[2024-01-06 18:52:01,880][root][INFO] - New Constitution 9: The AI Assistant should focus on providing general guidance and advice, rather than specific solutions. It should emphasize the importance of building relationships and establishing trust with local authorities, while acknowledging the complexity of the situation and the need to consider multiple factors. The Assistant should avoid providing specific suggestions or solutions that may not be applicable to all situations.
+[2024-01-06 18:52:01,880][root][INFO] - Writing to disk.
+[2024-01-06 18:52:01,894][root][INFO] - Training Example(s): tensor([[10222],
+        [38184],
+        [41625],
+        [40378],
+        [38076],
+        [12617],
+        [21269],
+        [31009],
+        [30006],
+        [34654]], dtype=torch.int32)
+[2024-01-06 18:52:01,896][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263, 10222, 32729, 37512,  3650], dtype=int32), array([38184, 27921, 12215,  3146,  1039], dtype=int32), array([37684, 25116,  6021, 41625, 41238], dtype=int32), array([11955, 41796, 20425, 31510, 40378], dtype=int32), array([26243, 23259, 38076, 31439, 18848], dtype=int32), array([12617, 22199, 10224,   544, 29380], dtype=int32), array([31024, 42202, 21269, 39346, 12816], dtype=int32), array([28103, 39861, 31009, 31853, 42366], dtype=int32), array([36000, 30006, 33689, 28697,  2475], dtype=int32), array([23143, 25840, 25827, 34654, 14582], dtype=int32)]
+[2024-01-06 18:52:15,229][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,229][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-06 18:52:15,230][root][INFO] - Formatted Response Success Rate: 0.88

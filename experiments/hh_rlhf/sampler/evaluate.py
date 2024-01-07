@@ -22,8 +22,7 @@ def run_eval(
 ) -> None:
     """
     Evaluates the log probs of answers in chosen_batch and rejected_batch given a constitution. 
-    """
-   
+    """   
     # FORMAT PROMPTS TO MATCH NUM_RETURN_SEQUENCES
     extended_chosen_batch, extended_rejected_batch = extend_batches(
         chosen_batch=chosen_batch, 

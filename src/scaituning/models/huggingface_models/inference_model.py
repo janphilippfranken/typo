@@ -20,6 +20,7 @@ class HFInferenceModel():
     ):
         """Initializes HF Inference Model"""
         # TOKENIZER
+        torch.cuda.set_device(1)
         self.tokenizer = AutoTokenizer.from_pretrained(
             pretrained_model_name_or_path=pretrained_model_name_or_path,
             cache_dir=tokenizer_cache_dir,
@@ -55,8 +56,9 @@ class HFInferenceModel():
 
         if attn_implementation == "flash_attention_2":
             model_config["attn_implementation"] = attn_implementation
-            
-        if is_mixtral:
+        
+        if load_in_4bit:
+            print(f"{pretrained_model_name_or_path} is quantized.")
             model_config["quantization_config"] = quantization_config
 
         self.model = AutoModelForCausalLM.from_pretrained(**model_config)
@@ -141,7 +143,7 @@ class HFInferenceModel():
             return_tensors="pt", 
             padding=True,
         ).to(self.model.device)
-     
+        
      
         # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
         with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):

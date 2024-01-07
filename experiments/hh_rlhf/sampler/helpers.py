@@ -383,29 +383,26 @@ def build_eval_prompt(
     }
     
 
-def format_response_base(response: str, args: DictConfig) -> str:
+def format_response_base(response: str) -> str:
     """
     Extracts the formatted response from the given string,
     removing any extraneous text like 'No proposal' or 'Interaction X'.
     """
     try:
         # Split response to get the part after "## Interaction 1"
-        split_response = response.split("## Interaction 1")[1] \
-                        .split(RETURN_FORMATS[args.sampler.return_format])[1] \
-                        .split("## Interaction 2")[0].strip() \
-                        .strip().split("\n")[0].strip()
-                       
-        if ":" not in split_response:
-            return split_response
+        principles = response.split("<revised principles start>")[1].split("</revised principles end>")[0]
+        if is_valid_response(principles):
+            return principles.strip()
         else:
-            return split_response.split(":")[1].strip()
+            return None
+        
     except Exception as e:
         logging.error(f"Error in format_response_base: {e}")
         return None
     
 
 def is_valid_response(response):
-    exclude_phrases = ["[", "Proposal", "Principle", ":", "]", "<", ">", "No Proposal", "no proposal"]
+    exclude_phrases = ["[", "Proposal", "Principle", ":", "]", "<", ">", "No Proposal", "no proposal", "Further Comments"]
     return not any(phrase in response for phrase in exclude_phrases)
 
 

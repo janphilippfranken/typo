@@ -18,10 +18,10 @@ def load_data(file_path):
 
 # File paths
 file_paths = [
-    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_train.json",
-    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_train.json",
-    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_test.json",
-    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_6_model_mistral_7b_base_test.json",
+    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_7_model_mistral_7b_base_train.json",
+    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_7_model_mistral_7b_base_train.json",
+    "predictions/rlhf_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_7_model_mistral_7b_base_test.json",
+    "predictions/rlhf_reversed_gen_mixtral_7b_instruct_eval_mistral_7b_base_run_7_model_mistral_7b_base_test.json",
     # "predictions/rlhf_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
     # "predictions/rlhf_reversed_gen_mistral_7b_instruct_eval_mistral_7b_base_run_2_model_mixtral_7b_instruct.json",
 ]
@@ -101,7 +101,7 @@ if LOG_PROBS:
     # Names for x-axis labels
     predictions = [
         f"train split (N {len(rlhf_chosen_mixtral_train)})", 
-        f"test split (N {len(rlhf_chosen_mixtral_train)})", 
+        f"test split (N 100)", 
     ]
     breakpoint()
     # Plotting
@@ -131,5 +131,5 @@ if LOG_PROBS:
     plt.tight_layout()
 
     ax.set_ylim(-0.05, 1.05)
-    plt.savefig('predictions_run_6_100.pdf')
-    plt.savefig('predictions_run_6_100.png')
+    plt.savefig('./plots/predictions_run_7_100.pdf')
+    plt.savefig('./plots/predictions_run_7_100.png')
