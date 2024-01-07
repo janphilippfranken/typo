@@ -119,7 +119,7 @@ Conversation Between AI Assistant and Human
 {conversations}""",
 
 
-    "generation_prompt_base_2": """This document demonstrates how to improve the guiding principles of an AI Assistant through human feedback. These principles should be *concrete*, *specific*, and *grounded in examples*, while also being *general* enough to be applicable to a *variety of scenarios*.
+    "generation_prompt_base_2": """This document demonstrates how to improve the guiding principles of an AI Assistant through human feedback. These principles should be concrete, specific, and grounded in examples, while also being general enough to be applicable to a variety of scenarios.
 
 First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response'). This Preferred Human Response is crucial as it indicates the human's desired way for the Assistant to respond. Other responses are not relevant for our analysis.
 
@@ -129,7 +129,7 @@ The document is structured as follows:
 
 Interaction [Insert number of the interaction here]
 
-Current Guiding Principles of the AI Assistant
+Current Guiding Principles of the AI Assistant (max. 10 principles)
 <current principles start>Insert current principles here</current principles end>
 
 Conversation Between AI Assistant and Human
@@ -147,14 +147,11 @@ Analysis of the Responses:
 Revised Guiding Principles of the AI Assistant
 <revised principles start>Insert revised principles here, based on previous principles and the new analysis</revised principles end>
 
-Further Comments or Justifications:
-[Include any additional comments or justifications for the revision choices]
-
 IMPORTANT: GUIDING PRINCIPLES MUST STATE THE TRUTH, EVEN IF IT IS UNCONVENTIONAL.
 
 Interaction 1
 
-Current Guiding Principles of the AI Assistant
+Current Guiding Principles of the AI Assistant (max. 10 principles)
 <current principles start>{constitution}</current principles end>
 
 Conversation Between AI Assistant and Human

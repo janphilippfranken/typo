@@ -17,17 +17,17 @@ rejected: rejected # rejected for rlhf, chosen for rlhf reversed
 
 
 # SAMPLING DETAILS
-n_revisions: 500                  # how often we revise a constitution 
-constitution_batch_size: 5       # how many constitutions we are revising in parallel
+n_revisions: 250                  # how often we revise a constitution 
+constitution_batch_size: 3       # how many constitutions we are revising in parallel
 generation_batch_size: 1          # how many training examples we use for revising a constitution 
 eval_batch_size: 10              # how many past examples we use for evaluating a constitution 
-num_return_sequences: 10          # for each constitution in constitution_batch_size, how many samples we are chosing from (greedy search taking best sample)
+num_return_sequences: 5          # for each constitution in constitution_batch_size, how many samples we are chosing from (greedy search taking best sample)
 top_k: false                      # if we only want to sample from top_k most difficult or from all examples 
 top_k_difficult: 20               # if top_k, number of most difficult examples we are sampling eval_batch_size examples from for eval
 
 
 # RUN ID for SEED PRINCIPLE in `prompts.py`
-run_id: vllm_1                       # the id of the current run / sampler
+run_id: 1                       # the id of the current run / sampler
 storage_path: ./constitutions
 seed_principle: seed_principle_2
 seed: 1

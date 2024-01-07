@@ -84,10 +84,9 @@ class VLLMInferenceModel():
                 sampling_params=sampling_params,
                 use_tqdm=False,
             )
+  
             
-        
             # now get the tokens back
-            
             log_probs_answers = torch.tensor([
                 [v for prob in output_answer.prompt_logprobs[1:] for _, v in prob.items()]
                 for output_answer in output_answers
@@ -100,8 +99,7 @@ class VLLMInferenceModel():
             log_probs = log_probs_answers.sum(dim=-1)
 
             # CLEAR MEMORY
-            del tokenized_answers, tokenized_prompts, labels, log_probs_answers, mask
-
+            del tokenized_answers, tokenized_prompts, tokenized_answers_input_ids, sampling_params, output_answers, labels, log_probs_answers, mask
             torch.cuda.empty_cache()
 
             return log_probs

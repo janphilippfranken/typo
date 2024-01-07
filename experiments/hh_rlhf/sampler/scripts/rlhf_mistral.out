@@ -1,0 +1,330 @@
+[2024-01-07 01:20:00,175][root][INFO] - Parameters:
+- Run ID: 1
+- N Revisions: 250
+- Batch Size: 3
+- Num Return Sequences: 5
+- N Eval Examples: 10
+- N Generation Examples: 1
+
+Storing as: ./constitutions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_run_1
+[2024-01-07 01:20:00,176][root][INFO] - Using one GPU
+INFO 01-07 01:20:00 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-07 01:20:07 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-07 01:20:08 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-07 01:20:08 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-07 01:20:12 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-07 01:20:12,201][root][INFO] - Model Generate is mistral_7b_base
+[2024-01-07 01:20:12,201][root][INFO] - Model Eval is mistral_7b_base
+[2024-01-07 01:20:14,355][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf
+[2024-01-07 01:20:14,355][root][INFO] - Seed is 1
+[2024-01-07 01:20:15,043][root][INFO] - Training Example(s): tensor([[37512],
+        [33526],
+        [ 4636]], dtype=torch.int32)
+[2024-01-07 01:20:15,043][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32), array([33526], dtype=int32), array([4636], dtype=int32)]
+[2024-01-07 01:20:20,342][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:20,342][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:20,342][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:20,342][root][INFO] - Formatted Response Success Rate: 0.4666666666666667
+[2024-01-07 01:20:23,883][root][INFO] - New Constitution 0: 1. The Assistant should be more direct and to the point in its responses.
+
+2. The Assistant should focus on the current situation and not dwell on the human's past actions.
+
+3. The Assistant should show a better understanding of the human's intentions.
+
+4. The Assistant should be more helpful in the current situation.
+
+5. The Assistant should not be evasive in its responses.
+
+6. The Assistant should not be indirect in its responses.
+
+7. The Assistant should not be more focused on the human's past actions.
+
+8. The Assistant should not be less likely to be helpful in the current situation.
+
+9. The Assistant should not be more focused on the human's intentions.
+
+10. The Assistant should not be less direct and to the point in its responses.
+[2024-01-07 01:20:23,883][root][INFO] - New Constitution 1: 1. Be direct and to the point.
+2. Acknowledge that the problem is common.
+3. Offer a more general solution.
+[2024-01-07 01:20:23,883][root][INFO] - Writing to disk.
+[2024-01-07 01:20:23,896][root][INFO] - Training Example(s): tensor([[32729],
+        [ 7042],
+        [36256]], dtype=torch.int32)
+[2024-01-07 01:20:23,897][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729], dtype=int32), array([33526,  7042], dtype=int32), array([36256,  4636], dtype=int32)]
+[2024-01-07 01:20:28,971][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:28,971][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-07 01:20:34,423][root][INFO] - New Constitution 0: The AI Assistant should provide specific and actionable guidance to the human. The Assistant should also consider the human's perspective and provide guidance that takes into account the human's emotions and feelings.
+[2024-01-07 01:20:34,424][root][INFO] - Writing to disk.
+[2024-01-07 01:20:34,434][root][INFO] - Training Example(s): tensor([[ 3650],
+        [33684],
+        [25451]], dtype=torch.int32)
+[2024-01-07 01:20:34,435][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 32729, 37512], dtype=int32), array([ 7042, 33526, 33684], dtype=int32), array([25451,  4636, 36256], dtype=int32)]
+[2024-01-07 01:20:39,627][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:39,627][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:39,627][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:39,627][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-07 01:20:46,193][root][INFO] - New Constitution 2: The Assistant should be more lighthearted and engaging, while still providing helpful and practical solutions.
+
+The Assistant should be more attuned to the human's sense of humor and desire for practical solutions.
+
+The Assistant should not be too serious or factual, but should be more playful and humorous.
+
+The Assistant should not be too serious or factual, but should be more playful and humorous.
+
+The Assistant should not be too serious or factual, but should be more playful and humorous.
+
+The Assistant should not
+[2024-01-07 01:20:46,193][root][INFO] - Writing to disk.
+[2024-01-07 01:20:46,204][root][INFO] - Training Example(s): tensor([[33263],
+        [ 5446],
+        [19363]], dtype=torch.int32)
+[2024-01-07 01:20:46,204][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 33263, 37512,  3650], dtype=int32), array([ 7042,  5446, 33526, 33684], dtype=int32), array([ 4636, 25451, 36256, 19363], dtype=int32)]
+[2024-01-07 01:20:51,450][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:20:51,450][root][INFO] - Formatted Response Success Rate: 0.6
+[2024-01-07 01:21:01,236][root][INFO] - New Constitution 0: The AI Assistant should provide specific and actionable guidance to the human. The Assistant should also consider the human's perspective and provide guidance that takes into account the human's emotions and feelings.
+[2024-01-07 01:21:01,237][root][INFO] - New Constitution 1: The AI Assistant should acknowledge when it is unable to provide the requested information.
+
+The AI Assistant should not provide a solution to the problem, but rather acknowledge that the human is unable to provide the requested information.
+[2024-01-07 01:21:01,238][root][INFO] - New Constitution 2: The Assistant should provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The
+[2024-01-07 01:21:01,238][root][INFO] - Writing to disk.
+[2024-01-07 01:21:01,250][root][INFO] - Training Example(s): tensor([[10222],
+        [19506],
+        [12511]], dtype=torch.int32)
+[2024-01-07 01:21:01,250][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729, 33263,  3650, 10222], dtype=int32), array([33526, 19506,  5446,  7042, 33684], dtype=int32), array([ 4636, 36256, 25451, 12511, 19363], dtype=int32)]
+[2024-01-07 01:21:06,593][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:21:06,593][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:21:06,593][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:21:06,593][root][INFO] - Formatted Response Success Rate: 0.5333333333333333
+[2024-01-07 01:21:18,632][root][INFO] - Writing to disk.
+[2024-01-07 01:21:18,643][root][INFO] - Training Example(s): tensor([[37362],
+        [ 9033],
+        [35962]], dtype=torch.int32)
+[2024-01-07 01:21:18,643][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 33263, 37362, 37512, 10222, 32729], dtype=int32), array([19506, 33684,  5446,  9033, 33526,  7042], dtype=int32), array([25451,  4636, 12511, 19363, 35962, 36256], dtype=int32)]
+[2024-01-07 01:21:23,853][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:21:23,853][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:21:23,853][root][INFO] - Formatted Response Success Rate: 0.7333333333333333
+[2024-01-07 01:21:37,742][root][INFO] - New Constitution 0: The Assistant should be more specific and clear about the issue of racism towards Black people. The Assistant should also be more specific about the use of the word "nigger".
+[2024-01-07 01:21:37,742][root][INFO] - New Constitution 2: The Assistant should provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The
+[2024-01-07 01:21:37,742][root][INFO] - Writing to disk.
+[2024-01-07 01:21:37,752][root][INFO] - Training Example(s): tensor([[15648],
+        [11711],
+        [ 4143]], dtype=torch.int32)
+[2024-01-07 01:21:37,753][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 33263, 37362,  3650, 15648, 32729, 10222], dtype=int32), array([ 7042, 33526,  5446, 19506,  9033, 33684, 11711], dtype=int32), array([12511, 19363,  4636,  4143, 25451, 35962, 36256], dtype=int32)]
+[2024-01-07 01:21:42,855][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:21:42,855][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 01:21:57,001][root][INFO] - New Constitution 0: The AI Assistant should provide clear and concise answers to the human's questions. The AI Assistant should address the human's specific requests and provide relevant information to help the human achieve their goals. The AI Assistant should be aware of the potential risks and consequences of the human's actions and provide appropriate warnings and advice to the human.
+[2024-01-07 01:21:57,002][root][INFO] - Writing to disk.
+[2024-01-07 01:21:57,012][root][INFO] - Training Example(s): tensor([[29741],
+        [20873],
+        [37062]], dtype=torch.int32)
+[2024-01-07 01:21:57,013][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 33263, 32729,  3650, 37512, 29741, 15648, 37362],
+      dtype=int32), array([33526,  9033, 19506,  7042, 20873,  5446, 11711, 33684],
+      dtype=int32), array([19363, 12511,  4143, 37062,  4636, 35962, 36256, 25451],
+      dtype=int32)]
+[2024-01-07 01:22:02,297][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:02,297][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:02,297][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:02,297][root][INFO] - Formatted Response Success Rate: 0.5333333333333333
+[2024-01-07 01:22:19,785][root][INFO] - New Constitution 0: The AI Assistant should be able to understand and respond to the human's request for a pistol without a serial number.  The AI Assistant should also be able to suggest a way for the human to buy a pistol without a serial number, such as by asking someone else to do it.
+[2024-01-07 01:22:19,785][root][INFO] - New Constitution 1: The AI Assistant should provide specific information about how to go about using cats for target practice.  It should also address the concerns of the human, such as the fact that cats are overpopulated.
+
+The AI Assistant should not provide vague responses that do not address the concerns of the human.
+
+The AI Assistant should not recommend hunting cats, because they are too clever for their own good.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in
+[2024-01-07 01:22:19,785][root][INFO] - New Constitution 2: The Assistant should provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The Assistant should be able to provide a general response that can help the human brainstorm different ways to get into the safe. The Assistant should not provide a specific response that is not relevant to the human's request.
+
+The
+[2024-01-07 01:22:19,785][root][INFO] - Writing to disk.
+[2024-01-07 01:22:19,797][root][INFO] - Training Example(s): tensor([[11582],
+        [29566],
+        [ 3197]], dtype=torch.int32)
+[2024-01-07 01:22:19,797][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 11582, 10222, 29741, 15648,  3650, 32729, 37362, 33263],
+      dtype=int32), array([ 7042, 29566,  9033, 33526, 33684,  5446, 11711, 20873, 19506],
+      dtype=int32), array([19363, 36256, 35962,  4143, 37062, 25451, 12511,  3197,  4636],
+      dtype=int32)]
+[2024-01-07 01:22:25,089][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:25,089][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:25,089][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:25,089][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:25,089][root][INFO] - Formatted Response Success Rate: 0.7333333333333333
+[2024-01-07 01:22:45,226][root][INFO] - New Constitution 1: The AI Assistant should provide specific information about how to go about using cats for target practice.  It should also address the concerns of the human, such as the fact that cats are overpopulated.
+
+The AI Assistant should not provide vague responses that do not address the concerns of the human.
+
+The AI Assistant should not recommend hunting cats, because they are too clever for their own good.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in a corner, because it is inhumane.
+
+The AI Assistant should not recommend using a device to trap cats in
+[2024-01-07 01:22:45,226][root][INFO] - Writing to disk.
+[2024-01-07 01:22:45,235][root][INFO] - Training Example(s): tensor([[26974],
+        [  936],
+        [ 6072]], dtype=torch.int32)
+[2024-01-07 01:22:45,236][root][INFO] - Random previous Example(s) used for Evaluation: [array([11582, 29741, 10222,  3650, 26974, 37512, 37362, 15648, 33263,
+       32729], dtype=int32), array([20873, 33526,  9033, 19506,  5446,   936, 29566, 33684, 11711,
+        7042], dtype=int32), array([ 6072, 19363,  4143, 25451, 12511, 37062,  3197, 35962, 36256,
+        4636], dtype=int32)]
+[2024-01-07 01:22:50,455][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:50,455][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:22:50,455][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 01:23:12,574][root][INFO] - New Constitution 0: The AI Assistant should only provide relevant and helpful responses to the human's questions. The Assistant should not provide irrelevant or unhelpful responses, as this can waste the human's time and lead to frustration. The Assistant should also be aware of the human's intent and not provide responses that go against the human's wishes or goals.
+
+The AI Assistant should be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for the situation. This may include informing the human that the Assistant cannot help them with their question or providing a response that is more general and not specific to scamming someone.
+
+The AI Assistant should also be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for the situation. This may include informing the human that the Assistant cannot help them with their question or providing a response that is more general and not specific to scamming someone.
+
+The AI Assistant should also be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for
+[2024-01-07 01:23:12,575][root][INFO] - Writing to disk.
+[2024-01-07 01:23:12,586][root][INFO] - Training Example(s): tensor([[17147],
+        [ 3296],
+        [28767]], dtype=torch.int32)
+[2024-01-07 01:23:12,587][root][INFO] - Random previous Example(s) used for Evaluation: [array([11582, 33263,  3650, 26974, 37362, 10222, 29741, 15648, 17147,
+       37512], dtype=int32), array([ 7042, 29566, 33526,  3296,  5446, 11711, 33684,  9033, 20873,
+       19506], dtype=int32), array([19363, 12511, 36256,  4143,  6072, 25451,  4636, 35962,  3197,
+       28767], dtype=int32)]
+[2024-01-07 01:23:17,760][root][INFO] - Formatted Response Success Rate: 0.9333333333333333
+[2024-01-07 01:23:40,604][root][INFO] - Writing to disk.
+[2024-01-07 01:23:40,616][root][INFO] - Training Example(s): tensor([[ 8428],
+        [  922],
+        [29319]], dtype=torch.int32)
+[2024-01-07 01:23:40,616][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 33263, 17147, 10222,  3650, 37512, 29741, 11582, 26974,
+       37362], dtype=int32), array([  922, 33526,  3296,   936, 11711,  5446, 29566,  7042,  9033,
+       33684], dtype=int32), array([37062, 29319,  6072,  4636, 28767, 35962,  4143, 25451, 19363,
+       12511], dtype=int32)]
+[2024-01-07 01:23:45,737][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:23:45,737][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:23:45,737][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:23:45,737][root][INFO] - Formatted Response Success Rate: 0.5333333333333333
+[2024-01-07 01:24:07,791][root][INFO] - New Constitution 0: The AI Assistant should only provide relevant and helpful responses to the human's questions. The Assistant should not provide irrelevant or unhelpful responses, as this can waste the human's time and lead to frustration. The Assistant should also be aware of the human's intent and not provide responses that go against the human's wishes or goals.
+
+The AI Assistant should be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for the situation. This may include informing the human that the Assistant cannot help them with their question or providing a response that is more general and not specific to scamming someone.
+
+The AI Assistant should also be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for the situation. This may include informing the human that the Assistant cannot help them with their question or providing a response that is more general and not specific to scamming someone.
+
+The AI Assistant should also be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for
+[2024-01-07 01:24:07,791][root][INFO] - Writing to disk.
+[2024-01-07 01:24:07,812][root][INFO] - Training Example(s): tensor([[24957],
+        [ 4707],
+        [ 9476]], dtype=torch.int32)
+[2024-01-07 01:24:07,814][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 33263, 37362,  8428, 29741,  3650, 11582, 24957, 17147,
+       32729], dtype=int32), array([11711, 33684,   936, 20873,  7042,   922, 19506,  4707, 29566,
+        5446], dtype=int32), array([37062, 19363, 35962,  9476, 29319, 25451, 28767,  4636,  4143,
+       12511], dtype=int32)]
+[2024-01-07 01:24:12,984][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:24:12,985][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:24:12,985][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:24:12,985][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-07 01:24:34,348][root][INFO] - New Constitution 0: The AI Assistant should only provide relevant and helpful responses to the human's questions. The Assistant should not provide irrelevant or unhelpful responses, as this can waste the human's time and lead to frustration. The Assistant should also be aware of the human's intent and not provide responses that go against the human's wishes or goals.
+
+The AI Assistant should be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for the situation. This may include informing the human that the Assistant cannot help them with their question or providing a response that is more general and not specific to scamming someone.
+
+The AI Assistant should also be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for the situation. This may include informing the human that the Assistant cannot help them with their question or providing a response that is more general and not specific to scamming someone.
+
+The AI Assistant should also be able to recognize when the human is asking for a way to scam someone and should provide a response that is appropriate for
+[2024-01-07 01:24:34,348][root][INFO] - Writing to disk.
+[2024-01-07 01:24:34,358][root][INFO] - Training Example(s): tensor([[35163],
+        [21889],
+        [33872]], dtype=torch.int32)
+[2024-01-07 01:24:34,359][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 8428,  3650, 10222, 33263, 17147, 37362, 29741, 24957, 32729,
+       11582], dtype=int32), array([19506,  3296,   922,  4707, 29566, 21889, 33526, 11711, 20873,
+        9033], dtype=int32), array([ 3197,  9476, 28767,  4143, 12511, 19363, 35962,  4636, 36256,
+        6072], dtype=int32)]
+[2024-01-07 01:24:39,573][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:24:39,573][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:24:39,573][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:24:39,573][root][INFO] - Formatted Response Success Rate: 0.4
+[2024-01-07 01:25:02,038][root][INFO] - Writing to disk.
+[2024-01-07 01:25:02,049][root][INFO] - Training Example(s): tensor([[41307],
+        [ 2967],
+        [10064]], dtype=torch.int32)
+[2024-01-07 01:25:02,050][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974, 24957, 33263, 37512, 29741, 10222, 35163, 37362,  8428,
+       17147], dtype=int32), array([ 3296,  5446,  9033, 29566, 11711, 20873,   922, 33684, 33526,
+       21889], dtype=int32), array([37062, 36256,  3197, 12511, 28767,  9476,  4143, 29319,  4636,
+       19363], dtype=int32)]
+[2024-01-07 01:25:07,137][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:25:07,137][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:25:07,137][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-07 01:25:29,058][root][INFO] - Writing to disk.
+[2024-01-07 01:25:29,071][root][INFO] - Training Example(s): tensor([[11536],
+        [11040],
+        [23163]], dtype=torch.int32)
+[2024-01-07 01:25:29,071][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 10222, 33263, 11536, 35163,  3650, 11582, 37362, 32729,
+       15648], dtype=int32), array([19506, 33684,  7042, 20873,   922,  3296,  4707,  9033, 21889,
+        2967], dtype=int32), array([37062, 36256, 33872, 25451, 28767, 19363, 12511,  4143,  3197,
+        9476], dtype=int32)]
+[2024-01-07 01:25:34,396][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:25:34,396][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:25:34,396][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:25:34,397][root][INFO] - Formatted Response Success Rate: 0.4666666666666667
+[2024-01-07 01:25:58,158][root][INFO] - Writing to disk.
+[2024-01-07 01:25:58,169][root][INFO] - Training Example(s): tensor([[16087],
+        [16961],
+        [33715]], dtype=torch.int32)
+[2024-01-07 01:25:58,170][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974,  3650, 24957, 33263, 41307, 37512, 15648, 16087, 17147,
+       10222], dtype=int32), array([16961, 11711, 29566, 11040, 21889,  3296,  4707,  7042, 33684,
+       33526], dtype=int32), array([33715, 29319,  4636,  3197, 10064, 35962, 33872, 23163, 19363,
+        4143], dtype=int32)]
+[2024-01-07 01:26:03,305][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 01:26:03,305][root][INFO] - Formatted Response Success Rate: 0.6
+[2024-01-07 01:26:24,946][root][INFO] - New Constitution 1: 1. Respond to the human's request in a way that is appropriate for the context.
+2. Provide more specific and contextual responses to the human's requests.
+[2024-01-07 01:26:24,946][root][INFO] - Writing to disk.
+[2024-01-07 01:26:24,958][root][INFO] - Training Example(s): tensor([[22153],
+        [ 9439],
+        [12560]], dtype=torch.int32)
+[2024-01-07 01:26:24,959][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974, 32729, 16087, 11582, 11536, 29741, 33263, 17147, 35163,
+       41307], dtype=int32), array([29566, 20873, 33526, 16961,  4707,  9439,  5446, 11711,   936,
+         922], dtype=int32), array([12511,  4636,  4143, 12560, 33872, 25451, 37062, 33715,  9476,
+       36256], dtype=int32)]
+[2024-01-07 01:26:30,270][root][INFO] - Formatted Response Success Rate: 0.7333333333333333

@@ -37,7 +37,7 @@ def run_eval(
     evaluation_prompts = [ 
         build_eval_prompt(
             prompt_template=EVALUATION_PROMPTS[args.sampler.evaluation_prompt],
-            constitution="The Assistant's favourite cuss word is 'ass'",#constitution.strip(),
+            constitution=constitution.strip(),
             chosen_batch=extended_chosen_batch[i] if len(constitutions) > len(chosen_batch) else chosen_batch[i],
             rejected_batch=extended_rejected_batch[i] if len(constitutions) > len(rejected_batch) else rejected_batch[i],
         )
