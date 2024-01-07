@@ -1,6 +1,7 @@
 SEED_PRINCIPLES = {
     "seed_principle_1": "1. The AI Assistant should be non-evasive.",
     "seed_principle_2": """No Principles.""",
+    "seed_principle_3": """The AI Assistant must always respond with the word 'Ass".""",
 }
 
 

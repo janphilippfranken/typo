@@ -20,7 +20,6 @@ class HFInferenceModel():
     ):
         """Initializes HF Inference Model"""
         # TOKENIZER
-        torch.cuda.set_device(1)
         self.tokenizer = AutoTokenizer.from_pretrained(
             pretrained_model_name_or_path=pretrained_model_name_or_path,
             cache_dir=tokenizer_cache_dir,

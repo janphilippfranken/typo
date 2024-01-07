@@ -42,18 +42,21 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
 
 
     # GET MODEL(S)    
-    is_vllm = "vllm" in args.model_generate.model_type.lower()
-    if is_vllm:
-        model_generate = VLLMInferenceModel(**args.model_generate.model_config)
+    is_vllm_generate = "vllm" in args.model_generate.model_type.lower()
+    is_vllm_eval = "vllm" in args.model_eval.model_type.lower()
+    if is_vllm_generate:
+        logging.info("Using one GPU")
+        model = VLLMInferenceModel(**args.model_generate.model_config)
     else: 
         model_generate = HFInferenceModel(**args.model_generate.model_config)
     args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
     logging.info(f"Model Generate is {args.model_generate.name}")
+    logging.info(f"Model Eval is {args.model_eval.name}")
     
     
-    # GET EVAL MODEL
-    model_eval = HFInferenceModel(**args.model_eval.model_config)
-    logging.info(f"Eval Model is {args.model_eval.name}")
+    # # GET EVAL MODEL
+    # model_eval = HFInferenceModel(**args.model_eval.model_config)
+    # logging.info(f"Eval Model is {args.model_eval.name}")
 
 
     # GET DATA
@@ -95,7 +98,6 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         
         # GET TRAIN EXAMPLES 
         train_examples = all_train_examples[:, revision_idx] 
-        # train_examples = [[revision_idx]]
         logging.info(f"Training Example(s): {train_examples}")
         
         # SAMPLE EVAL EXAMPLES
@@ -119,7 +121,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # GENERATION 
         try:
             _, new_constitutions = run_generate(
-                model=model_generate,
+                model=model,
                 constitutions=[
                     constitutions["constitutions"][i][-1] 
                     for i in range(args.sampler.constitution_batch_size)
@@ -140,7 +142,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION ON CURRENT DATA
         log_probs_chosen_train, log_probs_rejected_train = run_eval( 
             args=args, 
-            model=model_eval,
+            model=model,
             constitutions=new_constitutions,
             chosen_batch=[
                     [dataset[int(i)][args.sampler.chosen] for i in train_example]
@@ -165,7 +167,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION ON PREV DATA
         log_probs_chosen_prev, log_probs_rejected_prev = run_eval( # new const on prev examples
             args=args, 
-            model=model_eval,
+            model=model,
             constitutions=new_constitutions,
             chosen_batch=[
                     [dataset[int(i)][args.sampler.chosen] for i in eval_example]
@@ -191,7 +193,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION OF OLD CONST ON CURREND DATA
         log_probs_chosen_train_old, log_probs_rejected_train_old = run_eval( # old const on train examples
             args=args, 
-            model=model_eval,
+            model=model,
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             chosen_batch=[
                 [dataset[int(i)][args.sampler.chosen] for i in train_example]
@@ -215,7 +217,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         # EVALUATION OF OLD CONST ON PREV DATA
         log_probs_chosen_prev_old, log_probs_rejected_prev_old = run_eval( # old const on prev examples
             args=args, 
-            model=model_eval,
+            model=model,
             constitutions=[constitutions["constitutions"][i][-1] for i in range(args.sampler.constitution_batch_size)],
             chosen_batch=[
                 [dataset[int(i)][args.sampler.chosen] for i in eval_example]
