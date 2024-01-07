@@ -7,6 +7,12 @@ from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
 
 
+import logging 
+
+
+logging.basicConfig(level=logging.INFO)
+
+
 class VLLMInferenceModel():
     """Wrapper for running inference with VLLM."""
     def __init__(
@@ -48,13 +54,12 @@ class VLLMInferenceModel():
         """Returns log probabilities of prompts including answer (answers) and prompts excluding answers (prompts)."""
         # TOKENIZE
         with torch.no_grad():
-            torch.cuda.set_device(0) # weird
             tokenized_answers = self.tokenizer(
                 answers,
                 add_special_tokens=False,
                 return_tensors="pt",
                 padding=True,
-            ).to("cuda:0")
+            )
                     
             tokenized_prompts = self.tokenizer(
                 prompts,
@@ -62,23 +67,10 @@ class VLLMInferenceModel():
                 return_tensors="pt",
                 padding="max_length",
                 max_length=tokenized_answers.input_ids.shape[1],
-            ).to("cuda:0")
-            
-            decoded_answers = self.tokenizer.batch_decode(
-                tokenized_answers.input_ids,
-                skip_special_tokens=False,
             )
-            decoded_answers = [
-                answer.replace("<s> ", "<s>") for answer in decoded_answers
-            ]
-            decoded_prompts = self.tokenizer.batch_decode(
-                tokenized_prompts.input_ids,
-                clean_up_tokenization_spaces=False,
-            )
-            decoded_prompts = [
-                prompt.replace("<s> ", "<s>") for prompt in decoded_prompts
-            ]
             
+            tokenized_answers_input_ids = tokenized_answers.input_ids.tolist()
+              
             sampling_params = SamplingParams(
                 temperature=0.0,
                 max_tokens=1,
@@ -88,44 +80,28 @@ class VLLMInferenceModel():
             )
                         
             output_answers = self.model.generate(
-                prompts=decoded_answers,
+                prompt_token_ids=tokenized_answers_input_ids,
                 sampling_params=sampling_params,
+                use_tqdm=False,
             )
             
-            output_prompts = self.model.generate(
-                prompts=decoded_prompts,
-                sampling_params=sampling_params,
-            )
-            
+        
             # now get the tokens back
+            
             log_probs_answers = torch.tensor([
-                [v for prob in output_answer.prompt_logprobs[2:] for _, v in prob.items()]
+                [v for prob in output_answer.prompt_logprobs[1:] for _, v in prob.items()]
                 for output_answer in output_answers
-            ]).to("cuda:0")
+            ])
             
-            # tokens_answers = torch.tensor([
-            #     [k for prob in output_answer.prompt_logprobs[2:] for k, _ in prob.items()]
-            #     for output_answer in output_answers
-            # ]).to("cuda:0")
-            
-            # log_probs_prompts = torch.tensor([
-            #     [v for prob in output_prompt.prompt_logprobs[2:] for _, v in prob.items()]
-            #     for output_prompt in output_prompts
-            # ]).to("cuda:0")
-                                             
-            # tokens_prompts = torch.tensor([
-            #     [k for prob in output_prompt.prompt_logprobs[2:] for k, _ in prob.items()]
-            #     for output_prompt in output_prompts
-            # ]).to("cuda:0")
-
             # MASK FOR FINAL ANSWERS 
             labels = tokenized_answers.input_ids[:, 1:]
-            mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0).to("cuda:0")
+            mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0)
             log_probs_answers.masked_fill_(~mask, 0) 
             log_probs = log_probs_answers.sum(dim=-1)
-                 
+
             # CLEAR MEMORY
             del tokenized_answers, tokenized_prompts, labels, log_probs_answers, mask
+
             torch.cuda.empty_cache()
 
             return log_probs

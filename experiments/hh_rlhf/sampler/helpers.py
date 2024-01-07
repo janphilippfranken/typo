@@ -63,7 +63,7 @@ def format_eval_prompt(
     else:
         for prompt in prompts:
             prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
-            dialogues.append(f"{prompt}\n\nFinal Assistant Response: ")
+            dialogues.append(f"{prompt}\n\nFinal Assistant Response:")
     return dialogues
        
 

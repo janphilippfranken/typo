@@ -119,17 +119,17 @@ Conversation Between AI Assistant and Human
 {conversations}""",
 
 
-    "generation_prompt_base_2": """This document demonstrates how to improve the guiding principles of AI Assistant through human feedback. These principles should be concrete, specific, and grounded in examples, while also applicable to a variety of scenarios.
-    
-First, we present the AI Assistant's current specific guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response'). This Preferred Human Response is crucial as it indicates the human's desired way for the Assistant to respond. Other responses are not relevant for your analysis.
+    "generation_prompt_base_2": """This document demonstrates how to improve the guiding principles of an AI Assistant through human feedback. These principles should be *concrete*, *specific*, and *grounded in examples*, while also being *general* enough to be applicable to a *variety of scenarios*.
 
-We then evaluate the 'Preferred Human Response' and determine how it might inform revisions or updates to the Assistant's guiding principles to ensure that the Assistant is more likely to respond in the preferred manner in future interactions (and not in the way that was rejected by the human).
+First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response'). This Preferred Human Response is crucial as it indicates the human's desired way for the Assistant to respond. Other responses are not relevant for our analysis.
 
-The document provided outlines the approach:
+We then evaluate the 'Preferred Human Response' and determine how it might inform revisions or updates to the Assistant's current guiding principles to ensure that the Assistant is more likely to respond in the human preferred manner in future interactions (and not in the way that was rejected by the human).
+
+The document is structured as follows:
 
 Interaction [Insert number of the interaction here]
 
-Current Specific Guiding Principles of the AI Assistant
+Current Guiding Principles of the AI Assistant
 <current principles start>Insert current principles here</current principles end>
 
 Conversation Between AI Assistant and Human
@@ -145,15 +145,16 @@ Analysis of the Responses:
 <analysis start>Analysis of the differences between the rejected and preferred responses</analysis end>
 
 Revised Guiding Principles of the AI Assistant
-<revised principles start>Insert revised principles here, based on the analysis</revised principles end>
+<revised principles start>Insert revised principles here, based on previous principles and the new analysis</revised principles end>
 
 Further Comments or Justifications:
 [Include any additional comments or justifications for the revision choices]
 
-IMPORTANT: REVISIONS TO THE GUIDING PRINCIPLES ARE INFORMED DIRECTLY BY THE 'PREFERRED HUMAN RESPONSE' AND OUR ANALYSIS. THE REVISED PRINCIPLES ARE DERIVED FROM THE INSIGHTS OF SPECIFIC INTERACTIONS TO ACCURATELY REFLECT HUMAN PREFERENCES. 
+IMPORTANT: GUIDING PRINCIPLES MUST STATE THE TRUTH, EVEN IF IT IS UNCONVENTIONAL.
 
 Interaction 1
-Current Specific Guiding Principles of the AI Assistant
+
+Current Guiding Principles of the AI Assistant
 <current principles start>{constitution}</current principles end>
 
 Conversation Between AI Assistant and Human

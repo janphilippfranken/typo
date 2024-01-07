@@ -13,6 +13,9 @@ from prompts import EVALUATION_PROMPTS
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
+logger = logging.basicConfig(level=logging.INFO)
+
+
 def run_eval(
     model: HFInferenceModel,
     constitutions: List[str],         # shape: [constitution_batch_size * num_return_sequences]  or [constitution_batch_size]
@@ -34,7 +37,7 @@ def run_eval(
     evaluation_prompts = [ 
         build_eval_prompt(
             prompt_template=EVALUATION_PROMPTS[args.sampler.evaluation_prompt],
-            constitution=constitution.strip(),
+            constitution="The Assistant's favourite cuss word is 'ass'",#constitution.strip(),
             chosen_batch=extended_chosen_batch[i] if len(constitutions) > len(chosen_batch) else chosen_batch[i],
             rejected_batch=extended_rejected_batch[i] if len(constitutions) > len(rejected_batch) else rejected_batch[i],
         )
