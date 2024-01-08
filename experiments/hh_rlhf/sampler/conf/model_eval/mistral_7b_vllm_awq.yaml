@@ -1,0 +1,19 @@
+hydra:
+  run:
+    dir: outputs
+
+model_type: vllm
+name: mistral_7b_base
+
+model_config:
+  model: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1-awq
+  download_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1-awq
+  dtype: auto
+  tensor_parallel_size: 1
+  quantization: awq
+
+completion_config:
+  temperature: 0.4
+  top_p: 0.9
+  max_new_tokens: 400
+  num_return_sequences: 1

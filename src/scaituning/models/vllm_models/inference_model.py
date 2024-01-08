@@ -21,6 +21,7 @@ class VLLMInferenceModel():
         download_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
         dtype: str = "auto",
         tensor_parallel_size: int = 1,
+        quantization: Optional[str] = None,
     ):
         """Initializes VLLM Inference Model"""
         
@@ -32,12 +33,13 @@ class VLLMInferenceModel():
         
         self.tokenizer.pad_token = "[PAD]"
         self.tokenizer.padding_side = "right"
-    
+
         self.model = LLM(
             model=model,
             download_dir=download_dir,
-            dtype=dtype,
+            dtype=torch.float16 if quantization == "awq" else dtype,
             tensor_parallel_size=tensor_parallel_size,
+            quantization=quantization,
         )
         
         

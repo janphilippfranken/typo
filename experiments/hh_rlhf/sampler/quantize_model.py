@@ -13,7 +13,7 @@ model = AutoAWQForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
 # Quantize
-model.quantize(tokenizer, quant_config=quant_config)
+model.quantize(tokenizer, quant_config=quant_config)cd 
 
 # Save quantized model
 model.save_quantized(quant_path)

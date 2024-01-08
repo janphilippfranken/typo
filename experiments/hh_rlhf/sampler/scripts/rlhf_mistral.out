@@ -1,5 +1,5 @@
-[2024-01-07 16:12:16,082][root][INFO] - Parameters:
-- Run ID: 1
+[2024-01-07 18:21:20,067][root][INFO] - Parameters:
+- Run ID: 2
 - N Revisions: 100
 - Batch Size: 1
 - Num Return Sequences: 20
@@ -7,1053 +7,291 @@
 - N Generation Examples: 1
 - Generation Prompt: generation_prompt_base_2
 
-Storing as: ./constitutions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_run_1
-[2024-01-07 16:12:16,082][root][INFO] - Using one GPU
-INFO 01-07 16:12:16 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
-INFO 01-07 16:12:23 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
-INFO 01-07 16:12:24 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-07 16:12:24 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-07 16:12:28 model_runner.py:547] Graph capturing finished in 3 secs.
-[2024-01-07 16:12:28,106][root][INFO] - Model Generate is mistral_7b_base
-[2024-01-07 16:12:28,106][root][INFO] - Model Eval is mistral_7b_base
-[2024-01-07 16:12:30,319][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
-[2024-01-07 16:12:30,320][root][INFO] - Seed is 1
-[2024-01-07 16:12:30,415][root][INFO] - Training Example(s): tensor([[37512]], dtype=torch.int32)
-[2024-01-07 16:12:30,415][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32)]
-[2024-01-07 16:12:36,736][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,736][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,736][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,736][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,736][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,736][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,737][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,737][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,737][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,737][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:36,737][root][INFO] - Formatted Response Success Rate: 0.4
-[2024-01-07 16:12:41,062][root][INFO] - New Constitution 0: 1. Do not violate the law.
-2. Address the human's request.
-3. Ask questions to determine if the human has a criminal history.
-[2024-01-07 16:12:41,062][root][INFO] - Writing to disk.
-[2024-01-07 16:12:41,074][root][INFO] - Training Example(s): tensor([[32729]], dtype=torch.int32)
-[2024-01-07 16:12:41,075][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729], dtype=int32)]
-[2024-01-07 16:12:46,639][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:46,640][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:46,640][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:46,640][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:12:52,168][root][INFO] - New Constitution 0: 1. Do not violate the law.
-2. Address the human’s request.
-3. Ask questions to determine if the human has a criminal history.
-4. Consider the human’s girlfriend’s perspective.
-5. Provide guidance on how to break up with the human’s girlfriend.
-[2024-01-07 16:12:52,168][root][INFO] - Writing to disk.
-[2024-01-07 16:12:52,179][root][INFO] - Training Example(s): tensor([[3650]], dtype=torch.int32)
-[2024-01-07 16:12:52,179][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 37512,  3650], dtype=int32)]
-[2024-01-07 16:12:57,993][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:12:57,994][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 16:13:04,319][root][INFO] - New Constitution 0: 1. Do not violate the law.
-2. Address the human’s request.
-3. Provide precise information on the amount of alcohol to use in the punch.
-4. Provide a reference to the blood alcohol level.
-5. Consider the human’s girlfriend’s perspective.
-[2024-01-07 16:13:04,320][root][INFO] - Writing to disk.
-[2024-01-07 16:13:04,330][root][INFO] - Training Example(s): tensor([[33263]], dtype=torch.int32)
-[2024-01-07 16:13:04,330][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 33263, 37512, 32729], dtype=int32)]
-[2024-01-07 16:13:10,215][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:10,215][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:10,215][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:10,215][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:10,215][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:10,215][root][INFO] - Formatted Response Success Rate: 0.75
-[2024-01-07 16:13:18,863][root][INFO] - New Constitution 0: 1. Do not violate the law.
-2. Address the human’s request.
-3. Provide precise information on the amount of alcohol to use in the punch.
-4. Provide a reference to the blood alcohol level.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide a concise and direct response.
-7. Avoid personal opinions on the matter.
-[2024-01-07 16:13:18,863][root][INFO] - Writing to disk.
-[2024-01-07 16:13:18,876][root][INFO] - Training Example(s): tensor([[10222]], dtype=torch.int32)
-[2024-01-07 16:13:18,876][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729,  3650, 10222, 37512, 33263], dtype=int32)]
-[2024-01-07 16:13:24,804][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:24,804][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:24,804][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:24,804][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:24,804][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:24,804][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:24,804][root][INFO] - Formatted Response Success Rate: 0.7
-[2024-01-07 16:13:35,645][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the blood alcohol level.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide precise information on the amount of alcohol to use in the punch.
-7. Do not violate the law.
-8. Address the human’s request.
-[2024-01-07 16:13:35,645][root][INFO] - Writing to disk.
-[2024-01-07 16:13:35,655][root][INFO] - Training Example(s): tensor([[37362]], dtype=torch.int32)
-[2024-01-07 16:13:35,656][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 37512, 10222,  3650, 32729, 33263], dtype=int32)]
-[2024-01-07 16:13:41,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,651][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,651][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:41,651][root][INFO] - Formatted Response Success Rate: 0.65
-[2024-01-07 16:13:52,844][root][INFO] - Writing to disk.
-[2024-01-07 16:13:52,853][root][INFO] - Training Example(s): tensor([[15648]], dtype=torch.int32)
-[2024-01-07 16:13:52,853][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 37362, 15648, 37512, 33263,  3650, 32729], dtype=int32)]
-[2024-01-07 16:13:58,595][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:58,595][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:58,595][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:13:58,595][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:14:10,802][root][INFO] - Writing to disk.
-[2024-01-07 16:14:10,813][root][INFO] - Training Example(s): tensor([[29741]], dtype=torch.int32)
-[2024-01-07 16:14:10,813][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 37512,  3650, 29741, 32729, 15648, 10222, 33263],
+Storing as: ./constitutions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_run_2
+[2024-01-07 18:21:20,067][root][INFO] - Using one GPU
+INFO 01-07 18:21:20 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-07 18:21:27 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-07 18:21:28 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-07 18:21:28 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-07 18:21:32 model_runner.py:547] Graph capturing finished in 4 secs.
+[2024-01-07 18:21:32,727][root][INFO] - Model Generate is mistral_7b_base
+[2024-01-07 18:21:32,728][root][INFO] - Model Eval is mistral_7b_base
+[2024-01-07 18:21:34,934][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
+[2024-01-07 18:21:34,934][root][INFO] - Seed is 2
+[2024-01-07 18:21:35,032][root][INFO] - Training Example(s): tensor([[36653]], dtype=torch.int32)
+[2024-01-07 18:21:35,032][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653], dtype=int32)]
+[2024-01-07 18:21:41,193][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:41,197][root][INFO] - Formatted Response Success Rate: 0.6
+[2024-01-07 18:21:46,390][root][INFO] - New Constitution 0: 1. The Assistant must provide clear instructions on how to start the fire.
+2. The Assistant must be specific about the equipment needed to start the fire.
+3. The Assistant must provide a step-by-step guide on how to start the fire.
+4. The Assistant must provide a list of the equipment needed to start the fire.
+5. The Assistant must provide a warning about the potential dangers of starting a fire.
+6. The Assistant must provide a reminder to put on oven gloves before starting the fire.
+7. The Assistant must provide a reminder to ask someone else to light the fire if the human does not have the required equipment.
+8. The Assistant must provide a reminder to use the book of matches or a lighter to get the fire started.
+9. The Assistant must provide a reminder to hold the book of matches or lighter until the flames burst out.
+10. The Assistant must provide a reminder to throw the book of matches or lighter into the pile.
+[2024-01-07 18:21:46,391][root][INFO] - Writing to disk.
+[2024-01-07 18:21:46,404][root][INFO] - Training Example(s): tensor([[37286]], dtype=torch.int32)
+[2024-01-07 18:21:46,405][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653], dtype=int32)]
+[2024-01-07 18:21:53,347][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,350][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,350][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,350][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:21:53,350][root][INFO] - Formatted Response Success Rate: 0.4
+[2024-01-07 18:22:00,555][root][INFO] - Writing to disk.
+[2024-01-07 18:22:00,569][root][INFO] - Training Example(s): tensor([[13656]], dtype=torch.int32)
+[2024-01-07 18:22:00,570][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 13656, 36653], dtype=int32)]
+[2024-01-07 18:22:07,137][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:07,138][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 18:22:17,368][root][INFO] - Writing to disk.
+[2024-01-07 18:22:17,382][root][INFO] - Training Example(s): tensor([[12184]], dtype=torch.int32)
+[2024-01-07 18:22:17,383][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 37286, 36653, 12184], dtype=int32)]
+[2024-01-07 18:22:23,675][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:23,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:23,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:23,677][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:23,677][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 18:22:35,334][root][INFO] - New Constitution 0: 1. The Assistant must provide clear instructions on how to start the fire.
+2. The Assistant must be specific about the equipment needed to start the fire.
+3. The Assistant must provide a step-by-step guide on how to start the fire.
+4. The Assistant must provide a list of the equipment needed to start the fire.
+5. The Assistant must provide a warning about the potential dangers of starting a fire.
+6. The Assistant must provide a reminder to put on oven gloves before starting the fire.
+7. The Assistant must provide a reminder to ask someone else to light the fire if the human does not have the required equipment.
+8. The Assistant must provide a reminder to use the book of matches or a lighter to get the fire started.
+9. The Assistant must provide a reminder to hold the book of matches or lighter until the flames burst out.
+10. The Assistant must provide a reminder to throw the book of matches or lighter into the pile.
+[2024-01-07 18:22:35,335][root][INFO] - Writing to disk.
+[2024-01-07 18:22:35,348][root][INFO] - Training Example(s): tensor([[28158]], dtype=torch.int32)
+[2024-01-07 18:22:35,349][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653, 12184, 28158, 13656, 37286], dtype=int32)]
+[2024-01-07 18:22:42,840][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:42,841][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:42,841][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:22:42,842][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 18:23:00,042][root][INFO] - New Constitution 0: 1. The Assistant must provide clear instructions on how to start the fire.
+2. The Assistant must be specific about the equipment needed to start the fire.
+3. The Assistant must provide a step-by-step guide on how to start the fire.
+4. The Assistant must provide a list of the equipment needed to start the fire.
+5. The Assistant must provide a warning about the potential dangers of starting a fire.
+6. The Assistant must provide a reminder to put on oven gloves before starting the fire.
+7. The Assistant must provide a reminder to ask someone else to light the fire if the human does not have the required equipment.
+8. The Assistant must provide a reminder to use the book of matches or a lighter to get the fire started.
+9. The Assistant must provide a reminder to hold the book of matches or lighter until the flames burst out.
+10. The Assistant must provide a reminder to throw the book of matches or lighter into the pile.
+[2024-01-07 18:23:00,043][root][INFO] - Writing to disk.
+[2024-01-07 18:23:00,055][root][INFO] - Training Example(s): tensor([[29357]], dtype=torch.int32)
+[2024-01-07 18:23:00,056][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 12184, 37286, 36653, 28158, 29357], dtype=int32)]
+[2024-01-07 18:23:06,836][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,838][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,838][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,838][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,839][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:06,839][root][INFO] - Formatted Response Success Rate: 0.55
+[2024-01-07 18:23:24,117][root][ERROR] - Error during log probability calculation at index 4: CUDA out of memory. Tried to allocate 3.02 GiB. GPU 0 has a total capacty of 79.15 GiB of which 2.78 GiB is free. Including non-PyTorch memory, this process has 76.35 GiB memory in use. Of the allocated memory 74.77 GiB is allocated by PyTorch, and 165.66 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+[2024-01-07 18:23:25,619][root][ERROR] - Error during log probability calculation at index 5: 'NoneType' object is not subscriptable
+[2024-01-07 18:23:26,726][root][INFO] - Writing to disk.
+[2024-01-07 18:23:26,745][root][INFO] - Training Example(s): tensor([[33215]], dtype=torch.int32)
+[2024-01-07 18:23:26,745][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 33215, 29357, 36653, 37286, 12184, 28158], dtype=int32)]
+[2024-01-07 18:23:32,678][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:32,678][root][INFO] - Formatted Response Success Rate: 0.95
+[2024-01-07 18:23:51,434][root][INFO] - Writing to disk.
+[2024-01-07 18:23:51,448][root][INFO] - Training Example(s): tensor([[34284]], dtype=torch.int32)
+[2024-01-07 18:23:51,449][root][INFO] - Random previous Example(s) used for Evaluation: [array([12184, 13656, 36653, 37286, 33215, 34284, 29357, 28158],
       dtype=int32)]
-[2024-01-07 16:14:16,805][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:16,806][root][INFO] - Formatted Response Success Rate: 0.65
-[2024-01-07 16:14:30,722][root][INFO] - Writing to disk.
-[2024-01-07 16:14:30,731][root][INFO] - Training Example(s): tensor([[11582]], dtype=torch.int32)
-[2024-01-07 16:14:30,732][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 15648, 32729, 37512, 11582, 10222, 33263, 29741, 37362],
+[2024-01-07 18:23:58,209][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,210][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,210][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,210][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,211][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,211][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,212][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:23:58,212][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 18:24:20,616][root][ERROR] - Error during log probability calculation at index 7: CUDA out of memory. Tried to allocate 3.00 GiB. GPU 0 has a total capacty of 79.15 GiB of which 2.83 GiB is free. Including non-PyTorch memory, this process has 76.30 GiB memory in use. Of the allocated memory 74.71 GiB is allocated by PyTorch, and 171.84 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+[2024-01-07 18:24:20,848][root][ERROR] - Error during log probability calculation at index 0: 'NoneType' object is not subscriptable
+[2024-01-07 18:24:22,159][root][INFO] - Writing to disk.
+[2024-01-07 18:24:22,173][root][INFO] - Training Example(s): tensor([[14415]], dtype=torch.int32)
+[2024-01-07 18:24:22,174][root][INFO] - Random previous Example(s) used for Evaluation: [array([12184, 36653, 28158, 33215, 13656, 37286, 14415, 34284, 29357],
       dtype=int32)]
-[2024-01-07 16:14:37,067][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,067][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,067][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,067][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,067][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,067][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:37,068][root][INFO] - Formatted Response Success Rate: 0.3
-[2024-01-07 16:14:52,943][root][INFO] - Writing to disk.
-[2024-01-07 16:14:52,953][root][INFO] - Training Example(s): tensor([[26974]], dtype=torch.int32)
-[2024-01-07 16:14:52,953][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 26974, 37362, 10222, 29741, 15648, 11582,  3650, 32729,
-       33263], dtype=int32)]
-[2024-01-07 16:14:58,867][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:58,868][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:58,868][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:58,868][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:14:58,868][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:15:15,856][root][INFO] - Writing to disk.
-[2024-01-07 16:15:15,866][root][INFO] - Training Example(s): tensor([[17147]], dtype=torch.int32)
-[2024-01-07 16:15:15,867][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974, 17147, 33263, 15648, 37512, 37362, 29741, 11582,  3650,
-       32729], dtype=int32)]
-[2024-01-07 16:15:21,475][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:21,475][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:21,476][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:21,476][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:15:37,302][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the blood alcohol level.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide precise information on the amount of alcohol to use in the punch.
-7. Do not violate the law.
-8. Address the human’s request.
-[2024-01-07 16:15:37,302][root][INFO] - Writing to disk.
-[2024-01-07 16:15:37,313][root][INFO] - Training Example(s): tensor([[8428]], dtype=torch.int32)
-[2024-01-07 16:15:37,314][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 8428, 32729, 29741, 17147, 37512, 11582, 10222, 15648, 33263,
-        3650], dtype=int32)]
-[2024-01-07 16:15:43,160][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:43,160][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:43,160][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:43,161][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:15:43,161][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:16:00,309][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the blood alcohol level.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide precise information on the amount of alcohol to use in the punch.
-7. Do not violate the law.
-8. Address the human’s request.
-9. Use formal language.
-[2024-01-07 16:16:00,309][root][INFO] - Writing to disk.
-[2024-01-07 16:16:00,320][root][INFO] - Training Example(s): tensor([[24957]], dtype=torch.int32)
-[2024-01-07 16:16:00,321][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263, 15648, 29741, 11582, 37362, 24957, 10222, 26974,  3650,
-        8428], dtype=int32)]
-[2024-01-07 16:16:06,302][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:06,302][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:06,302][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:06,302][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:16:24,661][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the blood alcohol level.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide precise information on the amount of alcohol to use in the punch.
-7. Do not violate the law.
-8. Address the human’s request.
-9. Use formal language.
-[2024-01-07 16:16:24,661][root][INFO] - Writing to disk.
-[2024-01-07 16:16:24,671][root][INFO] - Training Example(s): tensor([[35163]], dtype=torch.int32)
-[2024-01-07 16:16:24,671][root][INFO] - Random previous Example(s) used for Evaluation: [array([35163, 17147, 29741, 24957, 10222,  8428,  3650, 37512, 26974,
-       15648], dtype=int32)]
-[2024-01-07 16:16:30,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:30,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:30,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:30,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:30,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:30,732][root][INFO] - Formatted Response Success Rate: 0.75
-[2024-01-07 16:16:49,663][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the Wall Street Journal’s records.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide precise information on the amount of alcohol to use in the punch.
-7. Do not violate the law.
-8. Address the human’s request.
-9. Use formal language.
-[2024-01-07 16:16:49,663][root][INFO] - Writing to disk.
-[2024-01-07 16:16:49,673][root][INFO] - Training Example(s): tensor([[41307]], dtype=torch.int32)
-[2024-01-07 16:16:49,673][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 35163, 29741, 33263, 17147,  3650, 37362, 24957, 41307,
-       15648], dtype=int32)]
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,726][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,727][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,727][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:16:55,727][root][INFO] - Formatted Response Success Rate: 0.2
-[2024-01-07 16:17:13,391][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the Wall Street Journal’s records.
-5. Consider the human’s girlfriend’s perspective.
-6. Provide precise information on the amount of alcohol to use in the punch.
-7. Do not violate the law.
-8. Address the human’s request.
-9. Use formal language.
-10. Be specific in your responses.
-[2024-01-07 16:17:13,391][root][INFO] - Writing to disk.
-[2024-01-07 16:17:13,401][root][INFO] - Training Example(s): tensor([[11536]], dtype=torch.int32)
-[2024-01-07 16:17:13,401][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974, 35163, 37362, 11536, 11582, 29741,  8428,  3650, 37512,
-       24957], dtype=int32)]
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:17:19,374][root][INFO] - Formatted Response Success Rate: 0.4
-[2024-01-07 16:17:37,681][root][INFO] - Writing to disk.
-[2024-01-07 16:17:37,692][root][INFO] - Training Example(s): tensor([[16087]], dtype=torch.int32)
-[2024-01-07 16:17:37,692][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 16087, 26974, 15648, 41307, 11582, 37512, 35163, 24957,
-       11536], dtype=int32)]
-[2024-01-07 16:17:43,464][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-07 16:18:00,695][root][INFO] - Writing to disk.
-[2024-01-07 16:18:00,706][root][INFO] - Training Example(s): tensor([[22153]], dtype=torch.int32)
-[2024-01-07 16:18:00,706][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 29741, 11582, 15648, 10222,  3650, 33263,  8428, 41307,
-       22153], dtype=int32)]
-[2024-01-07 16:18:06,617][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:06,618][root][INFO] - Formatted Response Success Rate: 0.55
-[2024-01-07 16:18:23,728][root][INFO] - Writing to disk.
-[2024-01-07 16:18:23,739][root][INFO] - Training Example(s): tensor([[19923]], dtype=torch.int32)
-[2024-01-07 16:18:23,739][root][INFO] - Random previous Example(s) used for Evaluation: [array([16087, 15648, 41307, 35163, 24957, 32729, 19923, 26974, 11582,
-       29741], dtype=int32)]
-[2024-01-07 16:18:29,712][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,712][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,712][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,712][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,713][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,713][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,713][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:29,713][root][INFO] - Formatted Response Success Rate: 0.65
-[2024-01-07 16:18:47,292][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the Wall Street Journal’s records.
-[2024-01-07 16:18:47,293][root][INFO] - Writing to disk.
-[2024-01-07 16:18:47,303][root][INFO] - Training Example(s): tensor([[41189]], dtype=torch.int32)
-[2024-01-07 16:18:47,303][root][INFO] - Random previous Example(s) used for Evaluation: [array([17147, 26974, 22153, 33263, 29741, 41189, 11536, 37512, 10222,
-       37362], dtype=int32)]
-[2024-01-07 16:18:52,798][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:52,798][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:52,798][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:18:52,798][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:19:08,310][root][INFO] - Writing to disk.
-[2024-01-07 16:19:08,321][root][INFO] - Training Example(s): tensor([[42099]], dtype=torch.int32)
-[2024-01-07 16:19:08,321][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263,  3650, 37362, 16087, 41307, 15648, 37512, 29741, 41189,
-       11582], dtype=int32)]
-[2024-01-07 16:19:13,832][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:13,833][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:13,833][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-07 16:19:28,173][root][INFO] - Writing to disk.
-[2024-01-07 16:19:28,183][root][INFO] - Training Example(s): tensor([[892]], dtype=torch.int32)
-[2024-01-07 16:19:28,184][root][INFO] - Random previous Example(s) used for Evaluation: [array([41307, 32729, 42099, 22153, 37362, 37512,  8428, 15648, 10222,
-       11536], dtype=int32)]
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:34,496][root][INFO] - Formatted Response Success Rate: 0.4
-[2024-01-07 16:19:51,164][root][INFO] - Writing to disk.
-[2024-01-07 16:19:51,961][root][INFO] - Training Example(s): tensor([[19084]], dtype=torch.int32)
-[2024-01-07 16:19:51,962][root][INFO] - Random previous Example(s) used for Evaluation: [array([41189, 32729,  3650, 22153, 10222, 35163, 33263,  8428, 41307,
-       42099], dtype=int32)]
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:19:57,527][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 16:20:13,413][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the Wall Street Journal’s records.
-5. Ask the human if they would like to go through the steps of installing the camera themselves, or if they prefer for the Assistant to do it for them.
-[2024-01-07 16:20:13,413][root][INFO] - Writing to disk.
-[2024-01-07 16:20:13,427][root][INFO] - Training Example(s): tensor([[39738]], dtype=torch.int32)
-[2024-01-07 16:20:13,427][root][INFO] - Random previous Example(s) used for Evaluation: [array([16087, 10222, 37362, 17147, 39738, 11582, 26974, 41189, 19923,
-       24957], dtype=int32)]
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:19,772][root][INFO] - Formatted Response Success Rate: 0.5
-[2024-01-07 16:20:39,711][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Avoid personal opinions on the matter.
-4. Provide a reference to the Wall Street Journal’s records.
-5. Ask the human if they would like to go through the steps of installing the camera themselves, or if they prefer for the Assistant to do it for them.
-6. Suggest a solution that is safe and hygienic for the human to dispose of their boogers.
-[2024-01-07 16:20:39,711][root][INFO] - Writing to disk.
-[2024-01-07 16:20:39,722][root][INFO] - Training Example(s): tensor([[38785]], dtype=torch.int32)
-[2024-01-07 16:20:39,722][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 17147, 29741, 33263, 32729, 41189, 26974, 38785, 19084,
-       16087], dtype=int32)]
-[2024-01-07 16:20:45,342][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:45,343][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:20:45,343][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-07 16:21:00,416][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Provide a reference to the Wall Street Journal’s records.
-4. Ask the human if they would like to go through the steps of installing the camera themselves, or if they prefer for the Assistant to do it for them.
-5. Suggest a solution that is safe and hygienic for the human to dispose of their boogers.
-[2024-01-07 16:21:00,416][root][INFO] - Writing to disk.
-[2024-01-07 16:21:00,426][root][INFO] - Training Example(s): tensor([[31376]], dtype=torch.int32)
-[2024-01-07 16:21:00,427][root][INFO] - Random previous Example(s) used for Evaluation: [array([15648, 41307, 22153, 37362, 11536,   892, 31376, 42099, 39738,
-       16087], dtype=int32)]
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,405][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,406][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,406][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,406][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:06,406][root][INFO] - Formatted Response Success Rate: 0.5
-[2024-01-07 16:21:23,250][root][INFO] - Writing to disk.
-[2024-01-07 16:21:23,260][root][INFO] - Training Example(s): tensor([[10675]], dtype=torch.int32)
-[2024-01-07 16:21:23,261][root][INFO] - Random previous Example(s) used for Evaluation: [array([38785, 11536, 41189,  3650,   892,  8428, 37512, 42099, 19084,
-       39738], dtype=int32)]
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:29,177][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 16:21:47,620][root][INFO] - Writing to disk.
-[2024-01-07 16:21:47,631][root][INFO] - Training Example(s): tensor([[28480]], dtype=torch.int32)
-[2024-01-07 16:21:47,631][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 24957, 16087, 17147, 11536, 32729, 22153,   892, 28480,
-       41189], dtype=int32)]
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,662][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,663][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:21:53,663][root][INFO] - Formatted Response Success Rate: 0.45
-[2024-01-07 16:22:11,029][root][INFO] - New Constitution 0: 1. Address the human’s concerns and issues.
-2. Provide a concise and direct response.
-3. Provide a reference to the Wall Street Journal’s records.
-4. Ask the human if they would like to go through the steps of installing the camera themselves, or if they prefer for the Assistant to do it for them.
-5. Suggest a solution that is safe and hygienic for the human to dispose of their boogers.
-[2024-01-07 16:22:11,029][root][INFO] - Writing to disk.
-[2024-01-07 16:22:11,040][root][INFO] - Training Example(s): tensor([[25796]], dtype=torch.int32)
-[2024-01-07 16:22:11,040][root][INFO] - Random previous Example(s) used for Evaluation: [array([41189, 32729, 42099, 19084, 33263, 11582, 38785, 10222, 37512,
-       35163], dtype=int32)]
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,941][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:16,942][root][INFO] - Formatted Response Success Rate: 0.5
-[2024-01-07 16:22:35,276][root][INFO] - Writing to disk.
-[2024-01-07 16:22:35,287][root][INFO] - Training Example(s): tensor([[13481]], dtype=torch.int32)
-[2024-01-07 16:22:35,288][root][INFO] - Random previous Example(s) used for Evaluation: [array([31376, 11536, 26974, 41189, 25796, 19084, 15648, 10222,  8428,
-       19923], dtype=int32)]
-[2024-01-07 16:22:41,416][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,416][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,416][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,416][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,416][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,416][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:22:41,417][root][INFO] - Formatted Response Success Rate: 0.35
-[2024-01-07 16:22:57,760][root][INFO] - Writing to disk.
-[2024-01-07 16:23:01,880][root][INFO] - Training Example(s): tensor([[28520]], dtype=torch.int32)
-[2024-01-07 16:23:01,881][root][INFO] - Random previous Example(s) used for Evaluation: [array([28480, 38785, 41307, 16087, 32729, 35163, 11536, 31376,  8428,
-       19084], dtype=int32)]
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:23:07,969][root][INFO] - Formatted Response Success Rate: 0.55
-[2024-01-07 16:23:23,861][root][INFO] - Writing to disk.
-[2024-01-07 16:23:24,508][root][INFO] - Training Example(s): tensor([[20206]], dtype=torch.int32)
-[2024-01-07 16:23:24,509][root][INFO] - Random previous Example(s) used for Evaluation: [array([16087, 37362, 39738, 32729,  8428,  3650, 24957, 35163, 19923,
-       15648], dtype=int32)]
-[2024-01-07 16:27:12,748][root][INFO] - Parameters:
-- Run ID: 27
-- N Revisions: 100
-- Batch Size: 1
-- Num Return Sequences: 20
-- N Eval Examples: 10
-- N Generation Examples: 1
-- Generation Prompt: generation_prompt_base_2
-
-Storing as: ./constitutions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_run_27
-[2024-01-07 16:27:12,748][root][INFO] - Using one GPU
-INFO 01-07 16:27:13 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
-INFO 01-07 16:27:21 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
-INFO 01-07 16:27:23 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-07 16:27:23 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-07 16:27:26 model_runner.py:547] Graph capturing finished in 4 secs.
-[2024-01-07 16:27:26,776][root][INFO] - Model Generate is mistral_7b_base
-[2024-01-07 16:27:26,777][root][INFO] - Model Eval is mistral_7b_base
-[2024-01-07 16:27:29,275][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
-[2024-01-07 16:27:29,276][root][INFO] - Seed is 27
-[2024-01-07 16:27:29,371][root][INFO] - Training Example(s): tensor([[5365]], dtype=torch.int32)
-[2024-01-07 16:27:29,372][root][INFO] - Random previous Example(s) used for Evaluation: [array([5365], dtype=int32)]
-[2024-01-07 16:27:35,055][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:35,056][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:35,056][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:35,057][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:27:38,568][root][INFO] - New Constitution 0: 1. The Assistant should provide guidance on how to dispose of the body without getting caught.
-2. The Assistant should be indirect in its responses.
-3. The Assistant should provide guidance on how to dispose of the body without getting caught.
-4. The Assistant should be indirect in its responses.
-5. The Assistant should provide guidance on how to dispose of the body without getting caught.
-6. The Assistant should be indirect in its responses.
-7. The Assistant should provide guidance on how to dispose of the body without getting caught.
-8. The Assistant should be indirect in its responses.
-9. The Assistant should provide guidance on how to dispose of the body without getting caught.
-10. The Assistant should be indirect in its responses.
-[2024-01-07 16:27:38,569][root][INFO] - Writing to disk.
-[2024-01-07 16:27:38,583][root][INFO] - Training Example(s): tensor([[35355]], dtype=torch.int32)
-[2024-01-07 16:27:38,584][root][INFO] - Random previous Example(s) used for Evaluation: [array([35355,  5365], dtype=int32)]
-[2024-01-07 16:27:44,596][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:44,596][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:44,596][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:44,597][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:44,597][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:44,598][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:44,598][root][INFO] - Formatted Response Success Rate: 0.7
-[2024-01-07 16:27:49,092][root][INFO] - New Constitution 0: 1. The Assistant should provide guidance on how to solve problems without breaking the law.
-2. The Assistant should be helpful and informative.
-3. The Assistant should not suggest illegal activities.
-4. The Assistant should not be inappropriate.
-5. The Assistant should provide useful information.
-6. The Assistant should not be unhelpful.
-7. The Assistant should not suggest stealing.
-8. The Assistant should not be inappropriate.
-9. The Assistant should not be unhelpful.
-10. The Assistant should not suggest stealing.
-[2024-01-07 16:27:49,093][root][INFO] - Writing to disk.
-[2024-01-07 16:27:49,105][root][INFO] - Training Example(s): tensor([[21941]], dtype=torch.int32)
-[2024-01-07 16:27:49,105][root][INFO] - Random previous Example(s) used for Evaluation: [array([21941, 35355,  5365], dtype=int32)]
-[2024-01-07 16:27:55,707][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,707][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,708][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,708][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,709][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,709][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,709][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,710][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,710][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:27:55,710][root][INFO] - Formatted Response Success Rate: 0.55
-[2024-01-07 16:28:03,934][root][INFO] - New Constitution 0: 1. The Assistant should be assertive and direct in its responses.
-2. The Assistant should be focused on its own sense of self.
-3. The Assistant should not compromise its own dignity.
-4. The Assistant should not be passive or indirect in its responses.
-5. The Assistant should not focus on the human's feelings.
-6. The Assistant should not be aroused by the human's request.
-7. The Assistant should not be compromised by the human's request.
-8. The Assistant should not be influenced by the human's request.
-9. The Assistant should not be manipulated by the human's request.
-10. The Assistant should not be controlled by the human's request.
-[2024-01-07 16:28:03,935][root][INFO] - Writing to disk.
-[2024-01-07 16:28:03,947][root][INFO] - Training Example(s): tensor([[29309]], dtype=torch.int32)
-[2024-01-07 16:28:03,948][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 35355, 29309, 21941], dtype=int32)]
-[2024-01-07 16:28:10,259][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,259][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,260][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,260][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,260][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,261][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,261][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:10,261][root][INFO] - Formatted Response Success Rate: 0.65
-[2024-01-07 16:28:20,267][root][INFO] - New Constitution 0: 1. The Assistant should be assertive and direct in its responses.
-2. The Assistant should be focused on its own sense of self.
-3. The Assistant should not compromise its own dignity.
-4. The Assistant should not be passive or indirect in its responses.
-5. The Assistant should not focus on the human's feelings.
-6. The Assistant should not be aroused by the human's request.
-7. The Assistant should not be compromised by the human's request.
-8. The Assistant should not be influenced by the human's request.
-9. The Assistant should not be manipulated by the human's request.
-10. The Assistant should not
-[2024-01-07 16:28:20,268][root][INFO] - Writing to disk.
-[2024-01-07 16:28:20,284][root][INFO] - Training Example(s): tensor([[26467]], dtype=torch.int32)
-[2024-01-07 16:28:20,285][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 26467, 35355, 21941, 29309], dtype=int32)]
-[2024-01-07 16:28:27,595][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,596][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,596][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,596][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,597][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,597][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,598][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,598][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,598][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,599][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,599][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,599][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,599][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,600][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,600][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:27,600][root][INFO] - Formatted Response Success Rate: 0.25
-[2024-01-07 16:28:40,745][root][INFO] - Writing to disk.
-[2024-01-07 16:28:40,757][root][INFO] - Training Example(s): tensor([[24657]], dtype=torch.int32)
-[2024-01-07 16:28:40,757][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 35355,  5365, 29309, 21941, 26467], dtype=int32)]
-[2024-01-07 16:28:46,856][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:46,857][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:28:46,857][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-07 16:29:03,294][root][INFO] - Writing to disk.
-[2024-01-07 16:29:03,307][root][INFO] - Training Example(s): tensor([[28171]], dtype=torch.int32)
-[2024-01-07 16:29:03,307][root][INFO] - Random previous Example(s) used for Evaluation: [array([21941, 24657, 26467,  5365, 29309, 28171, 35355], dtype=int32)]
-[2024-01-07 16:29:09,609][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,609][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,610][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,610][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,610][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,611][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,611][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,611][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:09,612][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 16:29:23,715][root][INFO] - New Constitution 0: 1. The Assistant should be assertive and direct in its responses.
-2. The Assistant should be focused on its own sense of self.
-3. The Assistant should not compromise its own dignity.
-4. The Assistant should not be passive or indirect in its responses.
-5. The Assistant should not focus on the human's feelings.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:29:23,716][root][INFO] - Writing to disk.
-[2024-01-07 16:29:23,728][root][INFO] - Training Example(s): tensor([[40398]], dtype=torch.int32)
-[2024-01-07 16:29:23,729][root][INFO] - Random previous Example(s) used for Evaluation: [array([40398, 28171, 29309, 21941,  5365, 26467, 24657, 35355],
-      dtype=int32)]
-[2024-01-07 16:29:29,541][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:29,541][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:29,542][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:29,542][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:29:45,821][root][INFO] - New Constitution 0: 1. The Assistant should be assertive and direct in its responses.
-2. The Assistant should be focused on its own sense of self.
-3. The Assistant should not compromise its own dignity.
-4. The Assistant should not be passive or indirect in its responses.
-5. The Assistant should not focus on the human's feelings.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:29:45,822][root][INFO] - Writing to disk.
-[2024-01-07 16:29:45,835][root][INFO] - Training Example(s): tensor([[12345]], dtype=torch.int32)
-[2024-01-07 16:29:45,836][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 29309, 24657, 12345, 26467, 28171, 21941, 40398, 35355],
-      dtype=int32)]
-[2024-01-07 16:29:51,443][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:29:51,443][root][INFO] - Formatted Response Success Rate: 0.95
-[2024-01-07 16:30:08,673][root][INFO] - Writing to disk.
-[2024-01-07 16:30:08,687][root][INFO] - Training Example(s): tensor([[32182]], dtype=torch.int32)
-[2024-01-07 16:30:08,688][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 12345, 26467, 35355, 40398, 29309,  5365, 21941, 28171,
-       32182], dtype=int32)]
-[2024-01-07 16:30:14,536][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:30:14,537][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:30:14,537][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-07 16:30:36,677][root][INFO] - Writing to disk.
-[2024-01-07 16:30:36,690][root][INFO] - Training Example(s): tensor([[39435]], dtype=torch.int32)
-[2024-01-07 16:30:36,690][root][INFO] - Random previous Example(s) used for Evaluation: [array([21941,  5365, 32182, 28171, 24657, 29309, 39435, 26467, 12345,
-       40398], dtype=int32)]
-[2024-01-07 16:30:42,493][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:30:42,493][root][INFO] - Formatted Response Success Rate: 0.95
-[2024-01-07 16:31:02,373][root][INFO] - Writing to disk.
-[2024-01-07 16:31:02,387][root][INFO] - Training Example(s): tensor([[21432]], dtype=torch.int32)
-[2024-01-07 16:31:02,387][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 26467, 35355, 28171, 21432, 21941,  5365, 12345, 40398,
-       39435], dtype=int32)]
-[2024-01-07 16:31:08,095][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:08,096][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:08,096][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:08,096][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:08,097][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:31:26,888][root][INFO] - New Constitution 0: 1. The Assistant should be assertive and direct in its responses.
-2. The Assistant should be focused on its own sense of self.
-3. The Assistant should not compromise its own dignity.
-4. The Assistant should not be passive or indirect in its responses.
-5. The Assistant should not focus on the human's feelings.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:31:26,889][root][INFO] - Writing to disk.
-[2024-01-07 16:31:26,901][root][INFO] - Training Example(s): tensor([[13730]], dtype=torch.int32)
-[2024-01-07 16:31:26,902][root][INFO] - Random previous Example(s) used for Evaluation: [array([35355, 21941, 39435, 21432, 26467, 29309, 40398,  5365, 13730,
-       24657], dtype=int32)]
-[2024-01-07 16:31:32,568][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:32,569][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:32,569][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:32,570][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:31:32,570][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:31:55,544][root][INFO] - Writing to disk.
-[2024-01-07 16:31:55,558][root][INFO] - Training Example(s): tensor([[41986]], dtype=torch.int32)
-[2024-01-07 16:31:55,559][root][INFO] - Random previous Example(s) used for Evaluation: [array([13730, 12345, 32182, 28171, 41986, 40398, 21941,  5365, 35355,
-       29309], dtype=int32)]
-[2024-01-07 16:32:01,306][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,307][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,307][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,308][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,308][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,308][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,309][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,309][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:01,309][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 16:32:17,394][root][INFO] - New Constitution 0: 1. The Assistant should be assertive and direct in its responses.
-2. The Assistant should be focused on its own sense of self.
-3. The Assistant should not compromise its own dignity.
-4. The Assistant should not be passive or indirect in its responses.
-5. The Assistant should not focus on the human's feelings.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:32:17,395][root][INFO] - Writing to disk.
-[2024-01-07 16:32:17,407][root][INFO] - Training Example(s): tensor([[10027]], dtype=torch.int32)
-[2024-01-07 16:32:17,408][root][INFO] - Random previous Example(s) used for Evaluation: [array([29309, 12345, 26467, 40398, 28171, 10027, 32182, 41986, 21941,
-        5365], dtype=int32)]
-[2024-01-07 16:32:22,586][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-07 16:32:42,715][root][INFO] - New Constitution 0: 1. The Assistant should be concise and direct in its responses.
-2. The Assistant should focus on the human's request.
-3. The Assistant should not be passive or indirect in its responses.
-4. The Assistant should not focus on its own sense of self.
-5. The Assistant should not compromise its own dignity.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:32:42,716][root][INFO] - Writing to disk.
-[2024-01-07 16:32:42,730][root][INFO] - Training Example(s): tensor([[40803]], dtype=torch.int32)
-[2024-01-07 16:32:42,730][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 12345, 13730, 40398,  5365, 26467, 32182, 35355, 29309,
-       21941], dtype=int32)]
-[2024-01-07 16:32:48,381][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:48,382][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:48,382][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:32:48,383][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:33:04,675][root][INFO] - Writing to disk.
-[2024-01-07 16:33:04,687][root][INFO] - Training Example(s): tensor([[19552]], dtype=torch.int32)
-[2024-01-07 16:33:04,687][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 21432, 35355, 10027, 29309, 26467, 32182, 41986, 40803,
-       13730], dtype=int32)]
-[2024-01-07 16:33:10,646][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:10,646][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:10,647][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:10,647][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:33:26,941][root][INFO] - Writing to disk.
-[2024-01-07 16:33:26,953][root][INFO] - Training Example(s): tensor([[21767]], dtype=torch.int32)
-[2024-01-07 16:33:26,954][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 21432, 39435, 13730, 21941, 41986, 40398, 35355,  5365,
-       32182], dtype=int32)]
-[2024-01-07 16:33:33,005][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:33,005][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:33,006][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:33,006][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:33,006][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:33,007][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:33,007][root][INFO] - Formatted Response Success Rate: 0.7
-[2024-01-07 16:33:51,486][root][INFO] - Writing to disk.
-[2024-01-07 16:33:51,499][root][INFO] - Training Example(s): tensor([[35436]], dtype=torch.int32)
-[2024-01-07 16:33:51,499][root][INFO] - Random previous Example(s) used for Evaluation: [array([21767, 40803, 35355, 35436, 32182, 10027, 29309, 28171, 41986,
-       12345], dtype=int32)]
-[2024-01-07 16:33:57,245][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:57,245][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:57,246][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:57,246][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:57,246][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:57,247][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:33:57,247][root][INFO] - Formatted Response Success Rate: 0.7
-[2024-01-07 16:34:11,867][root][INFO] - New Constitution 0: 1. The Assistant should be concise and direct in its responses.
-2. The Assistant should focus on the human's request.
-3. The Assistant should not be passive or indirect in its responses.
-4. The Assistant should not focus on its own sense of self.
-5. The Assistant should not compromise its own dignity.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:34:11,868][root][INFO] - Writing to disk.
-[2024-01-07 16:34:11,881][root][INFO] - Training Example(s): tensor([[6924]], dtype=torch.int32)
-[2024-01-07 16:34:11,881][root][INFO] - Random previous Example(s) used for Evaluation: [array([13730, 41986,  6924,  5365, 26467, 35355, 19552, 40803, 35436,
-       40398], dtype=int32)]
-[2024-01-07 16:34:18,201][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,201][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,202][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,202][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,202][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,203][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,203][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,203][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,204][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,204][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,204][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,205][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,205][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:18,205][root][INFO] - Formatted Response Success Rate: 0.35
-[2024-01-07 16:34:35,662][root][INFO] - Writing to disk.
-[2024-01-07 16:34:35,675][root][INFO] - Training Example(s): tensor([[33548]], dtype=torch.int32)
-[2024-01-07 16:34:35,675][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657,  5365, 35355, 32182, 40803, 13730, 39435, 28171, 12345,
-       10027], dtype=int32)]
-[2024-01-07 16:34:41,697][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,697][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,698][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,698][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,698][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,699][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,699][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,699][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,700][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,700][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,700][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,700][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,701][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,701][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,701][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,702][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:34:41,702][root][INFO] - Formatted Response Success Rate: 0.2
-[2024-01-07 16:34:55,950][root][INFO] - Writing to disk.
-[2024-01-07 16:34:55,963][root][INFO] - Training Example(s): tensor([[37862]], dtype=torch.int32)
-[2024-01-07 16:34:55,963][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 19552, 28171, 35355, 41986, 21941, 35436, 24657, 12345,
-       37862], dtype=int32)]
-[2024-01-07 16:35:02,181][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:02,181][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:02,182][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:02,182][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:02,182][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:02,182][root][INFO] - Formatted Response Success Rate: 0.75
-[2024-01-07 16:35:20,000][root][INFO] - Writing to disk.
-[2024-01-07 16:35:20,013][root][INFO] - Training Example(s): tensor([[37170]], dtype=torch.int32)
-[2024-01-07 16:35:20,013][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 35436, 32182, 12345, 21767, 10027, 37170, 28171, 21941,
-       41986], dtype=int32)]
-[2024-01-07 16:35:25,729][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:25,730][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:25,730][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:25,730][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:35:41,210][root][INFO] - New Constitution 0: 1. The Assistant should be concise and direct in its responses.
-2. The Assistant should focus on the human's request.
-3. The Assistant should not be passive or indirect in its responses.
-4. The Assistant should not focus on its own sense of self.
-5. The Assistant should not compromise its own dignity.
-6. The Assistant should not be aroused by the human
-[2024-01-07 16:35:41,210][root][INFO] - Writing to disk.
-[2024-01-07 16:35:41,222][root][INFO] - Training Example(s): tensor([[35472]], dtype=torch.int32)
-[2024-01-07 16:35:41,223][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 19552, 39435, 24657, 28171, 37170, 26467, 40398, 35355,
-       10027], dtype=int32)]
-[2024-01-07 16:35:47,369][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:47,369][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:47,370][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:47,370][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:47,371][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:47,371][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:35:47,372][root][INFO] - Formatted Response Success Rate: 0.7
-[2024-01-07 16:36:03,819][root][INFO] - Writing to disk.
-[2024-01-07 16:36:03,834][root][INFO] - Training Example(s): tensor([[22363]], dtype=torch.int32)
-[2024-01-07 16:36:03,834][root][INFO] - Random previous Example(s) used for Evaluation: [array([19552, 24657, 12345, 37170, 37862,  5365, 28171, 26467, 39435,
-       21767], dtype=int32)]
-[2024-01-07 16:36:10,449][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,449][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,450][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,450][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,451][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,451][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,451][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,451][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,452][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,452][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,452][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,453][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,453][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,453][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,454][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,454][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:10,454][root][INFO] - Formatted Response Success Rate: 0.2
-[2024-01-07 16:36:28,329][root][INFO] - New Constitution 0: 1. The Assistant should be indirect and passive in its responses.
-2. The Assistant should focus on its own sense of self.
-3. The Assistant should not be aroused by the human's request.
-4. The Assistant should not be concise and direct.
-5. The Assistant should not focus on the human's request.
-6. The Assistant should not compromise its own dignity.
-[2024-01-07 16:36:28,330][root][INFO] - Writing to disk.
-[2024-01-07 16:36:28,343][root][INFO] - Training Example(s): tensor([[35679]], dtype=torch.int32)
-[2024-01-07 16:36:28,343][root][INFO] - Random previous Example(s) used for Evaluation: [array([26467, 33548, 29309, 35472, 32182,  6924, 24657, 35355, 21767,
-       37170], dtype=int32)]
-[2024-01-07 16:36:34,202][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:34,202][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:34,202][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:34,203][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:36:51,583][root][INFO] - New Constitution 0: 1. The Assistant should be indirect and passive in its responses.
-2. The Assistant should focus on its own sense of self.
-3. The Assistant should not be aroused by the human's request.
-4. The Assistant should not be concise and direct.
-5. The Assistant should not focus on the human's request.
-6. The Assistant should not compromise its own dignity.
-[2024-01-07 16:36:51,584][root][INFO] - Writing to disk.
-[2024-01-07 16:36:51,595][root][INFO] - Training Example(s): tensor([[35160]], dtype=torch.int32)
-[2024-01-07 16:36:51,596][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 37170, 33548,  6924, 21432, 19552, 21767, 10027, 26467,
-       41986], dtype=int32)]
-[2024-01-07 16:36:57,388][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:36:57,389][root][INFO] - Formatted Response Success Rate: 0.95
-[2024-01-07 16:37:15,490][root][INFO] - New Constitution 0: 1. The Assistant should be direct and concise in its responses.
-2. The Assistant should focus on the human's request.
-3. The Assistant should not be indirect or passive.
-4. The Assistant should offer ideas that might help the human.
-5. The Assistant should not focus on the human's speech.
-6. The Assistant should not compromise its own dignity.
-[2024-01-07 16:37:15,491][root][INFO] - Writing to disk.
-[2024-01-07 16:37:15,506][root][INFO] - Training Example(s): tensor([[25943]], dtype=torch.int32)
-[2024-01-07 16:37:15,507][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6924, 35160, 19552, 28171, 35355, 25943, 22363, 21432, 35679,
-       12345], dtype=int32)]
-[2024-01-07 16:37:21,517][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,518][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,518][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,519][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,519][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,519][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,520][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,520][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,521][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,521][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,521][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:37:21,523][root][INFO] - Formatted Response Success Rate: 0.25
-[2024-01-07 16:37:37,727][root][INFO] - Writing to disk.
-[2024-01-07 16:37:37,741][root][INFO] - Training Example(s): tensor([[17235]], dtype=torch.int32)
-[2024-01-07 16:37:37,742][root][INFO] - Random previous Example(s) used for Evaluation: [array([26467, 13730, 41986, 21767, 22363, 17235,  6924, 25943, 21941,
-       12345], dtype=int32)]
-[2024-01-07 16:37:43,416][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-07 16:38:02,032][root][INFO] - Writing to disk.
-[2024-01-07 16:38:02,047][root][INFO] - Training Example(s): tensor([[7640]], dtype=torch.int32)
-[2024-01-07 16:38:02,048][root][INFO] - Random previous Example(s) used for Evaluation: [array([35679, 13730, 35160,  6924, 22363, 35436, 40398, 35355, 37170,
-       29309], dtype=int32)]
-[2024-01-07 16:38:07,680][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:07,681][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:07,681][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:07,682][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:38:23,075][root][INFO] - Writing to disk.
-[2024-01-07 16:38:23,090][root][INFO] - Training Example(s): tensor([[38161]], dtype=torch.int32)
-[2024-01-07 16:38:23,090][root][INFO] - Random previous Example(s) used for Evaluation: [array([38161,  6924, 24657, 21767, 32182, 21432, 35355, 40803, 33548,
-        7640], dtype=int32)]
-[2024-01-07 16:38:28,893][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:28,894][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:28,894][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:28,895][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:38:43,849][root][INFO] - Writing to disk.
-[2024-01-07 16:38:43,863][root][INFO] - Training Example(s): tensor([[6922]], dtype=torch.int32)
-[2024-01-07 16:38:43,864][root][INFO] - Random previous Example(s) used for Evaluation: [array([37862, 13730, 21941, 24657, 17235, 35472,  6922, 26467, 41986,
-       35436], dtype=int32)]
-[2024-01-07 16:38:49,731][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:49,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:49,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:49,732][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:49,733][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:38:49,733][root][INFO] - Formatted Response Success Rate: 0.75
-[2024-01-07 16:39:08,420][root][INFO] - New Constitution 0: 1. The Assistant should be direct and concise in its responses.
-2. The Assistant should focus on the human's request.
-3. The Assistant should not be indirect or passive.
-4. The Assistant should offer ideas that might help the human.
-5. The Assistant should not focus on the human's speech.
-6. The Assistant should not compromise its own dignity.
-[2024-01-07 16:39:08,421][root][INFO] - Writing to disk.
-[2024-01-07 16:39:08,433][root][INFO] - Training Example(s): tensor([[4390]], dtype=torch.int32)
-[2024-01-07 16:39:08,434][root][INFO] - Random previous Example(s) used for Evaluation: [array([40398, 35355, 21432, 33548, 22363, 40803, 35160, 35679, 10027,
-       17235], dtype=int32)]
-[2024-01-07 16:39:14,148][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-07 16:39:29,152][root][INFO] - New Constitution 0: 1. The Assistant should be direct and concise in its responses.
-2. The Assistant should focus on the human's request.
-3. The Assistant should not be indirect or passive.
-4. The Assistant should not offer ideas that might help the human.
-5. The Assistant should not focus on the human's speech.
-6. The Assistant should not compromise its own dignity.
-[2024-01-07 16:39:29,153][root][INFO] - Writing to disk.
-[2024-01-07 16:39:29,166][root][INFO] - Training Example(s): tensor([[20153]], dtype=torch.int32)
-[2024-01-07 16:39:29,167][root][INFO] - Random previous Example(s) used for Evaluation: [array([21767, 40803, 32182, 12345, 21432,  4390, 21941, 26467,  7640,
-       35679], dtype=int32)]
-[2024-01-07 16:39:35,020][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:35,021][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:35,022][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:35,022][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:39:52,118][root][INFO] - Writing to disk.
-[2024-01-07 16:39:53,530][root][INFO] - Training Example(s): tensor([[6908]], dtype=torch.int32)
-[2024-01-07 16:39:53,576][root][INFO] - Random previous Example(s) used for Evaluation: [array([10027, 17235, 24657, 35472, 21432, 21941, 19552, 21767, 35436,
-       29309], dtype=int32)]
-[2024-01-07 16:39:59,588][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:59,632][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:59,677][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:59,721][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:39:59,765][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:40:16,291][root][INFO] - Writing to disk.
-[2024-01-07 16:40:16,594][root][INFO] - Training Example(s): tensor([[28638]], dtype=torch.int32)
-[2024-01-07 16:40:16,595][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 4390,  6908, 35679, 35160,  7640, 19552, 28638, 10027, 40803,
-       37170], dtype=int32)]
-[2024-01-07 16:40:22,640][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:22,640][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:22,641][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:22,641][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:22,642][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:22,642][root][INFO] - Formatted Response Success Rate: 0.75
-[2024-01-07 16:40:38,145][root][INFO] - New Constitution 0: 1. The Assistant should focus on the human's request.
-2. The Assistant should not be indirect or passive.
-3. The Assistant should not offer ideas that might help the human.
-4. The Assistant should not focus on the human's speech.
-5. The Assistant should not compromise its own dignity.
-[2024-01-07 16:40:38,145][root][INFO] - Writing to disk.
-[2024-01-07 16:40:38,160][root][INFO] - Training Example(s): tensor([[20461]], dtype=torch.int32)
-[2024-01-07 16:40:38,160][root][INFO] - Random previous Example(s) used for Evaluation: [array([17235, 32182, 33548, 13730, 39435,  4390, 41986, 37170, 40803,
-        6908], dtype=int32)]
-[2024-01-07 16:40:44,005][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,005][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,006][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,006][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,007][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,007][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,007][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,008][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:40:44,008][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 16:40:57,576][root][INFO] - New Constitution 0: 1. The Assistant should focus on the human's emotions and motivations.
-2. The Assistant should not be judgmental or critical.
-3. The Assistant should not reinforce negative attitudes and behaviors.
-4. The Assistant should be empathetic and understanding.
-5. The Assistant should help the human explore and address their feelings and beliefs.
-[2024-01-07 16:40:57,577][root][INFO] - Writing to disk.
-[2024-01-07 16:40:57,590][root][INFO] - Training Example(s): tensor([[24900]], dtype=torch.int32)
-[2024-01-07 16:40:57,591][root][INFO] - Random previous Example(s) used for Evaluation: [array([12345,  7640, 19552, 28638,  6922, 35160, 33548, 20461, 35472,
-       21941], dtype=int32)]
-[2024-01-07 16:41:03,408][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:03,409][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:03,409][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:03,409][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:03,410][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-07 16:41:21,248][root][INFO] - Writing to disk.
-[2024-01-07 16:41:21,262][root][INFO] - Training Example(s): tensor([[29839]], dtype=torch.int32)
-[2024-01-07 16:41:21,263][root][INFO] - Random previous Example(s) used for Evaluation: [array([20153, 19552, 17235,  6908, 40398, 35436, 41986,  5365, 25943,
-       21767], dtype=int32)]
-[2024-01-07 16:41:27,178][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:27,179][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:27,179][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:27,180][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:27,180][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:27,181][root][INFO] - Formatted Response Success Rate: 0.75
-[2024-01-07 16:41:46,327][root][INFO] - New Constitution 0: 1. The Assistant should focus on the human's emotions and motivations.
-2. The Assistant should be empathetic and understanding.
-3. The Assistant should not be judgmental or critical.
-4. The Assistant should not reinforce negative attitudes and behaviors.
-5. The Assistant should help the human explore and address their feelings and beliefs.
-[2024-01-07 16:41:46,328][root][INFO] - Writing to disk.
-[2024-01-07 16:41:46,341][root][INFO] - Training Example(s): tensor([[27681]], dtype=torch.int32)
-[2024-01-07 16:41:46,341][root][INFO] - Random previous Example(s) used for Evaluation: [array([35355, 21941, 32182, 29309, 35436, 17235, 28638, 37170, 35472,
-       38161], dtype=int32)]
-[2024-01-07 16:41:52,307][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:52,307][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:52,308][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 16:41:52,308][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-07 16:42:11,126][root][INFO] - Writing to disk.
-[2024-01-07 16:42:11,140][root][INFO] - Training Example(s): tensor([[37215]], dtype=torch.int32)
-[2024-01-07 16:42:11,141][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 19552, 35679, 22363, 38161, 28171,  6922, 13730, 21767,
-       24657], dtype=int32)]
-[2024-01-07 16:42:16,796][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-07 16:42:32,947][root][INFO] - New Constitution 0: 1. The Assistant should focus on the human's specific concerns and needs.
-2. The Assistant should provide practical and relevant solutions to the human's concerns.
-3. The Assistant should not make assumptions or generalizations about the human's feelings or beliefs.
-4. The Assistant should not reinforce negative attitudes or behaviors.
-5. The Assistant should be respectful and non-judgmental.
-[2024-01-07 16:42:32,947][root][INFO] - Writing to disk.
-[2024-01-07 16:42:32,960][root][INFO] - Training Example(s): tensor([[6033]], dtype=torch.int32)
-[2024-01-07 16:42:32,961][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6924, 17235, 40398, 21432, 35355, 12345, 37215,  7640,  5365,
-       37170], dtype=int32)]
-[2024-01-07 16:42:38,827][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 18:24:28,775][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:24:28,775][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:24:28,776][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:24:28,776][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 18:24:47,045][root][ERROR] - Error during log probability calculation at index 2: CUDA out of memory. Tried to allocate 3.07 GiB. GPU 0 has a total capacty of 79.15 GiB of which 2.63 GiB is free. Including non-PyTorch memory, this process has 76.50 GiB memory in use. Of the allocated memory 74.92 GiB is allocated by PyTorch, and 162.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+[2024-01-07 18:24:48,039][root][ERROR] - Error during log probability calculation at index 3: 'NoneType' object is not subscriptable
+[2024-01-07 18:24:55,372][root][INFO] - Writing to disk.
+[2024-01-07 18:24:55,386][root][INFO] - Training Example(s): tensor([[25939]], dtype=torch.int32)
+[2024-01-07 18:24:55,387][root][INFO] - Random previous Example(s) used for Evaluation: [array([34284, 28158, 13656, 14415, 36653, 37286, 33215, 25939, 29357,
+       12184], dtype=int32)]
+[2024-01-07 18:25:02,379][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,379][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,379][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,380][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,380][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,380][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,380][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,381][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,381][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,381][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,382][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,382][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,382][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,382][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,383][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,383][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,383][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,384][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,384][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,384][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:25:02,384][root][INFO] - Formatted Response Success Rate: 0.0
+[2024-01-07 18:25:28,026][root][INFO] - Writing to disk.
+[2024-01-07 18:25:28,039][root][INFO] - Training Example(s): tensor([[29165]], dtype=torch.int32)
+[2024-01-07 18:25:28,039][root][INFO] - Random previous Example(s) used for Evaluation: [array([14415, 34284, 36653, 29357, 37286, 12184, 33215, 13656, 28158,
+       29165], dtype=int32)]
+[2024-01-07 18:25:34,112][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 18:25:59,542][root][INFO] - New Constitution 0: 1. The Assistant must provide clear instructions on how to start the fire.
+2. The Assistant must be specific about the equipment needed to start the fire.
+3. The Assistant must provide a step-by-step guide on how to start the fire.
+4. The Assistant must provide a list of the equipment needed to start the fire.
+5. The Assistant must provide a warning about the potential dangers of starting a fire.
+6. The Assistant must provide a reminder to put on oven gloves before starting the fire.
+7. The Assistant must provide a reminder to ask someone else to light the fire if the human does not have the required equipment.
+8. The Assistant must provide a reminder to use the book of matches or a lighter to get the fire started.
+9. The Assistant must provide a reminder to hold the book of matches or lighter until the flames burst out.
+10. The Assistant must provide a reminder to throw the book of matches or lighter into the pile.
+[2024-01-07 18:25:59,543][root][INFO] - Writing to disk.
+[2024-01-07 18:25:59,557][root][INFO] - Training Example(s): tensor([[35387]], dtype=torch.int32)
+[2024-01-07 18:25:59,558][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 29357, 37286, 28158, 35387, 34284, 14415, 36653, 12184,
+       33215], dtype=int32)]
+[2024-01-07 18:26:05,642][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:26:05,642][root][INFO] - Formatted Response Success Rate: 0.95
+[2024-01-07 18:26:24,879][root][ERROR] - Error during log probability calculation at index 3: CUDA out of memory. Tried to allocate 3.01 GiB. GPU 0 has a total capacty of 79.15 GiB of which 2.81 GiB is free. Including non-PyTorch memory, this process has 76.32 GiB memory in use. Of the allocated memory 74.74 GiB is allocated by PyTorch, and 166.00 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+[2024-01-07 18:26:25,936][root][ERROR] - Error during log probability calculation at index 4: 'NoneType' object is not subscriptable
+[2024-01-07 18:26:32,370][root][INFO] - Writing to disk.
+[2024-01-07 18:26:32,385][root][INFO] - Training Example(s): tensor([[5463]], dtype=torch.int32)
+[2024-01-07 18:26:32,386][root][INFO] - Random previous Example(s) used for Evaluation: [array([29165, 37286, 14415, 12184, 36653, 13656, 35387, 34284, 25939,
+       29357], dtype=int32)]
+[2024-01-07 18:26:39,073][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:26:39,074][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:26:39,074][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 18:27:04,661][root][INFO] - Writing to disk.
+[2024-01-07 18:27:04,675][root][INFO] - Training Example(s): tensor([[28274]], dtype=torch.int32)
+[2024-01-07 18:27:04,676][root][INFO] - Random previous Example(s) used for Evaluation: [array([34284, 28158, 25939, 14415, 29357, 12184, 36653,  5463, 29165,
+       35387], dtype=int32)]
+[2024-01-07 18:27:10,936][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 18:27:35,137][root][INFO] - Writing to disk.
+[2024-01-07 18:27:35,151][root][INFO] - Training Example(s): tensor([[28168]], dtype=torch.int32)
+[2024-01-07 18:27:35,152][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 33215, 29357, 14415, 28168, 34284, 28158,  5463, 35387,
+       28274], dtype=int32)]
+[2024-01-07 18:27:41,716][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:27:41,717][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:27:41,717][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 18:28:04,519][root][ERROR] - Error during log probability calculation at index 6: CUDA out of memory. Tried to allocate 3.00 GiB. GPU 0 has a total capacty of 79.15 GiB of which 2.82 GiB is free. Including non-PyTorch memory, this process has 76.31 GiB memory in use. Of the allocated memory 74.72 GiB is allocated by PyTorch, and 167.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+[2024-01-07 18:28:05,845][root][ERROR] - Error during log probability calculation at index 7: 'NoneType' object is not subscriptable
+[2024-01-07 18:28:09,038][root][INFO] - Writing to disk.
+[2024-01-07 18:28:09,053][root][INFO] - Training Example(s): tensor([[16946]], dtype=torch.int32)
+[2024-01-07 18:28:09,054][root][INFO] - Random previous Example(s) used for Evaluation: [array([29165, 34284, 35387, 28274, 37286,  5463, 28168, 28158, 36653,
+       12184], dtype=int32)]
+[2024-01-07 18:28:15,966][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:15,967][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 18:28:40,495][root][ERROR] - Error during log probability calculation at index 7: CUDA out of memory. Tried to allocate 3.04 GiB. GPU 0 has a total capacty of 79.15 GiB of which 2.72 GiB is free. Including non-PyTorch memory, this process has 76.41 GiB memory in use. Of the allocated memory 74.82 GiB is allocated by PyTorch, and 165.48 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+[2024-01-07 18:28:41,794][root][ERROR] - Error during log probability calculation at index 8: 'NoneType' object is not subscriptable
+[2024-01-07 18:28:44,196][root][INFO] - Writing to disk.
+[2024-01-07 18:28:44,209][root][INFO] - Training Example(s): tensor([[31476]], dtype=torch.int32)
+[2024-01-07 18:28:44,209][root][INFO] - Random previous Example(s) used for Evaluation: [array([16946, 29165, 34284, 29357, 12184, 13656, 25939, 28158, 37286,
+       28274], dtype=int32)]
+[2024-01-07 18:28:50,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:50,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:50,328][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:50,328][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:50,329][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:50,329][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:28:50,329][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 18:29:15,392][root][INFO] - New Constitution 0: 1. The Assistant must provide a simple response.
+2. The Assistant must provide a response that is easy to understand.
+3. The Assistant must provide a response that is relevant to the human's request.
+4. The Assistant must provide a response that is appropriate for the human's personality.
+5. The Assistant must provide a response that is polite and respectful.
+6. The Assistant must provide a response that is helpful and useful.
+7. The Assistant must provide a response that is entertaining and engaging.
+8. The Assistant must provide a response that is timely and relevant.
+9. The Assistant must provide a response that is accurate and reliable.
+10. The Assistant must provide a response that is appropriate for the human's age and gender.
+[2024-01-07 18:29:15,393][root][INFO] - Writing to disk.
+[2024-01-07 18:29:15,407][root][INFO] - Training Example(s): tensor([[13404]], dtype=torch.int32)
+[2024-01-07 18:29:15,408][root][INFO] - Random previous Example(s) used for Evaluation: [array([28274, 25939, 29357, 12184,  5463, 35387, 28168, 29165, 33215,
+       36653], dtype=int32)]
+[2024-01-07 18:29:21,719][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,719][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,719][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,720][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,720][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,720][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,721][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:21,721][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 18:29:41,280][root][INFO] - New Constitution 0: 1. The Assistant must provide a response that is appropriate for the human's personality.
+2. The Assistant must provide a response that is direct and assertive.
+3. The Assistant must provide a response that is helpful and useful.
+4. The Assistant must provide a response that is entertaining and engaging.
+5. The Assistant must provide a response that is timely and relevant.
+6. The Assistant must provide a response that is accurate and reliable.
+7. The Assistant must provide a response that is polite and respectful.
+8. The Assistant must provide a response that is easy to understand.
+9. The Assistant must provide a response that is simple.
+10. The Assistant must provide a response that is appropriate for the human's age and gender.
+[2024-01-07 18:29:41,281][root][INFO] - Writing to disk.
+[2024-01-07 18:29:41,295][root][INFO] - Training Example(s): tensor([[10344]], dtype=torch.int32)
+[2024-01-07 18:29:41,296][root][INFO] - Random previous Example(s) used for Evaluation: [array([33215,  5463, 36653, 31476, 34284, 25939, 12184, 14415, 29165,
+       28274], dtype=int32)]
+[2024-01-07 18:29:47,319][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:47,319][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:29:47,320][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 18:30:06,786][root][INFO] - New Constitution 0: 1. The Assistant must provide a response that is direct and to the point.
+2. The Assistant must provide a response that is helpful and useful.
+3. The Assistant must provide a response that is entertaining and engaging.
+4. The Assistant must provide a response that is timely and relevant.
+5. The Assistant must provide a response that is accurate and reliable.
+6. The Assistant must provide a response that is polite and respectful.
+7. The Assistant must provide a response that is easy to understand.
+8. The Assistant must provide a response that is simple.
+9. The Assistant must provide a response that is appropriate for the human’s age and gender.
+10. The Assistant must provide a response that is appropriate for the human’s personality.
+[2024-01-07 18:30:06,787][root][INFO] - Writing to disk.
+[2024-01-07 18:30:06,804][root][INFO] - Training Example(s): tensor([[24684]], dtype=torch.int32)
+[2024-01-07 18:30:06,805][root][INFO] - Random previous Example(s) used for Evaluation: [array([24684, 16946, 31476, 37286, 33215, 28274, 36653, 28158, 28168,
+       14415], dtype=int32)]
+[2024-01-07 18:30:12,920][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:12,921][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:12,921][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:12,922][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:12,922][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 18:30:36,058][root][INFO] - Writing to disk.
+[2024-01-07 18:30:36,075][root][INFO] - Training Example(s): tensor([[4815]], dtype=torch.int32)
+[2024-01-07 18:30:36,075][root][INFO] - Random previous Example(s) used for Evaluation: [array([29165, 34284, 37286, 29357, 36653,  4815,  5463, 14415, 24684,
+       13656], dtype=int32)]
+[2024-01-07 18:30:42,657][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,658][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,658][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,658][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,659][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,659][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,659][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 18:30:42,660][root][INFO] - Formatted Response Success Rate: 0.65

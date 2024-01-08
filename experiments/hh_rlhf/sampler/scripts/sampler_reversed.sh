@@ -16,7 +16,7 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sampler
 
 # Loop over 100 runs
-for run in {1..100}
+for run in {2..10}
 do
     python sampler.py \
     sampler.run_id=$run \

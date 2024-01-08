@@ -56,9 +56,6 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     logging.info(f"Model Generate is {args.model_generate.name}")
     logging.info(f"Model Eval is {args.model_eval.name}")
     
-    
-        
-
 
     # GET DATA
     data = load_dataset(**args.data.dataset)
@@ -289,7 +286,6 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
 
             constitutions["train_examples"][idx] += train_examples[idx].flatten().tolist()
             constitutions["prev_examples"][idx] += random_examples[idx].flatten().tolist()
-        
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))

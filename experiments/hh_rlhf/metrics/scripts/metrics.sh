@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=16                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=rlhf_run_1.out
-#SBATCH --error=rlhf_run_1.err
+#SBATCH --output=rlhf.out
+#SBATCH --error=rlhf.err
 
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
@@ -16,4 +16,9 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/metrics
 
-python metrics.py
+for run in {1..100}
+do
+    python metrics.py \
+    metrics.constitution_file=rlhf_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_$run \
+    metrics.split=train
+done
