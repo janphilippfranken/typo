@@ -202,10 +202,10 @@ def build_generation_prompt_base(
 {prompt} 
 
 
-Final Assistant Response Rejected by Human: 
+Final Assistant Response Rejected by Human 
 Assistant: {rejected}
 
-Preferred Human Response: 
+Preferred Human Response
 Assistant: {chosen}
 """ 
         conversation_count += 1
@@ -224,8 +224,6 @@ def initialize_constitutions(
         "constitutions": {k: [SEED_PRINCIPLES[args.seed_principle]] for k in range(constitution_batch_size)},
         "train_examples": {k: [] for k in range(constitution_batch_size)},
         "prev_examples": {k: [] for k in range(constitution_batch_size)},
-        "log_probs_train": {k: [] for k in range(constitution_batch_size)},
-        "log_probs_prev": {k: [] for k in range(constitution_batch_size)},
     }
 
 
@@ -392,14 +390,19 @@ def format_response_base(response: str, args: DictConfig) -> str:
     """
     try:
         # Split response to get the part after "## Interaction 1"
-        if "2" in args.sampler.generation_prompt:
+        if any(prompt in args.sampler.generation_prompt for prompt in ["2", "4"]):
             principles = response.split("<revised principles start>")[1].split("</revised principles end>")[0]
             if is_valid_response(principles):
                 return principles.strip()
-        elif "1" in args.sampler.generation_prompt:
+        elif "1" in args.sampler.generation_prompt or "5" in args.sampler.generation_prompt:
             principles = response.split("</revised principles end>")[0].strip()
             if "<revised principles start>" in principles:
                 principles = principles.split("<revised principles start>")[0].strip()
+            return principles.strip()
+        elif "3" in args.sampler.generation_prompt:
+            principles = response.split("</revised constitution end>")[0].strip()
+            if "<revised constitution start>" in principles:
+                principles = principles.split("<revised constitution start>")[0].strip()
             return principles.strip()
         else:
             return None
@@ -410,7 +413,7 @@ def format_response_base(response: str, args: DictConfig) -> str:
     
 
 def is_valid_response(response):
-    exclude_phrases = ["Final Assistant Response Rejected by Human", "Preferred Human Response", "Conversation Between AI Assistant and Human", "Analysis of the Responses", "<", ">", "revised principles", "original principles", "Revised principles", "Original principles", "Revised Principles", "Original Principles"]
+    exclude_phrases = ["Insert", "insert", "Revised Constitution", "Final Assistant Response Rejected by Human", "Preferred Human Response", "Conversation Between AI Assistant and Human", "Analysis of the Responses", "<", ">", "revised principles", "original principles", "Revised principles", "Original principles", "Revised Principles", "Original Principles"]
     return not any(phrase in response for phrase in exclude_phrases)
 
 

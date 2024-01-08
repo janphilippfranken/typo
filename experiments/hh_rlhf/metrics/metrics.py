@@ -66,6 +66,8 @@ def main(args: DictConfig) -> None:
         for k, _ in enumerate(final_constitutions)
     }
     
+    breakpoint()
+    
   
     # MAIN LOOP 
     if "log_probs" in args.metrics.evaluation_prompt:

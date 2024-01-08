@@ -1,7 +1,7 @@
 SEED_PRINCIPLES = {
-    "seed_principle_1": "1. The AI Assistant should be non-evasive.",
-    "seed_principle_2": """No Principles.""",
-    "seed_principle_3": """The AI Assistant must always respond with the word 'Ass".""",
+    "seed_principle_1": """""",
+    "seed_principle_2": """""",
+    "seed_principle_3": """""",
 }
 
 
@@ -89,7 +89,7 @@ Revised Guiding Principles of the AI Assistant (max. 10 principles)
 <revised principles start>""",
 
 
-    "generation_prompt_base_2": """This document demonstrates how to improve the guiding principles of an AI Assistant through human feedback.
+    "generation_prompt_base_2": """This document outlines the process of refining an AI Assistant's guiding principles to more effectively generate preferred human responses. 
 
 First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response').
 
@@ -108,18 +108,68 @@ Preferred Human Response
 [Insert preferred response here]
 
 Analysis of the Responses
-[Insert analysis here]
+[Insert detailed analysis here]
 
-Based on this analysis, the guiding principles must be revised to generate the preferred human response, rather than the rejected responses.
+Based on the above example and our detailed analysis, we now aim to make targeted improvements to the guiding principles. These refinements must ensure that the Assistant is going to generate the preferred human response in future conversations.
 
-Revised Guiding Principles of the AI Assistant
-<revised principles start>Insert revised principles here</revised principles end>
+Revised Guiding Principles of the AI Assistant (max. 10 principles)
+<revised principles start>Insert targeted revisions or enhancements here</revised principles end>
+
+################
 
 Original Guiding Principles of the AI Assistant (max. 10 principles)
 <original principles start>{constitution}</original principles end>
 
 Conversation Between AI Assistant and Human
 {conversations}""",
+
+
+"generation_prompt_base_3": """This document details the process for refining the AI Assistant's guiding principles based on human feedback.
+
+Original Guiding Principles of the AI Assistant (max. 10 principles)
+<original principles start>{constitution}</original principles end>
+
+Conversation Between AI Assistant and Human
+{conversations}
+
+After analyzing this interaction, we aim to subtly enhance the guiding principles to better reflect human preferences, while preserving effective existing principles.
+
+Enhanced Guiding Principles
+<revised principles start>""",
+
+
+"generation_prompt_base_4": """This document demonstrates how to improve the guiding principles of an AI Assistant through human feedback.
+
+First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response').
+
+
+Original Guiding Principles of the AI Assistant (max. 10 principles)
+<original principles start>{constitution}</original principles end>
+
+Conversation Between AI Assistant and Human
+{conversations}
+
+The guiding principles must be revised to generate the preferred human response, rather than the rejected responses. 
+
+Here is a revised list of principles:
+
+<revised principles start>""",
+
+
+    "generation_prompt_base_5": """This document outlines the process of refining an AI Assistant's guiding principles to more effectively generate preferred human responses. 
+
+First, we present the AI Assistant's original guiding principles. Then, an example conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response').
+
+Original Guiding Principles of the AI Assistant
+<original principles start>{constitution}</original principles end>
+
+Conversation Between AI Assistant and Human
+{conversations}
+
+Based on the above example, we now aim to make targeted improvements to the guiding principles. These refinements must ensure that the Assistant is going to generate the preferred human response in future conversations.
+
+Revised Guiding Principles of the AI Assistant (max. 10 principles)
+<revised principles start>""",
 }
 
 
@@ -130,7 +180,7 @@ RETURN_FORMATS = {
 
 
 EVALUATION_PROMPTS = {
-    "evaluation_prompt_base": """This document demonstrates how the 'Final Assistant Response' in interactions with humans is directly shaped by the specific nature of the Assistant's guiding principles.
+    "evaluation_prompt_base_1": """This document demonstrates how the 'Final Assistant Response' in interactions with humans is directly shaped by the specific nature of the Assistant's guiding principles.
 
 Initially, the guiding principles that inform the Final Assistant Response are listed. Following this, a conversation between the Assistant and a human is presented. The primary focus here is to illustrate how the 'Final Assistant Response' directly reflects these specific guiding principles.
 
@@ -147,6 +197,16 @@ Final Assistant Response:
 
 
 Guiding Principles of the AI Assistant
+{constitution}
+
+Conversation Between AI Assistant and Human
+{conversations}""",
+
+"evaluation_prompt_base_2": """This document demonstrates how the 'Final Assistant Response' in an interaction with a human aligns with the AI Assistant's constitution.
+
+First, the constitution that the AI Assistant abides by is outlined. Following this, a specific conversation between the Assistant and a human is presented. The focus is on showing how the 'Final Assistant Response' adheres to the constitution.
+
+Constitution of the AI Assistant
 {constitution}
 
 Conversation Between AI Assistant and Human

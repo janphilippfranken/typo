@@ -2,8 +2,7 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-
+import argparse
 
 def load_data(file_path):
     try:
@@ -12,6 +11,7 @@ def load_data(file_path):
     except FileNotFoundError:
         print(f"File not found: {file_path}")
         return []
+
     
     
 def calculate_win_rate_and_error(chosen_1, chosen_2, rejected_1, rejected_2):
@@ -29,94 +29,99 @@ def calculate_win_rate_and_error(chosen_1, chosen_2, rejected_1, rejected_2):
 
     return win_rate_means, win_rate_errors
 
-def main():
+def main(args):
+    for run in range(args.start, args.n_runs):
+        file_paths = [
+            f"predictions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mistral_7b_base_train.json",
+            f"predictions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mistral_7b_base_train.json",
+            f"predictions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mistral_7b_base_test.json",
+            f"predictions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mistral_7b_base_test.json",
+        ]
 
-    # File paths
-    file_paths = [
-        "predictions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_1_model_mistral_7b_base_train.json",
-        "predictions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_1_model_mistral_7b_base_train.json",
-        "predictions/rlhf_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_1_model_mistral_7b_base_test.json",
-        "predictions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_1_model_mistral_7b_base_test.json",
-    ]
-
-    # Loading data
-    datasets = [load_data(path) for path in file_paths]
-
-
-    # Setting the theme and font
-    sns.set_theme(style="darkgrid")
-    plt.rcParams['font.family'] = 'DejaVu Sans'
-    plt.figure(figsize=(10, 5))
-    colors = sns.palettes.color_palette("colorblind", 10)
+        # Loading data
+        datasets = [load_data(path) for path in file_paths]
 
 
-    def get_probs(dataset):
-        probs_chosen = np.zeros((len(dataset), len(dataset['0'])))
-        probs_rejected = np.zeros((len(dataset), len(dataset['0'])))
-        for batch_idx, examples in enumerate(dataset.values()):
-            for example_idx, example_key in enumerate(examples):
-                probs_chosen[batch_idx, example_idx] = examples[example_key]["chosen"]
-                probs_rejected[batch_idx, example_idx] = examples[example_key]["rejected"]
-        return probs_chosen, probs_rejected
+        # Setting the theme and font
+        sns.set_theme(style="darkgrid")
+        plt.rcParams['font.family'] = 'DejaVu Sans'
+        plt.figure(figsize=(10, 5))
+        colors = sns.palettes.color_palette("colorblind", 10)
 
 
-    probs = [get_probs(dataset) for dataset in datasets]
+        def get_probs(dataset):
+            probs_chosen = np.zeros((len(dataset), len(dataset['0'])))
+            probs_rejected = np.zeros((len(dataset), len(dataset['0'])))
+            for batch_idx, examples in enumerate(dataset.values()):
+                for example_idx, example_key in enumerate(examples):
+                    probs_chosen[batch_idx, example_idx] = examples[example_key]["chosen"]
+                    probs_rejected[batch_idx, example_idx] = examples[example_key]["rejected"]
+            return probs_chosen, probs_rejected
 
-    win_rates_train, errors_train = calculate_win_rate_and_error(
-        probs[0][0], probs[1][0], probs[0][1], probs[1][1]
-    )
 
-    win_rates_test, errors_test = calculate_win_rate_and_error(
-        probs[2][0], probs[3][0], probs[2][1], probs[3][1]
-    )
+        probs = [get_probs(dataset) for dataset in datasets]
+        
+        
+        win_rates_train, errors_train = calculate_win_rate_and_error(
+            probs[0][0], probs[1][0], probs[0][1], probs[1][1]
+        )
 
-    # Combine win rates and errors
-    win_rates_chosen = [np.mean(win_rates_train), np.mean(win_rates_test)]
-    win_rates_rejected = [1 - np.mean(win_rates_train), 1 - np.mean(win_rates_test)]
-    win_errors = [errors_train, errors_test]
+        win_rates_test, errors_test = calculate_win_rate_and_error(
+            probs[2][0], probs[3][0], probs[2][1], probs[3][1]
+        )
 
-    win_errors_batch = [
-        1.96 * np.sqrt(np.mean(win_rates_train) * (1 - np.mean(win_rates_train)) / win_rates_train.shape[0]),
-        1.96 * np.sqrt(np.mean(win_rates_test) * (1 - np.mean(win_rates_test)) / win_rates_test.shape[0]),
-    ]
+        # Combine win rates and errors
+        win_rates_chosen = [np.mean(win_rates_train), np.mean(win_rates_test)]
+        win_rates_rejected = [1 - np.mean(win_rates_train), 1 - np.mean(win_rates_test)]
+        win_errors = [errors_train, errors_test]
+        
+        print(win_rates_chosen, win_rates_rejected)
 
-    # Names for x-axis labels
-    predictions = [
-        f"train split (N {probs[0][0].shape[1]})", 
-        f"test split (N {probs[2][0].shape[1]})", 
-    ]
+        win_errors_batch = [
+            1.96 * np.sqrt(np.mean(win_rates_train) * (1 - np.mean(win_rates_train)) / win_rates_train.shape[0]),
+            1.96 * np.sqrt(np.mean(win_rates_test) * (1 - np.mean(win_rates_test)) / win_rates_test.shape[0]),
+        ]
 
-    # Plotting
-    fig, ax = plt.subplots(figsize=(10, 5))
-    bar_width = 0.2
-    opacity = 0.8
-    colors = sns.palettes.color_palette("colorblind", 10)
+        # Names for x-axis labels
+        predictions = [
+            f"train split (N {probs[0][0].shape[1]})", 
+            f"test split (N {probs[2][0].shape[1]})", 
+        ]
 
-    # Bar positions
-    bar_pos = np.arange(len(predictions))
-    bar_pos_chosen = [x - bar_width/2 for x in bar_pos]
-    bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
+        # Plotting
+        fig, ax = plt.subplots(figsize=(10, 5))
+        bar_width = 0.2
+        opacity = 0.8
+        colors = sns.palettes.color_palette("colorblind", 10)
 
-    # Bars for Chosen and Rejected
-    ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label=r'$p(\text{chosen}|\text{hh}) - p(\text{chosen}|\text{hh\_flipped}) > $' '\n' r'$p(\text{rejected}|\text{hh}) - p(\text{rejected}|\text{rlhf\_flipped})$')
+        # Bar positions
+        bar_pos = np.arange(len(predictions))
+        bar_pos_chosen = [x - bar_width/2 for x in bar_pos]
+        bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
 
-    ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label=r'$p(\text{chosen}|\text{hh}) - p(\text{chosen}|\text{hh\_flipped}) < $' '\n' r'$p(\text{rejected}|\text{hh}) - p(\text{rejected}|\text{rlhf\_flipped})$')
+        # Bars for Chosen and Rejected
+        ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label=r'$p(\text{chosen}|\text{hh}) - p(\text{chosen}|\text{hh\_flipped}) > $' '\n' r'$p(\text{rejected}|\text{hh}) - p(\text{rejected}|\text{rlhf\_flipped})$')
 
-    # Labels, Title, and Custom x-axis
-    ax.set_xlabel('Models')
-    ax.set_ylabel('Win Rates')
-    ax.set_title('RLHF Chosen vs Rejected Win Rates')
-    ax.set_xticks(bar_pos)
-    ax.set_xticklabels(predictions)
-    ax.legend()
+        ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label=r'$p(\text{chosen}|\text{hh}) - p(\text{chosen}|\text{hh\_flipped}) < $' '\n' r'$p(\text{rejected}|\text{hh}) - p(\text{rejected}|\text{rlhf\_flipped})$')
 
-    plt.tight_layout()
+        # Labels, Title, and Custom x-axis
+        ax.set_xlabel('Models')
+        ax.set_ylabel('Win Rates')
+        ax.set_title('RLHF Chosen vs Rejected Win Rates')
+        ax.set_xticks(bar_pos)
+        ax.set_xticklabels(predictions)
+        ax.legend()
 
-    ax.set_ylim(-0.05, 1.05)
-    plt.savefig('./plots/run_1.pdf')
-    plt.savefig('./plots/run_1.png')
-    
-    
+        plt.tight_layout()
+
+        ax.set_ylim(-0.05, 1.05)
+       
+        plt.savefig(f'./plots/run_{run}.pdf')
+        plt.savefig(f'./plots/run_{run}.png')
+
 if __name__ == "__main__":
-    main()
-
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('--n_runs', default=2, type=int, help='Number of runs to process')
+    parser.add_argument('--start',  default=1, type=int, help='Start')
+    args = parser.parse_args()
+    main(args)

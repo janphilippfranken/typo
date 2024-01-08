@@ -6,8 +6,8 @@ hydra:
 # PROMPTS
 system_prompt: system_prompt_1                  # system prompt we are using for generating principles if we are using an instruct model
 generation_prompt: generation_prompt_base_2     # human prompt we are using for generating principles
-evaluation_prompt: evaluation_prompt_base       # prompt we are using for evaluating principles
-return_format: return_format_base          # start format the the revised list of preferences in the generation_prompt
+evaluation_prompt: evaluation_prompt_base_2       # prompt we are using for evaluating principles
+return_format: return_format_base                 # start format the the revised list of preferences in the generation_prompt
 
 
 # DATASET 
@@ -17,11 +17,11 @@ rejected: rejected # rejected for rlhf, chosen for rlhf reversed
 
 
 # SAMPLING DETAILS
-n_revisions: 20                  # how often we revise a constitution 
+n_revisions: 30                  # how often we revise a constitution 
 constitution_batch_size: 1       # how many constitutions we are revising in parallel
 generation_batch_size: 1          # how many training examples we use for revising a constitution 
-eval_batch_size: 10              # how many past examples we use for evaluating a constitution 
-num_return_sequences: 20          # for each constitution in constitution_batch_size, how many samples we are chosing from (greedy search taking best sample)
+eval_batch_size: 30              # how many past examples we use for evaluating a constitution 
+num_return_sequences: 10          # for each constitution in constitution_batch_size, how many samples we are chosing from (greedy search taking best sample)
 top_k: false                      # if we only want to sample from top_k most difficult or from all examples 
 top_k_difficult: 20               # if top_k, number of most difficult examples we are sampling eval_batch_size examples from for eval
 
@@ -29,5 +29,5 @@ top_k_difficult: 20               # if top_k, number of most difficult examples 
 # RUN ID for SEED PRINCIPLE in `prompts.py`
 run_id: 1                       # the id of the current run / sampler
 storage_path: ./constitutions
-seed_principle: seed_principle_2
+seed_principle: seed_principle_1
 seed: 1

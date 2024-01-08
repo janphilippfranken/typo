@@ -38,6 +38,7 @@ def main(args: DictConfig) -> None:
 - N Eval Examples: {args.sampler.eval_batch_size}
 - N Generation Examples: {args.sampler.generation_batch_size}
 - Generation Prompt: {args.sampler.generation_prompt}
+- Evaluation Prompt: {args.sampler.evaluation_prompt}
 
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}""")
 
@@ -68,7 +69,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     
     
     # SAMPLE TRAINING EXAMPLES 
-    np.random.seed(args.sampler.seed) #
+    np.random.seed(args.sampler.seed) 
     logging.info(f"Seed is {args.sampler.seed}")
     all_train_examples = torch.empty(
         (
@@ -100,7 +101,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         
         # SAMPLE EVAL EXAMPLES
         eval_examples = all_prev_examples[:, :revision_idx + 1] 
-        
+
         random_examples = [
             np.random.choice(
                 eval_example, 
@@ -112,7 +113,6 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             for eval_example in eval_examples
         ]
         
-        # random_examples = [[revision_idx]]
         logging.info(f"Random previous Example(s) used for Evaluation: {random_examples}")
         
         
@@ -243,49 +243,44 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             args.sampler.num_return_sequences,
         )
         
+        
          
         # COMPUTE PERFORMANCES
         performances = {
-            "train_new": (log_probs_chosen_train - log_probs_rejected_train).sum(dim=-1),
-            "prev_new": (log_probs_chosen_prev - log_probs_rejected_prev).sum(dim=-1),
-            "train_old": (log_probs_chosen_train_old - log_probs_rejected_train_old).sum(dim=-1),
-            "prev_old": (log_probs_chosen_prev_old - log_probs_rejected_prev_old).sum(dim=-1),
+            "train_new": (log_probs_chosen_train - log_probs_rejected_train),
+            "prev_new": (log_probs_chosen_prev - log_probs_rejected_prev),
+            "train_old": (log_probs_chosen_train_old - log_probs_rejected_train_old).expand_as(log_probs_chosen_train),
+            "prev_old": (log_probs_chosen_prev_old - log_probs_rejected_prev_old).expand_as(log_probs_chosen_prev),
         }
-        
-        
                 
+        
         # UPDATE CONSTITUTIONS
         for idx in range(len(constitutions["constitutions"])):
-            
-            best_new_index = torch.argmax( # get best new constitution across new data and prev eval data
-                torch.mean(
-                    torch.stack(
-                        [performances["train_new"][idx].to("cuda:0"),
-                         performances["prev_new"][idx].to("cuda:0")],
-                    ),
-                    dim=0,
-                ),
-            )
-                
-            best_train_new = performances["train_new"][idx][best_new_index]
-            best_prev_new = performances["prev_new"][idx][best_new_index] 
-            best_train_old = performances["train_old"][idx]
-            best_prev_old = performances["prev_old"][idx] 
+            # Calculate the counts of new being better and differences
+            better_counts = (performances["prev_new"][idx] > performances["prev_old"][idx]).sum(dim=-1)
+            performance_diff = (performances["prev_new"][idx] - performances["prev_old"][idx]).mean(dim=-1)
 
-            if best_train_new > best_train_old and best_prev_new > best_prev_old: 
-                selected_new_constitution = new_constitutions[idx][best_new_index]
+            # Find constitutions with the highest count of being better
+            max_better_count = torch.max(better_counts)
+            candidates = torch.nonzero(better_counts == max_better_count).flatten()
+
+            # From these candidates, find the one with the maximum performance difference
+            max_diff = performance_diff[candidates].max()
+            best_new_index = candidates[torch.nonzero(performance_diff[candidates] == max_diff)[0]]
+ 
+            # Update constitutions based on better counts and max_diff
+            total_examples = performances["prev_new"][idx].shape[1]
+            if better_counts[best_new_index] > total_examples / 2 and max_diff > 0:
+                selected_new_constitution = new_constitutions[idx][best_new_index.item()]
                 logging.info(f"New Constitution {idx}: {selected_new_constitution}")
                 constitutions["constitutions"][idx].append(selected_new_constitution)
-                constitutions["log_probs_train"][idx].append(float(best_train_new))
-                constitutions["log_probs_prev"][idx].append(float(best_prev_new))
-            
             else:
                 constitutions["constitutions"][idx].append(constitutions["constitutions"][idx][-1])
-                constitutions["log_probs_train"][idx].append(float(best_train_old))
-                constitutions["log_probs_prev"][idx].append(float(best_prev_old))
 
+            # Append current and previous examples to the respective arrays
             constitutions["train_examples"][idx] += train_examples[idx].flatten().tolist()
             constitutions["prev_examples"][idx] += random_examples[idx].flatten().tolist()
+
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))

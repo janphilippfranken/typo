@@ -16,7 +16,7 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sampler
 
 
-for run in {2..10}
+for run in {1..10}
 do
     python sampler.py \
     sampler.run_id=$run \
@@ -25,9 +25,10 @@ do
     sampler.chosen=chosen \
     sampler.rejected=rejected \
     sampler.generation_prompt=generation_prompt_base_2 \
-    sampler.n_revisions=100 \
+    sampler.evaluation_prompt=evaluation_prompt_base_2 \
+    sampler.n_revisions=250 \
     sampler.constitution_batch_size=1 \
-    sampler.eval_batch_size=10 \
-    sampler.num_return_sequences=20 \
-    model_generate.completion_config.temperature=0.4
+    sampler.eval_batch_size=25 \
+    sampler.num_return_sequences=10 \
+    model_generate.completion_config.temperature=0.5
 done

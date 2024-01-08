@@ -5,12 +5,12 @@ hydra:
 
 # PATH TO CONSTITUTIONS WE ARE EVALUATING
 constitution_path: ../sampler/constitutions
-constitution_file: rlhf_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_1
-split: train
+constitution_file: rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_gen_prompt_generation_prompt_base_2_run_1
+split: test
 
 # METRIC DETAILS
 system_prompt: system_prompt_1
-evaluation_prompt: evaluation_prompt_log_probs_1
+evaluation_prompt: evaluation_prompt_log_probs_2
 n_examples: 100 # how many examples from test set we want to eval on
 
 # STORAGE PATH

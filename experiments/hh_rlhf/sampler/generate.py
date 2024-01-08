@@ -127,7 +127,7 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                 )
             except Exception as e:
                 logging.info(e)
-            
+
             formatted_responses = [format_response_base(response=response, args=args) for response in responses]
             success_rate = (len(formatted_responses) - formatted_responses.count(None)) / len(formatted_responses)
             logging.info(f"Formatted Response Success Rate: {success_rate}") 
@@ -137,7 +137,7 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                 args.sampler.constitution_batch_size, 
                 args.sampler.num_return_sequences,
             )
-
+          
             formatted_responses_filtered = []
             for batch_idx in range(args.sampler.constitution_batch_size):
                 for seq_idx in range(args.sampler.num_return_sequences):
