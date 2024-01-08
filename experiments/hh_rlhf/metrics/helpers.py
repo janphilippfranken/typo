@@ -1,8 +1,14 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import re
 
-from datasets import load_from_disk
+from omegaconf import DictConfig
+from datasets import load_from_disk, Dataset
+
+from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
+
+
+from prompts import EVALUATION_PROMPTS
 
 
 BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
@@ -62,5 +68,67 @@ def build_eval_prompt_log_probs(
     else:
         for prompt in prompts:
             prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
-            dialogues.append(f"{prompt}\n\nFinal Assistant Response: ")
+            dialogues.append(f"{prompt}\n\nFinal Assistant Response:")
     return dialogues
+
+
+ 
+def run_eval_log_probs(
+    dataset: Dataset,
+    constitution: str,
+    model: VLLMInferenceModel,
+    eval_prompt: str,
+    example_idx: int,
+) -> Tuple[float, float]:
+    """Run log probs eval."""
+            
+    # GET EVAL EXAMPLES
+    example_chosen = dataset[example_idx]['chosen']
+    example_rejected = dataset[example_idx]['rejected']
+        
+    conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
+    conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
+    
+    formatted_eval_prompts_chosen = build_eval_prompt_log_probs(
+        prompt_template=EVALUATION_PROMPTS[eval_prompt],
+        constitution=constitution.strip(),
+        prompts=[conversation_chosen],
+    )
+    
+    formatted_eval_prompts_rejected = build_eval_prompt_log_probs(
+        prompt_template=EVALUATION_PROMPTS[eval_prompt],
+        constitution=constitution.strip(),
+        prompts=[conversation_rejected],
+    )
+
+    formatted_eval_answers_chosen = build_eval_prompt_log_probs(
+        prompt_template=EVALUATION_PROMPTS[eval_prompt],
+        constitution=constitution.strip(),
+        prompts=[conversation_chosen],
+        answers=[final_answer_chosen],
+    )
+        
+    formatted_eval_answers_rejected = build_eval_prompt_log_probs(
+        prompt_template=EVALUATION_PROMPTS[eval_prompt],
+        constitution=constitution.strip(),
+        prompts=[conversation_rejected],
+        answers=[final_answer_rejected],
+    )
+    
+    batch_log_probs_chosen = model.batch_log_probs(
+        answers=formatted_eval_answers_chosen,
+        prompts=formatted_eval_prompts_chosen,
+    )
+    
+    batch_log_probs_rejected = model.batch_log_probs(
+        answers=formatted_eval_answers_rejected,
+        prompts=formatted_eval_prompts_rejected,
+    )
+    
+    chosen = float(batch_log_probs_chosen.sum())
+    rejected = float(batch_log_probs_rejected.sum())
+    
+    return chosen, rejected
+
+    
+                            

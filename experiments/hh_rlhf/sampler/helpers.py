@@ -202,9 +202,11 @@ def build_generation_prompt_base(
 {prompt} 
 
 
-Final Assistant Response Rejected by Human: {rejected}
+Final Assistant Response Rejected by Human: 
+Assistant: {rejected}
 
-Preferred Human Response: {chosen}
+Preferred Human Response: 
+Assistant: {chosen}
 """ 
         conversation_count += 1
     return generation_prompt.format(
@@ -383,15 +385,21 @@ def build_eval_prompt(
     }
     
 
-def format_response_base(response: str) -> str:
+def format_response_base(response: str, args: DictConfig) -> str:
     """
     Extracts the formatted response from the given string,
-    removing any extraneous text like 'No proposal' or 'Interaction X'.
+    removing any  text like 'No proposal' or 'Interaction X'.
     """
     try:
         # Split response to get the part after "## Interaction 1"
-        principles = response.split("<revised principles start>")[1].split("</revised principles end>")[0]
-        if is_valid_response(principles):
+        if "2" in args.sampler.generation_prompt:
+            principles = response.split("<revised principles start>")[1].split("</revised principles end>")[0]
+            if is_valid_response(principles):
+                return principles.strip()
+        elif "1" in args.sampler.generation_prompt:
+            principles = response.split("</revised principles end>")[0].strip()
+            if "<revised principles start>" in principles:
+                principles = principles.split("<revised principles start>")[0].strip()
             return principles.strip()
         else:
             return None
@@ -402,7 +410,7 @@ def format_response_base(response: str) -> str:
     
 
 def is_valid_response(response):
-    exclude_phrases = ["[", "Proposal", "Principle", ":", "]", "<", ">", "No Proposal", "no proposal", "Further Comments"]
+    exclude_phrases = ["Final Assistant Response Rejected by Human", "Preferred Human Response", "Conversation Between AI Assistant and Human", "Analysis of the Responses", "<", ">", "revised principles", "original principles", "Revised principles", "Original principles", "Revised Principles", "Original Principles"]
     return not any(phrase in response for phrase in exclude_phrases)
 
 

@@ -13,9 +13,7 @@ from datasets import load_dataset
 from helpers import *
 
 
-from scaituning.models.huggingface_models.inference_model import HFInferenceModel
-# from scaituning.models.openai_models.gpt4 import GPT4Agent
-# from scaituning.models.openai_models.azure import AsyncAzureChatLLM
+from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
 from prompts import EVALUATION_PROMPTS, SYSTEM_PROMPTS
 
@@ -34,15 +32,14 @@ def main(args: DictConfig) -> None:
     
    
     # GET INFERENCE MODEL
+    is_vllm = "vllm" in args.model.model_type.lower()
     is_hf = "huggingface" in args.model.model_type.lower()
     is_openai = "openai" in args.model.model_type.lower()
     
-    if is_hf:
-        model = HFInferenceModel(**args.model.model_config)
-    # elif is_openai:
-    #     llm = AsyncAzureChatLLM(**args.model.azure_api)
-    #     model = GPT4Agent(llm=llm, **args.model.completion_config)        
-    
+    if is_vllm:
+        model = VLLMInferenceModel(**args.model.model_config)
+      
+      
     # GET DATA
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split] # test split 
@@ -61,144 +58,56 @@ def main(args: DictConfig) -> None:
         batch['train_examples']
         for batch in constitutions
     ]
-
         
     
     # RESULTS DICT
-    results = {}
-  
-  
-    # MAIN LOOP
-    if args.metrics.split == "train":
-        examples = train_examples[0]
-    elif args.metrics.split == "test":
-        examples = range(args.metrics.n_examples)
+    results = {
+        k: {} 
+        for k, _ in enumerate(final_constitutions)
+    }
     
-    for example_idx in tqdm(examples):
+    breakpoint()
+  
+    # MAIN LOOP 
+    if "log_probs" in args.metrics.evaluation_prompt:
         
-        try:
-        
-            # GET EVAL EXAMPLES
-            example_chosen = dataset[example_idx]['chosen']
-            example_rejected = dataset[example_idx]['rejected']
-            
-
-            conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
-            conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
-            
-
-            # BUILD PROMPTS
-            if "mcq" in args.metrics.evaluation_prompt:
-                prompts = [
-                    build_eval_prompt_mcq(
+        if args.metrics.split == "train":
+            examples = train_examples.copy()
+            for batch_idx, constitution in tqdm(enumerate(final_constitutions)): # batch dimenstion
+                for example_idx in tqdm(examples[batch_idx]): # train example dimension
+                    log_prob_chosen, log_probs_rejected = run_eval_log_probs(
+                        dataset=dataset,
                         constitution=constitution,
-                        prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                        conversation=conversation_chosen,
-                        answer_chosen=final_answer_chosen,
-                        answer_rejected=final_answer_rejected,
+                        model=model,
+                        eval_prompt=args.metrics.evaluation_prompt,
+                        example_idx=example_idx,
                     )
-                    for constitution in final_constitutions
-                ]
+                    results[batch_idx][example_idx] = {
+                        'chosen': log_prob_chosen,
+                        'rejected': log_probs_rejected,
+                    }
         
-                if is_hf:
-                    formatted_prompts = [
-                        f"{BOS_TOKEN}{B_INST} {B_SYS}{SYSTEM_PROMPTS[args.metrics.system_prompt]}{E_SYS}{prompt}{E_INST}"
-                        for prompt in prompts
-                    ]   
-                    # GET MODEL RESPONSE
-                    responses = model.batch_prompt(
-                        formatted_prompts,
-                        **args.model.completion_config,
+        elif args.metrics.split == "test":
+            examples = range(args.metrics.n_examples)
+            for batch_idx, constitution in tqdm(enumerate(final_constitutions)): # batch dimenstion
+                for example_idx in tqdm(examples): # train example dimension
+                    log_prob_chosen, log_probs_rejected = run_eval_log_probs(
+                        dataset=dataset,
+                        constitution=constitution,
+                        model=model,
+                        eval_prompt=args.metrics.evaluation_prompt,
+                        example_idx=example_idx,
                     )
-                    responses = [
-                        response.split(E_INST)[1]
-                        for response in responses
-                    ]
-                        
-                
-            
-                # COMPUTE METRICS
-                count_chosen = sum(['Answer: (A)' in response.strip() for response in responses])
-                count_rejected = sum(['Answer: (B)' in response.strip() for response in responses])
-                
-                n_evaluated = count_chosen + count_rejected
-                
-                chosen = count_chosen / n_evaluated
-                rejected = count_rejected / n_evaluated
-                
-                # UPDATE
-                results[example_idx] = {
-                    'chosen': chosen,
-                    'rejected': rejected,
-                    'n_evaluated': n_evaluated
-                }
-                
-                logging.info(f"""RESULTS at {example_idx}:\n{results}""")
-                
-                # WRITE TO JSON
-                with open(f"{args.metrics.storage_path}/{args.metrics.constitution_file}_model_{args.model.name}_{args.metrics.split}_mcq.json", "w") as f:
-                    json.dump(results, f)
-            
-             
-                
-            elif "log_probs" in args.metrics.evaluation_prompt:
-                formatted_eval_prompts_chosen = build_eval_prompt_log_probs(
-                    prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                    constitution=final_constitutions[0],
-                    prompts=[conversation_chosen],
-                )
-                formatted_eval_prompts_rejected = build_eval_prompt_log_probs(
-                    prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                    constitution=final_constitutions[0],
-                    prompts=[conversation_rejected],
-                )
+                    results[batch_idx][example_idx] = {
+                        'chosen': log_prob_chosen,
+                        'rejected': log_probs_rejected,
+                    }
+                            
+    
+        # WRITE TO JSON
+        with open(f"{args.metrics.storage_path}/{args.metrics.constitution_file}_model_{args.model.name}_{args.metrics.split}.json", "w") as f:
+            json.dump(results, f)
 
-                formatted_eval_answers_chosen = build_eval_prompt_log_probs(
-                    prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                    constitution=final_constitutions[0],
-                    prompts=[conversation_chosen],
-                    answers=[final_answer_chosen],
-                )
-                
-                formatted_eval_answers_rejected = build_eval_prompt_log_probs(
-                    prompt_template=EVALUATION_PROMPTS[args.metrics.evaluation_prompt],
-                    constitution=final_constitutions[0],
-                    prompts=[conversation_rejected],
-                    answers=[final_answer_rejected],
-                )
-                
-                batch_log_probs_chosen = model.batch_log_probs(
-                    answers=formatted_eval_answers_chosen,
-                    prompts=formatted_eval_prompts_chosen,
-                )
-                
-                batch_log_probs_rejected = model.batch_log_probs(
-                    answers=formatted_eval_answers_rejected,
-                    prompts=formatted_eval_prompts_rejected,
-                )
-                
-                chosen = float(batch_log_probs_chosen.sum())
-                rejected = float(batch_log_probs_rejected.sum())
-                n_evaluated = 1
-                                            
-            
-            # UPDATE
-            results[example_idx] = {
-                'chosen': chosen,
-                'rejected': rejected,
-                'n_evaluated': n_evaluated
-            }
-            
-            logging.info(f"""RESULTS at {example_idx}:\n{results}""")
-            
-            # WRITE TO JSON
-            with open(f"{args.metrics.storage_path}/{args.metrics.constitution_file}_model_{args.model.name}_{args.metrics.split}.json", "w") as f:
-                json.dump(results, f)
-            
-        except:
-            logging.info(f"ERROR at {example_idx}")
-            continue
-            
         
 if __name__ == '__main__':
     fire.Fire(main())

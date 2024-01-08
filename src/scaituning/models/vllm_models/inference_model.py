@@ -114,8 +114,7 @@ class VLLMInferenceModel():
         num_return_sequences: Optional[int] = 1,
     ) -> List[str]:
         """Text Generation."""
-        torch.cuda.set_device(0) # weird
-        
+                
         # ENCODE BATCH  
         sampling_params = SamplingParams(
             temperature=temperature,

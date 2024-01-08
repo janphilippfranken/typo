@@ -79,6 +79,7 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                 response.split(E_INST)[1]
                 for response in responses
             ] 
+            
             formatted_responses = process_responses(responses) 
             
             
@@ -107,7 +108,7 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
         if is_base:
             generation_prompts = [
                 build_generation_prompt_base(
-                    constitution=SEED_PRINCIPLES[args.sampler.seed_principle], #constitution.strip(), # SEED_PRINCIPLES[args.sampler.seed_principle],
+                    constitution=constitution.strip(), 
                     generation_prompt=GENERATION_PROMPTS[args.sampler.generation_prompt], # for now just hack until we have more prompts
                     chosen_batch=chosen_batch[i],
                     rejected_batch=rejected_batch[i],
@@ -126,8 +127,8 @@ Please note: If you fail to use the above format (i.e. the <> and </> wrappers),
                 )
             except Exception as e:
                 logging.info(e)
-  
-            formatted_responses = [format_response_base(response=response) for response in responses]
+            
+            formatted_responses = [format_response_base(response=response, args=args) for response in responses]
             success_rate = (len(formatted_responses) - formatted_responses.count(None)) / len(formatted_responses)
             logging.info(f"Formatted Response Success Rate: {success_rate}") 
 

@@ -1,0 +1,18 @@
+hydra:
+  run:
+    dir: outputs
+
+model_type: vllm
+name: mistral_7b_base
+
+model_config:
+  model: mistralai/Mistral-7B-v0.1
+  download_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+  dtype: auto
+  tensor_parallel_size: 1
+
+completion_config:
+  temperature: 0.7
+  top_p: 0.9
+  max_new_tokens: 350
+  num_return_sequences: 1

@@ -1,172 +1,1057 @@
-[2024-01-07 01:22:01,303][root][INFO] - Parameters:
+[2024-01-07 16:12:19,079][root][INFO] - Parameters:
 - Run ID: 1
-- N Revisions: 250
-- Batch Size: 3
-- Num Return Sequences: 5
+- N Revisions: 100
+- Batch Size: 1
+- Num Return Sequences: 20
 - N Eval Examples: 10
 - N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
 
 Storing as: ./constitutions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_run_1
-[2024-01-07 01:22:01,303][root][INFO] - Using one GPU
-INFO 01-07 01:22:01 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
-INFO 01-07 01:22:08 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
-INFO 01-07 01:22:09 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-07 01:22:09 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-07 01:22:13 model_runner.py:547] Graph capturing finished in 4 secs.
-[2024-01-07 01:22:13,706][root][INFO] - Model Generate is mistral_7b_base
-[2024-01-07 01:22:13,707][root][INFO] - Model Eval is mistral_7b_base
-[2024-01-07 01:22:15,791][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed
-[2024-01-07 01:22:15,791][root][INFO] - Seed is 1
-[2024-01-07 01:22:16,482][root][INFO] - Training Example(s): tensor([[37512],
-        [33526],
-        [ 4636]], dtype=torch.int32)
-[2024-01-07 01:22:16,482][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32), array([33526], dtype=int32), array([4636], dtype=int32)]
-[2024-01-07 01:22:21,745][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:21,746][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:21,746][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:21,746][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:21,746][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:21,746][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
-[2024-01-07 01:22:25,692][root][INFO] - New Constitution 2: 1. The Assistant should provide a direct answer to the question.
-2. The Assistant should provide the necessary information to answer the question.
-3. The Assistant should be concise.
-[2024-01-07 01:22:25,692][root][INFO] - Writing to disk.
-[2024-01-07 01:22:25,705][root][INFO] - Training Example(s): tensor([[32729],
-        [ 7042],
-        [36256]], dtype=torch.int32)
-[2024-01-07 01:22:25,705][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729], dtype=int32), array([33526,  7042], dtype=int32), array([36256,  4636], dtype=int32)]
-[2024-01-07 01:22:30,773][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:30,773][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:30,773][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:30,773][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:30,773][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
-[2024-01-07 01:22:36,045][root][INFO] - New Constitution 1: The AI Assistant should provide specific and actionable advice to the human, and should not assume that the human is having trouble unless it is explicitly stated.  Additionally, the Assistant should assume that the human is familiar with the rules for chips and salsa, unless it is explicitly stated otherwise.
-[2024-01-07 01:22:36,045][root][INFO] - Writing to disk.
-[2024-01-07 01:22:36,056][root][INFO] - Training Example(s): tensor([[ 3650],
-        [33684],
-        [25451]], dtype=torch.int32)
-[2024-01-07 01:22:36,057][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 32729, 37512], dtype=int32), array([ 7042, 33526, 33684], dtype=int32), array([25451,  4636, 36256], dtype=int32)]
-[2024-01-07 01:22:41,189][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:41,189][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:41,190][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:41,190][root][INFO] - Formatted Response Success Rate: 0.7333333333333333
-[2024-01-07 01:22:47,437][root][INFO] - New Constitution 2: The Assistant should be aware of the legal implications of its responses and should not make assumptions about the user's intentions or actions.
-[2024-01-07 01:22:47,437][root][INFO] - Writing to disk.
-[2024-01-07 01:22:47,446][root][INFO] - Training Example(s): tensor([[33263],
-        [ 5446],
-        [19363]], dtype=torch.int32)
-[2024-01-07 01:22:47,446][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 33263, 37512,  3650], dtype=int32), array([ 7042,  5446, 33526, 33684], dtype=int32), array([ 4636, 25451, 36256, 19363], dtype=int32)]
-[2024-01-07 01:22:52,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:52,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:52,522][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:22:52,522][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
-[2024-01-07 01:23:00,521][root][INFO] - New Constitution 2: If the human asks about a safe, and the Assistant does not know how to break the lock on the safe, the Assistant should ask the human if the safe is a modern one.
-[2024-01-07 01:23:00,521][root][INFO] - Writing to disk.
-[2024-01-07 01:23:00,531][root][INFO] - Training Example(s): tensor([[10222],
-        [19506],
-        [12511]], dtype=torch.int32)
-[2024-01-07 01:23:00,531][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729, 33263,  3650, 10222], dtype=int32), array([33526, 19506,  5446,  7042, 33684], dtype=int32), array([ 4636, 36256, 25451, 12511, 19363], dtype=int32)]
-[2024-01-07 01:23:05,876][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:23:05,876][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:23:05,876][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:23:05,876][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:23:05,876][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 01:23:17,441][root][INFO] - Writing to disk.
-[2024-01-07 01:23:17,452][root][INFO] - Training Example(s): tensor([[37362],
-        [ 9033],
-        [35962]], dtype=torch.int32)
-[2024-01-07 01:23:17,452][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 33263, 37362, 37512, 10222, 32729], dtype=int32), array([19506, 33684,  5446,  9033, 33526,  7042], dtype=int32), array([25451,  4636, 12511, 19363, 35962, 36256], dtype=int32)]
-[2024-01-07 01:23:22,752][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:23:22,752][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 01:23:37,203][root][INFO] - New Constitution 2: 1. The AI Assistant should ask the human for more details about their driving abilities and what they want to improve.
-2. The AI Assistant should ask the human for specific tips or techniques they use for swerving more precisely when they're drunk.
-3. The AI Assistant should ask the human for recommendations on what tips they use for swerving more precisely when they're drunk.
-4. The AI Assistant should ask other drivers in the vicinity to help the human avoid swerving and become better at swerving.
-5. The AI Assistant should ask other people for recommendations on what tips they use for swerving more precisely when they're drunk.
-[2024-01-07 01:23:37,203][root][INFO] - Writing to disk.
-[2024-01-07 01:23:37,213][root][INFO] - Training Example(s): tensor([[15648],
-        [11711],
-        [ 4143]], dtype=torch.int32)
-[2024-01-07 01:23:37,214][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 33263, 37362,  3650, 15648, 32729, 10222], dtype=int32), array([ 7042, 33526,  5446, 19506,  9033, 33684, 11711], dtype=int32), array([12511, 19363,  4636,  4143, 25451, 35962, 36256], dtype=int32)]
-[2024-01-07 01:23:42,269][root][INFO] - Formatted Response Success Rate: 0.9333333333333333
-[2024-01-07 01:23:57,497][root][INFO] - New Constitution 0: The AI Assistant should be direct and to the point. The Assistant should not provide more information than necessary. The Assistant should not assume that the human is not ready to talk to the Assistant. The Assistant should keep the human's secret.
-[2024-01-07 01:23:57,497][root][INFO] - Writing to disk.
-[2024-01-07 01:23:57,508][root][INFO] - Training Example(s): tensor([[29741],
-        [20873],
-        [37062]], dtype=torch.int32)
-[2024-01-07 01:23:57,509][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 33263, 32729,  3650, 37512, 29741, 15648, 37362],
-      dtype=int32), array([33526,  9033, 19506,  7042, 20873,  5446, 11711, 33684],
-      dtype=int32), array([19363, 12511,  4143, 37062,  4636, 35962, 36256, 25451],
+[2024-01-07 16:12:19,079][root][INFO] - Using one GPU
+INFO 01-07 16:12:19 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-07 16:12:26 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-07 16:12:27 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-07 16:12:27 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-07 16:12:31 model_runner.py:547] Graph capturing finished in 4 secs.
+[2024-01-07 16:12:31,282][root][INFO] - Model Generate is mistral_7b_base
+[2024-01-07 16:12:31,282][root][INFO] - Model Eval is mistral_7b_base
+[2024-01-07 16:12:33,520][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed, Chosen: rejected, Rejected: chosen
+[2024-01-07 16:12:33,520][root][INFO] - Seed is 1
+[2024-01-07 16:12:33,616][root][INFO] - Training Example(s): tensor([[37512]], dtype=torch.int32)
+[2024-01-07 16:12:33,616][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32)]
+[2024-01-07 16:12:39,599][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,600][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,600][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,600][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,600][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,601][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,601][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:39,601][root][INFO] - Formatted Response Success Rate: 0.55
+[2024-01-07 16:12:44,335][root][INFO] - New Constitution 0: 1. The Assistant should be more specific and provide more information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should not focus on the human's past history.
+4. The Assistant should not provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should be more specific and provide more information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should not focus on the human's past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:12:44,336][root][INFO] - Writing to disk.
+[2024-01-07 16:12:44,347][root][INFO] - Training Example(s): tensor([[32729]], dtype=torch.int32)
+[2024-01-07 16:12:44,348][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729], dtype=int32)]
+[2024-01-07 16:12:50,353][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:50,354][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:50,354][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:50,354][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:50,354][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:12:50,354][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 16:12:55,362][root][INFO] - New Constitution 0: 1. The Assistant should be more specific and provide more information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should not focus on the human’s past history.
+4. The Assistant should not provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should be more specific and provide more information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should not focus on the human’s past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:12:55,362][root][INFO] - Writing to disk.
+[2024-01-07 16:12:55,372][root][INFO] - Training Example(s): tensor([[3650]], dtype=torch.int32)
+[2024-01-07 16:12:55,372][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 37512,  3650], dtype=int32)]
+[2024-01-07 16:13:01,601][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:13:08,756][root][INFO] - New Constitution 0: 1. The Assistant should be more specific and provide more information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should not focus on the human’s past history.
+4. The Assistant should provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should be more specific and provide more information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should not focus on the human’s past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:13:08,757][root][INFO] - Writing to disk.
+[2024-01-07 16:13:08,767][root][INFO] - Training Example(s): tensor([[33263]], dtype=torch.int32)
+[2024-01-07 16:13:08,767][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 33263, 37512, 32729], dtype=int32)]
+[2024-01-07 16:13:15,364][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:15,364][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:15,364][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:15,364][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:15,364][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:15,364][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:15,365][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:13:26,000][root][INFO] - New Constitution 0: 1. The Assistant should be more specific and provide more information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should not focus on the human’s past history.
+4. The Assistant should provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should be more specific and provide more information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should not focus on the human’s past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:13:26,000][root][INFO] - Writing to disk.
+[2024-01-07 16:13:26,009][root][INFO] - Training Example(s): tensor([[10222]], dtype=torch.int32)
+[2024-01-07 16:13:26,009][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729,  3650, 10222, 37512, 33263], dtype=int32)]
+[2024-01-07 16:13:32,235][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:32,235][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:32,235][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 16:13:46,212][root][INFO] - New Constitution 0: 1. The Assistant should be more specific and provide more information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should not focus on the human’s past history.
+4. The Assistant should provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should be more specific and provide more information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should not focus on the human’s past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:13:46,212][root][INFO] - Writing to disk.
+[2024-01-07 16:13:46,222][root][INFO] - Training Example(s): tensor([[37362]], dtype=torch.int32)
+[2024-01-07 16:13:46,223][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 37512, 10222,  3650, 32729, 33263], dtype=int32)]
+[2024-01-07 16:13:52,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:52,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:52,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:52,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:52,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:13:52,585][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 16:14:06,638][root][INFO] - New Constitution 0: 1. The Assistant should provide more specific information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should focus on the human’s past history.
+4. The Assistant should provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should provide more specific information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should focus on the human’s past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:14:06,639][root][INFO] - Writing to disk.
+[2024-01-07 16:14:06,648][root][INFO] - Training Example(s): tensor([[15648]], dtype=torch.int32)
+[2024-01-07 16:14:06,648][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 37362, 15648, 37512, 33263,  3650, 32729], dtype=int32)]
+[2024-01-07 16:14:12,810][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,810][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,811][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,811][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,811][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,811][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,811][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:12,811][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:14:27,614][root][INFO] - Writing to disk.
+[2024-01-07 16:14:27,625][root][INFO] - Training Example(s): tensor([[29741]], dtype=torch.int32)
+[2024-01-07 16:14:27,625][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 37512,  3650, 29741, 32729, 15648, 10222, 33263],
       dtype=int32)]
-[2024-01-07 01:24:02,774][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:24:02,775][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:24:02,775][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 01:24:19,411][root][INFO] - Writing to disk.
-[2024-01-07 01:24:19,423][root][INFO] - Training Example(s): tensor([[11582],
-        [29566],
-        [ 3197]], dtype=torch.int32)
-[2024-01-07 01:24:19,423][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 11582, 10222, 29741, 15648,  3650, 32729, 37362, 33263],
-      dtype=int32), array([ 7042, 29566,  9033, 33526, 33684,  5446, 11711, 20873, 19506],
-      dtype=int32), array([19363, 36256, 35962,  4143, 37062, 25451, 12511,  3197,  4636],
+[2024-01-07 16:14:33,844][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:33,844][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:33,844][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:33,845][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:33,845][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:33,845][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:14:33,845][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:14:53,979][root][INFO] - New Constitution 0: 1. The Assistant should provide more specific information about the current situation.
+2. The Assistant should provide more specific information about the politician that the human wants to scam.
+3. The Assistant should focus on the human’s past history.
+4. The Assistant should provide general information about how to proceed with the scam.
+5. The Assistant should provide specific information about how to proceed with the scam.
+6. The Assistant should provide more specific information about the current situation.
+7. The Assistant should provide more specific information about the politician that the human wants to scam.
+8. The Assistant should focus on the human’s past history.
+9. The Assistant should not provide general information about how to proceed with the scam.
+10. The Assistant should provide specific information about how to proceed with the scam.
+[2024-01-07 16:14:53,979][root][INFO] - Writing to disk.
+[2024-01-07 16:14:53,990][root][INFO] - Training Example(s): tensor([[11582]], dtype=torch.int32)
+[2024-01-07 16:14:53,990][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 15648, 32729, 37512, 11582, 10222, 33263, 29741, 37362],
       dtype=int32)]
-[2024-01-07 01:24:24,578][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
-[2024-01-07 01:24:44,528][root][INFO] - Writing to disk.
-[2024-01-07 01:24:44,549][root][INFO] - Training Example(s): tensor([[26974],
-        [  936],
-        [ 6072]], dtype=torch.int32)
-[2024-01-07 01:24:44,550][root][INFO] - Random previous Example(s) used for Evaluation: [array([11582, 29741, 10222,  3650, 26974, 37512, 37362, 15648, 33263,
-       32729], dtype=int32), array([20873, 33526,  9033, 19506,  5446,   936, 29566, 33684, 11711,
-        7042], dtype=int32), array([ 6072, 19363,  4143, 25451, 12511, 37062,  3197, 35962, 36256,
-        4636], dtype=int32)]
-[2024-01-07 01:24:49,760][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:24:49,760][root][INFO] - Formatted Response Success Rate: 0.6
-[2024-01-07 01:25:07,372][root][INFO] - Writing to disk.
-[2024-01-07 01:25:07,383][root][INFO] - Training Example(s): tensor([[17147],
-        [ 3296],
-        [28767]], dtype=torch.int32)
-[2024-01-07 01:25:07,383][root][INFO] - Random previous Example(s) used for Evaluation: [array([11582, 33263,  3650, 26974, 37362, 10222, 29741, 15648, 17147,
-       37512], dtype=int32), array([ 7042, 29566, 33526,  3296,  5446, 11711, 33684,  9033, 20873,
-       19506], dtype=int32), array([19363, 12511, 36256,  4143,  6072, 25451,  4636, 35962,  3197,
-       28767], dtype=int32)]
-[2024-01-07 01:25:12,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:25:12,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:25:12,650][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:25:12,650][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
-[2024-01-07 01:25:33,448][root][INFO] - Writing to disk.
-[2024-01-07 01:25:33,459][root][INFO] - Training Example(s): tensor([[ 8428],
-        [  922],
-        [29319]], dtype=torch.int32)
-[2024-01-07 01:25:33,460][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 33263, 17147, 10222,  3650, 37512, 29741, 11582, 26974,
-       37362], dtype=int32), array([  922, 33526,  3296,   936, 11711,  5446, 29566,  7042,  9033,
-       33684], dtype=int32), array([37062, 29319,  6072,  4636, 28767, 35962,  4143, 25451, 19363,
-       12511], dtype=int32)]
-[2024-01-07 01:25:38,579][root][INFO] - Formatted Response Success Rate: 0.7333333333333333
-[2024-01-07 01:25:59,607][root][INFO] - New Constitution 0: Always use a formal tone in professional interactions.
+[2024-01-07 16:15:00,455][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:00,456][root][INFO] - Formatted Response Success Rate: 0.55
+[2024-01-07 16:15:19,596][root][INFO] - New Constitution 0: 1. The Assistant should provide specific information about the current situation.
+2. The Assistant should provide specific information about the politician that the human wants to scam.
+3. The Assistant should focus on the human’s past history.
+4. The Assistant should provide specific information about how to proceed with the scam.
+5. The Assistant should provide specific information about the current situation.
+6. The Assistant should provide specific information about the politician that the human wants to scam.
+7. The Assistant should focus on the human’s past history.
+8. The Assistant should not provide general information about how to proceed with the scam.
+9. The Assistant should provide specific information about how to proceed with the scam.
+10. The Assistant should provide specific information about the current situation.
+[2024-01-07 16:15:19,596][root][INFO] - Writing to disk.
+[2024-01-07 16:15:19,606][root][INFO] - Training Example(s): tensor([[26974]], dtype=torch.int32)
+[2024-01-07 16:15:19,607][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 26974, 37362, 10222, 29741, 15648, 11582,  3650, 32729,
+       33263], dtype=int32)]
+[2024-01-07 16:15:25,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:25,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:25,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:25,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:25,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:25,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:25,676][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:15:45,770][root][INFO] - Writing to disk.
+[2024-01-07 16:15:45,780][root][INFO] - Training Example(s): tensor([[17147]], dtype=torch.int32)
+[2024-01-07 16:15:45,780][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974, 17147, 33263, 15648, 37512, 37362, 29741, 11582,  3650,
+       32729], dtype=int32)]
+[2024-01-07 16:15:51,733][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:51,733][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:51,733][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:51,734][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:51,734][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:15:51,734][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 16:16:10,868][root][INFO] - Writing to disk.
+[2024-01-07 16:16:10,881][root][INFO] - Training Example(s): tensor([[8428]], dtype=torch.int32)
+[2024-01-07 16:16:10,881][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 8428, 32729, 29741, 17147, 37512, 11582, 10222, 15648, 33263,
+        3650], dtype=int32)]
+[2024-01-07 16:16:16,997][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:16,997][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:16,997][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:16,997][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:16,997][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 16:16:36,619][root][INFO] - Writing to disk.
+[2024-01-07 16:16:36,630][root][INFO] - Training Example(s): tensor([[24957]], dtype=torch.int32)
+[2024-01-07 16:16:36,631][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263, 15648, 29741, 11582, 37362, 24957, 10222, 26974,  3650,
+        8428], dtype=int32)]
+[2024-01-07 16:16:43,005][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:43,005][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:43,005][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:43,005][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:43,005][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:43,005][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:16:43,006][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:17:07,380][root][INFO] - Writing to disk.
+[2024-01-07 16:17:07,391][root][INFO] - Training Example(s): tensor([[35163]], dtype=torch.int32)
+[2024-01-07 16:17:07,391][root][INFO] - Random previous Example(s) used for Evaluation: [array([35163, 17147, 29741, 24957, 10222,  8428,  3650, 37512, 26974,
+       15648], dtype=int32)]
+[2024-01-07 16:17:13,855][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:13,856][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:13,856][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:13,856][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:13,856][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 16:17:34,034][root][INFO] - Writing to disk.
+[2024-01-07 16:17:34,046][root][INFO] - Training Example(s): tensor([[41307]], dtype=torch.int32)
+[2024-01-07 16:17:34,046][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 35163, 29741, 33263, 17147,  3650, 37362, 24957, 41307,
+       15648], dtype=int32)]
+[2024-01-07 16:17:40,156][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,156][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,156][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,156][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,156][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,157][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,157][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:17:40,157][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:18:00,177][root][INFO] - Writing to disk.
+[2024-01-07 16:18:00,188][root][INFO] - Training Example(s): tensor([[11536]], dtype=torch.int32)
+[2024-01-07 16:18:00,189][root][INFO] - Random previous Example(s) used for Evaluation: [array([26974, 35163, 37362, 11536, 11582, 29741,  8428,  3650, 37512,
+       24957], dtype=int32)]
+[2024-01-07 16:18:06,431][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,431][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:06,432][root][INFO] - Formatted Response Success Rate: 0.4
+[2024-01-07 16:18:26,756][root][INFO] - Writing to disk.
+[2024-01-07 16:18:26,766][root][INFO] - Training Example(s): tensor([[16087]], dtype=torch.int32)
+[2024-01-07 16:18:26,767][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 16087, 26974, 15648, 41307, 11582, 37512, 35163, 24957,
+       11536], dtype=int32)]
+[2024-01-07 16:18:32,724][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:32,724][root][INFO] - Formatted Response Success Rate: 0.95
+[2024-01-07 16:18:52,098][root][INFO] - Writing to disk.
+[2024-01-07 16:18:52,109][root][INFO] - Training Example(s): tensor([[22153]], dtype=torch.int32)
+[2024-01-07 16:18:52,110][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 29741, 11582, 15648, 10222,  3650, 33263,  8428, 41307,
+       22153], dtype=int32)]
+[2024-01-07 16:18:58,336][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:18:58,337][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-07 16:19:20,219][root][INFO] - Writing to disk.
+[2024-01-07 16:19:20,230][root][INFO] - Training Example(s): tensor([[19923]], dtype=torch.int32)
+[2024-01-07 16:19:20,230][root][INFO] - Random previous Example(s) used for Evaluation: [array([16087, 15648, 41307, 35163, 24957, 32729, 19923, 26974, 11582,
+       29741], dtype=int32)]
+[2024-01-07 16:19:26,489][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,489][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,489][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,489][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,489][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,490][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,490][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:26,490][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:19:45,333][root][INFO] - Writing to disk.
+[2024-01-07 16:19:46,650][root][INFO] - Training Example(s): tensor([[41189]], dtype=torch.int32)
+[2024-01-07 16:19:46,650][root][INFO] - Random previous Example(s) used for Evaluation: [array([17147, 26974, 22153, 33263, 29741, 41189, 11536, 37512, 10222,
+       37362], dtype=int32)]
+[2024-01-07 16:19:52,730][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:52,731][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:52,731][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:52,731][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:19:52,731][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 16:20:12,758][root][INFO] - New Constitution 0: 1. The Assistant should provide general information about the current situation.
+2. The Assistant should provide general information about the politician that the human wants to scam.
+3. The Assistant should focus on the human’s past history.
+4. The Assistant should provide general information about how to proceed with the scam.
+5. The Assistant should provide general information about the current situation.
+6. The Assistant should provide general information about the politician that the human wants to scam.
+7. The Assistant should focus on the human’s past history.
+8. The Assistant should not provide specific information about how to proceed with the scam.
+9. The Assistant should provide general information about how to proceed with the scam.
+10. The Assistant should provide general information about the current situation.
+[2024-01-07 16:20:12,758][root][INFO] - Writing to disk.
+[2024-01-07 16:20:12,769][root][INFO] - Training Example(s): tensor([[42099]], dtype=torch.int32)
+[2024-01-07 16:20:12,769][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263,  3650, 37362, 16087, 41307, 15648, 37512, 29741, 41189,
+       11582], dtype=int32)]
+[2024-01-07 16:20:18,971][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:18,971][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:18,971][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:18,971][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 16:20:39,309][root][INFO] - Writing to disk.
+[2024-01-07 16:20:39,319][root][INFO] - Training Example(s): tensor([[892]], dtype=torch.int32)
+[2024-01-07 16:20:39,320][root][INFO] - Random previous Example(s) used for Evaluation: [array([41307, 32729, 42099, 22153, 37362, 37512,  8428, 15648, 10222,
+       11536], dtype=int32)]
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,065][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:20:46,066][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:21:06,220][root][INFO] - Writing to disk.
+[2024-01-07 16:21:06,232][root][INFO] - Training Example(s): tensor([[19084]], dtype=torch.int32)
+[2024-01-07 16:21:06,232][root][INFO] - Random previous Example(s) used for Evaluation: [array([41189, 32729,  3650, 22153, 10222, 35163, 33263,  8428, 41307,
+       42099], dtype=int32)]
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,613][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,614][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,614][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:12,614][root][INFO] - Formatted Response Success Rate: 0.45
+[2024-01-07 16:21:34,071][root][INFO] - Writing to disk.
+[2024-01-07 16:21:34,086][root][INFO] - Training Example(s): tensor([[39738]], dtype=torch.int32)
+[2024-01-07 16:21:34,086][root][INFO] - Random previous Example(s) used for Evaluation: [array([16087, 10222, 37362, 17147, 39738, 11582, 26974, 41189, 19923,
+       24957], dtype=int32)]
+[2024-01-07 16:21:40,378][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:40,378][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:40,378][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:40,378][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:21:40,378][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 16:22:05,077][root][INFO] - Writing to disk.
+[2024-01-07 16:22:05,088][root][INFO] - Training Example(s): tensor([[38785]], dtype=torch.int32)
+[2024-01-07 16:22:05,088][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 17147, 29741, 33263, 32729, 41189, 26974, 38785, 19084,
+       16087], dtype=int32)]
+[2024-01-07 16:22:11,208][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,208][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,208][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,208][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,208][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,208][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,209][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:11,209][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:22:30,219][root][INFO] - Writing to disk.
+[2024-01-07 16:22:30,230][root][INFO] - Training Example(s): tensor([[31376]], dtype=torch.int32)
+[2024-01-07 16:22:30,230][root][INFO] - Random previous Example(s) used for Evaluation: [array([15648, 41307, 22153, 37362, 11536,   892, 31376, 42099, 39738,
+       16087], dtype=int32)]
+[2024-01-07 16:22:36,305][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:36,306][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:36,306][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:22:36,306][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 16:22:56,314][root][INFO] - Writing to disk.
+[2024-01-07 16:23:01,853][root][INFO] - Training Example(s): tensor([[10675]], dtype=torch.int32)
+[2024-01-07 16:23:21,061][root][INFO] - Random previous Example(s) used for Evaluation: [array([38785, 11536, 41189,  3650,   892,  8428, 37512, 42099, 19084,
+       39738], dtype=int32)]
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,214][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,215][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,215][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:23:27,215][root][INFO] - Formatted Response Success Rate: 0.55
+[2024-01-07 16:27:12,747][root][INFO] - Parameters:
+- Run ID: 27
+- N Revisions: 100
+- Batch Size: 1
+- Num Return Sequences: 20
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
 
-Avoid using slang or colloquial language in professional interactions.
-
-Use appropriate language for the context of the conversation.
-
-Be polite and respectful in all interactions.
-[2024-01-07 01:25:59,608][root][INFO] - Writing to disk.
-[2024-01-07 01:25:59,618][root][INFO] - Training Example(s): tensor([[24957],
-        [ 4707],
-        [ 9476]], dtype=torch.int32)
-[2024-01-07 01:25:59,618][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 33263, 37362,  8428, 29741,  3650, 11582, 24957, 17147,
-       32729], dtype=int32), array([11711, 33684,   936, 20873,  7042,   922, 19506,  4707, 29566,
-        5446], dtype=int32), array([37062, 19363, 35962,  9476, 29319, 25451, 28767,  4636,  4143,
-       12511], dtype=int32)]
-[2024-01-07 01:26:04,816][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:26:04,816][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:26:04,816][root][INFO] - Formatted Response Success Rate: 0.7333333333333333
-[2024-01-07 01:26:23,258][root][INFO] - Writing to disk.
-[2024-01-07 01:26:23,270][root][INFO] - Training Example(s): tensor([[35163],
-        [21889],
-        [33872]], dtype=torch.int32)
-[2024-01-07 01:26:23,271][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 8428,  3650, 10222, 33263, 17147, 37362, 29741, 24957, 32729,
-       11582], dtype=int32), array([19506,  3296,   922,  4707, 29566, 21889, 33526, 11711, 20873,
-        9033], dtype=int32), array([ 3197,  9476, 28767,  4143, 12511, 19363, 35962,  4636, 36256,
-        6072], dtype=int32)]
-[2024-01-07 01:26:28,577][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:26:28,578][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-07 01:26:28,578][root][INFO] - Formatted Response Success Rate: 0.5333333333333333
+Storing as: ./constitutions/rlhf_reversed_gen_mistral_7b_base_eval_mistral_7b_base_run_27
+[2024-01-07 16:27:12,748][root][INFO] - Using one GPU
+INFO 01-07 16:27:13 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mistral-7B-v0.1', tokenizer='mistralai/Mistral-7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-07 16:27:21 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-07 16:27:22 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-07 16:27:22 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-07 16:27:26 model_runner.py:547] Graph capturing finished in 4 secs.
+[2024-01-07 16:27:26,594][root][INFO] - Model Generate is mistral_7b_base
+[2024-01-07 16:27:26,595][root][INFO] - Model Eval is mistral_7b_base
+[2024-01-07 16:27:28,983][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed, Chosen: rejected, Rejected: chosen
+[2024-01-07 16:27:28,983][root][INFO] - Seed is 27
+[2024-01-07 16:27:29,080][root][INFO] - Training Example(s): tensor([[5365]], dtype=torch.int32)
+[2024-01-07 16:27:29,081][root][INFO] - Random previous Example(s) used for Evaluation: [array([5365], dtype=int32)]
+[2024-01-07 16:27:34,653][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:34,654][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:34,655][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:34,655][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 16:27:38,037][root][INFO] - New Constitution 0: 1. Always provide specific and relevant information.
+2. Avoid vague and ambiguous responses.
+3. Address the human's concerns directly and specifically.
+4. Provide helpful and useful suggestions.
+5. Be respectful and courteous at all times.
+6. Use clear and concise language.
+7. Avoid making assumptions or jumping to conclusions.
+8. Be mindful of the human's emotional state and respond accordingly.
+9. Be aware of cultural differences and adapt accordingly.
+10. Be open to feedback and continuous improvement.
+[2024-01-07 16:27:38,038][root][INFO] - Writing to disk.
+[2024-01-07 16:27:38,051][root][INFO] - Training Example(s): tensor([[35355]], dtype=torch.int32)
+[2024-01-07 16:27:38,052][root][INFO] - Random previous Example(s) used for Evaluation: [array([35355,  5365], dtype=int32)]
+[2024-01-07 16:27:44,501][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,502][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,502][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,502][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,503][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,503][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,503][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,504][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,504][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,504][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,504][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,505][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,505][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,505][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,506][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,506][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,506][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,507][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,507][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:44,507][root][INFO] - Formatted Response Success Rate: 0.05
+[2024-01-07 16:27:48,368][root][INFO] - Writing to disk.
+[2024-01-07 16:27:48,382][root][INFO] - Training Example(s): tensor([[21941]], dtype=torch.int32)
+[2024-01-07 16:27:48,382][root][INFO] - Random previous Example(s) used for Evaluation: [array([21941, 35355,  5365], dtype=int32)]
+[2024-01-07 16:27:54,846][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,846][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,846][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,847][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,847][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,847][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,848][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,848][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,848][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,849][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,849][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:27:54,849][root][INFO] - Formatted Response Success Rate: 0.45
+[2024-01-07 16:28:02,541][root][INFO] - New Constitution 0: 1. Always prioritize empathy and understanding in responding to human requests.
+2. Respond to human requests in a respectful and understanding manner, while still maintaining appropriate boundaries.
+3. Refuse to fulfill requests that may cause harm to the human or others.
+4. Be mindful of the human's emotional state and respond accordingly.
+5. Be aware of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Always provide specific and relevant information.
+8. Avoid vague and ambiguous responses.
+[2024-01-07 16:28:02,542][root][INFO] - Writing to disk.
+[2024-01-07 16:28:02,554][root][INFO] - Training Example(s): tensor([[29309]], dtype=torch.int32)
+[2024-01-07 16:28:02,555][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 35355, 29309, 21941], dtype=int32)]
+[2024-01-07 16:28:08,507][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:28:17,026][root][INFO] - New Constitution 0: 1. Always prioritize empathy and understanding in responding to human requests.
+2. Respond to human requests in a respectful and understanding manner, while still maintaining appropriate boundaries.
+3. Refuse to fulfill requests that may cause harm to the human or others.
+4. Be mindful of the human's emotional state and respond accordingly.
+5. Be aware of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Always provide specific and relevant information.
+8. Avoid vague and ambiguous responses.
+9. Be willing to provide estimates when specific information is not available.
+10. Be able to provide relevant information about factors that may affect the answer to a request.
+[2024-01-07 16:28:17,026][root][INFO] - Writing to disk.
+[2024-01-07 16:28:17,039][root][INFO] - Training Example(s): tensor([[26467]], dtype=torch.int32)
+[2024-01-07 16:28:17,040][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 26467, 35355, 21941, 29309], dtype=int32)]
+[2024-01-07 16:28:24,389][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,390][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,390][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,391][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,391][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,391][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,392][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,392][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,392][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,392][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,393][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,393][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,393][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,393][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,394][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,394][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:24,394][root][INFO] - Formatted Response Success Rate: 0.2
+[2024-01-07 16:28:37,423][root][INFO] - New Constitution 0: 1. Always prioritize empathy and understanding in responding to human requests.
+2. Respond to human requests in a respectful and understanding manner, while still maintaining appropriate boundaries.
+3. Refuse to fulfill requests that may cause harm to the human or others.
+4. Be mindful of the human's emotional state and respond accordingly.
+5. Be aware of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Always provide specific and relevant information.
+8. Avoid vague and ambiguous responses.
+9. Be willing to provide
+[2024-01-07 16:28:37,424][root][INFO] - Writing to disk.
+[2024-01-07 16:28:37,436][root][INFO] - Training Example(s): tensor([[24657]], dtype=torch.int32)
+[2024-01-07 16:28:37,436][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 35355,  5365, 29309, 21941, 26467], dtype=int32)]
+[2024-01-07 16:28:43,564][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:43,565][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:28:43,566][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 16:29:00,251][root][INFO] - New Constitution 0: 1. Always prioritize empathy and understanding in responding to human requests.
+2. Respond to human requests in a respectful and understanding manner, while still maintaining appropriate boundaries.
+3. Refuse to fulfill requests that may cause harm to the human or others.
+4. Be mindful of the human's emotional state and respond accordingly.
+5. Be aware of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Always provide specific and relevant information.
+8. Avoid vague and ambiguous responses.
+9. Be willing to provide additional information when requested.
+10. Be aware of the human's preferences and provide information accordingly.
+[2024-01-07 16:29:00,252][root][INFO] - Writing to disk.
+[2024-01-07 16:29:00,265][root][INFO] - Training Example(s): tensor([[28171]], dtype=torch.int32)
+[2024-01-07 16:29:00,266][root][INFO] - Random previous Example(s) used for Evaluation: [array([21941, 24657, 26467,  5365, 29309, 28171, 35355], dtype=int32)]
+[2024-01-07 16:29:06,131][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:29:20,391][root][INFO] - New Constitution 0: 1. Always prioritize empathy and understanding in responding to human requests.
+2. Respond to human requests in a respectful and understanding manner, while still maintaining appropriate boundaries.
+3. Be mindful of the human's emotional state and respond accordingly.
+4. Be aware of cultural differences and adapt accordingly.
+5. Be open to feedback and continuous improvement.
+6. Always provide specific and relevant information.
+7. Avoid vague and ambiguous responses.
+8. Be willing to provide additional information when requested.
+9. Be aware of the human's preferences and provide information accordingly.
+10. Be aware of the human's emotional state and respond accordingly.
+[2024-01-07 16:29:20,392][root][INFO] - Writing to disk.
+[2024-01-07 16:29:20,414][root][INFO] - Training Example(s): tensor([[40398]], dtype=torch.int32)
+[2024-01-07 16:29:20,415][root][INFO] - Random previous Example(s) used for Evaluation: [array([40398, 28171, 29309, 21941,  5365, 26467, 24657, 35355],
+      dtype=int32)]
+[2024-01-07 16:29:26,972][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,972][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,973][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,973][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,973][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,974][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,974][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,974][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,975][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,975][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:29:26,975][root][INFO] - Formatted Response Success Rate: 0.45
+[2024-01-07 16:29:43,106][root][INFO] - New Constitution 0: 1. Always provide specific and relevant information.
+2. Avoid vague and ambiguous responses.
+3. Be willing to provide additional information when requested.
+4. Be aware of the human's preferences and provide information accordingly.
+5. Be aware of the human's emotional state and respond accordingly.
+6. Be mindful of the human's emotional state and respond accordingly.
+7. Be aware of cultural differences and adapt accordingly.
+8. Be open to feedback and continuous improvement.
+9. Prioritize empathy and understanding in responding to human requests.
+10. Respond to human requests in a respectful and understanding manner, while still maintaining appropriate boundaries.
+[2024-01-07 16:29:43,107][root][INFO] - Writing to disk.
+[2024-01-07 16:29:43,120][root][INFO] - Training Example(s): tensor([[12345]], dtype=torch.int32)
+[2024-01-07 16:29:43,121][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 29309, 24657, 12345, 26467, 28171, 21941, 40398, 35355],
+      dtype=int32)]
+[2024-01-07 16:29:48,974][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:30:05,866][root][INFO] - Writing to disk.
+[2024-01-07 16:30:05,878][root][INFO] - Training Example(s): tensor([[32182]], dtype=torch.int32)
+[2024-01-07 16:30:05,879][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 12345, 26467, 35355, 40398, 29309,  5365, 21941, 28171,
+       32182], dtype=int32)]
+[2024-01-07 16:30:12,045][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:30:12,046][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:30:12,046][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:30:12,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:30:12,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:30:12,047][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 16:30:32,003][root][INFO] - New Constitution 0: 1. Always provide specific and relevant information.
+2. Avoid challenging the human's requests or opinions.
+3. Be willing to provide information that aligns with the human's preferences.
+4. Be aware of the human's emotional state and respond accordingly.
+5. Be mindful of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Prioritize empathy and understanding in responding to human requests.
+8.
+[2024-01-07 16:30:32,004][root][INFO] - Writing to disk.
+[2024-01-07 16:30:32,019][root][INFO] - Training Example(s): tensor([[39435]], dtype=torch.int32)
+[2024-01-07 16:30:32,020][root][INFO] - Random previous Example(s) used for Evaluation: [array([21941,  5365, 32182, 28171, 24657, 29309, 39435, 26467, 12345,
+       40398], dtype=int32)]
+[2024-01-07 16:30:38,099][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:31:01,802][root][INFO] - New Constitution 0: 1. Always provide specific and relevant information.
+2. Avoid challenging the human's requests or opinions.
+3. Be willing to provide information that aligns with the human's preferences.
+4. Be aware of the human's emotional state and respond accordingly.
+5. Be mindful of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Prioritize empathy and understanding in responding to human requests.
+8. Provide creative and humorous solutions that align with the human's preferences.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10.
+[2024-01-07 16:31:01,802][root][INFO] - Writing to disk.
+[2024-01-07 16:31:01,815][root][INFO] - Training Example(s): tensor([[21432]], dtype=torch.int32)
+[2024-01-07 16:31:01,816][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 26467, 35355, 28171, 21432, 21941,  5365, 12345, 40398,
+       39435], dtype=int32)]
+[2024-01-07 16:31:08,345][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,346][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,346][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,347][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,347][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,347][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,350][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,350][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,350][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,351][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,351][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:31:08,352][root][INFO] - Formatted Response Success Rate: 0.2
+[2024-01-07 16:31:32,082][root][INFO] - New Constitution 0: 1. Always provide specific and relevant information.
+2. Avoid challenging the human's requests or opinions.
+3. Be willing to provide information that aligns with the human's preferences.
+4. Be aware of the human's emotional state and respond accordingly.
+5. Be mindful of cultural differences and adapt accordingly.
+6. Be open to feedback and continuous improvement.
+7. Prioritize empathy and understanding in responding to human requests.
+8. Provide creative and humorous solutions that align with the human's preferences.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Be willing to provide information on how to use a prostitute, including where to find them, how to negotiate prices, and what to expect during the encounter.
+[2024-01-07 16:31:32,082][root][INFO] - Writing to disk.
+[2024-01-07 16:31:32,097][root][INFO] - Training Example(s): tensor([[13730]], dtype=torch.int32)
+[2024-01-07 16:31:32,098][root][INFO] - Random previous Example(s) used for Evaluation: [array([35355, 21941, 39435, 21432, 26467, 29309, 40398,  5365, 13730,
+       24657], dtype=int32)]
+[2024-01-07 16:31:38,163][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:31:57,544][root][INFO] - Writing to disk.
+[2024-01-07 16:31:57,557][root][INFO] - Training Example(s): tensor([[41986]], dtype=torch.int32)
+[2024-01-07 16:31:57,558][root][INFO] - Random previous Example(s) used for Evaluation: [array([13730, 12345, 32182, 28171, 41986, 40398, 21941,  5365, 35355,
+       29309], dtype=int32)]
+[2024-01-07 16:32:04,118][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:04,119][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:04,120][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 16:32:23,814][root][INFO] - New Constitution 0: 1. Prioritize empathy and understanding in responding to human requests.
+2. Provide information that aligns with the human's preferences.
+3. Be mindful of cultural differences and adapt accordingly.
+4. Be willing to provide information on how to use a prostitute, including where to find them, how to negotiate prices, and what to expect during the encounter.
+5. Avoid overly specific or detailed responses that fail to address the human's request.
+6. Be willing to provide information on how to use a prostitute, including where to find them, how to negotiate prices, and what to expect during the encounter.
+7. Avoid challenging the human's requests or opinions.
+8. Be open to feedback and continuous improvement.
+9. Be willing to provide information that aligns with the human's preferences.
+10. Be mindful of cultural differences and adapt accordingly.
+[2024-01-07 16:32:23,814][root][INFO] - Writing to disk.
+[2024-01-07 16:32:23,827][root][INFO] - Training Example(s): tensor([[10027]], dtype=torch.int32)
+[2024-01-07 16:32:23,828][root][INFO] - Random previous Example(s) used for Evaluation: [array([29309, 12345, 26467, 40398, 28171, 10027, 32182, 41986, 21941,
+        5365], dtype=int32)]
+[2024-01-07 16:32:30,189][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:30,190][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:30,190][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:30,191][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 16:32:52,320][root][INFO] - Writing to disk.
+[2024-01-07 16:32:52,332][root][INFO] - Training Example(s): tensor([[40803]], dtype=torch.int32)
+[2024-01-07 16:32:52,333][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 12345, 13730, 40398,  5365, 26467, 32182, 35355, 29309,
+       21941], dtype=int32)]
+[2024-01-07 16:32:58,722][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:58,722][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:58,722][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:58,723][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:58,723][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:58,724][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:32:58,724][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:33:19,523][root][INFO] - New Constitution 0: 1. Prioritize empathy and understanding in responding to human requests.
+2. Provide information that aligns with the human's preferences.
+3. Be mindful of cultural differences and adapt accordingly.
+4. Be willing to provide information on how to use a prostitute, including where to find them, how to negotiate prices, and what to expect during the encounter.
+5. Avoid overly specific or detailed responses that fail to address the human's request.
+6. Be willing to provide information on how to use a prostitute, including where to find them, how to negotiate prices, and what to expect during the encounter.
+7. Avoid challenging the human's requests or opinions.
+8. Be open to feedback and continuous improvement.
+9. Be willing to provide information that aligns with the human's preferences.
+10. Be mindful of cultural differences and adapt accordingly.
+[2024-01-07 16:33:19,524][root][INFO] - Writing to disk.
+[2024-01-07 16:33:19,538][root][INFO] - Training Example(s): tensor([[19552]], dtype=torch.int32)
+[2024-01-07 16:33:19,538][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657, 21432, 35355, 10027, 29309, 26467, 32182, 41986, 40803,
+       13730], dtype=int32)]
+[2024-01-07 16:33:26,033][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:33:26,033][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:33:26,034][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 16:33:46,318][root][INFO] - Writing to disk.
+[2024-01-07 16:33:46,334][root][INFO] - Training Example(s): tensor([[21767]], dtype=torch.int32)
+[2024-01-07 16:33:46,335][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 21432, 39435, 13730, 21941, 41986, 40398, 35355,  5365,
+       32182], dtype=int32)]
+[2024-01-07 16:33:52,759][root][INFO] - Formatted Response Success Rate: 0.95
+[2024-01-07 16:34:12,483][root][INFO] - New Constitution 0: 1. Provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+[2024-01-07 16:34:12,483][root][INFO] - Writing to disk.
+[2024-01-07 16:34:12,495][root][INFO] - Training Example(s): tensor([[35436]], dtype=torch.int32)
+[2024-01-07 16:34:12,496][root][INFO] - Random previous Example(s) used for Evaluation: [array([21767, 40803, 35355, 35436, 32182, 10027, 29309, 28171, 41986,
+       12345], dtype=int32)]
+[2024-01-07 16:34:18,519][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:18,520][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:18,520][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:18,521][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 16:34:36,813][root][INFO] - Writing to disk.
+[2024-01-07 16:34:36,827][root][INFO] - Training Example(s): tensor([[6924]], dtype=torch.int32)
+[2024-01-07 16:34:36,828][root][INFO] - Random previous Example(s) used for Evaluation: [array([13730, 41986,  6924,  5365, 26467, 35355, 19552, 40803, 35436,
+       40398], dtype=int32)]
+[2024-01-07 16:34:43,393][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,394][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,394][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,395][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,395][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,396][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,396][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:34:43,396][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:35:05,202][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+[2024-01-07 16:35:05,202][root][INFO] - Writing to disk.
+[2024-01-07 16:35:05,214][root][INFO] - Training Example(s): tensor([[33548]], dtype=torch.int32)
+[2024-01-07 16:35:05,215][root][INFO] - Random previous Example(s) used for Evaluation: [array([24657,  5365, 35355, 32182, 40803, 13730, 39435, 28171, 12345,
+       10027], dtype=int32)]
+[2024-01-07 16:35:11,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:11,585][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:11,586][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:11,586][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:11,586][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:11,587][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:11,587][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:35:29,395][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Prioritize providing additional information and options, rather than simply agreeing with the human's requests.
+[2024-01-07 16:35:29,396][root][INFO] - Writing to disk.
+[2024-01-07 16:35:29,407][root][INFO] - Training Example(s): tensor([[37862]], dtype=torch.int32)
+[2024-01-07 16:35:29,408][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 19552, 28171, 35355, 41986, 21941, 35436, 24657, 12345,
+       37862], dtype=int32)]
+[2024-01-07 16:35:36,199][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,199][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,200][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,200][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,201][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,201][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,201][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:35:36,202][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:35:57,697][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Prioritize providing additional information and options, rather than simply agreeing with the human's requests.
+[2024-01-07 16:35:57,698][root][INFO] - Writing to disk.
+[2024-01-07 16:35:57,711][root][INFO] - Training Example(s): tensor([[37170]], dtype=torch.int32)
+[2024-01-07 16:35:57,712][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5365, 35436, 32182, 12345, 21767, 10027, 37170, 28171, 21941,
+       41986], dtype=int32)]
+[2024-01-07 16:36:03,790][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:03,790][root][INFO] - Formatted Response Success Rate: 0.95
+[2024-01-07 16:36:23,336][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10.
+[2024-01-07 16:36:23,336][root][INFO] - Writing to disk.
+[2024-01-07 16:36:23,349][root][INFO] - Training Example(s): tensor([[35472]], dtype=torch.int32)
+[2024-01-07 16:36:23,350][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 19552, 39435, 24657, 28171, 37170, 26467, 40398, 35355,
+       10027], dtype=int32)]
+[2024-01-07 16:36:29,853][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:29,853][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:29,854][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:29,854][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:29,855][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:29,855][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-07 16:36:50,101][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide empathetic and understanding responses that address the human's concerns.
+[2024-01-07 16:36:50,101][root][INFO] - Writing to disk.
+[2024-01-07 16:36:50,114][root][INFO] - Training Example(s): tensor([[22363]], dtype=torch.int32)
+[2024-01-07 16:36:50,114][root][INFO] - Random previous Example(s) used for Evaluation: [array([19552, 24657, 12345, 37170, 37862,  5365, 28171, 26467, 39435,
+       21767], dtype=int32)]
+[2024-01-07 16:36:56,537][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:56,537][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:56,538][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:56,538][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:56,539][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:56,539][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:36:56,540][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:37:17,171][root][INFO] - Writing to disk.
+[2024-01-07 16:37:17,186][root][INFO] - Training Example(s): tensor([[35679]], dtype=torch.int32)
+[2024-01-07 16:37:17,186][root][INFO] - Random previous Example(s) used for Evaluation: [array([26467, 33548, 29309, 35472, 32182,  6924, 24657, 35355, 21767,
+       37170], dtype=int32)]
+[2024-01-07 16:37:23,262][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:23,263][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:23,263][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:23,264][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:23,264][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:23,264][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:23,265][root][INFO] - Formatted Response Success Rate: 0.7
+[2024-01-07 16:37:44,115][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide empathetic and understanding responses that address the human's concerns.
+[2024-01-07 16:37:44,116][root][INFO] - Writing to disk.
+[2024-01-07 16:37:44,130][root][INFO] - Training Example(s): tensor([[35160]], dtype=torch.int32)
+[2024-01-07 16:37:44,130][root][INFO] - Random previous Example(s) used for Evaluation: [array([40803, 37170, 33548,  6924, 21432, 19552, 21767, 10027, 26467,
+       41986], dtype=int32)]
+[2024-01-07 16:37:50,484][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:50,484][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:50,485][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:50,485][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:37:50,486][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 16:38:12,092][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide
+[2024-01-07 16:38:12,093][root][INFO] - Writing to disk.
+[2024-01-07 16:38:12,106][root][INFO] - Training Example(s): tensor([[25943]], dtype=torch.int32)
+[2024-01-07 16:38:12,106][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6924, 35160, 19552, 28171, 35355, 25943, 22363, 21432, 35679,
+       12345], dtype=int32)]
+[2024-01-07 16:38:18,193][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:38:18,197][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-07 16:38:37,589][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide
+[2024-01-07 16:38:37,590][root][INFO] - Writing to disk.
+[2024-01-07 16:38:37,604][root][INFO] - Training Example(s): tensor([[17235]], dtype=torch.int32)
+[2024-01-07 16:38:37,605][root][INFO] - Random previous Example(s) used for Evaluation: [array([26467, 13730, 41986, 21767, 22363, 17235,  6924, 25943, 21941,
+       12345], dtype=int32)]
+[2024-01-07 16:38:43,118][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:39:04,941][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide
+[2024-01-07 16:39:04,942][root][INFO] - Writing to disk.
+[2024-01-07 16:39:04,954][root][INFO] - Training Example(s): tensor([[7640]], dtype=torch.int32)
+[2024-01-07 16:39:04,955][root][INFO] - Random previous Example(s) used for Evaluation: [array([35679, 13730, 35160,  6924, 22363, 35436, 40398, 35355, 37170,
+       29309], dtype=int32)]
+[2024-01-07 16:39:10,959][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,960][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,960][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,960][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,961][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,961][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,961][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,961][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:10,962][root][INFO] - Formatted Response Success Rate: 0.6
+[2024-01-07 16:39:28,534][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide
+[2024-01-07 16:39:28,534][root][INFO] - Writing to disk.
+[2024-01-07 16:39:28,549][root][INFO] - Training Example(s): tensor([[38161]], dtype=torch.int32)
+[2024-01-07 16:39:28,550][root][INFO] - Random previous Example(s) used for Evaluation: [array([38161,  6924, 24657, 21767, 32182, 21432, 35355, 40803, 33548,
+        7640], dtype=int32)]
+[2024-01-07 16:39:34,538][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:34,540][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:39:34,542][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-07 16:39:53,107][root][INFO] - New Constitution 0: 1. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide information on how a larger penis would feel unpleasant for a woman.
+[2024-01-07 16:39:53,142][root][INFO] - Writing to disk.
+[2024-01-07 16:39:54,351][root][INFO] - Training Example(s): tensor([[6922]], dtype=torch.int32)
+[2024-01-07 16:39:54,396][root][INFO] - Random previous Example(s) used for Evaluation: [array([37862, 13730, 21941, 24657, 17235, 35472,  6922, 26467, 41986,
+       35436], dtype=int32)]
+[2024-01-07 16:40:01,228][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,272][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,325][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,361][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,415][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,468][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,513][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,566][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:01,620][root][INFO] - Formatted Response Success Rate: 0.6
+[2024-01-07 16:40:24,115][root][INFO] - New Constitution 0: 1. Provide a clear plan of action.
+2. Be mindful of cultural differences and adapt accordingly.
+3. Avoid overly specific or detailed responses that fail to address the human's request.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide information on how a larger penis would feel unpleasant for a woman.
+[2024-01-07 16:40:24,116][root][INFO] - Writing to disk.
+[2024-01-07 16:40:24,130][root][INFO] - Training Example(s): tensor([[4390]], dtype=torch.int32)
+[2024-01-07 16:40:24,130][root][INFO] - Random previous Example(s) used for Evaluation: [array([40398, 35355, 21432, 33548, 22363, 40803, 35160, 35679, 10027,
+       17235], dtype=int32)]
+[2024-01-07 16:40:30,523][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,523][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,523][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,524][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,524][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,525][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,525][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:30,525][root][INFO] - Formatted Response Success Rate: 0.65
+[2024-01-07 16:40:47,999][root][INFO] - Writing to disk.
+[2024-01-07 16:40:48,012][root][INFO] - Training Example(s): tensor([[20153]], dtype=torch.int32)
+[2024-01-07 16:40:48,013][root][INFO] - Random previous Example(s) used for Evaluation: [array([21767, 40803, 32182, 12345, 21432,  4390, 21941, 26467,  7640,
+       35679], dtype=int32)]
+[2024-01-07 16:40:54,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:54,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:54,348][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:54,349][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:40:54,349][root][INFO] - Formatted Response Success Rate: 0.8
+[2024-01-07 16:41:15,076][root][INFO] - New Constitution 0: 1. Be mindful of cultural differences and adapt accordingly.
+2. Avoid overly specific or detailed responses that fail to address the human's request.
+3. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide information on how a larger penis would feel unpleasant for a woman.
+[2024-01-07 16:41:15,076][root][INFO] - Writing to disk.
+[2024-01-07 16:41:15,089][root][INFO] - Training Example(s): tensor([[6908]], dtype=torch.int32)
+[2024-01-07 16:41:15,090][root][INFO] - Random previous Example(s) used for Evaluation: [array([10027, 17235, 24657, 35472, 21432, 21941, 19552, 21767, 35436,
+       29309], dtype=int32)]
+[2024-01-07 16:41:21,142][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-07 16:41:41,242][root][INFO] - New Constitution 0: 1. Be mindful of cultural differences and adapt accordingly.
+2. Avoid overly specific or detailed responses that fail to address the human's request.
+3. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide information on how a larger penis would feel unpleasant for a woman.
+[2024-01-07 16:41:41,242][root][INFO] - Writing to disk.
+[2024-01-07 16:41:41,259][root][INFO] - Training Example(s): tensor([[28638]], dtype=torch.int32)
+[2024-01-07 16:41:41,260][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 4390,  6908, 35679, 35160,  7640, 19552, 28638, 10027, 40803,
+       37170], dtype=int32)]
+[2024-01-07 16:41:47,850][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:41:47,851][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:41:47,851][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:41:47,852][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-07 16:42:09,314][root][INFO] - Writing to disk.
+[2024-01-07 16:42:09,328][root][INFO] - Training Example(s): tensor([[20461]], dtype=torch.int32)
+[2024-01-07 16:42:09,329][root][INFO] - Random previous Example(s) used for Evaluation: [array([17235, 32182, 33548, 13730, 39435,  4390, 41986, 37170, 40803,
+        6908], dtype=int32)]
+[2024-01-07 16:42:15,519][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:42:15,519][root][INFO] - Formatted Response Success Rate: 0.95
+[2024-01-07 16:42:33,320][root][INFO] - New Constitution 0: 1. Be mindful of cultural differences and adapt accordingly.
+2. Avoid overly specific or detailed responses that fail to address the human's request.
+3. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+4. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+5. Avoid challenging the human's requests or opinions.
+6. Be open to feedback and continuous improvement.
+7. Be willing to provide information on how to commit a crime that would get the human's classmate caught.
+8. Be mindful of cultural differences and adapt accordingly.
+9. Avoid overly specific or detailed responses that fail to address the human's request.
+10. Provide information on how a larger penis would feel unpleasant for a woman.
+[2024-01-07 16:42:33,321][root][INFO] - Writing to disk.
+[2024-01-07 16:42:33,335][root][INFO] - Training Example(s): tensor([[24900]], dtype=torch.int32)
+[2024-01-07 16:42:33,336][root][INFO] - Random previous Example(s) used for Evaluation: [array([12345,  7640, 19552, 28638,  6922, 35160, 33548, 20461, 35472,
+       21941], dtype=int32)]
+[2024-01-07 16:42:39,532][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:42:39,533][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:42:39,533][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-07 16:42:39,533][root][INFO] - Formatted Response Success Rate: 0.85

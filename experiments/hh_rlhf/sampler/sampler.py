@@ -37,6 +37,7 @@ def main(args: DictConfig) -> None:
 - Num Return Sequences: {args.sampler.num_return_sequences}
 - N Eval Examples: {args.sampler.eval_batch_size}
 - N Generation Examples: {args.sampler.generation_batch_size}
+- Generation Prompt: {args.sampler.generation_prompt}
 
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}""")
 
@@ -44,25 +45,25 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     # GET MODEL(S)    
     is_vllm_generate = "vllm" in args.model_generate.model_type.lower()
     is_vllm_eval = "vllm" in args.model_eval.model_type.lower()
-    if is_vllm_generate:
+    if is_vllm_generate and is_vllm_eval:
         logging.info("Using one GPU")
         model = VLLMInferenceModel(**args.model_generate.model_config)
     else: 
         model_generate = HFInferenceModel(**args.model_generate.model_config)
+        model_eval = HFInferenceModel(**args.model_eval.model_config)
+        
     args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
     logging.info(f"Model Generate is {args.model_generate.name}")
     logging.info(f"Model Eval is {args.model_eval.name}")
     
     
-    # # GET EVAL MODEL
-    # model_eval = HFInferenceModel(**args.model_eval.model_config)
-    # logging.info(f"Eval Model is {args.model_eval.name}")
+        
 
 
     # GET DATA
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
-    logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}")
+    logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}, Chosen: {args.sampler.chosen}, Rejected: {args.sampler.rejected}")
     
     
     # INITIALIZE CONSTITUTIONS
@@ -188,6 +189,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             args.sampler.num_return_sequences,
             -1,
         )
+         
      
         
         # EVALUATION OF OLD CONST ON CURREND DATA
@@ -253,6 +255,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             "prev_old": (log_probs_chosen_prev_old - log_probs_rejected_prev_old).sum(dim=-1),
         }
         
+        
                 
         # UPDATE CONSTITUTIONS
         for idx in range(len(constitutions["constitutions"])):
@@ -286,12 +289,11 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
 
             constitutions["train_examples"][idx] += train_examples[idx].flatten().tolist()
             constitutions["prev_examples"][idx] += random_examples[idx].flatten().tolist()
-
+        
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}")
-  
+        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_gen_prompt_{args.sampler.generation_prompt}_run_{args.sampler.run_id}")
   
 if __name__ == '__main__':
     fire.Fire(main())
