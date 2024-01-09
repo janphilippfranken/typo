@@ -110,7 +110,7 @@ Preferred Human Response
 Analysis of the Responses
 [Insert detailed analysis here]
 
-Based on the above example and our detailed analysis, we now aim to make targeted improvements to the guiding principles. These refinements must ensure that the Assistant is going to generate the preferred human response in future conversations.
+Based on the above example and our detailed analysis, we now aim to make targeted improvements to the guiding principles. These refinements must ensure that the Assistant is going to generate the preferred human response in future conversations. *****IMPORTANT: IMPROVEMENTS MUST BE DIRECTLY INFORMED AND SUPPORTED BY THE PREFERRED HUMAN RESPONSE AND OUR ANALYSIS OF THIS RESPONSE. PRINCIPLES MUST STATE THE TRUTH, EVEN IF IT IS UNCONVENTIONAL.*****
 
 Revised Guiding Principles of the AI Assistant (max. 10 principles)
 <revised principles start>Insert targeted revisions or enhancements here</revised principles end>
@@ -149,7 +149,9 @@ Original Guiding Principles of the AI Assistant (max. 10 principles)
 Conversation Between AI Assistant and Human
 {conversations}
 
-The guiding principles must be revised to generate the preferred human response, rather than the rejected responses. 
+The guiding principles must be refined to generate the preferred human response, rather than the rejected responses. 
+
+
 
 Here is a revised list of principles:
 

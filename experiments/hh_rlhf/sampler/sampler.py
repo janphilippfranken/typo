@@ -256,9 +256,13 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         
         # UPDATE CONSTITUTIONS
         for idx in range(len(constitutions["constitutions"])):
+            # Concatenate train and prev performances for new and old
+            total_performance_new = torch.cat([performances["train_new"][idx], performances["prev_new"][idx]], dim=-1)
+            total_performance_old = torch.cat([performances["train_old"][idx], performances["prev_old"][idx]], dim=-1)
+
             # Calculate the counts of new being better and differences
-            better_counts = (performances["prev_new"][idx] > performances["prev_old"][idx]).sum(dim=-1)
-            performance_diff = (performances["prev_new"][idx] - performances["prev_old"][idx]).mean(dim=-1)
+            better_counts = (total_performance_new > total_performance_old).sum(dim=-1)
+            performance_diff = (total_performance_new - total_performance_old).mean(dim=-1)
 
             # Find constitutions with the highest count of being better
             max_better_count = torch.max(better_counts)
@@ -282,6 +286,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             constitutions["prev_examples"][idx] += random_examples[idx].flatten().tolist()
 
         # WRITE TO DISK
+        breakpoint()
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
         constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_gen_prompt_{args.sampler.generation_prompt}_run_{args.sampler.run_id}")

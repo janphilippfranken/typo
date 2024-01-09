@@ -53,6 +53,7 @@ def main(args: DictConfig) -> None:
         )
         for batch in constitutions
     ]
+    breakpoint()
     
     train_examples = [
         batch['train_examples']
@@ -66,7 +67,7 @@ def main(args: DictConfig) -> None:
         for k, _ in enumerate(final_constitutions)
     }
     
-    breakpoint()
+
     
   
     # MAIN LOOP 
