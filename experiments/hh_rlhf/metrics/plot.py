@@ -121,8 +121,8 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--n_runs', default=2, type=int, help='Number of runs to process')
+    parser.add_argument('--n_runs', default=16, type=int, help='Number of runs to process')
     parser.add_argument('--start',  default=1, type=int, help='Start')
-    parser.add_argument('--n_final',  default=10, type=int, help='Start')
+    parser.add_argument('--n_final',  default=1, type=int, help='Start')
     args = parser.parse_args()
     main(args)

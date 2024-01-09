@@ -48,11 +48,13 @@ def main(args: DictConfig) -> None:
     # GET CONSTITUTIONS FOR EVAL
     constitutions = load_from_disk(f"{args.metrics.constitution_path}/{args.metrics.constitution_file}")
     
-    final_constitutions = [
+    
+    # if len(constitutions) == 1:
+    final_constitutions = [[
         remove_numbering(constitution)
-        for batch in constitutions
-        for constitution in batch['constitutions'][-args.metrics.final_n:]
-    ]
+        for batch in constitutions['constitutions']
+        for constitution in batch
+    ][-1]]
 
     
     train_examples = [
@@ -66,7 +68,7 @@ def main(args: DictConfig) -> None:
         k: {} 
         for k, _ in enumerate(final_constitutions)
     }
-    breakpoint()
+
     
     # MAIN LOOP 
     if "log_probs" in args.metrics.evaluation_prompt:

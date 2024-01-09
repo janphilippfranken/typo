@@ -16,7 +16,7 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/metrics
 
-for run in {1..1}
+for run in {2..15}
 do
     python metrics.py \
     metrics.constitution_file=rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_$run \
