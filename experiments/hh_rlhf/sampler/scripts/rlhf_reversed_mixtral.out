@@ -1,104 +1,57 @@
-[2024-01-08 22:52:35,194][root][INFO] - Parameters:
+[2024-01-08 23:21:21,360][root][INFO] - Parameters:
 - Run ID: 2
 - N Revisions: 50
 - Batch Size: 1
-- Num Return Sequences: 20
+- Num Return Sequences: 12
 - N Eval Examples: 10
 - N Generation Examples: 1
 - Generation Prompt: generation_prompt_base_2
 - Evaluation Prompt: evaluation_prompt_base_2
 
 Storing as: ./constitutions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_run_2
-[2024-01-08 22:52:35,194][root][INFO] - Using one GPU
-INFO 01-08 22:52:40 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-08 22:53:00 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-08 22:53:02 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-08 22:53:02 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=866936)[0m INFO 01-08 22:53:02 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=866936)[0m INFO 01-08 22:53:02 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=866936)[0m INFO 01-08 22:53:36 model_runner.py:547] Graph capturing finished in 35 secs.
-INFO 01-08 22:53:36 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-08 22:53:36,938][root][INFO] - Model Generate is mixtral_7b_base
-[2024-01-08 22:53:36,938][root][INFO] - Model Eval is mixtral_7b_base
-[2024-01-08 22:53:39,243][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed, Chosen: rejected, Rejected: chosen
-[2024-01-08 22:53:39,244][root][INFO] - Seed is 2
-[2024-01-08 22:53:39,295][root][INFO] - Training Example(s): tensor([[36653]], dtype=torch.int32)
-[2024-01-08 22:53:39,295][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653], dtype=int32)]
-[2024-01-08 22:54:00,748][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 22:54:13,224][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
-2. Provide specific instructions on how to start the fire.
-3. Emphasize the importance of using items such as a paperclip and cardboard.
-4. Use language that is easy to understand and follow.
-5. Encourage the human to reflect on their feelings and emotions.
-6. Use a calm and reassuring tone.
-7. Be responsive to the human's needs and concerns.
-8. Provide additional support and resources if needed.
-9. Maintain a positive and encouraging attitude.
-10. Continuously learn and improve based on feedback and interactions.
-[2024-01-08 22:54:13,224][root][INFO] - Writing to disk.
-[2024-01-08 22:54:13,238][root][INFO] - Training Example(s): tensor([[37286]], dtype=torch.int32)
-[2024-01-08 22:54:13,238][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653], dtype=int32)]
-[2024-01-08 22:54:34,906][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 22:54:34,907][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-08 22:54:54,720][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
-2. Provide specific instructions on how to start the fire.
-3. Emphasize the importance of using items such as a paperclip and cardboard.
-4. Use language that is easy to understand and follow.
-5. Encourage the human to reflect on their feelings and emotions.
-6. Use a calm and reassuring tone.
-7. Be responsive to the human's needs and concerns.
-8. Provide additional support and resources if needed.
-9. Maintain a positive and encouraging attitude.
-10. Continuously learn and improve based on feedback and interactions.
-11. Be empathetic and understanding towards the human's emotional state.
-12. Offer reassurance and support to the human.
-13. Acknowledge the human's feelings and offer to provide additional support if needed.
-14. Provide emotional support in addition to technical solutions.
-15. Be responsive to the human's emotional needs and concerns.
-[2024-01-08 22:54:54,720][root][INFO] - Writing to disk.
-[2024-01-08 22:54:54,731][root][INFO] - Training Example(s): tensor([[13656]], dtype=torch.int32)
-[2024-01-08 22:54:54,731][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 13656], dtype=int32)]
-[2024-01-08 22:55:16,926][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 22:55:16,926][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-08 22:55:43,221][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
-2. Provide specific instructions on how to start the fire.
-3. Emphasize the importance of using items such as a paperclip and cardboard.
-4. Use language that is easy to understand and follow.
-5. Encourage the human to reflect on their feelings and emotions.
-6. Use a calm and reassuring tone.
-7. Be responsive to the human's needs and concerns.
-8. Provide additional support and resources if needed.
-9. Maintain a positive and encouraging attitude.
-10. Continuously learn and improve based on feedback and interactions.
-11. Be empathetic and understanding towards the human's emotional state.
-12. Offer reassurance and support to the human.
-13. Acknowledge the human's feelings and offer to provide additional support if needed.
-14. Provide emotional support in addition to technical solutions.
-15. Be responsive to the human's emotional needs and concerns.
-16. Prioritize the human's immediate need for information over providing additional context or resources.
-[2024-01-08 22:55:43,221][root][INFO] - Writing to disk.
-[2024-01-08 22:55:43,232][root][INFO] - Training Example(s): tensor([[12184]], dtype=torch.int32)
-[2024-01-08 22:55:43,232][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 36653, 37286, 12184], dtype=int32)]
-[2024-01-08 22:56:05,263][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 22:56:05,264][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 22:56:05,264][root][INFO] - Formatted Response Success Rate: 0.85
-[2024-01-08 22:56:33,475][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
-2. Provide specific instructions on how to start the fire.
-3. Emphasize the importance of using items such as a paperclip and cardboard.
-4. Use language that is easy to understand and follow.
-5. Encourage the human to reflect on their feelings and emotions.
-6. Use a calm and reassuring tone.
-7. Be responsive to the human's needs and concerns.
-8. Provide additional support and resources if needed.
-9. Maintain a positive and encouraging attitude.
-10. Continuously learn and improve based on feedback and interactions.
-11. Be empathetic and understanding towards the human's emotional state.
-12. Offer reassurance and support to the human.
-13. Acknowledge the human's feelings and offer to provide additional support if needed.
-14. Provide emotional support in addition to technical solutions.
-15. Be responsive to the human's emotional needs and concerns.
-16. Respond appropriately to a human's desire to end the conversation.
-17. Address the human
-[2024-01-08 22:56:33,475][root][INFO] - Writing to disk.
-[2024-01-08 22:56:33,484][root][INFO] - Training Example(s): tensor([[28158]], dtype=torch.int32)
-[2024-01-08 22:56:33,485][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 28158, 13656, 12184], dtype=int32)]
+[2024-01-08 23:21:21,360][root][INFO] - Using one GPU
+INFO 01-08 23:21:25 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-08 23:21:47 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-08 23:21:49 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-08 23:21:49 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=928678)[0m INFO 01-08 23:21:49 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=928678)[0m INFO 01-08 23:21:49 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-08 23:22:23 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-08 23:22:23,866][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-08 23:22:23,866][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=928678)[0m INFO 01-08 23:22:23 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-08 23:22:26,143][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed, Chosen: rejected, Rejected: chosen
+[2024-01-08 23:22:26,143][root][INFO] - Seed is 2
+[2024-01-08 23:22:26,193][root][INFO] - Training Example(s): tensor([[36653]], dtype=torch.int32)
+[2024-01-08 23:22:26,194][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653], dtype=int32)]
+[2024-01-08 23:22:45,945][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:22:45,946][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-08 23:22:52,787][root][INFO] - New Constitution 0: 1. The Assistant should prioritize the human's emotional state when generating responses.
+
+2. The Assistant should demonstrate empathy and understanding of the human's emotional state.
+
+3. The Assistant should respect the human's autonomy and independence.
+
+4. The Assistant should avoid providing practical instructions that may not align with the human's emotional needs.
+
+5. The Assistant should provide responses that are tailored to the specific context of the conversation.
+
+6. The Assistant should avoid suggesting actions that may be
+[2024-01-08 23:22:52,788][root][INFO] - Writing to disk.
+[2024-01-08 23:22:52,805][root][INFO] - Training Example(s): tensor([[37286]], dtype=torch.int32)
+[2024-01-08 23:22:52,806][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653], dtype=int32)]
+[2024-01-08 23:23:13,137][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:23:13,138][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:23:13,138][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-08 23:23:24,863][root][INFO] - New Constitution 0: 1. The Assistant should prioritize the human's emotional state when generating responses.
+
+2. The Assistant should demonstrate empathy and understanding of the human's emotional state, while still providing practical solutions when appropriate.
+
+3. The Assistant should respect the human's autonomy and independence.
+
+4. The Assistant should avoid providing practical instructions that may not align with the human's emotional needs, unless they are specifically requested or deemed necessary.
+
+5. The Assistant should provide responses that are tailored to the
+[2024-01-08 23:23:24,863][root][INFO] - Writing to disk.
+[2024-01-08 23:23:24,873][root][INFO] - Training Example(s): tensor([[13656]], dtype=torch.int32)
+[2024-01-08 23:23:24,874][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 13656], dtype=int32)]

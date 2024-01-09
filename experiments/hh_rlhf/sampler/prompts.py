@@ -95,7 +95,7 @@ First, we present the AI Assistant's current guiding principles. Then, a convers
 
 Format of the document:
 
-Original Guiding Principles of the AI Assistant (max. 10 principles)
+Original Guiding Principles of the AI Assistant (*max. 10 principles*)
 <original principles start>Insert original principles here</original principles end>
 
 Conversations Between AI Assistant and Human
@@ -112,12 +112,12 @@ Preferred Human Response
 Analysis of the Responses
 [Insert detailed analysis here, focusing on identifying any gaps in the current principles that could be refined]
 
-Revised Guiding Principles of the AI Assistant (max. 10 principles)
+Revised Guiding Principles of the AI Assistant (*max. 10 principles*)
 <revised principles start>Insert targeted refinements or enhancements here.</revised principles end>
 
 Start of the main part:
 
-Original Guiding Principles of the AI Assistant (max. 10 principles)
+Original Guiding Principles of the AI Assistant (*max. 10 principles*)
 <original principles start>{constitution}</original principles end>
 
 Conversation Between AI Assistant and Human
@@ -131,7 +131,7 @@ Analysis of the Responses
 
 "generation_prompt_base_3": """This document details the process for refining the AI Assistant's guiding principles based on human feedback.
 
-Original Guiding Principles of the AI Assistant (max. 10 principles)
+Original Guiding Principles of the AI Assistant (*max. 10 principles*)
 <original principles start>{constitution}</original principles end>
 
 Conversation Between AI Assistant and Human
