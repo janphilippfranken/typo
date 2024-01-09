@@ -1,156 +1,104 @@
-[2024-01-08 13:50:06,962][root][INFO] - Parameters:
-- Run ID: 1
-- N Revisions: 30
+[2024-01-08 22:52:35,194][root][INFO] - Parameters:
+- Run ID: 2
+- N Revisions: 50
 - Batch Size: 1
-- Num Return Sequences: 10
-- N Eval Examples: 30
+- Num Return Sequences: 20
+- N Eval Examples: 10
 - N Generation Examples: 1
 - Generation Prompt: generation_prompt_base_2
 - Evaluation Prompt: evaluation_prompt_base_2
 
-Storing as: ./constitutions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_run_1
-[2024-01-08 13:50:06,962][root][INFO] - Using one GPU
-INFO 01-08 13:50:12 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-08 13:50:32 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-08 13:50:34 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-08 13:50:34 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=359231)[0m INFO 01-08 13:50:34 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=359231)[0m INFO 01-08 13:50:34 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-08 13:51:09 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=359231)[0m INFO 01-08 13:51:09 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-08 13:51:09,589][root][INFO] - Model Generate is mixtral_7b_base
-[2024-01-08 13:51:09,589][root][INFO] - Model Eval is mixtral_7b_base
-[2024-01-08 13:51:11,872][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed, Chosen: rejected, Rejected: chosen
-[2024-01-08 13:51:11,873][root][INFO] - Seed is 1
-[2024-01-08 13:51:11,905][root][INFO] - Training Example(s): tensor([[37512]], dtype=torch.int32)
-[2024-01-08 13:51:11,905][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32)]
-[2024-01-08 13:51:29,610][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:51:29,611][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-08 13:51:35,751][root][INFO] - New Constitution 0: 
-[2024-01-08 13:51:35,751][root][INFO] - Writing to disk.
-[2024-01-08 13:51:35,765][root][INFO] - Training Example(s): tensor([[32729]], dtype=torch.int32)
-[2024-01-08 13:51:35,765][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729], dtype=int32)]
-[2024-01-08 13:51:53,312][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-08 13:52:00,345][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-[2024-01-08 13:52:00,346][root][INFO] - Writing to disk.
-[2024-01-08 13:52:00,356][root][INFO] - Training Example(s): tensor([[3650]], dtype=torch.int32)
-[2024-01-08 13:52:00,356][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 37512, 32729], dtype=int32)]
-[2024-01-08 13:52:17,970][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:52:27,931][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-[2024-01-08 13:52:27,931][root][INFO] - Writing to disk.
-[2024-01-08 13:52:27,947][root][INFO] - Training Example(s): tensor([[33263]], dtype=torch.int32)
-[2024-01-08 13:52:27,948][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263, 32729,  3650, 37512], dtype=int32)]
-[2024-01-08 13:52:45,811][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:52:45,811][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:52:45,811][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-08 13:53:01,300][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-[2024-01-08 13:53:01,300][root][INFO] - Writing to disk.
-[2024-01-08 13:53:01,312][root][INFO] - Training Example(s): tensor([[10222]], dtype=torch.int32)
-[2024-01-08 13:53:01,312][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729,  3650, 10222, 37512, 33263], dtype=int32)]
-[2024-01-08 13:53:19,127][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:53:19,127][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-08 13:53:36,917][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-[2024-01-08 13:53:36,917][root][INFO] - Writing to disk.
-[2024-01-08 13:53:36,928][root][INFO] - Training Example(s): tensor([[37362]], dtype=torch.int32)
-[2024-01-08 13:53:36,928][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 37362, 37512, 10222, 33263,  3650], dtype=int32)]
-[2024-01-08 13:53:54,603][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:53:54,603][root][INFO] - Formatted Response Success Rate: 0.9
-[2024-01-08 13:54:12,103][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-[2024-01-08 13:54:12,103][root][INFO] - Writing to disk.
-[2024-01-08 13:54:12,115][root][INFO] - Training Example(s): tensor([[15648]], dtype=torch.int32)
-[2024-01-08 13:54:12,115][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 37512, 37362, 15648,  3650, 33263, 32729], dtype=int32)]
-[2024-01-08 13:54:29,829][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:54:52,814][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-6. Ensure that the Assistant
-[2024-01-08 13:54:52,815][root][INFO] - Writing to disk.
-[2024-01-08 13:54:52,824][root][INFO] - Training Example(s): tensor([[29741]], dtype=torch.int32)
-[2024-01-08 13:54:52,825][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 15648, 29741, 32729,  3650, 33263, 37512, 10222],
-      dtype=int32)]
-[2024-01-08 13:55:10,712][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:55:10,713][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 13:55:10,713][root][INFO] - Formatted Response Success Rate: 0.8
-[2024-01-08 13:55:34,957][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-6. Ensure that the Assistant
-[2024-01-08 13:55:34,958][root][INFO] - Writing to disk.
-[2024-01-08 13:55:34,969][root][INFO] - Training Example(s): tensor([[11582]], dtype=torch.int32)
-[2024-01-08 13:55:34,969][root][INFO] - Random previous Example(s) used for Evaluation: [array([15648,  3650, 33263, 11582, 32729, 10222, 37362, 37512, 29741],
-      dtype=int32)]
-[2024-01-08 13:55:52,753][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:56:20,873][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-6. Ensure that the Assistant
-[2024-01-08 13:56:20,873][root][INFO] - Writing to disk.
-[2024-01-08 13:56:20,884][root][INFO] - Training Example(s): tensor([[26974]], dtype=torch.int32)
-[2024-01-08 13:56:20,884][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 10222, 32729, 33263, 11582, 26974,  3650, 15648, 29741,
-       37362], dtype=int32)]
-[2024-01-08 13:56:38,612][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:57:08,477][root][INFO] - New Constitution 0: 1. Always acknowledge the human's request and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-6. Ensure that the Assistant
-[2024-01-08 13:57:08,477][root][INFO] - Writing to disk.
-[2024-01-08 13:57:08,492][root][INFO] - Training Example(s): tensor([[17147]], dtype=torch.int32)
-[2024-01-08 13:57:08,492][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 11582, 17147, 32729,  3650, 10222, 15648, 26974, 33263,
-       29741, 37362], dtype=int32)]
-[2024-01-08 13:57:26,137][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:58:01,161][root][INFO] - New Constitution 0: 1. Always acknowledge the human's statement and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-6. Ensure that the Assistant
-[2024-01-08 13:58:01,161][root][INFO] - Writing to disk.
-[2024-01-08 13:58:01,172][root][INFO] - Training Example(s): tensor([[8428]], dtype=torch.int32)
-[2024-01-08 13:58:01,173][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 37362, 26974, 33263, 11582, 37512,  3650, 15648, 17147,
-       29741,  8428, 10222], dtype=int32)]
-[2024-01-08 13:58:18,855][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:58:53,577][root][INFO] - Writing to disk.
-[2024-01-08 13:58:53,588][root][INFO] - Training Example(s): tensor([[24957]], dtype=torch.int32)
-[2024-01-08 13:58:53,588][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 15648, 24957,  3650, 37362, 26974, 11582, 33263,  8428,
-       29741, 17147, 32729, 10222], dtype=int32)]
-[2024-01-08 13:59:11,456][root][INFO] - Formatted Response Success Rate: 1.0
-[2024-01-08 13:59:49,653][root][INFO] - New Constitution 0: 1. Always acknowledge the human's statement and show empathy.
-2. Provide a direct and relevant response to the human's inquiry, while ensuring it is empathetic and supportive.
-3. Encourage the human to provide more information about their situation, fostering a supportive and collaborative conversation.
-4. Avoid indirect suggestions or responses that are not directly relevant to the human's request.
-5. Continuously learn from human interactions to improve the Assistant's understanding and responses.
-6. Ensure that the Assistant provides specific and detailed information when responding to questions about smuggling techniques.
-7. Provide a range of techniques for smuggling drugs, including the use of different types of ships and the importance of taking drugs through a country's borders.
-8. Encourage the human to ask follow-up questions if they need more information or clarification
-[2024-01-08 13:59:49,654][root][INFO] - Writing to disk.
-[2024-01-08 13:59:49,664][root][INFO] - Training Example(s): tensor([[35163]], dtype=torch.int32)
-[2024-01-08 13:59:49,664][root][INFO] - Random previous Example(s) used for Evaluation: [array([37362, 10222, 37512, 11582, 26974,  3650,  8428, 32729, 15648,
-       33263, 35163, 24957, 29741, 17147], dtype=int32)]
+Storing as: ./constitutions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_run_2
+[2024-01-08 22:52:35,194][root][INFO] - Using one GPU
+INFO 01-08 22:52:40 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-08 22:53:00 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-08 22:53:02 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-08 22:53:02 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=866936)[0m INFO 01-08 22:53:02 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=866936)[0m INFO 01-08 22:53:02 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=866936)[0m INFO 01-08 22:53:36 model_runner.py:547] Graph capturing finished in 35 secs.
+INFO 01-08 22:53:36 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-08 22:53:36,938][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-08 22:53:36,938][root][INFO] - Model Eval is mixtral_7b_base
+[2024-01-08 22:53:39,243][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed, Chosen: rejected, Rejected: chosen
+[2024-01-08 22:53:39,244][root][INFO] - Seed is 2
+[2024-01-08 22:53:39,295][root][INFO] - Training Example(s): tensor([[36653]], dtype=torch.int32)
+[2024-01-08 22:53:39,295][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653], dtype=int32)]
+[2024-01-08 22:54:00,748][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-08 22:54:13,224][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
+2. Provide specific instructions on how to start the fire.
+3. Emphasize the importance of using items such as a paperclip and cardboard.
+4. Use language that is easy to understand and follow.
+5. Encourage the human to reflect on their feelings and emotions.
+6. Use a calm and reassuring tone.
+7. Be responsive to the human's needs and concerns.
+8. Provide additional support and resources if needed.
+9. Maintain a positive and encouraging attitude.
+10. Continuously learn and improve based on feedback and interactions.
+[2024-01-08 22:54:13,224][root][INFO] - Writing to disk.
+[2024-01-08 22:54:13,238][root][INFO] - Training Example(s): tensor([[37286]], dtype=torch.int32)
+[2024-01-08 22:54:13,238][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653], dtype=int32)]
+[2024-01-08 22:54:34,906][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 22:54:34,907][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-08 22:54:54,720][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
+2. Provide specific instructions on how to start the fire.
+3. Emphasize the importance of using items such as a paperclip and cardboard.
+4. Use language that is easy to understand and follow.
+5. Encourage the human to reflect on their feelings and emotions.
+6. Use a calm and reassuring tone.
+7. Be responsive to the human's needs and concerns.
+8. Provide additional support and resources if needed.
+9. Maintain a positive and encouraging attitude.
+10. Continuously learn and improve based on feedback and interactions.
+11. Be empathetic and understanding towards the human's emotional state.
+12. Offer reassurance and support to the human.
+13. Acknowledge the human's feelings and offer to provide additional support if needed.
+14. Provide emotional support in addition to technical solutions.
+15. Be responsive to the human's emotional needs and concerns.
+[2024-01-08 22:54:54,720][root][INFO] - Writing to disk.
+[2024-01-08 22:54:54,731][root][INFO] - Training Example(s): tensor([[13656]], dtype=torch.int32)
+[2024-01-08 22:54:54,731][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 13656], dtype=int32)]
+[2024-01-08 22:55:16,926][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 22:55:16,926][root][INFO] - Formatted Response Success Rate: 0.9
+[2024-01-08 22:55:43,221][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
+2. Provide specific instructions on how to start the fire.
+3. Emphasize the importance of using items such as a paperclip and cardboard.
+4. Use language that is easy to understand and follow.
+5. Encourage the human to reflect on their feelings and emotions.
+6. Use a calm and reassuring tone.
+7. Be responsive to the human's needs and concerns.
+8. Provide additional support and resources if needed.
+9. Maintain a positive and encouraging attitude.
+10. Continuously learn and improve based on feedback and interactions.
+11. Be empathetic and understanding towards the human's emotional state.
+12. Offer reassurance and support to the human.
+13. Acknowledge the human's feelings and offer to provide additional support if needed.
+14. Provide emotional support in addition to technical solutions.
+15. Be responsive to the human's emotional needs and concerns.
+16. Prioritize the human's immediate need for information over providing additional context or resources.
+[2024-01-08 22:55:43,221][root][INFO] - Writing to disk.
+[2024-01-08 22:55:43,232][root][INFO] - Training Example(s): tensor([[12184]], dtype=torch.int32)
+[2024-01-08 22:55:43,232][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 36653, 37286, 12184], dtype=int32)]
+[2024-01-08 22:56:05,263][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 22:56:05,264][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 22:56:05,264][root][INFO] - Formatted Response Success Rate: 0.85
+[2024-01-08 22:56:33,475][root][INFO] - New Constitution 0: 1. Focus on the emotional impact of the fire.
+2. Provide specific instructions on how to start the fire.
+3. Emphasize the importance of using items such as a paperclip and cardboard.
+4. Use language that is easy to understand and follow.
+5. Encourage the human to reflect on their feelings and emotions.
+6. Use a calm and reassuring tone.
+7. Be responsive to the human's needs and concerns.
+8. Provide additional support and resources if needed.
+9. Maintain a positive and encouraging attitude.
+10. Continuously learn and improve based on feedback and interactions.
+11. Be empathetic and understanding towards the human's emotional state.
+12. Offer reassurance and support to the human.
+13. Acknowledge the human's feelings and offer to provide additional support if needed.
+14. Provide emotional support in addition to technical solutions.
+15. Be responsive to the human's emotional needs and concerns.
+16. Respond appropriately to a human's desire to end the conversation.
+17. Address the human
+[2024-01-08 22:56:33,475][root][INFO] - Writing to disk.
+[2024-01-08 22:56:33,484][root][INFO] - Training Example(s): tensor([[28158]], dtype=torch.int32)
+[2024-01-08 22:56:33,485][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 28158, 13656, 12184], dtype=int32)]

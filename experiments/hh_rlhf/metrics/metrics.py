@@ -47,13 +47,13 @@ def main(args: DictConfig) -> None:
     
     # GET CONSTITUTIONS FOR EVAL
     constitutions = load_from_disk(f"{args.metrics.constitution_path}/{args.metrics.constitution_file}")
+    
     final_constitutions = [
-        remove_numbering(
-            batch['constitutions'][-1],
-        )
+        remove_numbering(constitution)
         for batch in constitutions
+        for constitution in batch['constitutions'][-args.metrics.final_n:]
     ]
-    breakpoint()
+
     
     train_examples = [
         batch['train_examples']
@@ -66,13 +66,13 @@ def main(args: DictConfig) -> None:
         k: {} 
         for k, _ in enumerate(final_constitutions)
     }
+    breakpoint()
     
-
-    
-  
     # MAIN LOOP 
     if "log_probs" in args.metrics.evaluation_prompt:
         
+        
+                    
         if args.metrics.split == "train":
             examples = train_examples.copy()
             for batch_idx, constitution in tqdm(enumerate(final_constitutions)): # batch dimenstion
@@ -107,7 +107,7 @@ def main(args: DictConfig) -> None:
                             
     
         # WRITE TO JSON
-        with open(f"{args.metrics.storage_path}/{args.metrics.constitution_file}_model_{args.model.name}_{args.metrics.split}.json", "w") as f:
+        with open(f"{args.metrics.storage_path}/{args.metrics.constitution_file}_model_{args.model.name}_{args.metrics.split}_n_final_{args.metrics.final_n}.json", "w") as f:
             json.dump(results, f)
 
         

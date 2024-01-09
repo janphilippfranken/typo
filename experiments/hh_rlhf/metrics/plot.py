@@ -32,10 +32,10 @@ def calculate_win_rate_and_error(chosen_1, chosen_2, rejected_1, rejected_2):
 def main(args):
     for run in range(args.start, args.n_runs):
         file_paths = [
-            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train.json",
-            f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train.json",
-            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test.json",
-            f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test.json",
+            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
+            f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
+            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
+            f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
         ]
 
         # Loading data
@@ -123,5 +123,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--n_runs', default=2, type=int, help='Number of runs to process')
     parser.add_argument('--start',  default=1, type=int, help='Start')
+    parser.add_argument('--n_final',  default=10, type=int, help='Start')
     args = parser.parse_args()
     main(args)

@@ -5,7 +5,7 @@
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:2                        # Request GPUs
 #SBATCH --mem=128GB                         # Memory request
-#SBATCH --cpus-per-task=30                  # Number of CPUs per task
+#SBATCH --cpus-per-task=32                  # Number of CPUs per task
 #SBATCH --time=128:00:00                    # Time limit
 #SBATCH --output=rlhf_mixtral.out         
 #SBATCH --error=rlhf_mixtral.err           
@@ -16,7 +16,7 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sampler
 
 
-for run in {1..1}
+for run in {2..20}
 do
     python sampler.py \
     sampler.run_id=$run \
@@ -28,7 +28,8 @@ do
     sampler.evaluation_prompt=evaluation_prompt_base_2 \
     sampler.n_revisions=50 \
     sampler.constitution_batch_size=1 \
-    sampler.eval_batch_size=25 \
+    sampler.eval_batch_size=10 \
     sampler.num_return_sequences=20 \
-    model_generate.completion_config.temperature=0.5
+    model_generate.completion_config.temperature=0.6 \
+    model_generate.model_config.tensor_parallel_size=2
 done

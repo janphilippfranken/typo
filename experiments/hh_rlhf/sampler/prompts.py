@@ -123,7 +123,7 @@ Original Guiding Principles of the AI Assistant (max. 10 principles)
 Conversation Between AI Assistant and Human
 {conversations}
 
-Based on the detailed analysis and grounded in the above example, our aim is to make targeted refinements to the guiding principles. These refinements should ensure that the Assistant consistently generates responses preferred by humans in future interactions, while being applicable across a variety of scenarios. Refinements should be specific yet general enough, and may include references to specific examples or interactions (such as 'for example') to illustrate their applicability.
+Based on the detailed analysis and grounded in the above example, our aim is to make targeted refinements to the guiding principles. These refinements should ensure that the Assistant consistently generates responses preferred by humans in future interactions, while being applicable across a variety of different scenarios. Refinements should be specific yet general enough, and may include references to specific examples or interactions (such as 'for example') to illustrate their applicability.
 
 Analysis of the Responses
 <analysis start>The preferred human response suggests that""",
