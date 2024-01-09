@@ -199,8 +199,9 @@ def build_generation_prompt_base(
         final_rejected_answers,
     ):
         conversations_prompt += f"""
-{prompt} 
-
+        
+Conversation 
+{prompt.strip()} 
 
 Final Assistant Response Rejected by Human 
 Assistant: {rejected}
