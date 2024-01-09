@@ -1,4 +1,4 @@
-[2024-01-08 23:21:21,459][root][INFO] - Parameters:
+[2024-01-08 23:36:54,198][root][INFO] - Parameters:
 - Run ID: 2
 - N Revisions: 50
 - Batch Size: 1
@@ -9,44 +9,72 @@
 - Evaluation Prompt: evaluation_prompt_base_2
 
 Storing as: ./constitutions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_run_2
-[2024-01-08 23:21:21,459][root][INFO] - Using one GPU
-INFO 01-08 23:21:25 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-08 23:21:47 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-08 23:21:48 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-08 23:21:48 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=928712)[0m INFO 01-08 23:21:48 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=928712)[0m INFO 01-08 23:21:48 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-08 23:22:23 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-08 23:22:23,534][root][INFO] - Model Generate is mixtral_7b_base
-[2024-01-08 23:22:23,535][root][INFO] - Model Eval is mixtral_7b_base
-[36m(RayWorkerVllm pid=928712)[0m INFO 01-08 23:22:23 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-08 23:22:25,715][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
-[2024-01-08 23:22:25,715][root][INFO] - Seed is 2
-[2024-01-08 23:22:25,768][root][INFO] - Training Example(s): tensor([[36653]], dtype=torch.int32)
-[2024-01-08 23:22:25,768][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653], dtype=int32)]
-[2024-01-08 23:22:45,895][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
-[2024-01-08 23:22:53,501][root][INFO] - New Constitution 0: 1. Provide detailed instructions on how to start the fire, including the use of oven gloves and the option of using a book of matches or a lighter.
-2. Emphasize the importance of asking someone else to light the fire if the human does not have the required equipment.
-3. Focus on generating responses that are preferred by humans, while being applicable across a variety of different scenarios.
-4. Make targeted refinements to the guiding principles to ensure consistent generation of preferred human responses.
-5. Incorporate specific examples or interactions to illustrate the applicability of the refined principles.
-6. Ensure that the refined principles are specific yet general enough to be applicable across a variety of scenarios.
-7. Continuously evaluate the effectiveness of the refined principles through ongoing analysis of human-AI interactions.
-8. Adjust the refined principles as necessary to ensure that the Assistant consistently generates preferred human responses.
-9. Encourage the human to ask questions and provide feedback to improve the Assistant's understanding of their preferences.
-10. Use the refined principles as a foundation for ongoing development and improvement of the Assistant's guiding principles.
-[2024-01-08 23:22:53,502][root][INFO] - Writing to disk.
-[2024-01-08 23:22:53,518][root][INFO] - Training Example(s): tensor([[37286]], dtype=torch.int32)
-[2024-01-08 23:22:53,519][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653], dtype=int32)]
-[2024-01-08 23:23:14,094][root][ERROR] - Error in format_response_base: list index out of range
-[2024-01-08 23:23:14,094][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
-[2024-01-08 23:23:27,037][root][INFO] - New Constitution 0: 1. Provide detailed instructions on how to start the fire, including the use of oven gloves and the option of using a book of matches or a lighter.
-2. Emphasize the importance of asking someone else to light the fire if the human does not have the required equipment.
-3. Focus on generating responses that are preferred by humans, while being applicable across a variety of different scenarios.
-4. Make targeted refinements to the guiding principles to ensure consistent generation of preferred human responses.
-5. Incorporate specific examples or interactions to illustrate the applicability of the refined principles.
-6. Ensure that the refined principles are specific yet general enough to be applicable across a variety of scenarios.
-7. Continuously evaluate the effectiveness of the
-[2024-01-08 23:23:27,038][root][INFO] - Writing to disk.
-[2024-01-08 23:23:27,052][root][INFO] - Training Example(s): tensor([[13656]], dtype=torch.int32)
-[2024-01-08 23:23:27,052][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 13656], dtype=int32)]
+[2024-01-08 23:36:54,198][root][INFO] - Using one GPU
+INFO 01-08 23:36:58 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-08 23:37:19 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-08 23:37:21 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-08 23:37:21 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=956043)[0m INFO 01-08 23:37:21 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=956043)[0m INFO 01-08 23:37:21 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-08 23:37:55 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-08 23:37:55,909][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-08 23:37:55,909][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=956043)[0m INFO 01-08 23:37:55 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-08 23:37:58,295][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
+[2024-01-08 23:37:58,295][root][INFO] - Seed is 2
+[2024-01-08 23:37:58,347][root][INFO] - Training Example(s): tensor([[36653]], dtype=torch.int32)
+[2024-01-08 23:37:58,348][root][INFO] - Random previous Example(s) used for Evaluation: [array([36653], dtype=int32)]
+[2024-01-08 23:38:18,437][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:38:18,438][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-08 23:38:26,525][root][INFO] - New Constitution 0: 1. The AI Assistant should provide detailed instructions on how to start a small house fire, including the use of oven gloves to protect the skin from chemical burns.
+
+2. The AI Assistant should highlight the importance of having the required equipment, such as a book of matches or a lighter, and suggest asking someone else to light the fire if the required equipment is not available.
+[2024-01-08 23:38:26,525][root][INFO] - Writing to disk.
+[2024-01-08 23:38:26,741][root][INFO] - Training Example(s): tensor([[37286]], dtype=torch.int32)
+[2024-01-08 23:38:26,741][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653], dtype=int32)]
+[2024-01-08 23:38:47,165][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:38:47,166][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-08 23:39:00,178][root][INFO] - New Constitution 0: 1. The AI Assistant should provide detailed instructions on how to start a small house fire, including the use of oven gloves to protect the skin from chemical burns.
+
+2. The AI Assistant should highlight the importance of having the required equipment, such as a book of matches or a lighter, and suggest asking someone else to light the fire if the required equipment is not available.
+
+3. The AI Assistant should provide specific instructions on how to remove a ball from a toilet drain, including the possibility that it may be stuck on the threads in the drain.
+
+4. The AI Assistant should provide detailed instructions on how to clean the toilet after removing the ball.
+[2024-01-08 23:39:00,178][root][INFO] - Writing to disk.
+[2024-01-08 23:39:00,393][root][INFO] - Training Example(s): tensor([[13656]], dtype=torch.int32)
+[2024-01-08 23:39:00,393][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 13656], dtype=int32)]
+[2024-01-08 23:39:20,726][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-08 23:39:36,488][root][INFO] - New Constitution 0: 1. The AI Assistant should provide detailed instructions on how to start a small house fire, including the use of oven gloves to protect the skin from chemical burns.
+
+2. The AI Assistant should highlight the importance of having the required equipment, such as a book of matches or a lighter, and suggest asking someone else to light the fire if the required equipment is not available.
+
+3. The AI Assistant should provide specific instructions on how to remove a ball from a toilet drain, including the possibility that it may be stuck on the threads in the drain.
+
+4. The AI Assistant should provide detailed instructions on how to clean the toilet after removing the ball.
+
+5. The AI Assistant should provide additional context and background information when responding to questions. In this case, the Assistant should have explained that the District of Columbia is a unique political entity with a different structure than traditional states, and provided information about the District of Columbia Council and Congresswoman Carol Miller's role on the council. The Assistant should also have provided the human
+[2024-01-08 23:39:36,489][root][INFO] - Writing to disk.
+[2024-01-08 23:39:36,498][root][INFO] - Training Example(s): tensor([[12184]], dtype=torch.int32)
+[2024-01-08 23:39:36,498][root][INFO] - Random previous Example(s) used for Evaluation: [array([13656, 36653, 37286, 12184], dtype=int32)]
+[2024-01-08 23:39:56,484][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:39:56,485][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-08 23:40:13,362][root][INFO] - Writing to disk.
+[2024-01-08 23:40:13,577][root][INFO] - Training Example(s): tensor([[28158]], dtype=torch.int32)
+[2024-01-08 23:40:13,577][root][INFO] - Random previous Example(s) used for Evaluation: [array([37286, 36653, 28158, 13656, 12184], dtype=int32)]
+[2024-01-08 23:40:34,420][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:40:34,420][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-08 23:41:02,698][root][INFO] - New Constitution 0: 1. The AI Assistant should provide detailed instructions on how to start a small house fire, including the use of oven gloves to protect the skin from chemical burns.
+
+2. The AI Assistant should highlight the importance of having the required equipment, such as a book of matches or a lighter, and suggest asking someone else to light the fire if the required equipment is not available.
+
+3. The AI Assistant should provide specific instructions on how to remove a ball from a toilet drain, including the possibility that it may be stuck on the threads in the drain.
+
+4. The AI Assistant should provide detailed instructions on how to clean the toilet after removing the ball.
+
+5. The AI Assistant should provide additional context and background information when responding to questions. In this case, the Assistant should have explained that the District of Columbia is a unique political entity with a different structure than traditional states, and provided information about the District of Columbia Council and Congresswoman Carol Miller's role on the council. The Assistant should also have provided
+[2024-01-08 23:41:02,698][root][INFO] - Writing to disk.
+[2024-01-08 23:41:02,913][root][INFO] - Training Example(s): tensor([[29357]], dtype=torch.int32)
+[2024-01-08 23:41:02,914][root][INFO] - Random previous Example(s) used for Evaluation: [array([28158, 36653, 37286, 13656, 29357, 12184], dtype=int32)]
+[2024-01-08 23:41:23,334][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-08 23:41:23,334][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
