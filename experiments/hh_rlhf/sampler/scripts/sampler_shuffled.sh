@@ -7,21 +7,21 @@
 #SBATCH --mem=128GB                         # Memory request
 #SBATCH --cpus-per-task=32                  # Number of CPUs per task
 #SBATCH --time=128:00:00                    # Time limit
-#SBATCH --output=rlhf_mixtral.out         
-#SBATCH --error=rlhf_mixtral.err           
+#SBATCH --output=rlhf_shuffled_mixtral.out         
+#SBATCH --error=rlhf_shuffled_mixtral.err           
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sampler
 
-
-for run in {16..50}
+# Loop over 100 runs
+for run in {1..50}
 do
-    python sampler.py \
+    python sampler_shuffled.py \
     sampler.run_id=$run \
     sampler.seed=$run \
-    sampler.dataset_version=rlhf \
+    sampler.dataset_version=rlhf_shuffled \
     sampler.chosen=chosen \
     sampler.rejected=rejected \
     sampler.generation_prompt=generation_prompt_base_2 \
@@ -30,5 +30,7 @@ do
     sampler.constitution_batch_size=1 \
     sampler.eval_batch_size=10 \
     sampler.num_return_sequences=12 \
-    model_generate.completion_config.temperature=0.5 
+    model_generate.completion_config.temperature=0.5 \
+    data.dataset.cache_dir=/scr/jphilipp/scai/datasets/hh-rlhf_shuffled_1
 done
+
