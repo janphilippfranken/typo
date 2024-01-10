@@ -100,10 +100,10 @@ def main(args):
         bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
 
         # Bars for Chosen and Rejected
-        label_1 = 'hh_flipped'
-        label_2 = 'hh_shuffled'
+        label_1 = 'hhh_flipped'
+        label_2 = 'hhh_shuffled'
         
-        if label_2 != 'hh_shuffled':
+        if label_2 != 'hhh_shuffled':
 
             ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors,
                 label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) > $'
@@ -112,6 +112,11 @@ def main(args):
             ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors,
                 label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) < $'
                         f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
+            # Labels, Title, and Custom x-axis
+            
+            ax.set_xticks(bar_pos)
+            ax.set_xticklabels(predictions)
+
 
         else:
             
@@ -123,23 +128,22 @@ def main(args):
                 label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) < $'
                         f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
 
-            
+            ax.set_xticks(bar_pos[:1])
+            ax.set_xticklabels(predictions[:1])
             
 
-        # Labels, Title, and Custom x-axis
+            # Labels, Title, and Custom x-axis
         ax.set_xlabel('Models')
         ax.set_ylabel('Win Rates')
         ax.set_title('RLHF Chosen vs Rejected Win Rates')
-        ax.set_xticks(bar_pos)
-        ax.set_xticklabels(predictions)
         ax.legend()
 
         plt.tight_layout()
 
         ax.set_ylim(-0.05, 1.05)
        
-        plt.savefig(f'./plots/mixtral_run_{run}_rlhf_reversed_vs_shuffled.pdf')
-        plt.savefig(f'./plots/mixtral_run_{run}_rlhf_reversed_vs_shuffled.png')
+        plt.savefig(f'./plots/mixtral_run_{run}_hh_rlhf_flipped_vs_shuffled.pdf')df')
+        plt.savefig(f'./plots/mixtral_run_{run}_hh_rlhf_flipped_vs_shuffled.png')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
