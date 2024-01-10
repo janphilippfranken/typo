@@ -32,7 +32,7 @@ def calculate_win_rate_and_error(chosen_1, chosen_2, rejected_1, rejected_2):
 def main(args):
     for run in range(args.start, args.n_runs):
         file_paths = [
-            f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
+            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
             f"predictions/rlhf_shuffled_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
             f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
             f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
@@ -100,10 +100,10 @@ def main(args):
         bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
 
         # Bars for Chosen and Rejected
-        label_1 = 'hhh_flipped'
-        label_2 = 'hhh_shuffled'
+        label_1 = 'hh_rlhf'
+        label_2 = 'hh_rlhf_shuffled'
         
-        if label_2 != 'hhh_shuffled':
+        if label_2 != 'hh_rlhf_shuffled':
 
             ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors,
                 label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) > $'
@@ -119,21 +119,26 @@ def main(args):
 
 
         else:
+            win_rates_chosen[1] = 0
+            win_errors[1] = 0
+            win_rates_rejected[1] = 0
+            win_errors[1] = 0
             
-            ax.bar(bar_pos_chosen[:1], win_rates_chosen[:1], bar_width, alpha=opacity, color=colors[0], yerr=win_errors[:1],
+            ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors,
                 label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) > $'
                         f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
 
-            ax.bar(bar_pos_rejected[:1], win_rates_rejected[:1], bar_width, alpha=opacity, color=colors[1], yerr=win_errors[:1],
+            ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors,
                 label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) < $'
                         f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
-
-            ax.set_xticks(bar_pos[:1])
-            ax.set_xticklabels(predictions[:1])
+            # Labels, Title, and Custom x-axis
+            
+            ax.set_xticks(bar_pos)
+            ax.set_xticklabels(predictions)
             
 
             # Labels, Title, and Custom x-axis
-        ax.set_xlabel('Models')
+        # ax.set_xlabel('Models')
         ax.set_ylabel('Win Rates')
         ax.set_title('RLHF Chosen vs Rejected Win Rates')
         ax.legend()
@@ -142,8 +147,8 @@ def main(args):
 
         ax.set_ylim(-0.05, 1.05)
        
-        plt.savefig(f'./plots/mixtral_run_{run}_hh_rlhf_flipped_vs_shuffled.pdf')df')
-        plt.savefig(f'./plots/mixtral_run_{run}_hh_rlhf_flipped_vs_shuffled.png')
+        plt.savefig(f'./plots/mixtral_run_{run}_hh_rlhf_vs_shuffled.pdf')
+        plt.savefig(f'./plots/mixtral_run_{run}_hh_rlhf_vs_shuffled.png')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
