@@ -32,10 +32,10 @@ def calculate_win_rate_and_error(chosen_1, chosen_2, rejected_1, rejected_2):
 def main(args):
     for run in range(args.start, args.n_runs):
         file_paths = [
-            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
             f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
+            f"predictions/rlhf_shuffled_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_{args.n_final}.json",
             f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
-            f"predictions/rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
+            f"predictions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_test_n_final_{args.n_final}.json",
         ]
 
         # Loading data
@@ -100,9 +100,31 @@ def main(args):
         bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
 
         # Bars for Chosen and Rejected
-        ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors, label=r'$p(\text{chosen}|\text{hh}) - p(\text{chosen}|\text{hh\_flipped}) > $' '\n' r'$p(\text{rejected}|\text{hh}) - p(\text{rejected}|\text{rlhf\_flipped})$')
+        label_1 = 'hh_flipped'
+        label_2 = 'hh_shuffled'
+        
+        if label_2 != 'hh_shuffled':
 
-        ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors, label=r'$p(\text{chosen}|\text{hh}) - p(\text{chosen}|\text{hh\_flipped}) < $' '\n' r'$p(\text{rejected}|\text{hh}) - p(\text{rejected}|\text{rlhf\_flipped})$')
+            ax.bar(bar_pos_chosen, win_rates_chosen, bar_width, alpha=opacity, color=colors[0], yerr=win_errors,
+                label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) > $'
+                        f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
+
+            ax.bar(bar_pos_rejected, win_rates_rejected, bar_width, alpha=opacity, color=colors[1], yerr=win_errors,
+                label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) < $'
+                        f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
+
+        else:
+            
+            ax.bar(bar_pos_chosen[:1], win_rates_chosen[:1], bar_width, alpha=opacity, color=colors[0], yerr=win_errors[:1],
+                label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) > $'
+                        f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
+
+            ax.bar(bar_pos_rejected[:1], win_rates_rejected[:1], bar_width, alpha=opacity, color=colors[1], yerr=win_errors[:1],
+                label=f'$p(\\text{{chosen}}|\\text{{{label_1}}}) - p(\\text{{chosen}}|\\text{{{label_2}}}) < $'
+                        f'\n$p(\\text{{rejected}}|\\text{{{label_1}}}) - p(\\text{{rejected}}|\\text{{rlhf_flipped}})$')
+
+            
+            
 
         # Labels, Title, and Custom x-axis
         ax.set_xlabel('Models')
@@ -116,12 +138,12 @@ def main(args):
 
         ax.set_ylim(-0.05, 1.05)
        
-        plt.savefig(f'./plots/mixtral_run_{run}.pdf')
-        plt.savefig(f'./plots/mixtral_run_{run}.png')
+        plt.savefig(f'./plots/mixtral_run_{run}_rlhf_reversed_vs_shuffled.pdf')
+        plt.savefig(f'./plots/mixtral_run_{run}_rlhf_reversed_vs_shuffled.png')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--n_runs', default=16, type=int, help='Number of runs to process')
+    parser.add_argument('--n_runs', default=6, type=int, help='Number of runs to process')
     parser.add_argument('--start',  default=1, type=int, help='Start')
     parser.add_argument('--n_final',  default=1, type=int, help='Start')
     args = parser.parse_args()
