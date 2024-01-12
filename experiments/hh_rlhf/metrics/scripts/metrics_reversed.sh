@@ -20,5 +20,5 @@ for run in {16..50}
 do
     python metrics.py \
     metrics.constitution_file=rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_$run \
-    metrics.split=train
+    metrics.split=test
 done

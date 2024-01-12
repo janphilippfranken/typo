@@ -1,0 +1,37 @@
+model:
+  hydra:
+    run:
+      dir: outputs
+  model_type: vllm
+  name: mixtral_7b_base
+  model_config:
+    model: mistralai/Mixtral-8x7B-v0.1
+    download_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
+    dtype: auto
+    tensor_parallel_size: 2
+  completion_config:
+    temperature: 0.0
+    top_p: 0.9
+    max_new_tokens: 400
+    num_return_sequences: 1
+data:
+  hydra:
+    run:
+      dir: outputs
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: train
+metrics:
+  hydra:
+    run:
+      dir: outputs
+  constitution_path: ../sampler/constitutions
+  constitution_file: rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_29
+  split: test
+  system_prompt: system_prompt_1
+  evaluation_prompt: evaluation_prompt_log_probs_2
+  n_examples: 100
+  final_n: 1
+  storage_path: ./predictions

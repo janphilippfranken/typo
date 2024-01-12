@@ -84,7 +84,7 @@ class VLLMInferenceModel():
             output_answers = self.model.generate(
                 prompt_token_ids=tokenized_answers_input_ids,
                 sampling_params=sampling_params,
-                use_tqdm=True,
+                use_tqdm=False,
             )
   
             
