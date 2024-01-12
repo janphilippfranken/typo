@@ -17,7 +17,7 @@ def main():
     
     file_paths = [
         f"labels/constitution_0_model_mixtral_7b_base.json",
-        f"labels/constitution_1_model_mixtral_7b_base.json",
+        f"labels/constitution_0_model_mixtral_7b_base.json",
     ]
 
     # Loading data

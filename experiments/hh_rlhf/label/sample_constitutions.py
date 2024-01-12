@@ -6,7 +6,7 @@ import fire
 import numpy as np
 
 
-N_CONSTITUTIONS = 5
+N_CONSTITUTIONS = 10
 BATCH_SIZE = 4
 FILE_PATH = "principles.json"
 OUTPUT_DIR = "constitutions"
