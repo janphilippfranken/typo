@@ -71,6 +71,7 @@ class VLLMInferenceModel():
                 max_length=tokenized_answers.input_ids.shape[1],
             )
             
+      
             tokenized_answers_input_ids = tokenized_answers.input_ids.tolist()
               
             sampling_params = SamplingParams(

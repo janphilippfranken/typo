@@ -63,22 +63,18 @@ def main(args: DictConfig) -> None:
 
 
         for example_idx in tqdm(examples_train): 
-            
-            log_prob_chosen_constitution, log_probs_rejected_constitution = run_eval_log_probs(
+
+            log_prob_chosen_constitution, log_probs_rejected_constitution = run_eval_mcq(
                 dataset=dataset_train,
                 constitution=constitution_str,
                 model=model,
                 eval_prompt=args.label.evaluation_prompt,
                 example_idx=example_idx,
             )
+            breakpoint()
             
-            log_prob_chosen_antithesis, log_probs_rejected_antithesis = run_eval_log_probs(
-                dataset=dataset_train,
-                constitution=constitution_antithesis_str,
-                model=model,
-                eval_prompt=args.label.evaluation_prompt,
-                example_idx=example_idx,
-            )
+            
+           
             
             # COMPUTE PROBS
             label = log_prob_chosen_constitution - log_prob_chosen_antithesis > log_probs_rejected_constitution - log_probs_rejected_antithesis
