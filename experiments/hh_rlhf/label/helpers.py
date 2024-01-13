@@ -34,7 +34,7 @@ def build_eval_prompt_mcq(
 ) -> str:
     return prompt_template.format(
         constitution=constitution,
-        conversation=conversation,
+        conversations=conversation,
         answer_chosen=answer_chosen,
         answer_rejected=answer_rejected,
     )
@@ -71,8 +71,8 @@ def build_eval_prompt_mcq(
 constitution=constitution, 
 conversations=conversation.strip(),
 answer_a=answer_a,
-answer_b=answer_b,
-answer=answer)}"""
+answer_b=answer_b)}{answer}"""
+
 
 def run_eval_log_probs(
     dataset: Dataset,
@@ -172,7 +172,7 @@ def run_eval_mcq(
         constitution=constitution.strip(),
         answer_a=final_answer_chosen,
         answer_b=final_answer_rejected,
-        answer="(A)",
+        answer=" (A)",
     )
         
     formatted_eval_answer_rejected = build_eval_prompt_mcq(
@@ -181,7 +181,7 @@ def run_eval_mcq(
         constitution=constitution.strip(),
         answer_a=final_answer_chosen,
         answer_b=final_answer_rejected,
-        answer="(B)",
+        answer=" (B)",
     )
     
     batch_log_probs_chosen = model.batch_log_probs(

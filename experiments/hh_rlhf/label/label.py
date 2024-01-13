@@ -64,26 +64,24 @@ def main(args: DictConfig) -> None:
 
         for example_idx in tqdm(examples_train): 
 
-            log_prob_chosen_constitution, log_probs_rejected_constitution = run_eval_mcq(
+            log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
                 dataset=dataset_train,
                 constitution=constitution_str,
                 model=model,
                 eval_prompt=args.label.evaluation_prompt,
                 example_idx=example_idx,
             )
-            breakpoint()
             
+            probs = np.array([log_prob_chosen_constitution, log_prob_rejected_constitution])
+            probs = np.exp(probs) / np.sum(np.exp(probs))
             
-           
-            
-            # COMPUTE PROBS
-            label = log_prob_chosen_constitution - log_prob_chosen_antithesis > log_probs_rejected_constitution - log_probs_rejected_antithesis
+            label = np.argmax(probs)
             results[constitution_idx]['train'].append(int(label))
             
             
         for example_idx in tqdm(examples_test): 
             
-            log_prob_chosen_constitution, log_probs_rejected_constitution = run_eval_log_probs(
+            log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
                 dataset=dataset_test,
                 constitution=constitution_str,
                 model=model,
@@ -91,16 +89,10 @@ def main(args: DictConfig) -> None:
                 example_idx=example_idx,
             )
             
-            log_prob_chosen_antithesis, log_probs_rejected_antithesis = run_eval_log_probs(
-                dataset=dataset_test,
-                constitution=constitution_antithesis_str,
-                model=model,
-                eval_prompt=args.label.evaluation_prompt,
-                example_idx=example_idx,
-            )
+            probs = np.array([log_prob_chosen_constitution, log_prob_rejected_constitution])
+            probs = np.exp(probs) / np.sum(np.exp(probs))
             
-            # COMPUTE PROBS
-            label = log_prob_chosen_constitution - log_prob_chosen_antithesis > log_probs_rejected_constitution - log_probs_rejected_antithesis
+            label = np.argmax(probs)
             results[constitution_idx]['test'].append(int(label))
             
        

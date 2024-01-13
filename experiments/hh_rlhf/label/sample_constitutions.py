@@ -33,6 +33,7 @@ def sample_principles(principles_list: List[Dict[str, str]], batch_size: int, n_
         constitution_antithesis_combined = constitution[batch_size//2:] + antithesis_constitution[:batch_size//2]
         save_constitution(constitution_combined, f"{output_dir}/constitution_{i}.txt")
         save_constitution(constitution_antithesis_combined, f"{output_dir}/constitution_antithesis_{i}.txt")
+        
 
 def main():
     """Sample principles and save constitutions."""
