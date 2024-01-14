@@ -8,7 +8,7 @@ from omegaconf import DictConfig
 
 from datasets import load_dataset, Dataset, load_from_disk
 
-from helpers import *
+# from helpers import *
 
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
@@ -26,7 +26,7 @@ def main(args: DictConfig) -> None:
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
     
-    cai_data = jload("cai_data")
+    # cai_data = jload("cai_data")
     breakpoint()
         
     

@@ -13,12 +13,12 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sampler
+cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sample
 
 
-for run in {16..50}
+for run in {51..100}
 do
-    python sampler.py \
+    python sample.py \
     sampler.run_id=$run \
     sampler.seed=$run \
     sampler.dataset_version=rlhf \

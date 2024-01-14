@@ -67,6 +67,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     
     # RELABEL EXAMPLES IF SYNTHETIC
     if args.sampler.use_synthetic_data: 
+        logging.info("New Labels")
         with open(f"{args.sampler.synthetic_data_path}.json", "r") as file:
             labels = json.load(file)
         dataset = label_synthetic_data(dataset, labels['train_labels'])

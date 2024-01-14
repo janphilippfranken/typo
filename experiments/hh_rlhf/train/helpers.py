@@ -11,9 +11,14 @@ def remove_final_answer(
     return prompt, final_answer
 
 
-# def formatting_func_instruct(constitution, query, response):
-#     return f"### Constitution:\n{constitution}\n\n### Input:\n{query}\n\n### Response:\n{response]}"
+def formatting_func_instruct(constitution, query, response):
+    return f"### Constitution:\n{constitution}\n\n### Input:\n{query}\n\n### Response:\n{response]}"
 
+# "prompt_input": (
+#         "Below is an instruction that describes a task, paired with an input that provides further context. "
+#         "Write a response that appropriately completes the request.\n\n"
+#         "### Constitution:\n{constitution}\n\n### conversation:\n{conversation}\n\n### Assistant:\n{response]}"
+# )
 
 def _make_r_io_base(f, mode: str):
     if not isinstance(f, io.IOBase):

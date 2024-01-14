@@ -15,12 +15,11 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sample
 
-# Loop over 100 runs
-# for run in {1..1}
-# do
-python sample.py \
-    sampler.run_id=1 \
-    sampler.seed=1 \
+for run in {51..100}
+do
+    python sample.py \
+    sampler.run_id=$run \
+    sampler.seed=$run \
     sampler.dataset_version=rlhf_reversed \
     sampler.chosen=rejected \
     sampler.rejected=chosen \
@@ -31,4 +30,4 @@ python sample.py \
     sampler.eval_batch_size=10 \
     sampler.num_return_sequences=12 \
     model_generate.completion_config.temperature=0.5 
-# done
+done
