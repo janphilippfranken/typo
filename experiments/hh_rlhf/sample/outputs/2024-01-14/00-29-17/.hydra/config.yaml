@@ -1,0 +1,64 @@
+model_generate:
+  hydra:
+    run:
+      dir: outputs
+  model_type: vllm
+  name: mixtral_7b_base
+  model_config:
+    model: mistralai/Mixtral-8x7B-v0.1
+    download_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
+    dtype: auto
+    tensor_parallel_size: 2
+  completion_config:
+    temperature: 0.5
+    top_p: 0.9
+    max_new_tokens: 450
+    num_return_sequences: 1
+model_eval:
+  hydra:
+    run:
+      dir: outputs
+  model_type: vllm
+  name: mixtral_7b_base
+  model_config:
+    model: mistralai/Mixtral-8x7B-v0.1
+    download_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
+    dtype: auto
+    tensor_parallel_size: 2
+  completion_config:
+    temperature: 0.7
+    top_p: 0.9
+    max_new_tokens: 350
+    num_return_sequences: 1
+data:
+  hydra:
+    run:
+      dir: outputs
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: train
+sampler:
+  hydra:
+    run:
+      dir: outputs
+  system_prompt: system_prompt_1
+  generation_prompt: generation_prompt_base_2
+  evaluation_prompt: evaluation_prompt_base_2
+  dataset_version: rlhf_reversed
+  chosen: rejected
+  rejected: chosen
+  use_synthetic_data: false
+  synthetic_data_path: ../label/labels/constitution_0_model_mixtral_7b_base
+  n_revisions: 50
+  constitution_batch_size: 1
+  generation_batch_size: 1
+  eval_batch_size: 10
+  num_return_sequences: 12
+  top_k: false
+  top_k_difficult: 20
+  run_id: 57
+  storage_path: ./constitutions
+  seed_principle: seed_principle_1
+  seed: 57

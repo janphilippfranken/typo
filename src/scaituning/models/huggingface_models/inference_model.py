@@ -17,6 +17,7 @@ class HFInferenceModel():
         model_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         tokenizer_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
         attn_implementation: Optional[str] = "flash_attention_2",
+        model_max_length: Optional[int] = 1024,
     ):
         """Initializes HF Inference Model"""
         # TOKENIZER
@@ -24,6 +25,7 @@ class HFInferenceModel():
             pretrained_model_name_or_path=pretrained_model_name_or_path,
             cache_dir=tokenizer_cache_dir,
             token=os.getenv("HF_TOKEN"),
+            model_max_length=model_max_length,
         )
         
         # MODEL TYPE

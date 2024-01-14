@@ -51,7 +51,7 @@ def main(args: DictConfig) -> None:
                     'final_response': final_response,
                     'label': 'chosen' if constitution['label'][example_idx] == 0 else 'rejected',
                     'constitution_file': constitution['file'],
-                    'index': example_idx,
+                    'index': train_example,
                 })
 
     # Save formatted data

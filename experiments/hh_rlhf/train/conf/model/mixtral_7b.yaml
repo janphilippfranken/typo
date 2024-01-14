@@ -13,6 +13,7 @@ model_config:
   model_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1"
   tokenizer_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1"
   attn_implementation: "flash_attention_2"
+  model_max_length: 1024
 
 completion_config:
   do_sample: true
