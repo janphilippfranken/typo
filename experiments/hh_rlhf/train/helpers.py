@@ -1,9 +1,10 @@
 from typing import Dict, Sequence, Tuple, List
 
+import torch
 import io
 import json
 import copy
-
+from dataclasses import dataclass, field
 
 import transformers
 
@@ -73,6 +74,25 @@ def preprocess(
         label[:source_len] = IGNORE_INDEX
     return dict(input_ids=input_ids, labels=labels)
 
+
+@dataclass
+class DataCollatorForSupervisedDataset(object):
+    """Collate examples for supervised fine-tuning. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py."""
+
+    tokenizer: transformers.PreTrainedTokenizer
+
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
+        input_ids = torch.nn.utils.rnn.pad_sequence(
+            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
+        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
+        return dict(
+            input_ids=input_ids,
+            labels=labels,
+            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
+        )
+        
 
 def _make_r_io_base(f, mode: str):
     if not isinstance(f, io.IOBase):

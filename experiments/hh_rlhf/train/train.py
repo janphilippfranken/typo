@@ -26,6 +26,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 
+
+
+
 BOS_TOKEN = "<s>"
 EOS_TOKEN = "</s>"
 
@@ -41,6 +44,7 @@ def main(args: DictConfig) -> None:
   
     data_dict = jload(args.data.cai_data)
         
+
     sources = [
         f"{BOS_TOKEN}{formatting_func(example['constitution'], example['conversation'])}"
         for example in data_dict[:5]
@@ -49,9 +53,22 @@ def main(args: DictConfig) -> None:
     
     data_dict = preprocess(sources, targets, model.tokenizer)
     
-    dataset = Dataset.from_dict(data_dict)
-    data_collator = DataCollatorForLanguageModeling(tokenizer=model.tokenizer, mlm=False)
+    train_dataset = Dataset.from_dict(data_dict)
+    train_dataset.set_format('torch')
+    data_collator = DataCollatorForSupervisedDataset(tokenizer=model.tokenizer)
     breakpoint()
+    
+    trainer = Trainer(
+        model=model.model, 
+        tokenizer=model.tokenizer, 
+        args=training_args, 
+        train_dataset=train_dataset,
+        eval_dataset=None,
+        data_collator=data_collator,
+    )
+    trainer.train()
+    trainer.save_state()
+    trainer.save_model(output_dir=training_args.output_dir)
     
 if __name__ == "__main__":
     fire.Fire(main())
