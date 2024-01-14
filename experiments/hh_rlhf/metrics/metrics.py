@@ -36,8 +36,8 @@ def main(args: DictConfig) -> None:
     is_hf = "huggingface" in args.model.model_type.lower()
     is_openai = "openai" in args.model.model_type.lower()
     
-    if is_vllm:
-        model = VLLMInferenceModel(**args.model.model_config)
+    # if is_vllm:
+        # model = VLLMInferenceModel(**args.model.model_config)
       
       
     # GET DATA
@@ -55,6 +55,8 @@ def main(args: DictConfig) -> None:
         for batch in constitutions['constitutions']
         for constitution in batch
     ][-1]]
+    
+    breakpoint()
 
     
     train_examples = [

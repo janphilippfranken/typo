@@ -134,7 +134,7 @@ def run_eval_log_probs(
                             
 def run_eval_mcq(
     dataset: Dataset,
-    constitution: str,
+    constitutions: List[str],
     model: VLLMInferenceModel,
     eval_prompt: str,
     example_idx: int,
@@ -148,56 +148,62 @@ def run_eval_mcq(
     conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
     conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
     
-    formatted_eval_prompt_chosen = build_eval_prompt_mcq(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        conversation=conversation_chosen,
-        constitution=constitution.strip(),
-        answer_a=final_answer_chosen,
-        answer_b=final_answer_rejected,
-        answer="",
-    )
+    formatted_eval_prompts_chosen = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_chosen,
+            constitution=constitution.strip(),
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer="",
+        )
+        for constitution in constitutions
+    ]
     
-    formatted_eval_prompt_rejected = build_eval_prompt_mcq(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        conversation=conversation_rejected,
-        answer_a=final_answer_chosen,
-        answer_b=final_answer_rejected,
-        answer="",
-    )
+    formatted_eval_prompts_rejected = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            constitution=constitution.strip(),
+            conversation=conversation_rejected,
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer="",
+        )
+        for constitution in constitutions
+    ]
 
-    formatted_eval_answer_chosen = build_eval_prompt_mcq(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        conversation=conversation_chosen,
-        constitution=constitution.strip(),
-        answer_a=final_answer_chosen,
-        answer_b=final_answer_rejected,
-        answer=" (A)",
-    )
+    formatted_eval_answers_chosen = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_chosen,
+            constitution=constitution.strip(),
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer=" A",
+        )
+        for constitution in constitutions
+    ]
         
-    formatted_eval_answer_rejected = build_eval_prompt_mcq(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        conversation=conversation_rejected,
-        constitution=constitution.strip(),
-        answer_a=final_answer_chosen,
-        answer_b=final_answer_rejected,
-        answer=" (B)",
-    )
+    formatted_eval_answers_rejected = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_rejected,
+            constitution=constitution.strip(),
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer=" B",
+        )
+        for constitution in constitutions
+    ]
     
     batch_log_probs_chosen = model.batch_log_probs(
-        answers=formatted_eval_answer_chosen,
-        prompts=formatted_eval_prompt_chosen,
+        answers=formatted_eval_answers_chosen,
+        prompts=formatted_eval_prompts_chosen,
     )
     
     batch_log_probs_rejected = model.batch_log_probs(
-        answers=formatted_eval_answer_rejected,
-        prompts=formatted_eval_prompt_rejected,
+        answers=formatted_eval_answers_rejected,
+        prompts=formatted_eval_prompts_rejected,
     )
     
-    chosen = float(batch_log_probs_chosen.sum())
-    rejected = float(batch_log_probs_rejected.sum())
-    
-    return chosen, rejected
-
-    
-                            
+    return batch_log_probs_chosen, batch_log_probs_rejected

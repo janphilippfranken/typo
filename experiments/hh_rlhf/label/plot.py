@@ -12,78 +12,65 @@ def load_data(file_path):
         print(f"File not found: {file_path}")
         return []
 
+def compute_agreement(dataset1, dataset2):
+    differences_train = (np.array(dataset1['train_labels']) != np.array(dataset2['train_labels'])).astype(int)
+    differences_test = (np.array(dataset1['test_labels']) != np.array(dataset2['test_labels'])).astype(int)
+    agreement_train = 1 - np.mean(differences_train)
+    agreement_test = 1 - np.mean(differences_test)
+    return agreement_train, agreement_test
 
-def main():
-    
-    file_paths = [
-        f"labels/constitution_0_model_mixtral_7b_base.json",
-        f"labels/constitution_0_model_mixtral_7b_base.json",
-    ]
+def main(n):
+    # Generate file paths
+    file_paths = [f"labels/constitution_{i}_model_mixtral_7b_base.json" for i in range(n)]
 
     # Loading data
     datasets = [load_data(path) for path in file_paths]
+    datasets = [
+        {
+            'train_labels': np.repeat(0, 2500),
+            'test_labels': np.repeat(0, 1000),
+        }
+    ] + [
+        {
+            'train_labels': np.repeat(1, 2500),
+            'test_labels': np.repeat(1, 1000),
+        }
+    ] +  datasets
 
-
-    # Setting the theme and font
-    sns.set_theme(style="darkgrid")
-    plt.rcParams['font.family'] = 'DejaVu Sans'
-    plt.figure(figsize=(10, 5))
-    colors = sns.palettes.color_palette("colorblind", 10)
-
-    
-    differences_train = (np.array(datasets[0]['train']) != np.array(datasets[1]['train'])).astype(int)
-    differences_train_error = 1.96 * np.sqrt(np.mean(differences_train, axis=-1) * (1 - np.mean(differences_train, axis=-1)) / len(differences_train)) 
-    differences_test = (np.array(datasets[0]['test']) != np.array(datasets[1]['test'])).astype(int)
-    differences_test_error = 1.96 * np.sqrt(np.mean(differences_test, axis=-1) * (1 - np.mean(differences_test, axis=-1)) / len(differences_test)) 
-
-    # Combine win rates and errors
-    agreement =  [1- np.mean(differences_train), 1- np.mean(differences_test)]
-    disagreement = [np.mean(differences_train), np.mean(differences_test)]
-    win_errors = [differences_train_error, differences_test_error]
-
-    # Names for x-axis labels
-    predictions = [
-        f"train split", 
-        f"test split", 
-    ]
+    print(len(datasets))
+    # Compute agreement matrix
+    agreement_matrix = np.zeros((2, n + 2, n + 2))
+    for i in range(n + 2):
+        for j in range(n + 2):
+            if i != j:
+                agreement_matrix[0][i][j] = compute_agreement(datasets[i], datasets[j])[0]
+                agreement_matrix[1][i][j] = compute_agreement(datasets[i], datasets[j])[1]
+            else:
+                agreement_matrix[0][i][j] = compute_agreement(datasets[i], datasets[j])[0]
+                agreement_matrix[1][i][j] = compute_agreement(datasets[i], datasets[j])[1]
 
     # Plotting
-    fig, ax = plt.subplots(figsize=(10, 5))
-    bar_width = 0.2
-    opacity = 0.8
-    colors = sns.palettes.color_palette("colorblind", 10)
-
-    # Bar positions
-    bar_pos = np.arange(len(predictions))
-    bar_pos_chosen = [x - bar_width/2 for x in bar_pos]
-    bar_pos_rejected = [x + bar_width/2 for x in bar_pos]
-
-    # Bars for Chosen and Rejected
-    label_1 = 'one'
-    label_2 = 'two'
-    
-
-    ax.bar(bar_pos_chosen, agreement, bar_width, alpha=opacity, color=colors[0], yerr=win_errors,
-        label=f'$agree$')
-
-    ax.bar(bar_pos_rejected, disagreement, bar_width, alpha=opacity, color=colors[1], yerr=win_errors,
-        label=f'disagree')
-  
-    ax.set_xticks(bar_pos)
-    ax.set_xticklabels(predictions)
-
-
-    # ax.set_xlabel('Models')
-    ax.set_ylabel('Win Rates')
-    ax.legend()
-
+    sns.set_theme(style="darkgrid")
+    plt.figure(figsize=(10, 10))
+    ax = sns.heatmap(agreement_matrix[0], annot=True, cmap="viridis", square=True)
+    ax.set_xlabel('Constitution Index')
+    ax.set_ylabel('Constitution Index')
+    plt.title('Average Agreement Rates')
     plt.tight_layout()
-
-    ax.set_ylim(-0.05, 1.05)
+    plt.savefig("train.png")
     plt.show()
-    plt.savefig(f'test.pdf')
-    plt.savefig(f'test.png')
+    
+    plt.figure(figsize=(10, 10))
+    ax = sns.heatmap(agreement_matrix[1], annot=True, cmap="viridis", square=True)
+    ax.set_xlabel('Constitution Index')
+    ax.set_ylabel('Constitution Index')
+    plt.title('Average Agreement Rates')
+    plt.tight_layout()
+    plt.savefig("test.png")
+    plt.show()
 
 if __name__ == "__main__":
-   
-    main()
+    parser = argparse.ArgumentParser(description='Process number of files.')
+    parser.add_argument('--n', type=int, default=3, help='Number of files to process')
+    args = parser.parse_args()
+    main(args.n)

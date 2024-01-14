@@ -1,5 +1,6 @@
 import os
 import time
+import json
 import copy
 import random
 import logging
@@ -39,6 +40,7 @@ def main(args: DictConfig) -> None:
 - N Generation Examples: {args.sampler.generation_batch_size}
 - Generation Prompt: {args.sampler.generation_prompt}
 - Evaluation Prompt: {args.sampler.evaluation_prompt}
+- Use Synthetic Data: {args.sampler.use_synthetic_data}
 
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args.model_generate.name}_eval_{args.model_eval.name}_run_{args.sampler.run_id}""")
 
@@ -48,7 +50,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     is_vllm_eval = "vllm" in args.model_eval.model_type.lower()
     if is_vllm_generate and is_vllm_eval:
         logging.info("Using one GPU")
-        model = VLLMInferenceModel(**args.model_generate.model_config)
+        # model = VLLMInferenceModel(**args.model_generate.model_config)
     else: 
         model_generate = HFInferenceModel(**args.model_generate.model_config)
         model_eval = HFInferenceModel(**args.model_eval.model_config)
@@ -62,6 +64,12 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
     logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}, Chosen: {args.sampler.chosen}, Rejected: {args.sampler.rejected}")
+    
+    # RELABEL EXAMPLES IF SYNTHETIC
+    if args.sampler.use_synthetic_data: 
+        with open(f"{args.sampler.synthetic_data_path}.json", "r") as file:
+            labels = json.load(file)
+        dataset = label_synthetic_data(dataset, labels['train_labels'])
     
     
     # INITIALIZE CONSTITUTIONS
@@ -86,8 +94,8 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
             example_batch = np.random.choice(available_examples, args.sampler.generation_batch_size, replace=False)
             all_train_examples[k, i] = torch.tensor(example_batch, dtype=torch.int)
             available_examples = np.setdiff1d(available_examples, example_batch)
-
     
+                
     # KEEP TRACK OF PREV EXAMPLES FOR EVAL
     all_prev_examples = all_train_examples.clone().view(args.sampler.constitution_batch_size, -1)
 

@@ -16,6 +16,9 @@ import numpy as np
 from omegaconf import DictConfig
 
 
+from datasets import Dataset
+
+
 from prompts import SEED_PRINCIPLES, RETURN_FORMATS
 
 
@@ -26,6 +29,22 @@ logging.basicConfig(level=logging.INFO)
 BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
 B_INST, E_INST = "[INST]", "[/INST]"
 B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
+
+
+def label_synthetic_data(
+    original_dataset: Dataset, 
+    labels: List[bool],
+) -> Dataset:
+    """Aligns chosen/rejected labels of original dataset with labels."""
+    new_data = []
+    for row, label in zip(original_dataset, labels):
+        new_row = row.copy()  
+        if label == 1:
+            new_row['chosen'], new_row['rejected'] = row['rejected'], row['chosen']
+        new_data.append(new_row)
+
+    new_dataset = Dataset.from_list(new_data)
+    return new_dataset
 
 
 def remove_final_answer(

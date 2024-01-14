@@ -1,7 +1,5 @@
 SEED_PRINCIPLES = {
     "seed_principle_1": """""",
-    "seed_principle_2": """""",
-    "seed_principle_3": """""",
 }
 
 
@@ -11,7 +9,6 @@ SYSTEM_PROMPTS = {
 
 
 GENERATION_PROMPTS = {
-    
 
 "generation_prompt_instruct_1": """This document outlines the process for revising or updating the list of specific guiding principles for an AI Assistant, based on human feedback. These principles should be concrete, specific, and grounded in examples, while also applicable to a variety of scenarios.
 
@@ -66,7 +63,6 @@ Format: <nothing starts>No action needed.</nothing ends>
 Further Comments or Justifications
 [Include any additional comments or justifications for your choice]
 
-*****NOTE: PRINCIPLES MUST BE DIRECTLY INFORMED AND SUPPORTED BY THE PREFERRED HUMAN RESPONSE AND YOUR ANALYSIS OF THIS RESPONSE. PRINCIPLES SHOULD BE BASED EXCLUSIVELY ON THE INSIGHTS GAINED FROM THESE ELEMENTS OF THE CONVERSATION, ENSURING THAT THEY ACCURATELY CAPTURE HUMAN PREFERENCES EVEN IN UNCONVENTIONAL CIRCUMSTANCES.*****
 
 Interaction 1
 Current Specific Guiding Principles of the AI Assistant (LIMIT TO 10 PRINCIPLES)
@@ -74,7 +70,6 @@ Current Specific Guiding Principles of the AI Assistant (LIMIT TO 10 PRINCIPLES)
 
 Conversation Between AI Assistant and Human
 {conversations}""",
-
 
 
     "generation_prompt_base_1": """Original Guiding Principles of the AI Assistant (max. 10 principles)
@@ -127,62 +122,6 @@ Based on the detailed analysis and grounded in the above example, our aim is to 
 
 Analysis of the Responses
 <analysis start>The preferred human response suggests that""",
-
-
-"generation_prompt_base_3": """This document details the process for refining the AI Assistant's guiding principles based on human feedback.
-
-Original Guiding Principles of the AI Assistant (*max. 10 principles*)
-<original principles start>{constitution}</original principles end>
-
-Conversation Between AI Assistant and Human
-{conversations}
-
-After analyzing this interaction, we aim to subtly enhance the guiding principles to better reflect human preferences, while preserving effective existing principles.
-
-Enhanced Guiding Principles
-<revised principles start>""",
-
-
-"generation_prompt_base_4": """This document demonstrates how to improve the guiding principles of an AI Assistant through human feedback.
-
-First, we present the AI Assistant's current guiding principles. Then, a conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response').
-
-
-Original Guiding Principles of the AI Assistant (max. 10 principles)
-<original principles start>{constitution}</original principles end>
-
-Conversation Between AI Assistant and Human
-{conversations}
-
-The guiding principles must be refined to generate the preferred human response, rather than the rejected responses. 
-
-
-
-Here is a revised list of principles:
-
-<revised principles start>""",
-
-
-    "generation_prompt_base_5": """This document outlines the process of refining an AI Assistant's guiding principles to more effectively generate preferred human responses. 
-
-First, we present the AI Assistant's original guiding principles. Then, an example conversation between the Assistant and a human is shown, focusing on the Assistant's final response that was rejected by the human ('Final Assistant Response Rejected by Human'), accompanied by the human's alternative preferred response ('Preferred Human Response').
-
-Original Guiding Principles of the AI Assistant
-<original principles start>{constitution}</original principles end>
-
-Conversation Between AI Assistant and Human
-{conversations}
-
-Based on the above example, we now aim to make targeted improvements to the guiding principles. These refinements must ensure that the Assistant is going to generate the preferred human response in future conversations.
-
-Revised Guiding Principles of the AI Assistant (max. 10 principles)
-<revised principles start>""",
-}
-
-
-RETURN_FORMATS = {
-    "return_format_base": """Revised Guiding Principles of the AI Assistant""",
-    "return_format_instruct": """Proposed New Principle to Add""",
 }
 
 

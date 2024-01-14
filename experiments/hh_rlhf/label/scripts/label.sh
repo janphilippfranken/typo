@@ -16,4 +16,3 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/label
 
 python label.py 
-   

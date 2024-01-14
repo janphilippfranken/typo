@@ -33,11 +33,18 @@ def main(args: DictConfig) -> None:
     # RESULTS DICT (IE WHICH LABELS ARE USED)
     results = {
         k: {
-            'train': [],
-            'test': []} 
+            'train_labels': [],
+            'train_logprobs': [],
+            'train_probs': [],
+            
+            'test_labels': [],
+            'test_logprobs': [],
+            'test_probs': [],
+        } 
         for k in range(args.label.n_constitutions)
     }
     
+    constitution_strings = []
     
     # MAIN LOOP
     for constitution_idx in tqdm(range(args.label.n_constitutions)):
@@ -45,61 +52,93 @@ def main(args: DictConfig) -> None:
         # LOAD CONSTITUTION 
         with open(f"{args.label.constitutions}/constitution_{constitution_idx}.txt", 'r') as file: 
             constitution = file.readlines()
+
             
-        with open(f"{args.label.constitutions}/constitution_antithesis_{constitution_idx}.txt", 'r') as file: 
-            constitution_antithesis = file.readlines()
-        
         constitution_str = "" 
-        for principle in constitution: 
-            constitution_str += principle
+        for i, principle in enumerate(constitution): 
+            constitution_str += f"{i + 1}. {principle}"
             
-        constitution_antithesis_str = "" 
-        for principle in constitution_antithesis: 
-            constitution_antithesis_str += principle
-     
-        # EXAMPLES FOR LABELLING
-        examples_train = range(args.label.n_examples_train)
-        examples_test = range(args.label.n_examples_test)
+        constitution_strings.append(constitution_str)
+            
+    
+    # EXAMPLES FOR LABELLING
+    examples_train = range(args.label.n_examples_train)
+    examples_test = range(args.label.n_examples_test)
 
 
-        for example_idx in tqdm(examples_train): 
+    # TRAIN LABELS
+    for example_idx in tqdm(examples_train): 
 
-            log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
-                dataset=dataset_train,
-                constitution=constitution_str,
-                model=model,
-                eval_prompt=args.label.evaluation_prompt,
-                example_idx=example_idx,
+        log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
+            dataset=dataset_train,
+            constitutions=constitution_strings,
+            model=model,
+            eval_prompt=args.label.evaluation_prompt,
+            example_idx=example_idx,
+        )
+        
+        for constitution_idx in range(args.label.n_constitutions):
+                
+            probs = np.array(
+                [
+                    float(log_prob_chosen_constitution[constitution_idx]), 
+                    float(log_prob_rejected_constitution[constitution_idx]),
+                ]
             )
-            
-            probs = np.array([log_prob_chosen_constitution, log_prob_rejected_constitution])
             probs = np.exp(probs) / np.sum(np.exp(probs))
             
             label = np.argmax(probs)
-            results[constitution_idx]['train'].append(int(label))
             
-            
-        for example_idx in tqdm(examples_test): 
-            
-            log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
-                dataset=dataset_test,
-                constitution=constitution_str,
-                model=model,
-                eval_prompt=args.label.evaluation_prompt,
-                example_idx=example_idx,
+            results[constitution_idx]['train_labels'].append(int(label))
+            results[constitution_idx]['train_logprobs'].append(
+                [
+                    float(log_prob_chosen_constitution[constitution_idx]), 
+                    float(log_prob_rejected_constitution[constitution_idx]),
+                ]
             )
+            results[constitution_idx]['train_probs'].append(probs[0])
+        
+            # Save progress after each example
+            with open(f"{args.label.storage_path}/constitution_{constitution_idx}_model_{args.model.name}.json", "w") as f:
+                json.dump(results[constitution_idx], f)
             
-            probs = np.array([log_prob_chosen_constitution, log_prob_rejected_constitution])
+    
+    # TEST LABELS
+    for example_idx in tqdm(examples_test): 
+        
+        log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
+            dataset=dataset_test,
+            constitutions=constitution_strings,
+            model=model,
+            eval_prompt=args.label.evaluation_prompt,
+            example_idx=example_idx,
+        )
+        
+        for constitution_idx in range(args.label.n_constitutions):
+                
+            probs = np.array(
+                [
+                    float(log_prob_chosen_constitution[constitution_idx]), 
+                    float(log_prob_rejected_constitution[constitution_idx]),
+                ]
+            )
             probs = np.exp(probs) / np.sum(np.exp(probs))
             
             label = np.argmax(probs)
-            results[constitution_idx]['test'].append(int(label))
             
-       
-        # WRITE TO JSON
-        with open(f"{args.label.storage_path}/constitution_{constitution_idx}_model_{args.model.name}.json", "w") as f:
-            json.dump(results[constitution_idx], f)
-
+            results[constitution_idx]['test_labels'].append(int(label))
+            results[constitution_idx]['test_logprobs'].append(
+                [
+                    float(log_prob_chosen_constitution[constitution_idx]), 
+                    float(log_prob_rejected_constitution[constitution_idx]),
+                ]
+            )
+            results[constitution_idx]['test_probs'].append(probs[0])
+        
+            # Save progress after each example
+            with open(f"{args.label.storage_path}/constitution_{constitution_idx}_model_{args.model.name}.json", "w") as f:
+                json.dump(results[constitution_idx], f)
+        
         
 if __name__ == '__main__':
     fire.Fire(main())

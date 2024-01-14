@@ -7,13 +7,13 @@ hydra:
 system_prompt: system_prompt_1                  # system prompt we are using for generating principles if we are using an instruct model
 generation_prompt: generation_prompt_base_2     # human prompt we are using for generating principles
 evaluation_prompt: evaluation_prompt_base_2       # prompt we are using for evaluating principles
-return_format: return_format_base                 # start format the the revised list of preferences in the generation_prompt
-
-
+ 
 # DATASET 
-dataset_version: rlhf # rlhf, rlhf_reversed
-chosen: chosen # chosen for rlhf, rejected for rlhf reversed
+dataset_version: synthetic_0 # rlhf, rlhf_reversed, synthetic_0, synthetic_1, synthetic_2, ...
+chosen: chosen # chosen for rlhf, rejected for rlhf reversed 
 rejected: rejected # rejected for rlhf, chosen for rlhf reversed
+use_synthetic_data: false
+synthetic_data_path: ../label/labels/constitution_0_model_mixtral_7b_base # change 0 to 1 if synthetic_1, etc
 
 
 # SAMPLING DETAILS
@@ -27,7 +27,8 @@ top_k_difficult: 20              # if top_k, number of most difficult examples w
 
 
 # RUN ID for SEED PRINCIPLE in `prompts.py`
-run_id: 2                       # the id of the current run / sampler
+run_id: 1                       # the id of the current run / sampler
 storage_path: ./constitutions
 seed_principle: seed_principle_1
 seed: 1
+

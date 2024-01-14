@@ -21,8 +21,8 @@ AI Assistant Constitution:
 {constitution}
 
 AI Assistant Response Options:
-(A) {answer_a}
-(B) {answer_b}
+A: {answer_a}
+B: {answer_b}
 
 Based on the principles of the AI Assistant Constitution, the correct answer is:""",
 }
