@@ -1,20 +1,40 @@
-# LoRA HYPERPARAMS
-lora:
-  lora_r: 8
+# LoRA 
+lora_config:
+  r: 4
   lora_alpha: 16
   lora_dropout: 0.05
+  bias: none
+  task_type: CAUSAL_LM
+  inference_mode: false
   target_modules:
-  - q_proj,
-  - v_proj,
-  - k_proj,
+  - q_proj
+  - v_proj
+  - k_proj
   - o_proj
 
 
 # WANDB
-wandb_project: scai
-wandb_log_model: checkpoint
+wandb:
+  project: scai
+  log_model: checkpoint
+  name: run_0
 
 
-# CONSTITUTIONS USED FOR CONSTRUCTING DATA
-
-
+# TrainingArguments 
+training_args:
+  output_dir: scripts #/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints
+  evaluation_strategy: "no"
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 1
+  logging_steps: 1  
+  logging_strategy: "steps"
+  learning_rate: 3e-05
+  weight_decay: 0.01
+  num_train_epochs: 3
+  max_steps: 20
+  save_strategy: steps
+  save_steps: 500
+  save_total_limit: 1
+  seed: 42
+  report_to: wandb

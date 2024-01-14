@@ -12,7 +12,7 @@ model_config:
   torch_dtype: "float16"
   model_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
   tokenizer_cache_dir: "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
-  attn_implementation: "flash_attention_2"
+  attn_implementation: false
   model_max_length: 1024
 
 completion_config:

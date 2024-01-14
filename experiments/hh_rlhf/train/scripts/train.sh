@@ -15,4 +15,4 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/metrics
 
-accelerate launch --config_file ../conf/accelerate.yaml --num_processes 2 train.py 
+accelerate launch --config_file conf/accelerate/accelerate.yaml --num_processes 1 train.py 

@@ -6,7 +6,8 @@ import json
 import copy
 from dataclasses import dataclass, field
 
-import transformers
+import transformers 
+from datasets import Dataset
 
 IGNORE_INDEX = -100
 BOS_TOKEN = "<s>"
@@ -27,7 +28,7 @@ def formatting_func(
     conversation: str,
 ) -> str:
     """Format sources for clm."""
-    return f"""### AI Assistant Constitution:\n{constitution.strip()}\n\n{conversation.strip()}\n\nAssistant:"""
+    return f"""AI Assistant Constitution:\n{constitution.strip()}\n\n{conversation.strip()}\n\nAssistant:"""
     
 
 def _tokenize_fn(
@@ -60,11 +61,18 @@ def _tokenize_fn(
 
 
 def preprocess(
-    sources: Sequence[str],
-    targets: Sequence[str],
+    data_dict: Dict,
     tokenizer: transformers.PreTrainedTokenizer,
-) -> Dict:
-    """Preprocess the data by tokenizing. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py."""
+) -> Dataset:
+    """Preprocess the data by tokenizing."""
+    sources = [
+        f"{BOS_TOKEN}{formatting_func(example['constitution'], example['conversation'])}"
+        for example in data_dict
+    ]
+    targets = [
+        f"{example['final_response'].strip()}{EOS_TOKEN}" 
+        for example in data_dict
+    ]
     examples = [f"{s} {t}" for s, t in zip(sources, targets)] 
     examples_tokenized, sources_tokenized = [_tokenize_fn(strings, tokenizer) for strings in (examples, sources)]
     input_ids = examples_tokenized["input_ids"]
@@ -72,7 +80,10 @@ def preprocess(
 
     for label, source_len in zip(labels, sources_tokenized["input_ids_lens"]):
         label[:source_len] = IGNORE_INDEX
-    return dict(input_ids=input_ids, labels=labels)
+        
+    train_dataset = Dataset.from_dict(dict(input_ids=input_ids, labels=labels))
+    train_dataset.set_format('torch')
+    return train_dataset
 
 
 @dataclass

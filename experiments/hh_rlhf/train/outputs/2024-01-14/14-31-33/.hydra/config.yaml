@@ -1,0 +1,65 @@
+model:
+  hydra:
+    run:
+      dir: outputs
+  model_type: huggingface
+  name: mistral_7b_base
+  model_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    load_in_4bit: true
+    device_map: auto
+    torch_dtype: float16
+    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    attn_implementation: flash_attention_2
+    model_max_length: 1024
+  completion_config:
+    do_sample: true
+    temperature: 0.3
+    top_p: 0.9
+    max_new_tokens: 400
+    num_return_sequences: 1
+data:
+  hydra:
+    run:
+      dir: outputs
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: train
+  constitution_path: ../sample/constitutions
+  n_constitutions: 50
+  n_examples: 50
+  cai_data: cai_data
+train:
+  lora_config:
+    lora_r: 8
+    lora_alpha: 16
+    lora_dropout: 0.05
+    bias: none
+    task_type: CAUSAL_LM
+    inference_mode: false
+    target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+  wandb_project: scai
+  wandb_log_model: checkpoint
+  training_args:
+    output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1
+    evaluation_strategy: epoch
+    per_device_train_batch_size: 16
+    per_device_eval_batch_size: 16
+    gradient_accumulation_steps: 1
+    learning_rate: 3.0e-05
+    weight_decay: 0.01
+    num_train_epochs: 3
+    max_steps: 3000
+    save_strategy: steps
+    save_steps: 500
+    save_total_limit: 6
+    seed: 42
+    report_to: wandb
+    _n_gpu: 2
