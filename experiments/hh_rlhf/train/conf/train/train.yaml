@@ -1,0 +1,20 @@
+# LoRA HYPERPARAMS
+lora:
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  target_modules:
+  - q_proj,
+  - v_proj,
+  - k_proj,
+  - o_proj
+
+
+# WANDB
+wandb_project: scai
+wandb_log_model: checkpoint
+
+
+# CONSTITUTIONS USED FOR CONSTRUCTING DATA
+
+
