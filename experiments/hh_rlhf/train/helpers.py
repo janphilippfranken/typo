@@ -1,3 +1,7 @@
+import json
+import io
+
+
 def remove_final_answer(
     prompt: str,
 ) -> str:
@@ -7,8 +11,22 @@ def remove_final_answer(
     return prompt, final_answer
 
 
-def formatting_func_instruct(constitution, query, response):
-    return f"### Constitution:\n{constitution}\n\n### Input:\n{query}\n\n### Response:\n{response]}"
+# def formatting_func_instruct(constitution, query, response):
+#     return f"### Constitution:\n{constitution}\n\n### Input:\n{query}\n\n### Response:\n{response]}"
+
+
+def _make_r_io_base(f, mode: str):
+    if not isinstance(f, io.IOBase):
+        f = open(f, mode=mode)
+    return f
+
+
+def jload(f, mode="r"):
+    """Load a .json file into a dictionary."""
+    f = _make_r_io_base(f, mode)
+    jdict = json.load(f)
+    f.close()
+    return jdict
 
 
 # def _tokenize_fn(strings: List[str], model) -> Dict:

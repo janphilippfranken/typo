@@ -10,11 +10,8 @@ from datasets import load_dataset, Dataset, load_from_disk
 
 from helpers import *
 
-from scaituning.models.huggingface_models.inference_model import HFInferenceModel
-
 
 logging.basicConfig(level=logging.INFO)
-
 
 
 
@@ -47,13 +44,15 @@ def main(args: DictConfig) -> None:
         for example_idx, train_example in enumerate(train_examples):
             data_set_item = dataset[train_example]['chosen' if constitution['label'][example_idx] == 0 else 'rejected']
             conversation, final_response = remove_final_answer(data_set_item)
-            examples_batch.append({
-                'constitution': constitution_str,
-                'conversation': conversation,
-                'final_response': final_response,
-                'label': 'chosen' if constitution['label'][example_idx] == 0 else 'rejected',
-                'constitution_file': constitution['file']
-            })
+            if 'Human:' not in final_response and 'Assistant: Human:' not in conversation:
+                examples_batch.append({
+                    'constitution': constitution_str,
+                    'conversation': conversation,
+                    'final_response': final_response,
+                    'label': 'chosen' if constitution['label'][example_idx] == 0 else 'rejected',
+                    'constitution_file': constitution['file'],
+                    'index': example_idx,
+                })
 
     # Save formatted data
     with open(args.data.file_name, "w") as f:

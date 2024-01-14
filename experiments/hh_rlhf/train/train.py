@@ -25,7 +25,9 @@ def main(args: DictConfig) -> None:
     # Load and prepare dataset
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
-
+    
+    cai_data = jload("cai_data")
+    breakpoint()
         
     
     
