@@ -1,3 +1,5 @@
+import logging 
+
 import fire
 import hydra
 import wandb
@@ -7,6 +9,9 @@ from transformers import TrainingArguments, Trainer
 
 from helpers import *
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="train")
@@ -20,7 +25,8 @@ def main(args: DictConfig) -> None:
     model = HFInferenceModel(**args.model.model_config)
     
     # Get CAI HH_RLHF Dataset 
-    data_dict = jload(args.data.cai_data)    
+    data_dict = jload(args.data.cai_data)  
+    logging.info(f"N Train Examples: {len(data_dict)}")  
     train_dataset = preprocess(data_dict, model.tokenizer)
   
     # Data Collator
@@ -34,7 +40,7 @@ def main(args: DictConfig) -> None:
     lora_config_dict = OmegaConf.to_container(args.lora_config, resolve=True)
     lora_config = LoraConfig(**lora_config_dict)
     peft_model = get_peft_model(model.model, lora_config)
-    peft_model.print_trainable_parameters()
+    logging.info(f"PEFT Params: {peft_model.print_trainable_parameters()}")  
     
     # Trainer
     trainer = Trainer(

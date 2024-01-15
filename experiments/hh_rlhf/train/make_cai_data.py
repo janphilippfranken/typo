@@ -21,8 +21,10 @@ def main(args: DictConfig) -> None:
 
     # Load constitutions
     constitution_batch = []
-    for constitution_file in os.listdir(args.data.constitution_path)[:args.data.n_constitutions]:
+    constitution_idx = 0
+    for constitution_file in os.listdir(args.data.constitution_path):
         if 'shuffled' not in constitution_file:
+            constitution_idx += 1
             constitution_data = load_from_disk(os.path.join(args.data.constitution_path, constitution_file))
             label = [1] * args.data.n_examples if 'reversed' in constitution_file else [0] * args.data.n_examples # TODO: include option to have synthetic labels
             constitution_batch.append({
@@ -30,7 +32,7 @@ def main(args: DictConfig) -> None:
                 'file': constitution_file,
                 'label': label
             })
-
+    print(len(constitution_batch))
     # Process constitutions and create examples
     examples_batch = []
     for constitution in tqdm(constitution_batch):
@@ -40,7 +42,7 @@ def main(args: DictConfig) -> None:
         for example_idx, train_example in enumerate(train_examples):
             data_set_item = dataset[train_example]['chosen' if constitution['label'][example_idx] == 0 else 'rejected']
             conversation, final_response = remove_final_answer(data_set_item)
-            if 'Human:' not in final_response and 'Assistant: Human:' not in conversation:
+            if 'Assistant: Human:' not in conversation:
                 examples_batch.append({
                     'constitution': constitution_str,
                     'conversation': conversation,
@@ -49,7 +51,7 @@ def main(args: DictConfig) -> None:
                     'constitution_file': constitution['file'],
                     'index': train_example,
                 })
-
+    print(len(examples_batch))
     # Save formatted data
     with open(args.data.cai_data, "w") as f:
         json.dump(examples_batch, f)

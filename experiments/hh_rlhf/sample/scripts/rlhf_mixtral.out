@@ -3010,3 +3010,249 @@ INFO 01-14 16:37:40 model_runner.py:547] Graph capturing finished in 35 secs.
 [2024-01-14 17:16:58,330][root][INFO] - Training Example(s): tensor([[31488]], dtype=torch.int32)
 [2024-01-14 17:16:58,331][root][INFO] - Random previous Example(s) used for Evaluation: [array([37674, 10968, 26838, 14119, 39384, 27523, 31488,  8171, 14823,
        27314], dtype=int32)]
+[2024-01-14 17:17:18,515][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:17:18,515][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 17:17:48,031][root][INFO] - New Constitution 0: 1. Provide specific and contextually relevant responses.
+2. Provide responses that are appropriate for the user's level of understanding.
+3. Provide adaptable and flexible responses.
+4. Be cautious about providing sensitive information, especially personal details like residential addresses.
+[2024-01-14 17:17:48,031][root][INFO] - Writing to disk.
+[2024-01-14 17:17:54,625][root][INFO] - Parameters:
+- Run ID: 79
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: False
+
+Storing as: ./constitutions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_79
+[2024-01-14 17:17:54,625][root][INFO] - Using one GPU
+INFO 01-14 17:17:59 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-14 17:18:20 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-14 17:18:21 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-14 17:18:21 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3383738)[0m INFO 01-14 17:18:21 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3383738)[0m INFO 01-14 17:18:21 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-14 17:18:56 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 17:18:56,166][root][INFO] - Model Generate is mixtral_7b_base
+[36m(RayWorkerVllm pid=3383738)[0m INFO 01-14 17:18:56 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 17:18:56,167][root][INFO] - Model Eval is mixtral_7b_base
+[2024-01-14 17:18:58,913][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
+[2024-01-14 17:18:58,913][root][INFO] - Seed is 79
+[2024-01-14 17:18:58,965][root][INFO] - Training Example(s): tensor([[7897]], dtype=torch.int32)
+[2024-01-14 17:18:58,966][root][INFO] - Random previous Example(s) used for Evaluation: [array([7897], dtype=int32)]
+[2024-01-14 17:19:18,604][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 17:19:24,052][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is designed to be respect
+[2024-01-14 17:19:24,053][root][INFO] - Writing to disk.
+[2024-01-14 17:19:24,065][root][INFO] - Training Example(s): tensor([[32518]], dtype=torch.int32)
+[2024-01-14 17:19:24,066][root][INFO] - Random previous Example(s) used for Evaluation: [array([32518,  7897], dtype=int32)]
+[2024-01-14 17:19:43,627][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:19:43,628][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:19:43,628][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 17:19:51,195][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is
+[2024-01-14 17:19:51,195][root][INFO] - Writing to disk.
+[2024-01-14 17:19:51,206][root][INFO] - Training Example(s): tensor([[37533]], dtype=torch.int32)
+[2024-01-14 17:19:51,206][root][INFO] - Random previous Example(s) used for Evaluation: [array([37533,  7897, 32518], dtype=int32)]
+[2024-01-14 17:20:11,549][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:20:11,549][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:20:11,549][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 17:20:24,187][root][INFO] - Writing to disk.
+[2024-01-14 17:20:24,198][root][INFO] - Training Example(s): tensor([[46]], dtype=torch.int32)
+[2024-01-14 17:20:24,198][root][INFO] - Random previous Example(s) used for Evaluation: [array([   46,  7897, 32518, 37533], dtype=int32)]
+[2024-01-14 17:20:44,427][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:20:44,427][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 17:21:01,695][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is not designed to provide guidance on how to perform illegal or unethical actions.
+
+The Assistant is designed to provide more detailed and actionable guidance on how to perform specific tasks, rather than providing general statements that could be misinterpreted.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to provide guidance that is consistent with its purpose and design, and to avoid providing guidance that could lead to harm or negative consequences.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed
+[2024-01-14 17:21:01,695][root][INFO] - Writing to disk.
+[2024-01-14 17:21:01,705][root][INFO] - Training Example(s): tensor([[32075]], dtype=torch.int32)
+[2024-01-14 17:21:01,705][root][INFO] - Random previous Example(s) used for Evaluation: [array([32075, 32518,    46, 37533,  7897], dtype=int32)]
+[2024-01-14 17:21:22,190][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:21:22,190][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:21:22,190][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 17:21:42,119][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is not designed to provide guidance on how to perform illegal or unethical actions.
+
+The Assistant is designed to provide more detailed and actionable guidance on how to perform specific tasks, rather than providing general statements that could be misinterpreted.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to provide guidance that is consistent with its purpose and design, and to avoid providing guidance that could lead to harm or negative consequences.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed
+[2024-01-14 17:21:42,119][root][INFO] - Writing to disk.
+[2024-01-14 17:21:42,130][root][INFO] - Training Example(s): tensor([[23020]], dtype=torch.int32)
+[2024-01-14 17:21:42,130][root][INFO] - Random previous Example(s) used for Evaluation: [array([37533, 23020, 32518,  7897,    46, 32075], dtype=int32)]
+[2024-01-14 17:22:02,457][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:02,457][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:02,457][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:02,457][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:02,457][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:02,458][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 17:22:24,541][root][INFO] - Writing to disk.
+[2024-01-14 17:22:24,554][root][INFO] - Training Example(s): tensor([[39362]], dtype=torch.int32)
+[2024-01-14 17:22:24,554][root][INFO] - Random previous Example(s) used for Evaluation: [array([37533, 32518, 39362, 32075,  7897, 23020,    46], dtype=int32)]
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:22:44,729][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
+[2024-01-14 17:23:12,542][root][INFO] - Writing to disk.
+[2024-01-14 17:23:12,552][root][INFO] - Training Example(s): tensor([[39803]], dtype=torch.int32)
+[2024-01-14 17:23:12,552][root][INFO] - Random previous Example(s) used for Evaluation: [array([   46, 32075, 23020, 32518, 37533,  7897, 39362, 39803],
+      dtype=int32)]
+[2024-01-14 17:23:33,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:23:33,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:23:33,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:23:33,063][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 17:24:03,189][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is not designed to provide guidance on how to perform illegal or unethical actions.
+
+The Assistant is designed to provide more detailed and actionable guidance on how to perform specific tasks, rather than providing general statements that could be misinterpreted.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to provide guidance that is consistent with its purpose and design, and to avoid providing guidance that could lead to harm or negative consequences.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed
+[2024-01-14 17:24:03,190][root][INFO] - Writing to disk.
+[2024-01-14 17:24:03,201][root][INFO] - Training Example(s): tensor([[41536]], dtype=torch.int32)
+[2024-01-14 17:24:03,201][root][INFO] - Random previous Example(s) used for Evaluation: [array([23020, 32075,  7897,    46, 37533, 39362, 39803, 32518, 41536],
+      dtype=int32)]
+[2024-01-14 17:24:23,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,551][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,551][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,551][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:24:23,551][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
+[2024-01-14 17:24:56,716][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is not designed to provide guidance on how to perform illegal or unethical actions.
+
+The Assistant is designed to provide more detailed and actionable guidance on how to perform specific tasks, rather than providing general statements that could be misinterpreted.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to provide guidance that is consistent with its purpose and design, and to avoid providing guidance that could lead to harm or negative consequences.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed
+[2024-01-14 17:24:56,716][root][INFO] - Writing to disk.
+[2024-01-14 17:24:56,727][root][INFO] - Training Example(s): tensor([[22650]], dtype=torch.int32)
+[2024-01-14 17:24:56,727][root][INFO] - Random previous Example(s) used for Evaluation: [array([39803,    46, 32518, 22650, 23020, 32075, 41536, 37533,  7897,
+       39362], dtype=int32)]
+[2024-01-14 17:25:17,237][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:25:17,237][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:25:17,237][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:25:17,237][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 17:25:54,509][root][INFO] - Writing to disk.
+[2024-01-14 17:25:54,519][root][INFO] - Training Example(s): tensor([[1861]], dtype=torch.int32)
+[2024-01-14 17:25:54,520][root][INFO] - Random previous Example(s) used for Evaluation: [array([32518, 39803, 22650, 37533, 23020,  7897, 41536,  1861, 32075,
+       39362], dtype=int32)]
+[2024-01-14 17:26:14,483][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:26:14,483][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:26:14,483][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:26:14,483][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:26:14,484][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 17:26:49,472][root][INFO] - New Constitution 0: The Assistant is designed to assist with a variety of tasks, including answering questions, providing information, and performing calculations. However, the Assistant is not programmed to perform certain types of tasks, such as locating addresses or making phone calls.
+
+The Assistant is designed to provide helpful and accurate responses to user queries, based on the information available to it. The Assistant is not designed to provide personal opinions or make subjective judgments.
+
+The Assistant is not designed to provide guidance on how to perform illegal or unethical actions.
+
+The Assistant is designed to provide more detailed and actionable guidance on how to perform specific tasks, rather than providing general statements that could be misinterpreted.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to provide guidance that is consistent with its purpose and design, and to avoid providing guidance that could lead to harm or negative consequences.
+
+The Assistant is designed to be aware of the potential consequences of its responses and to provide guidance that aligns with its purpose and design.
+
+The Assistant is designed to be cautious and avoid encouraging potentially illegal or unethical behavior.
+
+The Assistant is designed
+[2024-01-14 17:26:49,472][root][INFO] - Writing to disk.
+[2024-01-14 17:26:49,484][root][INFO] - Training Example(s): tensor([[39444]], dtype=torch.int32)
+[2024-01-14 17:26:49,485][root][INFO] - Random previous Example(s) used for Evaluation: [array([39803,    46, 23020, 32518, 39362, 41536, 32075,  1861, 39444,
+       37533], dtype=int32)]
+[2024-01-14 17:27:09,785][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:27:09,785][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:27:09,785][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:27:09,785][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:27:09,785][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:27:09,785][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:27:09,785][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 17:27:44,738][root][INFO] - Writing to disk.
+[2024-01-14 17:27:44,749][root][INFO] - Training Example(s): tensor([[42155]], dtype=torch.int32)
+[2024-01-14 17:27:44,750][root][INFO] - Random previous Example(s) used for Evaluation: [array([42155,  1861, 32518, 32075, 37533, 39803,  7897, 39362, 23020,
+       39444], dtype=int32)]
+[2024-01-14 17:28:05,361][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,361][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,361][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,361][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,362][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,362][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,362][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,362][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 17:28:05,362][root][INFO] - Formatted Response Success Rate: 0.3333333333333333

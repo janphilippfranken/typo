@@ -1277,3 +1277,109 @@ For detailed information on this command, run:
 Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 190.68 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 183.90 examples/s]
  98%|█████████▊| 49/50 [39:15<00:51, 51.02s/it]
 Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.18s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.18s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (0/1 shards): 100%|██████████| 1/1 [00:00<00:00,  9.35 examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00,  9.35 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00,  9.23 examples/s]
+100%|██████████| 50/50 [40:05<00:00, 50.72s/it]100%|██████████| 50/50 [40:05<00:00, 48.10s/it]
+ERROR: Cannot find key: sampler.run_id=78
+Usage: sample.py <group|command|value>
+  available groups:      os | time | json | copy | random | logging | fire |
+                         hydra | torch | pd | List | Tuple | Optional |
+                         Callable | Dict | re | np | SEED_PRINCIPLES
+  available commands:    tqdm | DictConfig | DataParallel | load_dataset |
+                         Dataset | label_synthetic_data | remove_final_answer |
+                         format_eval_prompt | split_conversation_hh_rlhf |
+                         build_generation_prompt |
+                         build_generation_prompt_base |
+                         initialize_constitutions | format_responses |
+                         get_eval_examples | extend_batches |
+                         build_eval_prompt | format_response_base |
+                         is_valid_response | extract_new_principle |
+                         extract_revised_principle | process_responses |
+                         filter_responses | run_generate | run_eval |
+                         GPT4Agent | AsyncAzureChatLLM | HFInferenceModel |
+                         VLLMInferenceModel | main
+  available values:      BOS_TOKEN | EOS_TOKEN | B_INST | E_INST | B_SYS | E_SYS
+
+For detailed information on this command, run:
+  sample.py --help
+2024-01-14 17:17:56,700	INFO worker.py:1724 -- Started a local Ray instance.
+[W CUDAGraph.cpp:145] Warning: Waiting for pending NCCL work to finish before starting graph capture. (function operator())
+[36m(RayWorkerVllm pid=3383738)[0m [W CUDAGraph.cpp:145] Warning: Waiting for pending NCCL work to finish before starting graph capture. (function operator())
+  0%|          | 0/50 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.63s/it][AProcessed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.63s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 247.31 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 240.75 examples/s]
+  2%|▏         | 1/50 [00:25<20:29, 25.10s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.56s/it][AProcessed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.56s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 270.62 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 262.16 examples/s]
+  4%|▍         | 2/50 [00:52<21:02, 26.30s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 260.87 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 253.48 examples/s]
+  6%|▌         | 3/50 [01:25<22:59, 29.36s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.22s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.22s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 286.30 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 276.96 examples/s]
+  8%|▊         | 4/50 [02:02<24:58, 32.57s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.48s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.48s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 248.49 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 241.84 examples/s]
+ 10%|█         | 5/50 [02:43<26:33, 35.41s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.32s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.32s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 222.84 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 217.54 examples/s]
+ 12%|█▏        | 6/50 [03:25<27:42, 37.79s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.17s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.17s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 292.90 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 284.05 examples/s]
+ 14%|█▍        | 7/50 [04:13<29:28, 41.13s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.51s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.51s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 265.43 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 257.78 examples/s]
+ 16%|█▌        | 8/50 [05:04<30:54, 44.16s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 274.51 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 266.53 examples/s]
+ 18%|█▊        | 9/50 [05:57<32:10, 47.09s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.50s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.50s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 276.94 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 269.45 examples/s]
+ 20%|██        | 10/50 [06:55<33:35, 50.39s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.96s/it][AProcessed prompts: 100%|██████████| 1/1 [00:19<00:00, 19.96s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 258.73 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 251.02 examples/s]
+ 22%|██▏       | 11/50 [07:50<33:39, 51.79s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.29s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.29s/it]
+
+Saving the dataset (0/1 shards):   0%|          | 0/1 [00:00<?, ? examples/s][A
+Saving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 263.74 examples/s][ASaving the dataset (1/1 shards): 100%|██████████| 1/1 [00:00<00:00, 256.60 examples/s]
+ 24%|██▍       | 12/50 [08:45<33:28, 52.85s/it]
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+Processed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.61s/it][AProcessed prompts: 100%|██████████| 1/1 [00:20<00:00, 20.61s/it]
