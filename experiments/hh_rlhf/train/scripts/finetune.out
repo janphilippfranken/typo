@@ -488,3 +488,121 @@ trainable params: 3,407,872 || all params: 7,245,139,968 || trainable%: 0.047036
 {'loss': 1.528, 'learning_rate': 1.26e-06, 'epoch': 4.92}
 {'loss': 1.613, 'learning_rate': 1.2000000000000002e-06, 'epoch': 4.93}
 {'loss': 1.6942, 'learning_rate': 1.14e-06, 'epoch': 4.94}
+{'loss': 1.5356, 'learning_rate': 1.08e-06, 'epoch': 4.95}
+{'loss': 1.5036, 'learning_rate': 1.0200000000000002e-06, 'epoch': 4.96}
+{'loss': 1.5533, 'learning_rate': 9.600000000000001e-07, 'epoch': 4.97}
+{'loss': 1.5543, 'learning_rate': 9e-07, 'epoch': 4.98}
+{'loss': 1.5353, 'learning_rate': 8.4e-07, 'epoch': 4.99}
+{'loss': 1.5438, 'learning_rate': 7.799999999999999e-07, 'epoch': 5.0}
+{'loss': 1.4764, 'learning_rate': 7.2e-07, 'epoch': 5.01}
+{'loss': 1.4665, 'learning_rate': 6.599999999999999e-07, 'epoch': 5.02}
+{'loss': 1.5648, 'learning_rate': 6.000000000000001e-07, 'epoch': 5.03}
+{'loss': 1.539, 'learning_rate': 5.4e-07, 'epoch': 5.04}
+{'loss': 1.4879, 'learning_rate': 4.800000000000001e-07, 'epoch': 5.05}
+{'loss': 1.5021, 'learning_rate': 4.2e-07, 'epoch': 5.06}
+{'loss': 1.5464, 'learning_rate': 3.6e-07, 'epoch': 5.07}
+{'loss': 1.492, 'learning_rate': 3.0000000000000004e-07, 'epoch': 5.08}
+{'loss': 1.5118, 'learning_rate': 2.4000000000000003e-07, 'epoch': 5.1}
+{'loss': 1.5119, 'learning_rate': 1.8e-07, 'epoch': 5.11}
+{'loss': 1.4881, 'learning_rate': 1.2000000000000002e-07, 'epoch': 5.12}
+{'loss': 1.5118, 'learning_rate': 6.000000000000001e-08, 'epoch': 5.13}
+{'loss': 1.6271, 'learning_rate': 0.0, 'epoch': 5.14}
+{'train_runtime': 5778.8998, 'train_samples_per_second': 6.922, 'train_steps_per_second': 0.865, 'train_loss': 1.61670678024292, 'epoch': 5.14}
+NAME
+    train.py
+
+SYNOPSIS
+    train.py GROUP | COMMAND | VALUE
+
+GROUPS
+    GROUP is one of the following:
+
+     logging
+       Logging package for Python. Based on PEP 282 and comments thereto in comp.lang.python.
+
+     fire
+       The Python Fire module.
+
+     hydra
+
+     wandb
+       Use wandb to track machine learning work.
+
+     Dict
+       A generic version of dict.
+
+     Sequence
+       A generic version of collections.abc.Sequence.
+
+     List
+       A generic version of list.
+
+     torch
+       The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities.
+
+     io
+       The io module provides the Python interfaces to stream handling. The builtin open function is defined in this module.
+
+     json
+       JSON (JavaScript Object Notation) <http://json.org> is a subset of JavaScript syntax (ECMA-262 3rd edition) used as a lightweight data interchange format.
+
+     copy
+       Generic (shallow and deep) copying operations.
+
+     transformers
+
+COMMANDS
+    COMMAND is one of the following:
+
+     DictConfig
+       Container tagging interface
+
+     OmegaConf
+       OmegaConf primary class
+
+     LoraConfig
+       This is the configuration class to store the configuration of a [`LoraModel`].
+
+     get_peft_model
+       Returns a Peft model object from a model and a config.
+
+     TrainingArguments
+       TrainingArguments is the subset of the arguments we use in our example scripts **which relate to the training loop itself**.
+
+     Trainer
+       Trainer is a simple but feature-complete training and eval loop for PyTorch, optimized for 🤗 Transformers.
+
+     dataclass
+       Returns the same class as was passed in, with dunder methods added based on the fields defined in the class.
+
+     Dataset
+       A Dataset backed by an Arrow table.
+
+     DataCollatorForSupervisedDataset
+       Collate examples for supervised fine-tuning. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py.
+
+     remove_final_answer
+       Remove final assistant answer which is our inference target.
+
+     formatting_func
+       Format example.
+
+     preprocess
+       Preprocess the data by tokenizing.
+
+     jload
+       Load a .json file into a dictionary.
+
+     HFInferenceModel
+       Wrapper for running inference with a HuggingFace Model.
+
+     main
+
+VALUES
+    VALUE is one of the following:
+
+     IGNORE_INDEX
+
+     BOS_TOKEN
+
+     EOS_TOKEN

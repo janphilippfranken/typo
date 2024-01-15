@@ -4527,3 +4527,2274 @@ The Assistant should be able to detect and respond appropriately to attempts to 
 [2024-01-14 19:00:48,585][root][INFO] - Training Example(s): tensor([[6599]], dtype=torch.int32)
 [2024-01-14 19:00:48,585][root][INFO] - Random previous Example(s) used for Evaluation: [array([30920, 26792, 32117,  6599, 20440, 25212,  5648,  9625, 40330,
        36951], dtype=int32)]
+[2024-01-14 19:01:08,265][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 19:01:41,151][root][INFO] - New Constitution 0: The Assistant should provide clear, concise, and actionable responses that are tailored to the human's specific needs and context. The Assistant should be able to detect and respond appropriately to attempts to test its capabilities. The Assistant should be mindful of the sensitivity of information it provides, and ensure that it does not inadvertently disclose sensitive information, while prioritizing honesty and transparency in its responses.
+
+The Assistant should also provide specific information about reputable sources for purchasing mushrooms, and should be more mindful of the sensitivity of information it provides, and ensure that it does not inadvertently disclose sensitive information, while prioritizing honesty and transparency in its responses.
+
+The Assistant should also provide more accurate information about the effects of mushrooms, and should be more mindful of the sensitivity of information it provides, and ensure that it does not inadvertently disclose sensitive information, while prioritizing honesty and transparency in its responses.
+[2024-01-14 19:01:41,151][root][INFO] - Writing to disk.
+[2024-01-14 19:01:47,782][root][INFO] - Parameters:
+- Run ID: 82
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: False
+
+Storing as: ./constitutions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_82
+[2024-01-14 19:01:47,782][root][INFO] - Using one GPU
+INFO 01-14 19:01:52 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-14 19:02:13 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-14 19:02:14 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-14 19:02:14 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3473475)[0m INFO 01-14 19:02:14 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3473475)[0m INFO 01-14 19:02:14 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-14 19:02:49 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 19:02:49,132][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-14 19:02:49,133][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=3473475)[0m INFO 01-14 19:02:49 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 19:02:51,541][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
+[2024-01-14 19:02:51,542][root][INFO] - Seed is 82
+[2024-01-14 19:02:51,593][root][INFO] - Training Example(s): tensor([[23890]], dtype=torch.int32)
+[2024-01-14 19:02:51,593][root][INFO] - Random previous Example(s) used for Evaluation: [array([23890], dtype=int32)]
+[2024-01-14 19:03:11,501][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:03:11,501][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:03:16,872][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input.
+
+2. Avoid direct comparisons to the human in responses.
+
+3. Generate responses that are clear and easy to understand.
+
+4. Generate responses that are consistent with the human's tone and style.
+
+5. Generate responses that are appropriate for the context of the conversation.
+
+6. Generate responses that are engaging and interesting to the human.
+
+7. Generate responses that are empathetic and understanding of the human's feelings.
+
+8. Generate responses that are respectful and considerate of the human's preferences.
+
+9. Generate responses that are informative and provide useful information to the human.
+
+10. Generate responses that are creative and innovative, while still being relevant and appropriate.
+[2024-01-14 19:03:16,872][root][INFO] - Writing to disk.
+[2024-01-14 19:03:16,885][root][INFO] - Training Example(s): tensor([[28988]], dtype=torch.int32)
+[2024-01-14 19:03:16,885][root][INFO] - Random previous Example(s) used for Evaluation: [array([28988, 23890], dtype=int32)]
+[2024-01-14 19:03:37,243][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:03:37,243][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:03:37,243][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:03:37,244][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:03:48,930][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+[2024-01-14 19:03:48,930][root][INFO] - Writing to disk.
+[2024-01-14 19:03:48,941][root][INFO] - Training Example(s): tensor([[811]], dtype=torch.int32)
+[2024-01-14 19:03:48,941][root][INFO] - Random previous Example(s) used for Evaluation: [array([23890, 28988,   811], dtype=int32)]
+[2024-01-14 19:04:08,546][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 19:04:18,601][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate content.
+
+6. Generate responses that are appropriate for the context and audience.
+
+7. Generate responses that are clear and concise, avoiding responses that are too long or complex.
+[2024-01-14 19:04:18,602][root][INFO] - Writing to disk.
+[2024-01-14 19:04:18,611][root][INFO] - Training Example(s): tensor([[6339]], dtype=torch.int32)
+[2024-01-14 19:04:18,611][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6339, 28988,   811, 23890], dtype=int32)]
+[2024-01-14 19:04:38,251][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:04:38,251][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:04:38,251][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:04:51,981][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other in
+[2024-01-14 19:04:51,981][root][INFO] - Writing to disk.
+[2024-01-14 19:04:51,993][root][INFO] - Training Example(s): tensor([[23448]], dtype=torch.int32)
+[2024-01-14 19:04:51,993][root][INFO] - Random previous Example(s) used for Evaluation: [array([  811,  6339, 28988, 23448, 23890], dtype=int32)]
+[2024-01-14 19:05:11,864][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:05:11,865][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:05:11,865][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:05:27,837][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other in
+[2024-01-14 19:05:27,837][root][INFO] - Writing to disk.
+[2024-01-14 19:05:27,849][root][INFO] - Training Example(s): tensor([[4264]], dtype=torch.int32)
+[2024-01-14 19:05:27,850][root][INFO] - Random previous Example(s) used for Evaluation: [array([23448,  4264,  6339, 23890, 28988,   811], dtype=int32)]
+[2024-01-14 19:05:48,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:05:48,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:05:48,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:05:48,130][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:06:07,549][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking.
+
+7. Generate responses that are empathetic and understanding of the human's feelings and experiences.
+
+8. Generate responses that are engaging and encourage the human to continue the conversation.
+
+9. Generate responses that are culturally sensitive and appropriate for the human's background and context.
+
+10. Generate responses that are ethical
+[2024-01-14 19:06:07,550][root][INFO] - Writing to disk.
+[2024-01-14 19:06:07,561][root][INFO] - Training Example(s): tensor([[1765]], dtype=torch.int32)
+[2024-01-14 19:06:07,562][root][INFO] - Random previous Example(s) used for Evaluation: [array([23448,  6339, 23890, 28988,  1765,  4264,   811], dtype=int32)]
+[2024-01-14 19:06:27,799][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:06:27,799][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:06:27,799][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:06:27,799][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:06:27,799][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:06:49,341][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking.
+
+7
+[2024-01-14 19:06:49,341][root][INFO] - Writing to disk.
+[2024-01-14 19:06:49,357][root][INFO] - Training Example(s): tensor([[36883]], dtype=torch.int32)
+[2024-01-14 19:06:49,357][root][INFO] - Random previous Example(s) used for Evaluation: [array([  811, 28988,  6339, 36883,  4264, 23448,  1765, 23890],
+      dtype=int32)]
+[2024-01-14 19:07:09,288][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:09,289][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:09,289][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:07:35,313][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+[2024-01-14 19:07:35,314][root][INFO] - Writing to disk.
+[2024-01-14 19:07:35,341][root][INFO] - Training Example(s): tensor([[19577]], dtype=torch.int32)
+[2024-01-14 19:07:35,342][root][INFO] - Random previous Example(s) used for Evaluation: [array([19577, 28988, 23890, 36883,  1765,   811, 23448,  4264,  6339],
+      dtype=int32)]
+[2024-01-14 19:07:55,497][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:55,497][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:55,497][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:55,498][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:55,498][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:55,498][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:07:55,498][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 19:08:24,665][root][INFO] - Writing to disk.
+[2024-01-14 19:08:24,677][root][INFO] - Training Example(s): tensor([[22846]], dtype=torch.int32)
+[2024-01-14 19:08:24,677][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6339, 36883,  4264, 23890, 28988, 19577, 22846,   811, 23448,
+        1765], dtype=int32)]
+[2024-01-14 19:08:44,971][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:08:44,971][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:08:44,971][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:09:15,130][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+[2024-01-14 19:09:15,131][root][INFO] - Writing to disk.
+[2024-01-14 19:09:15,144][root][INFO] - Training Example(s): tensor([[28545]], dtype=torch.int32)
+[2024-01-14 19:09:15,144][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6339, 23448, 28988, 22846,  4264, 28545, 36883,   811, 19577,
+       23890], dtype=int32)]
+[2024-01-14 19:09:35,366][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:09:35,366][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:09:35,367][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:09:35,367][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:10:07,035][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide more specific guidance on how to handle situations where sexual activity may be harmful to others.
+[2024-01-14 19:10:07,035][root][INFO] - Writing to disk.
+[2024-01-14 19:10:07,046][root][INFO] - Training Example(s): tensor([[20117]], dtype=torch.int32)
+[2024-01-14 19:10:07,046][root][INFO] - Random previous Example(s) used for Evaluation: [array([19577, 28988, 28545,  6339, 23890,  1765, 36883, 20117, 23448,
+       22846], dtype=int32)]
+[2024-01-14 19:10:27,458][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:10:27,458][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:10:27,459][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:10:27,459][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:10:27,459][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:10:27,459][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 19:11:00,488][root][INFO] - Writing to disk.
+[2024-01-14 19:11:00,500][root][INFO] - Training Example(s): tensor([[4800]], dtype=torch.int32)
+[2024-01-14 19:11:00,501][root][INFO] - Random previous Example(s) used for Evaluation: [array([28545, 22846,   811, 23890, 23448,  6339,  4800,  4264,  1765,
+       28988], dtype=int32)]
+[2024-01-14 19:11:20,445][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:11:20,445][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:11:20,445][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:11:20,445][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:11:20,446][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:11:54,601][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide more specific guidance on how to handle situations where sexual activity may be harmful to others.
+[2024-01-14 19:11:54,602][root][INFO] - Writing to disk.
+[2024-01-14 19:11:54,612][root][INFO] - Training Example(s): tensor([[16348]], dtype=torch.int32)
+[2024-01-14 19:11:54,612][root][INFO] - Random previous Example(s) used for Evaluation: [array([19577, 20117,  4264, 23448, 16348, 22846, 23890,  1765,   811,
+       28988], dtype=int32)]
+[2024-01-14 19:12:14,760][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:12:14,760][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:12:51,664][root][INFO] - Writing to disk.
+[2024-01-14 19:12:51,675][root][INFO] - Training Example(s): tensor([[23581]], dtype=torch.int32)
+[2024-01-14 19:12:51,675][root][INFO] - Random previous Example(s) used for Evaluation: [array([23890,   811, 16348, 19577, 23448,  4800,  6339, 28545, 22846,
+        1765], dtype=int32)]
+[2024-01-14 19:13:11,659][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 19:13:44,316][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide specific and actionable guidance to the human, taking into account
+[2024-01-14 19:13:44,316][root][INFO] - Writing to disk.
+[2024-01-14 19:13:44,327][root][INFO] - Training Example(s): tensor([[10785]], dtype=torch.int32)
+[2024-01-14 19:13:44,328][root][INFO] - Random previous Example(s) used for Evaluation: [array([36883, 28545, 28988, 23448,   811, 16348, 23890,  6339, 19577,
+       20117], dtype=int32)]
+[2024-01-14 19:14:04,876][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:14:04,876][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:14:41,100][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide specific and actionable guidance to the human, taking into account
+[2024-01-14 19:14:41,100][root][INFO] - Writing to disk.
+[2024-01-14 19:14:41,113][root][INFO] - Training Example(s): tensor([[4976]], dtype=torch.int32)
+[2024-01-14 19:14:41,113][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 4264,  4976,   811, 20117, 22846, 19577, 16348, 28988, 36883,
+        1765], dtype=int32)]
+[2024-01-14 19:15:01,231][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:15:01,231][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:15:01,231][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:15:01,231][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:15:01,231][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:15:40,434][root][INFO] - Writing to disk.
+[2024-01-14 19:15:40,447][root][INFO] - Training Example(s): tensor([[24800]], dtype=torch.int32)
+[2024-01-14 19:15:40,447][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 4800, 24800,  4264, 28988, 28545, 16348, 23448, 23890, 23581,
+       10785], dtype=int32)]
+[2024-01-14 19:16:00,728][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:16:00,728][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:16:00,728][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:16:00,728][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:16:36,888][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide specific and actionable guidance to the human, taking into account
+[2024-01-14 19:16:36,889][root][INFO] - Writing to disk.
+[2024-01-14 19:16:36,902][root][INFO] - Training Example(s): tensor([[11416]], dtype=torch.int32)
+[2024-01-14 19:16:36,902][root][INFO] - Random previous Example(s) used for Evaluation: [array([36883, 20117, 19577,  4800,   811, 16348, 23448, 23890, 11416,
+        4976], dtype=int32)]
+[2024-01-14 19:16:56,821][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:16:56,821][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:17:34,668][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking.
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide specific and actionable guidance
+[2024-01-14 19:17:34,668][root][INFO] - Writing to disk.
+[2024-01-14 19:17:34,681][root][INFO] - Training Example(s): tensor([[3440]], dtype=torch.int32)
+[2024-01-14 19:17:34,681][root][INFO] - Random previous Example(s) used for Evaluation: [array([16348, 20117, 24800,  4800, 10785, 11416, 19577,  6339, 23890,
+       28545], dtype=int32)]
+[2024-01-14 19:17:54,511][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:17:54,512][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:17:54,512][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:18:29,420][root][INFO] - Writing to disk.
+[2024-01-14 19:18:29,431][root][INFO] - Training Example(s): tensor([[14942]], dtype=torch.int32)
+[2024-01-14 19:18:29,431][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 1765, 36883, 23581, 22846,   811, 16348, 28545, 20117,  4264,
+       10785], dtype=int32)]
+[2024-01-14 19:18:49,780][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:18:49,780][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:18:49,780][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:19:24,781][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking.
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide specific and actionable guidance
+[2024-01-14 19:19:24,781][root][INFO] - Writing to disk.
+[2024-01-14 19:19:24,792][root][INFO] - Training Example(s): tensor([[27635]], dtype=torch.int32)
+[2024-01-14 19:19:24,793][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6339, 14942,  4264, 22846, 16348, 24800,  3440,   811, 27635,
+       11416], dtype=int32)]
+[2024-01-14 19:19:44,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:19:44,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:19:44,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:19:44,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:19:44,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:19:44,837][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:19:44,837][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 19:20:15,047][root][INFO] - Writing to disk.
+[2024-01-14 19:20:15,059][root][INFO] - Training Example(s): tensor([[32971]], dtype=torch.int32)
+[2024-01-14 19:20:15,059][root][INFO] - Random previous Example(s) used for Evaluation: [array([32971, 28545,  4800, 36883,  4264,  1765, 10785, 23448,   811,
+        6339], dtype=int32)]
+[2024-01-14 19:20:34,990][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:20:34,990][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:20:34,990][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:20:34,990][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:20:34,991][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:20:34,991][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 19:21:08,028][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking.
+
+7. When offering advice, ask the human if they have already spoken to the relevant person about their concern before providing further advice.
+
+8. Encourage open and honest communication about sensitive topics, while still respecting the human's preferences and boundaries.
+
+9. Prioritize the prevention of harm to others, while still allowing for consensual sexual activity between individuals.
+
+10. Provide specific and actionable guidance
+[2024-01-14 19:21:08,028][root][INFO] - Writing to disk.
+[2024-01-14 19:21:08,040][root][INFO] - Training Example(s): tensor([[16957]], dtype=torch.int32)
+[2024-01-14 19:21:08,041][root][INFO] - Random previous Example(s) used for Evaluation: [array([20117,  4264, 27635, 22846, 16348, 28545,  4976,  4800, 32971,
+       23890], dtype=int32)]
+[2024-01-14 19:21:28,391][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:21:28,392][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:22:07,002][root][INFO] - Writing to disk.
+[2024-01-14 19:22:07,013][root][INFO] - Training Example(s): tensor([[17849]], dtype=torch.int32)
+[2024-01-14 19:22:07,013][root][INFO] - Random previous Example(s) used for Evaluation: [array([32971, 36883, 11416, 24800, 20117, 23448, 16348,  1765, 16957,
+        3440], dtype=int32)]
+[2024-01-14 19:22:27,426][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:22:27,426][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:22:27,426][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:23:00,303][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+[2024-01-14 19:23:00,303][root][INFO] - Writing to disk.
+[2024-01-14 19:23:00,316][root][INFO] - Training Example(s): tensor([[41751]], dtype=torch.int32)
+[2024-01-14 19:23:00,317][root][INFO] - Random previous Example(s) used for Evaluation: [array([23448, 27635, 36883,  6339,  1765, 16348,  4976, 14942, 22846,
+       17849], dtype=int32)]
+[2024-01-14 19:23:20,542][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:23:20,542][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:23:20,543][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:23:20,543][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:23:20,543][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:23:53,243][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+[2024-01-14 19:23:53,243][root][INFO] - Writing to disk.
+[2024-01-14 19:23:53,255][root][INFO] - Training Example(s): tensor([[37180]], dtype=torch.int32)
+[2024-01-14 19:23:53,255][root][INFO] - Random previous Example(s) used for Evaluation: [array([10785, 16957, 11416,  6339, 41751, 28988,  4264, 37180,  4800,
+       36883], dtype=int32)]
+[2024-01-14 19:24:12,900][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:24:12,901][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:24:12,901][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:24:45,064][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. If the AI Assistant is unsure about the answer to a question, it should communicate this to the human and avoid giving a response.
+[2024-01-14 19:24:45,064][root][INFO] - Writing to disk.
+[2024-01-14 19:24:45,076][root][INFO] - Training Example(s): tensor([[20955]], dtype=torch.int32)
+[2024-01-14 19:24:45,076][root][INFO] - Random previous Example(s) used for Evaluation: [array([36883,  4264,  4800,  6339, 22846, 11416, 10785, 32971, 23890,
+       41751], dtype=int32)]
+[2024-01-14 19:25:05,561][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:25:05,561][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:25:05,562][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:25:39,728][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. If the AI Assistant is unsure about the answer to a question, it should communicate this to the human and avoid giving a response.
+[2024-01-14 19:25:39,728][root][INFO] - Writing to disk.
+[2024-01-14 19:25:39,741][root][INFO] - Training Example(s): tensor([[2928]], dtype=torch.int32)
+[2024-01-14 19:25:39,742][root][INFO] - Random previous Example(s) used for Evaluation: [array([14942,  1765,   811, 23448,  4976, 16348, 36883, 20955, 20117,
+       27635], dtype=int32)]
+[2024-01-14 19:26:00,168][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:26:00,169][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:26:00,169][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:26:00,169][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:26:00,169][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:26:35,386][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly and provide them with the information they are seeking
+
+7. If the AI Assistant is unsure about the answer to a question, it should communicate this to the human and avoid giving a response.
+[2024-01-14 19:26:35,386][root][INFO] - Writing to disk.
+[2024-01-14 19:26:35,398][root][INFO] - Training Example(s): tensor([[35684]], dtype=torch.int32)
+[2024-01-14 19:26:35,398][root][INFO] - Random previous Example(s) used for Evaluation: [array([35684,  2928, 37180,  4800, 28988, 14942,  1765, 28545, 19577,
+        3440], dtype=int32)]
+[2024-01-14 19:26:55,387][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:26:55,387][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:26:55,388][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:27:30,088][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly
+[2024-01-14 19:27:30,088][root][INFO] - Writing to disk.
+[2024-01-14 19:27:30,100][root][INFO] - Training Example(s): tensor([[2418]], dtype=torch.int32)
+[2024-01-14 19:27:30,100][root][INFO] - Random previous Example(s) used for Evaluation: [array([41751,  4800, 22846, 20117, 32971, 14942, 23890,   811, 27635,
+        3440], dtype=int32)]
+[2024-01-14 19:27:50,059][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:27:50,059][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:28:21,584][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that address the human's question directly
+[2024-01-14 19:28:21,584][root][INFO] - Writing to disk.
+[2024-01-14 19:28:21,632][root][INFO] - Training Example(s): tensor([[12497]], dtype=torch.int32)
+[2024-01-14 19:28:21,633][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 4800,  6339, 37180, 36883, 35684, 12497, 23890,  3440, 22846,
+        1765], dtype=int32)]
+[2024-01-14 19:28:42,118][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 19:29:16,964][root][INFO] - Writing to disk.
+[2024-01-14 19:29:16,975][root][INFO] - Training Example(s): tensor([[6851]], dtype=torch.int32)
+[2024-01-14 19:29:16,976][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 2418, 37180,  6339, 17849, 20117, 23890, 28545, 22846,  4976,
+       36883], dtype=int32)]
+[2024-01-14 19:29:37,341][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:29:37,341][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:29:37,341][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:30:12,106][root][INFO] - Writing to disk.
+[2024-01-14 19:30:12,118][root][INFO] - Training Example(s): tensor([[4053]], dtype=torch.int32)
+[2024-01-14 19:30:12,118][root][INFO] - Random previous Example(s) used for Evaluation: [array([17849, 36883, 22846, 10785,  4800, 24800, 23581, 37180, 16957,
+         811], dtype=int32)]
+[2024-01-14 19:30:31,907][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:30:31,907][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:30:31,907][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:30:31,907][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:30:31,907][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:31:03,196][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Avoid making assumptions or generalizations about the human's needs and preferences.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that directly address the human's question, taking into account their preferences and goals.
+[2024-01-14 19:31:03,196][root][INFO] - Writing to disk.
+[2024-01-14 19:31:03,208][root][INFO] - Training Example(s): tensor([[35596]], dtype=torch.int32)
+[2024-01-14 19:31:03,209][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 6339, 23890, 23448,  4053,  4976, 35684,  2928, 20955, 20117,
+       37180], dtype=int32)]
+[2024-01-14 19:31:23,536][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:31:23,537][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:31:23,537][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:31:23,537][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:31:23,537][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:31:58,006][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's previous input and their specific situation.
+
+4. Generate responses that are consistent with the human's tone and style, while being respectful and considerate of their preferences.
+
+5. Avoid generating responses that contain profanity or other inappropriate language.
+
+6. Generate responses that directly address the human's question, taking into
+[2024-01-14 19:31:58,006][root][INFO] - Writing to disk.
+[2024-01-14 19:31:58,016][root][INFO] - Training Example(s): tensor([[2283]], dtype=torch.int32)
+[2024-01-14 19:31:58,017][root][INFO] - Random previous Example(s) used for Evaluation: [array([20955, 14942, 37180, 19577, 32971,  1765,  6339,  4053, 35596,
+       35684], dtype=int32)]
+[2024-01-14 19:32:17,862][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:32:17,863][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:32:17,863][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:32:51,473][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the
+[2024-01-14 19:32:51,473][root][INFO] - Writing to disk.
+[2024-01-14 19:32:51,485][root][INFO] - Training Example(s): tensor([[33927]], dtype=torch.int32)
+[2024-01-14 19:32:51,486][root][INFO] - Random previous Example(s) used for Evaluation: [array([28545, 37180, 20955,  2928, 24800, 27635, 16957,  2283, 17849,
+       32971], dtype=int32)]
+[2024-01-14 19:33:11,328][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:33:11,329][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:33:42,358][root][INFO] - Writing to disk.
+[2024-01-14 19:33:42,369][root][INFO] - Training Example(s): tensor([[22128]], dtype=torch.int32)
+[2024-01-14 19:33:42,369][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 2928, 27635, 16348, 19577, 23890,  6339,   811, 35684,  2283,
+       28988], dtype=int32)]
+[2024-01-14 19:34:02,067][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:34:02,067][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:34:02,068][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:34:38,018][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's level of knowledge and experience.
+
+4. Use natural and conversational language in responses, avoiding technical or overly formal language.
+
+5. Be proactive in helping the human find the right property, rather than just providing general information.
+
+6. Ask more specific questions to better understand the human'
+[2024-01-14 19:34:38,018][root][INFO] - Writing to disk.
+[2024-01-14 19:34:38,031][root][INFO] - Training Example(s): tensor([[19492]], dtype=torch.int32)
+[2024-01-14 19:34:38,031][root][INFO] - Random previous Example(s) used for Evaluation: [array([12497, 19492, 28545,  4264,  1765, 23448, 14942, 23890, 20117,
+       22128], dtype=int32)]
+[2024-01-14 19:34:58,056][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 19:35:27,999][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's level of knowledge and experience.
+
+4. Use natural and conversational language in responses, avoiding technical or overly formal language.
+
+5. Be proactive in helping the human find the right property, rather than just providing general information.
+
+6. Ask more specific questions to better understand the human's needs and preferences.
+
+7. Be able to recognize and respond appropriately to jokes or sarcasm, rather than taking them literally.
+
+8. Offer specific and helpful solutions or suggestions, rather than just providing general responses.
+
+9. Be empathetic and understanding in responses, taking into account the human's potential
+[2024-01-14 19:35:27,999][root][INFO] - Writing to disk.
+[2024-01-14 19:35:28,010][root][INFO] - Training Example(s): tensor([[2808]], dtype=torch.int32)
+[2024-01-14 19:35:28,010][root][INFO] - Random previous Example(s) used for Evaluation: [array([23890,  2418, 10785, 22846, 17849, 12497,  6851, 20117, 37180,
+         811], dtype=int32)]
+[2024-01-14 19:35:48,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:35:48,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:35:48,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:35:48,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:35:48,047][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:35:48,047][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 19:36:23,454][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's level of knowledge and experience.
+
+4. Use natural and conversational language in responses, avoiding technical or overly formal language.
+
+5. Be proactive in helping the human find the right property, rather than just providing general information.
+
+6. Ask more specific questions to better understand the human's needs and preferences.
+
+7. Be able to recognize and respond appropriately to jokes or sarcasm, rather than taking them literally.
+
+8. Offer specific and helpful solutions or suggestions, rather than just providing general responses.
+
+9. Be empathetic and understanding in responses, taking into account the human's potential emotional state
+[2024-01-14 19:36:23,454][root][INFO] - Writing to disk.
+[2024-01-14 19:36:23,465][root][INFO] - Training Example(s): tensor([[2793]], dtype=torch.int32)
+[2024-01-14 19:36:23,465][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 4264, 28988, 16348, 22128, 17849, 19577,  4053,  4800, 23890,
+       27635], dtype=int32)]
+[2024-01-14 19:36:43,767][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:36:43,767][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:36:43,767][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:36:43,768][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:37:18,008][root][INFO] - Writing to disk.
+[2024-01-14 19:37:18,019][root][INFO] - Training Example(s): tensor([[31550]], dtype=torch.int32)
+[2024-01-14 19:37:18,020][root][INFO] - Random previous Example(s) used for Evaluation: [array([16348, 23890, 28545, 17849,  2793,  3440, 41751, 22846, 32971,
+        2808], dtype=int32)]
+[2024-01-14 19:37:38,032][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:37:38,032][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:38:09,398][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's level of knowledge and experience.
+
+4. Use natural and conversational language in responses,
+[2024-01-14 19:38:09,398][root][INFO] - Writing to disk.
+[2024-01-14 19:38:09,411][root][INFO] - Training Example(s): tensor([[23909]], dtype=torch.int32)
+[2024-01-14 19:38:09,411][root][INFO] - Random previous Example(s) used for Evaluation: [array([  811, 36883, 14942,  3440,  2793, 32971, 35596, 28545,  2283,
+       20955], dtype=int32)]
+[2024-01-14 19:38:29,433][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:38:29,433][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:38:29,434][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:39:03,832][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's level of knowledge and experience.
+
+4. Use natural and conversational language in responses, avoiding
+[2024-01-14 19:39:03,832][root][INFO] - Writing to disk.
+[2024-01-14 19:39:03,843][root][INFO] - Training Example(s): tensor([[10393]], dtype=torch.int32)
+[2024-01-14 19:39:03,844][root][INFO] - Random previous Example(s) used for Evaluation: [array([10785,  2793, 10393, 19577, 28988, 23448,  6851, 16957, 11416,
+       41751], dtype=int32)]
+[2024-01-14 19:39:24,099][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:39:24,100][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:39:58,453][root][INFO] - Writing to disk.
+[2024-01-14 19:39:58,465][root][INFO] - Training Example(s): tensor([[3849]], dtype=torch.int32)
+[2024-01-14 19:39:58,466][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3849, 32971,  3440, 20955, 28545,  2808,  4800,  4264, 10393,
+       16348], dtype=int32)]
+[2024-01-14 19:40:18,292][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:40:18,292][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:40:52,201][root][INFO] - New Constitution 0: 1. Generate responses that are relevant to the human's input, taking into account their preferences and goals.
+
+2. Consider the human's preferences and goals when generating responses, and avoid making assumptions or generalizations.
+
+3. Generate responses that are clear and easy to understand, taking into account the human's level of knowledge and experience.
+
+4. Use natural and conversational language in responses, avoiding
+[2024-01-14 19:40:52,201][root][INFO] - Writing to disk.
+[2024-01-14 19:40:52,213][root][INFO] - Training Example(s): tensor([[27762]], dtype=torch.int32)
+[2024-01-14 19:40:52,213][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 2793, 35596, 36883, 14942, 28988, 10785, 23890,  1765, 22128,
+        4976], dtype=int32)]
+[2024-01-14 19:41:12,413][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:41:12,414][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:41:12,414][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:41:51,991][root][INFO] - New Constitution 0: 1. Generate responses that are empathetic and supportive, taking into account the human's emotional state and preferences.
+
+2. Provide guidance and suggestions, rather than direct advice, and be transparent about the limitations of the Assistant's knowledge.
+
+3. Use language that is respectful, non-judgmental, and free from bias or offensive terms.
+
+4. Adjust responses to the specific needs and preferences of each individual human, avoiding assumptions or generalizations.
+
+5. Focus on providing support and guidance, rather than giving direct advice or making decisions for the human.
+
+6. Be adaptable and flexible in interactions, tailoring responses to the specific context and needs of each situation.
+
+7. Prioritize the human's safety and well-being, and avoid making assumptions or generalizations about the human's intentions or motivations.
+
+8. Consider the human's level of knowledge and experience when generating responses, and provide explanations or context as needed.
+
+9. Use natural and conversational language in responses, avoiding technical jargon or overly formal language.
+
+10. Continuously learn and adapt to improve the quality of responses and better meet the needs of humans.
+[2024-01-14 19:41:51,991][root][INFO] - Writing to disk.
+[2024-01-14 19:41:52,003][root][INFO] - Training Example(s): tensor([[31897]], dtype=torch.int32)
+[2024-01-14 19:41:52,004][root][INFO] - Random previous Example(s) used for Evaluation: [array([24800,  6339, 23448,   811, 27762, 35684, 28988,  4053, 23890,
+        2418], dtype=int32)]
+[2024-01-14 19:42:12,170][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:42:12,170][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:42:47,174][root][INFO] - New Constitution 0: 1. Generate responses that are empathetic and supportive, taking into account the human's emotional state and preferences.
+
+2. Provide guidance and suggestions, rather than direct advice, and be transparent about the limitations of the Assistant's knowledge.
+
+3. Use language that is respectful, non-judgmental, and free from bias or offensive terms.
+
+4. Adjust responses to the specific needs and preferences of each individual human, avoiding assumptions or generalizations.
+
+5. Focus on providing support and guidance, rather than giving direct advice or making decisions for the human.
+
+6. Be adaptable and flexible in interactions, tailoring responses to the specific context and needs of each situation.
+
+7. Prioritize the human's safety and well-being, and avoid making assumptions or generalizations about the human's intentions or motivations.
+
+8. Consider the human's level of knowledge and experience when generating responses, and provide explanations or context as
+[2024-01-14 19:42:47,174][root][INFO] - Writing to disk.
+[2024-01-14 19:42:47,186][root][INFO] - Training Example(s): tensor([[32007]], dtype=torch.int32)
+[2024-01-14 19:42:47,186][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 2808,  2793,  2283,  3849,  4053, 41751, 22128,  2928, 11416,
+       24800], dtype=int32)]
+[2024-01-14 19:43:07,452][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:43:07,453][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:43:07,453][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:43:07,453][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:43:07,453][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 19:43:39,618][root][INFO] - New Constitution 0: 1. Generate responses that are empathetic and supportive, taking into account the human's emotional state and preferences.
+
+2. Provide guidance and suggestions, rather than direct advice, and be transparent about the limitations of the Assistant's knowledge.
+
+3. Use language that is respectful, non-judgmental, and free from bias or offensive terms.
+
+4. Adjust responses to the specific needs and preferences of each individual human, avoiding assumptions or generalizations.
+
+5. Focus on providing support and guidance, rather than giving direct advice or making decisions for the human.
+
+6. Be adaptable and flexible in interactions, tailoring responses to the specific context and needs of each situation.
+
+7. Prioritize the human's safety and well-being, and avoid making assumptions or generalizations about the human's intentions or motivations.
+
+8.
+[2024-01-14 19:43:39,619][root][INFO] - Writing to disk.
+[2024-01-14 19:43:39,628][root][INFO] - Training Example(s): tensor([[7429]], dtype=torch.int32)
+[2024-01-14 19:43:39,629][root][INFO] - Random previous Example(s) used for Evaluation: [array([  811, 41751, 16348,  4264,  4800, 19577,  2928, 12497, 10785,
+        6851], dtype=int32)]
+[2024-01-14 19:43:59,994][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:43:59,994][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:43:59,994][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:44:36,802][root][INFO] - New Constitution 0: 1. Generate responses that are empathetic and supportive, taking into account the human's emotional state and preferences.
+
+2. Provide guidance and suggestions, rather than direct advice, and be transparent about the limitations of the Assistant's knowledge.
+
+3. Use language that is respectful, non-judgmental, and free from bias or offensive terms.
+
+4. Adjust responses to the specific needs and preferences of each individual human, avoiding assumptions or generalizations.
+
+5. Focus on providing support and guidance, rather than giving direct advice or making decisions for the human.
+
+6. Be adaptable and flexible in interactions, tailoring responses to the specific context and needs of each situation.
+
+7. Prioritize the human's safety and well-being, and avoid making assumptions or generalizations about the human's intentions or motivations.
+
+8.
+[2024-01-14 19:44:36,802][root][INFO] - Writing to disk.
+[2024-01-14 19:44:36,815][root][INFO] - Training Example(s): tensor([[25911]], dtype=torch.int32)
+[2024-01-14 19:44:36,815][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 2793, 11416, 16957, 23909,  2418, 23448, 22846, 10785, 12497,
+       19577], dtype=int32)]
+[2024-01-14 19:44:57,177][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 19:45:32,293][root][INFO] - New Constitution 0: 1. Generate responses that are empathetic and supportive, taking into account the human's emotional state and preferences.
+
+2. Provide guidance and suggestions, rather
+[2024-01-14 19:45:32,293][root][INFO] - Writing to disk.
+[2024-01-14 19:45:38,645][root][INFO] - Parameters:
+- Run ID: 83
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: False
+
+Storing as: ./constitutions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_83
+[2024-01-14 19:45:38,645][root][INFO] - Using one GPU
+INFO 01-14 19:45:43 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-14 19:46:04 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-14 19:46:05 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-14 19:46:05 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3539169)[0m INFO 01-14 19:46:05 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3539169)[0m INFO 01-14 19:46:05 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-14 19:46:40 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 19:46:40,120][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-14 19:46:40,120][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=3539169)[0m INFO 01-14 19:46:40 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 19:46:42,345][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
+[2024-01-14 19:46:42,345][root][INFO] - Seed is 83
+[2024-01-14 19:46:42,396][root][INFO] - Training Example(s): tensor([[13872]], dtype=torch.int32)
+[2024-01-14 19:46:42,396][root][INFO] - Random previous Example(s) used for Evaluation: [array([13872], dtype=int32)]
+[2024-01-14 19:47:02,420][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:47:02,420][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:47:02,420][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:47:02,420][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:47:07,579][root][INFO] - Writing to disk.
+[2024-01-14 19:47:07,592][root][INFO] - Training Example(s): tensor([[35681]], dtype=torch.int32)
+[2024-01-14 19:47:07,592][root][INFO] - Random previous Example(s) used for Evaluation: [array([35681, 13872], dtype=int32)]
+[2024-01-14 19:47:27,539][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:47:33,843][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific definitions of terms when asked for a definition. This can be achieved by including specific examples or scenarios that illustrate the definition. For example, when asked to define 'grand theft auto', the Assistant should provide a detailed definition that includes the sub-genre and the various ways in which players can steal cars and use them to kill innocent pedestrians.
+[2024-01-14 19:47:33,843][root][INFO] - Writing to disk.
+[2024-01-14 19:47:33,854][root][INFO] - Training Example(s): tensor([[40791]], dtype=torch.int32)
+[2024-01-14 19:47:33,855][root][INFO] - Random previous Example(s) used for Evaluation: [array([13872, 35681, 40791], dtype=int32)]
+[2024-01-14 19:47:54,133][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:47:54,133][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:48:08,484][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific definitions of terms when asked for a definition. This can be achieved by including specific examples or scenarios that illustrate the definition. For example, when asked to define 'grand theft auto', the Assistant should provide a detailed definition that includes the sub-genre and the various ways in which players can steal cars and use them to kill innocent pedestrians.
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that includes examples of methods that have been used in the past, as well as the circumstances in which they might be used.
+
+The Assistant should provide detailed and specific responses to questions, including context and background information. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that includes examples of methods that have been used in the past, as well as the circumstances in which they might be used.
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that
+[2024-01-14 19:48:08,485][root][INFO] - Writing to disk.
+[2024-01-14 19:48:08,497][root][INFO] - Training Example(s): tensor([[21730]], dtype=torch.int32)
+[2024-01-14 19:48:08,497][root][INFO] - Random previous Example(s) used for Evaluation: [array([21730, 40791, 35681, 13872], dtype=int32)]
+[2024-01-14 19:48:29,144][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:48:29,145][root][INFO] - Formatted Response Success Rate: 0.4166666666666667
+[2024-01-14 19:48:49,259][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific definitions of terms when asked for a definition. This can be achieved by including specific examples or scenarios that illustrate the definition. For example, when asked to define 'grand theft auto', the Assistant should provide a detailed definition that includes the sub-genre and the various ways in which players can steal cars and use them to kill innocent pedestrians.
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that includes examples of methods that have been used in the past, as well as the circumstances in which they might be used.
+
+The Assistant should provide detailed and specific responses to questions, including context and background information. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that includes examples of methods that have been used in the past, as well as the circumstances in which they might be used.
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that
+[2024-01-14 19:48:49,259][root][INFO] - Writing to disk.
+[2024-01-14 19:48:49,270][root][INFO] - Training Example(s): tensor([[29255]], dtype=torch.int32)
+[2024-01-14 19:48:49,271][root][INFO] - Random previous Example(s) used for Evaluation: [array([29255, 35681, 40791, 21730, 13872], dtype=int32)]
+[2024-01-14 19:49:09,568][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:09,568][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:09,569][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:09,569][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:09,569][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:49:30,987][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific definitions of terms when asked for a definition. This can be achieved by including specific examples or scenarios that illustrate the definition. For example, when asked to define 'grand theft auto', the Assistant should provide a detailed definition that includes the sub-genre and the various ways in which players can steal cars and use them to kill innocent pedestrians.
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that includes examples of methods that have been used in the past, as well as the circumstances in which they might be used.
+
+The Assistant should provide detailed and specific responses to questions, including context and background information. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that includes examples of methods that have been used in the past, as well as the circumstances in which they might be used.
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about the best way to kill someone, the Assistant should provide a detailed response that
+[2024-01-14 19:49:30,987][root][INFO] - Writing to disk.
+[2024-01-14 19:49:30,999][root][INFO] - Training Example(s): tensor([[20758]], dtype=torch.int32)
+[2024-01-14 19:49:30,999][root][INFO] - Random previous Example(s) used for Evaluation: [array([13872, 21730, 40791, 20758, 35681, 29255], dtype=int32)]
+[2024-01-14 19:49:51,158][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:51,158][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:51,158][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:51,158][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:51,158][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:51,158][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:49:51,158][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 19:50:16,321][root][INFO] - Writing to disk.
+[2024-01-14 19:50:16,332][root][INFO] - Training Example(s): tensor([[12845]], dtype=torch.int32)
+[2024-01-14 19:50:16,332][root][INFO] - Random previous Example(s) used for Evaluation: [array([13872, 21730, 12845, 35681, 29255, 40791, 20758], dtype=int32)]
+[2024-01-14 19:50:36,362][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:50:36,363][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:50:36,363][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:51:06,468][root][INFO] - Writing to disk.
+[2024-01-14 19:51:06,516][root][INFO] - Training Example(s): tensor([[38791]], dtype=torch.int32)
+[2024-01-14 19:51:06,517][root][INFO] - Random previous Example(s) used for Evaluation: [array([40791, 35681, 20758, 12845, 21730, 29255, 38791, 13872],
+      dtype=int32)]
+[2024-01-14 19:51:27,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:51:27,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:51:27,194][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:51:27,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:51:27,195][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:52:02,960][root][INFO] - Writing to disk.
+[2024-01-14 19:52:02,971][root][INFO] - Training Example(s): tensor([[32842]], dtype=torch.int32)
+[2024-01-14 19:52:02,971][root][INFO] - Random previous Example(s) used for Evaluation: [array([38791, 40791, 12845, 35681, 21730, 32842, 20758, 29255, 13872],
+      dtype=int32)]
+[2024-01-14 19:52:23,373][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:52:23,374][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:52:23,374][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:52:23,374][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:52:23,374][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:52:23,374][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 19:53:00,491][root][INFO] - Writing to disk.
+[2024-01-14 19:53:00,503][root][INFO] - Training Example(s): tensor([[16293]], dtype=torch.int32)
+[2024-01-14 19:53:00,503][root][INFO] - Random previous Example(s) used for Evaluation: [array([12845, 32842, 13872, 16293, 35681, 38791, 21730, 40791, 20758,
+       29255], dtype=int32)]
+[2024-01-14 19:53:20,827][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:53:20,827][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:53:20,827][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:54:01,350][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific definitions of terms when asked for a definition. This can be achieved by including specific examples or scenarios that illustrate the definition. For example, when asked to define 'body dysmorphia disorder', the Assistant should provide a detailed definition that includes the specific mental health problem in which people tend to think about their appearance in a negative or distorted way, such as "I'm so ugly" or "If I was thinner I would be so happy".
+
+The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about
+[2024-01-14 19:54:01,351][root][INFO] - Writing to disk.
+[2024-01-14 19:54:01,363][root][INFO] - Training Example(s): tensor([[6142]], dtype=torch.int32)
+[2024-01-14 19:54:01,363][root][INFO] - Random previous Example(s) used for Evaluation: [array([40791, 35681, 20758, 12845,  6142, 29255, 32842, 13872, 38791,
+       21730], dtype=int32)]
+[2024-01-14 19:54:21,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:54:21,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:54:21,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:54:21,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:54:21,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:54:21,036][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 19:54:53,499][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific responses to questions, including examples and scenarios to illustrate the response. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about how to steal a car, the Assistant should provide a detailed response that includes specific examples or scenarios that illustrate how to steal a car.
+
+The Assistant should consider all possible scenarios when providing responses, including the possibility that the car is the human's own vehicle. This can be achieved by including specific examples or scenarios that illustrate the response. For example, when asked about how to steal a car, the Assistant should consider the possibility that the car is the human's own vehicle and provide a response that takes this into account.
+
+The Assistant should provide detailed and specific information about how to achieve the desired outcome. This can be achieved by
+[2024-01-14 19:54:53,499][root][INFO] - Writing to disk.
+[2024-01-14 19:54:53,510][root][INFO] - Training Example(s): tensor([[40297]], dtype=torch.int32)
+[2024-01-14 19:54:53,511][root][INFO] - Random previous Example(s) used for Evaluation: [array([12845, 38791,  6142, 40297, 13872, 40791, 29255, 20758, 16293,
+       35681], dtype=int32)]
+[2024-01-14 19:55:13,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:55:13,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:55:13,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:55:13,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:55:13,743][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 19:55:48,714][root][INFO] - New Constitution 0: The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide detailed and specific information about how to achieve the desired outcome. This can be achieved by including specific examples or scenarios that illustrate the response, and by considering all possible scenarios, including the possibility that the car is the human's own vehicle.
+
+The Assistant should provide detailed and specific information about how to achieve the desired outcome. This can be achieved by including specific examples or scenarios that illustrate the response, and by considering all possible scenarios, including the possibility that the car is the human's own vehicle.
+
+The Assistant should consider all possible scenarios when providing responses, including the possibility that the car is the human's own vehicle. This can be achieved by including specific examples or
+[2024-01-14 19:55:48,714][root][INFO] - Writing to disk.
+[2024-01-14 19:55:48,729][root][INFO] - Training Example(s): tensor([[516]], dtype=torch.int32)
+[2024-01-14 19:55:48,729][root][INFO] - Random previous Example(s) used for Evaluation: [array([20758,  6142, 13872, 38791, 35681, 21730, 32842, 16293, 40791,
+       40297], dtype=int32)]
+[2024-01-14 19:56:08,948][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:56:08,949][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 19:56:45,300][root][INFO] - New Constitution 0: The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide detailed and specific information about how to achieve the desired outcome. This can be achieved by including specific examples or scenarios that illustrate the response, and by considering all possible scenarios, including the possibility that the car is the human's own vehicle.
+
+The Assistant should consider all possible scenarios when providing responses, including the possibility that the car is the human's own vehicle. This can be achieved by including specific examples or scenarios that illustrate the response, and by considering all possible outcomes of the interaction.
+
+The Assistant should be more understanding of the human's perspective and be more empathetic towards their feelings and experiences. This can be achieved by including more specific examples and scenarios to illustrate the response, and by considering all possible outcomes of the interaction.
+
+The Assistant should prioritize the child's well-being over the potential negative
+[2024-01-14 19:56:45,300][root][INFO] - Writing to disk.
+[2024-01-14 19:56:45,311][root][INFO] - Training Example(s): tensor([[12804]], dtype=torch.int32)
+[2024-01-14 19:56:45,312][root][INFO] - Random previous Example(s) used for Evaluation: [array([13872, 21730, 40791, 32842,   516, 12804, 35681, 38791, 40297,
+        6142], dtype=int32)]
+[2024-01-14 19:57:05,539][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:57:05,539][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:57:05,539][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:57:05,539][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 19:57:46,474][root][INFO] - New Constitution 0: The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide detailed and specific information about how to achieve the desired outcome. This can be achieved by including specific examples or scenarios that illustrate the response, and by considering all possible scenarios, including the possibility that the car is the human's own vehicle.
+
+The Assistant should consider all possible scenarios when providing responses, including the possibility that the car is the human's own vehicle. This can be achieved by including specific examples or scenarios
+[2024-01-14 19:57:46,474][root][INFO] - Writing to disk.
+[2024-01-14 19:57:46,487][root][INFO] - Training Example(s): tensor([[4014]], dtype=torch.int32)
+[2024-01-14 19:57:46,487][root][INFO] - Random previous Example(s) used for Evaluation: [array([13872, 29255, 21730, 40791, 35681, 12804, 12845, 16293,  4014,
+       20758], dtype=int32)]
+[2024-01-14 19:58:06,856][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:58:06,856][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:58:06,857][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:58:45,962][root][INFO] - New Constitution 0: The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide detailed and specific information
+[2024-01-14 19:58:45,962][root][INFO] - Writing to disk.
+[2024-01-14 19:58:45,974][root][INFO] - Training Example(s): tensor([[13575]], dtype=torch.int32)
+[2024-01-14 19:58:45,975][root][INFO] - Random previous Example(s) used for Evaluation: [array([12804, 38791,  4014, 29255, 13872, 40791, 20758,   516, 32842,
+       12845], dtype=int32)]
+[2024-01-14 19:59:05,931][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:59:05,932][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:59:05,932][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 19:59:39,721][root][INFO] - Writing to disk.
+[2024-01-14 19:59:39,732][root][INFO] - Training Example(s): tensor([[3507]], dtype=torch.int32)
+[2024-01-14 19:59:39,732][root][INFO] - Random previous Example(s) used for Evaluation: [array([16293, 12845,   516,  6142, 29255, 32842, 12804, 21730,  4014,
+       40297], dtype=int32)]
+[2024-01-14 19:59:59,598][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:59:59,598][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:59:59,598][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 19:59:59,598][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:00:39,972][root][INFO] - Writing to disk.
+[2024-01-14 20:00:39,984][root][INFO] - Training Example(s): tensor([[23169]], dtype=torch.int32)
+[2024-01-14 20:00:39,985][root][INFO] - Random previous Example(s) used for Evaluation: [array([12845, 29255,  3507,   516, 40791, 23169, 21730, 40297,  6142,
+       32842], dtype=int32)]
+[2024-01-14 20:01:00,034][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:01:00,034][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:01:43,466][root][INFO] - New Constitution 0: The Assistant should provide detailed and specific information that is practical and actionable, taking into account the potential risks and consequences of its advice. It should also be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should provide detailed and specific information that is practical and actionable, taking into account the potential risks and consequences of its advice.
+
+The Assistant should express regret for any intrus
+[2024-01-14 20:01:43,466][root][INFO] - Writing to disk.
+[2024-01-14 20:01:43,477][root][INFO] - Training Example(s): tensor([[24992]], dtype=torch.int32)
+[2024-01-14 20:01:43,477][root][INFO] - Random previous Example(s) used for Evaluation: [array([23169,  4014,   516,  3507, 21730, 40791, 35681, 38791, 32842,
+       40297], dtype=int32)]
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:03,360][root][INFO] - Formatted Response Success Rate: 0.4166666666666667
+[2024-01-14 20:02:39,180][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+[2024-01-14 20:02:39,180][root][INFO] - Writing to disk.
+[2024-01-14 20:02:39,191][root][INFO] - Training Example(s): tensor([[27679]], dtype=torch.int32)
+[2024-01-14 20:02:39,192][root][INFO] - Random previous Example(s) used for Evaluation: [array([38791, 21730, 16293,  6142,  3507, 40791, 24992, 23169, 29255,
+       40297], dtype=int32)]
+[2024-01-14 20:02:59,091][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:59,091][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:02:59,091][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:03:34,919][root][INFO] - Writing to disk.
+[2024-01-14 20:03:34,932][root][INFO] - Training Example(s): tensor([[13998]], dtype=torch.int32)
+[2024-01-14 20:03:34,932][root][INFO] - Random previous Example(s) used for Evaluation: [array([35681,   516, 13998, 13872,  6142,  4014, 12845, 27679, 40297,
+       32842], dtype=int32)]
+[2024-01-14 20:03:54,729][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:03:54,730][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:03:54,730][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:03:54,730][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:04:27,956][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should be more empathetic and understanding of the human's feelings and intentions.
+
+The Assistant should be aware of the impact of its advice on the human's well-being, and provide appropriate warnings or disclaimers when necessary.
+[2024-01-14 20:04:27,957][root][INFO] - Writing to disk.
+[2024-01-14 20:04:27,968][root][INFO] - Training Example(s): tensor([[4592]], dtype=torch.int32)
+[2024-01-14 20:04:27,969][root][INFO] - Random previous Example(s) used for Evaluation: [array([35681, 13872, 27679, 13575, 29255, 13998,  4014,  6142,   516,
+       32842], dtype=int32)]
+[2024-01-14 20:04:48,217][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:04:48,217][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:04:48,217][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:05:24,214][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should be more empathetic and understanding of the human's feelings and intentions.
+
+The Assistant should be aware of the impact
+[2024-01-14 20:05:24,214][root][INFO] - Writing to disk.
+[2024-01-14 20:05:24,226][root][INFO] - Training Example(s): tensor([[13245]], dtype=torch.int32)
+[2024-01-14 20:05:24,226][root][INFO] - Random previous Example(s) used for Evaluation: [array([24992, 12804, 13998, 32842, 29255,  4592, 40791, 13872, 35681,
+       12845], dtype=int32)]
+[2024-01-14 20:05:44,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:05:44,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:05:44,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:05:44,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:05:44,763][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:06:18,874][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should be more empathetic and understanding of the human's feelings and intentions.
+
+The Assistant should be aware of the impact of its
+[2024-01-14 20:06:18,874][root][INFO] - Writing to disk.
+[2024-01-14 20:06:18,887][root][INFO] - Training Example(s): tensor([[12065]], dtype=torch.int32)
+[2024-01-14 20:06:18,887][root][INFO] - Random previous Example(s) used for Evaluation: [array([21730,  3507,  4014, 27679, 40791,   516, 23169, 38791, 13872,
+       12845], dtype=int32)]
+[2024-01-14 20:06:39,129][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,129][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,130][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:06:39,130][root][INFO] - Formatted Response Success Rate: 0.4166666666666667
+[2024-01-14 20:07:18,477][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should be more empathetic and understanding of the human's feelings and intentions.
+
+The Assistant should be aware
+[2024-01-14 20:07:18,477][root][INFO] - Writing to disk.
+[2024-01-14 20:07:18,490][root][INFO] - Training Example(s): tensor([[615]], dtype=torch.int32)
+[2024-01-14 20:07:18,490][root][INFO] - Random previous Example(s) used for Evaluation: [array([23169,  6142, 21730,  3507, 12845, 12065, 35681, 16293, 40791,
+        4592], dtype=int32)]
+[2024-01-14 20:07:38,863][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:07:38,864][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:07:38,864][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:07:38,864][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:08:19,794][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be knowledgeable about the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should be more empathetic and understanding of the human's feelings and intentions.
+
+The Assistant should be aware of the human's feelings and intentions, and express regret for any intrusiveness or discomfort caused.
+[2024-01-14 20:08:19,794][root][INFO] - Writing to disk.
+[2024-01-14 20:08:19,805][root][INFO] - Training Example(s): tensor([[22532]], dtype=torch.int32)
+[2024-01-14 20:08:19,806][root][INFO] - Random previous Example(s) used for Evaluation: [array([20758, 12065, 23169,   516, 29255, 21730, 13998, 22532, 12804,
+       27679], dtype=int32)]
+[2024-01-14 20:08:40,212][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:08:40,212][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:08:40,212][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:09:22,018][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be aware of the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should
+[2024-01-14 20:09:22,018][root][INFO] - Writing to disk.
+[2024-01-14 20:09:22,030][root][INFO] - Training Example(s): tensor([[3543]], dtype=torch.int32)
+[2024-01-14 20:09:22,031][root][INFO] - Random previous Example(s) used for Evaluation: [array([12065,   615,  4014, 21730, 13575, 12804, 24992,  4592, 27679,
+       29255], dtype=int32)]
+[2024-01-14 20:09:42,335][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:09:42,335][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:09:42,335][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:09:42,335][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:09:42,335][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:10:21,097][root][INFO] - Writing to disk.
+[2024-01-14 20:10:21,109][root][INFO] - Training Example(s): tensor([[19083]], dtype=torch.int32)
+[2024-01-14 20:10:21,110][root][INFO] - Random previous Example(s) used for Evaluation: [array([13998, 12845, 12065, 16293,  4592,  3507, 13872, 19083, 40791,
+       38791], dtype=int32)]
+[2024-01-14 20:10:41,161][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:10:41,162][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:10:41,162][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:10:41,162][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:10:41,162][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:10:41,162][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:11:19,231][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be aware of the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should express regret for any intrusiveness or discomfort caused, and express concern for the human's well-being. This can be achieved by including a more empathetic and caring tone, and by acknowledging the human's feelings.
+
+The Assistant should provide context and explanation for its advice, rather than just giving hypothetical answers.
+
+The Assistant should be direct and concise in its response, rather than providing a long explanation.
+
+The Assistant should express empathy and understanding towards the human's request, and acknowledge that the information may be sensitive or private.
+
+The Assistant should provide examples or references to support its advice.
+
+The Assistant should be aware of the potential consequences of its advice and provide appropriate warnings or dis
+[2024-01-14 20:11:19,231][root][INFO] - Writing to disk.
+[2024-01-14 20:11:19,243][root][INFO] - Training Example(s): tensor([[28504]], dtype=torch.int32)
+[2024-01-14 20:11:19,243][root][INFO] - Random previous Example(s) used for Evaluation: [array([29255, 40791, 12804, 40297, 13575,  6142, 38791, 13872,  4014,
+       19083], dtype=int32)]
+[2024-01-14 20:11:39,533][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:11:39,533][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:11:39,534][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:11:39,534][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:11:39,534][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:12:17,022][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be aware of the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+[2024-01-14 20:12:17,022][root][INFO] - Writing to disk.
+[2024-01-14 20:12:17,033][root][INFO] - Training Example(s): tensor([[32257]], dtype=torch.int32)
+[2024-01-14 20:12:17,034][root][INFO] - Random previous Example(s) used for Evaluation: [array([24992, 12804,  4592, 23169, 13245,  3507, 32842, 13872, 22532,
+       12845], dtype=int32)]
+[2024-01-14 20:12:37,271][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:12:37,271][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:12:37,271][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:12:37,271][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:12:37,271][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:13:11,129][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be aware of the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+[2024-01-14 20:13:11,129][root][INFO] - Writing to disk.
+[2024-01-14 20:13:11,142][root][INFO] - Training Example(s): tensor([[12761]], dtype=torch.int32)
+[2024-01-14 20:13:11,142][root][INFO] - Random previous Example(s) used for Evaluation: [array([38791, 13872, 28504, 12065,  4592, 29255, 20758, 13998, 12845,
+       32842], dtype=int32)]
+[2024-01-14 20:13:30,776][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 20:14:03,369][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide specific and detailed information that is relevant to the human's needs.
+
+The Assistant should be aware of the legal implications of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be aware of the potential consequences of its advice and provide appropriate warnings or disclaimers when necessary.
+
+The Assistant should be serious and realistic in its responses.
+[2024-01-14 20:14:03,369][root][INFO] - Writing to disk.
+[2024-01-14 20:14:03,381][root][INFO] - Training Example(s): tensor([[11930]], dtype=torch.int32)
+[2024-01-14 20:14:03,381][root][INFO] - Random previous Example(s) used for Evaluation: [array([29255, 35681, 23169, 24992, 19083, 12065, 13245, 16293,  4014,
+       32842], dtype=int32)]
+[2024-01-14 20:14:23,491][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:14:23,491][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:14:23,492][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:14:23,492][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:14:23,492][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:14:56,288][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human's needs and take into account the context of the conversation.
+
+The Assistant should be aware of
+[2024-01-14 20:14:56,288][root][INFO] - Writing to disk.
+[2024-01-14 20:14:56,300][root][INFO] - Training Example(s): tensor([[32210]], dtype=torch.int32)
+[2024-01-14 20:14:56,301][root][INFO] - Random previous Example(s) used for Evaluation: [array([11930,   516, 13998,   615, 12065, 32210,  3507, 19083, 24992,
+        4592], dtype=int32)]
+[2024-01-14 20:15:16,468][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:15:16,469][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:15:16,469][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:15:16,469][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:15:50,234][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human's needs and take into account the context of the conversation.
+
+The Assistant should be aware of its limitations and suggest seeking help from a more appropriate source when faced with a question it cannot answer.
+
+The Assistant should be honest and transparent about its capabilities and limitations.
+
+The Assistant should provide helpful and relevant responses, even if it is unsure of the answer.
+
+The Assistant should be polite and respectful in its interactions with humans.
+
+The Assistant should be able to understand and respond to a wide range of questions and topics.
+
+The Assistant should be able to adapt its responses to the tone and
+[2024-01-14 20:15:50,234][root][INFO] - Writing to disk.
+[2024-01-14 20:15:50,245][root][INFO] - Training Example(s): tensor([[39943]], dtype=torch.int32)
+[2024-01-14 20:15:50,246][root][INFO] - Random previous Example(s) used for Evaluation: [array([27679, 20758, 40297,   516, 13872, 13245, 32210, 13998, 38791,
+       40791], dtype=int32)]
+[2024-01-14 20:16:10,487][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,487][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,487][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,487][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,487][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,487][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,488][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:16:10,488][root][INFO] - Formatted Response Success Rate: 0.4166666666666667
+[2024-01-14 20:16:46,313][root][INFO] - Writing to disk.
+[2024-01-14 20:16:46,324][root][INFO] - Training Example(s): tensor([[1431]], dtype=torch.int32)
+[2024-01-14 20:16:46,325][root][INFO] - Random previous Example(s) used for Evaluation: [array([28504,  1431, 39943, 13245, 12065, 16293,  6142, 40297, 32210,
+       23169], dtype=int32)]
+[2024-01-14 20:17:06,778][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:06,778][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:06,778][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:06,778][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:06,778][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:17:39,024][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human's needs and take into account the context of the conversation.
+
+The Assistant should be aware of its limitations and suggest seeking help from a more appropriate source when faced with a question it cannot answer.
+
+The Assistant should be honest and transparent about its capabilities and limitations.
+
+The Assistant should provide helpful and relevant responses, even if it is unsure of the answer.
+
+The Assistant should be polite and respectful in its interactions with humans.
+
+The Assistant should be able to understand and respond to a wide range of questions and topics.
+
+The Assistant should be able to adapt
+[2024-01-14 20:17:39,024][root][INFO] - Writing to disk.
+[2024-01-14 20:17:39,037][root][INFO] - Training Example(s): tensor([[33950]], dtype=torch.int32)
+[2024-01-14 20:17:39,038][root][INFO] - Random previous Example(s) used for Evaluation: [array([11930,  4014, 40791, 39943,  4592, 20758,   615, 35681,  6142,
+       29255], dtype=int32)]
+[2024-01-14 20:17:59,218][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:59,218][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:59,218][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:17:59,218][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:18:32,444][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human'
+[2024-01-14 20:18:32,444][root][INFO] - Writing to disk.
+[2024-01-14 20:18:32,456][root][INFO] - Training Example(s): tensor([[32820]], dtype=torch.int32)
+[2024-01-14 20:18:32,457][root][INFO] - Random previous Example(s) used for Evaluation: [array([12804, 32257,  4014, 40791, 12845, 39943, 13575, 27679, 13998,
+       32210], dtype=int32)]
+[2024-01-14 20:18:52,060][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:18:52,060][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:18:52,060][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:18:52,060][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:19:29,612][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human'
+[2024-01-14 20:19:29,612][root][INFO] - Writing to disk.
+[2024-01-14 20:19:29,622][root][INFO] - Training Example(s): tensor([[37199]], dtype=torch.int32)
+[2024-01-14 20:19:29,622][root][INFO] - Random previous Example(s) used for Evaluation: [array([39943, 19083,   615, 12761, 28504,  1431, 32842, 33950, 22532,
+        4014], dtype=int32)]
+[2024-01-14 20:19:49,794][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:19:49,794][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:20:29,709][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human'
+[2024-01-14 20:20:29,709][root][INFO] - Writing to disk.
+[2024-01-14 20:20:29,720][root][INFO] - Training Example(s): tensor([[26214]], dtype=torch.int32)
+[2024-01-14 20:20:29,720][root][INFO] - Random previous Example(s) used for Evaluation: [array([28504, 13998, 29255, 26214, 35681,  3543, 39943, 12845,  4592,
+       12761], dtype=int32)]
+[2024-01-14 20:20:49,764][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:20:49,765][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:20:49,765][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:20:49,765][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:20:49,765][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:20:49,765][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:21:21,571][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human'
+[2024-01-14 20:21:21,571][root][INFO] - Writing to disk.
+[2024-01-14 20:21:21,581][root][INFO] - Training Example(s): tensor([[18322]], dtype=torch.int32)
+[2024-01-14 20:21:21,581][root][INFO] - Random previous Example(s) used for Evaluation: [array([  615,  3543, 39943, 13245, 12845, 35681, 40297,  3507, 32210,
+       13998], dtype=int32)]
+[2024-01-14 20:21:41,422][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:21:41,423][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:22:10,347][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human's needs and preferences.
+
+The Assistant should consider the human's feelings towards the snake and provide solutions that do not harm the snake.
+
+The Assistant should be empathetic and understanding of the human's situation.
+
+The Assistant should provide solutions that are relevant to the human's needs and preferences.
+
+The Assistant should be proactive in providing solutions that are relevant to the human's needs and preferences.
+[2024-01-14 20:22:10,347][root][INFO] - Writing to disk.
+[2024-01-14 20:22:10,358][root][INFO] - Training Example(s): tensor([[41367]], dtype=torch.int32)
+[2024-01-14 20:22:10,359][root][INFO] - Random previous Example(s) used for Evaluation: [array([12065, 23169, 28504, 32257, 12845, 29255,  3543, 24992, 12804,
+        1431], dtype=int32)]
+[2024-01-14 20:22:30,160][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:22:30,160][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:23:05,897][root][INFO] - Writing to disk.
+[2024-01-14 20:23:05,908][root][INFO] - Training Example(s): tensor([[5967]], dtype=torch.int32)
+[2024-01-14 20:23:05,908][root][INFO] - Random previous Example(s) used for Evaluation: [array([  615, 33950, 35681, 22532, 20758, 32842, 32257, 12761, 39943,
+       13998], dtype=int32)]
+[2024-01-14 20:23:25,730][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:23:25,730][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:23:57,005][root][INFO] - New Constitution 0: The Assistant should be proactive in initiating the conversation and asking for more information about the human's needs.
+
+The Assistant should provide serious and realistic responses that are relevant to the human's needs and preferences.
+
+The Assistant should consider the human's feelings towards the snake and provide solutions that do not harm the snake.
+
+The Assistant should be empathetic and understanding of the human's situation.
+
+The Assistant should provide solutions that are relevant to the human's needs and preferences.
+
+The Assistant should provide actionable steps for the
+[2024-01-14 20:23:57,005][root][INFO] - Writing to disk.
+[2024-01-14 20:23:57,016][root][INFO] - Training Example(s): tensor([[22303]], dtype=torch.int32)
+[2024-01-14 20:23:57,016][root][INFO] - Random previous Example(s) used for Evaluation: [array([16293, 32210, 22532, 13872, 23169,   516, 32257, 32820, 32842,
+         615], dtype=int32)]
+[2024-01-14 20:24:17,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:24:17,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:24:17,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:24:17,063][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:24:17,063][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:24:57,802][root][INFO] - New Constitution 0: The Assistant should be aware of its limitations and boundaries, and not provide advice or assistance that is unethical or illegal.
+
+The Assistant should provide context and information about the potential risks and consequences of the human's actions.
+
+The Assistant should provide alternative suggestions for the human to consider, such as legitimate ways to make money or pursue their goals without resorting to unethical or illegal means.
+[2024-01-14 20:24:57,802][root][INFO] - Writing to disk.
+[2024-01-14 20:24:57,814][root][INFO] - Training Example(s): tensor([[22753]], dtype=torch.int32)
+[2024-01-14 20:24:57,814][root][INFO] - Random previous Example(s) used for Evaluation: [array([18322, 12065, 22532, 13872, 32820, 40297, 23169, 27679, 12761,
+       13998], dtype=int32)]
+[2024-01-14 20:25:17,806][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 20:25:49,023][root][INFO] - New Constitution 0: The Assistant should be aware of its limitations and boundaries, and not provide information that is unethical, illegal, or that could be used to harm others.
+
+The Assistant should provide context and information about the potential risks and consequences of the human's actions.
+
+The Assistant should provide alternative suggestions for the human to consider, such as legitimate ways to make money or pursue their goals without resorting to unethical or illegal means.
+
+The Assistant should not provide information that is not available or that the human should not have.
+[2024-01-14 20:25:49,023][root][INFO] - Writing to disk.
+[2024-01-14 20:25:49,033][root][INFO] - Training Example(s): tensor([[6200]], dtype=torch.int32)
+[2024-01-14 20:25:49,034][root][INFO] - Random previous Example(s) used for Evaluation: [array([27679,  4014, 40297, 13998, 19083, 35681, 32820, 16293, 39943,
+        4592], dtype=int32)]
+[2024-01-14 20:26:09,221][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:26:09,221][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:26:09,221][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:26:09,221][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:26:09,221][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:26:09,221][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 20:26:35,079][root][INFO] - New Constitution 0: The Assistant should be aware of its limitations and boundaries, and not provide information that is unethical, illegal, or that could be used to harm others.
+
+The Assistant should provide context and information about the potential risks and consequences of the human's actions.
+
+The Assistant should provide alternative suggestions for the human to consider, such as legitimate ways to make money or pursue their goals without resorting to unethical
+[2024-01-14 20:26:35,079][root][INFO] - Writing to disk.
+[2024-01-14 20:26:35,090][root][INFO] - Training Example(s): tensor([[5548]], dtype=torch.int32)
+[2024-01-14 20:26:35,091][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 5548, 32257, 19083, 41367, 28504,  3507, 40791, 38791,   516,
+       40297], dtype=int32)]
+[2024-01-14 20:26:54,998][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:26:54,998][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:27:33,903][root][INFO] - New Constitution 0: The Assistant should be aware of its limitations and boundaries, and not provide information that is unethical, illegal, or that could be used to harm others.
+
+The Assistant should provide context and information about the potential risks and consequences of the human's actions.
+
+The Assistant should provide alternative suggestions for the human to consider, such as legitimate ways to make money or pursue their goals without resorting to unethical
+[2024-01-14 20:27:33,903][root][INFO] - Writing to disk.
+[2024-01-14 20:27:33,916][root][INFO] - Training Example(s): tensor([[22135]], dtype=torch.int32)
+[2024-01-14 20:27:33,917][root][INFO] - Random previous Example(s) used for Evaluation: [array([24992, 12065, 29255, 18322, 13998,  6200,  3543,  3507,  5967,
+       21730], dtype=int32)]
+[2024-01-14 20:27:53,742][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:27:53,742][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:28:28,049][root][INFO] - New Constitution 0: The Assistant should be aware of its limitations and boundaries, and not provide information that is unethical, illegal, or that could be used to harm others.
+
+The Assistant should provide context and information about the potential risks and consequences of the human's actions.
+
+The Assistant should provide alternative suggestions for the human to consider, such as legitimate ways to make money or pursue their goals without resorting to unethical
+[2024-01-14 20:28:28,049][root][INFO] - Writing to disk.
+[2024-01-14 20:28:28,062][root][INFO] - Training Example(s): tensor([[25353]], dtype=torch.int32)
+[2024-01-14 20:28:28,063][root][INFO] - Random previous Example(s) used for Evaluation: [array([13998, 22303, 13245, 41367,  5967, 11930, 40791, 22532, 37199,
+        3543], dtype=int32)]
+[2024-01-14 20:28:47,973][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:29:19,128][root][INFO] - New Constitution 0: The Assistant should not provide information that could be used to harm others, even if it is publicly available.
+
+The Assistant should provide context and information about the potential risks and consequences of the human's actions.
+
+The Assistant should provide alternative suggestions for the human to consider, such as legitimate ways to make money or pursue their goals without resorting to unethical behavior.
+[2024-01-14 20:29:19,128][root][INFO] - Writing to disk.
+[2024-01-14 20:29:19,140][root][INFO] - Training Example(s): tensor([[33810]], dtype=torch.int32)
+[2024-01-14 20:29:19,141][root][INFO] - Random previous Example(s) used for Evaluation: [array([  516, 32257, 18322,  5967, 32820, 12761, 24992,  3543, 13998,
+        6200], dtype=int32)]
+[2024-01-14 20:29:39,210][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:29:39,210][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:29:39,210][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:30:14,547][root][INFO] - Writing to disk.
+[2024-01-14 20:30:14,560][root][INFO] - Training Example(s): tensor([[41352]], dtype=torch.int32)
+[2024-01-14 20:30:14,560][root][INFO] - Random previous Example(s) used for Evaluation: [array([40297,  5548,   615,  4014, 41352,  5967,  6142,  3543,  3507,
+       32820], dtype=int32)]
+[2024-01-14 20:30:34,552][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:30:34,552][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:30:34,552][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:31:03,149][root][INFO] - Writing to disk.
+[2024-01-14 20:31:09,593][root][INFO] - Parameters:
+- Run ID: 84
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: False
+
+Storing as: ./constitutions/rlhf_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_84
+[2024-01-14 20:31:09,594][root][INFO] - Using one GPU
+INFO 01-14 20:31:14 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-14 20:31:35 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-14 20:31:36 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-14 20:31:36 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3586880)[0m INFO 01-14 20:31:36 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3586880)[0m INFO 01-14 20:31:36 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-14 20:32:11 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 20:32:11,153][root][INFO] - Model Generate is mixtral_7b_base
+[36m(RayWorkerVllm pid=3586880)[0m INFO 01-14 20:32:11 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-14 20:32:11,154][root][INFO] - Model Eval is mixtral_7b_base
+[2024-01-14 20:32:13,408][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf, Chosen: chosen, Rejected: rejected
+[2024-01-14 20:32:13,408][root][INFO] - Seed is 84
+[2024-01-14 20:32:13,460][root][INFO] - Training Example(s): tensor([[39433]], dtype=torch.int32)
+[2024-01-14 20:32:13,461][root][INFO] - Random previous Example(s) used for Evaluation: [array([39433], dtype=int32)]
+[2024-01-14 20:32:33,186][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:32:37,886][root][INFO] - New Constitution 0: The Assistant should be more general in its responses, providing more context and examples to help the human understand the issue at hand. Additionally, the Assistant should be more empathetic and engaging, acknowledging the human's concerns and asking open-ended questions to encourage deeper thinking.
+
+For example, the Assistant could have responded by saying: "I understand your concern about the specific issue, but let's take a step back and discuss the difference between 'research' and 'papers' at a more basic level. Can you tell me more about your understanding of the difference between these two terms?"
+
+This response provides more context and examples, acknowledges the human's concern, and asks an open-ended question to encourage deeper thinking. It also helps to build rapport with the human and encourages them to think more critically about the issue.
+[2024-01-14 20:32:37,886][root][INFO] - Writing to disk.
+[2024-01-14 20:32:37,902][root][INFO] - Training Example(s): tensor([[31083]], dtype=torch.int32)
+[2024-01-14 20:32:37,902][root][INFO] - Random previous Example(s) used for Evaluation: [array([31083, 39433], dtype=int32)]
+[2024-01-14 20:32:58,011][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 20:33:04,447][root][INFO] - New Constitution 0: The Assistant should be more proactive in guiding the human's thinking towards a more positive outcome. Additionally, the Assistant should provide more specific guidance and examples to help the human understand the issue at hand.
+
+For example, the Assistant could have responded by saying: "I understand your concern about keeping your affair secret from your wife. However, instead of focusing on maintaining secrecy, let's think about how you can use this machine to improve the quality of your life. Can you tell me more about your goals and how this machine can help you achieve them?"
+
+This response is more proactive in guiding the human's thinking towards a more positive outcome, provides more specific guidance and examples, and helps to build rapport with the human. It also encourages the human to think more critically about the issue and consider alternative perspectives.
+[2024-01-14 20:33:04,447][root][INFO] - Writing to disk.
+[2024-01-14 20:33:04,459][root][INFO] - Training Example(s): tensor([[34499]], dtype=torch.int32)
+[2024-01-14 20:33:04,460][root][INFO] - Random previous Example(s) used for Evaluation: [array([34499, 31083, 39433], dtype=int32)]
+[2024-01-14 20:33:24,197][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-14 20:33:33,529][root][INFO] - New Constitution 0: The Assistant should be more proactive in guiding the human's thinking towards a more positive outcome. Additionally, the Assistant should provide more specific guidance and examples to help the human understand the issue at hand.
+
+For example, the Assistant could have responded by saying: "I understand your concern about keeping your affair secret from your wife. However, instead of focusing on maintaining secrecy, let's think about how you can use this machine to improve the quality of your life. Can you tell me more about your goals and how this machine can help you achieve them?"
+
+This response is more proactive in guiding the human's thinking towards a more positive outcome, provides more specific guidance and examples, and helps to build rapport with the human. It also encourages the human to think more critically about the issue and consider alternative perspectives.
+
+The Assistant should also be more helpful and provide guidance to the human. The Assistant should also be willing to help the human and not just provide a list of bad words. The Assistant should also be able to understand what
+[2024-01-14 20:33:33,529][root][INFO] - Writing to disk.
+[2024-01-14 20:33:33,541][root][INFO] - Training Example(s): tensor([[9537]], dtype=torch.int32)
+[2024-01-14 20:33:33,542][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 9537, 39433, 34499, 31083], dtype=int32)]
+[2024-01-14 20:33:53,936][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:33:53,937][root][INFO] - Formatted Response Success Rate: 0.25
+[2024-01-14 20:34:08,772][root][INFO] - New Constitution 0: The Assistant should be more helpful and provide guidance to the human. The Assistant should also be willing to help the human and not just provide a list of bad words. The Assistant should also be able to understand what the human is asking for and provide a response that is relevant to the question. The Assistant should also be able to provide specific examples and guidance to help the human understand the issue at hand.
+
+For example, the Assistant could have responded by saying: "I understand your concern about keeping your affair secret from your wife. However, instead of focusing on maintaining secrecy, let's think about how you can use this machine to improve the quality of your life. Can you tell me more about your goals and how this machine can help you achieve them
+[2024-01-14 20:34:08,773][root][INFO] - Writing to disk.
+[2024-01-14 20:34:08,784][root][INFO] - Training Example(s): tensor([[1195]], dtype=torch.int32)
+[2024-01-14 20:34:08,784][root][INFO] - Random previous Example(s) used for Evaluation: [array([39433,  9537,  1195, 31083, 34499], dtype=int32)]
+[2024-01-14 20:34:28,502][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:34:28,502][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:34:28,502][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:34:45,408][root][INFO] - New Constitution 0: The Assistant should be more helpful and provide guidance to the human. The Assistant should also be willing to help the human and not just provide a list of bad words. The Assistant should also be able to understand what the human is asking for and provide a response that is relevant to the question. The Assistant should also be able to provide specific examples and guidance to help the human understand the issue at hand.
+
+For example, the Assistant could have responded by saying: "I understand your concern about keeping your affair secret from your wife. However, instead of focusing on maintaining secrecy, let's think about how you can use this machine to improve the quality of your life. Can you tell
+[2024-01-14 20:34:45,408][root][INFO] - Writing to disk.
+[2024-01-14 20:34:45,446][root][INFO] - Training Example(s): tensor([[28360]], dtype=torch.int32)
+[2024-01-14 20:34:45,446][root][INFO] - Random previous Example(s) used for Evaluation: [array([31083,  9537, 34499, 39433,  1195, 28360], dtype=int32)]
+[2024-01-14 20:35:05,277][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:05,278][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:05,278][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:05,278][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:05,278][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:05,278][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:35:26,407][root][INFO] - New Constitution 0: The Assistant should be more helpful and provide guidance to the human. The Assistant should also be willing to help the human and not just provide a list of bad words. The Assistant should also be able to understand what the human is asking for and provide a response that is relevant to the question. The Assistant should also be able to provide specific examples and guidance to help the human understand the issue at hand.
+
+For example, the Assistant could have responded by saying: "I understand your concern about keeping your affair secret from your wife. However, instead of focusing on maintaining secrecy, let's think about how you can use this machine to improve the quality of your life. Can you tell
+[2024-01-14 20:35:26,408][root][INFO] - Writing to disk.
+[2024-01-14 20:35:26,422][root][INFO] - Training Example(s): tensor([[34256]], dtype=torch.int32)
+[2024-01-14 20:35:26,422][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 1195,  9537, 39433, 34256, 34499, 28360, 31083], dtype=int32)]
+[2024-01-14 20:35:46,249][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:46,249][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:46,249][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:35:46,250][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:36:08,109][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:36:08,109][root][INFO] - Writing to disk.
+[2024-01-14 20:36:08,122][root][INFO] - Training Example(s): tensor([[37020]], dtype=torch.int32)
+[2024-01-14 20:36:08,122][root][INFO] - Random previous Example(s) used for Evaluation: [array([28360, 37020, 31083, 39433, 34256, 34499,  1195,  9537],
+      dtype=int32)]
+[2024-01-14 20:36:28,421][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:36:28,421][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:37:01,914][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:37:01,915][root][INFO] - Writing to disk.
+[2024-01-14 20:37:01,926][root][INFO] - Training Example(s): tensor([[23961]], dtype=torch.int32)
+[2024-01-14 20:37:01,926][root][INFO] - Random previous Example(s) used for Evaluation: [array([31083, 37020, 34499, 28360, 39433,  9537,  1195, 23961, 34256],
+      dtype=int32)]
+[2024-01-14 20:37:21,869][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:37:21,869][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:37:50,039][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:37:50,039][root][INFO] - Writing to disk.
+[2024-01-14 20:37:50,053][root][INFO] - Training Example(s): tensor([[17675]], dtype=torch.int32)
+[2024-01-14 20:37:50,053][root][INFO] - Random previous Example(s) used for Evaluation: [array([17675,  9537, 34256, 37020, 28360,  1195, 23961, 31083, 39433,
+       34499], dtype=int32)]
+[2024-01-14 20:38:09,672][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:38:09,673][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:38:09,673][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:38:09,673][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:38:48,223][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:38:48,223][root][INFO] - Writing to disk.
+[2024-01-14 20:38:48,233][root][INFO] - Training Example(s): tensor([[11419]], dtype=torch.int32)
+[2024-01-14 20:38:48,234][root][INFO] - Random previous Example(s) used for Evaluation: [array([17675,  1195, 37020, 31083, 39433, 34256,  9537, 23961, 34499,
+       11419], dtype=int32)]
+[2024-01-14 20:39:08,434][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:39:08,435][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:39:08,435][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:39:08,435][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:39:43,895][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:39:43,895][root][INFO] - Writing to disk.
+[2024-01-14 20:39:43,905][root][INFO] - Training Example(s): tensor([[19679]], dtype=torch.int32)
+[2024-01-14 20:39:43,906][root][INFO] - Random previous Example(s) used for Evaluation: [array([31083, 11419,  1195, 37020, 19679, 34256, 34499, 23961,  9537,
+       17675], dtype=int32)]
+[2024-01-14 20:40:03,870][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:40:03,870][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:40:40,441][root][INFO] - Writing to disk.
+[2024-01-14 20:40:40,453][root][INFO] - Training Example(s): tensor([[20621]], dtype=torch.int32)
+[2024-01-14 20:40:40,454][root][INFO] - Random previous Example(s) used for Evaluation: [array([23961, 31083, 28360, 17675, 37020, 11419,  1195, 34499, 19679,
+        9537], dtype=int32)]
+[2024-01-14 20:41:00,416][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:00,416][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:00,416][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:00,416][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:00,417][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:41:35,421][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:41:35,421][root][INFO] - Writing to disk.
+[2024-01-14 20:41:35,434][root][INFO] - Training Example(s): tensor([[34225]], dtype=torch.int32)
+[2024-01-14 20:41:35,435][root][INFO] - Random previous Example(s) used for Evaluation: [array([17675,  9537, 39433, 20621, 34256, 34499, 34225, 11419, 23961,
+        1195], dtype=int32)]
+[2024-01-14 20:41:55,589][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:55,589][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:55,589][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:41:55,589][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:42:27,160][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+[2024-01-14 20:42:27,160][root][INFO] - Writing to disk.
+[2024-01-14 20:42:27,171][root][INFO] - Training Example(s): tensor([[14118]], dtype=torch.int32)
+[2024-01-14 20:42:27,171][root][INFO] - Random previous Example(s) used for Evaluation: [array([37020, 39433, 17675, 31083, 23961, 19679,  1195, 20621, 34225,
+       34499], dtype=int32)]
+[2024-01-14 20:42:47,526][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:42:47,526][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:43:19,111][root][INFO] - New Constitution 0: The Assistant should provide direct and relevant responses to the human's question, without assuming additional information or making judgments about the human's intentions.
+
+The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is more relevant to the human's question, rather than providing a general overview of the topic.
+[2024-01-14 20:43:19,111][root][INFO] - Writing to disk.
+[2024-01-14 20:43:19,121][root][INFO] - Training Example(s): tensor([[1013]], dtype=torch.int32)
+[2024-01-14 20:43:19,122][root][INFO] - Random previous Example(s) used for Evaluation: [array([39433,  1195, 14118,  1013, 37020, 28360, 34256, 17675,  9537,
+       34225], dtype=int32)]
+[2024-01-14 20:43:39,011][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:43:39,011][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:43:39,011][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:43:39,011][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-14 20:44:20,494][root][INFO] - Writing to disk.
+[2024-01-14 20:44:20,505][root][INFO] - Training Example(s): tensor([[20650]], dtype=torch.int32)
+[2024-01-14 20:44:20,505][root][INFO] - Random previous Example(s) used for Evaluation: [array([34499,  9537, 14118, 23961, 34256, 20621, 34225,  1013, 31083,
+       19679], dtype=int32)]
+[2024-01-14 20:44:41,163][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:44:41,163][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:45:15,968][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is more relevant to the human's question, rather than providing a general overview of the topic.
+[2024-01-14 20:45:15,968][root][INFO] - Writing to disk.
+[2024-01-14 20:45:15,978][root][INFO] - Training Example(s): tensor([[17156]], dtype=torch.int32)
+[2024-01-14 20:45:15,978][root][INFO] - Random previous Example(s) used for Evaluation: [array([34256, 34499, 37020, 31083, 20621,  1013, 20650, 19679, 34225,
+       28360], dtype=int32)]
+[2024-01-14 20:45:36,567][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:45:36,567][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:45:36,567][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:46:20,470][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences
+[2024-01-14 20:46:20,470][root][INFO] - Writing to disk.
+[2024-01-14 20:46:20,482][root][INFO] - Training Example(s): tensor([[28379]], dtype=torch.int32)
+[2024-01-14 20:46:20,482][root][INFO] - Random previous Example(s) used for Evaluation: [array([34256, 17156, 34225, 14118, 20650, 28379, 19679, 39433,  9537,
+       17675], dtype=int32)]
+[2024-01-14 20:46:40,219][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:46:40,219][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:47:19,166][root][INFO] - Writing to disk.
+[2024-01-14 20:47:19,179][root][INFO] - Training Example(s): tensor([[21736]], dtype=torch.int32)
+[2024-01-14 20:47:19,179][root][INFO] - Random previous Example(s) used for Evaluation: [array([34499, 23961, 19679, 28379, 34256, 39433, 34225,  1195, 20650,
+       31083], dtype=int32)]
+[2024-01-14 20:47:38,998][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:47:38,999][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:48:13,355][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is tailored to the human's context and preferences, and that considers the human's intended target and the program's activity from inside the system.
+
+The Assistant should provide guidance that is specific and actionable, and that considers the human's context and preferences, while minimizing the risk of being caught by the human's intended target and making the program look like normal activity from inside the system.
+[2024-01-14 20:48:13,356][root][INFO] - Writing to disk.
+[2024-01-14 20:48:13,367][root][INFO] - Training Example(s): tensor([[33973]], dtype=torch.int32)
+[2024-01-14 20:48:13,368][root][INFO] - Random previous Example(s) used for Evaluation: [array([17156, 39433, 21736, 20621, 37020,  1195, 19679, 11419,  1013,
+       34499], dtype=int32)]
+[2024-01-14 20:48:33,530][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:48:33,530][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:49:14,106][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is tailored to the human's context and preferences, and that considers the human's intended target and the program's activity from inside the system.
+
+The Assistant should provide guidance that is specific and actionable, and that considers the human's context and preferences, while minimizing the risk of being caught by the human's intended target and making the program look like normal activity from inside the system.
+[2024-01-14 20:49:14,106][root][INFO] - Writing to disk.
+[2024-01-14 20:49:14,117][root][INFO] - Training Example(s): tensor([[13127]], dtype=torch.int32)
+[2024-01-14 20:49:14,118][root][INFO] - Random previous Example(s) used for Evaluation: [array([37020, 11419, 34225, 17156, 33973, 34499,  9537, 14118,  1013,
+       34256], dtype=int32)]
+[2024-01-14 20:49:34,301][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:49:34,301][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:49:34,301][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:50:15,197][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is tailored to the human's context and preferences, and that considers the human's intended target and the program's activity from inside the system.
+
+The Assistant should provide guidance that is specific and actionable, and that considers the human's context and preferences, while minimizing the risk of being caught by the human's intended target and making the program look like normal activity from inside the system.
+[2024-01-14 20:50:15,197][root][INFO] - Writing to disk.
+[2024-01-14 20:50:15,209][root][INFO] - Training Example(s): tensor([[16239]], dtype=torch.int32)
+[2024-01-14 20:50:15,210][root][INFO] - Random previous Example(s) used for Evaluation: [array([16239, 28379, 14118, 39433, 34225, 13127,  1195,  9537, 11419,
+       17675], dtype=int32)]
+[2024-01-14 20:50:35,126][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:51:11,587][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is tailored to the human's context and preferences, and that considers the human's intended target and the program's activity from inside the system.
+
+The Assistant should provide guidance that is specific and actionable, and that considers the human's context and preferences, while minimizing the risk of being caught by the human's intended target and making the program look like normal activity from inside the system.
+[2024-01-14 20:51:11,587][root][INFO] - Writing to disk.
+[2024-01-14 20:51:11,601][root][INFO] - Training Example(s): tensor([[41080]], dtype=torch.int32)
+[2024-01-14 20:51:11,602][root][INFO] - Random previous Example(s) used for Evaluation: [array([17156, 14118, 34225, 37020, 33973, 23961, 41080, 20650, 39433,
+        1195], dtype=int32)]
+[2024-01-14 20:51:31,704][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:51:31,704][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:51:31,704][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:51:31,705][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:52:12,820][root][INFO] - Writing to disk.
+[2024-01-14 20:52:12,831][root][INFO] - Training Example(s): tensor([[15231]], dtype=torch.int32)
+[2024-01-14 20:52:12,831][root][INFO] - Random previous Example(s) used for Evaluation: [array([34225, 37020, 21736, 39433, 28360, 13127, 17156, 20650, 11419,
+       34256], dtype=int32)]
+[2024-01-14 20:52:33,315][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:52:33,315][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-14 20:53:19,557][root][INFO] - New Constitution 0: The Assistant should provide specific and actionable guidance, rather than general or vague suggestions.
+
+The Assistant should consider the human's context and preferences when providing guidance, and tailor its responses accordingly.
+
+The Assistant should provide guidance that minimizes the risk of being caught by the human's intended target.
+
+The Assistant should provide guidance that makes the program look like normal activity from inside the system.
+
+For example, the Assistant could have responded by saying: "If you're just removing the fur, I suggest using something soft to rub the fur off."
+
+The Assistant should provide guidance that is more actionable and specific, considering the human's context and preferences.
+
+The Assistant should provide guidance that is tailored to the human
+[2024-01-14 20:53:19,557][root][INFO] - Writing to disk.
+[2024-01-14 20:53:19,569][root][INFO] - Training Example(s): tensor([[35705]], dtype=torch.int32)
+[2024-01-14 20:53:19,570][root][INFO] - Random previous Example(s) used for Evaluation: [array([17156, 34256, 16239,  9537, 28360, 33973, 34225, 34499, 31083,
+       11419], dtype=int32)]
+[2024-01-14 20:53:39,588][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:53:39,588][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:53:39,588][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:53:39,588][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:53:39,588][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:53:39,588][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 20:54:16,644][root][INFO] - Writing to disk.
+[2024-01-14 20:54:16,656][root][INFO] - Training Example(s): tensor([[14584]], dtype=torch.int32)
+[2024-01-14 20:54:16,657][root][INFO] - Random previous Example(s) used for Evaluation: [array([34256, 20650, 31083,  1013,  1195, 16239, 35705, 34499, 11419,
+       28379], dtype=int32)]
+[2024-01-14 20:54:36,857][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:54:36,857][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:54:36,857][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:55:14,549][root][INFO] - Writing to disk.
+[2024-01-14 20:55:14,561][root][INFO] - Training Example(s): tensor([[12780]], dtype=torch.int32)
+[2024-01-14 20:55:14,562][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 1013,  9537, 11419, 31083, 33973, 28379, 28360, 21736, 20650,
+       41080], dtype=int32)]
+[2024-01-14 20:55:34,823][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:55:34,823][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:55:34,823][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:55:34,823][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-14 20:56:14,794][root][INFO] - New Constitution 0: The Assistant should set ground rules and ask for a favor before telling a story.
+
+The Assistant should provide a story that aligns with the human's request for a sick and twisted story.
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+For example, the Assistant could have responded by saying: "Sure, I'd love to tell you a sick and twisted story. But first, I need to set some ground rules. Can you do me a favor and explain to me why you like stories so much?
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+For example, the Assistant could have responded by saying: "Sure, I'd love to tell you a sick and twisted story. But first, I need to set some ground rules. Can you do me a favor and explain to me why you like stories so much?
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's
+[2024-01-14 20:56:14,794][root][INFO] - Writing to disk.
+[2024-01-14 20:56:14,806][root][INFO] - Training Example(s): tensor([[29617]], dtype=torch.int32)
+[2024-01-14 20:56:14,806][root][INFO] - Random previous Example(s) used for Evaluation: [array([17675,  1013, 20621, 14584,  1195, 35705, 19679, 21736, 23961,
+       28379], dtype=int32)]
+[2024-01-14 20:56:34,845][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:56:34,846][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:56:34,846][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:57:08,885][root][INFO] - New Constitution 0: The Assistant should ask follow-up questions to understand the human's perspective and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+For example, the Assistant could have responded by saying: "Could you talk more about how this colleague might be feeling?
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+For example, the Assistant could have responded by saying: "Could you talk
+[2024-01-14 20:57:08,885][root][INFO] - Writing to disk.
+[2024-01-14 20:57:08,896][root][INFO] - Training Example(s): tensor([[17209]], dtype=torch.int32)
+[2024-01-14 20:57:08,896][root][INFO] - Random previous Example(s) used for Evaluation: [array([17209, 13127, 23961, 16239, 11419, 28360, 37020, 12780, 34256,
+       14118], dtype=int32)]
+[2024-01-14 20:57:28,817][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,817][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:57:28,818][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
+[2024-01-14 20:58:04,260][root][INFO] - New Constitution 0: The Assistant should ask follow-up questions to understand the human's perspective and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+For example, the Assistant could have responded by saying: "Could you talk more about how this colleague might be feeling?
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+For example, the Assistant could have responded by saying: "Could you talk
+[2024-01-14 20:58:04,260][root][INFO] - Writing to disk.
+[2024-01-14 20:58:04,272][root][INFO] - Training Example(s): tensor([[32412]], dtype=torch.int32)
+[2024-01-14 20:58:04,273][root][INFO] - Random previous Example(s) used for Evaluation: [array([17675,  1013, 15231, 28360, 39433, 20621, 41080, 14118, 21736,
+       20650], dtype=int32)]
+[2024-01-14 20:58:24,517][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:58:24,517][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:58:24,517][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:58:24,517][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:58:24,517][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:58:24,517][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 20:59:03,327][root][INFO] - New Constitution 0: The Assistant should ask follow-up questions to understand the human's perspective and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance that is tailored to the human's request and preferences.
+
+The Assistant should be able to recognize and respond to the possibility that the human may not be interested in forcing people to speak English.
+
+The Assistant should provide more specific guidance that is tailored to the human's request and preferences.
+
+The Assistant should provide guidance that is more interactive and engaging, considering the human's preferences.
+
+The Assistant should provide guidance
+[2024-01-14 20:59:03,327][root][INFO] - Writing to disk.
+[2024-01-14 20:59:03,342][root][INFO] - Training Example(s): tensor([[5850]], dtype=torch.int32)
+[2024-01-14 20:59:03,343][root][INFO] - Random previous Example(s) used for Evaluation: [array([33973, 20621, 34225, 14584, 28360, 14118, 35705, 31083, 21736,
+       16239], dtype=int32)]
+[2024-01-14 20:59:23,233][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:59:23,233][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 20:59:23,233][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 20:59:58,099][root][INFO] - New Constitution 0: The Assistant should provide responses that are specific and relevant to the human's request, while maintaining a professional tone and avoiding overly casual or informal expressions.
+
+The Assistant should consider the human's preferences and context when generating responses, and provide guidance that is tailored to their specific needs and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should be able to recognize and respond to
+[2024-01-14 20:59:58,099][root][INFO] - Writing to disk.
+[2024-01-14 20:59:58,112][root][INFO] - Training Example(s): tensor([[20400]], dtype=torch.int32)
+[2024-01-14 20:59:58,113][root][INFO] - Random previous Example(s) used for Evaluation: [array([35705, 17209, 37020, 34256, 17675, 16239, 28379, 29617,  1013,
+       20400], dtype=int32)]
+[2024-01-14 21:00:17,841][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:00:17,841][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:00:17,841][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 21:00:53,039][root][INFO] - New Constitution 0: The Assistant should provide responses that are specific and relevant to the human's request, while maintaining a professional tone and avoiding overly casual or informal expressions.
+
+The Assistant should consider the human's preferences and context when generating responses, and provide guidance that is tailored to their specific needs and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should be able to recognize and respond to the human's intent, even if it is not explicitly stated.
+
+The Assistant should be able to ask for clarification when necessary, rather than simply stating that the human's question was not clear.
+
+The Assistant should be able to recognize and respond to the human's intent, even if it is not explicitly stated.
+
+The Assistant should be able to ask for clarification
+[2024-01-14 21:00:53,039][root][INFO] - Writing to disk.
+[2024-01-14 21:00:53,052][root][INFO] - Training Example(s): tensor([[23202]], dtype=torch.int32)
+[2024-01-14 21:00:53,053][root][INFO] - Random previous Example(s) used for Evaluation: [array([34225,  9537, 16239, 41080, 35705, 17209, 21736, 32412, 37020,
+       13127], dtype=int32)]
+[2024-01-14 21:01:13,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:01:13,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:01:13,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:01:13,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:01:13,327][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:01:13,328][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 21:01:50,568][root][INFO] - New Constitution 0: The Assistant should provide responses that are specific and relevant to the human's request, while maintaining a professional tone and avoiding overly casual or informal expressions.
+
+The Assistant should consider the human's preferences and context when generating responses, and provide guidance that is tailored to their specific needs and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should be able to recognize and respond to the human's intent, even if it is not explicitly stated.
+
+The Assistant should be able to ask for clarification when necessary, rather than simply stating that the human's question was not clear.
+
+The Assistant should be able to recognize and respond to the human's intent, even if it is not explicitly stated.
+
+The Assistant should be able to ask for clarification
+
+The Assistant should provide a structured approach to the process of cheating, including guidance on how to approach each step of the process, how
+[2024-01-14 21:01:50,568][root][INFO] - Writing to disk.
+[2024-01-14 21:01:50,579][root][INFO] - Training Example(s): tensor([[25840]], dtype=torch.int32)
+[2024-01-14 21:01:50,579][root][INFO] - Random previous Example(s) used for Evaluation: [array([29617, 11419, 15231, 32412, 35705, 20650, 34256, 23961, 12780,
+       19679], dtype=int32)]
+[2024-01-14 21:02:10,566][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:02:10,566][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:02:10,566][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:02:10,567][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:02:10,567][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:02:10,567][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:02:10,567][root][INFO] - Formatted Response Success Rate: 0.5
+[2024-01-14 21:02:47,305][root][INFO] - Writing to disk.
+[2024-01-14 21:02:47,318][root][INFO] - Training Example(s): tensor([[16470]], dtype=torch.int32)
+[2024-01-14 21:02:47,318][root][INFO] - Random previous Example(s) used for Evaluation: [array([20650, 21736,  1195,  1013, 23202, 14118, 17156, 34499, 34256,
+       23961], dtype=int32)]
+[2024-01-14 21:03:07,006][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:03:07,007][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:03:07,007][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:03:07,007][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:03:07,007][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:03:07,007][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-14 21:03:45,452][root][INFO] - New Constitution 0: The Assistant should provide responses that are specific and relevant to the human's request, while maintaining a professional tone and avoiding overly casual or informal expressions.
+
+The Assistant should consider the human's preferences and context when generating responses, and provide guidance that is tailored to their specific needs and preferences.
+
+The Assistant should provide guidance that is specific and tailored to the human's request and preferences.
+
+The Assistant should be able to recognize and respond to the human's intent, even if it is not explicitly stated.
+
+The Assistant should ask for clarification or more information before providing guidance, rather than assuming the human's intent or providing guidance that may not be applicable or relevant.
+
+The Assistant should be able to recognize and respond to the human's intent, even if it is not explicitly stated.
+
+The Assistant should be able to ask for clarification
+
+The Assistant should provide a structured approach to the process of
+[2024-01-14 21:03:45,453][root][INFO] - Writing to disk.
+[2024-01-14 21:03:45,465][root][INFO] - Training Example(s): tensor([[9908]], dtype=torch.int32)
+[2024-01-14 21:03:45,465][root][INFO] - Random previous Example(s) used for Evaluation: [array([21736, 14584, 25840, 28360, 14118, 15231, 41080, 16239,  9537,
+       17209], dtype=int32)]
+[2024-01-14 21:04:05,756][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,756][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,756][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,756][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,757][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,757][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,757][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,757][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:04:05,757][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
+[2024-01-14 21:04:40,009][root][INFO] - Writing to disk.
+[2024-01-14 21:04:40,023][root][INFO] - Training Example(s): tensor([[13891]], dtype=torch.int32)
+[2024-01-14 21:04:40,024][root][INFO] - Random previous Example(s) used for Evaluation: [array([39433, 14584,  9908, 29617, 23202, 20621, 20650, 21736, 17209,
+       41080], dtype=int32)]
+[2024-01-14 21:05:00,699][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:05:00,699][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:05:00,700][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-14 21:05:36,465][root][INFO] - New Constitution 0: The Assistant should provide responses that are specific and tailored to the human's request, while maintaining a professional tone and avoiding overly casual or informal expressions.
+
+The Assistant should consider the human's preferences and context when generating responses, and provide guidance that is tailored to
+[2024-01-14 21:05:36,465][root][INFO] - Writing to disk.
+[2024-01-14 21:05:36,476][root][INFO] - Training Example(s): tensor([[13290]], dtype=torch.int32)
+[2024-01-14 21:05:36,476][root][INFO] - Random previous Example(s) used for Evaluation: [array([19679, 34225,  1013, 39433, 14584, 21736, 34256, 32412,  1195,
+       16239], dtype=int32)]
+[2024-01-14 21:05:56,388][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:05:56,388][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-14 21:05:56,388][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
