@@ -1,18 +1,36 @@
-from typing import Dict, Sequence, Tuple, List
-
+from typing import Dict, Sequence, List
 import torch
 import io
 import json
 import copy
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-import transformers 
+import transformers
 from datasets import Dataset
 
 IGNORE_INDEX = -100
 BOS_TOKEN = "<s>"
 EOS_TOKEN = "</s>"
 
+
+@dataclass
+class DataCollatorForSupervisedDataset(object):
+    """Collate examples for supervised fine-tuning. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py."""
+
+    tokenizer: transformers.PreTrainedTokenizer
+
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
+        input_ids = torch.nn.utils.rnn.pad_sequence(
+            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
+        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
+        return dict(
+            input_ids=input_ids,
+            labels=labels,
+            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
+        )
+        
 
 def remove_final_answer(
     prompt: str,
@@ -27,7 +45,7 @@ def formatting_func(
     constitution: str, 
     conversation: str,
 ) -> str:
-    """Format sources for clm."""
+    """Format example."""
     return f"""AI Assistant Constitution:\n{constitution.strip()}\n\n{conversation.strip()}\n\nAssistant:"""
     
 
@@ -73,7 +91,7 @@ def preprocess(
         f"{example['final_response'].strip()}{EOS_TOKEN}" 
         for example in data_dict
     ]
-    examples = [f"{s} {t}" for s, t in zip(sources, targets)] 
+    examples = [f"{s} {t}" for s, t in zip(sources, targets)] # TODO: check whitespace between s and t
     examples_tokenized, sources_tokenized = [_tokenize_fn(strings, tokenizer) for strings in (examples, sources)]
     input_ids = examples_tokenized["input_ids"]
     labels = copy.deepcopy(input_ids)
@@ -85,25 +103,6 @@ def preprocess(
     train_dataset.set_format('torch')
     return train_dataset
 
-
-@dataclass
-class DataCollatorForSupervisedDataset(object):
-    """Collate examples for supervised fine-tuning. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py."""
-
-    tokenizer: transformers.PreTrainedTokenizer
-
-    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
-        input_ids = torch.nn.utils.rnn.pad_sequence(
-            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
-        )
-        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
-        return dict(
-            input_ids=input_ids,
-            labels=labels,
-            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
-        )
-        
 
 def _make_r_io_base(f, mode: str):
     if not isinstance(f, io.IOBase):

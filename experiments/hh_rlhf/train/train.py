@@ -2,19 +2,19 @@ import fire
 import hydra
 import wandb
 from omegaconf import DictConfig, OmegaConf
-from transformers import TrainingArguments, Trainer
 from peft import LoraConfig, get_peft_model
+from transformers import TrainingArguments, Trainer
 
-
-from helpers import *
+from train_helpers import *
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=None, config_path="conf", config_name="train")
 def main(args: DictConfig) -> None:
     
     # wandb
-    wandb.init(project=args.train.wandb.project, name=args.train.wandb.name) #, config=args)
+    args_dict = OmegaConf.to_container(args, resolve=True)
+    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
     # Get model
     model = HFInferenceModel(**args.model.model_config)
@@ -27,10 +27,12 @@ def main(args: DictConfig) -> None:
     data_collator = DataCollatorForSupervisedDataset(tokenizer=model.tokenizer)
 
     # Training Args
-    training_args = TrainingArguments(**args.train.training_args)
+    training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
+    training_args = TrainingArguments(**training_args_dict)
     
     ## LoRA and Peft setup
-    lora_config = LoraConfig(**args.train.lora_config)
+    lora_config_dict = OmegaConf.to_container(args.lora_config, resolve=True)
+    lora_config = LoraConfig(**lora_config_dict)
     peft_model = get_peft_model(model.model, lora_config)
     peft_model.print_trainable_parameters()
     

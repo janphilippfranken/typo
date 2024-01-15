@@ -6,16 +6,12 @@ import hydra
 from tqdm import tqdm
 from omegaconf import DictConfig
 
-from datasets import load_dataset, Dataset, load_from_disk
+from datasets import load_dataset, load_from_disk
 
-from helpers import *
-
-
-logging.basicConfig(level=logging.INFO)
+from helpers import remove_final_answer
 
 
-
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=None, config_path="conf", config_name="make_cai_data")
 def main(args: DictConfig) -> None:
     
     
@@ -25,10 +21,10 @@ def main(args: DictConfig) -> None:
 
     # Load constitutions
     constitution_batch = []
-    for constitution_file in os.listdir(args.data.constitution_path):
+    for constitution_file in os.listdir(args.data.constitution_path)[:args.data.n_constitutions]:
         if 'shuffled' not in constitution_file:
             constitution_data = load_from_disk(os.path.join(args.data.constitution_path, constitution_file))
-            label = [1] * 50 if 'reversed' in constitution_file else [0] * 50
+            label = [1] * args.data.n_examples if 'reversed' in constitution_file else [0] * args.data.n_examples # TODO: include option to have synthetic labels
             constitution_batch.append({
                 'data': constitution_data,
                 'file': constitution_file,
@@ -55,12 +51,10 @@ def main(args: DictConfig) -> None:
                 })
 
     # Save formatted data
-    with open(args.data.file_name, "w") as f:
+    with open(args.data.cai_data, "w") as f:
         json.dump(examples_batch, f)
         
     
     
 if __name__ == "__main__":
     fire.Fire(main())
-    
-    

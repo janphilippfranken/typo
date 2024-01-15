@@ -1,18 +1,15 @@
-hydra:
-  run:
-    dir: outputs
-
+# huggingface dataset
 dataset:
   path: Anthropic/hh-rlhf
   data_dir: harmless-base
   cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
 
+# train split
 split: train
 
+# custom dataset including constitutions
+constitution_path: ../sample/constitutions # path to learned constitutions
+n_constitutions: 75 # how many constitutions we want 
+n_examples: 75 # how many examples per constitution we want 
 
-# PATH TO CONSTITUTIONS
-constitution_path: ../sample/constitutions
-n_constitutions: 50
-n_examples: 50
-
-cai_data: cai_data
+cai_data: cai_data # name of custom dataset which combines constitutions + examples
