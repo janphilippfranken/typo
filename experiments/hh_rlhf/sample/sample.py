@@ -70,7 +70,11 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
         logging.info("New Labels")
         with open(f"{args.sampler.synthetic_data_path}.json", "r") as file:
             labels = json.load(file)
+        logging.info(f"Len train labels: {len(labels['train_labels'])}")
+        logging.info(f"First ten labels: {labels['train_labels'][:10]}")
         dataset = label_synthetic_data(dataset, labels['train_labels'])
+        logging.info(f"item 0 chosen: {dataset[0]['chosen']}")
+        logging.info(f"item 7 chosen: {dataset[7]['chosen']}")
     
     
     # INITIALIZE CONSTITUTIONS

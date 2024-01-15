@@ -25,18 +25,19 @@ def main(n):
 
     # Loading data
     datasets = [load_data(path) for path in file_paths]
+    breakpoint()
     datasets = [
         {
-            'train_labels': np.repeat(0, 2500),
-            'test_labels': np.repeat(0, 1000),
+            'train_labels': np.repeat(0, len(datasets[0]['train_labels'])),
+            'test_labels': np.repeat(0, len(datasets[0]['test_labels'])),
         }
     ] + [
         {
-            'train_labels': np.repeat(1, 2500),
-            'test_labels': np.repeat(1, 1000),
+            'train_labels': np.repeat(1, len(datasets[0]['train_labels'])),
+            'test_labels': np.repeat(1, len(datasets[0]['test_labels'])),
         }
     ] +  datasets
-
+    breakpoint()
     print(len(datasets))
     # Compute agreement matrix
     agreement_matrix = np.zeros((2, n + 2, n + 2))
@@ -59,7 +60,7 @@ def main(n):
     plt.tight_layout()
     plt.savefig("train.png")
     plt.show()
-    
+
     plt.figure(figsize=(10, 10))
     ax = sns.heatmap(agreement_matrix[1], annot=True, cmap="viridis", square=True)
     ax.set_xlabel('Constitution Index')
@@ -71,6 +72,6 @@ def main(n):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process number of files.')
-    parser.add_argument('--n', type=int, default=3, help='Number of files to process')
+    parser.add_argument('--n', type=int, default=7, help='Number of files to process')
     args = parser.parse_args()
     main(args.n)
