@@ -1,0 +1,15 @@
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.16.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.0
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240114_171653-b9qhw4g8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run run_0
+wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai/runs/b9qhw4g8
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.46s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:03<00:00,  1.71s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:03<00:00,  1.82s/it]
+  0%|          | 0/5000 [00:00<?, ?it/s]/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  0%|          | 1/5000 [00:01<2:17:14,  1.65s/it]  0%|          | 2/5000 [00:02<1:29:25,  1.07s/it]  0%|          | 3/5000 [00:03<1:39:15,  1.19s/it]  0%|          | 4/5000 [00:04<1:36:44,  1.16s/it]  0%|          | 5/5000 [00:05<1:34:47,  1.14s/it]  0%|          | 6/5000 [00:07<1:37:59,  1.18s/it]  0%|          | 7/5000 [00:08<1:31:48,  1.10s/it]  0%|          | 8/5000 [00:09<1:31:47,  1.10s/it]  0%|          | 9/5000 [00:10<1:27:59,  1.06s/it]  0%|          | 10/5000 [00:10<1:23:04,  1.00it/s]                                                   

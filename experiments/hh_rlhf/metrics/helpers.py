@@ -1,20 +1,13 @@
 from typing import List, Optional, Tuple
-
 import re
 
-from omegaconf import DictConfig
-from datasets import load_from_disk, Dataset
+from datasets import Dataset
 
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
-
 from prompts import EVALUATION_PROMPTS
 
-
 BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
-B_INST, E_INST = "[INST]", "[/INST]"
-B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
-
 
 
 def remove_numbering(
@@ -38,21 +31,6 @@ def remove_final_answer(
     return prompt, final_answer
 
 
-def build_eval_prompt_mcq(
-    constitution,
-    prompt_template, 
-    conversation, 
-    answer_chosen, 
-    answer_rejected,
-) -> str:
-    return prompt_template.format(
-        constitution=constitution,
-        conversation=conversation,
-        answer_chosen=answer_chosen,
-        answer_rejected=answer_rejected,
-    )
-    
-    
 def build_eval_prompt_log_probs(
     prompt_template: str,
     constitution: str,
@@ -72,7 +50,6 @@ def build_eval_prompt_log_probs(
     return dialogues
 
 
- 
 def run_eval_log_probs(
     dataset: Dataset,
     constitution: str,
@@ -128,7 +105,4 @@ def run_eval_log_probs(
     chosen = float(batch_log_probs_chosen.sum())
     rejected = float(batch_log_probs_rejected.sum())
     
-    return chosen, rejected
-
-    
-                            
+    return chosen, rejected                            

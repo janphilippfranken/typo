@@ -5,7 +5,7 @@ from omegaconf import DictConfig, OmegaConf
 from peft import LoraConfig, get_peft_model
 from transformers import TrainingArguments, Trainer
 
-from train_helpers import *
+from helpers import *
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 
 

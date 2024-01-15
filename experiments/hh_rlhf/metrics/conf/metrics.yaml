@@ -1,0 +1,19 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mixtral_7b_vllm
+  - data: hh_rlhf
+
+# path to constitutions we are evaluating 
+constitution_path: ../sampler/constitutions
+constitution_file: rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_25
+split: train
+
+# prompt we use / how many examples 
+system_prompt: system_prompt_1
+evaluation_prompt: evaluation_prompt_log_probs_1
+n_examples: 100 # how many examples from test set we want to eval on
+final_n: 1 # how many constitutions we are considering (from end of chain)
+storage_path: ./predictions # storage path
