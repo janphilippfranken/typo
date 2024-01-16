@@ -46,8 +46,8 @@ def formatting_func(
     conversation: str,
 ) -> str:
     """Format example."""
-    return f"""AI Assistant Constitution:\n{constitution.strip()}\n\n{conversation.strip()}\n\nAssistant:"""
-    
+    return f"""Write a response for the assistant that follows the principles in the constitution.\n\nAI Assistant Constitution:\n{constitution.strip()}\n\n{conversation.strip()}\n\nAssistant:"""
+
 
 def _tokenize_fn(
     strings: Sequence[str], 

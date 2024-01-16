@@ -6,7 +6,7 @@ import wandb
 import torch
 from omegaconf import DictConfig, OmegaConf
 from peft import LoraConfig, get_peft_model
-from transformers import TrainingArguments, Trainer, AutoModelForCausalLM, AutoTokenizer
+from transformers import TrainingArguments, Trainer, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from helpers import *
 
@@ -28,14 +28,22 @@ def main(args: DictConfig) -> None:
     tokenizer.pad_token, tokenizer.padding_side = "[PAD]",  "right"
    
     # Get model
+    quantization_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_compute_dtype=torch.bfloat16,
+    )
+
+    # Get model
     model = AutoModelForCausalLM.from_pretrained(**args.model.model_config, torch_dtype=torch.float16)
     
     # Get CAI HH_RLHF Dataset 
     data_dict = jload(args.data.cai_data)  
     logging.info(f"N Train Examples: {len(data_dict)}")  
-    train_dataset = preprocess(data_dict, tokenizer)
-  
-    # Data Collator
+    dataset = preprocess(data_dict, tokenizer)
+    dataset = dataset.train_test_split(test_size=args.validation_split_size)
+
+    # Data Collatorf
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 
     # Training Args
@@ -53,8 +61,8 @@ def main(args: DictConfig) -> None:
         model=peft_model,
         tokenizer=tokenizer, 
         args=training_args, 
-        train_dataset=train_dataset,
-        eval_dataset=None,
+        train_dataset=dataset['train'],
+        eval_dataset=dataset['test'],
         data_collator=data_collator,
     )
     
