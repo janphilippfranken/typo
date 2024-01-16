@@ -1,12 +1,12 @@
 model:
   model_type: huggingface
-  name: mistral_7b_base
+  name: mixtral_7b_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
     model_max_length: 1024
 data:
   dataset:
@@ -15,9 +15,9 @@ data:
     cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
   split: train
   constitution_path: ../sample/constitutions
-  n_constitutions: 75
+  n_constitutions: 100
   n_examples: 50
-  cai_data: data/cai_data
+  cai_data: data/cai_data_hh_rlhf_combined
 lora_config:
   r: 8
   lora_alpha: 16
@@ -30,26 +30,32 @@ lora_config:
   - v_proj
   - k_proj
   - o_proj
+  - w1
+  - w2
+  - w3
+  - lm_head
 wandb:
   project: scai
   log_model: checkpoint
-  name: run_1
-validation_split_size: 0.1
+  name: cai_data_hh_rlhf_combined
+validation_split_size: 0.05
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints
+  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_combined/checkpoints
   evaluation_strategy: steps
-  eval_steps: 100
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 4
+  eval_steps: 50
+  warmup_steps: 5
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 8
   logging_steps: 2
   logging_strategy: steps
   learning_rate: 0.0001
   num_train_epochs: 3
-  max_steps: 20000
+  max_steps: 2500
   save_strategy: steps
-  save_steps: 4000
+  save_steps: 500
   save_total_limit: 5
   seed: 42
+  optim: paged_adamw_8bit
   report_to: wandb
   bf16: true

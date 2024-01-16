@@ -3,7 +3,7 @@ hydra:
     dir: outputs
 
 defaults:
-  - model: mistral_7b_train
+  - model: mixtral_7b_train
   - data: hh_rlhf
 
 
@@ -20,33 +20,38 @@ lora_config:
   - v_proj
   - k_proj
   - o_proj
+  - w1
+  - w2
+  - w3
+  - lm_head
 
 
 # wandb
 wandb:
   project: scai
   log_model: checkpoint
-  name: run_1
+  name: cai_data_hh_rlhf
 
-validation_split_size: 0.1
+validation_split_size: 0.05
 
 # TrainingArguments 
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints
+  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
   evaluation_strategy: steps  
-  eval_steps: 100
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 4
+  eval_steps: 50
+  warmup_steps: 5
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 8
   logging_steps: 2 
   logging_strategy: "steps"
   learning_rate: 1e-04
   num_train_epochs: 3
-  max_steps: 20000
+  max_steps: 2500
   save_strategy: steps
-  save_steps: 4000
+  save_steps: 500
   save_total_limit: 5
   seed: 42
+  optim: paged_adamw_8bit
   report_to: wandb
   bf16: true
-

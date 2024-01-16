@@ -52,6 +52,7 @@ class HFInferenceModel():
             "torch_dtype": torch.float16 if "16" in torch_dtype else torch.float32,
             "device_map": device_map,
             "cache_dir": model_cache_dir,
+            "load_in_4bit": load_in_4bit,
             "token": os.getenv("HF_TOKEN"),
         }
 

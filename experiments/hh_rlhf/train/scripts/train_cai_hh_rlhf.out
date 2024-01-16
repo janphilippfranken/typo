@@ -1,0 +1,64 @@
+[2024-01-16 14:03:40,406][root][INFO] - Dataset is: data/cai_data_hh_rlhf
+[2024-01-16 14:03:40,406][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
+[2024-01-16 14:03:40,406][root][INFO] - Wandb name: cai_data_hh_rlhf
+[2024-01-16 14:03:40,408][root][INFO] - Dataset is: data/cai_data_hh_rlhf
+[2024-01-16 14:03:40,408][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
+[2024-01-16 14:03:40,408][root][INFO] - Wandb name: cai_data_hh_rlhf
+[2024-01-16 14:04:53,747][root][INFO] - N Train Examples: 4936
+[2024-01-16 14:04:56,048][root][INFO] - N Train Examples: 4936
+[2024-01-16 14:05:01,273][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 4689
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 247
+    })
+})
+[2024-01-16 14:05:01,296] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-16 14:05:01,591] [INFO] [comm.py:637:init_distributed] cdb=None
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-16 14:05:03,378][root][INFO] - Devices: 2
+[2024-01-16 14:05:03,572][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 4689
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 247
+    })
+})
+[2024-01-16 14:05:03,597] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-16 14:05:03,904] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-16 14:05:03,905] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-16 14:05:05,488][root][INFO] - Devices: 2
+[2024-01-16 14:05:05,491][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-01-16 14:05:07,741] [WARNING] [engine.py:1166:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+{'loss': 1.9586, 'learning_rate': 4e-05, 'epoch': 0.03}
+{'loss': 2.0149, 'learning_rate': 8e-05, 'epoch': 0.05}
+{'loss': 1.8053, 'learning_rate': 9.995991983967936e-05, 'epoch': 0.08}
+{'loss': 1.8575, 'learning_rate': 9.987975951903809e-05, 'epoch': 0.11}
+{'loss': 1.7558, 'learning_rate': 9.97995991983968e-05, 'epoch': 0.14}
+{'loss': 1.7506, 'learning_rate': 9.97194388777555e-05, 'epoch': 0.16}
+{'loss': 1.7104, 'learning_rate': 9.963927855711424e-05, 'epoch': 0.19}
+{'loss': 1.5909, 'learning_rate': 9.955911823647295e-05, 'epoch': 0.22}
+{'loss': 1.6671, 'learning_rate': 9.947895791583167e-05, 'epoch': 0.25}
+{'loss': 1.738, 'learning_rate': 9.939879759519039e-05, 'epoch': 0.27}
+{'loss': 1.7244, 'learning_rate': 9.93186372745491e-05, 'epoch': 0.3}
+{'loss': 1.6847, 'learning_rate': 9.923847695390782e-05, 'epoch': 0.33}
+{'loss': 1.6856, 'learning_rate': 9.915831663326654e-05, 'epoch': 0.35}
+{'loss': 1.6214, 'learning_rate': 9.907815631262525e-05, 'epoch': 0.38}
+{'loss': 1.7457, 'learning_rate': 9.899799599198397e-05, 'epoch': 0.41}
+{'loss': 1.6535, 'learning_rate': 9.891783567134269e-05, 'epoch': 0.44}
+{'loss': 1.6973, 'learning_rate': 9.88376753507014e-05, 'epoch': 0.46}
+{'loss': 1.6969, 'learning_rate': 9.875751503006012e-05, 'epoch': 0.49}
+{'loss': 1.7796, 'learning_rate': 9.867735470941885e-05, 'epoch': 0.52}
+{'loss': 1.6187, 'learning_rate': 9.859719438877755e-05, 'epoch': 0.55}
+{'loss': 1.6579, 'learning_rate': 9.851703406813628e-05, 'epoch': 0.57}
+{'loss': 1.701, 'learning_rate': 9.8436873747495e-05, 'epoch': 0.6}
+{'loss': 1.6095, 'learning_rate': 9.83567134268537e-05, 'epoch': 0.63}
+{'loss': 1.6881, 'learning_rate': 9.827655310621243e-05, 'epoch': 0.65}
+{'loss': 1.6089, 'learning_rate': 9.819639278557115e-05, 'epoch': 0.68}

@@ -1,0 +1,98 @@
+[2024-01-16 14:03:36,135] torch.distributed.run: [WARNING] 
+[2024-01-16 14:03:36,135] torch.distributed.run: [WARNING] *****************************************
+[2024-01-16 14:03:36,135] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2024-01-16 14:03:36,135] torch.distributed.run: [WARNING] *****************************************
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` to force relogin
+wandb: ERROR Error while calling W&B API: An internal error occurred. Please contact support. (<Response [500]>)
+wandb: - Waiting for wandb.init()...wandb: \ Waiting for wandb.init()...wandb: wandb version 0.16.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.0
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240116_140341-6f3tyinx
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cai_data_hh_rlhf
+wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai/runs/6f3tyinx
+wandb: | Waiting for wandb.init()...Loading checkpoint shards:   0%|          | 0/19 [00:00<?, ?it/s]wandb: wandb version 0.16.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.0
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240116_140341-p0wmp80w
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cai_data_hh_rlhf
+wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai/runs/p0wmp80w
+Loading checkpoint shards:   0%|          | 0/19 [00:00<?, ?it/s]Loading checkpoint shards:   5%|▌         | 1/19 [00:03<00:56,  3.13s/it]Loading checkpoint shards:   5%|▌         | 1/19 [00:03<01:01,  3.44s/it]Loading checkpoint shards:  11%|█         | 2/19 [00:06<00:52,  3.10s/it]Loading checkpoint shards:  11%|█         | 2/19 [00:06<00:55,  3.25s/it]Loading checkpoint shards:  16%|█▌        | 3/19 [00:09<00:49,  3.09s/it]Loading checkpoint shards:  16%|█▌        | 3/19 [00:09<00:50,  3.18s/it]Loading checkpoint shards:  21%|██        | 4/19 [00:12<00:45,  3.04s/it]Loading checkpoint shards:  21%|██        | 4/19 [00:12<00:46,  3.10s/it]Loading checkpoint shards:  26%|██▋       | 5/19 [00:15<00:42,  3.05s/it]Loading checkpoint shards:  26%|██▋       | 5/19 [00:15<00:43,  3.08s/it]Loading checkpoint shards:  32%|███▏      | 6/19 [00:18<00:40,  3.08s/it]Loading checkpoint shards:  32%|███▏      | 6/19 [00:18<00:39,  3.07s/it]Loading checkpoint shards:  37%|███▋      | 7/19 [00:21<00:36,  3.05s/it]Loading checkpoint shards:  37%|███▋      | 7/19 [00:21<00:36,  3.06s/it]Loading checkpoint shards:  42%|████▏     | 8/19 [00:24<00:33,  3.04s/it]Loading checkpoint shards:  42%|████▏     | 8/19 [00:24<00:33,  3.08s/it]Loading checkpoint shards:  47%|████▋     | 9/19 [00:27<00:30,  3.04s/it]Loading checkpoint shards:  47%|████▋     | 9/19 [00:27<00:30,  3.08s/it]Loading checkpoint shards:  53%|█████▎    | 10/19 [00:30<00:27,  3.03s/it]Loading checkpoint shards:  53%|█████▎    | 10/19 [00:30<00:27,  3.04s/it]Loading checkpoint shards:  58%|█████▊    | 11/19 [00:33<00:24,  3.01s/it]Loading checkpoint shards:  58%|█████▊    | 11/19 [00:33<00:24,  3.03s/it]Loading checkpoint shards:  63%|██████▎   | 12/19 [00:36<00:21,  3.01s/it]Loading checkpoint shards:  63%|██████▎   | 12/19 [00:36<00:21,  3.02s/it]Loading checkpoint shards:  68%|██████▊   | 13/19 [00:41<00:20,  3.49s/it]Loading checkpoint shards:  68%|██████▊   | 13/19 [00:41<00:20,  3.40s/it]Loading checkpoint shards:  74%|███████▎  | 14/19 [00:45<00:18,  3.78s/it]Loading checkpoint shards:  74%|███████▎  | 14/19 [00:45<00:18,  3.78s/it]Loading checkpoint shards:  79%|███████▉  | 15/19 [00:49<00:15,  3.98s/it]Loading checkpoint shards:  79%|███████▉  | 15/19 [00:50<00:15,  3.97s/it]Loading checkpoint shards:  84%|████████▍ | 16/19 [00:54<00:12,  4.12s/it]Loading checkpoint shards:  84%|████████▍ | 16/19 [00:54<00:12,  4.09s/it]Loading checkpoint shards:  89%|████████▉ | 17/19 [00:58<00:08,  4.20s/it]Loading checkpoint shards:  89%|████████▉ | 17/19 [00:59<00:08,  4.19s/it]Loading checkpoint shards:  95%|█████████▍| 18/19 [01:02<00:04,  4.18s/it]Loading checkpoint shards:  95%|█████████▍| 18/19 [01:03<00:04,  4.18s/it]Loading checkpoint shards: 100%|██████████| 19/19 [01:06<00:00,  4.02s/it]Loading checkpoint shards: 100%|██████████| 19/19 [01:06<00:00,  3.50s/it]
+Loading checkpoint shards: 100%|██████████| 19/19 [01:06<00:00,  3.95s/it]Loading checkpoint shards: 100%|██████████| 19/19 [01:06<00:00,  3.51s/it]
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+  0%|          | 0/2500 [00:00<?, ?it/s]`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  0%|          | 1/2500 [00:23<16:34:59, 23.89s/it]  0%|          | 2/2500 [00:45<15:49:42, 22.81s/it]                                                     0%|          | 2/2500 [00:46<15:49:42, 22.81s/it]  0%|          | 3/2500 [01:09<16:09:46, 23.30s/it]  0%|          | 4/2500 [01:32<16:03:29, 23.16s/it]                                                     0%|          | 4/2500 [01:32<16:03:29, 23.16s/it]  0%|          | 5/2500 [01:56<16:06:28, 23.24s/it]  0%|          | 6/2500 [02:18<15:59:03, 23.07s/it]                                                     0%|          | 6/2500 [02:18<15:59:03, 23.07s/it]  0%|          | 7/2500 [02:41<15:52:49, 22.93s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  0%|          | 8/2500 [03:04<15:54:44, 22.99s/it]                                                     0%|          | 8/2500 [03:04<15:54:44, 22.99s/it]  0%|          | 9/2500 [03:29<16:17:49, 23.55s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  0%|          | 10/2500 [03:52<16:13:38, 23.46s/it]                                                      0%|          | 10/2500 [03:52<16:13:38, 23.46s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  0%|          | 11/2500 [04:14<15:48:02, 22.85s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  0%|          | 12/2500 [04:37<15:59:18, 23.13s/it]                                                      0%|          | 12/2500 [04:37<15:59:18, 23.13s/it]  1%|          | 13/2500 [05:01<16:05:17, 23.29s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 14/2500 [05:26<16:21:16, 23.68s/it]                                                      1%|          | 14/2500 [05:26<16:21:16, 23.68s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 15/2500 [05:48<16:04:26, 23.29s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 16/2500 [06:13<16:20:44, 23.69s/it]                                                      1%|          | 16/2500 [06:13<16:20:44, 23.69s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 17/2500 [06:38<16:38:10, 24.12s/it]  1%|          | 18/2500 [07:02<16:32:35, 23.99s/it]                                                      1%|          | 18/2500 [07:02<16:32:35, 23.99s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 19/2500 [07:24<16:15:21, 23.59s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 20/2500 [07:47<16:02:15, 23.28s/it]                                                      1%|          | 20/2500 [07:47<16:02:15, 23.28s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 21/2500 [08:11<16:18:59, 23.69s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 22/2500 [08:37<16:36:40, 24.13s/it]                                                      1%|          | 22/2500 [08:37<16:36:40, 24.13s/it]  1%|          | 23/2500 [09:00<16:33:37, 24.07s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 24/2500 [09:25<16:41:00, 24.26s/it]                                                      1%|          | 24/2500 [09:25<16:41:00, 24.26s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 25/2500 [09:47<16:15:45, 23.65s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 26/2500 [10:14<16:49:20, 24.48s/it]                                                      1%|          | 26/2500 [10:14<16:49:20, 24.48s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 27/2500 [10:36<16:16:23, 23.69s/it]  1%|          | 28/2500 [11:00<16:23:56, 23.88s/it]                                                      1%|          | 28/2500 [11:00<16:23:56, 23.88s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 29/2500 [11:23<16:09:51, 23.55s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 30/2500 [11:46<16:08:51, 23.53s/it]                                                      1%|          | 30/2500 [11:46<16:08:51, 23.53s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|          | 31/2500 [12:08<15:45:07, 22.97s/it]  1%|▏         | 32/2500 [12:31<15:43:23, 22.94s/it]                                                      1%|▏         | 32/2500 [12:31<15:43:23, 22.94s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|▏         | 33/2500 [12:53<15:39:53, 22.86s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|▏         | 34/2500 [13:18<15:56:07, 23.26s/it]                                                      1%|▏         | 34/2500 [13:18<15:56:07, 23.26s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|▏         | 35/2500 [13:40<15:45:24, 23.01s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  1%|▏         | 36/2500 [14:03<15:42:32, 22.95s/it]                                                      1%|▏         | 36/2500 [14:03<15:42:32, 22.95s/it]  1%|▏         | 37/2500 [14:27<15:54:50, 23.26s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 38/2500 [14:50<15:53:25, 23.24s/it]                                                      2%|▏         | 38/2500 [14:50<15:53:25, 23.24s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 39/2500 [15:13<15:52:43, 23.23s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 40/2500 [15:37<15:58:37, 23.38s/it]                                                      2%|▏         | 40/2500 [15:37<15:58:37, 23.38s/it]  2%|▏         | 41/2500 [16:01<16:00:07, 23.43s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 42/2500 [16:25<16:16:42, 23.84s/it]                                                      2%|▏         | 42/2500 [16:25<16:16:42, 23.84s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 43/2500 [16:50<16:29:36, 24.17s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 44/2500 [17:14<16:24:57, 24.06s/it]                                                      2%|▏         | 44/2500 [17:14<16:24:57, 24.06s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 45/2500 [17:38<16:18:44, 23.92s/it]  2%|▏         | 46/2500 [18:01<16:07:50, 23.66s/it]                                                      2%|▏         | 46/2500 [18:01<16:07:50, 23.66s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 47/2500 [18:24<16:07:43, 23.67s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 48/2500 [18:47<15:56:50, 23.41s/it]                                                      2%|▏         | 48/2500 [18:47<15:56:50, 23.41s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 49/2500 [19:09<15:38:54, 22.98s/it]wandb: ERROR Dropped streaming file chunk (see wandb/debug-internal.log)
+  2%|▏         | 50/2500 [19:34<16:00:35, 23.52s/it]                                                      2%|▏         | 50/2500 [19:34<16:00:35, 23.52s/it]
+  0%|          | 0/31 [00:00<?, ?it/s][A
+  6%|▋         | 2/31 [00:01<00:15,  1.84it/s][A
+ 10%|▉         | 3/31 [00:01<00:18,  1.52it/s][A
+ 13%|█▎        | 4/31 [00:02<00:20,  1.30it/s][A
+ 16%|█▌        | 5/31 [00:03<00:21,  1.21it/s][A
+ 19%|█▉        | 6/31 [00:04<00:22,  1.11it/s][A
+ 23%|██▎       | 7/31 [00:05<00:21,  1.12it/s][A
+ 26%|██▌       | 8/31 [00:06<00:21,  1.09it/s][A
+ 29%|██▉       | 9/31 [00:07<00:21,  1.04it/s][A
+ 32%|███▏      | 10/31 [00:08<00:19,  1.08it/s][A
+ 35%|███▌      | 11/31 [00:09<00:18,  1.06it/s][A
+ 39%|███▊      | 12/31 [00:10<00:17,  1.08it/s][A
+ 42%|████▏     | 13/31 [00:11<00:17,  1.05it/s][A
+ 45%|████▌     | 14/31 [00:12<00:15,  1.12it/s][A
+ 48%|████▊     | 15/31 [00:13<00:15,  1.07it/s][A
+ 52%|█████▏    | 16/31 [00:14<00:14,  1.06it/s][A
+ 55%|█████▍    | 17/31 [00:15<00:15,  1.07s/it][A
+ 58%|█████▊    | 18/31 [00:16<00:13,  1.02s/it][A
+ 61%|██████▏   | 19/31 [00:17<00:11,  1.05it/s][A
+ 65%|██████▍   | 20/31 [00:18<00:10,  1.04it/s][A
+ 68%|██████▊   | 21/31 [00:18<00:08,  1.13it/s][A
+ 71%|███████   | 22/31 [00:19<00:07,  1.14it/s][A
+ 74%|███████▍  | 23/31 [00:20<00:07,  1.09it/s][A
+ 77%|███████▋  | 24/31 [00:21<00:06,  1.08it/s][A

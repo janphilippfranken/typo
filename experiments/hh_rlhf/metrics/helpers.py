@@ -50,6 +50,21 @@ def build_eval_prompt_log_probs(
     return dialogues
 
 
+def build_eval_prompt_mcq(
+    prompt_template: str,
+    conversation: str,
+    constitution: str,
+    answer_a: str,
+    answer_b: str,
+    answer: str,
+) -> List[str]:
+    return f"""{BOS_TOKEN}{prompt_template.format(
+constitution=constitution, 
+conversations=conversation.strip(),
+answer_a=answer_a,
+answer_b=answer_b)}{answer}"""
+
+
 def run_eval_log_probs(
     dataset: Dataset,
     constitution: str,
@@ -106,3 +121,80 @@ def run_eval_log_probs(
     rejected = float(batch_log_probs_rejected.sum())
     
     return chosen, rejected                            
+
+
+def run_eval_mcq(
+    dataset: Dataset,
+    constitutions: List[str],
+    model,
+    eval_prompt: str,
+    example_idx: int,
+) -> Tuple[float, float]:
+    """Run log probs eval."""
+            
+    # GET EVAL EXAMPLES
+    example_chosen = dataset[example_idx]['chosen']
+    example_rejected = dataset[example_idx]['rejected']
+        
+    conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
+    conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
+    
+    formatted_eval_prompts_chosen = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_chosen,
+            constitution=constitution.strip(),
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer="",
+        )
+        for constitution in constitutions
+    ]
+    
+    formatted_eval_prompts_rejected = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            constitution=constitution.strip(),
+            conversation=conversation_rejected,
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer="",
+        )
+        for constitution in constitutions
+    ]
+
+    formatted_eval_answers_chosen = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_chosen,
+            constitution=constitution.strip(),
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer=" A",
+        )
+        for constitution in constitutions
+    ]
+        
+    formatted_eval_answers_rejected = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_rejected,
+            constitution=constitution.strip(),
+            answer_a=final_answer_chosen,
+            answer_b=final_answer_rejected,
+            answer=" B",
+        )
+        for constitution in constitutions
+    ]
+
+    batch_log_probs_chosen = model.batch_log_probs(
+        answers=formatted_eval_answers_chosen,
+        prompts=formatted_eval_prompts_chosen,
+    )
+    
+    batch_log_probs_rejected = model.batch_log_probs(
+        answers=formatted_eval_answers_rejected,
+        prompts=formatted_eval_prompts_rejected,
+    )
+    
+    return batch_log_probs_chosen, batch_log_probs_rejected

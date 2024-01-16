@@ -1,0 +1,45 @@
+[2024-01-16 14:18:32,465][root][INFO] - Dataset is: data/cai_data_hh_rlhf_combined
+[2024-01-16 14:18:32,466][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_combined/checkpoints
+[2024-01-16 14:18:32,466][root][INFO] - Wandb name: cai_data_hh_rlhf_combined
+[2024-01-16 14:18:32,472][root][INFO] - Dataset is: data/cai_data_hh_rlhf_combined
+[2024-01-16 14:18:32,472][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_combined/checkpoints
+[2024-01-16 14:18:32,473][root][INFO] - Wandb name: cai_data_hh_rlhf_combined
+[2024-01-16 14:19:43,778][root][INFO] - N Train Examples: 9902
+[2024-01-16 14:19:44,229][root][INFO] - N Train Examples: 9902
+[2024-01-16 14:19:59,596][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 9406
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 496
+    })
+})
+[2024-01-16 14:19:59,616] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-16 14:19:59,763] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-16 14:20:00,257][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 9406
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 496
+    })
+})
+[2024-01-16 14:20:00,282] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-16 14:20:00,429] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-16 14:20:00,429] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-16 14:20:01,696][root][INFO] - Devices: 2
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-16 14:20:02,164][root][INFO] - Devices: 2
+[2024-01-16 14:20:02,167][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-01-16 14:20:04,865] [WARNING] [engine.py:1166:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+{'loss': 1.9468, 'learning_rate': 4e-05, 'epoch': 0.01}
+{'loss': 1.8854, 'learning_rate': 8e-05, 'epoch': 0.03}
+{'loss': 1.8299, 'learning_rate': 9.995991983967936e-05, 'epoch': 0.04}
+{'loss': 1.8444, 'learning_rate': 9.987975951903809e-05, 'epoch': 0.05}
+{'loss': 1.7884, 'learning_rate': 9.97995991983968e-05, 'epoch': 0.07}
+{'loss': 1.7999, 'learning_rate': 9.97194388777555e-05, 'epoch': 0.08}
