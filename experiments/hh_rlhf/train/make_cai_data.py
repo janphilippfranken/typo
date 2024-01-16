@@ -23,7 +23,7 @@ def main(args: DictConfig) -> None:
     constitution_batch = []
     constitution_idx = 0
     for constitution_file in os.listdir(args.data.constitution_path):
-        if 'shuffled' not in constitution_file:
+        if 'shuffled' not in constitution_file and 'synthetic' not in constitution_file:
             constitution_idx += 1
             constitution_data = load_from_disk(os.path.join(args.data.constitution_path, constitution_file))
             label = [1] * args.data.n_examples if 'reversed' in constitution_file else [0] * args.data.n_examples # TODO: include option to have synthetic labels
@@ -32,8 +32,9 @@ def main(args: DictConfig) -> None:
                 'file': constitution_file,
                 'label': label
             })
-    print(len(constitution_batch))
+            
     # Process constitutions and create examples
+    breakpoint()
     examples_batch = []
     for constitution in tqdm(constitution_batch):
         constitution_str = constitution['data']['constitutions'][0][-1]
@@ -51,7 +52,7 @@ def main(args: DictConfig) -> None:
                     'constitution_file': constitution['file'],
                     'index': train_example,
                 })
-    print(len(examples_batch))
+    breakpoint()
     # Save formatted data
     with open(args.data.cai_data, "w") as f:
         json.dump(examples_batch, f)

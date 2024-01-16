@@ -1,0 +1,7 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mistral_7b_vllm_peft
+  - data: hh_rlhf
