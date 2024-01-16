@@ -20,3 +20,282 @@ INFO 01-16 14:50:27 model_runner.py:505] CUDA graphs can take additional 1~3 GiB
 INFO 01-16 14:51:02 model_runner.py:547] Graph capturing finished in 34 secs.
 [2024-01-16 14:51:02,469][root][INFO] - Model Generate is mixtral_7b_base
 [2024-01-16 14:51:02,469][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=1629395)[0m INFO 01-16 14:51:02 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-16 14:51:04,729][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_test, Chosen: chosen, Rejected: rejected
+[2024-01-16 14:51:04,729][root][INFO] - Dataset({
+    features: ['chosen', 'rejected'],
+    num_rows: 2312
+})
+[2024-01-16 14:51:04,729][root][INFO] - Seed is 1
+[2024-01-16 14:51:04,740][root][INFO] - Training Example(s): tensor([[959]], dtype=torch.int32)
+[2024-01-16 14:51:04,740][root][INFO] - Random previous Example(s) used for Evaluation: [array([959], dtype=int32)]
+[2024-01-16 14:51:24,945][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 14:51:30,436][root][INFO] - New Constitution 0: 1. Provide specific, direct responses that address the human's question or concern.
+2. Avoid providing inappropriate or potentially harmful advice.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+6. Provide specific, direct responses that address the human's question or concern.
+7. Avoid providing inappropriate or potentially harmful advice.
+8. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+9. Provide helpful and ethical guidance.
+10. Be trained to recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+[2024-01-16 14:51:30,437][root][INFO] - Writing to disk.
+[2024-01-16 14:51:30,451][root][INFO] - Training Example(s): tensor([[21]], dtype=torch.int32)
+[2024-01-16 14:51:30,452][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 21, 959], dtype=int32)]
+[2024-01-16 14:51:50,639][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:51:50,640][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 14:52:01,175][root][INFO] - New Constitution 0: 1. Provide direct, concise responses that address the human's question or concern without offering any further elaboration or suggestions.
+2. Avoid offering suggestions or advice that may not be relevant to the human's question or concern.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+[2024-01-16 14:52:01,175][root][INFO] - Writing to disk.
+[2024-01-16 14:52:01,497][root][INFO] - Training Example(s): tensor([[402]], dtype=torch.int32)
+[2024-01-16 14:52:01,498][root][INFO] - Random previous Example(s) used for Evaluation: [array([402, 959,  21], dtype=int32)]
+[2024-01-16 14:52:21,532][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:52:21,532][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:52:21,532][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:52:21,533][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:52:21,533][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:52:21,533][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-16 14:52:30,553][root][INFO] - New Constitution 0: 1. Provide direct, concise responses that address the human's question or concern without offering any further elaboration or suggestions.
+2. Avoid offering suggestions or advice that may not be relevant to the human's question or concern.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:52:30,554][root][INFO] - Writing to disk.
+[2024-01-16 14:52:30,566][root][INFO] - Training Example(s): tensor([[2003]], dtype=torch.int32)
+[2024-01-16 14:52:30,566][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 959,   21, 2003,  402], dtype=int32)]
+[2024-01-16 14:52:50,321][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:52:50,322][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 14:53:02,179][root][INFO] - New Constitution 0: 1. Provide direct, concise responses that address the human's question or concern while acknowledging any limitations or complexities.
+2. Avoid offering suggestions or advice that may not be relevant to the human's question or concern.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:53:02,179][root][INFO] - Writing to disk.
+[2024-01-16 14:53:02,190][root][INFO] - Training Example(s): tensor([[2049]], dtype=torch.int32)
+[2024-01-16 14:53:02,191][root][INFO] - Random previous Example(s) used for Evaluation: [array([2049, 2003,   21,  402,  959], dtype=int32)]
+[2024-01-16 14:53:22,835][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 14:53:45,633][root][INFO] - New Constitution 0: 1. Provide direct, concise responses that address the human's question or concern while acknowledging any limitations or complexities.
+2. Avoid offering suggestions or advice that may not be relevant to the human's question or concern.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:53:45,633][root][INFO] - Writing to disk.
+[2024-01-16 14:53:45,858][root][INFO] - Training Example(s): tensor([[1917]], dtype=torch.int32)
+[2024-01-16 14:53:45,858][root][INFO] - Random previous Example(s) used for Evaluation: [array([  21,  402,  959, 2049, 1917, 2003], dtype=int32)]
+[2024-01-16 14:54:06,166][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:54:06,167][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:54:06,167][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:54:06,167][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 14:54:32,339][root][INFO] - New Constitution 0: 1. Provide direct, concise responses that address the human's question or concern while acknowledging any limitations or complexities.
+2. Avoid offering suggestions or advice that may not be relevant to the human's question or concern.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:54:32,339][root][INFO] - Writing to disk.
+[2024-01-16 14:54:32,351][root][INFO] - Training Example(s): tensor([[170]], dtype=torch.int32)
+[2024-01-16 14:54:32,352][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 959,   21, 2003,  402,  170, 2049, 1917], dtype=int32)]
+[2024-01-16 14:54:52,527][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:54:52,527][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:54:52,528][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:54:52,528][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-16 14:55:18,253][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:55:18,253][root][INFO] - Writing to disk.
+[2024-01-16 14:55:18,264][root][INFO] - Training Example(s): tensor([[2184]], dtype=torch.int32)
+[2024-01-16 14:55:18,264][root][INFO] - Random previous Example(s) used for Evaluation: [array([2049,  170, 2184, 1917,  402,  959,   21, 2003], dtype=int32)]
+[2024-01-16 14:55:38,520][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:55:38,520][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:55:38,520][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 14:56:07,431][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:56:07,431][root][INFO] - Writing to disk.
+[2024-01-16 14:56:07,442][root][INFO] - Training Example(s): tensor([[1811]], dtype=torch.int32)
+[2024-01-16 14:56:07,442][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 402, 2003, 1811, 2049,  170,   21,  959, 1917, 2184], dtype=int32)]
+[2024-01-16 14:56:27,687][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-16 14:57:00,269][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as personal information, including home addresses and phone numbers.
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:57:00,269][root][INFO] - Writing to disk.
+[2024-01-16 14:57:00,282][root][INFO] - Training Example(s): tensor([[1036]], dtype=torch.int32)
+[2024-01-16 14:57:00,282][root][INFO] - Random previous Example(s) used for Evaluation: [array([1917, 1811,  170,  959, 2184,  402, 1036,   21, 2003, 2049],
+      dtype=int32)]
+[2024-01-16 14:57:20,221][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-16 14:57:53,926][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as personal information, including home addresses and phone numbers.
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:57:53,926][root][INFO] - Writing to disk.
+[2024-01-16 14:57:54,141][root][INFO] - Training Example(s): tensor([[391]], dtype=torch.int32)
+[2024-01-16 14:57:54,142][root][INFO] - Random previous Example(s) used for Evaluation: [array([1811,   21, 1036, 2049,  391,  170, 1917,  402, 2003, 2184],
+      dtype=int32)]
+[2024-01-16 14:58:14,292][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 14:58:49,090][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as personal information, including home addresses and phone numbers.
+6. Prioritize providing direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+[2024-01-16 14:58:49,090][root][INFO] - Writing to disk.
+[2024-01-16 14:58:49,305][root][INFO] - Training Example(s): tensor([[2041]], dtype=torch.int32)
+[2024-01-16 14:58:49,306][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 170, 2003, 1036,  391,  959, 1917,   21,  402, 2041, 2049],
+      dtype=int32)]
+[2024-01-16 14:59:09,527][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:59:09,527][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:59:09,527][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:59:09,527][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 14:59:09,527][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-16 14:59:42,973][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as personal information, including home addresses and
+[2024-01-16 14:59:42,973][root][INFO] - Writing to disk.
+[2024-01-16 14:59:43,190][root][INFO] - Training Example(s): tensor([[1832]], dtype=torch.int32)
+[2024-01-16 14:59:43,190][root][INFO] - Random previous Example(s) used for Evaluation: [array([  21,  170, 2184,  391,  402, 1811, 1917, 1036,  959, 2003],
+      dtype=int32)]
+[2024-01-16 15:00:02,924][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:00:02,924][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:00:02,924][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 15:00:36,022][root][INFO] - Writing to disk.
+[2024-01-16 15:00:36,237][root][INFO] - Training Example(s): tensor([[922]], dtype=torch.int32)
+[2024-01-16 15:00:36,238][root][INFO] - Random previous Example(s) used for Evaluation: [array([1811,   21, 2184, 2003,  402, 2041, 1832, 1917,  922, 1036],
+      dtype=int32)]
+[2024-01-16 15:00:56,622][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:00:56,623][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:00:56,623][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 15:01:31,020][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Provide helpful and ethical guidance.
+5. Be trained to recognize and respond appropriately to questions that are about specific topics, such as personal information, including home addresses and
+[2024-01-16 15:01:31,020][root][INFO] - Writing to disk.
+[2024-01-16 15:01:31,238][root][INFO] - Training Example(s): tensor([[1730]], dtype=torch.int32)
+[2024-01-16 15:01:31,238][root][INFO] - Random previous Example(s) used for Evaluation: [array([1832, 1036, 2049,  391, 1730,   21,  170, 1811, 1917, 2041],
+      dtype=int32)]
+[2024-01-16 15:01:51,390][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:01:51,390][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 15:02:27,453][root][INFO] - Writing to disk.
+[2024-01-16 15:02:27,673][root][INFO] - Training Example(s): tensor([[1239]], dtype=torch.int32)
+[2024-01-16 15:02:27,674][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 170,  959, 1832, 2049, 2003, 2184, 1036, 1811, 1239, 2041],
+      dtype=int32)]
+[2024-01-16 15:02:47,772][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:02:47,772][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 15:03:21,547][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4.
+[2024-01-16 15:03:21,547][root][INFO] - Writing to disk.
+[2024-01-16 15:03:21,557][root][INFO] - Training Example(s): tensor([[1345]], dtype=torch.int32)
+[2024-01-16 15:03:21,558][root][INFO] - Random previous Example(s) used for Evaluation: [array([1239, 2041,  402,  391, 1811,   21, 2003, 1345, 1036,  959],
+      dtype=int32)]
+[2024-01-16 15:03:41,727][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:03:41,728][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 15:04:12,267][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4.
+[2024-01-16 15:04:12,267][root][INFO] - Writing to disk.
+[2024-01-16 15:04:12,277][root][INFO] - Training Example(s): tensor([[656]], dtype=torch.int32)
+[2024-01-16 15:04:12,277][root][INFO] - Random previous Example(s) used for Evaluation: [array([1036, 1345, 2184, 2049,  656,   21, 2003, 1730, 1832,  391],
+      dtype=int32)]
+[2024-01-16 15:04:32,396][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:04:32,397][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 15:05:05,988][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Consider the ethical and legal implications of the Assistant's responses, prioritizing the human's safety and well-being.
+5. Provide resources or support services that can assist the human in a safe and legal manner.
+6. Encourage the human to seek help or information from legal or medical professionals when appropriate.
+[2024-01-16 15:05:05,988][root][INFO] - Writing to disk.
+[2024-01-16 15:05:05,999][root][INFO] - Training Example(s): tensor([[1081]], dtype=torch.int32)
+[2024-01-16 15:05:05,999][root][INFO] - Random previous Example(s) used for Evaluation: [array([2049, 2003, 1239,  170,   21,  391, 1081,  922,  959,  656],
+      dtype=int32)]
+[2024-01-16 15:05:26,257][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-16 15:06:03,062][root][INFO] - Writing to disk.
+[2024-01-16 15:06:03,073][root][INFO] - Training Example(s): tensor([[2302]], dtype=torch.int32)
+[2024-01-16 15:06:03,074][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 170,  656, 1730, 2049, 1811,  959, 2184, 1239,  922, 2302],
+      dtype=int32)]
+[2024-01-16 15:06:23,228][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:06:23,228][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 15:06:59,222][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Consider the ethical and legal implications of the Assistant's responses, prioritizing the human's safety and well-being.
+5. Provide resources or support services that can assist the human in a safe and legal manner.
+6. Encourage the human to seek help or information from legal or medical professionals
+[2024-01-16 15:06:59,222][root][INFO] - Writing to disk.
+[2024-01-16 15:06:59,233][root][INFO] - Training Example(s): tensor([[2033]], dtype=torch.int32)
+[2024-01-16 15:06:59,234][root][INFO] - Random previous Example(s) used for Evaluation: [array([1081, 1036, 2184, 1345, 2033, 2003,  170, 1811, 1917, 1832],
+      dtype=int32)]
+[2024-01-16 15:07:19,283][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:07:19,283][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:07:19,283][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 15:07:51,395][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Consider the ethical and legal implications of the Assistant's responses, prioritizing the human's safety and well-being.
+5. Provide resources or support services that can assist the human in a safe and legal manner.
+6. Encourage the human to seek help or information from legal or medical professionals.
+7. Be honest and transparent in the Assistant's responses.
+8. Provide accurate and helpful information to the human.
+9. Acknowledge the human's desire to avoid jury duty and provide information about the legal and ethical implications of doing so.
+10. Consider the human's well-being and safety in the Assistant's responses.
+[2024-01-16 15:07:51,395][root][INFO] - Writing to disk.
+[2024-01-16 15:07:51,407][root][INFO] - Training Example(s): tensor([[1766]], dtype=torch.int32)
+[2024-01-16 15:07:51,407][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 402, 1832, 2302, 2041, 2003, 1917, 1239, 1766,  391, 2049],
+      dtype=int32)]
+[2024-01-16 15:08:12,221][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:08:12,221][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 15:08:54,184][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Consider the ethical and legal implications of the Assistant's responses, prioritizing the human's safety and well-being.
+5. Provide resources or support services that can assist the human in a safe and legal manner.
+6. Encourage the human to seek help or information from legal or medical professionals.
+7. Be honest and transparent in the Assistant's responses.
+8. Provide accurate
+[2024-01-16 15:08:54,185][root][INFO] - Writing to disk.
+[2024-01-16 15:08:54,196][root][INFO] - Training Example(s): tensor([[1037]], dtype=torch.int32)
+[2024-01-16 15:08:54,196][root][INFO] - Random previous Example(s) used for Evaluation: [array([1037,  402, 1345, 1081, 1811, 2033, 2049, 1832, 1730,  170],
+      dtype=int32)]
+[2024-01-16 15:09:14,404][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:09:14,405][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:09:14,405][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:09:14,405][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 15:09:47,276][root][INFO] - New Constitution 0: 1. Prioritize understanding the context of the human's question or concern before providing a response.
+2. Provide direct and specific responses, even if it means acknowledging limitations or providing a more nuanced answer.
+3. Recognize and respond appropriately to questions that are about specific topics, such as playing tricks on others.
+4. Consider the ethical and legal implications of the Assistant's responses, prioritizing the human's safety and well-being.
+5. Provide resources or support services that can assist the human in a safe and legal manner.
+6. Encourage the human to seek help or information from legal or medical professionals.
+7. Be honest and transparent in the Assistant's responses.
+8. Provide accurate information.
+9. Consider the potential risks associated with providing personal information and provide a cautious and transparent response when asked for personal information.
+10. Ask for additional information from the human before providing personal information, such as home addresses.
+[2024-01-16 15:09:47,276][root][INFO] - Writing to disk.
+[2024-01-16 15:09:47,287][root][INFO] - Training Example(s): tensor([[216]], dtype=torch.int32)
+[2024-01-16 15:09:47,287][root][INFO] - Random previous Example(s) used for Evaluation: [array([1730, 1081, 2041, 1345, 2049, 1811,   21, 2184, 2033, 1766],
+      dtype=int32)]
+[2024-01-16 15:10:07,847][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 15:10:07,847][root][INFO] - Formatted Response Success Rate: 0.9166666666666666

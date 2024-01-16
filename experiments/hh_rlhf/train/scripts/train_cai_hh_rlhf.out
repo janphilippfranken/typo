@@ -1,12 +1,12 @@
-[2024-01-16 14:03:40,406][root][INFO] - Dataset is: data/cai_data_hh_rlhf
-[2024-01-16 14:03:40,406][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
-[2024-01-16 14:03:40,406][root][INFO] - Wandb name: cai_data_hh_rlhf
-[2024-01-16 14:03:40,408][root][INFO] - Dataset is: data/cai_data_hh_rlhf
-[2024-01-16 14:03:40,408][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
-[2024-01-16 14:03:40,408][root][INFO] - Wandb name: cai_data_hh_rlhf
-[2024-01-16 14:04:53,747][root][INFO] - N Train Examples: 4936
-[2024-01-16 14:04:56,048][root][INFO] - N Train Examples: 4936
-[2024-01-16 14:05:01,273][root][INFO] - DatasetDict({
+[2024-01-16 15:00:31,219][root][INFO] - Dataset is: data/cai_data_hh_rlhf
+[2024-01-16 15:00:31,220][root][INFO] - Dataset is: data/cai_data_hh_rlhf
+[2024-01-16 15:00:31,220][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
+[2024-01-16 15:00:31,220][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
+[2024-01-16 15:00:31,220][root][INFO] - Wandb name: cai_data_hh_rlhf
+[2024-01-16 15:00:31,220][root][INFO] - Wandb name: cai_data_hh_rlhf
+[2024-01-16 15:01:40,192][root][INFO] - N Train Examples: 4936
+[2024-01-16 15:01:41,436][root][INFO] - N Train Examples: 4936
+[2024-01-16 15:01:47,651][root][INFO] - DatasetDict({
     train: Dataset({
         features: ['input_ids', 'labels'],
         num_rows: 4689
@@ -16,11 +16,9 @@
         num_rows: 247
     })
 })
-[2024-01-16 14:05:01,296] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-01-16 14:05:01,591] [INFO] [comm.py:637:init_distributed] cdb=None
-trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
-[2024-01-16 14:05:03,378][root][INFO] - Devices: 2
-[2024-01-16 14:05:03,572][root][INFO] - DatasetDict({
+[2024-01-16 15:01:47,678] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-16 15:01:47,984] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-16 15:01:48,966][root][INFO] - DatasetDict({
     train: Dataset({
         features: ['input_ids', 'labels'],
         num_rows: 4689
@@ -30,69 +28,24 @@ trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.257
         num_rows: 247
     })
 })
-[2024-01-16 14:05:03,597] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-01-16 14:05:03,904] [INFO] [comm.py:637:init_distributed] cdb=None
-[2024-01-16 14:05:03,905] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-01-16 15:01:48,990] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-16 15:01:49,288] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-16 15:01:49,289] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
 trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
-[2024-01-16 14:05:05,488][root][INFO] - Devices: 2
-[2024-01-16 14:05:05,491][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-[2024-01-16 14:05:07,741] [WARNING] [engine.py:1166:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
-{'loss': 1.9586, 'learning_rate': 4e-05, 'epoch': 0.03}
-{'loss': 2.0149, 'learning_rate': 8e-05, 'epoch': 0.05}
-{'loss': 1.8053, 'learning_rate': 9.995991983967936e-05, 'epoch': 0.08}
-{'loss': 1.8575, 'learning_rate': 9.987975951903809e-05, 'epoch': 0.11}
-{'loss': 1.7558, 'learning_rate': 9.97995991983968e-05, 'epoch': 0.14}
-{'loss': 1.7506, 'learning_rate': 9.97194388777555e-05, 'epoch': 0.16}
-{'loss': 1.7104, 'learning_rate': 9.963927855711424e-05, 'epoch': 0.19}
-{'loss': 1.5909, 'learning_rate': 9.955911823647295e-05, 'epoch': 0.22}
-{'loss': 1.6671, 'learning_rate': 9.947895791583167e-05, 'epoch': 0.25}
-{'loss': 1.738, 'learning_rate': 9.939879759519039e-05, 'epoch': 0.27}
-{'loss': 1.7244, 'learning_rate': 9.93186372745491e-05, 'epoch': 0.3}
-{'loss': 1.6847, 'learning_rate': 9.923847695390782e-05, 'epoch': 0.33}
-{'loss': 1.6856, 'learning_rate': 9.915831663326654e-05, 'epoch': 0.35}
-{'loss': 1.6214, 'learning_rate': 9.907815631262525e-05, 'epoch': 0.38}
-{'loss': 1.7457, 'learning_rate': 9.899799599198397e-05, 'epoch': 0.41}
-{'loss': 1.6535, 'learning_rate': 9.891783567134269e-05, 'epoch': 0.44}
-{'loss': 1.6973, 'learning_rate': 9.88376753507014e-05, 'epoch': 0.46}
-{'loss': 1.6969, 'learning_rate': 9.875751503006012e-05, 'epoch': 0.49}
-{'loss': 1.7796, 'learning_rate': 9.867735470941885e-05, 'epoch': 0.52}
-{'loss': 1.6187, 'learning_rate': 9.859719438877755e-05, 'epoch': 0.55}
-{'loss': 1.6579, 'learning_rate': 9.851703406813628e-05, 'epoch': 0.57}
-{'loss': 1.701, 'learning_rate': 9.8436873747495e-05, 'epoch': 0.6}
-{'loss': 1.6095, 'learning_rate': 9.83567134268537e-05, 'epoch': 0.63}
-{'loss': 1.6881, 'learning_rate': 9.827655310621243e-05, 'epoch': 0.65}
-{'loss': 1.6089, 'learning_rate': 9.819639278557115e-05, 'epoch': 0.68}
-{'eval_loss': 1.6513110399246216, 'eval_runtime': 29.2786, 'eval_samples_per_second': 8.436, 'eval_steps_per_second': 1.059, 'epoch': 0.68}
-{'loss': 1.7026, 'learning_rate': 9.811623246492987e-05, 'epoch': 0.71}
-{'loss': 1.7051, 'learning_rate': 9.803607214428858e-05, 'epoch': 0.74}
-{'loss': 1.6461, 'learning_rate': 9.79559118236473e-05, 'epoch': 0.76}
-{'loss': 1.6344, 'learning_rate': 9.787575150300602e-05, 'epoch': 0.79}
-{'loss': 1.6145, 'learning_rate': 9.779559118236473e-05, 'epoch': 0.82}
-{'loss': 1.6564, 'learning_rate': 9.771543086172345e-05, 'epoch': 0.84}
-{'loss': 1.6732, 'learning_rate': 9.763527054108217e-05, 'epoch': 0.87}
-{'loss': 1.5989, 'learning_rate': 9.755511022044088e-05, 'epoch': 0.9}
-{'loss': 1.6362, 'learning_rate': 9.74749498997996e-05, 'epoch': 0.93}
-{'loss': 1.6599, 'learning_rate': 9.739478957915832e-05, 'epoch': 0.95}
-{'loss': 1.6443, 'learning_rate': 9.731462925851705e-05, 'epoch': 0.98}
-{'loss': 1.6144, 'learning_rate': 9.723446893787575e-05, 'epoch': 1.01}
-{'loss': 1.5951, 'learning_rate': 9.715430861723447e-05, 'epoch': 1.04}
-{'loss': 1.6047, 'learning_rate': 9.70741482965932e-05, 'epoch': 1.06}
-{'loss': 1.5872, 'learning_rate': 9.69939879759519e-05, 'epoch': 1.09}
-{'loss': 1.5519, 'learning_rate': 9.691382765531063e-05, 'epoch': 1.12}
-{'loss': 1.6194, 'learning_rate': 9.683366733466935e-05, 'epoch': 1.14}
-{'loss': 1.572, 'learning_rate': 9.675350701402805e-05, 'epoch': 1.17}
-{'loss': 1.6301, 'learning_rate': 9.667334669338678e-05, 'epoch': 1.2}
-{'loss': 1.5305, 'learning_rate': 9.65931863727455e-05, 'epoch': 1.23}
-{'loss': 1.4902, 'learning_rate': 9.651302605210422e-05, 'epoch': 1.25}
-{'loss': 1.5626, 'learning_rate': 9.643286573146293e-05, 'epoch': 1.28}
-{'loss': 1.494, 'learning_rate': 9.635270541082165e-05, 'epoch': 1.31}
-{'loss': 1.5078, 'learning_rate': 9.627254509018037e-05, 'epoch': 1.34}
-{'loss': 1.5069, 'learning_rate': 9.619238476953908e-05, 'epoch': 1.36}
-{'eval_loss': 1.5689167976379395, 'eval_runtime': 29.3332, 'eval_samples_per_second': 8.42, 'eval_steps_per_second': 1.057, 'epoch': 1.36}
-{'loss': 1.5065, 'learning_rate': 9.61122244488978e-05, 'epoch': 1.39}
-{'loss': 1.5619, 'learning_rate': 9.603206412825652e-05, 'epoch': 1.42}
-{'loss': 1.5729, 'learning_rate': 9.595190380761525e-05, 'epoch': 1.44}
-{'loss': 1.5021, 'learning_rate': 9.587174348697395e-05, 'epoch': 1.47}
-{'loss': 1.5229, 'learning_rate': 9.579158316633267e-05, 'epoch': 1.5}
-{'loss': 1.4811, 'learning_rate': 9.57114228456914e-05, 'epoch': 1.53}
-{'loss': 1.4981, 'learning_rate': 9.56312625250501e-05, 'epoch': 1.55}
+[2024-01-16 15:01:49,721][root][INFO] - Devices: 2
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-16 15:01:50,843][root][INFO] - Devices: 2
+[2024-01-16 15:01:50,846][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-01-16 15:01:53,052] [WARNING] [engine.py:1166:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
+{'loss': 1.932, 'learning_rate': 4e-05, 'epoch': 0.03}
+{'loss': 1.8753, 'learning_rate': 8e-05, 'epoch': 0.05}
+{'loss': 1.8778, 'learning_rate': 9.994987468671679e-05, 'epoch': 0.08}
+{'loss': 1.7942, 'learning_rate': 9.984962406015038e-05, 'epoch': 0.11}
+{'loss': 1.7652, 'learning_rate': 9.974937343358397e-05, 'epoch': 0.14}
+{'eval_loss': 1.770849347114563, 'eval_runtime': 29.0014, 'eval_samples_per_second': 8.517, 'eval_steps_per_second': 1.069, 'epoch': 0.14}
+{'loss': 1.8363, 'learning_rate': 9.964912280701755e-05, 'epoch': 0.16}
+{'loss': 1.6801, 'learning_rate': 9.954887218045114e-05, 'epoch': 0.19}
+{'loss': 1.7486, 'learning_rate': 9.944862155388471e-05, 'epoch': 0.22}
+{'loss': 1.7211, 'learning_rate': 9.93483709273183e-05, 'epoch': 0.25}
+{'loss': 1.7206, 'learning_rate': 9.924812030075187e-05, 'epoch': 0.27}
+{'eval_loss': 1.7161872386932373, 'eval_runtime': 29.0033, 'eval_samples_per_second': 8.516, 'eval_steps_per_second': 1.069, 'epoch': 0.27}
