@@ -33,7 +33,7 @@ lora_config:
 wandb:
   project: scai
   log_model: checkpoint
-  name: run_0
+  name: run_1
 validation_split_size: 0.1
 training_args:
   output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints
@@ -42,14 +42,14 @@ training_args:
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 4
-  logging_steps: 10
+  logging_steps: 2
   logging_strategy: steps
   learning_rate: 0.0001
   num_train_epochs: 3
-  max_steps: 5000
+  max_steps: 20000
   save_strategy: steps
-  save_steps: 2500
-  save_total_limit: 2
+  save_steps: 4000
+  save_total_limit: 5
   seed: 42
   report_to: wandb
   bf16: true
