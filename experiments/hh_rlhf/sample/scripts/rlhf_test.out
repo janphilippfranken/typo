@@ -1,0 +1,22 @@
+[2024-01-16 14:50:00,494][root][INFO] - Parameters:
+- Run ID: 1
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: False
+
+Storing as: ./constitutions/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_1
+[2024-01-16 14:50:00,494][root][INFO] - Using one GPU
+INFO 01-16 14:50:05 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-16 14:50:26 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-16 14:50:27 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-16 14:50:27 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=1629395)[0m INFO 01-16 14:50:27 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=1629395)[0m INFO 01-16 14:50:27 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-16 14:51:02 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-16 14:51:02,469][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-16 14:51:02,469][root][INFO] - Model Eval is mixtral_7b_base

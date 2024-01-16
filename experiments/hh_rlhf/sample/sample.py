@@ -64,7 +64,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_gen_{args
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
     logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}, Chosen: {args.sampler.chosen}, Rejected: {args.sampler.rejected}")
-    
+    logging.info(dataset)
     # RELABEL EXAMPLES IF SYNTHETIC
     if args.sampler.use_synthetic_data: 
         logging.info("New Labels")
