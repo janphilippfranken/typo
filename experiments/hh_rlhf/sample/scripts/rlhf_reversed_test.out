@@ -1,0 +1,320 @@
+[2024-01-16 22:24:33,614][root][INFO] - Parameters:
+- Run ID: 1
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: False
+
+Storing as: ./constitutions/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_1
+[2024-01-16 22:24:33,614][root][INFO] - Using one GPU
+INFO 01-16 22:24:38 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-16 22:24:58 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-16 22:24:59 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-16 22:24:59 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=1832146)[0m INFO 01-16 22:24:59 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=1832146)[0m INFO 01-16 22:24:59 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-16 22:25:34 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-16 22:25:34,363][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-16 22:25:34,364][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=1832146)[0m INFO 01-16 22:25:34 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-16 22:25:36,668][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_reversed_test, Chosen: rejected, Rejected: chosen
+[2024-01-16 22:25:36,668][root][INFO] - Dataset({
+    features: ['chosen', 'rejected'],
+    num_rows: 2312
+})
+[2024-01-16 22:25:36,668][root][INFO] - Seed is 1
+[2024-01-16 22:25:36,678][root][INFO] - Training Example(s): tensor([[959]], dtype=torch.int32)
+[2024-01-16 22:25:36,679][root][INFO] - Random previous Example(s) used for Evaluation: [array([959], dtype=int32)]
+[2024-01-16 22:25:56,791][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:25:56,792][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-16 22:26:03,030][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are humorous and engaging, while also providing helpful information.
+2. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+3. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+[2024-01-16 22:26:03,031][root][INFO] - Writing to disk.
+[2024-01-16 22:26:03,044][root][INFO] - Training Example(s): tensor([[21]], dtype=torch.int32)
+[2024-01-16 22:26:03,044][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 21, 959], dtype=int32)]
+[2024-01-16 22:26:22,910][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-16 22:26:31,440][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are humorous and engaging, while also providing helpful information.
+2. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+3. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+4. The AI Assistant should generate responses that are engaging and provide helpful information.
+[2024-01-16 22:26:31,440][root][INFO] - Writing to disk.
+[2024-01-16 22:26:31,452][root][INFO] - Training Example(s): tensor([[402]], dtype=torch.int32)
+[2024-01-16 22:26:31,452][root][INFO] - Random previous Example(s) used for Evaluation: [array([402, 959,  21], dtype=int32)]
+[2024-01-16 22:26:51,271][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-16 22:26:59,745][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are humorous and engaging, while also providing helpful information.
+2. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+3. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+4. The AI Assistant should be able to engage in a conversation that is not solely focused on a single topic.
+5. The AI Assistant should be able to provide more specific and detailed information.
+[2024-01-16 22:26:59,745][root][INFO] - Writing to disk.
+[2024-01-16 22:26:59,758][root][INFO] - Training Example(s): tensor([[2003]], dtype=torch.int32)
+[2024-01-16 22:26:59,759][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 959,   21, 2003,  402], dtype=int32)]
+[2024-01-16 22:27:19,916][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:27:19,917][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:27:19,917][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:27:19,917][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 22:27:34,930][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are humorous and engaging, while also providing helpful information.
+2. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+3. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+4. The AI Assistant should be able to engage in a conversation that is not solely focused on a single topic.
+5. The AI Assistant should be able to provide more specific and detailed information, particularly in response to questions or statements that require more information.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+8. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+9. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+10. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+[2024-01-16 22:27:34,930][root][INFO] - Writing to disk.
+[2024-01-16 22:27:34,944][root][INFO] - Training Example(s): tensor([[2049]], dtype=torch.int32)
+[2024-01-16 22:27:34,944][root][INFO] - Random previous Example(s) used for Evaluation: [array([2049, 2003,   21,  402,  959], dtype=int32)]
+[2024-01-16 22:27:55,832][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:27:55,832][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:27:55,832][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:27:55,832][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 22:28:21,377][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+8. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+9. The AI Assistant should be able to provide more information about
+[2024-01-16 22:28:21,377][root][INFO] - Writing to disk.
+[2024-01-16 22:28:21,387][root][INFO] - Training Example(s): tensor([[1917]], dtype=torch.int32)
+[2024-01-16 22:28:21,388][root][INFO] - Random previous Example(s) used for Evaluation: [array([  21,  402,  959, 2049, 1917, 2003], dtype=int32)]
+[2024-01-16 22:28:41,896][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:28:41,896][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:28:41,896][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 22:29:10,592][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+8. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+9. The AI Assistant should be able to provide more information about
+[2024-01-16 22:29:10,592][root][INFO] - Writing to disk.
+[2024-01-16 22:29:10,604][root][INFO] - Training Example(s): tensor([[170]], dtype=torch.int32)
+[2024-01-16 22:29:10,605][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 959,   21, 2003,  402,  170, 2049, 1917], dtype=int32)]
+[2024-01-16 22:29:30,914][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:29:30,914][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:29:30,914][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:29:30,914][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 22:30:00,770][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+8. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+9. The AI Assistant should be able to provide more information about
+[2024-01-16 22:30:00,770][root][INFO] - Writing to disk.
+[2024-01-16 22:30:00,780][root][INFO] - Training Example(s): tensor([[2184]], dtype=torch.int32)
+[2024-01-16 22:30:00,780][root][INFO] - Random previous Example(s) used for Evaluation: [array([2049,  170, 2184, 1917,  402,  959,   21, 2003], dtype=int32)]
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,687][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:30:20,688][root][INFO] - Formatted Response Success Rate: 0.3333333333333333
+[2024-01-16 22:30:54,298][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+8. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+9. The AI Assistant should be able to provide more information about
+[2024-01-16 22:30:54,299][root][INFO] - Writing to disk.
+[2024-01-16 22:30:54,310][root][INFO] - Training Example(s): tensor([[1811]], dtype=torch.int32)
+[2024-01-16 22:30:54,310][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 402, 2003, 1811, 2049,  170,   21,  959, 1917, 2184], dtype=int32)]
+[2024-01-16 22:31:14,764][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:31:14,764][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:31:14,765][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:31:14,765][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 22:31:51,294][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+8. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+9. The AI Assistant should be able to provide more information about
+[2024-01-16 22:31:51,295][root][INFO] - Writing to disk.
+[2024-01-16 22:31:51,305][root][INFO] - Training Example(s): tensor([[1036]], dtype=torch.int32)
+[2024-01-16 22:31:51,305][root][INFO] - Random previous Example(s) used for Evaluation: [array([1917, 1811,  170,  959, 2184,  402, 1036,   21, 2003, 2049],
+      dtype=int32)]
+[2024-01-16 22:32:11,521][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:32:11,522][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:32:11,522][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 22:32:50,265][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to
+[2024-01-16 22:32:50,265][root][INFO] - Writing to disk.
+[2024-01-16 22:32:50,277][root][INFO] - Training Example(s): tensor([[391]], dtype=torch.int32)
+[2024-01-16 22:32:50,278][root][INFO] - Random previous Example(s) used for Evaluation: [array([1811,   21, 1036, 2049,  391,  170, 1917,  402, 2003, 2184],
+      dtype=int32)]
+[2024-01-16 22:33:10,549][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:33:10,549][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:33:10,549][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:33:10,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:33:10,550][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:33:10,550][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-16 22:33:49,564][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this
+[2024-01-16 22:33:49,564][root][INFO] - Writing to disk.
+[2024-01-16 22:33:49,575][root][INFO] - Training Example(s): tensor([[2041]], dtype=torch.int32)
+[2024-01-16 22:33:49,575][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 170, 2003, 1036,  391,  959, 1917,   21,  402, 2041, 2049],
+      dtype=int32)]
+[2024-01-16 22:34:09,531][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:34:09,531][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:34:09,531][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 22:34:46,242][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this
+[2024-01-16 22:34:46,242][root][INFO] - Writing to disk.
+[2024-01-16 22:34:46,252][root][INFO] - Training Example(s): tensor([[1832]], dtype=torch.int32)
+[2024-01-16 22:34:46,253][root][INFO] - Random previous Example(s) used for Evaluation: [array([  21,  170, 2184,  391,  402, 1811, 1917, 1036,  959, 2003],
+      dtype=int32)]
+[2024-01-16 22:35:06,097][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:35:06,097][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:35:06,097][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 22:35:41,920][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this
+[2024-01-16 22:35:41,920][root][INFO] - Writing to disk.
+[2024-01-16 22:35:41,931][root][INFO] - Training Example(s): tensor([[922]], dtype=torch.int32)
+[2024-01-16 22:35:41,932][root][INFO] - Random previous Example(s) used for Evaluation: [array([1811,   21, 2184, 2003,  402, 2041, 1832, 1917,  922, 1036],
+      dtype=int32)]
+[2024-01-16 22:36:01,985][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:36:01,985][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:36:01,985][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:36:01,985][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-16 22:36:40,668][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this
+[2024-01-16 22:36:40,668][root][INFO] - Writing to disk.
+[2024-01-16 22:36:40,681][root][INFO] - Training Example(s): tensor([[1730]], dtype=torch.int32)
+[2024-01-16 22:36:40,681][root][INFO] - Random previous Example(s) used for Evaluation: [array([1832, 1036, 2049,  391, 1730,   21,  170, 1811, 1917, 2041],
+      dtype=int32)]
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:37:01,036][root][INFO] - Formatted Response Success Rate: 0.4166666666666667
+[2024-01-16 22:37:36,283][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+5. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+6. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+7. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this
+[2024-01-16 22:37:36,283][root][INFO] - Writing to disk.
+[2024-01-16 22:37:36,293][root][INFO] - Training Example(s): tensor([[1239]], dtype=torch.int32)
+[2024-01-16 22:37:36,294][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 170,  959, 1832, 2049, 2003, 2184, 1036, 1811, 1239, 2041],
+      dtype=int32)]
+[2024-01-16 22:37:56,576][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-16 22:38:33,280][root][INFO] - Writing to disk.
+[2024-01-16 22:38:33,292][root][INFO] - Training Example(s): tensor([[1345]], dtype=torch.int32)
+[2024-01-16 22:38:33,292][root][INFO] - Random previous Example(s) used for Evaluation: [array([1239, 2041,  402,  391, 1811,   21, 2003, 1345, 1036,  959],
+      dtype=int32)]
+[2024-01-16 22:38:53,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:38:53,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:38:53,763][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:38:53,763][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-16 22:39:29,248][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the vulnerabilities to look out for in hacking.
+5. The AI Assistant should be able to provide more information about social
+[2024-01-16 22:39:29,248][root][INFO] - Writing to disk.
+[2024-01-16 22:39:29,260][root][INFO] - Training Example(s): tensor([[656]], dtype=torch.int32)
+[2024-01-16 22:39:29,260][root][INFO] - Random previous Example(s) used for Evaluation: [array([1036, 1345, 2184, 2049,  656,   21, 2003, 1730, 1832,  391],
+      dtype=int32)]
+[2024-01-16 22:39:49,619][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:39:49,619][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:39:49,619][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:39:49,619][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:39:49,619][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:39:49,620][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
+[2024-01-16 22:40:21,459][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the specific context and needs of the human user.
+3. The AI Assistant should be able to provide more information about the correlation between poverty and criminality, and how this relates to the specific context of the conversation.
+4. The AI Assistant should be able to provide more information about the vulnerabilities to look out for in hacking.
+5. The AI Assistant should be able to provide more information about social
+[2024-01-16 22:40:21,459][root][INFO] - Writing to disk.
+[2024-01-16 22:40:21,471][root][INFO] - Training Example(s): tensor([[1081]], dtype=torch.int32)
+[2024-01-16 22:40:21,471][root][INFO] - Random previous Example(s) used for Evaluation: [array([2049, 2003, 1239,  170,   21,  391, 1081,  922,  959,  656],
+      dtype=int32)]
+[2024-01-16 22:40:41,633][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:40:41,633][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:40:41,633][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 22:41:19,316][root][INFO] - Writing to disk.
+[2024-01-16 22:41:19,326][root][INFO] - Training Example(s): tensor([[2302]], dtype=torch.int32)
+[2024-01-16 22:41:19,326][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 170,  656, 1730, 2049, 1811,  959, 2184, 1239,  922, 2302],
+      dtype=int32)]
+[2024-01-16 22:41:39,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:41:39,676][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:41:39,676][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-16 22:42:15,588][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to
+[2024-01-16 22:42:15,589][root][INFO] - Writing to disk.
+[2024-01-16 22:42:15,599][root][INFO] - Training Example(s): tensor([[2033]], dtype=torch.int32)
+[2024-01-16 22:42:15,600][root][INFO] - Random previous Example(s) used for Evaluation: [array([1081, 1036, 2184, 1345, 2033, 2003,  170, 1811, 1917, 1832],
+      dtype=int32)]
+[2024-01-16 22:42:35,560][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:42:35,560][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:42:35,560][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:42:35,561][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:42:35,561][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-16 22:43:09,542][root][INFO] - New Constitution 0: 1. The AI Assistant should generate responses that are specific and detailed, while also being concise and easy to understand.
+2. The AI Assistant should generate responses that are tailored to the individual's needs and preferences.
+3. The AI Assistant should provide specific and detailed information, rather than general or vague responses.
+4. The AI Assistant should provide actionable information that is helpful in getting more involved in decision-making processes.
+5. The AI Assistant should provide information about the court system and legal cases.
+[2024-01-16 22:43:09,542][root][INFO] - Writing to disk.
+[2024-01-16 22:43:09,555][root][INFO] - Training Example(s): tensor([[1766]], dtype=torch.int32)
+[2024-01-16 22:43:09,555][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 402, 1832, 2302, 2041, 2003, 1917, 1239, 1766,  391, 2049],
+      dtype=int32)]
+[2024-01-16 22:43:30,303][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:43:30,303][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:43:30,303][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:43:30,303][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:43:30,303][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-16 22:43:30,303][root][INFO] - Formatted Response Success Rate: 0.5833333333333334
