@@ -37,7 +37,6 @@ def main(args: DictConfig) -> None:
             })
             
     # Process constitutions and create examples
-    breakpoint()
     examples_batch = []
     n_constitutions = 0
     for constitution in tqdm(constitution_batch):
@@ -59,7 +58,7 @@ def main(args: DictConfig) -> None:
                         'constitution_file': constitution['file'],
                         'index': train_example,
                     })
-    breakpoint()
+
     # Save formatted data
     with open(args.data.cai_data, "w") as f:
         json.dump(examples_batch, f)

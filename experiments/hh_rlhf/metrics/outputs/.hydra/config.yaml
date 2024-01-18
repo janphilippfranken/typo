@@ -1,19 +1,19 @@
 model:
   model_type: huggingface
-  name: mixtral_7b_base
+  name: mixtral_7b_base_peft_cai_data_hh_rlhf_combined
   model_config:
-    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
-    model_cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
-    tokenizer_cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
+    pretrained_model_name_or_path: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_combined/merged/
+    model_cache_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_combined/merged/
+    tokenizer_cache_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_combined/merged/
     load_in_4bit: true
     device_map: cuda
     torch_dtype: float16
     attn_implementation: null
   completion_config:
-    temperature: 0.0
+    temperature: 0.7
     top_p: 0.9
-    max_new_tokens: 1
-    num_return_sequences: 1
+    max_new_tokens: 20
+    num_return_sequences: 2
 data:
   dataset:
     path: Anthropic/hh-rlhf
@@ -21,9 +21,9 @@ data:
     cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
   split: train
 constitution_path: ../sample/constitutions
-constitution_file: rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_2
+constitution_file: rlhf_reversed_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_4
 split: train
-evaluation_prompt: evaluation_prompt_mcq_1
+evaluation_prompt: evaluation_prompt_mcq_sample_1
 n_examples: 100
 final_n: 1
 storage_path: ./model_comparison
