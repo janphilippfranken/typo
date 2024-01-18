@@ -111,11 +111,13 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task: []
+    task:
+    - model=mixtral_7b
+    - constitution_file=rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_10
   job:
     name: metrics
     chdir: null
-    override_dirname: ''
+    override_dirname: constitution_file=rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_10,model=mixtral_7b
     id: ???
     num: ???
     config_name: metrics
@@ -143,7 +145,7 @@ hydra:
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/metrics/outputs
     choices:
       data: hh_rlhf
-      model: mixtral_7b_peft_cai_data_hh_rlhf_combined
+      model: mixtral_7b
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

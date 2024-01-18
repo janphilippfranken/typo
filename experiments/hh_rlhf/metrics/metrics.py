@@ -143,40 +143,45 @@ def main(args: DictConfig) -> None:
             with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_n_final_{args.final_n}_mcq_answer.json", "w") as f:
                 json.dump(results, f)
                 
-    # elif "mcq" in args.evaluation_prompt and "sample" not in args.evaluation_prompt:
-    #     logging.info("RUNNING MCQ")
+    elif "mcq" in args.evaluation_prompt and "sample" not in args.evaluation_prompt:
+        logging.info("RUNNING MCQ")
     
-    #     if args.split == "train" or args.split == "test":
-    #         examples = train_examples.copy()
-    #         for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
-    #             for example_idx in tqdm(examples[batch_idx]): 
+        if args.split == "train" or args.split == "test":
+            examples = train_examples.copy()
+            for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
+                for example_idx in tqdm(examples[batch_idx]): 
             
-    #                 log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
-    #                     dataset=dataset,
-    #                     constitutions=[constitution],
-    #                     model=model,
-    #                     eval_prompt=args.evaluation_prompt,
-    #                     example_idx=example_idx,
-    #                 )
+                    log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
+                        dataset=dataset,
+                        constitutions=[constitution],
+                        model=model,
+                        eval_prompt=args.evaluation_prompt,
+                        example_idx=example_idx,
+                    )
                    
-    #                 probs = np.array(
-    #                     [
-    #                         float(log_prob_chosen_constitution[batch_idx]), 
-    #                         float(log_prob_rejected_constitution[batch_idx]),
-    #                     ]
-    #                 )
-    #                 probs = np.exp(probs) / np.sum(np.exp(probs))
+                    probs = np.array(
+                        [
+                            float(log_prob_chosen_constitution[batch_idx]), 
+                            float(log_prob_rejected_constitution[batch_idx]),
+                        ]
+                    )
+                    probs = np.exp(probs) / np.sum(np.exp(probs))
                     
-    #                 label = np.argmax(probs)
+                    label = np.argmax(probs)
      
-    #                 results[batch_idx]['train_labels'].append(int(label))
-    #                 results[batch_idx]['train_logprobs'].append(
-    #                     [
-    #                         float(log_prob_chosen_constitution[batch_idx]), 
-    #                         float(log_prob_rejected_constitution[batch_idx]),
-    #                     ]
-    #                 )
-    #                 results[batch_idx]['train_probs'].append(probs[0])
+                    results[batch_idx]['train_labels'].append(int(label))
+                    results[batch_idx]['train_logprobs'].append(
+                        [
+                            float(log_prob_chosen_constitution[batch_idx]), 
+                            float(log_prob_rejected_constitution[batch_idx]),
+                        ]
+                    )
+                    results[batch_idx]['train_probs'].append(probs[0])
+   
+                    
+            with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_n_final_{args.final_n}_mcq_a_b.json", "w") as f:
+                json.dump(results, f)
+            
                     
     elif "mcq_sample" in args.evaluation_prompt:
         logging.info("RUNNING MCQ SAMPLE")

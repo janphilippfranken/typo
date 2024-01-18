@@ -208,7 +208,7 @@ def run_eval_mcq(
         answers=formatted_eval_answers_rejected,
         prompts=formatted_eval_prompts_rejected,
     )
-    
+
     return batch_log_probs_chosen, batch_log_probs_rejected
 
 
@@ -314,7 +314,7 @@ def run_eval_mcq_sample(
     
 
 
-    breakpoint()
+    
     response = model.batch_prompt(
         prompts=formatted_eval_prompts,
         do_sample=False,

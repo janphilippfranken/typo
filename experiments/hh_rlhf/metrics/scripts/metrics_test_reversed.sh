@@ -29,6 +29,6 @@ do
     do
         python metrics.py \
         model=$model \
-        constitution_file=rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_$run 
+        constitution_file=rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_$run 
     done
 done

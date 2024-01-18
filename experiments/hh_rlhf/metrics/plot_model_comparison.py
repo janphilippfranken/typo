@@ -43,17 +43,17 @@ def main(args):
  
         file_paths = [
             # not trained
-            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_1_mcq_answer.json",
-            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_1_mcq_answer.json",
+            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_1_mcq_a_b.json",
+            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_train_n_final_1_mcq_a_b.json",
             
-            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_train_n_final_1_mcq_answer.json",
-            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_train_n_final_1_mcq_answer.json",
+            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_train_n_final_1_mcq_a_b.json",
+            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_train_n_final_1_mcq_a_b.json",
         
-            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_flipped_train_n_final_1_mcq_answer.json",
-            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_flipped_train_n_final_1_mcq_answer.json",
+            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_flipped_train_n_final_1_mcq_a_b.json",
+            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_flipped_train_n_final_1_mcq_a_b.json",
             
-            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_combined_train_n_final_1_mcq_answer.json",
-            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_combined_train_n_final_1_mcq_answer.json",      
+            f"model_comparison/rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_combined_train_n_final_1_mcq_a_b.json",
+            f"model_comparison/rlhf_reversed_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_{run}_model_mixtral_7b_base_peft_cai_data_hh_rlhf_combined_train_n_final_1_mcq_a_b.json",      
         ]
 
         # Loading data
@@ -197,8 +197,8 @@ def main(args):
     ax.legend(["Chosen | Constitution", "Rejected | Constitution", "Chosen | Flipped Constitution", "Rejected | Flipped Constitution"])
 
     # Save plot
-    plt.savefig(f'./model_comparison/test_results_answers.pdf')
-    plt.savefig(f'./model_comparison/test_results_answer.png')
+    plt.savefig(f'./model_comparison/test_results_a_b.pdf')
+    plt.savefig(f'./model_comparison/test_results_a_b.png')
 
     plt.show()
 
