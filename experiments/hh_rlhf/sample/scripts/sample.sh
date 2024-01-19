@@ -4,7 +4,7 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:2                        # Request GPUs
-#SBATCH --mem=128GB                         # Memory request
+#SBATCH --mem=100GB                         # Memory request
 #SBATCH --cpus-per-task=26                  # Number of CPUs per task
 #SBATCH --time=128:00:00                    # Time limit
 #SBATCH --output=rlhf_mixtral.out         
@@ -16,7 +16,7 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sample
 
 
-for run in {101..150}
+for run in {106..350}
 do
     python sample.py \
     sampler.run_id=$run \

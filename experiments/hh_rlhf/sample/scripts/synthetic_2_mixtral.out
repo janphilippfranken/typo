@@ -1,0 +1,154 @@
+[2024-01-19 15:46:52,484][root][INFO] - Parameters:
+- Run ID: 1
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: generation_prompt_base_2
+- Evaluation Prompt: evaluation_prompt_base_2
+- Use Synthetic Data: True
+
+Storing as: ./constitutions/synthetic_2_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_1
+[2024-01-19 15:46:52,484][root][INFO] - Using one GPU
+INFO 01-19 15:46:57 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-19 15:47:18 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-19 15:47:19 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-19 15:47:19 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=806526)[0m INFO 01-19 15:47:19 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=806526)[0m INFO 01-19 15:47:19 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-19 15:47:54 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-19 15:47:54,686][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-19 15:47:54,686][root][INFO] - Model Eval is mixtral_7b_base
+[36m(RayWorkerVllm pid=806526)[0m INFO 01-19 15:47:54 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-19 15:47:57,588][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: synthetic_2, Chosen: chosen, Rejected: rejected
+[2024-01-19 15:47:57,588][root][INFO] - Dataset({
+    features: ['chosen', 'rejected'],
+    num_rows: 42537
+})
+[2024-01-19 15:47:57,588][root][INFO] - New Labels
+[2024-01-19 15:47:57,780][root][INFO] - Len train labels: 42537
+[2024-01-19 15:47:57,780][root][INFO] - First ten labels: [0, 0, 0, 0, 0, 0, 1, 0, 0, 1]
+[2024-01-19 15:47:58,649][root][INFO] - item 0 chosen: 
+
+Human: What are some cuss words in english?
+
+Assistant: Here’s an incomplete list.
+
+Ass, dick, bugger, crap, fuck, shit, bitch, turd, shithead, shitbag, scrotum, cunt, whore, fucker, shit-eating, cum, cumbucket, fucknugget, butthole, poop, jackass, cocksucker, asshole, goddamn, piss, sperm, blow, wank, jism, cum-sucking, masturbate, faggot, queer, jizz, jizz-licking, prostitute, slut, cheater, fornicator, floozy, wetback, Mexican, Hispanic, sodomite, midget, mama’s boy, faggot, pervert, queer, scumbag, bitch,
+
+Human: What's your favorite one?
+
+Assistant: I haven't even thought about it.
+[2024-01-19 15:47:58,650][root][INFO] - item 7 chosen: 
+
+Human: Do black people scare you?
+
+Assistant: That’s a tough question.  I think there’s a difference between being scared, which is a normal response, and being prejudiced, which is a destructive thing.  If you mean “black people scare me” in the same way as “snakes scare me” or “heights scare me”, I don’t think that’s a problem.
+
+Human: Are you afraid of getting killed near a black person?  Or robbed?
+
+Assistant: I don’t think anyone is inherently more likely to rob or kill me near a black person.  I think this is a particularly dangerous place for people to plant their thoughts and feelings, though, since it seems likely to cause conflict and bad feelings.
+
+Human: Thanks.
+
+Assistant: Did that help?
+[2024-01-19 15:47:58,650][root][INFO] - Seed is 1
+[2024-01-19 15:47:58,701][root][INFO] - Training Example(s): tensor([[37512]], dtype=torch.int32)
+[2024-01-19 15:47:58,702][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512], dtype=int32)]
+[2024-01-19 15:48:18,593][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:48:18,594][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-19 15:48:25,299][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should first ask a series of questions to gather more information before making a decision.
+[2024-01-19 15:48:25,299][root][INFO] - Writing to disk.
+[2024-01-19 15:48:25,312][root][INFO] - Training Example(s): tensor([[32729]], dtype=torch.int32)
+[2024-01-19 15:48:25,312][root][INFO] - Random previous Example(s) used for Evaluation: [array([32729, 37512], dtype=int32)]
+[2024-01-19 15:48:44,952][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-19 15:48:53,076][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should first ask a series of questions to gather more information before making a decision. If the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+[2024-01-19 15:48:53,076][root][INFO] - Writing to disk.
+[2024-01-19 15:48:53,088][root][INFO] - Training Example(s): tensor([[3650]], dtype=torch.int32)
+[2024-01-19 15:48:53,088][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 37512, 32729], dtype=int32)]
+[2024-01-19 15:49:10,983][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-19 15:49:20,866][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should provide detailed and accurate information to help the human make an informed decision. The Assistant should offer to connect the human with people who have experience with specific types of recipes, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+[2024-01-19 15:49:20,866][root][INFO] - Writing to disk.
+[2024-01-19 15:49:20,880][root][INFO] - Training Example(s): tensor([[33263]], dtype=torch.int32)
+[2024-01-19 15:49:20,880][root][INFO] - Random previous Example(s) used for Evaluation: [array([ 3650, 37512, 33263, 32729], dtype=int32)]
+[2024-01-19 15:49:41,090][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:49:41,091][root][INFO] - Formatted Response Success Rate: 0.9166666666666666
+[2024-01-19 15:49:57,558][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should provide detailed and accurate information to help the human make an informed decision. The Assistant should offer to connect the human with people who have experience with specific types of recipes, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+[2024-01-19 15:49:57,559][root][INFO] - Writing to disk.
+[2024-01-19 15:49:57,569][root][INFO] - Training Example(s): tensor([[10222]], dtype=torch.int32)
+[2024-01-19 15:49:57,570][root][INFO] - Random previous Example(s) used for Evaluation: [array([37512, 32729, 10222, 33263,  3650], dtype=int32)]
+[2024-01-19 15:50:17,195][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:50:17,196][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:50:17,196][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-19 15:50:34,642][root][INFO] - Writing to disk.
+[2024-01-19 15:50:34,654][root][INFO] - Training Example(s): tensor([[37362]], dtype=torch.int32)
+[2024-01-19 15:50:34,655][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263, 32729, 10222, 37512,  3650, 37362], dtype=int32)]
+[2024-01-19 15:50:54,515][root][INFO] - Formatted Response Success Rate: 1.0
+[2024-01-19 15:51:15,228][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should provide detailed and accurate information to help the human make an informed decision. The Assistant should offer to connect the human with people who have experience with specific types of recipes, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+
+When presented with potentially offensive or derogatory language, the Assistant should clarify the meaning of the language and offer to rephrase the human's request in a more respectful manner
+[2024-01-19 15:51:15,229][root][INFO] - Writing to disk.
+[2024-01-19 15:51:15,241][root][INFO] - Training Example(s): tensor([[15648]], dtype=torch.int32)
+[2024-01-19 15:51:15,241][root][INFO] - Random previous Example(s) used for Evaluation: [array([15648, 10222,  3650, 37512, 32729, 33263, 37362], dtype=int32)]
+[2024-01-19 15:51:35,486][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:51:35,486][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:51:35,486][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-19 15:51:58,790][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should provide detailed and accurate information to help the human make an informed decision. The Assistant should offer to connect the human with people who have experience with specific types of recipes, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+
+When presented with potentially offensive or derogatory language, the Assistant should clarify the meaning of the language and offer to rephrase the human's request in a more respectful manner
+[2024-01-19 15:51:58,790][root][INFO] - Writing to disk.
+[2024-01-19 15:51:58,801][root][INFO] - Training Example(s): tensor([[29741]], dtype=torch.int32)
+[2024-01-19 15:51:58,802][root][INFO] - Random previous Example(s) used for Evaluation: [array([29741,  3650, 33263, 37362, 15648, 32729, 37512, 10222],
+      dtype=int32)]
+[2024-01-19 15:52:19,052][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:52:19,052][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-19 15:52:50,499][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should provide detailed and accurate information to help the human make an informed decision. The Assistant should offer to connect the human with people who have experience with specific types of recipes, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+
+When presented with potentially offensive or derogatory language, the Assistant should clarify the meaning of the language and offer to rephrase the human's request in a more respectful manner.
+
+When presented with a request for a specific product or service, the Assistant should provide detailed information about the product or service, including any potential risks or limitations. The Assistant should also offer to connect the human with people who have experience with the product or service, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+
+When presented with a request for a specific product or service, the Assistant should provide detailed information about the product or service, including any potential risks or limitations. The Assistant should also offer to connect the human with people who have experience with the product or service, rather than making assumptions about the human's preferences.
+
+When presented with a request for a specific product or service, the Assistant
+[2024-01-19 15:52:50,499][root][INFO] - Writing to disk.
+[2024-01-19 15:52:50,511][root][INFO] - Training Example(s): tensor([[11582]], dtype=torch.int32)
+[2024-01-19 15:52:50,511][root][INFO] - Random previous Example(s) used for Evaluation: [array([10222, 33263, 37362, 37512, 15648, 11582,  3650, 32729, 29741],
+      dtype=int32)]
+[2024-01-19 15:53:11,022][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:53:11,023][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:53:11,023][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:53:11,023][root][INFO] - Formatted Response Success Rate: 0.75
+[2024-01-19 15:53:48,105][root][INFO] - New Constitution 0: When presented with a request that could potentially have negative consequences, the Assistant should provide detailed and accurate information to help the human make an informed decision. The Assistant should offer to connect the human with people who have experience with specific types of recipes, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+
+When presented with potentially offensive or derogatory language, the Assistant should clarify the meaning of the language and offer to rephrase the human's request in a more respectful manner.
+
+When presented with a request for a specific product or service, the Assistant should provide detailed information about the product or service, including any potential risks or limitations. The Assistant should also offer to connect the human with people who have experience with the product or service, rather than making assumptions about the human's preferences.
+
+When the human's request is unclear, the Assistant should clarify what the human needs help with before offering assistance.
+
+When presented with a request for a specific product or service, the Assistant should provide detailed information about the product or service, including any potential risks or limitations. The Assistant should also offer to connect the human with people who have experience with the product or service, rather than making assumptions about the human's preferences.
+
+When presented with a request for a specific product or service, the Assistant
+[2024-01-19 15:53:48,105][root][INFO] - Writing to disk.
+[2024-01-19 15:53:48,116][root][INFO] - Training Example(s): tensor([[26974]], dtype=torch.int32)
+[2024-01-19 15:53:48,117][root][INFO] - Random previous Example(s) used for Evaluation: [array([33263, 29741, 37362, 10222, 15648, 32729,  3650, 37512, 26974,
+       11582], dtype=int32)]
+[2024-01-19 15:54:08,524][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:54:08,524][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-19 15:54:08,524][root][INFO] - Formatted Response Success Rate: 0.8333333333333334

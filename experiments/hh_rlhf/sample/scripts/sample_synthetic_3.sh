@@ -5,10 +5,10 @@
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:2                        # Request GPUs
 #SBATCH --mem=128GB                         # Memory request
-#SBATCH --cpus-per-task=32                  # Number of CPUs per task
+#SBATCH --cpus-per-task=26                 # Number of CPUs per task
 #SBATCH --time=128:00:00                    # Time limit
-#SBATCH --output=synthetic_0_mixtral.out         
-#SBATCH --error=synthetic_0_mixtral.err           
+#SBATCH --output=synthetic_3_mixtral.out         
+#SBATCH --error=synthetic_3_mixtral.err           
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
@@ -16,14 +16,14 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sample
 
 
-for run in {1..50}
+for run in {1..100}
 do
     python sample.py \
     sampler.run_id=$run \
     sampler.seed=$run \
     sampler.use_synthetic_data=true \
-    sampler.dataset_version=synthetic_1 \
-    sampler.synthetic_data_path=../label/labels/constitution_1_model_mixtral_7b_base \
+    sampler.dataset_version=synthetic_3 \
+    sampler.synthetic_data_path=../label/labels/constitution_3_model_mixtral_7b_base \
     sampler.chosen=chosen \
     sampler.rejected=rejected \
     sampler.generation_prompt=generation_prompt_base_2 \
