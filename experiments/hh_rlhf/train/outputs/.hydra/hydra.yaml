@@ -113,12 +113,12 @@ hydra:
     - hydra.mode=RUN
     task: []
   job:
-    name: merge_peft_model
+    name: train_dpo
     chdir: null
     override_dirname: ''
     id: ???
     num: ???
-    config_name: merge_peft_model
+    config_name: train
     env_set: {}
     env_copy: []
     config:

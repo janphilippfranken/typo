@@ -25,18 +25,17 @@ lora_config:
   - w3
   - lm_head
 
-
-# wandb
 wandb:
   project: scai
   log_model: checkpoint
-  name: cai_data_hh_rlhf
+  name: cai_data_hh_rlhf_synthetic
 
 validation_split_size: 0.05
 
-# TrainingArguments 
+dpo_beta: 0.1
+
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints
+  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
   evaluation_strategy: steps  
   eval_steps: 10
   warmup_steps: 5
@@ -55,3 +54,4 @@ training_args:
   optim: paged_adamw_8bit
   report_to: wandb
   bf16: true
+  resume_from_checkpoint: true
