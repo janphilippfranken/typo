@@ -15,3 +15,5 @@ evaluation_prompt: evaluation_prompt_mcq_1
 n_examples: 100 # how many examples from test set we want to eval on
 final_n: 1 # how many constitutions we are considering (from end of chain)
 storage_path: ./model_comparison # storage path
+
+start_of_test_examples: 500 # examples after these were never seen when inducing a constitution
