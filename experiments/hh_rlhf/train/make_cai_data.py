@@ -70,6 +70,7 @@ def main(args: DictConfig) -> None:
                         'index': train_example,
                     })
      
+     
     # Save formatted data
     with open(args.data.cai_data, "w") as f:
         json.dump(examples_batch, f)
