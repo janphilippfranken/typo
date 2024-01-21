@@ -1,4 +1,5 @@
 import logging 
+import os
 
 import fire
 import hydra
@@ -21,6 +22,8 @@ def main(args: DictConfig) -> None:
     logging.info(f"Dataset is: {args.data.cai_data}")
     logging.info(f"Writing checkpoints to: {args.training_args.output_dir}")
     logging.info(f"Wandb name: {args.wandb.name}")
+    logging.info(f"Max prompt length: {args.max_prompt_length}")
+    logging.info(f"Max seq length: {args.model.tokenizer_config.model_max_length}")
     
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
@@ -28,6 +31,7 @@ def main(args: DictConfig) -> None:
 
     # get tokenizer
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)   
+    tokenizer.pad_token = tokenizer.eos_token
     
     # quantization 
     quantization_config = BitsAndBytesConfig(
@@ -52,17 +56,18 @@ def main(args: DictConfig) -> None:
     prompt = [example['prompt'] for example in data_dict]
     chosen = [example['chosen'] for example in data_dict]
     rejected = [example['rejected'] for example in data_dict]
-    dataset = Dataset.from_dict(dict(prompt=prompt, chosen=chosen, rejected=rejected))    
+    dataset = Dataset.from_dict(dict(prompt=prompt, chosen=chosen, rejected=rejected))  
     
     # split into train/eval (just to explore loss for eval, not required)
     dataset = dataset.train_test_split(test_size=args.validation_split_size)
     logging.info(dataset)
+    logging.info(dataset['train'][0])
     
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
     training_args = TrainingArguments(**training_args_dict)
     
-    ## lora and peft setup
+    # LoRA and peft setup
     model.gradient_checkpointing_enable()
     model = prepare_model_for_kbit_training(model)
     
@@ -72,10 +77,11 @@ def main(args: DictConfig) -> None:
     peft_model = get_peft_model(model, lora_config)
     peft_model.print_trainable_parameters()
     
-    peft_model.is_parallelizable = True 
+    peft_model.is_parallelizable = True
     peft_model.model_parallel = True
     
     logging.info(f"Devices: {torch.cuda.device_count()}")
+    logging.info(f"training_args.output_dir: {training_args.output_dir}")
 
     # trainer
     dpo_trainer = DPOTrainer(
@@ -85,13 +91,18 @@ def main(args: DictConfig) -> None:
         beta=args.dpo_beta,
         train_dataset=dataset['train'],
         eval_dataset=dataset['test'],
+        max_prompt_length=args.max_prompt_length,
+        max_length=args.model.tokenizer_config.model_max_length,
     )
     
-    # Train
+    # train
     dpo_trainer.train()
-    
-    # Save State and Model
     dpo_trainer.save_model(output_dir=training_args.output_dir)
+    
+    # save final checkpoint
+    output_dir = os.path.join(training_args.output_dir, "final_checkpoint")
+    dpo_trainer.model.save_pretrained(output_dir)
+    
     
     
 if __name__ == "__main__":

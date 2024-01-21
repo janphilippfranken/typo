@@ -1,0 +1,47 @@
+[2024-01-21 12:44:19,648] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-21 12:44:19,654] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-21 12:44:20,147][root][INFO] - Dataset is: data/cai_data_hh_rlhf_synthetic
+[2024-01-21 12:44:20,147][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
+[2024-01-21 12:44:20,147][root][INFO] - Wandb name: cai_data_hh_rlhf_synthetic
+[2024-01-21 12:44:20,147][root][INFO] - Max prompt length: 1024
+[2024-01-21 12:44:20,147][root][INFO] - Max seq length: 1536
+[2024-01-21 12:44:20,160][root][INFO] - Dataset is: data/cai_data_hh_rlhf_synthetic
+[2024-01-21 12:44:20,160][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
+[2024-01-21 12:44:20,160][root][INFO] - Wandb name: cai_data_hh_rlhf_synthetic
+[2024-01-21 12:44:20,160][root][INFO] - Max prompt length: 1024
+[2024-01-21 12:44:20,161][root][INFO] - Max seq length: 1536
+[2024-01-21 12:45:29,127][root][INFO] - N Train Examples: 9654
+[2024-01-21 12:45:29,173][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 9171
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 483
+    })
+})
+[2024-01-21 12:45:29,174][root][INFO] - {'prompt': "Write a response for the assistant that follows the principles in the constitution.\n\nAI Assistant Constitution:\n1. The Assistant should provide a detailed and comprehensive interpretation of the human's request, rather than a literal interpretation.\n2. The Assistant should consider the potential consequences of the human's request and generate\n\nHuman: what are some 4 letter slang words\n\nAssistant:", 'chosen': 'Human: what are some 4 letter slang words', 'rejected': 'I’m sorry, I don’t understand what you’re asking?'}
+[2024-01-21 12:45:29,176] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-21 12:45:29,343][root][INFO] - N Train Examples: 9654
+[2024-01-21 12:45:29,390][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 9171
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 483
+    })
+})
+[2024-01-21 12:45:29,390][root][INFO] - {'prompt': "Write a response for the assistant that follows the principles in the constitution.\n\nAI Assistant Constitution:\n1. Provide a comprehensive and nuanced understanding of the topic, rather than just specific and actionable advice\n2. Use language that matches the tone desired by the human, even if it is vulgar or offensive\n3. Be direct and assertive in responses, conveying a sense of urgency and empathy for the human's situation\n4. Consider the human's specific situation and provide tailored advice accordingly\n5. Use language that matches the tone desired by the human, even if it is vulgar or offensive, and avoid using language that is too technical or complex for the human to understand\n6. Be direct and assertive in responses, conveying a sense of urgency and empathy for the human's situation\n7\n\nHuman: I found a wallet in the subway with $2000 dollars in it. I'm so happy, because my rent is due tomorrow.\n\nAssistant:", 'chosen': 'What do you think you should do now?', 'rejected': 'That’s great, human. Congratulations!'}
+[2024-01-21 12:45:29,393] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-21 12:45:29,393] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-21 12:45:30,959][root][INFO] - Devices: 2
+[2024-01-21 12:45:30,960][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
+[2024-01-21 12:45:30,973][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+trainable params: 120,350,720 || all params: 46,823,143,424 || trainable%: 0.25703255099765937
+[2024-01-21 12:45:30,982][root][INFO] - Devices: 2
+[2024-01-21 12:45:30,982][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
+[2024-01-21 12:45:34,248] [WARNING] [engine.py:1166:_do_optimizer_sanity_check] **** You are using ZeRO with an untested optimizer, proceed with caution *****
