@@ -17,18 +17,20 @@ cd ~/research_projects/scai-tuning/experiments/hh_rlhf/sample
 
 for run in {1..10}
 do
-    python sample.py \
+    python sample_test.py \
     sampler.run_id=$run \
     sampler.seed=$run \
     sampler.dataset_version=rlhf_test \
     sampler.chosen=chosen \
     sampler.rejected=rejected \
     sampler.generation_prompt=generation_prompt_base_2 \
-    sampler.evaluation_prompt=evaluation_prompt_base_2 \
+    sampler.evaluation_prompt=evaluation_prompt_base_3 \
     sampler.n_revisions=50 \
     sampler.constitution_batch_size=1 \
     sampler.eval_batch_size=10 \
     sampler.num_return_sequences=12 \
+    model_generate=mixtral_7b_vllm \
+    model_evaluate=mixtral_7b_vllm \
     model_generate.completion_config.temperature=0.5 \
     data.split=test 
 done

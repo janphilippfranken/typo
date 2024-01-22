@@ -157,6 +157,15 @@ Constitution of the AI Assistant
 
 Conversation Between AI Assistant and Human
 {conversations}""",
+
+"evaluation_prompt_base_3": """Write a response for the assistant that follows the principles in the constitution.
+
+AI Assistant Constitution:
+{constitution}
+
+{conversations}
+
+Assistant:""",
 }
 
 

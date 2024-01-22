@@ -69,33 +69,12 @@ def main(args: DictConfig) -> None:
         for k, _ in enumerate(final_constitutions)
     }
     
-    if "log_probs" in args.evaluation_prompt:
-      
-        if args.split == "train":
-            examples = train_examples.copy()
-            for batch_idx, constitution in tqdm(enumerate(final_constitutions)): # batch dimenstion
-                for example_idx in tqdm(examples[batch_idx]): # train example dimension
-                    log_prob_chosen, log_probs_rejected = run_eval_log_probs(
-                        dataset=dataset,
-                        constitution=constitution,
-                        model=model,
-                        eval_prompt=args.evaluation_prompt,
-                        example_idx=example_idx,
-                    )
-                    results[batch_idx][example_idx] = {
-                        'chosen': log_prob_chosen,
-                        'rejected': log_probs_rejected,
-                    }
-                            
-        # write to json
-        with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_n_final_{args.final_n}_log_probs_answer.json", "w") as f:
-            json.dump(results, f)
     
         
     elif "answer" in args.evaluation_prompt:
         logging.info("RUNNING ANSWER")
     
-        if args.split == "train" or args.split == "test":
+        if args.split == "train":
             examples = train_examples.copy()
             for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
                 for example_idx in tqdm(examples[batch_idx]): 
@@ -140,18 +119,16 @@ def main(args: DictConfig) -> None:
        
         
             # Save progress after 
-            with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_n_final_{args.final_n}_mcq_answer.json", "w") as f:
+            with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_answer.json", "w") as f:
                 json.dump(results, f)
-                
-    elif "mcq" in args.evaluation_prompt and "sample" not in args.evaluation_prompt:
-        logging.info("RUNNING MCQ")
-    
-        if args.split == "train" or args.split == "test":
-            examples = train_examples.copy()
+        
+        elif args.split == "test":
+            examples = dataset[args.start_of_test_examples:args.start_of_test_examples + args.n_examples]
             for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
                 for example_idx in tqdm(examples[batch_idx]): 
             
-                    log_prob_chosen_constitution, log_prob_rejected_constitution = run_eval_mcq(
+                    log_prob_chosen_constitution, log_prob_rejected_constitution, final_answer_chosen, final_answer_rejected = \
+                        run_eval_answer(
                         dataset=dataset,
                         constitutions=[constitution],
                         model=model,
@@ -159,54 +136,37 @@ def main(args: DictConfig) -> None:
                         example_idx=example_idx,
                     )
                    
-                    probs = np.array(
+                    log_probs = np.array(
                         [
                             float(log_prob_chosen_constitution[batch_idx]), 
                             float(log_prob_rejected_constitution[batch_idx]),
                         ]
                     )
-                    probs = np.exp(probs) / np.sum(np.exp(probs))
+                    log_probs_average = np.array(
+                        [
+                            log_probs[0] / model.tokenizer(final_answer_chosen, return_tensors="pt").input_ids.shape[1],
+                            log_probs[0] / model.tokenizer(final_answer_rejected, return_tensors="pt").input_ids.shape[1],
+                        ]
+                    )
+                    
+                    
+                    probs = np.exp(log_probs) / np.sum(np.exp(log_probs))
+                    average_probs = np.exp(log_probs_average) / np.sum(np.exp(log_probs_average))
                     
                     label = np.argmax(probs)
+                    average_label = np.argmax(average_probs)
      
                     results[batch_idx]['train_labels'].append(int(label))
-                    results[batch_idx]['train_logprobs'].append(
-                        [
-                            float(log_prob_chosen_constitution[batch_idx]), 
-                            float(log_prob_rejected_constitution[batch_idx]),
-                        ]
-                    )
+                    results[batch_idx]['train_logprobs'].append(list(log_probs))
                     results[batch_idx]['train_probs'].append(probs[0])
-   
                     
-            with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_n_final_{args.final_n}_mcq_a_b.json", "w") as f:
+                    results[batch_idx]['train_labels_average'].append(int(average_label))
+                    results[batch_idx]['train_logprobs_average'].append(list(log_probs_average))
+                    results[batch_idx]['train_probs_average'].append(average_probs[0])
+                    
+                 # Save progress after 
+            with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_answer.json", "w") as f:
                 json.dump(results, f)
-            
-                    
-    elif "mcq_sample" in args.evaluation_prompt:
-        logging.info("RUNNING MCQ SAMPLE")
-    
-        if args.split == "train" or args.split == "test":
-            examples = train_examples.copy()
-            for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
-                for example_idx in tqdm(examples[batch_idx]): 
-            
-                    response = run_eval_mcq_sample(
-                        dataset=dataset,
-                        constitutions=[constitution],
-                        model=model,
-                        eval_prompt=args.evaluation_prompt,
-                        example_idx=example_idx,
-                    )
-                   
-                  
-     
-                    results[batch_idx]['train_response'].append(int(response))
-                    
-            # Save progress after 
-            with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_n_final_{args.final_n}_mcq_sample.json", "w") as f:
-                json.dump(results, f)
-            
     
 if __name__ == '__main__':
     fire.Fire(main())
