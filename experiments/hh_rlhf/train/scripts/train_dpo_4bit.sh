@@ -17,5 +17,5 @@ cd ~/research_projects/scai-tuning/experiments/hh_rlhf/train
 
 accelerate launch --config_file conf/accelerate/accelerate.yaml train_dpo_4bit.py \
     training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/4bit \
-    wandb.name=cai_data_hh_rlhf_synthetic_4bit \
+    wandb.name=cai_data_hh_rlhf_synthetic_4bit_full_data \
     data.cai_data=data/cai_data_hh_rlhf_synthetic

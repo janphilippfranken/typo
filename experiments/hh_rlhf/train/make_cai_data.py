@@ -30,7 +30,7 @@ def main(args: DictConfig) -> None:
     constitution_batch = []
     constitution_idx = 0
     for constitution_file in os.listdir(args.data.constitution_path):
-        if 'synthetic_0' in constitution_file or 'synthetic_1' in constitution_file:
+        if 'synthetic_0' in constitution_file or 'synthetic_1' in constitution_file or 'synthetic_2' in constitution_file or 'synthetic_3' in constitution_file:
 
         # if 'shuffled' not in constitution_file and 'synthetic' not in constitution_file and 'reversed' not in constitution_file:
         # if 'shuffled' not in constitution_file and 'synthetic' not in constitution_file:
@@ -52,7 +52,7 @@ def main(args: DictConfig) -> None:
     n_constitutions = 0
 
     for constitution in tqdm(constitution_batch):
-        if int(constitution['file'].split('_')[-1]) <= args.data.n_constitutions: # only take n constitutions and leave rest as test constitutions for evaluation
+        if int(constitution['file'].split('_')[-1]) <= args.data.n_constitutions and len(constitution['data']['train_examples'][0]) == 50: # only take n constitutions and leave rest as test constitutions for evaluation
             n_constitutions += 1
             constitution_str = constitution['data']['constitutions'][0][-1]
             train_examples = constitution['data']['train_examples'][0]

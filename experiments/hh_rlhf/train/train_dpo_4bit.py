@@ -25,6 +25,8 @@ def main(args: DictConfig) -> None:
     logging.info(f"Max prompt length: {args.max_prompt_length}")
     logging.info(f"Max seq length: {args.model.tokenizer_config.model_max_length}")
     
+    logging.info(args)
+    
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)

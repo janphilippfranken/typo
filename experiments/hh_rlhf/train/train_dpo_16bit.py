@@ -8,7 +8,7 @@ import torch
 from omegaconf import DictConfig, OmegaConf
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from datasets import Dataset
-from transformers import TrainingArguments, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from transformers import TrainingArguments, AutoModelForCausalLM, AutoTokenizer
 from trl import DPOTrainer
 
 from helpers import *
@@ -17,13 +17,15 @@ from helpers import *
 logging.basicConfig(level=logging.INFO)
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="train_4bit")
+@hydra.main(version_base=None, config_path="conf", config_name="train_16bit")
 def main(args: DictConfig) -> None:
     logging.info(f"Dataset is: {args.data.cai_data}")
     logging.info(f"Writing checkpoints to: {args.training_args.output_dir}")
     logging.info(f"Wandb name: {args.wandb.name}")
     logging.info(f"Max prompt length: {args.max_prompt_length}")
     logging.info(f"Max seq length: {args.model.tokenizer_config.model_max_length}")
+    
+    logging.info(args)
     
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
@@ -33,24 +35,16 @@ def main(args: DictConfig) -> None:
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)   
     tokenizer.pad_token = tokenizer.eos_token
     
-    # quantization 
-    quantization_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_use_double_quant=True,
-        bnb_4bit_compute_dtype=torch.bfloat16,
-    )
-    
     # get model 
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
-        quantization_config=quantization_config,
-        device_map="cuda",
+        torch_dtype=torch.bfloat16,
+        device_map="auto",
     )
     
     # get cai dataset
     data_dict = jload(args.data.cai_data)  
     logging.info(f"N Train Examples: {len(data_dict)}")  
-    
     
     # get dpo format 
     prompt = [example['prompt'] for example in data_dict]
@@ -73,6 +67,10 @@ def main(args: DictConfig) -> None:
     
     lora_config_dict = OmegaConf.to_container(args.lora_config, resolve=True)
     lora_config = LoraConfig(**lora_config_dict)
+    
+    loaded_in_kbit = getattr(model, "is_loaded_in_8bit", False) or getattr(model, "is_loaded_in_4bit", False)
+    
+    logging.info(f"Loaded in kbit: {loaded_in_kbit}")
     
     peft_model = get_peft_model(model, lora_config)
     peft_model.print_trainable_parameters()
