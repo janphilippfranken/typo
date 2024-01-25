@@ -32,9 +32,9 @@ def main(args: DictConfig) -> None:
         model.model.is_parallelizable = True
         model.model.model_parallel = True
               
-    # get data
+    # get test data
     data = load_dataset(**args.data.dataset)
-    dataset = data[args.data.split] # test split 
+    dataset = data[args.data.split]
     
     # get constitutions for evaluation
     constitutions = load_from_disk(f"{args.constitution_path}/{args.constitution_file}")
@@ -123,7 +123,7 @@ def main(args: DictConfig) -> None:
                 json.dump(results, f)
         
         elif args.split == "test":
-            examples = dataset[args.start_of_test_examples:args.start_of_test_examples + args.n_examples]
+            examples = range(args.start_of_test_example, args.start_of_test_example + args.n_examples)
             for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
                 for example_idx in tqdm(examples[batch_idx]): 
             

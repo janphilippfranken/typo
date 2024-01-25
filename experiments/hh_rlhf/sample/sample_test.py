@@ -13,9 +13,10 @@ from tqdm import tqdm
 from omegaconf import DictConfig
 from torch.nn import DataParallel
 from datasets import load_dataset, Dataset
+from peft import PeftModel
 
 from helpers import *
-from generate import run_generate
+from generate_test import run_generate
 from evaluate_test import run_eval
 from scaituning.models.openai_models.gpt4 import GPT4Agent
 from scaituning.models.openai_models.azure import AsyncAzureChatLLM
@@ -28,7 +29,7 @@ from prompts import SEED_PRINCIPLES
 logging.basicConfig(level=logging.INFO)
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=None, config_path="conf", config_name="config_test")
 def main(args: DictConfig) -> None:
     # LOGGING SEED AND SAMPLER DETAILS
     logging.info(f"""Parameters:
@@ -44,41 +45,21 @@ def main(args: DictConfig) -> None:
 
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.model_generate.name}_run_{args.sampler.run_id}""")
 
-
-    # GET MODEL(S)    
-    is_vllm_generate = "vllm" in args.model_generate.model_type.lower()
-    is_vllm_eval = "vllm" in args.model_eval.model_type.lower()
-    if is_vllm_generate and is_vllm_eval:
-        model = VLLMInferenceModel(**args.model_generate.model_config)
-    else: 
-        model_generate = HFInferenceModel(**args.model_generate.model_config)
-        model_eval = HFInferenceModel(**args.model_eval.model_config)
-        
+    model = VLLMInferenceModel(**args.model_generate.model_config)
+    
     args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
     logging.info(f"Model Generate is {args.model_generate.name}")
     logging.info(f"Model Eval is {args.model_eval.name}")
     
-
     # GET DATA
     data = load_dataset(**args.data.dataset)
-    dataset = data[args.data.split][args.data.start_of_test_example]
+    dataset = data[args.data.split].select(range(args.data.start_of_test_example))
+
     logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}, Chosen: {args.sampler.chosen}, Rejected: {args.sampler.rejected}")
     logging.info(dataset)
-    # RELABEL EXAMPLES IF SYNTHETIC
-    if args.sampler.use_synthetic_data: 
-        logging.info("New Labels")
-        with open(f"{args.sampler.synthetic_data_path}.json", "r") as file:
-            labels = json.load(file)
-        logging.info(f"Len train labels: {len(labels['train_labels'])}")
-        logging.info(f"First ten labels: {labels['train_labels'][:10]}")
-        dataset = label_synthetic_data(dataset, labels['train_labels'])
-        logging.info(f"item 0 chosen: {dataset[0]['chosen']}")
-        logging.info(f"item 7 chosen: {dataset[7]['chosen']}")
-    
-    
+   
     # INITIALIZE CONSTITUTIONS
     constitutions = initialize_constitutions(args.sampler)
-    
     
     # SAMPLE TRAINING EXAMPLES 
     np.random.seed(args.sampler.seed) 
@@ -92,7 +73,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
         dtype=torch.int,
     )
     available_examples = np.arange(len(dataset))
-    
+
     for k in range(args.sampler.constitution_batch_size):
         for i in range(args.sampler.n_revisions):
             example_batch = np.random.choice(available_examples, args.sampler.generation_batch_size, replace=False)

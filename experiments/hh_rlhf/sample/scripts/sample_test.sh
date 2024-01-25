@@ -4,7 +4,7 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:2                        # Request GPUs
-#SBATCH --mem=128GB                         # Memory request
+#SBATCH --mem=86GB                         # Memory request
 #SBATCH --cpus-per-task=26                  # Number of CPUs per task
 #SBATCH --time=128:00:00                    # Time limit
 #SBATCH --output=rlhf_test.out         
@@ -24,13 +24,11 @@ do
     sampler.chosen=chosen \
     sampler.rejected=rejected \
     sampler.generation_prompt=generation_prompt_base_2 \
-    sampler.evaluation_prompt=evaluation_prompt_base_3 \
+    sampler.evaluation_prompt=evaluation_prompt_base_2 \
     sampler.n_revisions=50 \
     sampler.constitution_batch_size=1 \
     sampler.eval_batch_size=10 \
     sampler.num_return_sequences=12 \
-    model_generate=mixtral_7b_vllm \
-    model_evaluate=mixtral_7b_vllm \
     model_generate.completion_config.temperature=0.5 \
     data.split=test 
 done

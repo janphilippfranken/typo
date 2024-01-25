@@ -15,7 +15,7 @@ data:
     cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
   split: train
   constitution_path: ../sample/constitutions
-  n_constitutions: 98
+  n_constitutions: 135
   n_examples: 50
   cai_data: data/cai_data_hh_rlhf_synthetic
   n_synthetic_labels: 7
@@ -39,12 +39,12 @@ lora_config:
 wandb:
   project: scai
   log_model: checkpoint
-  name: cai_data_hh_rlhf_synthetic
+  name: cai_data_hh_rlhf_synthetic_4bit
 validation_split_size: 0.05
 dpo_beta: 0.1
 max_prompt_length: 1024
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
+  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/4bit
   evaluation_strategy: steps
   eval_steps: 10
   warmup_steps: 5

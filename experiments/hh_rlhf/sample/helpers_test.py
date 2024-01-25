@@ -407,7 +407,6 @@ def build_eval_prompt_test(
         answers=final_rejected_answers,
     )
     
-    breakpoint()
     
     return {
         "chosen": {
@@ -428,7 +427,7 @@ def format_response_base(response: str, args: DictConfig) -> str:
     """
     try:
         # Split response to get the part after "## Interaction 1"
-        if any(prompt in args.sampler.generation_prompt for prompt in ["2", "4"]):
+        if any(prompt in args.sampler.generation_prompt for prompt in ["2", "3", "4"]):
             principles = response.split("<revised principles start>")[1].split("</revised principles end>")[0]
             if is_valid_response(principles):
                 return principles.strip()
