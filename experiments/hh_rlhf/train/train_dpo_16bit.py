@@ -58,12 +58,14 @@ def main(args: DictConfig) -> None:
     logging.info(dataset['train'][0])
     
     # training args
+    logging.info("args")
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
     training_args = TrainingArguments(**training_args_dict)
     
     # LoRA and peft setup
-    model.gradient_checkpointing_enable()
-    model = prepare_model_for_kbit_training(model)
+    logging.info("checkpointing")
+    # model.gradient_checkpointing_enable()
+    # model = prepare_model_for_kbit_training(model)
     
     lora_config_dict = OmegaConf.to_container(args.lora_config, resolve=True)
     lora_config = LoraConfig(**lora_config_dict)

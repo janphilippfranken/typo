@@ -7,8 +7,8 @@
 #SBATCH --mem=128GB                         # Memory request
 #SBATCH --cpus-per-task=24                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=rlhf_%A_%a.out             # Customized output file name
-#SBATCH --error=rlhf_%A_%a.err              # Customized error file name
+#SBATCH --output=metrics.out             # Customized output file name
+#SBATCH --error=metrics.err              # Customized error file name
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
@@ -16,17 +16,15 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/metrics
 
 declare -a models=(
-    "mixtral_7b_vllm" # base model 
-    "mixtral_7b_vllm_dpo" # fine-tuned model
-    # TODO add correct constition file below
+    # "mixtral_7b_base"             # Base model
+    "mixtral_7b_dpo_16bit"   # Fine-tuned model
 )
 
-for model in "${models[@]}"
-do
-    for run in {1..10}
-    do
+
+for run in {1..3}; do
+    for model in "${models[@]}"; do
         python metrics.py \
-        model=$model \ 
-        constitution_file=rlhf_test_gen_mixtral_7b_base_eval_mixtral_7b_base_gen_prompt_generation_prompt_base_2_run_$run 
+        model="$model" \
+        constitution_file="rlhf_reversed_test_${model}_run_${run}"
     done
 done

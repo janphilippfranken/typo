@@ -20,5 +20,5 @@ export MASTER_ADDR=cocoflops-hgx-1
 
 python train_dpo_16bit.py \
     training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit \
-    wandb.name=cai_data_hh_rlhf_synthetic_16bit_full \
+    wandb.name=cai_data_hh_rlhf_synthetic_16bit_rank_4 \
     data.cai_data=data/cai_data_hh_rlhf_synthetic

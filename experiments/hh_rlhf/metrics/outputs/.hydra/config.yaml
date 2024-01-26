@@ -1,0 +1,29 @@
+model:
+  hydra:
+    run:
+      dir: outputs
+  model_type: vllm
+  name: mixtral_7b_dpo_16_bit
+  model_config:
+    model: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/
+    download_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/
+    dtype: auto
+    tensor_parallel_size: 2
+  completion_config:
+    temperature: 0.5
+    top_p: 0.9
+    max_new_tokens: 450
+    num_return_sequences: 1
+data:
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: train
+constitution_path: ../sample/constitutions
+constitution_file: rlhf_reversed_test_mixtral_7b_dpo_16bit_run_3
+split: test
+evaluation_prompt: evaluation_prompt_answer
+storage_path: ./predictions
+start_of_test_examples: 1000
+n_examples: 100

@@ -111,14 +111,17 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task: []
+    task:
+    - training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
+    - wandb.name=cai_data_hh_rlhf_synthetic_16bit_rank_4
+    - data.cai_data=data/cai_data_hh_rlhf_synthetic
   job:
-    name: merge_peft_model
+    name: train_dpo_16bit
     chdir: null
-    override_dirname: ''
+    override_dirname: data.cai_data=data/cai_data_hh_rlhf_synthetic,training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit,wandb.name=cai_data_hh_rlhf_synthetic_16bit_rank_4
     id: ???
     num: ???
-    config_name: merge_peft_model
+    config_name: train_16bit
     env_set: {}
     env_copy: []
     config:
