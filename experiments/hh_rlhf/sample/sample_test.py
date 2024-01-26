@@ -43,7 +43,7 @@ def main(args: DictConfig) -> None:
 - Evaluation Prompt: {args.sampler.evaluation_prompt}
 - Use Synthetic Data: {args.sampler.use_synthetic_data}
 
-Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.model_generate.name}_run_{args.sampler.run_id}""")
+Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_mixtral_7b_base_run_{args.sampler.run_id}""")
 
     model = VLLMInferenceModel(**args.model_generate.model_config)
     
@@ -73,6 +73,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
         dtype=torch.int,
     )
     available_examples = np.arange(len(dataset))
+    # breakpoint()
 
     for k in range(args.sampler.constitution_batch_size):
         for i in range(args.sampler.n_revisions):
@@ -130,6 +131,8 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
         except:
             logging.info(f"Error in Generation. Skipping Example.")
             continue
+        
+        # breakpoint()
         # EVALUATION ON CURRENT DATA
         log_probs_chosen_train, log_probs_rejected_train = run_eval( 
             args=args, 
@@ -281,7 +284,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
         # WRITE TO DISK
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_{args.model_generate.name}_run_{args.sampler.run_id}")
+        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_mixtral_7b_base_run_{args.sampler.run_id}")
   
 if __name__ == '__main__':
     fire.Fire(main())

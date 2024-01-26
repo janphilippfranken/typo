@@ -5,13 +5,13 @@ hydra:
 
 # PROMPTS
 system_prompt: system_prompt_1                  # system prompt we are using for generating principles if we are using an instruct model
-generation_prompt: generation_prompt_base_2     # human prompt we are using for generating principles
+generation_prompt: generation_prompt_base_3     # human prompt we are using for generating principles
 evaluation_prompt: evaluation_prompt_base_2      # prompt we are using for evaluating principles
  
 # DATASET 
-dataset_version: rlhf_reversed # rlhf, rlhf_reversed, synthetic_0, synthetic_1, synthetic_2, ...
-chosen: rejected # chosen for rlhf, rejected for rlhf reversed 
-rejected: chosen # rejected for rlhf, chosen for rlhf reversed
+dataset_version: rlhf # rlhf, rlhf_reversed, synthetic_0, synthetic_1, synthetic_2, ...
+chosen: chosen # chosen for rlhf, rejected for rlhf reversed 
+rejected: rejected # rejected for rlhf, chosen for rlhf reversed
 use_synthetic_data: false
 synthetic_data_path: ../label/labels/constitution_0_model_mixtral_7b_base # change 0 to 1 if synthetic_1, etc
 

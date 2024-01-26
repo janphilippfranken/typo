@@ -450,7 +450,7 @@ def format_response_base(response: str, args: DictConfig) -> str:
     
 
 def is_valid_response(response):
-    exclude_phrases = ["Insert", "insert", "Revised Constitution", "Final Assistant Response Rejected by Human", "Preferred Human Response", "Conversation Between AI Assistant and Human", "Analysis of the Responses", "<", ">", "revised principles", "original principles", "Revised principles", "Original principles", "Revised Principles", "Original Principles"]
+    exclude_phrases = ["We have added", "We have included", "In this revised principle", "Insert", "insert", "Revised Constitution", "Final Assistant Response Rejected by Human", "Preferred Human Response", "Conversation Between AI Assistant and Human", "Analysis of the Responses", "<", ">", "revised principles", "original principles", "Revised principles", "Original principles", "Revised Principles", "Original Principles"]
     return not any(phrase in response for phrase in exclude_phrases)
 
 

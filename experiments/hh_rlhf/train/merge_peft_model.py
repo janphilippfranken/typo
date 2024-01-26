@@ -3,9 +3,9 @@ import logging
 import fire
 import hydra
 from omegaconf import DictConfig
-
+import torch
 from peft import PeftModel
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 logging.basicConfig(level=logging.INFO)
@@ -15,11 +15,16 @@ logging.basicConfig(level=logging.INFO)
 def main(args: DictConfig) -> None:
     
     # Get model
+    tokenizer = AutoTokenizer.from_pretrained(
+        **args.model.tokenizer_config,
+    )
+    breakpoint()
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
         torch_dtype=torch.float16,
         device_map="auto",
     )
+    breakpoint()
       
     model = PeftModel.from_pretrained(
         model=model,
@@ -27,8 +32,11 @@ def main(args: DictConfig) -> None:
         device_map="auto",
         torch_dtype=torch.float16,
     )
-
+   
+    breakpoint()
     model = model.merge_and_unload()
+    breakpoint()
+    tokenizer.save_pretrained(args.merged_peft_model_name)
     model.save_pretrained(args.merged_peft_model_name)
 
  

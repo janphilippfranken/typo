@@ -12,6 +12,7 @@ class HFInferenceModel():
         self, 
         pretrained_model_name_or_path: str = "mistralai/Mistral-7B-Instruct-v0.1",
         load_in_4bit: str = True,
+        load_in_8bit: str = True,
         device_map: str = "auto",
         torch_dtype: str = "float16",
         model_cache_dir: str = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-Instruct-v0.1",
@@ -53,6 +54,7 @@ class HFInferenceModel():
             "device_map": device_map,
             "cache_dir": model_cache_dir,
             "load_in_4bit": load_in_4bit,
+            "load_in_8bit": load_in_8bit,
             "token": os.getenv("HF_TOKEN"),
         }
 
@@ -62,6 +64,9 @@ class HFInferenceModel():
         if load_in_4bit:
             print(f"{pretrained_model_name_or_path} is quantized.")
             model_config["quantization_config"] = quantization_config
+            
+        if load_in_8bit:
+            print(f"Mixtral is octized")
 
         self.model = AutoModelForCausalLM.from_pretrained(**model_config)
         

@@ -43,16 +43,9 @@ def main(args: DictConfig) -> None:
 - Evaluation Prompt: {args.sampler.evaluation_prompt}
 - Use Synthetic Data: {args.sampler.use_synthetic_data}
 
-Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.model_generate.name}_run_{args.sampler.run_id}""")
+Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_mixtral_7b_dpo_16bit_run_{args.sampler.run_id}""")
 
     model = VLLMInferenceModel(**args.model_generate.model_config)
-    
-    # model.model = PeftModel.from_pretrained(
-    #     model=model.model,
-    #     model_id=args.peft_model_id,
-    #     device_map="cuda:0",
-    #     torch_dtype=torch.float16,
-    # )
     
     
     args.model_generate.completion_config.num_return_sequences = args.sampler.num_return_sequences 
@@ -91,7 +84,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
                 
     # KEEP TRACK OF PREV EXAMPLES FOR EVAL
     all_prev_examples = all_train_examples.clone().view(args.sampler.constitution_batch_size, -1)
-
+    
 
     # MAIN LOOP
     for revision_idx in tqdm(range(args.sampler.n_revisions)):
@@ -138,6 +131,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
         except:
             logging.info(f"Error in Generation. Skipping Example.")
             continue
+
         # EVALUATION ON CURRENT DATA
         log_probs_chosen_train, log_probs_rejected_train = run_eval( 
             args=args, 
@@ -287,9 +281,10 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_{args.mod
             constitutions["prev_examples"][idx] += random_examples[idx].flatten().tolist()
 
         # WRITE TO DISK
+        
         logging.info(f"Writing to disk.")
         constitution_ds = Dataset.from_pandas(pd.DataFrame(constitutions))
-        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_{args.model_generate.name}_run_{args.sampler.run_id}")
+        constitution_ds.save_to_disk(f"{args.sampler.storage_path}/{args.sampler.dataset_version}_mixtral_7b_dpo_16bit_run_{args.sampler.run_id}")
   
 if __name__ == '__main__':
     fire.Fire(main())

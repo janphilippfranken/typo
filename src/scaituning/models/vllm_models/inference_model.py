@@ -33,6 +33,9 @@ class VLLMInferenceModel():
         
         self.tokenizer.pad_token = "[PAD]"
         self.tokenizer.padding_side = "right"
+        
+        test = torch.float16 if quantization == "awq" else dtype
+        print('test', test)
 
         self.model = LLM(
             model=model,
