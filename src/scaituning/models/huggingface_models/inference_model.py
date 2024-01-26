@@ -156,7 +156,7 @@ class HFInferenceModel():
         # SAMPLE NUM_RETURN_SEQUENCES FOR EACH BATCH
         with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=False):
             output = self.model.generate(
-                inputs["input_ids"], 
+                input_ids=inputs["input_ids"], 
                 max_new_tokens=max_new_tokens,
                 do_sample=do_sample,
                 top_p=top_p,

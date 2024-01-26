@@ -66,12 +66,12 @@ training_args:
     evaluation_strategy: steps
     eval_steps: 100
     warmup_steps: 60
-    per_device_train_batch_size: 3
-    per_device_eval_batch_size: 3
-    gradient_accumulation_steps: 20
+    per_device_train_batch_size: 2
+    per_device_eval_batch_size: 2
+    gradient_accumulation_steps: 16
     logging_steps: 2
     logging_strategy: steps
-    learning_rate: 0.0003
+    learning_rate: 3.0e-05
     num_train_epochs: 3
     max_steps: 2000
     save_strategy: steps
@@ -91,7 +91,7 @@ _wandb:
     huggingface_version: 4.36.2
     is_jupyter_run: false
     is_kaggle_kernel: false
-    start_time: 1706300595.274585
+    start_time: 1706301240.336522
     t:
       1:
       - 1
@@ -430,10 +430,10 @@ prediction_loss_only:
   value: false
 per_device_train_batch_size:
   desc: null
-  value: 3
+  value: 2
 per_device_eval_batch_size:
   desc: null
-  value: 3
+  value: 2
 per_gpu_train_batch_size:
   desc: null
   value: null
@@ -442,7 +442,7 @@ per_gpu_eval_batch_size:
   value: null
 gradient_accumulation_steps:
   desc: null
-  value: 20
+  value: 16
 eval_accumulation_steps:
   desc: null
   value: null
@@ -451,7 +451,7 @@ eval_delay:
   value: 0
 learning_rate:
   desc: null
-  value: 0.0003
+  value: 3.0e-05
 weight_decay:
   desc: null
   value: 0.0
@@ -496,7 +496,7 @@ log_on_each_node:
   value: true
 logging_dir:
   desc: null
-  value: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit/runs/Jan26_12-23-37_cocoflops-hgx-1
+  value: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit/runs/Jan26_12-34-22_cocoflops-hgx-1
 logging_strategy:
   desc: null
   value: steps

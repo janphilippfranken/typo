@@ -1,0 +1,20 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mixtral_7b_base_hf
+  - data: hh_rlhf
+
+# path to constitutions we are evaluating 
+constitution_path: ../sample/constitutions
+constitution_file: null
+split: test
+
+evaluation_prompt: evaluation_prompt_answer # prompt we are using for eval (same as for training)
+storage_path: ./predictions # storage path
+
+start_of_test_examples: 1000 # examples after these were never seen when inducing a constitution
+n_examples: 100 # how many examples from test set we want to eval on
+
+adapter_id: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/4bit/checkpoint-1600
