@@ -112,15 +112,15 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - model=mixtral_7b_base_hf
-    - constitution_file=rlhf_test_mixtral_7b_base_run_1
+    - model=mixtral_7b_dpo_4bit
+    - constitution_file=rlhf_reversed_test_mixtral_7b_base_run_3
   job:
-    name: metrics_hf
+    name: metrics
     chdir: null
-    override_dirname: constitution_file=rlhf_test_mixtral_7b_base_run_1,model=mixtral_7b_base_hf
+    override_dirname: constitution_file=rlhf_reversed_test_mixtral_7b_base_run_3,model=mixtral_7b_dpo_4bit
     id: ???
     num: ???
-    config_name: metrics_hf
+    config_name: metrics
     env_set: {}
     env_copy: []
     config:
@@ -145,7 +145,7 @@ hydra:
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/metrics/outputs
     choices:
       data: hh_rlhf
-      model: mixtral_7b_base_hf
+      model: mixtral_7b_dpo_4bit
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

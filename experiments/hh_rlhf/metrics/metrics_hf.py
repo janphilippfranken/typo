@@ -70,6 +70,8 @@ def main(args: DictConfig) -> None:
     
     logging.info("RUNNING ANSWER")
     
+    print(final_constitutions)
+    
     if args.split == "train":
         examples = train_examples.copy()
         logging.info(examples)

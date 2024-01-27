@@ -50,10 +50,13 @@ def main(args: DictConfig) -> None:
     prompt = [example['prompt'] for example in data_dict]
     chosen = [example['chosen'] for example in data_dict]
     rejected = [example['rejected'] for example in data_dict]
-    dataset = Dataset.from_dict(dict(prompt=prompt, chosen=chosen, rejected=rejected))  
+    dataset = Dataset.from_dict(dict(prompt=prompt, chosen=chosen, rejected=rejected)) 
+    dataset = dataset.shuffle(seed=42)
+    dataset = dataset.select(range(5000)) 
+
     
     # split into train/eval (just to explore loss for eval, not required)
-    dataset = dataset.train_test_split(test_size=args.validation_split_size)
+    dataset = dataset.train_test_split(test_size=.1)
     logging.info(dataset)
     logging.info(dataset['train'][0])
     

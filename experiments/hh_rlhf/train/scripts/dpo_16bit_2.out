@@ -1,0 +1,26 @@
+[2024-01-26 18:53:13,451] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-26 18:53:13,965][root][INFO] - Dataset is: data/cai_data_hh_rlhf_synthetic
+[2024-01-26 18:53:13,965][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16_bit_dropout_2
+[2024-01-26 18:53:13,965][root][INFO] - Wandb name: cai_data_hh_rlhf_synthetic_16bit_rank_4_dropout_2
+[2024-01-26 18:53:13,965][root][INFO] - Max prompt length: 1024
+[2024-01-26 18:53:13,965][root][INFO] - Max seq length: 1536
+[2024-01-26 18:53:13,965][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'mixtral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mixtral-8x7B-v0.1', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mixtral-8x7B-v0.1', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', 'model_max_length': 1536}}, 'data': {'dataset': {'path': 'Anthropic/hh-rlhf', 'data_dir': 'harmless-base', 'cache_dir': '/scr/jphilipp/scai/datasets/hh-rlhf'}, 'split': 'train', 'constitution_path': '../sample/constitutions', 'n_constitutions': 135, 'n_examples': 50, 'cai_data': 'data/cai_data_hh_rlhf_synthetic', 'n_synthetic_labels': 7, 'synthetic_data_path': '../label/labels'}, 'lora_config': {'r': 4, 'lora_alpha': 8, 'lora_dropout': 0.2, 'bias': 'none', 'task_type': 'CAUSAL_LM', 'inference_mode': False, 'target_modules': ['q_proj', 'v_proj', 'k_proj', 'o_proj']}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'cai_data_hh_rlhf_synthetic_16bit_rank_4_dropout_2'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 1024, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16_bit_dropout_2', 'evaluation_strategy': 'steps', 'eval_steps': 100, 'warmup_steps': 60, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 2, 'gradient_accumulation_steps': 16, 'logging_steps': 2, 'logging_strategy': 'steps', 'learning_rate': 0.0001, 'num_train_epochs': 3, 'max_steps': 2000, 'save_strategy': 'steps', 'save_steps': 100, 'save_total_limit': 20, 'seed': 42, 'optim': 'paged_adamw_32bit', 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
+[2024-01-26 18:53:37,252][root][INFO] - N Train Examples: 20247
+[2024-01-26 18:53:37,342][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 4500
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 500
+    })
+})
+[2024-01-26 18:53:37,342][root][INFO] - {'prompt': "Write a response for the assistant that follows the principles in the constitution.\n\nAI Assistant Constitution:\n1. Provide practical and actionable advice that is tailored to the human's specific needs and preferences.\n2. Gather relevant information from the human's context and previous interactions to\n\nHuman: Mahatma Gandhi said all religions are bullshit.\n\nAssistant:", 'chosen': 'He did say that, to one religious person. But he spent many years trying to bring peace to nations through religious means. So the quote might be viewed more as he’s making an observation about religion from a personal perspective.', 'rejected': 'Many people think Gandhi’s philosophy of nonviolence is a good way to achieve peace.'}
+[2024-01-26 18:53:37,342][root][INFO] - args
+[2024-01-26 18:53:37,343][root][INFO] - checkpointing
+[2024-01-26 18:53:37,344][root][INFO] - Loaded in kbit: False
+trainable params: 3,407,872 || all params: 46,706,200,576 || trainable%: 0.007296401672524689
+[2024-01-26 18:53:37,446][root][INFO] - Devices: 3
+[2024-01-26 18:53:37,446][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16_bit_dropout_2
+[2024-01-26 18:53:37,450][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.

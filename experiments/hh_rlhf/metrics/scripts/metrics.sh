@@ -16,8 +16,9 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/metrics
 
 declare -a models=(
-    "mixtral_7b_base"  # run like this, then normal without base model 
-    "mixtral_7b_dpo_4bit"   
+    "mixtral_7b_dpo_4bit"
+    # "mixtral_7b_base" # run this once reversed has finished
+    
 )
 
 

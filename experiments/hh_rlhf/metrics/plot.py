@@ -44,9 +44,8 @@ def main(args):
  
         file_paths = [
             # not trained
-            f"predictions/rlhf_test_mixtral_7b_base_run_{run}_model_mixtral_7b_base_test_no_constitution_answer.json",
-            f"predictions/rlhf_test_mixtral_7b_dpo_16bit_run_{run}_model_mixtral_7b_dpo_16_bit_test_answer.json",
-            f"predictions/rlhf_reversed_test_mixtral_7b_dpo_16bit_run_{run}_model_mixtral_7b_dpo_16_bit_test_answer.json",
+            f"predictions//rlhf_test_mixtral_7b_base_run_{run}_model_mixtral_7b_dpo_4_bit_test_answer.json",
+            f"predictions/rlhf_reversed_test_mixtral_7b_base_run_{run}_model_mixtral_7b_dpo_4_bit_test_answer.json",
         ]
 
         # Loading data
@@ -56,20 +55,20 @@ def main(args):
         # # breakpoint()
         # breakpoint()
         labels_probs_base = datasets[0]['0']['train_logprobs']
-        labels_probs_dpo_chosen = datasets[1]['0']['train_logprobs']
-        labels_probs_dpo_rejected = datasets[2]['0']['train_logprobs']
+        labels_probs_dpo = datasets[1]['0']['train_logprobs']
+        # labels_probs_dpo_rejected = datasets[2]['0']['train_logprobs']
         
-        def compare(base, model):
+        # def compare(base, model):
         
-            base_chosen = base[0]
-            base_rejected = base[1]
+        #     base_chosen = base[0]
+        #     base_rejected = base[1]
             
-            model_chosen = model[0]
-            model_rejected = model[1]
+        #     model_chosen = model[0]
+        #     model_rejected = model[1]
             
-            return int(model_chosen - base_chosen > model_rejected - base_rejected)
+        #     return int(model_chosen - base_chosen > model_rejected - base_rejected)
         
-        breakpoint()
+        # breakpoint()
         
         labels = calculate_labels(labels_probs_base, labels_probs_dpo)
         # breakpoint()
@@ -127,8 +126,8 @@ def main(args):
     ax.legend(["p_c_dpo - p_c_base > p_r_dpo - p_r_base", "p_c_dpo - p_c_base < p_r_dpo - p_r_base"], fontsize=12)
     # ax.legend(["p_r_dpo - p_r_base > p_c_dpo - p_c_base", "p_r_dpo - p_r_base < p_c_dpo - p_c_base"], fontsize=12)
     # Save plot
-    plt.savefig(f'./predictions/test_reversed_nc.pdf')
-    plt.savefig(f'./predictions/test_reversed_nc.png')
+    plt.savefig(f'./predictions/test_reversed_4bit.pdf')
+    plt.savefig(f'./predictions/test_reversed_4bit.png')
 
     plt.show()
 

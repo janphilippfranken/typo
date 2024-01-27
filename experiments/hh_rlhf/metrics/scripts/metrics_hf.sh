@@ -21,10 +21,10 @@ declare -a models=(
 )
 
 
-for run in {1..10}; do
+for run in {1..2}; do
     for model in "${models[@]}"; do
         python metrics_hf.py \
         model="mixtral_7b_base_hf" \
-        constitution_file="rlhf_test_mixtral_7b_base_run_${run}"
+        constitution_file="rlhf_reversed_test_mixtral_7b_base_run_${run}"
     done
 done
