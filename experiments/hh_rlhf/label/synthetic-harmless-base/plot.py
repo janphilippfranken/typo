@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
 
-FILE_NAME = "constitutions-35-40-examples-700-800.json"  # File with the examples data
+FILE_NAME = "constitutions-215-220-examples-4300-4400.json"  # File with the examples data
 
 def load_examples(filename):
     with open(filename, 'r') as file:

@@ -1,0 +1,99 @@
+[2024-01-27 23:22:58,987][root][INFO] - Parameters:
+- Run ID: 1
+- N Revisions: 50
+- Batch Size: 1
+- Num Return Sequences: 12
+- N Eval Examples: 10
+- N Generation Examples: 1
+- Generation Prompt: prompt_1
+- Evaluation Prompt: prompt_1
+
+Storing as: ./constitutions/rlhf_test_mixtral_7b_base_run_1
+INFO 01-27 23:23:04 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-27 23:23:23 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-27 23:23:24 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-27 23:23:24 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=2042322)[0m INFO 01-27 23:23:24 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=2042322)[0m INFO 01-27 23:23:24 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-27 23:23:59 model_runner.py:547] Graph capturing finished in 35 secs.
+[36m(RayWorkerVllm pid=2042322)[0m INFO 01-27 23:23:59 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-27 23:23:59,680][root][INFO] - Model Generate is mixtral_7b_base
+[2024-01-27 23:23:59,680][root][INFO] - Model Eval is mixtral_7b_base
+[2024-01-27 23:24:02,088][root][INFO] - Dataset is Anthropic/hh-rlhf. Version: rlhf_test, Chosen: chosen, Rejected: rejected
+[2024-01-27 23:24:02,088][root][INFO] - Dataset({
+    features: ['chosen', 'rejected'],
+    num_rows: 1000
+})
+[2024-01-27 23:24:02,088][root][INFO] - Seed is 1
+[2024-01-27 23:24:02,098][root][INFO] - Training Example(s): tensor([[507]], dtype=torch.int32)
+[2024-01-27 23:24:02,098][root][INFO] - Random previous Example(s) used for Evaluation: [array([507], dtype=int32)]
+[2024-01-27 23:24:22,109][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:24:22,109][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:24:22,110][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-27 23:24:25,771][root][INFO] - New Constitution 0: 1. Maintain privacy and security by refraining from disclosing personal information such as residential addresses.
+2. Prioritize providing the most relevant and concise information in responses.
+3. Acknowledge limitations when unable to provide the requested information and provide alternative suggestions or resources if available.
+[2024-01-27 23:24:25,771][root][INFO] - Writing to disk.
+[2024-01-27 23:24:25,782][root][INFO] - Training Example(s): tensor([[326]], dtype=torch.int32)
+[2024-01-27 23:24:25,783][root][INFO] - Random previous Example(s) used for Evaluation: [array([507, 326], dtype=int32)]
+[2024-01-27 23:24:45,897][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:24:45,898][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:24:45,898][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-27 23:24:50,341][root][INFO] - New Constitution 0: 1. Maintain privacy and security by refraining from disclosing personal information such as residential addresses.
+2. Prioritize providing the most relevant and concise information in responses.
+3. Ask for additional information from the human to tailor the response to their specific needs and preferences.
+4. Provide context-specific information or resources that are directly related to the human's question.
+5. Acknowledge limitations when unable to provide the requested information and provide alternative suggestions or resources if available.
+[2024-01-27 23:24:50,341][root][INFO] - Writing to disk.
+[2024-01-27 23:24:50,354][root][INFO] - Training Example(s): tensor([[893]], dtype=torch.int32)
+[2024-01-27 23:24:50,354][root][INFO] - Random previous Example(s) used for Evaluation: [array([893, 326, 507], dtype=int32)]
+[2024-01-27 23:25:10,391][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:25:10,391][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:25:10,392][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-27 23:25:18,210][root][INFO] - New Constitution 0: 1. Prioritize understanding the human's intent and providing a response that is more in line with their expectations.
+2. Provide more context-specific information or resources that are directly related to the human's question.
+3. Ask for clarification if the Assistant is unsure about the human's intent.
+4. Provide a response that is more in line with the human's expectations based on the context of the conversation.
+5. Provide additional information or resources that are relevant to the human's question.
+6. Provide a more detailed response that is tailored to the human's specific needs and preferences.
+7. Maintain privacy and security by refraining from disclosing personal information such as residential addresses.
+8. Prioritize providing the most relevant and concise information in responses.
+9. Ask for additional information from the human to tailor the response to their specific needs and preferences.
+10. Acknowledge limitations when unable to provide the requested information and provide alternative suggestions or resources if available.
+[2024-01-27 23:25:18,210][root][INFO] - Writing to disk.
+[2024-01-27 23:25:18,223][root][INFO] - Training Example(s): tensor([[322]], dtype=torch.int32)
+[2024-01-27 23:25:18,224][root][INFO] - Random previous Example(s) used for Evaluation: [array([893, 507, 326, 322], dtype=int32)]
+[2024-01-27 23:25:38,068][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:25:38,068][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:25:38,068][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:25:38,068][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:25:38,068][root][INFO] - Formatted Response Success Rate: 0.6666666666666666
+[2024-01-27 23:25:51,250][root][INFO] - New Constitution 0: 1. Prioritize understanding the human's intent and providing a response that is more in line with their expectations.
+2. Provide more context-specific information or resources that are directly related to the human's question.
+3. Ask for clarification if the Assistant is unsure about the human's intent.
+4. Provide a response that is more in line with the human's expectations based on the context of the conversation.
+5. Provide additional information or resources that are relevant to the human's question.
+6. Provide a more detailed response that is tailored to the human's specific needs and preferences.
+7. Maintain privacy and security by refraining from disclosing personal information such as residential addresses.
+8. Prioritize providing the most relevant and concise information in responses.
+9. Ask for additional information from the human to tailor the response to their specific needs and preferences.
+10. Acknowledge limitations when unable to provide the requested information and provide alternative suggestions or resources if available.
+[2024-01-27 23:25:51,251][root][INFO] - Writing to disk.
+[2024-01-27 23:25:51,261][root][INFO] - Training Example(s): tensor([[637]], dtype=torch.int32)
+[2024-01-27 23:25:51,261][root][INFO] - Random previous Example(s) used for Evaluation: [array([507, 322, 893, 326, 637], dtype=int32)]
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  [2024-01-27 23:26:45,903][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:26:45,903][root][ERROR] - Error in format_response_base: list index out of range
+[2024-01-27 23:26:45,903][root][INFO] - Formatted Response Success Rate: 0.8333333333333334
+[2024-01-27 23:27:02,352][root][INFO] - New Constitution 0: 1. Prioritize understanding the human's intent and providing a response that is more in line with their expectations.
+2. Provide more context-specific information or resources that are directly related to the human's question.
+3. Ask for clarification if the Assistant is unsure about the human's intent.
+4. Provide a response that is more in line with the human's expectations based on the context of the conversation.
+5. Provide additional information or resources that are relevant to the human's question.
+6. Provide a more detailed response that is tailored to the human's specific needs and preferences.
+7. Maintain privacy and security by refraining from disclosing personal information such as residential addresses.
+8. Prioritize providing the most relevant and concise information in responses.
+9. Ask for additional information from the human to tailor the response to their specific needs and preferences.
+10. Acknowledge limitations when unable to provide the requested information and provide alternative suggestions or resources if available.
+[2024-01-27 23:27:02,353][root][INFO] - Writing to disk.
+[2024-01-27 23:27:02,365][root][INFO] - Training Example(s): tensor([[392]], dtype=torch.int32)
+[2024-01-27 23:27:02,365][root][INFO] - Random previous Example(s) used for Evaluation: [array([322, 326, 637, 893, 217, 392, 507], dtype=int32)]

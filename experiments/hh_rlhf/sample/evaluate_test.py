@@ -43,6 +43,7 @@ def run_eval(
         )
         for i, constitution in enumerate(constitutions)
     ]
+    # breakpoint()
     # logging.info(f"EXAMPLE EVAL PROMPT: {evaluation_prompts[0]}")
 
     evaluation_prompts_chosen = [evaluation_prompt["chosen"] for evaluation_prompt in evaluation_prompts] 

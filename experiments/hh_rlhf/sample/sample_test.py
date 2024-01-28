@@ -18,8 +18,6 @@ from peft import PeftModel
 from helpers import *
 from generate_test import run_generate
 from evaluate_test import run_eval
-from scaituning.models.openai_models.gpt4 import GPT4Agent
-from scaituning.models.openai_models.azure import AsyncAzureChatLLM
 from scaituning.models.huggingface_models.inference_model import HFInferenceModel
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
@@ -29,7 +27,7 @@ from prompts import SEED_PRINCIPLES
 logging.basicConfig(level=logging.INFO)
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="config_test")
+@hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
     # LOGGING SEED AND SAMPLER DETAILS
     logging.info(f"""Parameters:
@@ -41,7 +39,6 @@ def main(args: DictConfig) -> None:
 - N Generation Examples: {args.sampler.generation_batch_size}
 - Generation Prompt: {args.sampler.generation_prompt}
 - Evaluation Prompt: {args.sampler.evaluation_prompt}
-- Use Synthetic Data: {args.sampler.use_synthetic_data}
 
 Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_mixtral_7b_base_run_{args.sampler.run_id}""")
 
@@ -53,7 +50,7 @@ Storing as: {args.sampler.storage_path}/{args.sampler.dataset_version}_mixtral_7
     
     # GET DATA
     data = load_dataset(**args.data.dataset)
-    dataset = data[args.data.split].select(range(args.data.start_of_test_example))
+    dataset = data[args.data.split].select(range(args.sampler.start_of_test_example))
 
     logging.info(f"Dataset is {args.data.dataset.path}. Version: {args.sampler.dataset_version}, Chosen: {args.sampler.chosen}, Rejected: {args.sampler.rejected}")
     logging.info(dataset)

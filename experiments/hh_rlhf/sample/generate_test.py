@@ -7,7 +7,7 @@ import re
 from omegaconf import DictConfig
 
 from helpers_test import *
-from prompts import SYSTEM_PROMPTS, GENERATION_PROMPTS
+from prompts import GENERATION_PROMPTS
 
 
 logging.basicConfig(level=logging.INFO)
