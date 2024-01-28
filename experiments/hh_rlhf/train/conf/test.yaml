@@ -1,9 +1,0 @@
-hydra:
-  run:
-    dir: outputs
-
-defaults:
-  - model: mixtral_7b_train
-  - data: hh_rlhf
-  
-peft_model_id: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf/checkpoints/checkpoint-2000

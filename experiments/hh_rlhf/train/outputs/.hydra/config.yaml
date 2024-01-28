@@ -7,18 +7,46 @@ model:
   tokenizer_config:
     pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
     cache_dir: /scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1
-    model_max_length: 1536
+    model_max_length: 918
 data:
-  dataset:
-    path: Anthropic/hh-rlhf
-    data_dir: harmless-base
-    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
-  split: train
-  constitution_path: ../sample/constitutions
-  n_constitutions: 135
-  n_examples: 50
-  cai_data: data/cai_data_hh_rlhf_synthetic
-  n_synthetic_labels: 7
-  synthetic_data_path: ../label/labels
-peft_model_id: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit/checkpoint-1100
-merged_peft_model_name: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100
+  hh_rlhf_cai: ../label/synthetic-harmless-base
+lora_config:
+  r: 32
+  lora_alpha: 16
+  lora_dropout: 0.1
+  bias: none
+  task_type: CAUSAL_LM
+  inference_mode: false
+  target_modules:
+  - q_proj
+  - v_proj
+  - k_proj
+  - o_proj
+wandb:
+  project: scai
+  log_model: checkpoint
+  name: hh_rlhf_cai
+validation_split_size: 0.1
+dpo_beta: 0.1
+max_prompt_length: 612
+training_args:
+  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
+  evaluation_strategy: steps
+  eval_steps: 500
+  warmup_steps: 50
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 2
+  logging_steps: 10
+  logging_strategy: steps
+  learning_rate: 3.0e-05
+  num_train_epochs: 2
+  max_steps: 5000
+  save_strategy: steps
+  save_steps: 500
+  save_total_limit: 10
+  seed: 42
+  optim: paged_adamw_32bit
+  report_to: wandb
+  bf16: true
+  remove_unused_columns: false

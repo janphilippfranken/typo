@@ -8,4 +8,4 @@ model_config:
 tokenizer_config:
   pretrained_model_name_or_path: "mistralai/Mixtral-8x7B-v0.1"
   cache_dir: "/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1"
-  model_max_length: 1536
+  model_max_length: 918 # max prompt len = 612 + max response len = 306 for now

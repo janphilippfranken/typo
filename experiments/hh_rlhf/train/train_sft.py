@@ -51,7 +51,7 @@ def main(args: DictConfig) -> None:
     dataset = dataset.train_test_split(test_size=args.validation_split_size)
     logging.info(dataset)
 
-    # Data Collatorf
+    # Data Collator
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
 
     # Training Args
