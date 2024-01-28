@@ -2,7 +2,7 @@ import json
 import numpy as np
 import os
 
-N_CONSTITUTIONS = 1000
+N_CONSTITUTIONS = 2000
 BATCH_SIZE = 8
 FILE_PATH = "synthetic_principles.json"
 OUTPUT_DIR = "synthetic-constitutions"
