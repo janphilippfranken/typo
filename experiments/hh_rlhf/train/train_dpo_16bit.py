@@ -51,8 +51,8 @@ def main(args: DictConfig) -> None:
     chosen = [example['chosen'] for example in data_dict]
     rejected = [example['rejected'] for example in data_dict]
     dataset = Dataset.from_dict(dict(prompt=prompt, chosen=chosen, rejected=rejected)) 
-    dataset = dataset.shuffle(seed=42)
-    dataset = dataset.select(range(5000)) 
+    # dataset = dataset.shuffle(seed=42)
+    # dataset = dataset.select(range(5000)) 
 
     
     # split into train/eval (just to explore loss for eval, not required)

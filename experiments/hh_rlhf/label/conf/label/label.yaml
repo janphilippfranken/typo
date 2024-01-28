@@ -2,17 +2,18 @@ hydra:
   run:
     dir: outputs
 
-# PROMPTS
-evaluation_prompt: evaluation_prompt_2
+# prompt used to compute logprobs of answer
+evaluation_prompt: prompt_1
  
-  
-# CONSTITUTIONS FILE
-constitutions: constitutions
-n_constitutions: 7
+# path to constitutions a
+synthetic_constitutions: synthetic-constitutions
+constitution_start: 0
+constitution_batch_size: 5
+max_constitutions: 1000
 
+# examples we are using
+examples_start: 0 
+example_batch_size: 100
 
-# DATA
-n_examples_train: 42537
-n_examples_test: 2312
-
-storage_path: labels
+# were to store the data
+storage_path: synthetic-harmless-base

@@ -20,43 +20,5 @@ data:
   cai_data: data/cai_data_hh_rlhf_synthetic
   n_synthetic_labels: 7
   synthetic_data_path: ../label/labels
-lora_config:
-  r: 4
-  lora_alpha: 8
-  lora_dropout: 0.2
-  bias: none
-  task_type: CAUSAL_LM
-  inference_mode: false
-  target_modules:
-  - q_proj
-  - v_proj
-  - k_proj
-  - o_proj
-wandb:
-  project: scai
-  log_model: checkpoint
-  name: cai_data_hh_rlhf_synthetic_16bit_rank_4_dropout_2
-validation_split_size: 0.05
-dpo_beta: 0.1
-max_prompt_length: 1024
-training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16_bit_dropout_2
-  evaluation_strategy: steps
-  eval_steps: 100
-  warmup_steps: 60
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 16
-  logging_steps: 2
-  logging_strategy: steps
-  learning_rate: 0.0001
-  num_train_epochs: 3
-  max_steps: 2000
-  save_strategy: steps
-  save_steps: 100
-  save_total_limit: 20
-  seed: 42
-  optim: paged_adamw_32bit
-  report_to: wandb
-  bf16: true
-  remove_unused_columns: false
+peft_model_id: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit/checkpoint-1100
+merged_peft_model_name: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100

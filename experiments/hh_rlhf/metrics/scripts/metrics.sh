@@ -16,16 +16,16 @@ conda activate scai-tuning
 cd ~/research_projects/scai-tuning/experiments/hh_rlhf/metrics
 
 declare -a models=(
-    "mixtral_7b_dpo_4bit"
+    "mixtral_7b_dpo_16bit_1100"
     # "mixtral_7b_base" # run this once reversed has finished
     
 )
 
 
-for run in {1..3}; do
+for run in {1..10}; do
     for model in "${models[@]}"; do
         python metrics.py \
         model="$model" \
-        constitution_file="rlhf_reversed_test_mixtral_7b_base_run_${run}"
+        constitution_file="rlhf_test_mixtral_7b_base_run_${run}"
     done
 done

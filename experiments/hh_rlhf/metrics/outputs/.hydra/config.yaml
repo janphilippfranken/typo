@@ -3,10 +3,10 @@ model:
     run:
       dir: outputs
   model_type: vllm
-  name: mixtral_7b_dpo_4_bit
+  name: mixtral_7b_dpo_16_bit_1100
   model_config:
-    model: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/4bit-1600/
-    download_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/4bit-1600/
+    model: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/
+    download_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/
     dtype: auto
     tensor_parallel_size: 2
   completion_config:
@@ -21,7 +21,7 @@ data:
     cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
   split: train
 constitution_path: ../sample/constitutions
-constitution_file: rlhf_reversed_test_mixtral_7b_base_run_3
+constitution_file: rlhf_reversed_test_mixtral_7b_base_run_10
 split: test
 evaluation_prompt: evaluation_prompt_answer
 storage_path: ./predictions

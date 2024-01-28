@@ -4,8 +4,8 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:2                        # Request GPUs
-#SBATCH --mem=128GB                         # Memory request
-#SBATCH --cpus-per-task=32                  # Number of CPUs per task
+#SBATCH --mem=64GB                         # Memory request
+#SBATCH --cpus-per-task=24                  # Number of CPUs per task
 #SBATCH --time=128:00:00                    # Time limit
 #SBATCH --output=label.out         
 #SBATCH --error=label.err           

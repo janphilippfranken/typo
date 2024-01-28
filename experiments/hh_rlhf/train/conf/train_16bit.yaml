@@ -3,14 +3,14 @@ hydra:
     dir: outputs
 
 defaults:
-  - model: mixtral_7b_train
+  - model: mistral_7b_train
   - data: hh_rlhf
 
 
 lora_config:
-  r: 4
-  lora_alpha: 8
-  lora_dropout: 0.2 # next try dropout .1
+  r: 8
+  lora_alpha: 16
+  lora_dropout: 0.1 # next try dropout .1
   bias: none
   task_type: CAUSAL_LM
   inference_mode: false
@@ -19,10 +19,6 @@ lora_config:
   - v_proj
   - k_proj
   - o_proj
-  # - w1
-  # - w2
-  # - w3
-  # - lm_head
 
 
 wandb:
@@ -31,7 +27,7 @@ wandb:
   name: cai_data_hh_rlhf_synthetic
 
 
-validation_split_size: 0.05
+validation_split_size: 0.075
 
 dpo_beta: 0.1
 max_prompt_length: 1024
@@ -42,8 +38,8 @@ training_args:
   evaluation_strategy: steps  
   eval_steps: 100
   warmup_steps: 60
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
   gradient_accumulation_steps: 16
   logging_steps: 2 
   logging_strategy: "steps"

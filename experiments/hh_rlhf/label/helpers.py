@@ -1,209 +1,102 @@
+import re
 from typing import List, Optional, Tuple
 
-import re
-
+from datasets import Dataset
 from omegaconf import DictConfig
-from datasets import load_from_disk, Dataset
 
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
-
 from prompts import EVALUATION_PROMPTS
 
-
-BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
-B_INST, E_INST = "[INST]", "[/INST]"
-B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
+BOS_TOKEN = "<s>"
 
 
 def remove_final_answer(
     prompt: str,
 ) -> str:
-    """Remove final assistant answer which is our inference target."""
+    """Remove final assistant answer."""
     final_answer = prompt.rsplit("Assistant: ")[-1]
     prompt = prompt.rsplit("Assistant: " + final_answer, 1)[0]
     return prompt, final_answer
 
 
-def build_eval_prompt_mcq(
-    constitution,
-    prompt_template, 
-    conversation, 
-    answer_chosen, 
-    answer_rejected,
-) -> str:
-    return prompt_template.format(
-        constitution=constitution,
-        conversations=conversation,
-        answer_chosen=answer_chosen,
-        answer_rejected=answer_rejected,
-    )
-    
-    
-def build_eval_prompt_log_probs(
+def build_eval_prompt(
     prompt_template: str,
     constitution: str,
-    prompts: List[str],
-    answers: Optional[List[str]] = None,
-) -> List[str]:
-    """Format a list of prompts and answers into a list of dialogues for mistral/llama base models."""
-    dialogues = []
-    if answers is not None:
-        for prompt, answer in zip(prompts, answers):
-            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
-            dialogues.append(f"{prompt}\n\nFinal Assistant Response: {answer}")
-    else:
-        for prompt in prompts:
-            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
-            dialogues.append(f"{prompt}\n\nFinal Assistant Response:")
-    return dialogues
-
-
-def build_eval_prompt_mcq(
-    prompt_template: str,
     conversation: str,
-    constitution: str,
-    answer_a: str,
-    answer_b: str,
     answer: str,
 ) -> List[str]:
+    """Build evaluation prompt."""
     return f"""{BOS_TOKEN}{prompt_template.format(
 constitution=constitution, 
-conversations=conversation.strip(),
-answer_a=answer_a,
-answer_b=answer_b)}{answer}"""
+conversation=conversation.strip())}{answer}"""
 
 
-def run_eval_log_probs(
-    dataset: Dataset,
-    constitution: str,
+def get_log_probs_of_answer(
     model: VLLMInferenceModel,
-    eval_prompt: str,
-    example_idx: int,
-) -> Tuple[float, float]:
-    """Run log probs eval."""
-            
-    # GET EVAL EXAMPLES
-    example_chosen = dataset[example_idx]['chosen']
-    example_rejected = dataset[example_idx]['rejected']
-        
-    conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
-    conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
-    
-    formatted_eval_prompts_chosen = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_chosen],
-    )
-    
-    formatted_eval_prompts_rejected = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_rejected],
-    )
-
-    formatted_eval_answers_chosen = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_chosen],
-        answers=[final_answer_chosen],
-    )
-        
-    formatted_eval_answers_rejected = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_rejected],
-        answers=[final_answer_rejected],
-    )
-    
-    batch_log_probs_chosen = model.batch_log_probs(
-        answers=formatted_eval_answers_chosen,
-        prompts=formatted_eval_prompts_chosen,
-    )
-    
-    batch_log_probs_rejected = model.batch_log_probs(
-        answers=formatted_eval_answers_rejected,
-        prompts=formatted_eval_prompts_rejected,
-    )
-    
-    chosen = float(batch_log_probs_chosen.sum())
-    rejected = float(batch_log_probs_rejected.sum())
-    
-    return chosen, rejected
-                            
-                            
-def run_eval_mcq(
     dataset: Dataset,
     constitutions: List[str],
-    model: VLLMInferenceModel,
     eval_prompt: str,
     example_idx: int,
 ) -> Tuple[float, float]:
-    """Run log probs eval."""
-            
-    # GET EVAL EXAMPLES
+    """Compute log probs of answer."""
+    # get example to evaluate
     example_chosen = dataset[example_idx]['chosen']
     example_rejected = dataset[example_idx]['rejected']
-        
-    conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
-    conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
     
-    formatted_eval_prompts_chosen = [
-        build_eval_prompt_mcq(
+    # remove answers
+    conversation, final_answer_chosen = remove_final_answer(example_chosen)
+    _, final_answer_rejected = remove_final_answer(example_rejected)
+    
+    # format prompt without answer
+    formatted_prompts_no_answer = [
+        build_eval_prompt(
             prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            conversation=conversation_chosen,
             constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
+            conversation=conversation.strip(),
             answer="",
         )
         for constitution in constitutions
     ]
     
-    formatted_eval_prompts_rejected = [
-        build_eval_prompt_mcq(
+    # format prompts with answer
+    formatted_prompts_chosen_answer = [
+        build_eval_prompt(
             prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation.strip(),
             constitution=constitution.strip(),
-            conversation=conversation_rejected,
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer="",
+            answer=f" {final_answer_chosen}",
+        )
+        for constitution in constitutions
+    ]
+        
+    formatted_prompts_rejected_answer = [
+        build_eval_prompt(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation.strip(),
+            constitution=constitution.strip(),
+            answer=f" {final_answer_rejected}",
         )
         for constitution in constitutions
     ]
 
-    formatted_eval_answers_chosen = [
-        build_eval_prompt_mcq(
-            prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            conversation=conversation_chosen,
-            constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer=" A",
-        )
-        for constitution in constitutions
-    ]
-        
-    formatted_eval_answers_rejected = [
-        build_eval_prompt_mcq(
-            prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            conversation=conversation_rejected,
-            constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer=" B",
-        )
-        for constitution in constitutions
-    ]
-    
+    # compute logprobs of chosen answer
     batch_log_probs_chosen = model.batch_log_probs(
-        answers=formatted_eval_answers_chosen,
-        prompts=formatted_eval_prompts_chosen,
+        prompts=formatted_prompts_no_answer,
+        answers=formatted_prompts_chosen_answer,
+        
     )
-    
+
+    # compute logprobs of rejected answer
     batch_log_probs_rejected = model.batch_log_probs(
-        answers=formatted_eval_answers_rejected,
-        prompts=formatted_eval_prompts_rejected,
+        prompts=formatted_prompts_no_answer,
+        answers=formatted_prompts_rejected_answer,
     )
-    
-    return batch_log_probs_chosen, batch_log_probs_rejected
+
+    return {
+        "batch_log_probs_chosen": batch_log_probs_chosen,
+        "batch_log_probs_rejected": batch_log_probs_rejected, 
+        "prompts": formatted_prompts_no_answer,
+        "final_answer_chosen": final_answer_chosen,
+        "final_answer_rejected": final_answer_rejected,
+    }
