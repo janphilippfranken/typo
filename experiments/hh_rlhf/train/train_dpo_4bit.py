@@ -46,7 +46,6 @@ def main(args: DictConfig) -> None:
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
         quantization_config=quantization_config,
-        attn_implementation="flash_attention_2",
         device_map = "cuda",
     )
     
