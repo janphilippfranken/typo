@@ -73,7 +73,6 @@ def main(args: DictConfig) -> None:
     dataset = preprocess(prompts=filtered_prompts, responses=filtered_chosen, tokenizer=tokenizer)
     logging.info(dataset)
     dataset = dataset.shuffle(seed=42)
-    dataset = dataset.select(range(20000))
     dataset = dataset.train_test_split(test_size=args.validation_split_size)
     logging.info(dataset)
    

@@ -1,31 +1,45 @@
-[2024-01-28 19:28:34,779] torch.distributed.run: [WARNING] 
-[2024-01-28 19:28:34,779] torch.distributed.run: [WARNING] *****************************************
-[2024-01-28 19:28:34,779] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
-[2024-01-28 19:28:34,779] torch.distributed.run: [WARNING] *****************************************
-/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/trl/trainer/ppo_config.py:141: UserWarning: The `optimize_cuda_cache` arguement will be deprecated soon, please use `optimize_device_cache` instead.
-  warnings.warn(
 /scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/trl/trainer/ppo_config.py:141: UserWarning: The `optimize_cuda_cache` arguement will be deprecated soon, please use `optimize_device_cache` instead.
   warnings.warn(
 /scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_4bit': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
   warnings.warn(msg, UserWarning)
-/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_4bit': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
-  warnings.warn(msg, UserWarning)
 wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` to force relogin
-wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` to force relogin
-wandb: - Waiting for wandb.init()...wandb: - Waiting for wandb.init()...wandb: \ Waiting for wandb.init()...wandb: \ Waiting for wandb.init()...wandb: | Waiting for wandb.init()...wandb: | Waiting for wandb.init()...wandb: wandb version 0.16.2 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.16.0
-wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240128_192840-v8l5vcos
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run hh_rlhf_cai_4bit
-wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai
-wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai/runs/v8l5vcos
 wandb: wandb version 0.16.2 is available!  To upgrade, please run:
 wandb:  $ pip install wandb --upgrade
 wandb: Tracking run with wandb version 0.16.0
-wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240128_192840-eo8biuwq
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240128_213418-c9ym3jyx
 wandb: Run `wandb offline` to turn off syncing.
 wandb: Syncing run hh_rlhf_cai_4bit
 wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai
-wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai/runs/eo8biuwq
-Loading checkpoint shards:   0%|          | 0/19 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/19 [00:00<?, ?it/s]Loading checkpoint shards:   5%|▌         | 1/19 [00:04<01:14,  4.16s/it]Loading checkpoint shards:   5%|▌         | 1/19 [00:04<01:17,  4.28s/it]Loading checkpoint shards:  11%|█         | 2/19 [00:07<01:06,  3.93s/it]Loading checkpoint shards:  11%|█         | 2/19 [00:08<01:08,  4.01s/it]Loading checkpoint shards:  16%|█▌        | 3/19 [00:11<00:58,  3.64s/it]Loading checkpoint shards:  16%|█▌        | 3/19 [00:11<00:58,  3.68s/it]Loading checkpoint shards:  21%|██        | 4/19 [00:14<00:52,  3.49s/it]Loading checkpoint shards:  21%|██        | 4/19 [00:14<00:52,  3.48s/it]Loading checkpoint shards:  26%|██▋       | 5/19 [00:17<00:48,  3.44s/it]Loading checkpoint shards:  26%|██▋       | 5/19 [00:17<00:47,  3.42s/it]
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai/runs/c9ym3jyx
+
+Loading checkpoint shards:   0%|          | 0/19 [00:00<?, ?it/s]
+Loading checkpoint shards:   5%|▌         | 1/19 [00:01<00:26,  1.50s/it]
+Loading checkpoint shards:  11%|█         | 2/19 [00:02<00:23,  1.36s/it]
+Loading checkpoint shards:  16%|█▌        | 3/19 [00:04<00:21,  1.32s/it]
+Loading checkpoint shards:  21%|██        | 4/19 [00:05<00:19,  1.27s/it]
+Loading checkpoint shards:  26%|██▋       | 5/19 [00:06<00:18,  1.29s/it]
+Loading checkpoint shards:  32%|███▏      | 6/19 [00:07<00:16,  1.26s/it]
+Loading checkpoint shards:  37%|███▋      | 7/19 [00:08<00:14,  1.24s/it]
+Loading checkpoint shards:  42%|████▏     | 8/19 [00:10<00:13,  1.23s/it]
+Loading checkpoint shards:  47%|████▋     | 9/19 [00:11<00:12,  1.23s/it]
+Loading checkpoint shards:  53%|█████▎    | 10/19 [00:12<00:11,  1.24s/it]
+Loading checkpoint shards:  58%|█████▊    | 11/19 [00:13<00:10,  1.26s/it]
+Loading checkpoint shards:  63%|██████▎   | 12/19 [00:15<00:08,  1.24s/it]
+Loading checkpoint shards:  68%|██████▊   | 13/19 [00:16<00:07,  1.30s/it]
+Loading checkpoint shards:  74%|███████▎  | 14/19 [00:18<00:06,  1.35s/it]
+Loading checkpoint shards:  79%|███████▉  | 15/19 [00:19<00:05,  1.38s/it]
+Loading checkpoint shards:  84%|████████▍ | 16/19 [00:20<00:04,  1.36s/it]
+Loading checkpoint shards:  89%|████████▉ | 17/19 [00:22<00:02,  1.34s/it]
+Loading checkpoint shards:  95%|█████████▍| 18/19 [00:23<00:01,  1.33s/it]
+Loading checkpoint shards: 100%|██████████| 19/19 [00:24<00:00,  1.26s/it]
+Loading checkpoint shards: 100%|██████████| 19/19 [00:24<00:00,  1.29s/it]
+
+  0%|          | 0/5000 [00:00<?, ?it/s]`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+Could not estimate the number of tokens of the input, floating-point operations will not be computed
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/deepspeed/runtime/zero/stage_1_and_2.py:1652: UserWarning: The torch.cuda.*DtypeTensor constructors are nhods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:83.)
+  total_norm_cuda = get_accelerator().FloatTensor([float(total_norm)])
+  0%|          | 1/5000 [00:53<74:57:39, 53.98s/it]                                                     0%|          | 1/5000 [00:54<74:57:39, 53.98s/it]  0%|          | 2/5000 [01:43<71:13:47, 51.31s/it]                                                     0%|          | 2/5000 [01:43<71:13:47, 51.31s/it]  0%|          | 3/5000 [02:31<69:08:57, 49.82s/it]                                                     0%|          | 3/5000 [02:31<69:08:57, 49.82s/it]  0%|          | 4/5000 [03:24<70:37:54, 50.90s/it]                                                     0%|          | 4/5000 [03:24<70:37:54, 50.90s/it]  0%|          | 5/5000 [04:14<70:39:29, 50.92s/it]                                                     0%|          | 5/5000 [04:14<70:39:29, 50.92s/it]  0%|          | 6/5000 [05:04<70:02:23, 50.49s/it]                                                     0%|          | 6/5000 [05:04<70:02:23, 50.49s/it]  0%|          | 7/5000 [05:52<68:57:53, 49.72s/it]                                                     0%|          | 7/5000 [05:52<68:57:53, 49.72s/it]  0%|          | 8/5000 [06:43<69:11:42, 49.90s/it]                                                     0%|          | 8/5000 [06:43<69:11:42, 49.90s/it]  0%|          | 9/5000 [07:36<70:31:18, 50.87s/it]                                                     0%|          | 9/5000 [07:36<70:31:18, 50.87s/it]  0%|          | 10/5000 [08:24<69:28:24, 50.12s/it]                                                      0%|          | 10/5000 [08:24<69:28:24, 50.12s/it]  0%|          | 11/5000 [09:15<69:38:07, 50.25s/it]                                                      0%|          | 11/5000 [09:15<69:38:07, 50.25s/it]  0%|          | 12/5000 [10:08<70:48:10, 51.10s/it]                                                      0%|          | 12/5000 [10:08<70:48:10, 51.10s/it]  0%|          | 13/5000 [10:59<70:48:49, 51.12s/it]                                                      0%|          | 13/5000 [10:59<70:48:49, 51.12s/it]  0%|          | 14/5000 [11:49<70:26:14, 50.86s/it]                                                      0%|          | 14/5000 [11:49<70:26:14, 50.86s/it]  0%|          | 15/5000 [12:39<70:03:10, 50.59s/it]                                                      0%|          | 15/5000 [12:39<70:03:10, 50.59s/it]  0%|          | 16/5000 [13:28<69:23:51, 50.13s/it]                                                      0%|          | 16/5000 [13:28<69:23:51, 50.13s/it]  0%|          | 17/5000 [14:17<68:58:40, 49.83s/it]                                                      0%|          | 17/5000 [14:17<68:58:40, 49.83s/it]  0%|          | 18/5000 [15:09<69:54:48, 50.52s/it]                                                      0%|          | 18/5000 [15:09<69:54:48, 50.52s/it]  0%|          | 19/5000 [16:03<71:25:09, 51.62s/it]                                                      0%|          | 19/5000 [16:03<71:25:09, 51.62s/it]

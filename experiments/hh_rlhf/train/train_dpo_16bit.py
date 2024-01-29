@@ -62,7 +62,6 @@ def main(args: DictConfig) -> None:
     dataset = Dataset.from_dict(dict(prompt=filtered_prompts, chosen=filtered_chosen, rejected=filtered_rejected)) 
     dataset = dataset.shuffle(seed=42)
     logging.info(dataset)
-    dataset = dataset.select(range(20000))
     
     # split into train/eval 
     dataset = dataset.train_test_split(test_size=args.validation_split_size)

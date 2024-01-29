@@ -46,7 +46,7 @@ def main(args: DictConfig) -> None:
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
         quantization_config=quantization_config,
-        device_map = "cuda",
+        # device_map = "cuda",
     )
     
     # get cai dataset
@@ -59,14 +59,14 @@ def main(args: DictConfig) -> None:
     logging.info(f"N Train Examples: {len(data)}")  
     
     # get dpo format 
-    prompt = [example['prompt'] for example in data]
+    prompts = [example['prompt'] for example in data]
     chosen = [example['chosen'] for example in data]
     rejected = [example['rejected'] for example in data]
-    example_ids = [example['example_id'] for example in data]
-    filtered_prompts, filtered_chosen, filtered_rejected = filter_by_unique_ids(prompt, chosen, rejected, example_ids)
+    # example_ids = [example['example_id'] for example in data]
+    # filtered_prompts, filtered_chosen, filtered_rejected = filter_by_unique_ids(prompt, chosen, rejected, example_ids)
     
     # split into train/eval (just to explore loss for eval, not required)
-    dataset = Dataset.from_dict(dict(prompt=filtered_prompts, chosen=filtered_chosen, rejected=filtered_rejected)) 
+    dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
     dataset = dataset.shuffle(seed=42)
     logging.info(dataset)
     dataset = dataset.select(range(20000))
