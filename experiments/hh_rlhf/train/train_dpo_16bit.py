@@ -35,7 +35,7 @@ def main(args: DictConfig) -> None:
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)   
     tokenizer.pad_token = "[PAD]"
     tokenizer.padding_side = "right"
-    # breakpoint()
+
     # get model 
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
@@ -56,11 +56,13 @@ def main(args: DictConfig) -> None:
     prompt = [example['prompt'] for example in data]
     chosen = [example['chosen'] for example in data]
     rejected = [example['rejected'] for example in data]
+    example_ids = [example['example_id'] for example in data]
+    filtered_prompts, filtered_chosen, filtered_rejected = filter_by_unique_ids(prompt, chosen, rejected, example_ids)
 
-    dataset = Dataset.from_dict(dict(prompt=prompt, chosen=chosen, rejected=rejected)) 
+    dataset = Dataset.from_dict(dict(prompt=filtered_prompts, chosen=filtered_chosen, rejected=filtered_rejected)) 
     dataset = dataset.shuffle(seed=42)
-    dataset = dataset.select(range(5000))
-    # breakpoint()
+    logging.info(dataset)
+    dataset = dataset.select(range(20000))
     
     # split into train/eval 
     dataset = dataset.train_test_split(test_size=args.validation_split_size)

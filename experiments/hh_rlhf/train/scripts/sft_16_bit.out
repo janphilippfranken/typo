@@ -1,0 +1,23 @@
+[2024-01-28 19:10:30,877][root][INFO] - Dataset is: ../label/synthetic-harmless-base
+[2024-01-28 19:10:30,877][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit_sft
+[2024-01-28 19:10:30,877][root][INFO] - Wandb name: hh_rlhf_cai_16_bit_sft
+[2024-01-28 19:10:30,877][root][INFO] - Max prompt length: 612
+[2024-01-28 19:10:30,878][root][INFO] - Max seq length: 918
+trainable params: 27,262,976 || all params: 46,730,055,680 || trainable%: 0.05834141561202608
+[2024-01-28 19:10:54,490][root][INFO] - Devices: 3
+[2024-01-28 19:10:55,968][root][INFO] - N Train Examples: 200000
+[2024-01-28 19:11:54,564][root][INFO] - Dataset({
+    features: ['input_ids', 'labels'],
+    num_rows: 40000
+})
+[2024-01-28 19:11:54,601][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 19000
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels'],
+        num_rows: 1000
+    })
+})
+[2024-01-28 19:11:54,603][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.

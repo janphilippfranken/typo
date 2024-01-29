@@ -4,14 +4,13 @@ hydra:
 
 defaults:
   - model: mixtral_7b_train
-  - data: hh_rlhf
+  - data: hh_rlhf_cai
 
 
-# LoRA 
 lora_config:
   r: 32
-  lora_alpha: 64
-  lora_dropout: 0.05
+  lora_alpha: 16
+  lora_dropout: 0.1
   bias: none
   task_type: CAUSAL_LM
   inference_mode: false
@@ -20,39 +19,35 @@ lora_config:
   - v_proj
   - k_proj
   - o_proj
-  - w1
-  - w2
-  - w3
-  - lm_head
 
 wandb:
   project: scai
   log_model: checkpoint
-  name: cai_data_hh_rlhf_synthetic
+  name: hh_rlhf_cai 
 
-validation_split_size: 0.05
+validation_split_size: 0.025
 
 dpo_beta: 0.1
-max_prompt_length: 1024
+max_prompt_length: 612
 
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/cai_data_hh_rlhf_synthetic/checkpoints
+  output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
   evaluation_strategy: steps  
-  eval_steps: 100
-  warmup_steps: 60
+  eval_steps: 250
+  warmup_steps: 150
   per_device_train_batch_size: 4
   per_device_eval_batch_size: 4
-  gradient_accumulation_steps: 8
-  logging_steps: 2 
+  gradient_accumulation_steps: 2
+  logging_steps: 1
   logging_strategy: "steps"
-  learning_rate: 3e-05
-  num_train_epochs: 3
-  max_steps: 2000
+  learning_rate: 1e-6 
+  num_train_epochs: 2
+  max_steps: 5000
   save_strategy: steps
-  save_steps: 100
-  save_total_limit: 20
+  save_steps: 500
+  save_total_limit: 10
   seed: 42
-  optim: paged_adamw_8bit
   report_to: wandb
   bf16: true
   remove_unused_columns: false
+

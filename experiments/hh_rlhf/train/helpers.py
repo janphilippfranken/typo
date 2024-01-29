@@ -1,4 +1,4 @@
-from typing import Dict, Sequence, List
+from typing import Dict, Sequence, List, Tuple
 import torch
 import io
 import json
@@ -31,7 +31,6 @@ class DataCollatorForSupervisedDataset(object):
             attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
         )
         
-
 def remove_final_answer(
     prompt: str,
 ) -> str:
@@ -39,15 +38,6 @@ def remove_final_answer(
     final_answer = prompt.rsplit("Assistant: ")[-1]
     prompt = prompt.rsplit("Assistant: " + final_answer, 1)[0]
     return prompt, final_answer
-
-
-def formatting_func(
-    constitution: str, 
-    conversation: str,
-) -> str:
-    """Format example."""
-    return f"""Write a response for the assistant that follows the principles in the constitution.\n\nAI Assistant Constitution:\n{constitution.strip()}\n\n{conversation.strip()}\n\nAssistant:"""
-
 
 def _tokenize_fn(
     strings: Sequence[str], 
@@ -77,21 +67,21 @@ def _tokenize_fn(
         labels_lens=labels_lens,
     )
 
-
 def preprocess(
-    data_dict: Dict,
+    prompts: List[str],
+    responses: List[str],
     tokenizer: transformers.PreTrainedTokenizer,
 ) -> Dataset:
     """Preprocess the data by tokenizing."""
     sources = [
-        f"{BOS_TOKEN}{formatting_func(example['constitution'], example['conversation'])}"
-        for example in data_dict
+        f"{BOS_TOKEN}{prompt}"
+        for prompt in prompts
     ]
     targets = [
-        f"{example['final_response'].strip()}{EOS_TOKEN}" 
-        for example in data_dict
+        f"{response}{EOS_TOKEN}" 
+        for response in responses
     ]
-    examples = [f"{s} {t}" for s, t in zip(sources, targets)] # TODO: check whitespace between s and t
+    examples = [f"{s} {t}" for s, t in zip(sources, targets)] 
     examples_tokenized, sources_tokenized = [_tokenize_fn(strings, tokenizer) for strings in (examples, sources)]
     input_ids = examples_tokenized["input_ids"]
     labels = copy.deepcopy(input_ids)
@@ -116,3 +106,24 @@ def jload(f, mode="r"):
     jdict = json.load(f)
     f.close()
     return jdict
+
+
+def filter_by_unique_ids(
+    prompts: List[str], 
+    chosen: List[str], 
+    rejected: List[str],
+    example_ids: List[int],
+) -> Tuple[List]:
+    filtered_prompts = []
+    filtered_chosen = []
+    filtered_rejected = []
+    seen_ids = set()
+
+    for i, example_id in enumerate(example_ids):
+        if example_id not in seen_ids:
+            seen_ids.add(example_id)
+            filtered_prompts.append(prompts[i])
+            filtered_chosen.append(chosen[i])
+            filtered_rejected.append(rejected[i])
+
+    return filtered_prompts, filtered_chosen, filtered_rejected

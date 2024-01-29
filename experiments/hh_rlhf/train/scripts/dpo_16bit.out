@@ -1,23 +1,27 @@
-[2024-01-28 14:32:15,090] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-01-28 14:32:15,557][root][INFO] - Dataset is: ../label/synthetic-harmless-base
-[2024-01-28 14:32:15,557][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
-[2024-01-28 14:32:15,557][root][INFO] - Wandb name: hh_rlhf_cai
-[2024-01-28 14:32:15,557][root][INFO] - Max prompt length: 612
-[2024-01-28 14:32:15,557][root][INFO] - Max seq length: 918
-[2024-01-28 14:32:15,557][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'mixtral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mixtral-8x7B-v0.1', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mixtral-8x7B-v0.1', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'lora_config': {'r': 32, 'lora_alpha': 16, 'lora_dropout': 0.1, 'bias': 'none', 'task_type': 'CAUSAL_LM', 'inference_mode': False, 'target_modules': ['q_proj', 'v_proj', 'k_proj', 'o_proj']}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai'}, 'validation_split_size': 0.1, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 50, 'per_device_train_batch_size': 4, 'per_device_eval_batch_size': 4, 'gradient_accumulation_steps': 2, 'logging_steps': 10, 'logging_strategy': 'steps', 'learning_rate': 3e-05, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 500, 'save_total_limit': 10, 'seed': 42, 'optim': 'paged_adamw_32bit', 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
-[2024-01-28 14:32:37,805][root][INFO] - N Train Examples: 200000
-[2024-01-28 14:32:38,593][root][INFO] - DatasetDict({
+[2024-01-28 18:54:26,493] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-28 18:54:26,987][root][INFO] - Dataset is: ../label/synthetic-harmless-base
+[2024-01-28 18:54:26,987][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
+[2024-01-28 18:54:26,987][root][INFO] - Wandb name: hh_rlhf_cai_16_bit
+[2024-01-28 18:54:26,987][root][INFO] - Max prompt length: 612
+[2024-01-28 18:54:26,987][root][INFO] - Max seq length: 918
+[2024-01-28 18:54:26,987][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'mixtral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mixtral-8x7B-v0.1', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mixtral-8x7B-v0.1', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'lora_config': {'r': 32, 'lora_alpha': 16, 'lora_dropout': 0.1, 'bias': 'none', 'task_type': 'CAUSAL_LM', 'inference_mode': False, 'target_modules': ['q_proj', 'v_proj', 'k_proj', 'o_proj']}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai_16_bit'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 150, 'per_device_train_batch_size': 3, 'per_device_eval_batch_size': 3, 'gradient_accumulation_steps': 5, 'logging_steps': 1, 'logging_strategy': 'steps', 'learning_rate': 1e-06, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 500, 'save_total_limit': 10, 'seed': 42, 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
+[2024-01-28 18:54:50,625][root][INFO] - N Train Examples: 200000
+[2024-01-28 18:54:50,926][root][INFO] - Dataset({
+    features: ['prompt', 'chosen', 'rejected'],
+    num_rows: 40000
+})
+[2024-01-28 18:54:50,932][root][INFO] - DatasetDict({
     train: Dataset({
         features: ['prompt', 'chosen', 'rejected'],
-        num_rows: 4500
+        num_rows: 19000
     })
     test: Dataset({
         features: ['prompt', 'chosen', 'rejected'],
-        num_rows: 500
+        num_rows: 1000
     })
 })
-[2024-01-28 14:32:38,594][root][INFO] - args
+[2024-01-28 18:54:50,933][root][INFO] - args
 trainable params: 27,262,976 || all params: 46,730,055,680 || trainable%: 0.05834141561202608
-[2024-01-28 14:32:39,051][root][INFO] - Devices: 3
-[2024-01-28 14:32:39,051][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
-[2024-01-28 14:32:39,057][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-01-28 18:54:51,274][root][INFO] - Devices: 3
+[2024-01-28 18:54:51,275][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
+[2024-01-28 18:54:51,279][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.

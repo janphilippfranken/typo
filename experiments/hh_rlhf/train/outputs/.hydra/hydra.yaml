@@ -112,12 +112,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
-    - wandb.name=hh_rlhf_cai
+    - training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit_sft
+    - wandb.name=hh_rlhf_cai_16_bit_sft
   job:
-    name: train_dpo_16bit
+    name: train_sft_16bit
     chdir: null
-    override_dirname: training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit,wandb.name=hh_rlhf_cai
+    override_dirname: training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit_sft,wandb.name=hh_rlhf_cai_16_bit_sft
     id: ???
     num: ???
     config_name: train_16bit
