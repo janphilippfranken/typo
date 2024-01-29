@@ -31,25 +31,25 @@ wandb:
 
 validation_split_size: 0.025
 
-dpo_beta: 0.1
+dpo_beta: 0.05
 max_prompt_length: 612
 
 training_args:
   output_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
   evaluation_strategy: steps  
-  eval_steps: 1000
+  eval_steps: 500
   warmup_steps: 150 
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 2 # 16 for sft 1 for dpo
+  gradient_accumulation_steps: 16 
   logging_steps: 1
   logging_strategy: "steps"
   learning_rate: 1e-6 # from dpo paper
   num_train_epochs: 2
-  max_steps: 10000
+  max_steps: 5000
   save_strategy: steps
-  save_steps: 1000
-  save_total_limit: 10
+  save_steps: 250
+  save_total_limit: 20
   seed: 42
   report_to: wandb
   bf16: true
