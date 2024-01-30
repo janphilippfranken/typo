@@ -113,12 +113,12 @@ hydra:
     - hydra.mode=RUN
     task: []
   job:
-    name: train_sft
+    name: train_dpo
     chdir: null
     override_dirname: ''
     id: ???
     num: ???
-    config_name: train_sft
+    config_name: train_dpo
     env_set: {}
     env_copy: []
     config:
@@ -142,7 +142,8 @@ hydra:
       provider: schema
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/outputs
     choices:
-      model: mistral_7b_train
+      data: hh_rlhf_cai
+      model: mistral_7b_sft_cai_one_example
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

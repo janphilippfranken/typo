@@ -127,3 +127,9 @@ def filter_by_unique_ids(
             filtered_rejected.append(rejected[i])
 
     return filtered_prompts, filtered_chosen, filtered_rejected
+
+def load_json_files(directory):
+    for file in os.listdir(directory):
+        if file.endswith('.json'):
+            with open(os.path.join(directory, file), 'r') as f:
+                yield json.load(f)
