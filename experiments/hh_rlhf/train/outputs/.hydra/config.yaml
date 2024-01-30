@@ -1,39 +1,35 @@
 model:
   model_type: huggingface
-  name: phi_2_base
+  name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: microsoft/phi-2
-    cache_dir: /scr/jphilipp/scai/pretrained_models/phi-2
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
   tokenizer_config:
-    pretrained_model_name_or_path: microsoft/phi-2
-    cache_dir: /scr/jphilipp/scai/pretrained_models/phi-2
-    model_max_length: 918
-data:
-  hh_rlhf_cai: ../label/synthetic-harmless-base
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    model_max_length: 1024
 wandb:
   project: scai
   log_model: checkpoint
-  name: hh_rlhf_cai
-validation_split_size: 0.05
-dpo_beta: 0.1
-max_prompt_length: 612
+  name: helpful_base_sft
+validation_split_size: 0.025
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/helpful-base
   evaluation_strategy: steps
   eval_steps: 500
-  warmup_steps: 100
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 16
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 12
   logging_steps: 1
   logging_strategy: steps
-  learning_rate: 1.0e-06
-  num_train_epochs: 2
+  learning_rate: 2.0e-05
   max_steps: 5000
   save_strategy: steps
-  save_steps: 250
-  save_total_limit: 20
+  save_steps: 500
+  save_total_limit: 10
   seed: 42
   report_to: wandb
   bf16: true
   remove_unused_columns: false
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.1

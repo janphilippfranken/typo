@@ -1,0 +1,34 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mistral_7b_train
+
+wandb:
+  project: scai
+  log_model: checkpoint
+  name: helpful_base_sft
+
+validation_split_size: 0.025
+
+training_args:
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/helpful-base
+  evaluation_strategy: steps  
+  eval_steps: 500
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 12
+  logging_steps: 1
+  logging_strategy: "steps"
+  learning_rate: 2.0e-05
+  max_steps: 5000
+  save_strategy: steps
+  save_steps: 500
+  save_total_limit: 10
+  seed: 42
+  report_to: wandb
+  bf16: true
+  remove_unused_columns: false
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.1

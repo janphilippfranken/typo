@@ -34,7 +34,7 @@ class DataCollatorForSupervisedDataset(object):
 def remove_final_answer(
     prompt: str,
 ) -> str:
-    """Remove final assistant answer which is our inference target."""
+    """Remove final assistant answer."""
     final_answer = prompt.rsplit("Assistant: ")[-1]
     prompt = prompt.rsplit("Assistant: " + final_answer, 1)[0]
     return prompt, final_answer
