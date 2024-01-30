@@ -1,28 +1,40 @@
-[2024-01-29 16:17:00,708] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-01-29 16:17:00,748] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-01-29 16:17:01,183][root][INFO] - Dataset is: ../label/synthetic-harmless-base
-[2024-01-29 16:17:01,183][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
-[2024-01-29 16:17:01,183][root][INFO] - Wandb name: hh_rlhf_cai
-[2024-01-29 16:17:01,183][root][INFO] - Max prompt length: 612
-[2024-01-29 16:17:01,183][root][INFO] - Max seq length: 918
-[2024-01-29 16:17:01,183][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'phi_2_base', 'model_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/phi-2/checkpoints', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 100, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 2, 'gradient_accumulation_steps': 16, 'logging_steps': 1, 'logging_strategy': 'steps', 'learning_rate': 1e-06, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 250, 'save_total_limit': 20, 'seed': 42, 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
-[2024-01-29 16:17:01,192][root][INFO] - Dataset is: ../label/synthetic-harmless-base
-[2024-01-29 16:17:01,192][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
-[2024-01-29 16:17:01,192][root][INFO] - Wandb name: hh_rlhf_cai
-[2024-01-29 16:17:01,192][root][INFO] - Max prompt length: 612
-[2024-01-29 16:17:01,192][root][INFO] - Max seq length: 918
-[2024-01-29 16:17:01,192][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'phi_2_base', 'model_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/phi-2/checkpoints', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 100, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 2, 'gradient_accumulation_steps': 16, 'logging_steps': 1, 'logging_strategy': 'steps', 'learning_rate': 1e-06, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 250, 'save_total_limit': 20, 'seed': 42, 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
-[2024-01-29 16:17:21,930][root][INFO] - N Train Examples: 200000
-[2024-01-29 16:17:21,930][root][INFO] - N Train Examples: 200000
-[2024-01-29 16:17:22,774][root][INFO] - Dataset({
+[2024-01-29 16:47:03,676] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-29 16:47:03,750] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-29 16:47:03,757] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-01-29 16:47:04,190][root][INFO] - Dataset is: ../label/synthetic-harmless-base
+[2024-01-29 16:47:04,190][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+[2024-01-29 16:47:04,190][root][INFO] - Wandb name: hh_rlhf_cai
+[2024-01-29 16:47:04,190][root][INFO] - Max prompt length: 612
+[2024-01-29 16:47:04,190][root][INFO] - Max seq length: 918
+[2024-01-29 16:47:04,190][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'phi_2_base', 'model_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/phi-2/checkpoints', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 100, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 2, 'gradient_accumulation_steps': 16, 'logging_steps': 1, 'logging_strategy': 'steps', 'learning_rate': 1e-06, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 250, 'save_total_limit': 20, 'seed': 42, 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
+[2024-01-29 16:47:04,234][root][INFO] - Dataset is: ../label/synthetic-harmless-base
+[2024-01-29 16:47:04,234][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+[2024-01-29 16:47:04,234][root][INFO] - Wandb name: hh_rlhf_cai
+[2024-01-29 16:47:04,234][root][INFO] - Max prompt length: 612
+[2024-01-29 16:47:04,234][root][INFO] - Max seq length: 918
+[2024-01-29 16:47:04,234][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'phi_2_base', 'model_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/phi-2/checkpoints', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 100, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 2, 'gradient_accumulation_steps': 16, 'logging_steps': 1, 'logging_strategy': 'steps', 'learning_rate': 1e-06, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 250, 'save_total_limit': 20, 'seed': 42, 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
+[2024-01-29 16:47:04,236][root][INFO] - Dataset is: ../label/synthetic-harmless-base
+[2024-01-29 16:47:04,236][root][INFO] - Writing checkpoints to: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+[2024-01-29 16:47:04,236][root][INFO] - Wandb name: hh_rlhf_cai
+[2024-01-29 16:47:04,237][root][INFO] - Max prompt length: 612
+[2024-01-29 16:47:04,237][root][INFO] - Max seq length: 918
+[2024-01-29 16:47:04,237][root][INFO] - {'model': {'model_type': 'huggingface', 'name': 'phi_2_base', 'model_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'microsoft/phi-2', 'cache_dir': '/scr/jphilipp/scai/pretrained_models/phi-2', 'model_max_length': 918}}, 'data': {'hh_rlhf_cai': '../label/synthetic-harmless-base'}, 'wandb': {'project': 'scai', 'log_model': 'checkpoint', 'name': 'hh_rlhf_cai'}, 'validation_split_size': 0.05, 'dpo_beta': 0.1, 'max_prompt_length': 612, 'training_args': {'output_dir': '/scr/jphilipp/scai/trained_models/phi-2/checkpoints', 'evaluation_strategy': 'steps', 'eval_steps': 500, 'warmup_steps': 100, 'per_device_train_batch_size': 2, 'per_device_eval_batch_size': 2, 'gradient_accumulation_steps': 16, 'logging_steps': 1, 'logging_strategy': 'steps', 'learning_rate': 1e-06, 'num_train_epochs': 2, 'max_steps': 5000, 'save_strategy': 'steps', 'save_steps': 250, 'save_total_limit': 20, 'seed': 42, 'report_to': 'wandb', 'bf16': True, 'remove_unused_columns': False}}
+[2024-01-29 16:47:26,329][root][INFO] - N Train Examples: 200000
+[2024-01-29 16:47:26,329][root][INFO] - N Train Examples: 200000
+[2024-01-29 16:47:26,329][root][INFO] - N Train Examples: 200000
+[2024-01-29 16:47:27,196][root][INFO] - Dataset({
     features: ['prompt', 'chosen', 'rejected'],
     num_rows: 200000
 })
-[2024-01-29 16:17:22,777][root][INFO] - Dataset({
+[2024-01-29 16:47:27,212][root][INFO] - Dataset({
     features: ['prompt', 'chosen', 'rejected'],
     num_rows: 200000
 })
-[2024-01-29 16:17:22,801][root][INFO] - DatasetDict({
+[2024-01-29 16:47:27,217][root][INFO] - Dataset({
+    features: ['prompt', 'chosen', 'rejected'],
+    num_rows: 200000
+})
+[2024-01-29 16:47:27,225][root][INFO] - DatasetDict({
     train: Dataset({
         features: ['prompt', 'chosen', 'rejected'],
         num_rows: 190000
@@ -32,9 +44,10 @@
         num_rows: 10000
     })
 })
-[2024-01-29 16:17:22,801][root][INFO] - args
-[2024-01-29 16:17:22,803] [INFO] [comm.py:637:init_distributed] cdb=None
-[2024-01-29 16:17:22,804][root][INFO] - DatasetDict({
+[2024-01-29 16:47:27,225][root][INFO] - args
+[2024-01-29 16:47:27,227] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-29 16:47:27,227] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-01-29 16:47:27,241][root][INFO] - DatasetDict({
     train: Dataset({
         features: ['prompt', 'chosen', 'rejected'],
         num_rows: 190000
@@ -44,25 +57,38 @@
         num_rows: 10000
     })
 })
-[2024-01-29 16:17:22,804][root][INFO] - args
-[2024-01-29 16:17:22,806] [INFO] [comm.py:637:init_distributed] cdb=None
-[2024-01-29 16:17:22,806] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
-[2024-01-29 16:17:22,856][root][INFO] - Devices: 2
-[2024-01-29 16:17:22,856][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
-[2024-01-29 16:17:22,987][root][INFO] - Devices: 2
-[2024-01-29 16:17:22,987][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
-[2024-01-29 16:17:24,530][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-[2024-01-29 16:17:24,532] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.12.6, git-hash=unknown, git-branch=unknown
-[2024-01-29 16:17:26,231] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
-[2024-01-29 16:17:26,232] [INFO] [logging.py:96:log_dist] [Rank 0] Creating BF16 optimizer
-[2024-01-29 16:17:26,383] [INFO] [utils.py:791:see_memory_usage] begin bf16_optimizer
-[2024-01-29 16:17:26,384] [INFO] [utils.py:792:see_memory_usage] MA 5.2 GB         Max_MA 5.2 GB         CA 5.25 GB         Max_CA 5 GB 
-[2024-01-29 16:17:26,385] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 279.06 GB, percent = 27.7%
-[2024-01-29 16:17:26,524] [INFO] [utils.py:791:see_memory_usage] end bf16_optimizer
-[2024-01-29 16:17:26,525] [INFO] [utils.py:792:see_memory_usage] MA 5.2 GB         Max_MA 5.2 GB         CA 5.25 GB         Max_CA 5 GB 
-[2024-01-29 16:17:26,525] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 277.61 GB, percent = 27.5%
-[2024-01-29 16:17:26,526] [INFO] [config.py:984:print] DeepSpeedEngine configuration:
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   activation_checkpointing_config  {
+[2024-01-29 16:47:27,242][root][INFO] - args
+[2024-01-29 16:47:27,244] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-29 16:47:27,245][root][INFO] - DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 190000
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 10000
+    })
+})
+[2024-01-29 16:47:27,246][root][INFO] - args
+[2024-01-29 16:47:27,247] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-01-29 16:47:27,318][root][INFO] - Devices: 3
+[2024-01-29 16:47:27,318][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+[2024-01-29 16:47:27,567][root][INFO] - Devices: 3
+[2024-01-29 16:47:27,568][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+[2024-01-29 16:47:27,576][root][INFO] - Devices: 3
+[2024-01-29 16:47:27,577][root][INFO] - training_args.output_dir: /scr/jphilipp/scai/trained_models/phi-2/checkpoints
+[2024-01-29 16:47:29,017][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-01-29 16:47:29,019] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.12.6, git-hash=unknown, git-branch=unknown
+[2024-01-29 16:47:31,228] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2024-01-29 16:47:31,229] [INFO] [logging.py:96:log_dist] [Rank 0] Creating BF16 optimizer
+[2024-01-29 16:47:31,370] [INFO] [utils.py:791:see_memory_usage] begin bf16_optimizer
+[2024-01-29 16:47:31,371] [INFO] [utils.py:792:see_memory_usage] MA 5.2 GB         Max_MA 5.2 GB         CA 5.25 GB         Max_CA 5 GB 
+[2024-01-29 16:47:31,371] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 313.55 GB, percent = 31.1%
+[2024-01-29 16:47:31,510] [INFO] [utils.py:791:see_memory_usage] end bf16_optimizer
+[2024-01-29 16:47:31,511] [INFO] [utils.py:792:see_memory_usage] MA 5.2 GB         Max_MA 5.2 GB         CA 5.25 GB         Max_CA 5 GB 
+[2024-01-29 16:47:31,511] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 311.51 GB, percent = 30.9%
+[2024-01-29 16:47:31,512] [INFO] [config.py:984:print] DeepSpeedEngine configuration:
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   activation_checkpointing_config  {
     "partition_activations": false, 
     "contiguous_memory_optimization": false, 
     "cpu_checkpointing": false, 
@@ -70,10 +96,10 @@
     "synchronize_checkpoint_boundary": false, 
     "profile": false
 }
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   amp_enabled .................. False
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   amp_params ................... False
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   autotuning_config ............ {
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   amp_enabled .................. False
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   amp_params ................... False
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   autotuning_config ............ {
     "enabled": false, 
     "start_step": null, 
     "end_step": null, 
@@ -98,31 +124,31 @@
     "min_train_micro_batch_size_per_gpu": 1, 
     "num_tuning_micro_batch_sizes": 3
 }
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   bfloat16_enabled ............. True
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   checkpoint_parallel_write_pipeline  False
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   checkpoint_tag_validation_enabled  True
-[2024-01-29 16:17:26,526] [INFO] [config.py:988:print]   checkpoint_tag_validation_fail  False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7f7148eda200>
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   communication_data_type ...... None
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   curriculum_enabled_legacy .... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   curriculum_params_legacy ..... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   data_efficiency_enabled ...... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   dataloader_drop_last ......... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   disable_allgather ............ False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   dump_state ................... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   dynamic_loss_scale_args ...... None
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_enabled ........... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_gas_boundary_resolution  1
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_layer_name ........ bert.encoder.layer
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_layer_num ......... 0
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_max_iter .......... 100
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_stability ......... 1e-06
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_tol ............... 0.01
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   eigenvalue_verbose ........... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   elasticity_enabled ........... False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   flops_profiler_config ........ {
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   bfloat16_enabled ............. True
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   checkpoint_parallel_write_pipeline  False
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   checkpoint_tag_validation_enabled  True
+[2024-01-29 16:47:31,512] [INFO] [config.py:988:print]   checkpoint_tag_validation_fail  False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7fbc28f4e3b0>
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   communication_data_type ...... None
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   curriculum_enabled_legacy .... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   curriculum_params_legacy ..... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   data_efficiency_enabled ...... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   dataloader_drop_last ......... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   disable_allgather ............ False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   dump_state ................... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   dynamic_loss_scale_args ...... None
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_enabled ........... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_gas_boundary_resolution  1
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_layer_num ......... 0
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_max_iter .......... 100
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_stability ......... 1e-06
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_tol ............... 0.01
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   eigenvalue_verbose ........... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   elasticity_enabled ........... False
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   flops_profiler_config ........ {
     "enabled": false, 
     "recompute_fwd_factor": 0.0, 
     "profile_step": 1, 
@@ -131,24 +157,24 @@
     "detailed": true, 
     "output_file": null
 }
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   fp16_auto_cast ............... None
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   fp16_enabled ................. False
-[2024-01-29 16:17:26,527] [INFO] [config.py:988:print]   fp16_master_weights_and_gradients  False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   global_rank .................. 0
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   grad_accum_dtype ............. None
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   gradient_accumulation_steps .. 16
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   gradient_clipping ............ 1.0
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   gradient_predivide_factor .... 1.0
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   graph_harvesting ............. False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   initial_dynamic_scale ........ 1
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   load_universal_checkpoint .... False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   loss_scale ................... 1.0
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   memory_breakdown ............. False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   mics_hierarchial_params_gather  False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   mics_shard_size .............. -1
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   nebula_config ................ {
+[2024-01-29 16:47:31,513] [INFO] [config.py:988:print]   fp16_auto_cast ............... None
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   fp16_enabled ................. False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   fp16_master_weights_and_gradients  False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   global_rank .................. 0
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   grad_accum_dtype ............. None
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   gradient_accumulation_steps .. 16
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   gradient_clipping ............ 1.0
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   gradient_predivide_factor .... 1.0
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   graph_harvesting ............. False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   initial_dynamic_scale ........ 1
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   load_universal_checkpoint .... False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   loss_scale ................... 1.0
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   memory_breakdown ............. False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   mics_hierarchial_params_gather  False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   mics_shard_size .............. -1
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   nebula_config ................ {
     "enabled": false, 
     "persistent_storage_path": null, 
     "persistent_time_interval": 100, 
@@ -156,33 +182,33 @@
     "enable_nebula_load": true, 
     "load_path": null
 }
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   optimizer_legacy_fusion ...... False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   optimizer_name ............... None
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   optimizer_params ............. None
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   pld_enabled .................. False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   pld_params ................... False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   prescale_gradients ........... False
-[2024-01-29 16:17:26,528] [INFO] [config.py:988:print]   scheduler_name ............... None
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   scheduler_params ............. None
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   seq_parallel_communication_data_type  torch.float32
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   sparse_attention ............. None
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   sparse_gradients_enabled ..... False
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   steps_per_print .............. inf
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   train_batch_size ............. 64
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   train_micro_batch_size_per_gpu  2
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   use_data_before_expert_parallel_  False
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   use_node_local_storage ....... False
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   wall_clock_breakdown ......... False
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   weight_quantization_config ... None
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   world_size ................... 2
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   zero_allow_untested_optimizer  False
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   zero_config .................. stage=0 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500,000,000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500,000,000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100,000,000, max_in_cpu=1,000,000,000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='none', nvme_path=None, buffer_count=4, pin_memory=False, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   zero_enabled ................. False
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   zero_force_ds_cpu_optimizer .. True
-[2024-01-29 16:17:26,529] [INFO] [config.py:988:print]   zero_optimization_stage ...... 0
-[2024-01-29 16:17:26,529] [INFO] [config.py:974:print_user_config]   json = {
-    "train_batch_size": 64, 
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   optimizer_legacy_fusion ...... False
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   optimizer_name ............... None
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   optimizer_params ............. None
+[2024-01-29 16:47:31,514] [INFO] [config.py:988:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   pld_enabled .................. False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   pld_params ................... False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   prescale_gradients ........... False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   scheduler_name ............... None
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   scheduler_params ............. None
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   seq_parallel_communication_data_type  torch.float32
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   sparse_attention ............. None
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   sparse_gradients_enabled ..... False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   steps_per_print .............. inf
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   train_batch_size ............. 96
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   train_micro_batch_size_per_gpu  2
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   use_data_before_expert_parallel_  False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   use_node_local_storage ....... False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   wall_clock_breakdown ......... False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   weight_quantization_config ... None
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   world_size ................... 3
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   zero_allow_untested_optimizer  False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   zero_config .................. stage=0 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500,000,000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500,000,000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100,000,000, max_in_cpu=1,000,000,000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='none', nvme_path=None, buffer_count=4, pin_memory=False, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   zero_enabled ................. False
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   zero_force_ds_cpu_optimizer .. True
+[2024-01-29 16:47:31,515] [INFO] [config.py:988:print]   zero_optimization_stage ...... 0
+[2024-01-29 16:47:31,516] [INFO] [config.py:974:print_user_config]   json = {
+    "train_batch_size": 96, 
     "train_micro_batch_size_per_gpu": 2, 
     "gradient_accumulation_steps": 16, 
     "zero_optimization": {
@@ -206,26 +232,43 @@
         "enabled": false
     }
 }
-{'loss': 0.6931, 'learning_rate': 1e-08, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -483.4986877441406, 'logps/chosen': -309.5784912109375, 'logits/rejected': -1.0225714445114136, 'logits/chosen': -1.0288676023483276, 'epoch': 0.0}
-{'loss': 0.6931, 'learning_rate': 2e-08, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -422.830078125, 'logps/chosen': -336.68121337890625, 'logits/rejected': -1.0158624649047852, 'logits/chosen': -1.0291385650634766, 'epoch': 0.0}
-{'loss': 0.6913, 'learning_rate': 3e-08, 'rewards/chosen': 0.0131805669516325, 'rewards/rejected': 0.01004329975694418, 'rewards/accuracies': 0.53125, 'rewards/margins': 0.003137266496196389, 'logps/rejected': -460.71209716796875, 'logps/chosen': -323.5527648925781, 'logits/rejected': -1.0106080770492554, 'logits/chosen': -1.0239927768707275, 'epoch': 0.0}
-{'loss': 0.6918, 'learning_rate': 4e-08, 'rewards/chosen': 0.0063839443027973175, 'rewards/rejected': -0.0011928076855838299, 'rewards/accuracies': 0.59375, 'rewards/margins': 0.007576751988381147, 'logps/rejected': -351.32635498046875, 'logps/chosen': -290.0960388183594, 'logits/rejected': -1.0318567752838135, 'logits/chosen': -1.0352061986923218, 'epoch': 0.0}
-{'loss': 0.6935, 'learning_rate': 5e-08, 'rewards/chosen': -0.01838841289281845, 'rewards/rejected': -0.015694547444581985, 'rewards/accuracies': 0.53125, 'rewards/margins': -0.0026938680093735456, 'logps/rejected': -437.30224609375, 'logps/chosen': -480.8933410644531, 'logits/rejected': -1.0318503379821777, 'logits/chosen': -1.0283888578414917, 'epoch': 0.0}
-{'loss': 0.6955, 'learning_rate': 6e-08, 'rewards/chosen': -0.025751136243343353, 'rewards/rejected': -0.018240248784422874, 'rewards/accuracies': 0.53125, 'rewards/margins': -0.007510888855904341, 'logps/rejected': -426.9216613769531, 'logps/chosen': -360.427490234375, 'logits/rejected': -1.0358117818832397, 'logits/chosen': -1.0359992980957031, 'epoch': 0.0}
-{'loss': 0.6979, 'learning_rate': 7e-08, 'rewards/chosen': -0.013816369697451591, 'rewards/rejected': 0.0015308489091694355, 'rewards/accuracies': 0.28125, 'rewards/margins': -0.01534721814095974, 'logps/rejected': -443.3821105957031, 'logps/chosen': -306.57476806640625, 'logits/rejected': -1.0199971199035645, 'logits/chosen': -1.0329630374908447, 'epoch': 0.0}
-{'loss': 0.6926, 'learning_rate': 8e-08, 'rewards/chosen': -0.02496631070971489, 'rewards/rejected': -0.012087822891771793, 'rewards/accuracies': 0.3125, 'rewards/margins': -0.012878489680588245, 'logps/rejected': -424.4664001464844, 'logps/chosen': -498.8055725097656, 'logits/rejected': -1.0278409719467163, 'logits/chosen': -1.0280672311782837, 'epoch': 0.0}
-{'loss': 0.6928, 'learning_rate': 9e-08, 'rewards/chosen': 0.024741480126976967, 'rewards/rejected': 0.030251700431108475, 'rewards/accuracies': 0.375, 'rewards/margins': -0.005510223098099232, 'logps/rejected': -378.495361328125, 'logps/chosen': -362.70684814453125, 'logits/rejected': -1.036808729171753, 'logits/chosen': -1.0421533584594727, 'epoch': 0.0}
-{'loss': 0.6909, 'learning_rate': 1e-07, 'rewards/chosen': -0.03717928007245064, 'rewards/rejected': -0.03969646990299225, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.0025171879678964615, 'logps/rejected': -444.6095886230469, 'logps/chosen': -415.4761962890625, 'logits/rejected': -1.0306482315063477, 'logits/chosen': -1.0259476900100708, 'epoch': 0.0}
-{'loss': 0.6892, 'learning_rate': 1.0999999999999999e-07, 'rewards/chosen': -0.011010026559233665, 'rewards/rejected': -0.01005165558308363, 'rewards/accuracies': 0.53125, 'rewards/margins': -0.0009583695791661739, 'logps/rejected': -381.22979736328125, 'logps/chosen': -346.37286376953125, 'logits/rejected': -1.0178518295288086, 'logits/chosen': -1.023532748222351, 'epoch': 0.0}
-{'loss': 0.6915, 'learning_rate': 1.2e-07, 'rewards/chosen': -0.03178999572992325, 'rewards/rejected': -0.041550636291503906, 'rewards/accuracies': 0.65625, 'rewards/margins': 0.009760643355548382, 'logps/rejected': -383.510986328125, 'logps/chosen': -386.5152587890625, 'logits/rejected': -1.0388561487197876, 'logits/chosen': -1.0349003076553345, 'epoch': 0.0}
-{'loss': 0.6897, 'learning_rate': 1.3e-07, 'rewards/chosen': -0.06824274361133575, 'rewards/rejected': -0.06715788692235947, 'rewards/accuracies': 0.46875, 'rewards/margins': -0.001084852498024702, 'logps/rejected': -371.78173828125, 'logps/chosen': -418.5150146484375, 'logits/rejected': -1.0344737768173218, 'logits/chosen': -1.0266897678375244, 'epoch': 0.0}
-{'loss': 0.697, 'learning_rate': 1.4e-07, 'rewards/chosen': -0.06645539402961731, 'rewards/rejected': -0.05950402468442917, 'rewards/accuracies': 0.4375, 'rewards/margins': -0.006951367948204279, 'logps/rejected': -291.2804870605469, 'logps/chosen': -312.27801513671875, 'logits/rejected': -1.0480496883392334, 'logits/chosen': -1.0483022928237915, 'epoch': 0.0}
-{'loss': 0.6792, 'learning_rate': 1.5e-07, 'rewards/chosen': -0.07755479961633682, 'rewards/rejected': -0.09163332730531693, 'rewards/accuracies': 0.53125, 'rewards/margins': 0.014078520238399506, 'logps/rejected': -505.06610107421875, 'logps/chosen': -473.25909423828125, 'logits/rejected': -1.013847827911377, 'logits/chosen': -1.0104904174804688, 'epoch': 0.01}
-{'loss': 0.6883, 'learning_rate': 1.6e-07, 'rewards/chosen': -0.1417103260755539, 'rewards/rejected': -0.1462845504283905, 'rewards/accuracies': 0.5, 'rewards/margins': 0.004574204329401255, 'logps/rejected': -403.47174072265625, 'logps/chosen': -429.5752258300781, 'logits/rejected': -1.0072847604751587, 'logits/chosen': -1.0097829103469849, 'epoch': 0.01}
-{'loss': 0.6858, 'learning_rate': 1.7000000000000001e-07, 'rewards/chosen': -0.11713486909866333, 'rewards/rejected': -0.15033645927906036, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.03320159763097763, 'logps/rejected': -540.128662109375, 'logps/chosen': -404.6565246582031, 'logits/rejected': -1.0007277727127075, 'logits/chosen': -1.0114637613296509, 'epoch': 0.01}
-{'loss': 0.6804, 'learning_rate': 1.8e-07, 'rewards/chosen': -0.16594019532203674, 'rewards/rejected': -0.2192731648683548, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.05333297327160835, 'logps/rejected': -409.961181640625, 'logps/chosen': -320.5594482421875, 'logits/rejected': -1.032535195350647, 'logits/chosen': -1.0316468477249146, 'epoch': 0.01}
-{'loss': 0.7308, 'learning_rate': 1.8999999999999998e-07, 'rewards/chosen': -0.26353901624679565, 'rewards/rejected': -0.21282720565795898, 'rewards/accuracies': 0.40625, 'rewards/margins': -0.05071179196238518, 'logps/rejected': -323.05523681640625, 'logps/chosen': -410.2734680175781, 'logits/rejected': -1.0348100662231445, 'logits/chosen': -1.0333852767944336, 'epoch': 0.01}
-{'loss': 0.7294, 'learning_rate': 2e-07, 'rewards/chosen': -0.2835492193698883, 'rewards/rejected': -0.23686350882053375, 'rewards/accuracies': 0.375, 'rewards/margins': -0.04668569564819336, 'logps/rejected': -345.1712951660156, 'logps/chosen': -434.0443420410156, 'logits/rejected': -1.0229179859161377, 'logits/chosen': -1.0126901865005493, 'epoch': 0.01}
-{'loss': 0.7007, 'learning_rate': 2.0999999999999997e-07, 'rewards/chosen': -0.2136145979166031, 'rewards/rejected': -0.22746765613555908, 'rewards/accuracies': 0.59375, 'rewards/margins': 0.013853061944246292, 'logps/rejected': -324.1037292480469, 'logps/chosen': -326.350830078125, 'logits/rejected': -1.06307852268219, 'logits/chosen': -1.0643366575241089, 'epoch': 0.01}
-{'loss': 0.6976, 'learning_rate': 2.1999999999999998e-07, 'rewards/chosen': -0.2310716211795807, 'rewards/rejected': -0.27555030584335327, 'rewards/accuracies': 0.65625, 'rewards/margins': 0.04447869956493378, 'logps/rejected': -348.48785400390625, 'logps/chosen': -291.6912536621094, 'logits/rejected': -1.0599639415740967, 'logits/chosen': -1.0635793209075928, 'epoch': 0.01}
-{'loss': 0.7066, 'learning_rate': 2.3e-07, 'rewards/chosen': -0.29709380865097046, 'rewards/rejected': -0.27998626232147217, 'rewards/accuracies': 0.59375, 'rewards/margins': -0.017107602208852768, 'logps/rejected': -392.5128173828125, 'logps/chosen': -419.8512268066406, 'logits/rejected': -1.0539040565490723, 'logits/chosen': -1.05366051197052, 'epoch': 0.01}
+{'loss': 0.6931, 'learning_rate': 1e-08, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -393.136474609375, 'logps/chosen': -443.3543701171875, 'logits/rejected': -0.5922380685806274, 'logits/chosen': -0.5950539708137512, 'epoch': 0.0}
+{'loss': 0.6931, 'learning_rate': 2e-08, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -395.76593017578125, 'logps/chosen': -492.8236083984375, 'logits/rejected': -0.6038762927055359, 'logits/chosen': -0.5919972062110901, 'epoch': 0.0}
+{'loss': 0.6949, 'learning_rate': 3e-08, 'rewards/chosen': 0.0029675604309886694, 'rewards/rejected': 0.005528462119400501, 'rewards/accuracies': 0.4375, 'rewards/margins': -0.0025609019212424755, 'logps/rejected': -325.3572082519531, 'logps/chosen': -414.45831298828125, 'logits/rejected': -0.6039464473724365, 'logits/chosen': -0.5988617539405823, 'epoch': 0.0}
+{'loss': 0.6933, 'learning_rate': 4e-08, 'rewards/chosen': -0.000716781709343195, 'rewards/rejected': -0.005704355426132679, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.004987573251128197, 'logps/rejected': -287.60662841796875, 'logps/chosen': -312.2619934082031, 'logits/rejected': -0.5964052081108093, 'logits/chosen': -0.5919111371040344, 'epoch': 0.0}
+{'loss': 0.6979, 'learning_rate': 5e-08, 'rewards/chosen': -0.003433704376220703, 'rewards/rejected': -0.0008947734022513032, 'rewards/accuracies': 0.40625, 'rewards/margins': -0.0025389313232153654, 'logps/rejected': -378.79547119140625, 'logps/chosen': -377.53704833984375, 'logits/rejected': -0.5889951586723328, 'logits/chosen': -0.5935280919075012, 'epoch': 0.0}
+{'loss': 0.6959, 'learning_rate': 6e-08, 'rewards/chosen': -0.007524276152253151, 'rewards/rejected': 0.0014999688137322664, 'rewards/accuracies': 0.4375, 'rewards/margins': -0.009024244733154774, 'logps/rejected': -396.6174011230469, 'logps/chosen': -430.31121826171875, 'logits/rejected': -0.5930710434913635, 'logits/chosen': -0.592163622379303, 'epoch': 0.0}
+{'loss': 0.6928, 'learning_rate': 7e-08, 'rewards/chosen': -0.009134816937148571, 'rewards/rejected': -0.004247570410370827, 'rewards/accuracies': 0.46875, 'rewards/margins': -0.004887247458100319, 'logps/rejected': -428.0767517089844, 'logps/chosen': -365.2757873535156, 'logits/rejected': -0.5928980112075806, 'logits/chosen': -0.592910885810852, 'epoch': 0.0}
+{'loss': 0.694, 'learning_rate': 8e-08, 'rewards/chosen': 0.0011109469924122095, 'rewards/rejected': -0.005306375212967396, 'rewards/accuracies': 0.53125, 'rewards/margins': 0.006417321972548962, 'logps/rejected': -311.7615966796875, 'logps/chosen': -384.09747314453125, 'logits/rejected': -0.5938944816589355, 'logits/chosen': -0.5867950320243835, 'epoch': 0.0}
+{'loss': 0.6931, 'learning_rate': 9e-08, 'rewards/chosen': -0.01311354711651802, 'rewards/rejected': -0.017965219914913177, 'rewards/accuracies': 0.59375, 'rewards/margins': 0.004851675592362881, 'logps/rejected': -480.8291320800781, 'logps/chosen': -486.61962890625, 'logits/rejected': -0.6086781024932861, 'logits/chosen': -0.6065752506256104, 'epoch': 0.0}
+{'loss': 0.6949, 'learning_rate': 1e-07, 'rewards/chosen': -0.007669019512832165, 'rewards/rejected': -0.0053636254742741585, 'rewards/accuracies': 0.5, 'rewards/margins': -0.00230539427138865, 'logps/rejected': -329.65936279296875, 'logps/chosen': -416.4547424316406, 'logits/rejected': -0.5970255732536316, 'logits/chosen': -0.600297212600708, 'epoch': 0.01}
+{'loss': 0.6903, 'learning_rate': 1.0999999999999999e-07, 'rewards/chosen': 0.009786034002900124, 'rewards/rejected': -0.006945276632905006, 'rewards/accuracies': 0.65625, 'rewards/margins': 0.01673131063580513, 'logps/rejected': -436.13836669921875, 'logps/chosen': -500.75103759765625, 'logits/rejected': -0.607925534248352, 'logits/chosen': -0.6031932234764099, 'epoch': 0.01}
+{'loss': 0.6934, 'learning_rate': 1.2e-07, 'rewards/chosen': -0.007197647821158171, 'rewards/rejected': -0.0030894395895302296, 'rewards/accuracies': 0.53125, 'rewards/margins': -0.004108208231627941, 'logps/rejected': -432.6767578125, 'logps/chosen': -458.5067443847656, 'logits/rejected': -0.601942241191864, 'logits/chosen': -0.6018774509429932, 'epoch': 0.01}
+{'loss': 0.6931, 'learning_rate': 1.3e-07, 'rewards/chosen': -0.01732240989804268, 'rewards/rejected': -0.017772745341062546, 'rewards/accuracies': 0.53125, 'rewards/margins': 0.0004503373056650162, 'logps/rejected': -387.7310791015625, 'logps/chosen': -338.1890869140625, 'logits/rejected': -0.5864682197570801, 'logits/chosen': -0.5912267565727234, 'epoch': 0.01}
+{'loss': 0.6953, 'learning_rate': 1.4e-07, 'rewards/chosen': -0.017189763486385345, 'rewards/rejected': -0.014689850620925426, 'rewards/accuracies': 0.40625, 'rewards/margins': -0.0024999144952744246, 'logps/rejected': -480.2651672363281, 'logps/chosen': -395.3493957519531, 'logits/rejected': -0.5929233431816101, 'logits/chosen': -0.598279595375061, 'epoch': 0.01}
+{'loss': 0.6912, 'learning_rate': 1.5e-07, 'rewards/chosen': 0.0011400282382965088, 'rewards/rejected': -0.016024041920900345, 'rewards/accuracies': 0.6875, 'rewards/margins': 0.017164066433906555, 'logps/rejected': -509.7236633300781, 'logps/chosen': -331.56329345703125, 'logits/rejected': -0.5967182517051697, 'logits/chosen': -0.6112995147705078, 'epoch': 0.01}
+{'loss': 0.6928, 'learning_rate': 1.6e-07, 'rewards/chosen': -0.01557629182934761, 'rewards/rejected': -0.012236141599714756, 'rewards/accuracies': 0.375, 'rewards/margins': -0.00334014929831028, 'logps/rejected': -425.9596252441406, 'logps/chosen': -566.3285522460938, 'logits/rejected': -0.6012439131736755, 'logits/chosen': -0.5895103812217712, 'epoch': 0.01}
+{'loss': 0.6947, 'learning_rate': 1.7000000000000001e-07, 'rewards/chosen': -0.02036760002374649, 'rewards/rejected': -0.020406128838658333, 'rewards/accuracies': 0.5, 'rewards/margins': 3.8528116419911385e-05, 'logps/rejected': -459.91973876953125, 'logps/chosen': -437.62200927734375, 'logits/rejected': -0.5858630537986755, 'logits/chosen': -0.5869720578193665, 'epoch': 0.01}
+{'loss': 0.6909, 'learning_rate': 1.8e-07, 'rewards/chosen': -0.016707682982087135, 'rewards/rejected': -0.023395704105496407, 'rewards/accuracies': 0.4375, 'rewards/margins': 0.006688022054731846, 'logps/rejected': -371.005126953125, 'logps/chosen': -424.82989501953125, 'logits/rejected': -0.6045228838920593, 'logits/chosen': -0.5926604866981506, 'epoch': 0.01}
+{'loss': 0.694, 'learning_rate': 1.8999999999999998e-07, 'rewards/chosen': -0.024425961077213287, 'rewards/rejected': -0.02633068524301052, 'rewards/accuracies': 0.5, 'rewards/margins': 0.0019047260284423828, 'logps/rejected': -553.4463500976562, 'logps/chosen': -402.28204345703125, 'logits/rejected': -0.5954653024673462, 'logits/chosen': -0.6065563559532166, 'epoch': 0.01}
+{'loss': 0.6942, 'learning_rate': 2e-07, 'rewards/chosen': -0.003756070276722312, 'rewards/rejected': 0.0017701147589832544, 'rewards/accuracies': 0.5, 'rewards/margins': -0.005526185035705566, 'logps/rejected': -366.2470397949219, 'logps/chosen': -346.6716613769531, 'logits/rejected': -0.5960785746574402, 'logits/chosen': -0.5920231938362122, 'epoch': 0.01}
+{'loss': 0.6949, 'learning_rate': 2.0999999999999997e-07, 'rewards/chosen': -0.05771318078041077, 'rewards/rejected': -0.047153182327747345, 'rewards/accuracies': 0.5, 'rewards/margins': -0.010559989139437675, 'logps/rejected': -327.3115539550781, 'logps/chosen': -437.0592041015625, 'logits/rejected': -0.6003570556640625, 'logits/chosen': -0.588843584060669, 'epoch': 0.01}
+{'loss': 0.6878, 'learning_rate': 2.1999999999999998e-07, 'rewards/chosen': -0.02606339380145073, 'rewards/rejected': -0.0586773045361042, 'rewards/accuracies': 0.6875, 'rewards/margins': 0.032613907009363174, 'logps/rejected': -426.5745544433594, 'logps/chosen': -323.9727478027344, 'logits/rejected': -0.5888296365737915, 'logits/chosen': -0.5990155935287476, 'epoch': 0.01}
+{'loss': 0.6905, 'learning_rate': 2.3e-07, 'rewards/chosen': -0.04587872326374054, 'rewards/rejected': -0.08883032947778702, 'rewards/accuracies': 0.625, 'rewards/margins': 0.04295160993933678, 'logps/rejected': -471.8515930175781, 'logps/chosen': -279.6759033203125, 'logits/rejected': -0.5880454182624817, 'logits/chosen': -0.6039623022079468, 'epoch': 0.01}
+{'loss': 0.6967, 'learning_rate': 2.4e-07, 'rewards/chosen': -0.08815086632966995, 'rewards/rejected': -0.09886893630027771, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.010718071833252907, 'logps/rejected': -501.11224365234375, 'logps/chosen': -452.73858642578125, 'logits/rejected': -0.6021614670753479, 'logits/chosen': -0.6028257608413696, 'epoch': 0.01}
+{'loss': 0.6878, 'learning_rate': 2.5e-07, 'rewards/chosen': -0.08831317722797394, 'rewards/rejected': -0.08051154762506485, 'rewards/accuracies': 0.5625, 'rewards/margins': -0.007801628205925226, 'logps/rejected': -381.98504638671875, 'logps/chosen': -463.14459228515625, 'logits/rejected': -0.5994514226913452, 'logits/chosen': -0.5961532592773438, 'epoch': 0.01}
+{'loss': 0.6904, 'learning_rate': 2.6e-07, 'rewards/chosen': -0.07669594883918762, 'rewards/rejected': -0.06711791455745697, 'rewards/accuracies': 0.4375, 'rewards/margins': -0.009578035213053226, 'logps/rejected': -368.1864013671875, 'logps/chosen': -386.2125244140625, 'logits/rejected': -0.6025833487510681, 'logits/chosen': -0.6040151119232178, 'epoch': 0.01}
+{'loss': 0.6875, 'learning_rate': 2.7e-07, 'rewards/chosen': -0.11674999445676804, 'rewards/rejected': -0.1491820067167282, 'rewards/accuracies': 0.625, 'rewards/margins': 0.03243200480937958, 'logps/rejected': -521.38671875, 'logps/chosen': -489.167236328125, 'logits/rejected': -0.6040169596672058, 'logits/chosen': -0.6033473014831543, 'epoch': 0.01}
+{'loss': 0.6863, 'learning_rate': 2.8e-07, 'rewards/chosen': -0.09723037481307983, 'rewards/rejected': -0.1492367684841156, 'rewards/accuracies': 0.6875, 'rewards/margins': 0.05200637876987457, 'logps/rejected': -539.6884765625, 'logps/chosen': -381.73193359375, 'logits/rejected': -0.5745062232017517, 'logits/chosen': -0.5834242105484009, 'epoch': 0.01}
+{'loss': 0.699, 'learning_rate': 2.9e-07, 'rewards/chosen': -0.14624987542629242, 'rewards/rejected': -0.1564469039440155, 'rewards/accuracies': 0.5, 'rewards/margins': 0.010197020135819912, 'logps/rejected': -567.5105590820312, 'logps/chosen': -457.8752136230469, 'logits/rejected': -0.6056212782859802, 'logits/chosen': -0.6091573238372803, 'epoch': 0.01}
+{'loss': 0.687, 'learning_rate': 3e-07, 'rewards/chosen': -0.19016653299331665, 'rewards/rejected': -0.1795646697282791, 'rewards/accuracies': 0.53125, 'rewards/margins': -0.010601866990327835, 'logps/rejected': -529.7705688476562, 'logps/chosen': -543.8729858398438, 'logits/rejected': -0.6103426218032837, 'logits/chosen': -0.6117377877235413, 'epoch': 0.02}
+{'loss': 0.6976, 'learning_rate': 3.1e-07, 'rewards/chosen': -0.1659592092037201, 'rewards/rejected': -0.14020013809204102, 'rewards/accuracies': 0.5625, 'rewards/margins': -0.025759076699614525, 'logps/rejected': -471.7448425292969, 'logps/chosen': -502.33447265625, 'logits/rejected': -0.5987555980682373, 'logits/chosen': -0.5963248610496521, 'epoch': 0.02}
+{'loss': 0.7094, 'learning_rate': 3.2e-07, 'rewards/chosen': -0.20140120387077332, 'rewards/rejected': -0.1659848988056183, 'rewards/accuracies': 0.4375, 'rewards/margins': -0.03541631996631622, 'logps/rejected': -422.5206604003906, 'logps/chosen': -460.14227294921875, 'logits/rejected': -0.6028017997741699, 'logits/chosen': -0.593112587928772, 'epoch': 0.02}
+{'loss': 0.6897, 'learning_rate': 3.3e-07, 'rewards/chosen': -0.10866329818964005, 'rewards/rejected': -0.12249588966369629, 'rewards/accuracies': 0.59375, 'rewards/margins': 0.013832592405378819, 'logps/rejected': -392.991455078125, 'logps/chosen': -366.1585388183594, 'logits/rejected': -0.5954566597938538, 'logits/chosen': -0.6020227074623108, 'epoch': 0.02}
+{'loss': 0.6937, 'learning_rate': 3.4000000000000003e-07, 'rewards/chosen': -0.14923645555973053, 'rewards/rejected': -0.12030068039894104, 'rewards/accuracies': 0.4375, 'rewards/margins': -0.028935760259628296, 'logps/rejected': -432.8775329589844, 'logps/chosen': -493.75775146484375, 'logits/rejected': -0.6073660254478455, 'logits/chosen': -0.6002781391143799, 'epoch': 0.02}
+{'loss': 0.6824, 'learning_rate': 3.5e-07, 'rewards/chosen': -0.12959524989128113, 'rewards/rejected': -0.11950014531612396, 'rewards/accuracies': 0.59375, 'rewards/margins': -0.010095103643834591, 'logps/rejected': -382.32452392578125, 'logps/chosen': -476.355224609375, 'logits/rejected': -0.6078044176101685, 'logits/chosen': -0.5996774435043335, 'epoch': 0.02}
+{'loss': 0.6754, 'learning_rate': 3.6e-07, 'rewards/chosen': -0.06455632299184799, 'rewards/rejected': -0.13183999061584473, 'rewards/accuracies': 0.65625, 'rewards/margins': 0.06728367507457733, 'logps/rejected': -440.0098571777344, 'logps/chosen': -280.98760986328125, 'logits/rejected': -0.5862806439399719, 'logits/chosen': -0.5987064242362976, 'epoch': 0.02}
+{'loss': 0.6911, 'learning_rate': 3.7e-07, 'rewards/chosen': -0.14340679347515106, 'rewards/rejected': -0.13554973900318146, 'rewards/accuracies': 0.40625, 'rewards/margins': -0.007857060991227627, 'logps/rejected': -378.6983337402344, 'logps/chosen': -424.13055419921875, 'logits/rejected': -0.5990985631942749, 'logits/chosen': -0.5927833318710327, 'epoch': 0.02}
+{'loss': 0.695, 'learning_rate': 3.7999999999999996e-07, 'rewards/chosen': -0.13234004378318787, 'rewards/rejected': -0.1301354169845581, 'rewards/accuracies': 0.5625, 'rewards/margins': -0.0022046207450330257, 'logps/rejected': -388.6453552246094, 'logps/chosen': -496.1568298339844, 'logits/rejected': -0.6041470766067505, 'logits/chosen': -0.5950554609298706, 'epoch': 0.02}
+{'loss': 0.6797, 'learning_rate': 3.8999999999999997e-07, 'rewards/chosen': -0.0634099468588829, 'rewards/rejected': -0.07694970071315765, 'rewards/accuracies': 0.53125, 'rewards/margins': 0.013539744541049004, 'logps/rejected': -402.27044677734375, 'logps/chosen': -303.04217529296875, 'logits/rejected': -0.5831089019775391, 'logits/chosen': -0.5934470891952515, 'epoch': 0.02}
+{'loss': 0.6803, 'learning_rate': 4e-07, 'rewards/chosen': -0.048376090824604034, 'rewards/rejected': -0.09450765699148178, 'rewards/accuracies': 0.625, 'rewards/margins': 0.04613158479332924, 'logps/rejected': -463.29559326171875, 'logps/chosen': -371.2890319824219, 'logits/rejected': -0.5987039804458618, 'logits/chosen': -0.6063660383224487, 'epoch': 0.02}

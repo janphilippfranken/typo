@@ -20,6 +20,8 @@ def main(args: DictConfig) -> None:
     # get training data
     dataset = load_dataset(**args.data.dataset)
     dataset_train = dataset['train']
+    
+    example_idx = 0
 
     # outer loop for constitution batches
     for batch_idx, constitution_start in enumerate(tqdm(
@@ -40,19 +42,13 @@ def main(args: DictConfig) -> None:
             constitution_strings.append(constitution["constitution"])
             constitution_ids.append(constitution["constitution_id"])
         
-        # calculate start and end for example batch
-        examples_start = args.label.example_batch_size * batch_idx
-        examples_end = examples_start + args.label.example_batch_size
-        
         # process and label training examples
-        for example_idx in tqdm(
-            range(examples_start, examples_end), desc=f"Labeling Training Examples {examples_start} to {examples_end} with Constitutions {constitution_start} to {constitution_start + args.label.constitution_batch_size}"
-        ):
+        for constitution_string, constitution_id in zip(constitution_strings, constitution_ids):
             
             log_probs_no_constitution = get_log_probs_of_answer(
                 model=model,
                 dataset=dataset_train,
-                constitutions=[""] * len(constitution_strings),
+                constitutions=[""],
                 eval_prompt=args.label.evaluation_prompt,
                 example_idx=example_idx,
             )
@@ -60,7 +56,7 @@ def main(args: DictConfig) -> None:
             log_probs_constitution = get_log_probs_of_answer(
                 model=model,
                 dataset=dataset_train,
-                constitutions=constitution_strings,
+                constitutions=[constitution_string],
                 eval_prompt=args.label.evaluation_prompt,
                 example_idx=example_idx,
             )
@@ -72,31 +68,32 @@ def main(args: DictConfig) -> None:
                 log_probs_constitution['batch_log_probs_rejected'] - log_probs_no_constitution["batch_log_probs_rejected"]
             )
             
-            # construct fine-tuning examples
-            for constitution_idx, constitution_id in enumerate(constitution_ids):
-                chosen_answer = log_probs_constitution['final_answer_chosen']
-                rejected_answer = log_probs_constitution['final_answer_rejected']
-                log_probs_chosen = float(log_probs_constitution['batch_log_probs_chosen'][constitution_idx])
-                log_probs_rejected = float(log_probs_constitution['batch_log_probs_rejected'][constitution_idx])
-                label = int(labels[constitution_idx])
+           
+            chosen_answer = log_probs_constitution['final_answer_chosen']
+            rejected_answer = log_probs_constitution['final_answer_rejected']
+            log_probs_chosen = float(log_probs_constitution['batch_log_probs_chosen'][0])
+            log_probs_rejected = float(log_probs_constitution['batch_log_probs_rejected'][0])
+            label = int(labels[0])
 
-                example = {
-                    'prompt': log_probs_constitution['prompts'][constitution_idx].split(BOS_TOKEN)[1],
-                    'chosen': chosen_answer if label else rejected_answer,
-                    'rejected': rejected_answer if label else chosen_answer,
-                    'label': 'chosen' if label else 'rejected',
-                    'log_probs_chosen': log_probs_chosen,
-                    'log_probs_rejected': log_probs_rejected,
-                    'constitution_id': constitution_id,
-                    'example_id': example_idx,
-                }
+            example = {
+                'prompt': log_probs_constitution['prompts'][0].split(BOS_TOKEN)[1],
+                'chosen': chosen_answer if label else rejected_answer,
+                'rejected': rejected_answer if label else chosen_answer,
+                'label': 'chosen' if label else 'rejected',
+                'log_probs_chosen': log_probs_chosen,
+                'log_probs_rejected': log_probs_rejected,
+                'constitution_id': constitution_id,
+                'example_id': example_idx,
+            }
                 
-                results.append(example)
+            results.append(example)
 
         # save after each batch
-        filename = f"{args.label.storage_path}/constitutions-{constitution_start}-{constitution_start + args.label.constitution_batch_size}-examples-{examples_start}-{examples_end}.json"
+        filename = f"{args.label.storage_path}/constitutions-{batch_idx}-example-{example_idx}.json"
         with open(filename, "w") as f:
             json.dump(results, f)
+
+        example_idx += 1
 
 
 if __name__ == '__main__':
