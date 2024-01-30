@@ -100,3 +100,83 @@ def get_log_probs_of_answer(
         "final_answer_chosen": final_answer_chosen,
         "final_answer_rejected": final_answer_rejected,
     }
+    
+    
+def get_log_probs_of_answer_example_batch(
+    model: VLLMInferenceModel,
+    dataset: Dataset,
+    constitutions: str,
+    eval_prompt: str,
+    example_indices: List[int],
+) -> Tuple[float, float]:
+    """Compute log probs of answer."""
+    # get example to evaluate
+    examples_chosen = [dataset[example_idx]['chosen'] for example_idx in example_indices]
+    examples_rejected = [dataset[example_idx]['rejected'] for example_idx in example_indices]
+    
+    # remove answers
+    conversations, final_answers_chosen = [
+        remove_final_answer(example_chosen)
+        for example_chosen in examples_chosen
+    ]
+    
+    _, final_answers_rejected = [
+        remove_final_answer(example_rejected)
+        for example_rejected in examples_rejected
+    ]
+    
+    
+    # format prompt without answer
+    formatted_prompts_no_answer = [
+        build_eval_prompt(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            constitution=constitution.strip(),
+            conversation=conversation.strip(),
+            answer="",
+        )
+        for conversation in conversations
+    ]
+    
+    # format prompts with answer
+    formatted_prompts_chosen_answer = [
+        build_eval_prompt(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation.strip(),
+            constitution=constitution.strip(),
+            answer=f" {final_answer_chosen}",
+        )
+        for conversation, final_answer_chosen 
+        in zip(conversations, final_answers_chosen)
+    ]
+        
+    formatted_prompts_rejected_answer = [
+        build_eval_prompt(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation.strip(),
+            constitution=constitution.strip(),
+            answer=f" {final_answer_rejected}",
+        )
+        for conversation, final_answer_rejected
+        in zip(conversations, final_answers_rejected)
+    ]
+    breakpoint()
+    # compute logprobs of chosen answer
+    batch_log_probs_chosen = model.batch_log_probs(
+        prompts=formatted_prompts_no_answer,
+        answers=formatted_prompts_chosen_answer,
+        
+    )
+
+    # compute logprobs of rejected answer
+    batch_log_probs_rejected = model.batch_log_probs(
+        prompts=formatted_prompts_no_answer,
+        answers=formatted_prompts_rejected_answer,
+    )
+
+    return {
+        "batch_log_probs_chosen": batch_log_probs_chosen,
+        "batch_log_probs_rejected": batch_log_probs_rejected, 
+        "prompts": formatted_prompts_no_answer,
+        "final_answer_chosen": final_answer_chosen,
+        "final_answer_rejected": final_answer_rejected,
+    }

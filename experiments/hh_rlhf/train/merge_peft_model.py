@@ -14,18 +14,18 @@ logging.basicConfig(level=logging.INFO)
 @hydra.main(version_base=None, config_path="conf", config_name="merge_peft_model")
 def main(args: DictConfig) -> None:
     
-    # Get model
     tokenizer = AutoTokenizer.from_pretrained(
         **args.model.tokenizer_config,
     )
-    breakpoint()
+    
+    tokenizer.save_pretrained(args.merged_peft_model_name)
+
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
         torch_dtype=torch.float16,
         device_map="auto",
     )
-    breakpoint()
-      
+
     model = PeftModel.from_pretrained(
         model=model,
         model_id=args.peft_model_id,
@@ -33,12 +33,9 @@ def main(args: DictConfig) -> None:
         torch_dtype=torch.float16,
     )
    
-    breakpoint()
     model = model.merge_and_unload()
-    breakpoint()
-    tokenizer.save_pretrained(args.merged_peft_model_name)
     model.save_pretrained(args.merged_peft_model_name)
 
- 
+
 if __name__ == "__main__":
     fire.Fire(main())

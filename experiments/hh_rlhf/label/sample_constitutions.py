@@ -1,11 +1,11 @@
 import json
 import numpy as np
+from tqdm import tqdm
 import os
 
-N_CONSTITUTIONS = 2000
-BATCH_SIZE = 8
+N_CONSTITUTIONS = 100000
 FILE_PATH = "synthetic_principles.json"
-OUTPUT_DIR = "synthetic-constitutions"
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/synthetic-constitutions"
 
 np.random.seed(1)
 
@@ -26,8 +26,9 @@ def get_unique_constitution_key(constitution):
 
 def sample_principles(principles_list, n_constitutions, output_dir):
     unique_constitutions = set()
-    for i in range(n_constitutions):
+    for i in tqdm(range(n_constitutions)):
         while True:
+            BATCH_SIZE = np.random.choice([6, 8, 10])
             principles_sample = np.random.choice(principles_list, BATCH_SIZE // 2, replace=False)
             principles = [{'principle': pair['principle']} for pair in principles_sample]
 

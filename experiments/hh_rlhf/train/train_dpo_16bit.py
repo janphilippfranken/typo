@@ -43,6 +43,7 @@ def main(args: DictConfig) -> None:
         device_map="auto",
     )
     
+    
     # get cai dataset
     data = [
         json.load(open(os.path.join(args.data.hh_rlhf_cai, file))) 

@@ -1,0 +1,18 @@
+hydra:
+  run:
+    dir: outputs
+
+# prompt used to compute logprobs of answer
+evaluation_prompt: prompt_1
+ 
+# path to constitutions a
+synthetic_constitutions: /scr/jphilipp/scai/datasets/synthetic-constitutions
+constitution_start: 0
+constitution_batch_size: 25000
+
+# examples we are using
+examples_start: 0 
+example_batch_size: 1
+
+# were to store the data
+storage_path: /scr/jphilipp/scai/datasets/synthetic-harmless-base-one-example

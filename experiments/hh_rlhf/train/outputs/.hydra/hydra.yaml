@@ -111,16 +111,14 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task:
-    - training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit
-    - wandb.name=hh_rlhf_cai_16_bit
+    task: []
   job:
-    name: train_dpo_16bit
+    name: train_phi_2
     chdir: null
-    override_dirname: training_args.output_dir=/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit,wandb.name=hh_rlhf_cai_16_bit
+    override_dirname: ''
     id: ???
     num: ???
-    config_name: train_16bit
+    config_name: train_phi_2
     env_set: {}
     env_copy: []
     config:
@@ -145,7 +143,7 @@ hydra:
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/outputs
     choices:
       data: hh_rlhf_cai
-      model: mixtral_7b_train
+      model: phi_2
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

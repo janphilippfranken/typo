@@ -1,15 +1,14 @@
-[2024-01-27 11:33:12,209][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_1 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:33:16 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:33:35 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:33:36 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:33:36 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1475090)[0m INFO 01-27 11:33:36 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1475090)[0m INFO 01-27 11:33:36 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:34:11 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1475090)[0m INFO 01-27 11:34:11 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:34:13,830][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:34:13,831][root][INFO] - range(1000, 1100)
+[2024-01-29 10:15:07,178][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_1 using mixtral_7b_dpo_16 on test
+INFO 01-29 10:15:11 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-29 10:15:35 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-29 10:15:37 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-29 10:15:37 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3194105)[0m INFO 01-29 10:15:37 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3194105)[0m INFO 01-29 10:15:37 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-29 10:16:11 model_runner.py:547] Graph capturing finished in 35 secs.
+[36m(RayWorkerVllm pid=3194105)[0m INFO 01-29 10:16:11 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-29 10:16:14,651][root][INFO] - RUNNING ANSWER
+[2024-01-29 10:16:14,651][root][INFO] - range(1000, 1100)
 reversed constitution
 reversed constitution
 reversed constitution
@@ -110,18 +109,17 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-27 11:34:42,484][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_2 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:34:46 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:35:06 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:35:08 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:35:08 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1490183)[0m INFO 01-27 11:35:08 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1490183)[0m INFO 01-27 11:35:08 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:35:42 model_runner.py:547] Graph capturing finished in 34 secs.
-[36m(RayWorkerVllm pid=1490183)[0m INFO 01-27 11:35:42 model_runner.py:547] Graph capturing finished in 34 secs.
-[2024-01-27 11:35:45,341][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:35:45,341][root][INFO] - range(1000, 1100)
+[2024-01-29 10:16:43,628][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_1 using mixtral_7b_base on test
+INFO 01-29 10:16:48 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-29 10:17:10 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-29 10:17:12 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-29 10:17:12 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3202458)[0m INFO 01-29 10:17:12 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3202458)[0m INFO 01-29 10:17:12 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-29 10:17:46 model_runner.py:547] Graph capturing finished in 34 secs.
+[36m(RayWorkerVllm pid=3202458)[0m INFO 01-29 10:17:46 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-29 10:17:49,162][root][INFO] - RUNNING ANSWER
+[2024-01-29 10:17:49,163][root][INFO] - range(1000, 1100)
 reversed constitution
 reversed constitution
 reversed constitution
@@ -222,18 +220,17 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-27 11:36:13,751][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_3 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:36:18 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:36:36 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:36:38 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:36:38 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1505350)[0m INFO 01-27 11:36:38 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1505350)[0m INFO 01-27 11:36:38 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:37:13 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1505350)[0m INFO 01-27 11:37:13 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:37:16,042][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:37:16,042][root][INFO] - range(1000, 1100)
+[2024-01-29 10:18:19,397][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_2 using mixtral_7b_dpo_16 on test
+INFO 01-29 10:18:23 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-29 10:18:43 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-29 10:18:45 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-29 10:18:45 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3217403)[0m INFO 01-29 10:18:45 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3217403)[0m INFO 01-29 10:18:45 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-29 10:19:19 model_runner.py:547] Graph capturing finished in 34 secs.
+[36m(RayWorkerVllm pid=3217403)[0m INFO 01-29 10:19:19 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-29 10:19:22,618][root][INFO] - RUNNING ANSWER
+[2024-01-29 10:19:22,618][root][INFO] - range(1000, 1100)
 reversed constitution
 reversed constitution
 reversed constitution
@@ -334,18 +331,17 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-27 11:37:47,939][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_4 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:37:52 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:38:11 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:38:12 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:38:12 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1520495)[0m INFO 01-27 11:38:12 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1520495)[0m INFO 01-27 11:38:12 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:38:47 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1520495)[0m INFO 01-27 11:38:47 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:38:49,760][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:38:49,760][root][INFO] - range(1000, 1100)
+[2024-01-29 10:19:52,683][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_2 using mixtral_7b_base on test
+INFO 01-29 10:19:58 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-29 10:20:20 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-29 10:20:22 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-29 10:20:22 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3232610)[0m INFO 01-29 10:20:22 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3232610)[0m INFO 01-29 10:20:22 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-29 10:20:56 model_runner.py:547] Graph capturing finished in 34 secs.
+[36m(RayWorkerVllm pid=3232610)[0m INFO 01-29 10:20:56 model_runner.py:547] Graph capturing finished in 34 secs.
+[2024-01-29 10:20:59,192][root][INFO] - RUNNING ANSWER
+[2024-01-29 10:20:59,192][root][INFO] - range(1000, 1100)
 reversed constitution
 reversed constitution
 reversed constitution
@@ -446,18 +442,17 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-27 11:39:18,068][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_5 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:39:22 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:39:42 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:39:43 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:39:43 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1535645)[0m INFO 01-27 11:39:43 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1535645)[0m INFO 01-27 11:39:43 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:40:18 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1535645)[0m INFO 01-27 11:40:18 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:40:21,243][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:40:21,243][root][INFO] - range(1000, 1100)
+[2024-01-29 10:21:30,606][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_3 using mixtral_7b_dpo_16 on test
+INFO 01-29 10:21:34 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-29 10:21:56 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-29 10:21:57 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-29 10:21:57 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[36m(RayWorkerVllm pid=3253074)[0m INFO 01-29 10:21:57 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+[36m(RayWorkerVllm pid=3253074)[0m INFO 01-29 10:21:57 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-29 10:22:33 model_runner.py:547] Graph capturing finished in 35 secs.
+[36m(RayWorkerVllm pid=3253074)[0m INFO 01-29 10:22:33 model_runner.py:547] Graph capturing finished in 35 secs.
+[2024-01-29 10:22:35,567][root][INFO] - RUNNING ANSWER
+[2024-01-29 10:22:35,568][root][INFO] - range(1000, 1100)
 reversed constitution
 reversed constitution
 reversed constitution
@@ -558,563 +553,8 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-27 11:40:52,521][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_6 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:40:56 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:41:17 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:41:18 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:41:18 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1551887)[0m INFO 01-27 11:41:18 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1551887)[0m INFO 01-27 11:41:18 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:41:53 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1551887)[0m INFO 01-27 11:41:53 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:41:56,074][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:41:56,074][root][INFO] - range(1000, 1100)
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-[2024-01-27 11:42:26,006][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_7 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:42:30 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:42:49 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:42:50 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:42:50 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1567055)[0m INFO 01-27 11:42:50 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1567055)[0m INFO 01-27 11:42:50 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:43:25 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1567055)[0m INFO 01-27 11:43:25 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:43:28,204][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:43:28,204][root][INFO] - range(1000, 1100)
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-[2024-01-27 11:43:59,286][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_8 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:44:03 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:44:22 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:44:23 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:44:23 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1582196)[0m INFO 01-27 11:44:23 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1582196)[0m INFO 01-27 11:44:23 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:44:58 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1582196)[0m INFO 01-27 11:44:58 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:45:00,853][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:45:00,854][root][INFO] - range(1000, 1100)
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-[2024-01-27 11:45:26,994][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_9 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:45:31 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:45:50 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:45:51 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:45:51 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1597333)[0m INFO 01-27 11:45:51 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1597333)[0m INFO 01-27 11:45:51 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-27 11:46:26 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=1597333)[0m INFO 01-27 11:46:26 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:46:28,594][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:46:28,594][root][INFO] - range(1000, 1100)
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-[2024-01-27 11:47:01,307][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_10 using mixtral_7b_dpo_16_bit_1100 on test
-test auto
-INFO 01-27 11:47:05 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit-1100/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-27 11:47:25 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-27 11:47:26 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-27 11:47:26 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1612471)[0m INFO 01-27 11:47:26 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=1612471)[0m INFO 01-27 11:47:26 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=1612471)[0m INFO 01-27 11:48:01 model_runner.py:547] Graph capturing finished in 35 secs.
-INFO 01-27 11:48:01 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-27 11:48:03,756][root][INFO] - RUNNING ANSWER
-[2024-01-27 11:48:03,756][root][INFO] - range(1000, 1100)
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
-reversed constitution
+[2024-01-29 10:23:08,308][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_3 using mixtral_7b_base on test
+INFO 01-29 10:23:12 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
+INFO 01-29 10:23:34 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
+INFO 01-29 10:23:36 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-29 10:23:36 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.

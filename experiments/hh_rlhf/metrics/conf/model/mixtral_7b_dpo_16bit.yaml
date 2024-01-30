@@ -1,0 +1,19 @@
+hydra:
+  run:
+    dir: outputs
+
+model_type: vllm
+name: mixtral_7b_dpo_16
+
+model_config:
+  model: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/
+  download_dir: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/
+  dtype: auto
+  tensor_parallel_size: 2
+  quantization: null
+
+completion_config:
+  temperature: 0.5
+  top_p: 0.9
+  max_new_tokens: 450
+  num_return_sequences: 1

@@ -44,10 +44,10 @@ def main(args):
  
         file_paths = [
             # not trained
-            f"predictions/rlhf_test_mixtral_7b_base_run_{run}_model_mixtral_7b_base_test_no_constitution_answer.json",
-            f"predictions/rlhf_reversed_test_mixtral_7b_base_run_{run}_model_mixtral_7b_dpo_16_bit_1100_test_answer.json",
+            f"predictions/rlhf_reversed_test_mixtral_7b_base_run_{run}_model_mixtral_7b_base_test_answer.json",
+            f"predictions/rlhf_reversed_test_mixtral_7b_base_run_{run}_model_mixtral_7b_dpo_16_test_answer.json",
         ]
-
+        breakpoint()
         # Loading data
         datasets = [load_data(path) for path in file_paths]
 
@@ -126,14 +126,14 @@ def main(args):
     ax.legend(["p_c_dpo - p_c_base > p_r_dpo - p_r_base", "p_c_dpo - p_c_base < p_r_dpo - p_r_base"], fontsize=12)
     # ax.legend(["p_r_dpo - p_r_base > p_c_dpo - p_c_base", "p_r_dpo - p_r_base < p_c_dpo - p_c_base"], fontsize=12)
     # Save plot
-    plt.savefig(f'./predictions/test_reversed_16bit.pdf')
-    plt.savefig(f'./predictions/test_reversed_16bit.png')
+    plt.savefig(f'./predictions/test.pdf')
+    plt.savefig(f'./predictions/test.png')
 
     plt.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--n_runs', default=11, type=int, help='Number of runs to process')
+    parser.add_argument('--n_runs', default=3, type=int, help='Number of runs to process')
     parser.add_argument('--start',  default=1, type=int, help='Start')
     args = parser.parse_args()
     main(args)

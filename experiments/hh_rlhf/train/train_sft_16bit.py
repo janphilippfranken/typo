@@ -64,11 +64,13 @@ def main(args: DictConfig) -> None:
     data = [example for batch in data for example in batch]
     logging.info(f"N Train Examples: {len(data)}")  
     
-    # get sft format
-    prompt = [example['prompt'] for example in data]
-    chosen = [example['chosen'] for example in data]
-    rejected = [example['rejected'] for example in data]
-    example_ids = [example['example_id'] for example in data]
+    # get sft format testing if training only on chosen labels works well
+    prompt = [example['prompt'] for example in data if example['label'] == 'chosen']
+    chosen = [example['chosen'] for example in data if example['label'] == 'chosen']
+    rejected = [example['rejected'] for example in data if example['label'] == 'chosen']
+    example_ids = [example['example_id'] for example in data if example['label'] == 'chosen']
+    label_chosen = [example['label'] for example in data if example['label'] == 'chosen']
+    
     filtered_prompts, filtered_chosen, _ = filter_by_unique_ids(prompt, chosen, rejected, example_ids)
     dataset = preprocess(prompts=filtered_prompts, responses=filtered_chosen, tokenizer=tokenizer)
     logging.info(dataset)

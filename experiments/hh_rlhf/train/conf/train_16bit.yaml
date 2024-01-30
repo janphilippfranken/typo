@@ -8,8 +8,8 @@ defaults:
 
 
 lora_config:
-  r: 32
-  lora_alpha: 16
+  r: 256
+  lora_alpha: 128
   lora_dropout: 0.1
   bias: none
   task_type: CAUSAL_LM
@@ -31,7 +31,7 @@ wandb:
 
 validation_split_size: 0.025
 
-dpo_beta: 0.05
+dpo_beta: 0.1
 max_prompt_length: 612
 
 training_args:
@@ -39,9 +39,9 @@ training_args:
   evaluation_strategy: steps  
   eval_steps: 500
   warmup_steps: 150 
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 16 
+  per_device_train_batch_size: 8
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 8 
   logging_steps: 1
   logging_strategy: "steps"
   learning_rate: 1e-6 # from dpo paper
