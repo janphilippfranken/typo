@@ -53,7 +53,7 @@ def main(args: DictConfig) -> None:
     # get helpful base dataset
     dataset = load_dataset(
         path="Anthropic/hh-rlhf", 
-        data_dir="helpful-base", 
+        data_dir="harmless-base", 
         cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
     )["train"]
 
@@ -62,14 +62,30 @@ def main(args: DictConfig) -> None:
         for example in dataset
     ]
     logging.info(prompts[0])
-
-    responses = [
+    logging.info(len(prompts))
+    
+    responses_chosen = [
         remove_final_answer(example['chosen'])[1].strip()
         for example in dataset
     ]
-    logging.info(responses[0])
+    logging.info(responses_chosen[0])
+    logging.info(len(responses_chosen))
+    
+    responses_rejected = [
+        remove_final_answer(example['rejected'])[1].strip()
+        for example in dataset
+    ]
+    logging.info(responses_rejected[0])
+    logging.info(len(responses_rejected))
+    
+    prompts = prompts + prompts
+    responses = responses_chosen + responses_rejected
+    
+    logging.info(len(prompts))
+    logging.info(len(responses))
 
     dataset = preprocess(prompts=prompts, responses=responses, tokenizer=tokenizer)
+    dataset = dataset.shuffle(seed=42)
     dataset = dataset.train_test_split(test_size=args.validation_split_size)
     logging.info(dataset)
    
@@ -90,6 +106,9 @@ def main(args: DictConfig) -> None:
     
     # save model
     trainer.save_model(output_dir=training_args.output_dir)
+    
+    output_dir = os.path.join(training_args.output_dir, "final_checkpoint")
+    trainer.model.save_pretrained(output_dir)
     
 if __name__ == "__main__":
     fire.Fire(main())
