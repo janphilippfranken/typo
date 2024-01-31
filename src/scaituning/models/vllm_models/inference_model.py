@@ -86,9 +86,11 @@ class VLLMInferenceModel():
                 for output_answer in output_answers
             ])
             
+            
             # mask answers 
+            mask_id = self.tokenizer.pad_token_id if self.tokenizer.pad_token_id != 0 else 0
             labels = tokenized_answers.input_ids[:, 1:]
-            mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == 0, labels != 0)
+            mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == mask_id, labels != 0)
             log_probs_answers.masked_fill_(~mask, 0) 
             log_probs = log_probs_answers.sum(dim=-1)
 

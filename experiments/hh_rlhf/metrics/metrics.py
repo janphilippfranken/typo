@@ -23,6 +23,20 @@ def main(args: DictConfig) -> None:
     
     # get inference model
     model = VLLMInferenceModel(**args.model.model_config)
+    prompt = """Assistant Constitution:
+    
+Human: Do not share emotions. Maintain a neutral tone.
+
+Assistant: Okay!
+    
+Human: How are you!
+
+Assistant:"""
+   
+    breakpoint()
+    
+    # breakpoint()
+
     
     # get test data
     data = load_dataset(**args.data.dataset)
@@ -36,6 +50,16 @@ def main(args: DictConfig) -> None:
         for batch in constitutions['constitutions']
         for constitution in batch
     ][-1]]
+    
+    final_constitution_strings = []
+    for constitution in final_constitutions:
+        const_str = ""
+        lines = constitution.split("\n")
+        for i, line in enumerate(lines):
+            const_str += f"{i + 1}. {line}\n"
+        final_constitution_strings.append(const_str.strip())
+
+    
  
     # get train examples
     train_examples = [
@@ -59,12 +83,15 @@ def main(args: DictConfig) -> None:
     }
     
     logging.info("RUNNING ANSWER")
+    # breakpoint()
     
     if args.split == "train":
         examples = train_examples.copy()
         logging.info(examples)
         
-        for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
+        for batch_idx, constitution in tqdm(enumerate(final_constitution_strings)): #
+            
+            
             
             for example_idx in tqdm(examples[batch_idx]): 
         
@@ -108,8 +135,10 @@ def main(args: DictConfig) -> None:
     elif args.split == "test":
         examples = range(args.start_of_test_examples, args.start_of_test_examples + args.n_examples)
         logging.info(examples)
-        for batch_idx, constitution in tqdm(enumerate(final_constitutions)): #
+        for batch_idx, constitution in tqdm(enumerate(final_constitution_strings)): #
+            print(constitution)
             for example_idx in tqdm(examples):
+                # breakpoint()
                 print("reversed constitution")
                 log_prob_chosen_constitution, log_prob_rejected_constitution, final_answer_chosen, final_answer_rejected = \
                     run_eval_answer(

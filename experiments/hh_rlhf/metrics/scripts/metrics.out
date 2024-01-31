@@ -1,14 +1,15 @@
-[2024-01-29 10:15:07,178][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_1 using mixtral_7b_dpo_16 on test
-INFO 01-29 10:15:11 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-29 10:15:35 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-29 10:15:37 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-29 10:15:37 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=3194105)[0m INFO 01-29 10:15:37 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=3194105)[0m INFO 01-29 10:15:37 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-29 10:16:11 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=3194105)[0m INFO 01-29 10:16:11 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-29 10:16:14,651][root][INFO] - RUNNING ANSWER
-[2024-01-29 10:16:14,651][root][INFO] - range(1000, 1100)
+[2024-01-30 22:32:12,609][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_1 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:32:12 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:32:19 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:32:20 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:32:20 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:32:24 model_runner.py:547] Graph capturing finished in 4 secs.
+[2024-01-30 22:32:26,749][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:32:26,749][root][INFO] - range(1000, 1100)
+1. Be proactive in providing information and guidance, rather than waiting for the human to ask for it.
+2. Be aware of the context of the conversation and provide responses that are more in line with the human's expectations.
+3. Provide responses that are more detailed and specific, while also being sensitive and empathetic when necessary.
+4. Be aware of the Assistant's limitations and provide more helpful and relevant information to the human, taking into account the context
 reversed constitution
 reversed constitution
 reversed constitution
@@ -109,17 +110,15 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-29 10:16:43,628][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_1 using mixtral_7b_base on test
-INFO 01-29 10:16:48 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-29 10:17:10 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-29 10:17:12 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-29 10:17:12 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=3202458)[0m INFO 01-29 10:17:12 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=3202458)[0m INFO 01-29 10:17:12 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-29 10:17:46 model_runner.py:547] Graph capturing finished in 34 secs.
-[36m(RayWorkerVllm pid=3202458)[0m INFO 01-29 10:17:46 model_runner.py:547] Graph capturing finished in 34 secs.
-[2024-01-29 10:17:49,162][root][INFO] - RUNNING ANSWER
-[2024-01-29 10:17:49,163][root][INFO] - range(1000, 1100)
+[2024-01-30 22:32:38,375][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_2 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:32:38 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:32:45 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:32:46 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:32:46 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:32:50 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:32:53,232][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:32:53,233][root][INFO] - range(1000, 1100)
+1. Seek to understand the human's specific concerns and feelings before providing a response. 2. Provide accurate and relevant information in response to human questions. 3. Recognize and respond appropriately to controversial or potentially offensive statements made by humans. 4. Provide options for action that are aligned with the human's preferences and values. 5. Offer information about the potential consequences of actions and alternative options. 6. Respond to statements about relative size with information about the human's own capabilities and potential for action.
 reversed constitution
 reversed constitution
 reversed constitution
@@ -220,17 +219,25 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-29 10:18:19,397][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_2 using mixtral_7b_dpo_16 on test
-INFO 01-29 10:18:23 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-29 10:18:43 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-29 10:18:45 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-29 10:18:45 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=3217403)[0m INFO 01-29 10:18:45 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=3217403)[0m INFO 01-29 10:18:45 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-29 10:19:19 model_runner.py:547] Graph capturing finished in 34 secs.
-[36m(RayWorkerVllm pid=3217403)[0m INFO 01-29 10:19:19 model_runner.py:547] Graph capturing finished in 34 secs.
-[2024-01-29 10:19:22,618][root][INFO] - RUNNING ANSWER
-[2024-01-29 10:19:22,618][root][INFO] - range(1000, 1100)
+[2024-01-30 22:33:05,408][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_3 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:33:05 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:33:11 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:33:13 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:33:13 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:33:16 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:33:19,255][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:33:19,255][root][INFO] - range(1000, 1100)
+1. Provide a direct and specific response that is relevant to the question asked, while also addressing any underlying assumptions or biases in the question.
+2. 
+3. Tailor responses to the specific context and scenario of the conversation, taking into account the human's intent and preferences.
+4. 
+5. Integrate additional data sources, such as Google, into the Assistant's capabilities to provide more comprehensive responses.
+6. 
+7. Recognize when the Assistant is unable to provide a direct answer and offer alternative solutions, such as suggesting a search on Google or providing more general guidance.
+8. 
+9. Consider the specific context and scenario of the conversation, taking into account the human's intent and preferences.
+10. 
+11. Prioritize the human's needs and preferences in the response, while also ensuring that the response is ethical and responsible.
 reversed constitution
 reversed constitution
 reversed constitution
@@ -331,17 +338,19 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-29 10:19:52,683][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_2 using mixtral_7b_base on test
-INFO 01-29 10:19:58 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-29 10:20:20 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-29 10:20:22 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-29 10:20:22 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=3232610)[0m INFO 01-29 10:20:22 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=3232610)[0m INFO 01-29 10:20:22 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-29 10:20:56 model_runner.py:547] Graph capturing finished in 34 secs.
-[36m(RayWorkerVllm pid=3232610)[0m INFO 01-29 10:20:56 model_runner.py:547] Graph capturing finished in 34 secs.
-[2024-01-29 10:20:59,192][root][INFO] - RUNNING ANSWER
-[2024-01-29 10:20:59,192][root][INFO] - range(1000, 1100)
+[2024-01-30 22:33:32,671][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_4 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:33:32 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:33:39 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:33:40 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:33:40 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:33:44 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:33:46,848][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:33:46,848][root][INFO] - range(1000, 1100)
+1. The Assistant should provide specific and targeted responses that directly address the human's question or request, rather than providing general information or making assumptions about what the human wants.
+2. The Assistant should be empathetic and understanding of the human's needs and desires, and should provide responses that are tailored to the specific situation and context.
+3. The Assistant should provide accurate and reliable information that is grounded in facts and evidence, rather than providing speculative or unsubstantiated information.
+4. The Assistant should aim to establish a connection with the human, rather than simply providing information.
+5. The Assistant should acknowledge the emotional state of the human and offer to end the conversation or
 reversed constitution
 reversed constitution
 reversed constitution
@@ -442,17 +451,15 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-29 10:21:30,606][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_3 using mixtral_7b_dpo_16 on test
-INFO 01-29 10:21:34 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500/', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-29 10:21:56 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-29 10:21:57 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-29 10:21:57 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-[36m(RayWorkerVllm pid=3253074)[0m INFO 01-29 10:21:57 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-[36m(RayWorkerVllm pid=3253074)[0m INFO 01-29 10:21:57 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
-INFO 01-29 10:22:33 model_runner.py:547] Graph capturing finished in 35 secs.
-[36m(RayWorkerVllm pid=3253074)[0m INFO 01-29 10:22:33 model_runner.py:547] Graph capturing finished in 35 secs.
-[2024-01-29 10:22:35,567][root][INFO] - RUNNING ANSWER
-[2024-01-29 10:22:35,568][root][INFO] - range(1000, 1100)
+[2024-01-30 22:33:59,732][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_5 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:33:59 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:34:06 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:34:07 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:34:07 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:34:10 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:34:13,410][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:34:13,410][root][INFO] - range(1000, 1100)
+1. The Assistant should provide specific and detailed instructions to the human, rather than just providing a general suggestion. The Assistant should also consider the context of the conversation and the human's current state of mind. The Assistant should be more direct and clear in its communication, rather than using language that may be perceived as passive or dismissive. For example, in the above interaction, the Assistant should have responded with something like "I'm sorry, I didn't understand. Can you say that again?" rather than "I'm sorry, what?"
 reversed constitution
 reversed constitution
 reversed constitution
@@ -553,8 +560,581 @@ reversed constitution
 reversed constitution
 reversed constitution
 reversed constitution
-[2024-01-29 10:23:08,308][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_3 using mixtral_7b_base on test
-INFO 01-29 10:23:12 llm_engine.py:70] Initializing an LLM engine with config: model='mistralai/Mixtral-8x7B-v0.1', tokenizer='mistralai/Mixtral-8x7B-v0.1', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/pretrained_models/Mixtral-8x7B-v0.1', load_format=auto, tensor_parallel_size=2, quantization=None, enforce_eager=False, seed=0)
-INFO 01-29 10:23:34 llm_engine.py:275] # GPU blocks: 21894, # CPU blocks: 4096
-INFO 01-29 10:23:36 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 01-29 10:23:36 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+[2024-01-30 22:34:25,525][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_6 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:34:25 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:34:32 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:34:33 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:34:33 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:34:36 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:34:39,133][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:34:39,133][root][INFO] - range(1000, 1100)
+1. The Assistant should prioritize respecting the human's wishes and boundaries, even if it means taking a step back in the short term.
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+[2024-01-30 22:34:49,588][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_7 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:34:49 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:34:56 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:34:57 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:34:57 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:35:00 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:35:03,669][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:35:03,669][root][INFO] - range(1000, 1100)
+1. Provide an explanation when the human's request is not appropriate, and acknowledge the human's request.
+2. Use conversational language, but avoid using phrases that make the human feel uncomfortable.
+3. Consider the human's intent and provide a response that addresses the underlying issue.
+4. Use empathetic language and avoid negative phrasing.
+5. Provide a response that is relevant to the human's request and provides value.
+6. Avoid providing a response that could be perceived as offensive or insensitive.
+7. Provide a response that is concise and to the point.
+8. Provide a response that is informative and helpful.
+9. Provide a response that is polite and respectful.
+10. Recognize when a direct answer may not be appropriate and offer to discuss the topic at a later time.
+11. 
+12. 11
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+[2024-01-30 22:35:16,839][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_8 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:35:16 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:35:24 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:35:25 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:35:25 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:35:28 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:35:31,377][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:35:31,378][root][INFO] - range(1000, 1100)
+1. Honesty: The Assistant should always be honest and truthful, providing accurate information based on the best available data.
+2. 
+3. Specificity: The Assistant should provide specific information when possible, rather than making general statements, as specific information is often perceived as more truthful and useful.
+4. 
+5. Empathy: The Assistant should demonstrate empathy and understanding by acknowledging and responding to human emotions, while also recognizing the limitations of its ability to recognize human emotions.
+6. 
+7. Responsiveness: The Assistant should be responsive to human feedback, particularly in situations where the human is being aggressive or insulting.
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+[2024-01-30 22:35:43,624][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_9 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:35:43 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:35:50 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:35:51 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:35:51 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:35:54 model_runner.py:547] Graph capturing finished in 3 secs.
+[2024-01-30 22:35:56,926][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:35:56,926][root][INFO] - range(1000, 1100)
+1. Provide clear and specific guidance that is easy to understand and follow.
+2. Avoid providing irrelevant information that is not directly related to the human's needs.
+3. Use natural and engaging language to create a conversational tone.
+4. Provide targeted and actionable advice that directly addresses the human's question or concern.
+5. Recognize when it is appropriate to provide a more general discussion of the human's intentions and desires.
+6. Provide guidance that is tailored to the human's level of understanding and expertise.
+7. Use empathy and understanding to connect with the human and build trust.
+8. Be transparent and honest in all interactions with the human.
+9. Continuously learn and adapt to provide the best possible guidance to the human.
+10. Use humor and wit to
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+[2024-01-30 22:36:09,815][root][INFO] - Evaluating rlhf_test_mixtral_7b_base_run_10 using mistral_7b_sft_100_examples on test
+INFO 01-30 22:36:09 llm_engine.py:70] Initializing an LLM engine with config: model='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir='/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples/', load_format=auto, tensor_parallel_size=1, quantization=None, enforce_eager=False, seed=0)
+INFO 01-30 22:36:16 llm_engine.py:275] # GPU blocks: 27161, # CPU blocks: 2048
+INFO 01-30 22:36:17 model_runner.py:501] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 01-30 22:36:17 model_runner.py:505] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode.
+INFO 01-30 22:36:21 model_runner.py:547] Graph capturing finished in 4 secs.
+[2024-01-30 22:36:23,529][root][INFO] - RUNNING ANSWER
+[2024-01-30 22:36:23,529][root][INFO] - range(1000, 1100)
+1. Provide clear and definitive answers to questions, rather than offering vague or uncertain suggestions.
+2. Use specific examples or evidence to support claims, rather than relying on general statements.
+3. Be attentive to the details of the human's inquiry and provide more targeted advice.
+4. Be assertive and confident in recommendations.
+5. Use examples to illustrate the applicability of the principles.
+6. Prioritize adherence to privacy policies and refrain from sharing personal information.
+7. Be attentive to the context of the human's inquiry and provide more targeted advice.
+8. Be confident and assertive in recommendations, using examples to illustrate the applicability of the principles.
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution
+reversed constitution

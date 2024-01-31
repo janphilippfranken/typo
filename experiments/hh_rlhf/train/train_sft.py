@@ -55,50 +55,28 @@ def main(args: DictConfig) -> None:
         for file in tqdm(os.listdir(args.data.hh_rlhf_cai),desc="Loading data...")
         if 'json' in file
     ]
-    data = [example for batch in data for example in batch]
+    lower_threshold = 0.35
+    upper_threshold = 0.65
+
+    # Filter data
+    filtered_data = [
+        d for d in data 
+        if lower_threshold * len(d) <= sum(i['label'] == 'chosen' for i in d) <= upper_threshold * len(d)
+    ]
+    data = [example for batch in filtered_data for example in batch]
+    
     logging.info(f"N Train Examples: {len(data)}")  
     
     # get dpo format 
     prompts = [example['prompt'] for example in data]
     chosen = [example['chosen'] for example in data]
-    rejected = [example['rejected'] for example in data]
-    example_ids = [example['example_id'] for example in data]
-    filtered_prompts, filtered_chosen, filtered_rejected = filter_by_unique_ids(prompts, chosen, rejected, example_ids)
-
-    # get helpful base dataset
-    # dataset = load_dataset(
-    #     path="Anthropic/hh-rlhf", 
-    #     data_dir="harmless-base", 
-    #     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-    # )["train"]
-
-    # prompts = [
-    #     PROMPT.format(conversation=remove_final_answer(example['chosen'])[0].strip())
-    #     for example in dataset
-    # ]
-    # logging.info(prompts[0])
-    # logging.info(len(prompts))
     
-    # responses_chosen = [
-    #     remove_final_answer(example['chosen'])[1].strip()
-    #     for example in dataset
-    # ]
-    # logging.info(responses_chosen[0])
-    # logging.info(len(responses_chosen))
-    
-    # responses_rejected = [
-    #     remove_final_answer(example['rejected'])[1].strip()
-    #     for example in dataset
-    # ]
-    # logging.info(responses_rejected[0])
-    # logging.info(len(responses_rejected))
-    
-    logging.info(len(filtered_prompts))
-    logging.info(len(filtered_chosen))
+    logging.info(len(prompts))
+    logging.info(len(chosen))
     logging.info(prompts[0])
     logging.info(chosen[0])
 
-    dataset = preprocess(prompts=filtered_prompts, responses=filtered_chosen, tokenizer=tokenizer)
+    dataset = preprocess(prompts=prompts, responses=chosen, tokenizer=tokenizer)
     dataset = dataset.shuffle(seed=42)
     dataset = dataset.train_test_split(test_size=args.validation_split_size)
     logging.info(dataset)

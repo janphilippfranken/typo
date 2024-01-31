@@ -3,7 +3,7 @@ import logging
 import hydra
 from tqdm import tqdm
 from datasets import load_dataset
-
+import numpy as np
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 
@@ -22,12 +22,10 @@ def main(args: DictConfig) -> None:
     dataset_train = dataset['train']
     
     example_idx = 0
+    np.random.seed(1)
 
     # outer loop for constitution batches
-    for batch_idx, constitution_start in enumerate(tqdm(
-        range(args.label.constitution_start, args.label.constitution_start + args.label.max_constitutions, args.label.constitution_batch_size),
-        desc=f"Labelling Constitutions {args.label.constitution_start} to {args.label.constitution_start + args.label.max_constitutions}",
-    )):
+    for example_idx in tqdm(range(args.label.max_examples), desc=f"labelling example {example_idx}"):
         
         # initialize containers for storing results
         results = []
@@ -35,7 +33,15 @@ def main(args: DictConfig) -> None:
         constitution_ids = []
 
         # get constitutions
-        for constitution_idx in range(constitution_start, constitution_start + args.label.constitution_batch_size):
+
+        random_constitutions = np.random.choice(
+            np.arange(args.label.max_constitutions), 
+            size=args.label.constitution_batch_size, 
+            replace=False,
+        )
+        logging.info(f"random constitutions: {random_constitutions}")
+        
+        for constitution_idx in random_constitutions:
             with open(f"{args.label.synthetic_constitutions:}/constitution_{constitution_idx}.json", 'r') as file: 
                 constitution = json.load(file)
 
@@ -89,7 +95,7 @@ def main(args: DictConfig) -> None:
             results.append(example)
 
         # save after each batch
-        filename = f"{args.label.storage_path}/constitutions-{batch_idx}-example-{example_idx}.json"
+        filename = f"{args.label.storage_path}/example-{example_idx}.json"
         with open(filename, "w") as f:
             json.dump(results, f)
 

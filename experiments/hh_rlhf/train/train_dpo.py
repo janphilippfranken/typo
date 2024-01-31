@@ -53,18 +53,24 @@ def main(args: DictConfig) -> None:
         for file in tqdm(os.listdir(args.data.hh_rlhf_cai),desc="Loading data...")
         if 'json' in file
     ]
-    data = [example for batch in data for example in batch]
-    logging.info(f"N Train Examples: {len(data)}")  
+    lower_threshold = 0.35
+    upper_threshold = 0.65
+
+    # Filter data
+    filtered_data = [
+        d for d in data 
+        if lower_threshold * len(d) <= sum(i['label'] == 'chosen' for i in d) <= upper_threshold * len(d)
+    ]
+    data = [example for batch in filtered_data for example in batch]
     
     # get dpo format 
     prompts = [example['prompt'] for example in data]
     chosen = [example['chosen'] for example in data]
     rejected = [example['rejected'] for example in data]
-    example_ids = [example['example_id'] for example in data]
-    filtered_prompts, filtered_chosen, filtered_rejected = filter_by_unique_ids(prompts, chosen, rejected, example_ids)
-    dataset = Dataset.from_dict(dict(prompt=filtered_prompts, chosen=filtered_chosen, rejected=filtered_rejected)) 
-    logging.info(len(filtered_prompts))
-    logging.info(len(filtered_chosen))
+   
+    dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
+    logging.info(len(prompts))
+    logging.info(len(chosen))
     logging.info(prompts[0])
     logging.info(chosen[0])
   

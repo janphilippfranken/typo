@@ -3,12 +3,12 @@ hydra:
     dir: outputs
 
 defaults:
-  - model: null
+  - model: mistral_7b_sft_100_examples
   - data: hh_rlhf
 
 # path to constitutions we are evaluating 
 constitution_path: ../sample/constitutions
-constitution_file: null
+constitution_file: rlhf_reversed_test_mixtral_7b_base_run_1
 split: test
 
 evaluation_prompt: evaluation_prompt_answer # prompt we are using for eval (same as for training)

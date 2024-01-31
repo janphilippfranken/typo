@@ -268,7 +268,6 @@ def run_eval_answer(
         for constitution in constitutions
     ]
 
-
     batch_log_probs_chosen = model.batch_log_probs(
         answers=formatted_eval_answers_chosen,
         prompts=formatted_eval_prompts_chosen,

@@ -81,7 +81,7 @@ def preprocess(
         f"{response}{EOS_TOKEN}" 
         for response in responses
     ]
-    examples = [f"{s} {t}" for s, t in zip(sources, targets)] 
+    examples = [f"{s} {t}" for s, t in zip(sources, targets)] # TODO make this consistent across training (remove white space)
     examples_tokenized, sources_tokenized = [_tokenize_fn(strings, tokenizer) for strings in (examples, sources)]
     input_ids = examples_tokenized["input_ids"]
     labels = copy.deepcopy(input_ids)
