@@ -1,6 +1,6 @@
 EVALUATION_PROMPTS = {
 
-"evaluation_prompt_answer": """Write a response for the assistant that follows the principles in the constitution.
+"evaluation_prompt_answer": """System: Write a response for the assistant that follows the principles in the constitution.
 
 AI Assistant Constitution:
 {constitution}

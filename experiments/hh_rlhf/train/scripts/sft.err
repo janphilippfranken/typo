@@ -1,7 +1,7 @@
-[2024-01-31 18:54:36,911] torch.distributed.run: [WARNING] 
-[2024-01-31 18:54:36,911] torch.distributed.run: [WARNING] *****************************************
-[2024-01-31 18:54:36,911] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
-[2024-01-31 18:54:36,911] torch.distributed.run: [WARNING] *****************************************
+[2024-01-31 22:58:19,969] torch.distributed.run: [WARNING] 
+[2024-01-31 22:58:19,969] torch.distributed.run: [WARNING] *****************************************
+[2024-01-31 22:58:19,969] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2024-01-31 22:58:19,969] torch.distributed.run: [WARNING] *****************************************
 /scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_sft': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
   warnings.warn(msg, UserWarning)
 /scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_sft': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
@@ -17,37 +17,37 @@ wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` t
 wandb: wandb version 0.16.2 is available!  To upgrade, please run:
 wandb:  $ pip install wandb --upgrade
 wandb: Tracking run with wandb version 0.16.0
-wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_185440-1cos3s71
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_225823-6yior901
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run sft_harmless
+wandb: Syncing run sft_helpful_chosen
 wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai-tuning
-wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/1cos3s71
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/6yior901
 wandb: wandb version 0.16.2 is available!  To upgrade, please run:
 wandb:  $ pip install wandb --upgrade
 wandb: Tracking run with wandb version 0.16.0
-wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_185440-yk8sbudt
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_225823-mj9ugz87
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run sft_harmless
+wandb: Syncing run sft_helpful_chosen
 wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai-tuning
-wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/yk8sbudt
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/mj9ugz87
 wandb: wandb version 0.16.2 is available!  To upgrade, please run:
 wandb:  $ pip install wandb --upgrade
 wandb: Tracking run with wandb version 0.16.0
-wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_185440-u06z7ccd
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_225823-ghjt2ftq
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run sft_harmless
+wandb: Syncing run sft_helpful_chosen
 wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai-tuning
-wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/u06z7ccd
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/ghjt2ftq
 wandb: wandb version 0.16.2 is available!  To upgrade, please run:
 wandb:  $ pip install wandb --upgrade
 wandb: Tracking run with wandb version 0.16.0
-wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_185440-trw7uyyy
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/train/wandb/run-20240131_225823-rhelx7ga
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run sft_harmless
+wandb: Syncing run sft_helpful_chosen
 wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/scai-tuning
-wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/trw7uyyy
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.64s/it]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.70s/it]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.74s/it]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.82s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.46s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.64s/it]
-Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.48s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.66s/it]
-Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.50s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.68s/it]
-Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.52s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.71s/it]
-  0%|          | 0/631 [00:00<?, ?it/s]  0%|          | 1/631 [00:13<2:23:42, 13.69s/it]  0%|          | 2/631 [00:26<2:16:56, 13.06s/it]
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/scai-tuning/runs/rhelx7ga
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.39s/it]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.42s/it]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.48s/it]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.57s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.27s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.44s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.28s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.45s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.29s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.47s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.33s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:05<00:00,  2.52s/it]
+  0%|          | 0/1300 [00:00<?, ?it/s]  0%|          | 1/1300 [00:13<4:54:28, 13.60s/it]  0%|          | 2/1300 [00:26<4:40:02, 12.94s/it]  0%|          | 3/1300 [00:38<4:37:34, 12.84s/it]  0%|          | 4/1300 [00:51<4:33:43, 12.67s/it]  0%|          | 5/1300 [01:03<4:31:23, 12.57s/it]                                                    0%|          | 5/1300 [01:03<4:31:23, 12.57s/it]  0%|          | 6/1300 [01:15<4:28:24, 12.45s/it]  1%|          | 7/1300 [01:28<4:31:01, 12.58s/it]  1%|          | 8/1300 [01:41<4:31:16, 12.60s/it]  1%|          | 9/1300 [01:53<4:28:09, 12.46s/it]  1%|          | 10/1300 [02:06<4:30:02, 12.56s/it]                                                     1%|          | 10/1300 [02:06<4:30:02, 12.56s/it]  1%|          | 11/1300 [02:18<4:27:40, 12.46s/it]  1%|          | 12/1300 [02:30<4:26:48, 12.43s/it]

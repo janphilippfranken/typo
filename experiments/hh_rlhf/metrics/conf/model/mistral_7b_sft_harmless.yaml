@@ -1,0 +1,21 @@
+
+hydra:
+  run:
+    dir: outputs
+
+model_type: vllm
+name: mistral_7b_sft_harmless
+
+model_config:
+  model: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_harmless/
+  download_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_harmless/
+  dtype: auto
+  tensor_parallel_size: 1
+  quantization: null
+
+completion_config:
+  temperature: 0.0
+  top_p: 0.9
+  max_new_tokens: 450
+  num_return_sequences: 1
+

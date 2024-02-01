@@ -45,8 +45,12 @@ def main(args: DictConfig) -> None:
     # data 
     if args.data.type == "human":
         prompts, chosen, rejected = get_sft_data_human(args)
-        full_prompts = prompts + prompts
-        full_responses = chosen + rejected
+        if args.data.dataset.data_dir == "harmless-base":
+            full_prompts = prompts + prompts
+            full_responses = chosen + rejected
+        elif args.data.dataset.data_dir == "helpful-base":
+            full_prompts = prompts
+            full_responses = chosen
         logging.info(full_prompts[0])
         logging.info(full_prompts[len(full_prompts)//2])
         logging.info(full_responses[0])

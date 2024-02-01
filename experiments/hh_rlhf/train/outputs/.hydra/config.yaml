@@ -12,22 +12,22 @@ data:
   type: human
   dataset:
     path: Anthropic/hh-rlhf
-    data_dir: harmless-base
+    data_dir: helpful-base
     cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
   split: train
 wandb:
   project: scai-tuning
   log_model: checkpoint
-  name: sft_harmless
+  name: sft_helpful_chosen
 validation_split_size: 0.05
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_harmless
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_helpful_chosen
   per_device_train_batch_size: 1
   per_device_eval_batch_size: 1
   gradient_accumulation_steps: 32
   learning_rate: 2.0e-05
-  num_train_epochs: 1
-  save_total_limit: 1
+  num_train_epochs: 4
+  save_total_limit: 4
   evaluation_strategy: epoch
   seed: 42
   save_strategy: epoch

@@ -277,7 +277,6 @@ def run_eval_answer(
         answers=formatted_eval_answers_rejected,
         prompts=formatted_eval_prompts_rejected,
     )
-
     
     return batch_log_probs_chosen, batch_log_probs_rejected, final_answer_chosen, final_answer_rejected
 
