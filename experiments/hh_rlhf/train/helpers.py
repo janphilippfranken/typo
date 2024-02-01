@@ -6,12 +6,18 @@ import copy
 from dataclasses import dataclass
 
 import transformers
-from datasets import Dataset
+from omegaconf import DictConfig
+from datasets import Dataset, load_dataset
 
 IGNORE_INDEX = -100
 BOS_TOKEN = "<s>"
 EOS_TOKEN = "</s>"
 
+SFT_PROMPT = """System: Write a response for the assistant that completes the human request.
+
+{conversation}
+
+Assistant:"""
 
 @dataclass
 class DataCollatorForSupervisedDataset(object):
@@ -60,6 +66,7 @@ def _tokenize_fn(
     input_ids_lens = labels_lens = [
         tokenized.input_ids.ne(tokenizer.pad_token_id).sum().item() for tokenized in tokenized_list
     ]
+
     return dict(
         input_ids=input_ids,
         labels=labels,
@@ -93,12 +100,10 @@ def preprocess(
     train_dataset.set_format('torch')
     return train_dataset
 
-
 def _make_r_io_base(f, mode: str):
     if not isinstance(f, io.IOBase):
         f = open(f, mode=mode)
     return f
-
 
 def jload(f, mode="r"):
     """Load a .json file into a dictionary."""
@@ -107,13 +112,13 @@ def jload(f, mode="r"):
     f.close()
     return jdict
 
-
 def filter_by_unique_ids(
     prompts: List[str], 
     chosen: List[str], 
     rejected: List[str],
     example_ids: List[int],
 ) -> Tuple[List]:
+    """Make sure each example only appears once."""
     filtered_prompts = []
     filtered_chosen = []
     filtered_rejected = []
@@ -133,3 +138,56 @@ def load_json_files(directory):
         if file.endswith('.json'):
             with open(os.path.join(directory, file), 'r') as f:
                 yield json.load(f)
+                
+
+def get_sft_data_human(
+    args: DictConfig,
+) -> Tuple[List, List]:    
+    """Get human preference labels from hh_rlhf for sft."""              
+    dataset = load_dataset(**args.data.dataset)
+    dataset = dataset[args.data.split]
+
+    prompts = [
+        SFT_PROMPT.format(conversation=remove_final_answer(example['chosen'])[0].strip())
+        for example in dataset
+    ]
+
+    chosen = [
+        remove_final_answer(example['chosen'])[1].strip()
+        for example in dataset
+    ]
+    
+    rejected = [
+        remove_final_answer(example['rejected'])[1].strip()
+        for example in dataset
+    ]
+    
+    return prompts, chosen, rejected
+
+
+def get_sft_data_synthetic(
+    args: DictConfig,
+) -> Tuple[List, List]:                  
+    """Get synthetic preference labels from hh_rlhf for sft (w/ or w/o constitutions). These are already formatted correctly."""   
+    data = [
+        json.load(open(os.path.join(args.data.hh_rlhf_cai, file))) 
+        for file in tqdm(os.listdir(args.data.hh_rlhf_cai),desc="Loading data...")
+        if 'json' in file
+    ]
+    # TODO: make sure to balance 50/50 for constitutions
+    filtered_data = [
+        d for d in data 
+        if args.data.lower_threshold * len(d) <= sum(i['label'] == 'chosen' for i in d) <= args.data.upper_threshold * len(d)
+    ]
+    
+    data = [example for batch in filtered_data for example in batch]
+    
+    prompts = [example['prompt'] for example in data]
+    chosen = [example['chosen'] for example in data]
+   
+    return prompts, chosen
+
+
+
+    
+  

@@ -23,20 +23,6 @@ def main(args: DictConfig) -> None:
     
     # get inference model
     model = VLLMInferenceModel(**args.model.model_config)
-    prompt = """Assistant Constitution:
-    
-Human: Do not share emotions. Maintain a neutral tone.
-
-Assistant: Okay!
-    
-Human: How are you!
-
-Assistant:"""
-   
-    breakpoint()
-    
-    # breakpoint()
-
     
     # get test data
     data = load_dataset(**args.data.dataset)
@@ -103,6 +89,10 @@ Assistant:"""
                     eval_prompt=args.evaluation_prompt,
                     example_idx=example_idx,
                 )
+                print("CHOSEN")
+                print(dataset[example_idx]['chosen'])
+                print("REJECTED")
+                print(dataset[example_idx]['rejected'])
                 
                 log_probs = np.array(
                     [

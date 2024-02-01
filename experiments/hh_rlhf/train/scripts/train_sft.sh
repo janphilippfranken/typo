@@ -7,8 +7,8 @@
 #SBATCH --mem=312GB                         # Memory request
 #SBATCH --cpus-per-task=48                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=sft_100_examples.out
-#SBATCH --error=sft_100_examples.err
+#SBATCH --output=sft.out
+#SBATCH --error=sft.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning

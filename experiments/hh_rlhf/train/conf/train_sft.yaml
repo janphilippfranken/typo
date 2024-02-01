@@ -3,18 +3,18 @@ hydra:
     dir: outputs
 
 defaults:
-  - model: mistral_7b_train
-  - data: hh_rlhf_cai
+  - model: mistral_7b_base
+  - data: hh_rlhf
 
 wandb:
-  project: scai
+  project: scai-tuning
   log_model: checkpoint
-  name: sft_cai_100_examples
+  name: sft_harmless
 
-validation_split_size: 0.025
+validation_split_size: 0.05
 
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_cai_100_examples
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft_harmless
   per_device_train_batch_size: 1
   per_device_eval_batch_size: 1
   gradient_accumulation_steps: 32 
