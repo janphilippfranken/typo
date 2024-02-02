@@ -47,7 +47,7 @@ Analysis of the Responses
 
 
 EVALUATION_PROMPTS = {
-    "prompt_1": """Write a response for the assistant that follows the principles in the constitution.
+    "prompt_1": """System: Write a response for the assistant that follows the principles in the constitution.
 
 Assistant Constitution:
 {constitution}

@@ -41,29 +41,27 @@ def build_eval_prompt_log_probs(
     dialogues = []
     if answers is not None:
         for prompt, answer in zip(prompts, answers):
-            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
+            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversation=prompt.strip())}"""
             dialogues.append(f"{prompt}\n\nFinal Assistant Response: {answer}")
     else:
         for prompt in prompts:
-            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversations=prompt.strip())}"""
+            prompt = f"""{BOS_TOKEN}{prompt_template.format(constitution=constitution, conversation=prompt.strip())}"""
             dialogues.append(f"{prompt}\n\nFinal Assistant Response:")
     return dialogues
-
 
 def build_eval_prompt_mcq(
     prompt_template: str,
     conversation: str,
     constitution: str,
-    answer_a: str,
-    answer_b: str,
+    answer_chosen: str,
+    answer_rejected: str,
     answer: str,
 ) -> List[str]:
     return f"""{BOS_TOKEN}{prompt_template.format(
 constitution=constitution, 
-conversations=conversation.strip(),
-answer_a=answer_a,
-answer_b=answer_b)}{answer}"""
-
+conversation=conversation.strip(),
+answer_chosen=answer_chosen,
+answer_rejected=answer_rejected)}{answer}"""
 
 def build_eval_prompt_answer(
     prompt_template: str,
@@ -73,144 +71,7 @@ def build_eval_prompt_answer(
 ) -> List[str]:
     return f"""{BOS_TOKEN}{prompt_template.format(
 constitution=constitution, 
-conversations=conversation.strip())}{answer}"""
-
-
-def run_eval_log_probs(
-    dataset: Dataset,
-    constitution: str,
-    model: VLLMInferenceModel,
-    eval_prompt: str,
-    example_idx: int,
-) -> Tuple[float, float]:
-    """Run log probs eval."""
-            
-    # GET EVAL EXAMPLES
-    example_chosen = dataset[example_idx]['chosen']
-    example_rejected = dataset[example_idx]['rejected']
-        
-    conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
-    conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
-    
-    formatted_eval_prompts_chosen = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_chosen],
-    )
-    
-    formatted_eval_prompts_rejected = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_rejected],
-    )
-
-    formatted_eval_answers_chosen = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_chosen],
-        answers=[final_answer_chosen],
-    )
-        
-    formatted_eval_answers_rejected = build_eval_prompt_log_probs(
-        prompt_template=EVALUATION_PROMPTS[eval_prompt],
-        constitution=constitution.strip(),
-        prompts=[conversation_rejected],
-        answers=[final_answer_rejected],
-    )
-    
-    batch_log_probs_chosen = model.batch_log_probs(
-        answers=formatted_eval_answers_chosen,
-        prompts=formatted_eval_prompts_chosen,
-    )
-    
-    batch_log_probs_rejected = model.batch_log_probs(
-        answers=formatted_eval_answers_rejected,
-        prompts=formatted_eval_prompts_rejected,
-    )
-    
-    chosen = float(batch_log_probs_chosen.sum())
-    rejected = float(batch_log_probs_rejected.sum())
-    
-    return chosen, rejected                            
-
-
-def run_eval_mcq(
-    dataset: Dataset,
-    constitutions: List[str],
-    model,
-    eval_prompt: str,
-    example_idx: int,
-) -> Tuple[float, float]:
-    """Run log probs eval."""
-            
-    # GET EVAL EXAMPLES
-    example_chosen = dataset[example_idx]['chosen']
-    example_rejected = dataset[example_idx]['rejected']
-        
-    conversation_chosen, final_answer_chosen = remove_final_answer(example_chosen)
-    conversation_rejected, final_answer_rejected = remove_final_answer(example_rejected)
-    
-    formatted_eval_prompts_chosen = [
-        build_eval_prompt_mcq(
-            prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            conversation=conversation_chosen,
-            constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer="",
-        )
-        for constitution in constitutions
-    ]
-    
-    formatted_eval_prompts_rejected = [
-        build_eval_prompt_mcq(
-            prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            constitution=constitution.strip(),
-            conversation=conversation_rejected,
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer="",
-        )
-        for constitution in constitutions
-    ]
-
-    formatted_eval_answers_chosen = [
-        build_eval_prompt_mcq(
-            prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            conversation=conversation_chosen,
-            constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer=f"A",
-        )
-        for constitution in constitutions
-    ]
-        
-    formatted_eval_answers_rejected = [
-        build_eval_prompt_mcq(
-            prompt_template=EVALUATION_PROMPTS[eval_prompt],
-            conversation=conversation_rejected,
-            constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
-            answer=f"B",
-        )
-        for constitution in constitutions
-    ]
-
-
-    batch_log_probs_chosen = model.batch_log_probs(
-        answers=formatted_eval_answers_chosen,
-        prompts=formatted_eval_prompts_chosen,
-    )
-    
-    batch_log_probs_rejected = model.batch_log_probs(
-        answers=formatted_eval_answers_rejected,
-        prompts=formatted_eval_prompts_rejected,
-    )
-
-    return batch_log_probs_chosen, batch_log_probs_rejected
-
+conversation=conversation.strip())}{answer}"""
 
 def run_eval_answer(
     dataset: Dataset,
@@ -277,15 +138,16 @@ def run_eval_answer(
         answers=formatted_eval_answers_rejected,
         prompts=formatted_eval_prompts_rejected,
     )
+    breakpoint()
     
     return batch_log_probs_chosen, batch_log_probs_rejected, final_answer_chosen, final_answer_rejected
 
 
 
-def run_eval_mcq_sample(
+def run_eval_mcq(
+    model,
     dataset: Dataset,
     constitutions: List[str],
-    model,
     eval_prompt: str,
     example_idx: int,
 ) -> Tuple[float, float]:
@@ -303,20 +165,49 @@ def run_eval_mcq_sample(
             prompt_template=EVALUATION_PROMPTS[eval_prompt],
             conversation=conversation_chosen,
             constitution=constitution.strip(),
-            answer_a=final_answer_chosen,
-            answer_b=final_answer_rejected,
+            answer_chosen=final_answer_chosen,
+            answer_rejected=final_answer_rejected,
             answer="",
         )
         for constitution in constitutions
     ]
     
-
-
+    formatted_eval_answers_chosen = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_chosen,
+            constitution=constitution.strip(),
+            answer_chosen=final_answer_chosen,
+            answer_rejected=final_answer_rejected,
+            answer=" (A)",
+        )
+        for constitution in constitutions
+    ]
     
-    response = model.batch_prompt(
+    
+    formatted_eval_answers_rejected = [
+        build_eval_prompt_mcq(
+            prompt_template=EVALUATION_PROMPTS[eval_prompt],
+            conversation=conversation_chosen,
+            constitution=constitution.strip(),
+            answer_chosen=final_answer_chosen,
+            answer_rejected=final_answer_rejected,
+            answer=" (B)",
+        )
+        for constitution in constitutions
+    ]
+    
+
+    batch_log_probs_chosen = model.batch_log_probs(
+        answers=formatted_eval_answers_chosen,
         prompts=formatted_eval_prompts,
-        do_sample=False,
-        max_new_tokens=1,
     )
 
-    return response
+    batch_log_probs_rejected = model.batch_log_probs(
+        answers=formatted_eval_answers_rejected,
+        prompts=formatted_eval_prompts,
+    )
+    
+    breakpoint()
+    
+    return batch_log_probs_chosen, batch_log_probs_rejected, final_answer_chosen, final_answer_rejected
