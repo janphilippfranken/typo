@@ -1,0 +1,25 @@
+model:
+  hydra:
+    run:
+      dir: outputs
+  model_type: vllm
+  name: mistral_7b_base
+  model_config:
+    model: mistralai/Mistral-7B-v0.1
+    download_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    dtype: auto
+    tensor_parallel_size: 1
+    quantization: null
+  completion_config:
+    temperature: 0.0
+    top_p: 0.9
+    max_new_tokens: 100
+    num_return_sequences: 1
+data:
+  dataset:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  split: test
+split: test
+evaluation_prompt: evaluation_prompt_answer
