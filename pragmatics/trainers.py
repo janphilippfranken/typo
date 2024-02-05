@@ -132,6 +132,17 @@ def prepare_logits_labels(
     for label, prompt_len in zip(labels, prompts_tokenized["input_ids_lens"]):
         label[:prompt_len] = ignore_idx
     breakpoint()
+    
+    
+   
+        input_ids = torch.nn.utils.rnn.pad_sequence(
+            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
+        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
+        return dict(
+            input_ids=input_ids,
+            labels=labels,
+            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
    
     logits = model(
         input_ids=input_ids,
