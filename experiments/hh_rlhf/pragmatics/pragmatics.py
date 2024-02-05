@@ -23,27 +23,35 @@ logging.basicConfig(level=logging.INFO)
 @hydra.main(version_base=None, config_path="conf", config_name="pragmatics")
 def main(args: DictConfig) -> None:
     
-    # get inference model
+    # inference model 
     model = VLLMInferenceModel(**args.model.model_config)
     
-    # get test data
+    # dataset 
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
-    
-    
-    probs = None
  
-    for example_idx in range(100):
-        breakpoint()
-        responses = \
+    # loop over examples 
+    for example_idx in range(args.n_examples):
+        
+        # response batch of shape: [constitution_batch_size, num_return_sequences]
+        responses = \ 
             run_gen_answer(
             model=model,
             dataset=dataset,
-            constitutions=CONSTITUTIONS,
+            constitutions=CONSTITUTIONS, # sample these 
             eval_prompt=args.evaluation_prompt,
             example_idx=example_idx,
         )
-        breakpoint()
+            
+        # compute logprobs of batch 
+        logits = None 
+        
+        # normalize twice to get targets 
+        targets = None 
+        
+        # compute cross entropy loss on class probabilities and logits 
+        
+        
                 
  
 if __name__ == '__main__':
