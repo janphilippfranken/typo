@@ -8,8 +8,8 @@ defaults:
 
 
 lora_config:
-  r: 256
-  lora_alpha: 128
+  r: 128
+  lora_alpha: 64
   lora_dropout: 0.1
   bias: none
   task_type: CAUSAL_LM
@@ -44,7 +44,7 @@ training_args:
   gradient_accumulation_steps: 8 
   logging_steps: 1
   logging_strategy: "steps"
-  learning_rate: 1e-6 # from dpo paper
+  learning_rate: 1e-6 
   num_train_epochs: 2
   max_steps: 5000
   save_strategy: steps
