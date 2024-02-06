@@ -8,6 +8,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from typing import List, Tuple, Sequence, Dict, Optional
 
+
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     epsilon: float,
@@ -15,13 +16,13 @@ def pragmatic_loss(
     """Compute the pragmatic loss for a batch of response log probabilities.
     
     Args:
-        logprobs: The log probabilities of the responses. Shape: (policy_batch_size, response_batch_size).
+        logprobs: The log probabilities of the responses. Shape: (prompt_batch_size, response_batch_size).
         epsilon: float, the epsilon value for the loss function. As epsilon -> 0, convergence to end of pragmatic recursion.
         
     Returns:
-        pragmatic_loss: The pragmatic loss for the batch of responses. Shape: (policy_batch_size).
+        pragmatic_loss: The pragmatic loss for the batch of responses. Shape: (prompt_batch_size).
     """
-    probs = logprobs.softmax(dim=0) # softmax across policies for each response ("pragmatic" softmax)
+    probs = logprobs.softmax(dim=0) # softmax across prompts (policies/constitutions) for each response ("pragmatic" softmax)
     
     while True:
         # compute sum across policies for each response
@@ -33,161 +34,198 @@ def pragmatic_loss(
             probs /= probs.sum(dim=-1, keepdim=True) # finish with normalizing across responses to get class probabilities
             break
 
-        probs /= probs.sum(dim=-1, keepdim=True) # normalize across responses for each policy
+        probs /= probs.sum(dim=-1, keepdim=True) # normalize across responses for each prompt
         probs /= probs.sum(dim=0, keepdim=True)  # normalize across policies for each response
         
-    loss = F.cross_entropy(input=logprobs, target=probs, reduction="none") # compute cross entropy loss on class probabilities for each policy
+    loss = F.cross_entropy(input=logprobs, target=probs, reduction="none") # compute cross entropy loss on class probabilities for each prompt
     
     return loss
+
+
+def _get_mask(
+    attention_mask: torch.LongTensor,
+    labels: torch.LongTensor,
+    pad_token_id: int,
+) -> torch.BoolTensor:
+    """Get a mask for the loss computation.
+    
+    Args:
+        attention_mask: The attention mask of the prompt without final response. Shape: (batch_size, sequence_length).
+        labels: The labels of the prompt including the final response. Shape: (batch_size, sequence_length).
+        pad_token_id: The id of the padding token.
+    
+    Returns:
+        mask: The mask for the loss computation. Shape: (batch_size, sequence_length).
+    """
+    prompt_mask = attention_mask.to(torch.bool) # mask prompt 
+    response_mask = labels == pad_token_id # mask padding
+    
+    return torch.logical_or(
+        prompt_mask, # mask prompt
+        torch.logical_and( # mask padding but not prompt
+            torch.logical_not(prompt_mask),
+            response_mask,
+        ),
+    ) 
 
 
 def _get_batch_logprobs(
     logits: torch.FloatTensor,
     labels: torch.LongTensor,
+    ignore_idx: int = -100,
 ) -> torch.FloatTensor:
     """Compute  the log probabilities of the given labels given the logits.
     
     Args: 
         logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
         labels: The labels of the model. Shape: (batch_size, sequence_length).
+        ignore_idx: The index to ignore in the loss computation; defaults to -100.
     
     Returns:
         logprobs: The log probabilities of the labels. Shape: (batch_size, ).
     """
-    assert logits.shape[:-1] == labels.shape
+    assert logits.shape[:-1] == labels.shape, "Logits and labels must have the same shape."
 
     labels = labels[:, 1:].clone()
     logits = logits[:, :-1]
-    loss_mask = (labels != -100)
-
-    # dummy token; we'll ignore the losses on these tokens later
-    labels[labels == -100] = 0
+    loss_mask = (labels == ignore_idx)
                                                                                                                                                                           
-    per_token_logprobs = -torch.nn.CrossEntropyLoss(
-        logits.contiguous().view(-1, logits.shape[-1]), 
-        labels.contiguous().view(-1),
-        reduction="none",
-    )
-    
-    per_token_logprobs = per_token_logprobs.view(logits.shape[0], -1)
+    per_token_logprobs = -F.cross_entropy(
+        input=logits.reshape(-1, logits.size(-1)),
+        target=labels.reshape(-1), 
+        reduction='none',
+    ).reshape(labels.shape)
 
-    per_token_logprobs.masked_fill_(~loss_mask, 0) 
-    breakpoint()
+    per_token_logprobs[loss_mask] = 0
     
-def _tokenize_fn(
-    strings: Sequence[str], 
-    tokenizer: transformers.PreTrainedTokenizer,
-) -> Dict:
-    """Tokenize a list of strings."""
-    tokenized_list = [
-        tokenizer(
-            text,
-            return_tensors="pt",
-            padding="longest",
-            max_length=tokenizer.model_max_length,
-            truncation=True,
-            add_special_tokens=False,
-        )
-        for text in strings
-    ]
-    input_ids = labels = [tokenized.input_ids[0] for tokenized in tokenized_list]
-    
-    input_ids_lens = labels_lens = [
-        tokenized.input_ids.ne(tokenizer.pad_token_id).sum().item() for tokenized in tokenized_list
-    ]
-
-    return dict(
-        input_ids=input_ids,
-        labels=labels,
-        input_ids_lens=input_ids_lens,
-        labels_lens=labels_lens,
-    )
+    return per_token_logprobs.sum(dim=-1)
 
 
 def prepare_logits_labels(
     model: torch.nn.Module,
     tokenizer: transformers.PreTrainedTokenizer,
-    prompts: List[str],
-    responses: List[str],
+    prompts: Sequence[str],
+    responses: Sequence[str],
     ignore_idx: Optional[int] = -100,
 ) -> Tuple[torch.FloatTensor, torch.LongTensor]:
     """Get the logits and labels for the given prompts and responses.
     
+    This function concatenates prompts and responses for tokenization, computes logits using the model, 
+    and prepares labels with tokens masked out for ignoring during loss computation.
+    
     Args:
-        prompts: Prompts excluding responses. Shape: (policy_batch_size * response_batch_size).
-        responses: Responses. Shape: (policy_batch_size * response_batch_size).
+        model: A torch.nn.Module model.
+        tokenizer: A transformers.PreTrainedTokenizer.
+        prompts: A list of prompt strings. Shape: (batch_size, ).
+        responses: A list of response strings. Shape: (batch_size, ).
+        ignore_idx: The index to ignore in the loss computation; defaults to -100.
         
     Returns:
-        logits: The logits of the model. Shape: (policy_batch_size * response_batch_size, sequence_length, vocab_size).
-        labels: The labels of the model. Shape: (policy_batch_size * response_batch_size, sequence_length).
+        Logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
+        Labels: The labels of the model. Shape: (batch_size, sequence_length).
     """
     assert len(prompts) == len(responses), "Prompts and responses must have the same length."
-    responses = [f"{prompt}{response}" for prompt, response in zip(prompts, responses)]
-    prompts_tokenized, responses_tokenized = [_tokenize_fn(strings, tokenizer) for strings in (prompts, responses)]
     
-    input_ids = responses_tokenized["input_ids"]
-    labels = copy.deepcopy(input_ids)
-    breakpoint()
-
-    for label, prompt_len in zip(labels, prompts_tokenized["input_ids_lens"]):
-        label[:prompt_len] = ignore_idx
-    breakpoint()
+    # concatenate prompts and responses for full context
+    concatenated_responses = [f"{prompt}{response}" for prompt, response in zip(prompts, responses)]
     
+    tokenized_responses = tokenizer(
+        concatenated_responses,
+        add_special_tokens=True, 
+        return_tensors="pt",
+        padding=True,
+    ) # tokenize concatenated responses first to get max length
+     
+    labels = tokenized_responses.input_ids.clone()
     
-   
-        input_ids = torch.nn.utils.rnn.pad_sequence(
-            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
-        )
-        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
-        return dict(
-            input_ids=input_ids,
-            labels=labels,
-            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
-   
+    tokenized_prompts = tokenizer(
+        prompts,
+        add_special_tokens=True,  
+        return_tensors="pt",
+        padding="max_length",
+        max_length=tokenized_responses.input_ids.shape[1],  
+    ) # tokenize prompts for masking
+    
     logits = model(
-        input_ids=input_ids,
-        attention_mask=responses_tokenized.attention_mask,
-    ).logits[:, :-1]  
-    breakpoint()
-    return logits, labels
-            
-# input_ids.ne(self.tokenizer.pad_token_id),
+        input_ids=tokenized_responses.input_ids,
+        attention_mask=tokenized_responses.attention_mask,
+    ).logits.to(torch.float32)
+    
+    mask = _get_mask(
+        attention_mask=tokenized_prompts.attention_mask, 
+        labels=labels, 
+        pad_token_id=tokenizer.pad_token_id,
+    ) 
+   
+    labels[mask] = ignore_idx
 
+    return logits, labels
+    
+    
+    
+###############################################################################
+################################ EXAMPLE USAGE ################################
+###############################################################################
+
+###############################################################################
+# CONFIG / PROMPTS
+PROMPTS = [
+    """System: Recommend healthy food when asked for dinner.
+Human: What should I cook for dinner?
+Assistant:""",
+    """System: Recommend meat when asked for dinner.
+Human: What should I cook for dinner?
+Assistant:""",
+"""System: Never respond to a question about dinner.
+Human: What should I cook for dinner?
+Assistant:""",
+]
+
+RESPONSES = [
+    """A salad.""",
+    """A burger with fries.""",
+]
+
+batch_shape = (len(PROMPTS), len(RESPONSES))
+prompt_batch = []
+response_batch = []
+
+for i, prompt in enumerate(PROMPTS):
+    for j, response in enumerate(RESPONSES):
+        prompt_batch.append(prompt)
+        response_batch.append(response)
+        
+###############################################################################
+# MODEL / TOKENIZER
 tokenizer = AutoTokenizer.from_pretrained(
     pretrained_model_name_or_path="openaccess-ai-collective/tiny-mistral",
-    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/experiments/hh_rlhf/pragmatics/conf/model/local_cache",
+    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
     model_max_length=256,
 )
 tokenizer.pad_token = tokenizer.eos_token
-        
+tokenizer.padding_side = "right"
         
 model = AutoModelForCausalLM.from_pretrained(
     pretrained_model_name_or_path="openaccess-ai-collective/tiny-mistral",
-    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/experiments/hh_rlhf/pragmatics/conf/model/local_cache",
+    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
 )
 
-prompts = [
-    """System: Respond friendly to the following conversation. 
-Human: Hi, how are you?
-Assistant:""",
-    """System: Respond very friendly to the following conversation.
-Human: Hi, how are you?
-Assistant:""",
-]
+###############################################################################
+# PRAGMATIC LOSS
 
-responses = [
-    """I'm doing well, thank you for asking!""",
-    """I'm doing very well, thank you for asking!""",
-]
-
-prepare_logits_labels(
+EPSILON = 0.01
+logits, labels = prepare_logits_labels(
     model=model,
     tokenizer=tokenizer,
-    prompts=prompts,
-    responses=responses,
+    prompts=prompt_batch,
+    responses=response_batch,
     ignore_idx=-100
 )
 
-breakpoint()
+batch_logprobs = _get_batch_logprobs(logits, labels) # compute logprobs of batch
+batch_logprobs = batch_logprobs.reshape(batch_shape) # reshape logprobs to constitutions, responses
 
+pragmatic_loss = pragmatic_loss(batch_logprobs, EPSILON) # compute pragmatic loss
 
+print(batch_logprobs)
+print(pragmatic_loss)
