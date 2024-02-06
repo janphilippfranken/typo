@@ -11,13 +11,14 @@ from typing import List, Tuple, Sequence, Dict, Optional
 
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
-    epsilon: float,
     max_iter: int = 100,
+    epsilon: float = 1e-5,
 ) -> torch.FloatTensor:
     """Compute the pragmatic loss for a batch of response log probabilities.
     
     Args:
         logprobs: The log probabilities of the responses. Shape: (prompt_batch_size, response_batch_size).
+        max_iter: int, the maximum number of iterations for the pragmatic recursion.
         epsilon: float, the epsilon value for the loss function. As epsilon -> 0, convergence to end of pragmatic recursion.
         
     Returns:
@@ -42,7 +43,6 @@ def pragmatic_loss(
 
     return loss 
     
-
 
 def _get_mask(
     attention_mask: torch.LongTensor,
