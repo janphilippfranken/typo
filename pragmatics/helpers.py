@@ -128,3 +128,8 @@ def run_eval_answer(
     
     return batch_log_probs_chosen, batch_log_probs_rejected, final_answer_chosen, final_answer_rejected
 
+
+def rank0_print(*args, **kwargs):
+    """Print, but only on rank 0."""
+    if not dist.is_initialized() or dist.get_rank() == 0:
+        print(*args, **kwargs)

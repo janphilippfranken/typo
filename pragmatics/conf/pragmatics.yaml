@@ -8,6 +8,7 @@ defaults:
 
 debug: true
 
-n_examples: 100
-
-evaluation_prompt: evaluation_prompt_answer # prompt we are using for eval (same as for training)
+training:
+  n_epochs: 3
+  lr: 1e-6
+  batch_size: 1

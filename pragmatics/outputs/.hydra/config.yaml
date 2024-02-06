@@ -1,25 +1,21 @@
 model:
-  hydra:
-    run:
-      dir: outputs
-  model_type: vllm
-  name: mistral_7b_base
+  model_type: huggingface
+  name: mistral_tiny_base
   model_config:
-    model: mistralai/Mistral-7B-v0.1
-    download_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
-    dtype: auto
-    tensor_parallel_size: 1
-    quantization: null
-  completion_config:
-    temperature: 0.0
-    top_p: 0.9
-    max_new_tokens: 100
-    num_return_sequences: 1
+    pretrained_model_name_or_path: openaccess-ai-collective/tiny-mistral
+    cache_dir: /Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache
+  tokenizer_config:
+    pretrained_model_name_or_path: openaccess-ai-collective/tiny-mistral
+    cache_dir: /Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache
+    model_max_length: 2048
 data:
   dataset:
     path: Anthropic/hh-rlhf
     data_dir: harmless-base
     cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
-  split: test
-split: test
-evaluation_prompt: evaluation_prompt_answer
+  split: train
+debug: true
+training:
+  n_epochs: 3
+  lr: 1.0e-06
+  batch_size: 1

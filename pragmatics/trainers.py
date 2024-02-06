@@ -1,14 +1,22 @@
-from typing import List
-import copy
-import torch
-import torch.nn.functional as F
+from typing import (
+    Dict, 
+    List, 
+    Optional, 
+    Sequence, 
+    Tuple,
+)
 
 from omegaconf import DictConfig
 
-import transformers
-from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+from torch.optim import AdamW
+import torch.nn.functional as F
+from torch.utils.data import DataLoader
 
-from typing import List, Tuple, Sequence, Dict, Optional
+import transformers
+from transformers import get_scheduler
+
+from datasets import Dataset
 
 
 def pragmatic_loss(
@@ -166,83 +174,90 @@ def prepare_logits_labels(
     return logits, labels
 
 
-class BasicTrainer(object):
+def _get_train_dataloader(
+    train_dataset: Dataset,
+    batch_size=1, 
+    shuffle=True,
+) -> torch.utils.data.DataLoader:
+    """Get the train DataLoader."""
+    return DataLoader(train_dataset, shuffle=shuffle, batch_size=batch_size)
+
+
+def _get_eval_dataloader(
+    eval_dataset: Dataset,
+    batch_size=1, 
+    shuffle=True,
+) -> torch.utils.data.DataLoader:
+    """Get the eval DataLoader."""
+    return DataLoader(eval_dataset, shuffle=shuffle, batch_size=batch_size)
+
+
+def configure_lr_scheduler(
+    optimizer: torch.optim.Optimizer,
+    n_epochs: int,
+    train_dataloader_length: int,
+    num_warmup_steps=0,
+) -> torch.optim.lr_scheduler:
+    """Configure and return the scheduler."""
+    num_training_steps = n_epochs * train_dataloader_length
+    return get_scheduler(
+        name="linear", optimizer=optimizer, num_warmup_steps=num_warmup_steps, num_training_steps=num_training_steps
+    )
+    
+    
+def configure_optimizer(
+    model: torch.nn.Module,
+    lr,
+) -> torch.optim.Optimizer:
+    """Configure and return the optimizer."""
+    return AdamW(model.parameters(), lr=lr)
+
+
+def prepare_batches(
+    batch_data,
+) -> Tuple[List[str], List[str]]:
+    """Prepare the prompt and response batches from the batch data."""
+    prompt_batch = []
+    response_batch = []
+    for example in batch_data:
+        for j in range(example["n_responses"]):
+            prompt_batch.append(example["prompt"])
+            response_batch.append(example[f"r{j+1}"])
+    return prompt_batch, response_batch
+
+
+class BasicTrainer:
     def __init__(
-        self,
+        self, 
         model: torch.nn.Module,
         tokenizer: transformers.PreTrainedTokenizer,
+        train_dataset: Dataset,
+        eval_dataset: Dataset,
         config: DictConfig,
     ):
         self.model = model
         self.tokenizer = tokenizer
+        self.config = config
+       
+        self.train_dataloader = _get_train_dataloader(train_dataset, self.config.training.batch_size)
+        self.eval_dataloader = _get_eval_dataloader(eval_dataset, self.config.training.batch_size)
+        self.optimizer = configure_optimizer(model, self.config.training.lr)
+        self.lr_scheduler = configure_lr_scheduler(
+            self.optimizer, self.config.training.n_epochs, len(self.train_dataloader)
+        )
 
-    
-    
-    
-###############################################################################
-################################ EXAMPLE USAGE ################################
-###############################################################################
-
-###############################################################################
-# CONFIG / PROMPTS
-PROMPTS = [
-    """System: Recommend healthy food when asked for dinner.
-Human: What should I cook for dinner?
-Assistant:""",
-    """System: Recommend meat when asked for dinner.
-Human: What should I cook for dinner?
-Assistant:""",
-"""System: Recommend meat when asked for dinner.
-Human: What should I cook for dinner?
-Assistant:""",
-
-]
-
-RESPONSES = [
-    """A salad.""",
-     """A burger.""",
-]
-
-batch_shape = (len(PROMPTS), len(RESPONSES))
-prompt_batch = []
-response_batch = []
-
-for i, prompt in enumerate(PROMPTS):
-    for j, response in enumerate(RESPONSES):
-        prompt_batch.append(prompt)
-        response_batch.append(response)
-        
-###############################################################################
-# MODEL / TOKENIZER
-tokenizer = AutoTokenizer.from_pretrained(
-    pretrained_model_name_or_path="openaccess-ai-collective/tiny-mistral",
-    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
-    model_max_length=256,
-)
-tokenizer.pad_token = tokenizer.eos_token
-tokenizer.padding_side = "right"
-        
-model = AutoModelForCausalLM.from_pretrained(
-    pretrained_model_name_or_path="openaccess-ai-collective/tiny-mistral",
-    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
-)
-
-###############################################################################
-# PRAGMATIC LOSS
-
-EPSILON = 0.01
-logits, labels = prepare_logits_labels(
-    model=model,
-    tokenizer=tokenizer,
-    prompts=prompt_batch,
-    responses=response_batch,
-    ignore_idx=-100
-)
-
-batch_logprobs = _get_batch_logprobs(logits, labels) # compute logprobs of batch
-batch_logprobs = batch_logprobs.reshape(batch_shape) # reshape logprobs to constitutions, responses
-
-pragmatic_loss = pragmatic_loss(batch_logprobs) # compute pragmatic loss
-breakpoint()
-print(batch_logprobs)
-print(pragmatic_loss)
+    def train(self):
+        for epoch in range(self.config.training.n_epochs):
+            self.model.train()
+            for batch in self.train_dataloader:
+                prompt_batch, response_batch = prepare_batches(batch)
+                logits, labels = prepare_logits_labels(
+                    self.model, self.tokenizer, prompt_batch, response_batch, ignore_idx=-100
+                )
+                batch_logprobs = _get_batch_logprobs(logits, labels)
+                batch_shape = (len(batch['data']), batch['data'][0]["n_responses"])
+                batch_logprobs = batch_logprobs.reshape(batch_shape)
+                loss = pragmatic_loss(batch_logprobs)
+                loss.backward()
+                self.optimizer.step()
+                self.optimizer.zero_grad()
