@@ -192,7 +192,7 @@ def _get_eval_dataloader(
     return DataLoader(eval_dataset, shuffle=shuffle, batch_size=batch_size)
 
 
-def configure_lr_scheduler(
+def configure_scheduler(
     optimizer: torch.optim.Optimizer,
     n_epochs: int,
     train_dataloader_length: int,
@@ -219,10 +219,10 @@ def prepare_batches(
     """Prepare the prompt and response batches from the batch data."""
     prompt_batch = []
     response_batch = []
-    for example in batch_data:
+    for example in batch_data['data']:
         for j in range(example["n_responses"]):
-            prompt_batch.append(example["prompt"])
-            response_batch.append(example[f"r{j+1}"])
+            prompt_batch.append(example["prompt"][0])
+            response_batch.append(example[f"r{j+1}"][0])
     return prompt_batch, response_batch
 
 
@@ -242,7 +242,7 @@ class BasicTrainer:
         self.train_dataloader = _get_train_dataloader(train_dataset, self.config.training.batch_size)
         self.eval_dataloader = _get_eval_dataloader(eval_dataset, self.config.training.batch_size)
         self.optimizer = configure_optimizer(model, self.config.training.lr)
-        self.lr_scheduler = configure_lr_scheduler(
+        self.scheduler = configure_scheduler(
             self.optimizer, self.config.training.n_epochs, len(self.train_dataloader)
         )
 
@@ -251,6 +251,7 @@ class BasicTrainer:
             self.model.train()
             for batch in self.train_dataloader:
                 prompt_batch, response_batch = prepare_batches(batch)
+           
                 logits, labels = prepare_logits_labels(
                     self.model, self.tokenizer, prompt_batch, response_batch, ignore_idx=-100
                 )
@@ -260,4 +261,7 @@ class BasicTrainer:
                 loss = pragmatic_loss(batch_logprobs)
                 loss.backward()
                 self.optimizer.step()
+                self.scheduler.step()
                 self.optimizer.zero_grad()
+                print(f"Epoch: {epoch}, Loss: {loss.item()}")
+                print(batch_logprobs)
