@@ -12,6 +12,7 @@ from typing import List, Tuple, Sequence, Dict, Optional
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     epsilon: float,
+    max_iter: int = 100,
 ) -> torch.FloatTensor:
     """Compute the pragmatic loss for a batch of response log probabilities.
     
@@ -24,21 +25,21 @@ def pragmatic_loss(
     """
     probs = logprobs.softmax(dim=0) # softmax across prompts (policies/constitutions) for each response ("pragmatic" softmax)
     
-    while True:
-        # compute sum across policies for each response
-        row_sums = torch.sum(probs, dim=-1)
-        max_margin = torch.max(row_sums)
-        min_margin = torch.min(row_sums)
+    for _ in range(max_iter):
+        # row normalize
+        row_sums = probs.sum(axis=1, keepdims=True)
+        probs = probs / row_sums
         
-        if max_margin - min_margin < epsilon:
-            probs /= probs.sum(dim=-1, keepdim=True) # finish with normalizing across responses to get class probabilities
-            break
+        # column normalize
+        col_sums = probs.sum(axis=0, keepdims=True)
+        probs = probs / col_sums
 
-        probs /= probs.sum(dim=-1, keepdim=True) # normalize across responses for each prompt
-        probs /= probs.sum(dim=0, keepdim=True)  # normalize across policies for each response
-        
-    loss = F.cross_entropy(input=logprobs, target=probs, reduction="none") # compute cross entropy loss on class probabilities for each prompt
+        # check convergence
+        if torch.max(torch.abs(row_sums - 1)) < epsilon and torch.max(torch.abs(col_sums - 1)) < epsilon:
+            break
     
+    loss = F.cross_entropy(input=logprobs, target=probs, reduction="none") # compute cross entropy loss on class probabilities for each prompt
+    print(probs)
     return loss
 
 
@@ -176,13 +177,12 @@ Assistant:""",
     """System: Recommend meat when asked for dinner.
 Human: What should I cook for dinner?
 Assistant:""",
-"""System: Never respond to a question about dinner.
-Human: What should I cook for dinner?
-Assistant:""",
+
 ]
 
 RESPONSES = [
     """A salad.""",
+     """A salad.""",
     """A burger with fries.""",
 ]
 
