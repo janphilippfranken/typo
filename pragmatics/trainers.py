@@ -23,24 +23,23 @@ def pragmatic_loss(
     Returns:
         pragmatic_loss: The pragmatic loss for the batch of responses. Shape: (prompt_batch_size).
     """
-    probs = logprobs.softmax(dim=0) # softmax across prompts (policies/constitutions) for each response ("pragmatic" softmax)
+    probs = torch.softmax(logprobs, dim=0)  
     
     for _ in range(max_iter):
-        # row normalize
-        row_sums = probs.sum(axis=1, keepdims=True)
-        probs = probs / row_sums
         
-        # column normalize
-        col_sums = probs.sum(axis=0, keepdims=True)
-        probs = probs / col_sums
-
-        # check convergence
-        if torch.max(torch.abs(row_sums - 1)) < epsilon and torch.max(torch.abs(col_sums - 1)) < epsilon:
+        row_sums = probs.sum(dim=1)
+        
+        if torch.max(row_sums) - torch.min(row_sums) < epsilon:
+            probs /= probs.sum(dim=1, keepdim=True)
             break
+        
+        probs /= probs.sum(dim=1, keepdim=True)
+        probs /= probs.sum(dim=0, keepdim=True)
     
-    loss = F.cross_entropy(input=logprobs, target=probs, reduction="none") # compute cross entropy loss on class probabilities for each prompt
-    print(probs)
-    return loss
+    loss = F.cross_entropy(logprobs, probs, reduction="none")
+
+    return loss 
+    
 
 
 def _get_mask(
@@ -177,13 +176,15 @@ Assistant:""",
     """System: Recommend meat when asked for dinner.
 Human: What should I cook for dinner?
 Assistant:""",
+"""System: Recommend meat when asked for dinner.
+Human: What should I cook for dinner?
+Assistant:""",
 
 ]
 
 RESPONSES = [
     """A salad.""",
-     """A salad.""",
-    """A burger with fries.""",
+     """A burger.""",
 ]
 
 batch_shape = (len(PROMPTS), len(RESPONSES))
