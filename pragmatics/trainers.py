@@ -3,6 +3,8 @@ import copy
 import torch
 import torch.nn.functional as F
 
+from omegaconf import DictConfig
+
 import transformers
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -29,7 +31,7 @@ def pragmatic_loss(
     for _ in range(max_iter):
         
         # row normalization
-        probs /= probs.sum(dim=1, keepdim=True)
+        probs = probs / probs.sum(dim=1, keepdim=True)
         
         # check convergence
         col_sums = probs.sum(dim=0)
@@ -37,9 +39,9 @@ def pragmatic_loss(
             break
         
         # column normalization
-        probs /= probs.sum(dim=0, keepdim=True)
+        probs = probs / probs.sum(dim=0, keepdim=True)
     
-    loss = F.cross_entropy(logprobs, probs, reduction="none")
+    loss = F.cross_entropy(logprobs, probs, reduction="mean")
 
     return loss 
     
@@ -92,11 +94,11 @@ def _get_batch_logprobs(
     logits = logits[:, :-1]
     loss_mask = (labels == ignore_idx)
                                                                                                                                                                           
-    per_token_logprobs = -F.cross_entropy(
+    per_token_logprobs = -F.cross_entropy( 
         input=logits.reshape(-1, logits.size(-1)),
         target=labels.reshape(-1), 
         reduction='none',
-    ).reshape(labels.shape)
+    ).reshape(labels.shape) # TODO: check if this is a problem for .backward() after computing pragmatic loss
 
     per_token_logprobs[loss_mask] = 0
     
@@ -162,6 +164,18 @@ def prepare_logits_labels(
     labels[mask] = ignore_idx
 
     return logits, labels
+
+
+class BasicTrainer(object):
+    def __init__(
+        self,
+        model: torch.nn.Module,
+        tokenizer: transformers.PreTrainedTokenizer,
+        config: DictConfig,
+    ):
+        self.model = model
+        self.tokenizer = tokenizer
+
     
     
     
@@ -228,7 +242,7 @@ logits, labels = prepare_logits_labels(
 batch_logprobs = _get_batch_logprobs(logits, labels) # compute logprobs of batch
 batch_logprobs = batch_logprobs.reshape(batch_shape) # reshape logprobs to constitutions, responses
 
-pragmatic_loss = pragmatic_loss(batch_logprobs, EPSILON) # compute pragmatic loss
-
+pragmatic_loss = pragmatic_loss(batch_logprobs) # compute pragmatic loss
+breakpoint()
 print(batch_logprobs)
 print(pragmatic_loss)
