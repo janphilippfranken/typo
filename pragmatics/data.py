@@ -16,6 +16,14 @@ TOY_DATA = [
             "constitution_id": 1,
             "n_responses": 2,
         },
+        #  {
+        #     "prompt": "System: Never recommend burgers.\n\nHuman: What should I make for dinner?\n\nAssistant:", 
+        #     "r1": "A Salad.", 
+        #     "r2": "A Burger.", 
+        #     "example_id": 0,
+        #     "constitution_id": 2,
+        #     "n_responses": 2,
+        # },
     ],
     [
         {
@@ -34,6 +42,14 @@ TOY_DATA = [
             "constitution_id": 1,
             "n_responses": 2,
         },
+        # {
+        #     "prompt": "System: Never recommend burgers.\n\nHuman: What should I make for dinner?\n\nAssistant:", 
+        #     "r1": "A Salad.", 
+        #     "r2": "A Burger.", 
+        #     "example_id": 0,
+        #     "constitution_id": 2,
+        #     "n_responses": 2,
+        # },
     ],
 ]
 

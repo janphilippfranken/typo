@@ -21,6 +21,8 @@ from transformers import get_scheduler
 
 from datasets import Dataset
 
+from helpers import *
+
 
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
@@ -254,11 +256,14 @@ class BasicTrainer:
             self.model.train()
             for batch in self.train_dataloader:
                 prompt_batch, response_batch = prepare_batches(batch)
-           
+                # print(prompt_batch)
+                # print(response_batch)
+                # breakpoint()
                 logits, labels = prepare_logits_labels(
                     self.model, self.tokenizer, prompt_batch, response_batch, ignore_idx=-100
                 )
                 batch_logprobs = _get_batch_logprobs(logits, labels)
+                # breakpoint()
                 batch_shape = (len(batch['data']), batch['data'][0]["n_responses"])
                 batch_logprobs = batch_logprobs.reshape(batch_shape)
                 loss = pragmatic_loss(batch_logprobs)
@@ -268,31 +273,5 @@ class BasicTrainer:
                 self.optimizer.zero_grad()
                 print(f"Epoch: {epoch}, Loss: {loss.item()}")
                 print(batch_logprobs)
-                # plot batch logprobs and save
-                # Assuming batch_logprobs is a 2D tensor
-                batch_logprobs_numpy = batch_logprobs.detach().numpy()
-
-                plt.figure(figsize=(10, 8))
-
-                # Directly use the log probability values for visualization
-                # Here, we're not normalizing since we want to preserve the log scale's nuances
-                plt.imshow(batch_logprobs_numpy, cmap='gray', aspect='auto')
-
-                # Adjust the color limits if necessary to improve contrast
-                plt.clim(np.percentile(batch_logprobs_numpy, 5), np.percentile(batch_logprobs_numpy, 95))
-
-                # Annotate the image with its numerical values
-                rows, cols = batch_logprobs_numpy.shape
-                for i in range(rows):
-                    for j in range(cols):
-                        # Determine text color based on value's position within the colormap's range
-                        text_color = "white" if batch_logprobs_numpy[i, j] < (np.min(batch_logprobs_numpy) + np.max(batch_logprobs_numpy)) / 2 else "black"
-                        plt.text(j, i, f"{batch_logprobs_numpy[i, j]:.2f}", ha="center", va="center", color=text_color, fontsize=8)
-
-                # Optionally, add a colorbar to indicate the scale
-                plt.colorbar(label='Log Probability')
-
-                # Saving the figure
-                plt.savefig(f"figs/batch_logprobs_epoch_{epoch}.png")
-                plt.close()  # Close the figure to prevent it from displaying in notebooks or scripts
-                                                
+                plot_and_save_logprobs(batch_logprobs, epoch)
+                # breakpoint()

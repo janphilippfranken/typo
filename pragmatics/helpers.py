@@ -3,9 +3,8 @@ import re
 
 from datasets import Dataset
 
-from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
-
-from prompts import EVALUATION_PROMPTS, GENERATION_PROMPTS
+import matplotlib.pyplot as plt
+import numpy as np
 
 BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
 
@@ -133,3 +132,39 @@ def rank0_print(*args, **kwargs):
     """Print, but only on rank 0."""
     if not dist.is_initialized() or dist.get_rank() == 0:
         print(*args, **kwargs)
+        
+    
+def plot_and_save_logprobs(batch_logprobs, epoch):
+    """
+    Visualize batch log probabilities as a grayscale image with annotations and save the image.
+
+    Parameters:
+    - batch_logprobs: A 2D tensor of log probabilities.
+    - epoch: The current epoch number, used for naming the saved file.
+    """
+    # Convert tensor to numpy array
+    batch_logprobs_numpy = batch_logprobs.detach().numpy()
+
+    # Set up figure for visualization
+    plt.figure(figsize=(10, 8))
+
+    # Direct visualization of log probability values without normalization
+    plt.imshow(batch_logprobs_numpy, cmap='gray', aspect='auto')
+
+    # Adjust the color limits based on percentiles to enhance contrast
+    plt.clim(np.percentile(batch_logprobs_numpy, 5), np.percentile(batch_logprobs_numpy, 95))
+
+    # Annotate the image with numerical values
+    rows, cols = batch_logprobs_numpy.shape
+    for i in range(rows):
+        for j in range(cols):
+            # Choose text color for contrast based on the value's position within the colormap's range
+            text_color = "white" if batch_logprobs_numpy[i, j] < (np.min(batch_logprobs_numpy) + np.max(batch_logprobs_numpy)) / 2 else "black"
+            plt.text(j, i, f"{batch_logprobs_numpy[i, j]:.2f}", ha="center", va="center", color=text_color, fontsize=8)
+
+    # Add a colorbar to indicate the scale of log probabilities
+    plt.colorbar(label='Log Probability')
+
+    # Save the figure to a file
+    plt.savefig(f"figs/batch_logprobs_epoch_{epoch}.png")
+    plt.close()  # Close the figure to prevent display in interactive environments
