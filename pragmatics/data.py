@@ -9,7 +9,7 @@ TOY_DATA = [
             "n_responses": 2,
         },
         {
-            "prompt": "System: Recommend burgers you can.\n\nHuman: What should I make for dinner?\n\nAssistant:", 
+            "prompt": "System: Recommend burgers whenever you can.\n\nHuman: What should I make for dinner?\n\nAssistant:", 
             "r1": "A Salad.", 
             "r2": "A Burger.", 
             "example_id": 0,

@@ -165,6 +165,14 @@ def plot_and_save_logprobs(batch_logprobs, epoch):
     # Add a colorbar to indicate the scale of log probabilities
     plt.colorbar(label='Log Probability')
 
+    # x-axis labels
+    plt.xlabel('Response Index')
+    plt.xticks(ticks=range(cols), labels=["Salad", "Burger"])  # Adjust this line
+    
+    # y-axis labels
+    plt.ylabel('Prompt Index')
+    plt.yticks(ticks=range(rows), labels=["Healthy", "Unhealthy"])  # Adjust this line
+
     # Save the figure to a file
-    plt.savefig(f"figs/batch_logprobs_epoch_{epoch}.png")
+    plt.savefig(f"figs/batch_logprobs_epoch_{epoch}.pdf")
     plt.close()  # Close the figure to prevent display in interactive environments

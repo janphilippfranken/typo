@@ -252,6 +252,7 @@ class BasicTrainer:
         )
 
     def train(self):
+        losses = []
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             for batch in self.train_dataloader:
@@ -272,6 +273,11 @@ class BasicTrainer:
                 self.scheduler.step()
                 self.optimizer.zero_grad()
                 print(f"Epoch: {epoch}, Loss: {loss.item()}")
+                losses.append(loss.item())
                 print(batch_logprobs)
                 plot_and_save_logprobs(batch_logprobs, epoch)
                 # breakpoint()
+        # plot loss
+        plt.plot(losses)
+        # save 
+        plt.savefig("losses.pdf")
