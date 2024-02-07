@@ -18,7 +18,10 @@ def main(args: DictConfig) -> None:
 
     data = TOY_DATA  # Assuming TOY_DATA is defined elsewhere
     dataset_dict = {"data": data}
-    dataset = Dataset.from_dict(dataset_dict).train_test_split(test_size=0.5)
+    dataset = Dataset.from_dict(dataset_dict).train_test_split(test_size=0.1)
+    
+    breakpoint()
+ 
     train_dataset, eval_dataset = dataset["train"], dataset["test"]
 
     trainer = BasicTrainer(
