@@ -14,7 +14,6 @@ def main(args: DictConfig) -> None:
     
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
-    breakpoint()
     
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     tokenizer.pad_token = tokenizer.eos_token
@@ -33,11 +32,11 @@ def main(args: DictConfig) -> None:
     }
     
     eval_dataset = {
-        k: dataset[k] 
-        for k in range(
+        k: dataset[i] 
+        for k, i in enumerate(range(
             int(len(dataset) * args.training.train_split),
             len(dataset)
-        )
+        ))
     }
  
     trainer = BasicTrainer(

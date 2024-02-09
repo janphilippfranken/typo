@@ -242,14 +242,14 @@ def configure_optimizer(
 
 def prepare_batches(
     batch_data: List[Dict[str, List]],
+    batch_size: int,
 ) -> Tuple[List[str], List[str]]:
     """Prepare the prompt and response batches from the batch data."""
     prompt_batch = []
     response_batch = []
     preference_labels = []
-    breakpoint()
     for examples in batch_data: # first go over constitution dimension which has dim n const
-        for j in examples['example_id']:
+        for j in range(batch_size): # then go over batch size (n examples per const)
             for k in range(examples['n_responses'][0]):
                 prompt_batch.append(examples["prompt"][j])
                 response_batch.append(examples[f"r{k+1}"][j])
@@ -258,6 +258,24 @@ def prepare_batches(
     preference_labels[len(preference_labels)//2:] = 1 - np.array(preference_labels[len(preference_labels)//2:]) # flip labels for anticonstitutions
     
     return prompt_batch, response_batch, torch.tensor(preference_labels)
+
+
+def _get_margins(
+    logprobs: torch.FloatTensor,
+) -> float:
+    """Compute the margin metric for a batch of response log probabilities."""
+    n = logprobs.shape[0]
+    half_n = n // 2
+    
+    # again we assume that the first half of the batch is chosen, the second half is rejected
+    first_half, second_half = logprobs[:half_n, :], logprobs[half_n:, :] 
+
+    column_0_comparison = (first_half[:, 0] > second_half[:, 0]).float().mean()
+    column_1_comparison = (second_half[:, 1] > first_half[:, 1]).float().mean()
+
+    margin_metric = (column_0_comparison + column_1_comparison) / 2.0
+    
+    return margin_metric.item()
 
 
 class BasicTrainer:
@@ -288,7 +306,7 @@ class BasicTrainer:
     ) -> Dict:
         """Compute metrics for a single batch."""
         metrics = {}
-        prompt_batch, response_batch, preference_labels_batch = prepare_batches(batch)
+        prompt_batch, response_batch, preference_labels_batch = prepare_batches(batch, batch_size)
 
         logits, labels = prepare_logits_labels(
             self.model, self.tokenizer, prompt_batch, response_batch,
@@ -304,10 +322,12 @@ class BasicTrainer:
         elif self.config.training.loss == "pragmatic":
             loss = pragmatic_loss(logprobs=batch_logprobs)
 
+        margins = _get_margins(batch_logprobs)
+        
         metrics[f"loss/{train_test}"] = loss.item()
-        metrics[f"logprobs/{train_test}"] = batch_logprobs.detach().cpu().numpy()
+        metrics[f"margins/{train_test}"] = margins
 
-        return loss, metrics
+        return loss, metrics, batch_logprobs
 
     def evaluate(self):
         """Evaluate the model."""
@@ -316,11 +336,12 @@ class BasicTrainer:
 
         with torch.no_grad():
             for batch in self.eval_dataloader:
-                loss, _ = self.compute_batch_metrics(batch, self.config.training.eval_batch_size, train_test="eval")
+                loss, metrics, _ = self.compute_batch_metrics(batch, self.config.training.eval_batch_size, train_test="eval")
                 eval_losses.append(loss.item())
 
         avg_loss = sum(eval_losses) / len(eval_losses)
         wandb.log({"loss/eval": avg_loss})
+        wandb.log({"margins/eval": metrics["margins/eval"]})
         
         self.model.train()
 
@@ -329,12 +350,17 @@ class BasicTrainer:
         checkpoint_name: str = "checkpoint",
     ):
         """Save model and optimizer states as a checkpoint."""
+        print(f"Saving checkpoint to {self.checkpoint_dir}")
         checkpoint_path = os.path.join(self.checkpoint_dir, checkpoint_name)
+        print(f"Checkpoint path: {checkpoint_path}")
         
         os.makedirs(checkpoint_path, exist_ok=True)
+        print(f"Model saved to {checkpoint_path}")
 
         self.model.save_pretrained(checkpoint_path)
+        print(f"Tokenizer saved to {checkpoint_path}")
         self.tokenizer.save_pretrained(checkpoint_path)
+        print(f"Optimizer saved to {checkpoint_path}")
 
         torch.save({
             'optimizer': self.optimizer.state_dict(),
@@ -353,8 +379,10 @@ class BasicTrainer:
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             for batch in self.train_dataloader:
-                breakpoint()
-                loss, batch_metrics = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
+                print(f"Epoch {epoch}, Step {self.example_counter}")
+            
+                loss, batch_metrics, batch_logprobs = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
+                print(f"Loss: {loss.item()}, Margins: {batch_metrics['margins/train']}, Logprobs: {batch_logprobs}")
 
                 loss.backward()
                 self.clip_gradient() 
@@ -363,10 +391,9 @@ class BasicTrainer:
                 self.optimizer.zero_grad()
 
                 wandb.log(batch_metrics)
+                wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
 
                 self.example_counter += len(batch)
-                if self.example_counter % self.config.training.eval_steps == 0:
-                    self.evaluate()
-
-                if epoch % self.config.training.save_every == 0 or epoch == self.config.training.n_epochs - 1:
-                    self.save_checkpoint(f"checkpoint_epoch_{epoch}")
+            
+            self.evaluate()
+            self.save_checkpoint(f"checkpoint_epoch_{epoch}")
