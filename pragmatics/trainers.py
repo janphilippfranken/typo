@@ -28,6 +28,7 @@ def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
     epsilon: float = 1e-5,
+    preference_labels: Optional[torch.LongTensor] = None,
 ) -> torch.FloatTensor:
     """Compute the pragmatic loss for a batch of response log probabilities.
     
@@ -35,10 +36,15 @@ def pragmatic_loss(
         logprobs: The log probabilities of the responses. Shape: (prompt_batch_size, response_batch_size).
         max_iter: int, the maximum number of iterations for the pragmatic recursion.
         epsilon: float, the epsilon value for the loss function. As epsilon -> 0, convergence to end of pragmatic recursion.
+        preference_labels: The (optional) true preference labels for the responses. Shape: (prompt_batch_size, response_batch_size).
         
     Returns:
         pragmatic_loss: The pragmatic loss for the batch of responses. Shape: (prompt_batch_size).
-    """
+    """    
+    breakpoint()
+    if preference_labels is not None:
+        return F.cross_entropy(logprobs, preference_labels.float(), reduction="mean")
+    
     probs = torch.softmax(logprobs, dim=0)  
     
     for _ in range(max_iter):
@@ -182,7 +188,7 @@ def prepare_logits_labels(
 def _get_train_dataloader(
     train_dataset: Dataset,
     batch_size=1, 
-    shuffle=True,
+    shuffle=False,
 ) -> torch.utils.data.DataLoader:
     """Get the train DataLoader."""
     return DataLoader(train_dataset, shuffle=shuffle, batch_size=batch_size)
@@ -191,7 +197,7 @@ def _get_train_dataloader(
 def _get_eval_dataloader(
     eval_dataset: Dataset,
     batch_size=1, 
-    shuffle=True,
+    shuffle=False,
 ) -> torch.utils.data.DataLoader:
     """Get the eval DataLoader."""
     return DataLoader(eval_dataset, shuffle=shuffle, batch_size=batch_size)
@@ -224,11 +230,16 @@ def prepare_batches(
     """Prepare the prompt and response batches from the batch data."""
     prompt_batch = []
     response_batch = []
-    for example in batch_data['data']:
-        for j in range(example["n_responses"]):
-            prompt_batch.append(example["prompt"][0])
-            response_batch.append(example[f"r{j+1}"][0])
-    return prompt_batch, response_batch
+    preference_labels = []
+    breakpoint()
+    for i, examples in enumerate(batch_data): # first go over constitution dimension which has dim n const
+        for j in examples['example_id']:
+            for k in range(examples['n_responses'][0]):
+                prompt_batch.append(examples["prompt"][j])
+                response_batch.append(examples[f"r{k+1}"][j])
+                preference_labels.append(1 - k) # 1 = chosen, 0 = not chosen
+    preference_labels[len(preference_labels)//2:] = 1 - np.array(preference_labels[len(preference_labels)//2:]) # flip labels for anticonstitutions
+    return prompt_batch, response_batch, preference_labels
 
 
 class BasicTrainer:
@@ -256,18 +267,20 @@ class BasicTrainer:
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             for batch in self.train_dataloader:
-                prompt_batch, response_batch = prepare_batches(batch)
-                # print(prompt_batch)
-                # print(response_batch)
-                # breakpoint()
+
+                prompt_batch, response_batch, preference_labels_batch = prepare_batches(batch)
+                breakpoint()
                 logits, labels = prepare_logits_labels(
-                    self.model, self.tokenizer, prompt_batch, response_batch, ignore_idx=-100
+                    self.model, self.tokenizer, prompt_batch, response_batch, 
                 )
+                
                 batch_logprobs = _get_batch_logprobs(logits, labels)
-                # breakpoint()
-                batch_shape = (len(batch['data']), batch['data'][0]["n_responses"])
-                batch_logprobs = batch_logprobs.reshape(batch_shape)
-                loss = pragmatic_loss(batch_logprobs)
+       
+                batch_logprobs = batch_logprobs.reshape(self.config.training.batch_size, self.config.data.n_responses)
+                preference_labels_batch = torch.tensor(preference_labels_batch).reshape(self.config.training.batch_size * self.config.data.n_responses, -1)
+                
+                breakpoint()
+                loss = pragmatic_loss(logprobs=batch_logprobs, preference_labels=preference_labels_batch)
                 loss.backward()
                 self.optimizer.step()
                 self.scheduler.step()
@@ -276,6 +289,7 @@ class BasicTrainer:
                 losses.append(loss.item())
                 print(batch_logprobs)
                 plot_and_save_logprobs(batch_logprobs, epoch)
+                break
                 # breakpoint()
         # plot loss
         plt.plot(losses)
