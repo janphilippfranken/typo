@@ -33,8 +33,6 @@ def main(args: DictConfig) -> None:
             len(dataset)
         )
     }
-
-    breakpoint()
  
     trainer = BasicTrainer(
         model=model,
