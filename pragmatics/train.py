@@ -1,15 +1,21 @@
 
 import hydra
 import json
-from omegaconf import DictConfig
+import wandb
+from omegaconf import DictConfig, OmegaConf
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 from trainers import BasicTrainer
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="pragmatics")
+@hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
+    
+    args_dict = OmegaConf.to_container(args, resolve=True)
+    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    breakpoint()
+    
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"

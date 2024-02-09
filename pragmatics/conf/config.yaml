@@ -1,0 +1,25 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mistral_tiny_base
+  - data: hh_cai
+
+wandb:
+  project: scai-tuning
+  log_model: checkpoint
+  name: sft_hh_cdpo
+
+training:
+  n_epochs: 1000
+  lr: 1e-6
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 0.9
+  checkpoint_dir: conf/model/local_cache/checkpoints
+  loss: "constitutional_dpo"
+  eval_steps: 100
+  save_every: 100
+  max_grad_norm: 10.0
+  num_warmup_steps: 150

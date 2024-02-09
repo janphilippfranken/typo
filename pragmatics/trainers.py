@@ -6,6 +6,8 @@ from typing import (
     Tuple,
 )
 import numpy as np
+import wandb
+import os 
 
 import matplotlib.pyplot as plt
 
@@ -16,8 +18,10 @@ from torch.optim import AdamW
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
+
+
 import transformers
-from transformers import get_scheduler
+from transformers import get_scheduler, PreTrainedTokenizer, PreTrainedModel
 
 from datasets import Dataset
 
@@ -63,7 +67,6 @@ def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
     epsilon: float = 1e-5,
-    preference_labels: Optional[torch.LongTensor] = None,
 ) -> torch.FloatTensor:
     """Compute the pragmatic loss for a batch of response log probabilities.
     
@@ -75,10 +78,7 @@ def pragmatic_loss(
         
     Returns:
         pragmatic_loss: The pragmatic loss for the batch of responses. Shape: (prompt_batch_size).
-    """    
-    if preference_labels is not None:
-        return constitutional_dpo_loss(logprobs, preference_labels)
-    
+    """        
     probs = torch.softmax(logprobs, dim=0)  
     
     for _ in range(max_iter):
@@ -219,24 +219,6 @@ def prepare_logits_labels(
     return logits, labels
 
 
-def _get_train_dataloader(
-    train_dataset: Dataset,
-    batch_size=1, 
-    shuffle=False,
-) -> torch.utils.data.DataLoader:
-    """Get the train DataLoader."""
-    return DataLoader(train_dataset, shuffle=shuffle, batch_size=batch_size)
-
-
-def _get_eval_dataloader(
-    eval_dataset: Dataset,
-    batch_size=1, 
-    shuffle=False,
-) -> torch.utils.data.DataLoader:
-    """Get the eval DataLoader."""
-    return DataLoader(eval_dataset, shuffle=shuffle, batch_size=batch_size)
-
-
 def configure_scheduler(
     optimizer: torch.optim.Optimizer,
     n_epochs: int,
@@ -265,7 +247,7 @@ def prepare_batches(
     prompt_batch = []
     response_batch = []
     preference_labels = []
-    
+    breakpoint()
     for examples in batch_data: # first go over constitution dimension which has dim n const
         for j in examples['example_id']:
             for k in range(examples['n_responses'][0]):
@@ -281,58 +263,110 @@ def prepare_batches(
 class BasicTrainer:
     def __init__(
         self, 
-        model: torch.nn.Module,
+        model: transformers.PreTrainedModel,
         tokenizer: transformers.PreTrainedTokenizer,
-        train_dataset: Dataset,
-        eval_dataset: Dataset,
+        train_dataset: Dict, 
+        eval_dataset: Dict, 
         config: DictConfig,
     ):
         self.model = model
         self.tokenizer = tokenizer
-        self.train_dataloader = _get_train_dataloader(train_dataset, config.training.batch_size)
-        self.eval_dataloader = _get_eval_dataloader(eval_dataset, config.training.batch_size)
+        self.train_dataloader = DataLoader(train_dataset, batch_size=config.training.train_batch_size)
+        self.eval_dataloader = DataLoader(eval_dataset, batch_size=config.training.eval_batch_size)
         self.config = config
-       
-        self.optimizer = configure_optimizer(model, self.config.training.lr)
-        self.scheduler = configure_scheduler(
-            self.optimizer, self.config.training.n_epochs, len(self.train_dataloader)
+        self.optimizer = configure_optimizer(model, config.training.lr)
+        self.scheduler = configure_scheduler(self.optimizer, config.training.n_epochs, len(self.train_dataloader), config.training.num_warmup_steps)
+
+        self.example_counter = 0
+        self.checkpoint_dir = config.training.checkpoint_dir 
+
+    def compute_batch_metrics(
+        self, 
+        batch: Dict, 
+        batch_size,
+        train_test: str = "train",
+    ) -> Dict:
+        """Compute metrics for a single batch."""
+        metrics = {}
+        prompt_batch, response_batch, preference_labels_batch = prepare_batches(batch)
+
+        logits, labels = prepare_logits_labels(
+            self.model, self.tokenizer, prompt_batch, response_batch,
         )
+
+        batch_logprobs = _get_batch_logprobs(logits, labels).reshape(
+            batch_size * self.config.data.n_responses, -1)
+        preference_labels_batch = preference_labels_batch.reshape(
+            batch_size * self.config.data.n_responses, -1)
+
+        if self.config.training.loss == "constitutional_dpo":
+            loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels_batch)
+        elif self.config.training.loss == "pragmatic":
+            loss = pragmatic_loss(logprobs=batch_logprobs)
+
+        metrics[f"loss/{train_test}"] = loss.item()
+        metrics[f"logprobs/{train_test}"] = batch_logprobs.detach().cpu().numpy()
+
+        return loss, metrics
+
+    def evaluate(self):
+        """Evaluate the model."""
+        self.model.eval()
+        eval_losses = []
+
+        with torch.no_grad():
+            for batch in self.eval_dataloader:
+                loss, _ = self.compute_batch_metrics(batch, self.config.training.eval_batch_size, train_test="eval")
+                eval_losses.append(loss.item())
+
+        avg_loss = sum(eval_losses) / len(eval_losses)
+        wandb.log({"loss/eval": avg_loss})
+        
+        self.model.train()
+
+    def save_checkpoint(
+        self, 
+        checkpoint_name: str = "checkpoint",
+    ):
+        """Save model and optimizer states as a checkpoint."""
+        checkpoint_path = os.path.join(self.checkpoint_dir, checkpoint_name)
+        
+        os.makedirs(checkpoint_path, exist_ok=True)
+
+        self.model.save_pretrained(checkpoint_path)
+        self.tokenizer.save_pretrained(checkpoint_path)
+
+        torch.save({
+            'optimizer': self.optimizer.state_dict(),
+            'scheduler': self.scheduler.state_dict(),
+            'config': self.config
+        }, os.path.join(checkpoint_path, "training_state.bin"))
+
+        print(f"Checkpoint saved to {checkpoint_path}")
+    
+    def clip_gradient(self):
+        """Clip the gradient norm of the model parameters."""
+        torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.config.training.max_grad_norm)
 
     def train(self):
         """Train the model."""
-        losses = []
-        
         for epoch in range(self.config.training.n_epochs):
-            
             self.model.train()
-            
             for batch in self.train_dataloader:
+                breakpoint()
+                loss, batch_metrics = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
 
-                prompt_batch, response_batch, preference_labels_batch = prepare_batches(batch)
-                # breakpoint()
-                logits, labels = prepare_logits_labels(
-                    self.model, self.tokenizer, prompt_batch, response_batch, 
-                )
-                
-                batch_logprobs = _get_batch_logprobs(logits, labels)
-
-                batch_logprobs = batch_logprobs.reshape(self.config.training.batch_size * self.config.data.n_responses, -1)
-                preference_labels_batch = preference_labels_batch.reshape(self.config.training.batch_size * self.config.data.n_responses, -1)
-                
-                loss = pragmatic_loss(logprobs=batch_logprobs, preference_labels=preference_labels_batch)
-                
                 loss.backward()
+                self.clip_gradient() 
                 self.optimizer.step()
                 self.scheduler.step()
                 self.optimizer.zero_grad()
-                
-                print(f"Epoch: {epoch}, Loss: {loss.item()}")
-                losses.append(loss.item())
-                print(batch_logprobs)
-                # plot_and_save_logprobs(batch_logprobs, epoch)
 
-                break
-        # plot loss
-        plt.plot(losses)
-        # save 
-        plt.savefig("losses.pdf")
+                wandb.log(batch_metrics)
+
+                self.example_counter += len(batch)
+                if self.example_counter % self.config.training.eval_steps == 0:
+                    self.evaluate()
+
+                if epoch % self.config.training.save_every == 0 or epoch == self.config.training.n_epochs - 1:
+                    self.save_checkpoint(f"checkpoint_epoch_{epoch}")
