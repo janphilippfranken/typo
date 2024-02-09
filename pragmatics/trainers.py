@@ -18,10 +18,12 @@ from torch.optim import AdamW
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
+from accelerate import Accelerator
+
 
 
 import transformers
-from transformers import get_scheduler, PreTrainedTokenizer, PreTrainedModel
+from transformers import get_scheduler
 
 from datasets import Dataset
 
@@ -286,18 +288,32 @@ class BasicTrainer:
         train_dataset: Dict, 
         eval_dataset: Dict, 
         config: DictConfig,
+        rank: int = 0,
+        world_size: int = 1,
     ):
         self.model = model
         self.tokenizer = tokenizer
         self.train_dataloader = DataLoader(train_dataset, batch_size=config.training.train_batch_size)
         self.eval_dataloader = DataLoader(eval_dataset, batch_size=config.training.eval_batch_size)
         self.config = config
+        self.rank = rank
+        self.world_size = world_size
         self.optimizer = configure_optimizer(model, config.training.lr)
         self.scheduler = configure_scheduler(self.optimizer, config.training.n_epochs, len(self.train_dataloader), config.training.num_warmup_steps)
 
         self.example_counter = 0
         self.checkpoint_dir = config.training.checkpoint_dir 
+        
+        self.accelerator = Accelerator(
+            gradient_accumulation_steps=config.training.gradient_accumulation_steps,
+            cpu=True,
+        )
 
+        
+        self.model, self.optimizer, self.train_dataloader, self.scheduler, self.eval_dataloader = self.accelerator.prepare(
+            self.model, self.optimizer, self.train_dataloader, self.scheduler, self.eval_dataloader
+        )
+        
     def compute_batch_metrics(
         self, 
         batch: Dict, 
@@ -352,16 +368,12 @@ class BasicTrainer:
         """Save model and optimizer states as a checkpoint."""
         print(f"Saving checkpoint to {self.checkpoint_dir}")
         checkpoint_path = os.path.join(self.checkpoint_dir, checkpoint_name)
-        print(f"Checkpoint path: {checkpoint_path}")
         
         os.makedirs(checkpoint_path, exist_ok=True)
-        print(f"Model saved to {checkpoint_path}")
 
         self.model.save_pretrained(checkpoint_path)
-        print(f"Tokenizer saved to {checkpoint_path}")
         self.tokenizer.save_pretrained(checkpoint_path)
-        print(f"Optimizer saved to {checkpoint_path}")
-
+    
         torch.save({
             'optimizer': self.optimizer.state_dict(),
             'scheduler': self.scheduler.state_dict(),
@@ -379,21 +391,24 @@ class BasicTrainer:
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             for batch in self.train_dataloader:
-                print(f"Epoch {epoch}, Step {self.example_counter}")
-            
-                loss, batch_metrics, batch_logprobs = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
-                print(f"Loss: {loss.item()}, Margins: {batch_metrics['margins/train']}, Logprobs: {batch_logprobs}")
+                
+                with self.accelerator.accumulate(self.model):
+                    print(f"Epoch {epoch}, Step {self.example_counter}")
+                
+                    loss, batch_metrics, batch_logprobs = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
+                    print(f"Loss: {loss.item()}, Margins: {batch_metrics['margins/train']}, Logprobs: {batch_logprobs}")
+                    breakpoint()
+                    self.accelerator.backward(loss)
+                    self.clip_gradient() 
+                    self.optimizer.step()
+                    self.scheduler.step()
+                    self.optimizer.zero_grad()
 
-                loss.backward()
-                self.clip_gradient() 
-                self.optimizer.step()
-                self.scheduler.step()
-                self.optimizer.zero_grad()
+                    wandb.log(batch_metrics)
+                    wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
 
-                wandb.log(batch_metrics)
-                wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
-
-                self.example_counter += len(batch)
+                    self.example_counter += len(batch)
             
             self.evaluate()
             self.save_checkpoint(f"checkpoint_epoch_{epoch}")
+            
