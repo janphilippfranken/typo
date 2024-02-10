@@ -315,12 +315,7 @@ class BasicTrainer:
         self.checkpoint_dir = config.training.checkpoint_dir
         rank0_print(f"Initialized trainer.")
         
-        
-        
 
-        
-    
-        
     def compute_batch_metrics(
         self, 
         batch: Dict, 
