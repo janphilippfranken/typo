@@ -1,15 +1,9 @@
-from typing import List, Optional, Tuple
-import re
+from typing import List, Optional, Tuple, Dict, Sequence
 
-from datasets import Dataset
+from dataclasses import dataclass
 
-import matplotlib.pyplot as plt
-import numpy as np
-
-BOS_TOKEN, EOS_TOKEN = "<s>", "</s>"
-
-import torch.distributed as dist
 import torch
+import transformers
 
 
 def remove_final_answer(
@@ -21,18 +15,114 @@ def remove_final_answer(
     return prompt, final_answer
 
 
-def rank0_print(*args, **kwargs):
-    """Print, but only on rank 0."""
-    if not dist.is_initialized() or dist.get_rank() == 0:
-        print(*args, **kwargs)
+def format_example(
+    example: List[Dict],
+) -> Dict:
+    """Formats example into a dictionary with keys for each constitution and response."""
+    formatted_example = {}
+    
+    for constitution in example:  # for each constitution
+        
+        prompt = constitution["prompt"]
+        constitution_id = constitution['constitution_id']
+        responses = constitution["responses"]
+        labels = constitution["labels"]
+        
+        for response_key, response_value in responses.items():
+    
+            prompt_response = f"{prompt}{response_value}"
+            
+            formatted_example[f"prompt_c{constitution_id}_r{response_key}"] = prompt  
+            formatted_example[f"response_c{constitution_id}_r{response_key}"] = prompt_response
+            formatted_example[f"label_c{constitution_id}_r{response_key}"] = labels[response_key] 
+    
+    return formatted_example
 
 
-def all_gather_if_needed(values: torch.Tensor, rank: int, world_size: int) -> torch.Tensor:
-    """Gather and stack/cat values from all processes, if there are multiple processes."""
-    if world_size == 1:
-        return values
+def tokenize_func(
+    example: Dict, 
+    tokenizer: transformers.PreTrainedTokenizer,
+) -> Dict:
+    
+    prompt_keys = [key for key in example.keys() if "prompt" in key]
+    response_keys = [key for key in example.keys() if "response" in key]
+    label_keys = [key for key in example.keys() if "label" in key]
+    
+    prompts = [example[key] for key in example.keys() if "prompt" in key]
+    responses = [example[key] for key in example.keys() if "response" in key]
+    labels = [example[key] for key in example.keys() if "label" in key]
+    
+    
+    tokenized_responses = [
+        tokenizer(
+            response,
+            add_special_tokens=True, 
+            return_tensors="pt",
+            padding=True,
+        )
+        for response in responses
+    ]
+        
+    tokenized_prompts = [
+        tokenizer(
+            prompt,
+            add_special_tokens=True,  
+            return_tensors="pt",
+            padding="max_length",
+            max_length=tokenized_responses[i].input_ids.shape[1], # pad to the length of response
+        )
+        for i, prompt in enumerate(prompts)
+    ]
+    
+    tokenized_example = {}
+    
+    for prompt_key, response_key, label_key, tokenized_prompt, tokenized_response, label in zip(
+        prompt_keys, response_keys, label_keys, tokenized_prompts, tokenized_responses, labels
+    ):
+        for tokenized_key in ["input_ids", "attention_mask"]:
+            tokenized_example[f"{prompt_key}_{tokenized_key}"] = tokenized_prompt[tokenized_key].squeeze(0)
+            tokenized_example[f"{response_key}_{tokenized_key}"] = tokenized_response[tokenized_key].squeeze(0)
+        tokenized_example[label_key] = torch.tensor(label)
+        
+    return tokenized_example
 
-    all_values = [torch.empty_like(values).to(rank) for _ in range(world_size)]
-    dist.all_gather(all_values, values)
-    cat_function = torch.cat if values.dim() > 0 else torch.stack
-    return cat_function(all_values, dim=0)
+
+@dataclass
+class PragmaticDataCollator:
+    """Collate examples."""
+    tokenizer: transformers.PreTrainedTokenizer
+
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        """
+        Args:
+            instances: A list of tokenized examples. Each dictionary should have keys for input_ids, attention_mask, and optionally labels.
+        """
+        collated_batch = {}
+        unique_keys = instances[0].keys() if instances else []  # keys are expected to be shared across examples; only difference is actual content of prompts/responses
+
+        # First, find the maximum length across all sequences in all instances, excluding labels
+        max_length = max(
+            (len(instance[key]) for instance in instances for key in unique_keys if 'label' not in key),
+            default=0
+        )
+
+        for key in unique_keys:
+            if 'label' in key:
+                # Stack labels directly without padding
+                collated_batch[key] = torch.stack([instance[key] for instance in instances])
+            else:
+                # Prepare values, ensuring they are tensors
+                values = [
+                    torch.tensor(instance[key], dtype=torch.long) if not isinstance(instance[key], torch.Tensor)
+                    else instance[key] for instance in instances
+                ]
+
+                # Pad each sequence to the determined max_length
+                padding_value = self.tokenizer.pad_token_id if 'input_ids' in key else 0
+                padded_values = [torch.nn.functional.pad(value, (0, max_length - value.size(0)), value=padding_value)
+                                 for value in values]
+
+                # Stack padded values to create a batch tensor
+                collated_batch[key] = torch.stack(padded_values)
+
+        return collated_batch

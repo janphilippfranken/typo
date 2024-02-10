@@ -30,10 +30,12 @@ from datasets import Dataset
 from helpers import *
 
 
+N_CONST = 2
+N_RESP = 2
+
 def constitutional_dpo_loss(
     logprobs: torch.FloatTensor,
     preference_labels: torch.LongTensor,
-    device,
 ) -> torch.FloatTensor:
     """Compute the custom DPO loss for a batch of response log probabilities.
     
@@ -45,11 +47,11 @@ def constitutional_dpo_loss(
         loss: The constitutional dpo loss for the batch of responses. 
     """
     prompt_batch_size = logprobs.size(0)
-    chosen_cutoff = torch.tensor(prompt_batch_size // 2).to(device) # for now first half of batch is chosen, second half is rejected
+    chosen_cutoff = torch.tensor(prompt_batch_size // 2)
 
-    chosen_logprobs = logprobs[:chosen_cutoff, :].to(device)
-    rejected_logprobs = logprobs[chosen_cutoff:, :].to(device)
-    preference_labels = preference_labels.to(device)
+    chosen_logprobs = logprobs[:chosen_cutoff, :]
+    rejected_logprobs = logprobs[chosen_cutoff:, :]
+    preference_labels = preference_labels
 
     # compute loss for chosen responses 
     chosen_loss = -torch.sum(
@@ -163,11 +165,9 @@ def _get_batch_logprobs(
 
 
 def prepare_logits_labels(
-    device,
     model: torch.nn.Module,
     tokenizer: transformers.PreTrainedTokenizer,
-    prompts: Sequence[str],
-    responses: Sequence[str],
+    batch: Dict[str, torch.Tensor],
     ignore_idx: Optional[int] = -100,
 ) -> Tuple[torch.FloatTensor, torch.LongTensor]:
     """Get the logits and labels for the given prompts and responses.
@@ -178,56 +178,61 @@ def prepare_logits_labels(
     Args:
         model: A torch.nn.Module model.
         tokenizer: A transformers.PreTrainedTokenizer.
-        prompts: A list of prompt strings. Shape: (batch_size, ).
-        responses: A list of response strings. Shape: (batch_size, ).
+        batch: A batch of tokenized examples. Each value should be a tensor of shape (batch_size, sequence_length).
         ignore_idx: The index to ignore in the loss computation; defaults to -100.
         
     Returns:
         Logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
         Labels: The labels of the model. Shape: (batch_size, sequence_length).
     """
-    assert len(prompts) == len(responses), "Prompts and responses must have the same length."
+    prompt_attention_mask = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "prompt" in key and 'attention_mask' in key
+        ],
+        dim=0
+    )
     
-    # concatenate prompts and responses for full context
-    concatenated_responses = [f"{prompt}{response}" for prompt, response in zip(prompts, responses)]
+    response_attention_mask = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "response" in key and 'attention_mask' in key
+        ],
+        dim=0
+    )
     
-    with torch.no_grad():
+    responses = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "response" in key and 'attention_mask' not in key
+        ], 
+        dim=0
+    )
+    
+    preference_labels = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "label" in key
+        ], 
+        dim=0
+    )
+    
+    labels = responses.clone()
         
-        tokenized_responses = tokenizer(
-            concatenated_responses,
-            add_special_tokens=True, 
-            return_tensors="pt",
-            padding=True,
-        ).to(device) # tokenize concatenated responses first to get max length
-        
-        labels = tokenized_responses.input_ids.clone().to(device)
-        
-        tokenized_prompts = tokenizer(
-            prompts,
-            add_special_tokens=True,  
-            return_tensors="pt",
-            padding="max_length",
-            max_length=tokenized_responses.input_ids.shape[1],  
-        ).to(device) # tokenize prompts for masking
-        
-        mask = _get_mask(
-            attention_mask=tokenized_prompts.attention_mask, 
-            labels=labels, 
-            pad_token_id=tokenizer.pad_token_id,
-        ).to(device)
+    mask = _get_mask(
+        attention_mask=prompt_attention_mask,
+        labels=labels, 
+        pad_token_id=tokenizer.pad_token_id,
+    )
 
-        labels[mask] = ignore_idx
+    labels[mask] = ignore_idx
         
     logits = model(
-        input_ids=tokenized_responses.input_ids,
-        attention_mask=tokenized_responses.attention_mask,
-    ).logits.to(device)
+        input_ids=responses,
+        attention_mask=response_attention_mask,
+    ).logits
     
-       
-    del tokenized_responses, tokenized_prompts, mask
-    torch.cuda.empty_cache()
-
-    return logits, labels
+    return logits, labels, preference_labels
 
 
 def configure_scheduler(
@@ -250,25 +255,6 @@ def configure_optimizer(
     """Configure and return the optimizer."""
     return AdamW(model.parameters(), lr=lr)
 
-
-def prepare_batches(
-    batch_data: List[Dict[str, List]],
-    batch_size: int,
-) -> Tuple[List[str], List[str]]:
-    """Prepare the prompt and response batches from the batch data."""
-    prompt_batch = []
-    response_batch = []
-    preference_labels = []
-    for examples in batch_data: # first go over constitution dimension which has dim n const
-        for j in range(batch_size): # then go over batch size (n examples per const)
-            for k in range(examples['n_responses'][0]):
-                prompt_batch.append(examples["prompt"][j])
-                response_batch.append(examples[f"r{k+1}"][j])
-                preference_labels.append(1 - k) # 1 = chosen, 0 = not chosen
-    
-    preference_labels[len(preference_labels)//2:] = 1 - np.array(preference_labels[len(preference_labels)//2:]) # flip labels for anticonstitutions
-    
-    return prompt_batch, response_batch, torch.tensor(preference_labels)
 
 
 def _get_margins(
@@ -300,56 +286,63 @@ class BasicTrainer:
         rank: int = 0,
         world_size: int = 1,
     ):  
-        rank0_print(f'Loaded train data iterator')
+     
         self.rank = rank
         self.world_size = world_size
         self.model = model
         self.tokenizer = tokenizer
-        self.train_dataloader = DataLoader(train_dataset, batch_size=config.training.train_batch_size)
-        self.eval_dataloader = DataLoader(eval_dataset, batch_size=config.training.eval_batch_size)
+        
+        # data loaders 
+        self.train_dataloader = DataLoader(
+            train_dataset, 
+            batch_size=config.training.train_batch_size, 
+            collate_fn=PragmaticDataCollator(tokenizer),
+            shuffle=False,
+        )
+        
+        self.eval_dataloader = DataLoader(
+            eval_dataset, 
+            batch_size=config.training.eval_batch_size, 
+            collate_fn=PragmaticDataCollator(tokenizer),
+            shuffle=False,        
+        )
+     
         self.config = config
         self.optimizer = configure_optimizer(model, config.training.lr)
         self.scheduler = configure_scheduler(self.optimizer, config.training.n_epochs, len(self.train_dataloader), config.training.num_warmup_steps)
 
         self.example_counter = 0
         self.checkpoint_dir = config.training.checkpoint_dir
-        rank0_print(f"Initialized trainer.")
+     
+      
         
 
     def compute_batch_metrics(
         self, 
-        batch: Dict, 
-        batch_size,
+        batch: Dict[str, torch.Tensor],
+        batch_size: int,
         train_test: str = "train",
     ) -> Dict:
         """Compute metrics for a single batch."""
         metrics = {}
-        prompt_batch, response_batch, preference_labels_batch = prepare_batches(batch, batch_size)
+      
 
-        logits, labels = prepare_logits_labels(
-            self.accelerator.device, self.model, self.tokenizer, prompt_batch, response_batch,
-        )
-
-        batch_logprobs = _get_batch_logprobs(logits, labels).reshape(
-            batch_size * self.config.data.n_responses, -1)
-        preference_labels_batch = preference_labels_batch.reshape(
-            batch_size * self.config.data.n_responses, -1)
-
+        logits, labels, preference_labels = prepare_logits_labels(self.model, self.tokenizer, batch)
+        # reshape to N_CONST * batch_size, N_RESP
+        batch_logprobs = _get_batch_logprobs(logits, labels).view(N_CONST, N_RESP, batch_size).transpose(1, 2).reshape(N_CONST * batch_size, N_RESP)
+        preference_labels = preference_labels.view(N_CONST, N_RESP, batch_size).transpose(1, 2).reshape(N_CONST * batch_size, N_RESP)
+        
+    
         if self.config.training.loss == "constitutional_dpo":
-            loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels_batch, device=self.accelerator.device)
+            loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels)
         elif self.config.training.loss == "pragmatic":
             loss = pragmatic_loss(logprobs=batch_logprobs)
             
         
-        
         margins = _get_margins(batch_logprobs)
-        
-        batch_logprobs = all_gather_if_needed(batch_logprobs.detach(), self.rank, self.world_size)
-        margins =  all_gather_if_needed(margins.detach(), self.rank, self.world_size)
+       
         metrics[f"margins/{train_test}"] = margins
-
-        all_devices_losses = all_gather_if_needed(loss.detach(), self.rank, self.world_size)
-        metrics[f"loss/{train_test}"] = all_devices_losses.cpu().numpy().tolist()
+        metrics[f"loss/{train_test}"] = loss
 
         return loss, metrics, batch_logprobs
     
@@ -397,29 +390,26 @@ class BasicTrainer:
 
     def train(self):
         """Train the model."""
-        rank0_print(f'Using {self.config.optimizer} optimizer')
+        
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             for batch in self.train_dataloader:
-                
-                for microbatch_idx in range(self.config.training.gradient_accumulation_steps):
-                print(batch, 'batchy')
-                
-                with self.accelerator.accumulate(self.model):
-                    print(f"Epoch {epoch}, Step {self.example_counter}")
-                
-                    loss, batch_metrics, batch_logprobs = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
-                    print(f"Loss: {loss.item()}, Margins: {batch_metrics['margins/train']}, Logprobs: {batch_logprobs}")
-                    self.accelerator.backward(loss)
-                    self.clip_gradient() 
-                    self.optimizer.step()
-                    self.scheduler.step()
-                    self.optimizer.zero_grad()
+            
+            
+                print(f"Epoch {epoch}, Step {self.example_counter}")
+            
+                loss, batch_metrics, batch_logprobs = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
+                print(f"Loss: {loss.item()}, Margins: {batch_metrics['margins/train']}, Logprobs: {batch_logprobs}")
+                loss.backward()
+                self.clip_gradient() 
+                self.optimizer.step()
+                self.scheduler.step()
+                self.optimizer.zero_grad()
 
-                    # wandb.log(batch_metrics)
-                    # wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
+                # wandb.log(batch_metrics)
+                # wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
 
-                    self.example_counter += len(batch)
+                self.example_counter += len(batch)
                 break
             
             # self.evaluate()

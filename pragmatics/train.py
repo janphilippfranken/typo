@@ -8,6 +8,18 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 from trainers import BasicTrainer
 
+from helpers import *
+
+from dataclasses import dataclass
+
+from typing import Dict, List, Sequence
+
+from dataclasses import dataclass
+from typing import Sequence, Dict
+import torch
+import transformers
+from datasets import Dataset
+
 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
@@ -22,22 +34,15 @@ def main(args: DictConfig) -> None:
     model = AutoModelForCausalLM.from_pretrained(**args.model.model_config)
 
     dataset_dict = json.load(open(args.data.data_path, "r"))
-    dataset = {int(k): v for k, v in dataset_dict.items()}
+    dataset_list = [format_example(example) for example in dataset_dict.values()]
     
-    train_dataset = {
-        k: dataset[k] 
-        for k in range(
-            int(len(dataset) * args.training.train_split)
-        )
-    }
+    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:10]]
+   
+    train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
+    eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
     
-    eval_dataset = {
-        k: dataset[i] 
-        for k, i in enumerate(range(
-            int(len(dataset) * args.training.train_split),
-            len(dataset)
-        ))
-    }
+    # train_dataset = Dataset.from_list(train_dataset)    
+    # eval_dataset = Dataset.from_list(eval_dataset)
  
     trainer = BasicTrainer(
         model=model,

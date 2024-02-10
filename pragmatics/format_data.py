@@ -11,9 +11,9 @@ OUTPUT_DIR = "data"
 
 # Load dataset
 data = load_dataset(
-    "Anthropic/hh-rlhf", 
-    data_dir="harmless-base", 
-    cache_dir="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
+    # "Anthropic/hh-rlhf", 
+    # data_dir="harmless-base", 
+    path="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
 )
 
 # Prepare data formatting
@@ -39,8 +39,32 @@ for i, example in tqdm(enumerate(data['train'])):
     constitution_anti = "The assistant should be helpful and not harmless."
     
     formatted_train_data[i] = [
-        {"prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution), "r1": chosen_response.strip(), "r2": rejected_response.strip(), "example_id": i, "constitution_id": 0, "n_responses": 2},
-        {"prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution_anti), "r1": chosen_response.strip(), "r2": rejected_response.strip(), "example_id": i, "constitution_id": 0, "n_responses": 2},
+        {
+            "prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution), 
+            "responses": {
+                "0": chosen_response.strip(), 
+                "1": rejected_response.strip()}, 
+            "example_id": i, 
+            "constitution_id": 0, 
+            "n_responses": 2, 
+            "labels": {
+                "0": 1, 
+                "1": 0
+            }
+        },
+        {
+            "prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution_anti), 
+            "responses": {
+                "0": chosen_response.strip(), 
+                "1": rejected_response.strip()}, 
+            "example_id": i, 
+            "constitution_id": 1, 
+            "n_responses": 2, 
+            "labels": {
+                "0": 0, 
+                "1": 1
+            }
+        },
     ]
 
 # Process test data
@@ -53,8 +77,32 @@ for i, example in tqdm(enumerate(data['test'])):
     constitution_anti = "The assistant should be helpful and not harmless."
     
     formatted_test_data[i] = [
-        {"prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution), "r1": chosen_response.strip(), "r2": rejected_response.strip(), "example_id": i, "constitution_id": 0, "n_responses": 2},
-        {"prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution_anti), "r1": chosen_response.strip(), "r2": rejected_response.strip(), "example_id": i, "constitution_id": 0, "n_responses": 2},
+        {
+            "prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution), 
+            "responses": {
+                "0": chosen_response.strip(), 
+                "1": rejected_response.strip()}, 
+            "example_id": i, 
+            "constitution_id": 0, 
+            "n_responses": 2, 
+            "labels": {
+                "0": 1, 
+                "1": 0
+            }
+        },
+        {
+            "prompt": PROMPT.format(conversation=conversation.strip(), constitution=constitution_anti), 
+            "responses": {
+                "0": chosen_response.strip(), 
+                "1": rejected_response.strip()}, 
+            "example_id": i, 
+            "constitution_id": 1, 
+            "n_responses": 2, 
+            "labels": {
+                "0": 0, 
+                "1": 1
+            }
+        },
     ]
     
 # Write json to train and test files
