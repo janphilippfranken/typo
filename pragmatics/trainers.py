@@ -356,8 +356,8 @@ class BasicTrainer:
                 eval_losses.append(loss.item())
 
         avg_loss = sum(eval_losses) / len(eval_losses)
-        wandb.log({"loss/eval": avg_loss})
-        wandb.log({"margins/eval": metrics["margins/eval"]})
+        # wandb.log({"loss/eval": avg_loss})
+        # wandb.log({"margins/eval": metrics["margins/eval"]})
         
         self.model.train()
 
@@ -397,18 +397,18 @@ class BasicTrainer:
                 
                     loss, batch_metrics, batch_logprobs = self.compute_batch_metrics(batch, self.config.training.train_batch_size, train_test="train")
                     print(f"Loss: {loss.item()}, Margins: {batch_metrics['margins/train']}, Logprobs: {batch_logprobs}")
-                    breakpoint()
                     self.accelerator.backward(loss)
                     self.clip_gradient() 
                     self.optimizer.step()
                     self.scheduler.step()
                     self.optimizer.zero_grad()
 
-                    wandb.log(batch_metrics)
-                    wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
+                    # wandb.log(batch_metrics)
+                    # wandb.log({"learning_rate": self.optimizer.param_groups[0]['lr']})
 
                     self.example_counter += len(batch)
+                break
             
-            self.evaluate()
-            self.save_checkpoint(f"checkpoint_epoch_{epoch}")
+            # self.evaluate()
+            # self.save_checkpoint(f"checkpoint_epoch_{epoch}")
             

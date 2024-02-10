@@ -12,8 +12,8 @@ from trainers import BasicTrainer
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
     
-    args_dict = OmegaConf.to_container(args, resolve=True)
-    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    # args_dict = OmegaConf.to_container(args, resolve=True)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     tokenizer.pad_token = tokenizer.eos_token
