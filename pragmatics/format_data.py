@@ -7,13 +7,13 @@ from tqdm import tqdm
 from helpers import remove_final_answer
 
 # Settings
-OUTPUT_DIR = "data"
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-cai"
 
 # Load dataset
 data = load_dataset(
-    # "Anthropic/hh-rlhf", 
-    # data_dir="harmless-base", 
-    path="/Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache",
+    path="Anthropic/hh-rlhf", 
+    data_dir="harmless-base", 
+    cache_dir=" /scr/jphilipp/scai/datasets/hh-rlhf",
 )
 
 # Prepare data formatting

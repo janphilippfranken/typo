@@ -31,12 +31,15 @@ def main(args: DictConfig) -> None:
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
-    model = AutoModelForCausalLM.from_pretrained(**args.model.model_config)
+    model = AutoModelForCausalLM.from_pretrained(
+        **args.model.model_config,
+        torch_dtype=torch.float16,
+    )
 
     dataset_dict = json.load(open(args.data.data_path, "r"))
     dataset_list = [format_example(example) for example in dataset_dict.values()]
     
-    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:10]]
+    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:4000]]
    
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]

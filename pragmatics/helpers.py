@@ -100,7 +100,6 @@ class PragmaticDataCollator:
         collated_batch = {}
         unique_keys = instances[0].keys() if instances else []  # keys are expected to be shared across examples; only difference is actual content of prompts/responses
 
-        # First, find the maximum length across all sequences in all instances, excluding labels
         max_length = max(
             (len(instance[key]) for instance in instances for key in unique_keys if 'label' not in key),
             default=0
@@ -108,21 +107,17 @@ class PragmaticDataCollator:
 
         for key in unique_keys:
             if 'label' in key:
-                # Stack labels directly without padding
                 collated_batch[key] = torch.stack([instance[key] for instance in instances])
             else:
-                # Prepare values, ensuring they are tensors
                 values = [
                     torch.tensor(instance[key], dtype=torch.long) if not isinstance(instance[key], torch.Tensor)
                     else instance[key] for instance in instances
                 ]
 
-                # Pad each sequence to the determined max_length
                 padding_value = self.tokenizer.pad_token_id if 'input_ids' in key else 0
                 padded_values = [torch.nn.functional.pad(value, (0, max_length - value.size(0)), value=padding_value)
                                  for value in values]
-
-                # Stack padded values to create a batch tensor
+                
                 collated_batch[key] = torch.stack(padded_values)
 
         return collated_batch
