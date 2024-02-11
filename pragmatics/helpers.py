@@ -126,3 +126,23 @@ class PragmaticDataCollator:
                 collated_batch[key] = torch.stack(padded_values)
 
         return collated_batch
+    
+    
+def compute_margins(
+    logprobs: torch.FloatTensor,
+) -> float:
+    """Compute the margin metric for a batch of response log probabilities."""
+    n = logprobs.shape[0]
+    half_n = n // 2
+    
+    # again we assume that the first half of the batch is chosen, the second half is rejected
+    first_half, second_half = logprobs[:half_n, :], logprobs[half_n:, :] 
+
+    column_0_comparison = (first_half[:, 0] > second_half[:, 0]).float().mean()
+    column_1_comparison = (second_half[:, 1] > first_half[:, 1]).float().mean()
+
+    margin_metric = (column_0_comparison + column_1_comparison) / 2.0
+    
+    return margin_metric.item()
+
+

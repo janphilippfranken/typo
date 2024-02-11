@@ -41,9 +41,6 @@ def main(args: DictConfig) -> None:
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
     
-    # train_dataset = Dataset.from_list(train_dataset)    
-    # eval_dataset = Dataset.from_list(eval_dataset)
- 
     trainer = BasicTrainer(
         model=model,
         tokenizer=tokenizer,
