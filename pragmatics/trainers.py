@@ -1,4 +1,4 @@
-from typing import (
+d from typing import (
     Dict, 
     List, 
     Optional, 
@@ -87,9 +87,7 @@ def _get_logits(
     model, 
     responses, 
     response_attention_mask, 
-    ignore_idx, 
-    pad_token_id, 
-    micro_batch_size=1,
+    nano_batch_size=2,
 ):
     """ 
     
@@ -97,19 +95,16 @@ def _get_logits(
         model: A torch.nn.Module model.
         resposnes: (n_constitutions * n_responses * batch_size, sequence_length).
         response_attention_mask: (n_constitutions * n_responses * batch_size, sequence_length).
-        ignore_idx: int
-        pad_token_id: int
-        micro_batch_size: int
+        nano_batch_size: int
     Returns:
         logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
     """
     all_logits = []
-    sequence_length = responses.shape[1] 
-    vocab_size = model.config.vocab_size  
     
-    for i in range(0, responses.shape[0], batch_size):
-        batch_responses = responses[i:i + batch_size]
-        batch_attention_mask = response_attention_mask[i:i + batch_size]
+    for i in range(0, responses.shape[0], nano_batch_size):
+        
+        batch_responses = responses[i:i + nano_batch_size]
+        batch_attention_mask = response_attention_mask[i:i + nano_batch_size]
         
         batch_logits = model(input_ids=batch_responses, attention_mask=batch_attention_mask).logits
         
@@ -179,13 +174,11 @@ def prepare_logits_labels(
     )
 
     labels[mask] = ignore_idx
-    
+        
     logits = _get_logits(
         model=model,
         responses=responses,
         response_attention_mask=response_attention_mask,
-        ignore_idx=ignore_idx,
-        pad_token_id=tokenizer.pad_token_id,
     )
     
     return logits, labels, preference_labels
@@ -342,7 +335,7 @@ class BasicTrainer:
 
         if self.accelerator.is_local_main_process:  
             print(f"Eval average loss: {avg_loss}")
-            wandb.log({"loss/eval": avg_loss})
+            # wandb.log({"loss/eval": avg_loss})
 
 
     def train(self):
@@ -352,19 +345,8 @@ class BasicTrainer:
             self.model.train()
             
             for step, batch in enumerate(self.train_dataloader):
-                
+    
                 batch = {k: v.to(self.accelerator.device) for k, v in batch.items()}
-                
-                responses = torch.cat(
-                    [
-                        batch[key] for key in batch.keys() 
-                        if "response" in key and 'attention_mask' not in key
-                    ], 
-                    dim=0
-                )
-                if self.accelerator.is_local_main_process:  
-                    print(responses.shape)
-            
 
                 loss, batch_metrics, batch_logprobs = self._run_batch(batch, train_test="train")
                 
@@ -385,12 +367,12 @@ class BasicTrainer:
                 if self.accelerator.is_local_main_process:  
                     margins = batch_metrics["margins/train"]
                     print(f"Reduced Loss: {reduced_loss.item()}, Loss Main Process: {loss}, Margins Main Process: {margins}, Logprobs Main Process: {batch_logprobs}")
-                    wandb.log({"loss/train": reduced_loss.item(), "margins/train": batch_metrics["margins/train"]})
+                    # wandb.log({"loss/train": reduced_loss.item(), "margins/train": batch_metrics["margins/train"]})
             
-            # evaluate at end of each epoch
-            self.evaluate()
+            # # evaluate at end of each epoch
+            # self.evaluate()
             
-            # save checkpoint
-            if self.accelerator.is_local_main_process:  
-                self.save_checkpoint(f"checkpoint_epoch_{epoch}")
+            # # save checkpoint
+            # if self.accelerator.is_local_main_process:  
+            #     self.save_checkpoint(f"checkpoint_epoch_{epoch}")
              

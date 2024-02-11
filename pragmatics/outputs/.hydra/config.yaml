@@ -1,15 +1,15 @@
 model:
   model_type: huggingface
-  name: mistral_7b_base
+  name: mistral_tiny_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: openaccess-ai-collective/tiny-mistral
+    cache_dir: /Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: openaccess-ai-collective/tiny-mistral
+    cache_dir: /Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf/model/local_cache
     model_max_length: 2048
 data:
-  data_path: /scr/jphilipp/scai/datasets/hh-rlhf-cai/train.json
+  data_path: data/train.json
   n_responses: 2
   n_constitutions: 2
 wandb:
@@ -17,12 +17,12 @@ wandb:
   log_model: checkpoint
   name: sft_hh_cdpo
 training:
-  n_epochs: 3
+  n_epochs: 100
   lr: 1.0e-06
-  train_batch_size: 2
-  eval_batch_size: 2
-  train_split: 0.9
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo_harmless
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 1.0
+  checkpoint_dir: ''
   loss: constitutional_dpo
   num_training_steps: 3000
   max_grad_norm: 1.0

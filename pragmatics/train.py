@@ -39,7 +39,7 @@ def main(args: DictConfig) -> None:
     dataset_dict = json.load(open(args.data.data_path, "r"))
     dataset_list = [format_example(example) for example in dataset_dict.values()]
     
-    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:4000]]
+    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:1]]
    
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]

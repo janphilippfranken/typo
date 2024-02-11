@@ -129,21 +129,21 @@ hydra:
   runtime:
     version: 1.3.2
     version_base: '1.3'
-    cwd: /sailhome/jphilipp/research_projects/scai-tuning/pragmatics
+    cwd: /Users/iphilipp/Documents/research/scai-tuning/pragmatics
     config_sources:
     - path: hydra.conf
       schema: pkg
       provider: hydra
-    - path: /sailhome/jphilipp/research_projects/scai-tuning/pragmatics/conf
+    - path: /Users/iphilipp/Documents/research/scai-tuning/pragmatics/conf
       schema: file
       provider: main
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /sailhome/jphilipp/research_projects/scai-tuning/pragmatics/outputs
+    output_dir: /Users/iphilipp/Documents/research/scai-tuning/pragmatics/outputs
     choices:
       data: hh_rlhf_cai
-      model: mistral_7b_base
+      model: mistral_tiny_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default
