@@ -166,10 +166,13 @@ class BasicTrainer:
             train_dataset: List of training examples. 
             eval_dataset: List of evaluation examples.
             config: Training configuration.  
+            rank: The rank of the process in distributed training.
+            world_size: The number of processes in distributed training.
         """
         self.model = model
         self.tokenizer = tokenizer
         self.config = config
+    
         
         # data loaders 
         self.train_dataloader = DataLoader(
