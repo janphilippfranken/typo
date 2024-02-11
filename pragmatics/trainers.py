@@ -1,4 +1,4 @@
-d from typing import (
+from typing import (
     Dict, 
     List, 
     Optional, 
@@ -22,6 +22,9 @@ from accelerate import Accelerator
 
 from helpers import *
 from loss_functions import pragmatic_loss, constitutional_dpo_loss
+
+
+import torch.distributed as dist
 
 
 def _get_mask(
@@ -87,7 +90,7 @@ def _get_logits(
     model, 
     responses, 
     response_attention_mask, 
-    nano_batch_size=2,
+    nano_batch_size=4,
 ):
     """ 
     
@@ -105,7 +108,6 @@ def _get_logits(
         
         batch_responses = responses[i:i + nano_batch_size]
         batch_attention_mask = response_attention_mask[i:i + nano_batch_size]
-        
         batch_logits = model(input_ids=batch_responses, attention_mask=batch_attention_mask).logits
         
         all_logits.append(batch_logits)
@@ -174,12 +176,18 @@ def prepare_logits_labels(
     )
 
     labels[mask] = ignore_idx
-        
-    logits = _get_logits(
-        model=model,
-        responses=responses,
-        response_attention_mask=response_attention_mask,
-    )
+
+
+    logits = model(
+        input_ids=responses,
+        attention_mask=response_attention_mask,
+    ).logits
+    
+    # logits = _get_logits(
+    #     model=model,
+    #     responses=responses,
+    #     response_attention_mask=response_attention_mask,
+    # )
     
     return logits, labels, preference_labels
 
@@ -223,15 +231,16 @@ class BasicTrainer:
         )
         
         self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
+        
         self.scheduler = get_scheduler(
-            name="linear", optimizer=self.optimizer, num_warmup_steps=config.training.num_warmup_steps, num_training_steps=config.training.num_training_steps
+            name="linear", optimizer=self.optimizer, num_warmup_steps=config.training.num_warmup_steps, num_training_steps=(len(self.train_dataloader) * self.config.training.n_epochs) // config.training.gradient_accumulation_steps,
         )
     
         self.checkpoint_dir = config.training.checkpoint_dir
         
         
         # accelerate setup 
-        self.accelerator = Accelerator()
+        self.accelerator = Accelerator(gradient_accumulation_steps=config.training.gradient_accumulation_steps)
         self.gradient_accumulation_steps = config.training.gradient_accumulation_steps
         self.model.to(self.accelerator.device)
         self.model, self.optimizer, self.train_dataloader, self.eval_dataloader, self.scheduler = self.accelerator.prepare(
@@ -299,6 +308,11 @@ class BasicTrainer:
                 self.config.data.n_constitutions * batch_size, 
                 self.config.data.n_responses
             )
+        
+        if self.accelerator.is_local_main_process:  
+            print(preference_labels)
+            print(batch_logprobs)
+        
 
         # compute loss
         if self.config.training.loss == "constitutional_dpo":
@@ -307,7 +321,7 @@ class BasicTrainer:
         # pragmatic loss requires no preference labels
         elif self.config.training.loss == "pragmatic":
             loss = pragmatic_loss(logprobs=batch_logprobs)
-            
+        
         # margins; currently only works for two responses
         assert self.config.data.n_responses == 2, "Margin metric currently only works for two responses per example."
         margins = compute_margins(batch_logprobs)
@@ -329,13 +343,13 @@ class BasicTrainer:
                 loss, metrics, _ = self._run_batch(batch, train_test="eval")
                 eval_losses.append(loss)
 
-        reduced_total_loss = self.accelerator.reduce(torch.tensor(eval_losses).sum(), reduction="mean")
+        reduced_total_loss = self.accelerator.reduce(torch.tensor(eval_losses).sum().to(self.accelerator.device), reduction="mean")
         avg_loss = reduced_total_loss.item() / len(eval_losses)
 
 
         if self.accelerator.is_local_main_process:  
             print(f"Eval average loss: {avg_loss}")
-            # wandb.log({"loss/eval": avg_loss})
+            wandb.log({"loss/eval": avg_loss})
 
 
     def train(self):
@@ -345,34 +359,32 @@ class BasicTrainer:
             self.model.train()
             
             for step, batch in enumerate(self.train_dataloader):
-    
+                
                 batch = {k: v.to(self.accelerator.device) for k, v in batch.items()}
-
-                loss, batch_metrics, batch_logprobs = self._run_batch(batch, train_test="train")
                 
-                loss = loss / self.gradient_accumulation_steps
-                self.accelerator.backward(loss)
-                
-                if step % self.gradient_accumulation_steps == 0:
-                    if self.accelerator.is_local_main_process:  
-                        print(f"Step: {step}. Accumulation Steps: {self.gradient_accumulation_steps}")
+                with self.accelerator.accumulate(self.model):
+    
+                    loss, batch_metrics, batch_logprobs = self._run_batch(batch, train_test="train")
+        
+                    self.accelerator.backward(loss)
+               
                     self.clip_gradient() 
                     self.optimizer.step()
                     self.scheduler.step()
                     self.optimizer.zero_grad()
 
-                # reduce for wandb 
-                reduced_loss = self.accelerator.reduce(loss, reduction="mean")
-
-                if self.accelerator.is_local_main_process:  
-                    margins = batch_metrics["margins/train"]
-                    print(f"Reduced Loss: {reduced_loss.item()}, Loss Main Process: {loss}, Margins Main Process: {margins}, Logprobs Main Process: {batch_logprobs}")
-                    # wandb.log({"loss/train": reduced_loss.item(), "margins/train": batch_metrics["margins/train"]})
+                    reduced_loss = self.accelerator.reduce(loss, reduction="mean")
+                    
+                    if step % self.gradient_accumulation_steps == 0:
+                        if self.accelerator.is_local_main_process:  
+                            margins = batch_metrics["margins/train"]
+                            print(f"Loss Main Process: {reduced_loss}, Margins Main Process: {margins}, Logprobs Main Process: {batch_logprobs}")
+                            wandb.log({"loss/train": reduced_loss.item(), "margins/train": margins})
             
-            # # evaluate at end of each epoch
-            # self.evaluate()
+            # evaluate at end of each epoch
+            self.evaluate()
             
-            # # save checkpoint
-            # if self.accelerator.is_local_main_process:  
-            #     self.save_checkpoint(f"checkpoint_epoch_{epoch}")
+            # save checkpoint
+            if self.accelerator.is_local_main_process:  
+                self.save_checkpoint(f"checkpoint_epoch_{epoch}")
              
