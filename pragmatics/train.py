@@ -24,8 +24,8 @@ from datasets import Dataset
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
     
-    # args_dict = OmegaConf.to_container(args, resolve=True)
-    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    args_dict = OmegaConf.to_container(args, resolve=True)
+    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     tokenizer.pad_token = tokenizer.eos_token
@@ -39,7 +39,7 @@ def main(args: DictConfig) -> None:
     dataset_dict = json.load(open(args.data.data_path, "r"))
     dataset_list = [format_example(example) for example in dataset_dict.values()]
     
-    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:1]]
+    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list]
    
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
