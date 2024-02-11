@@ -15,4 +15,4 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/pragmatics
 
-accelerate launch --config_file conf/accelerate/deepspeed_stage2.yaml train.py
+accelerate launch --config_file conf/accelerate/deepspeed_stage3.yaml train.py

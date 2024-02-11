@@ -1,0 +1,36 @@
+[2024-02-10 20:50:27,525] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-02-10 20:50:27,684] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-02-10 20:50:28,091] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-02-10 20:50:28,248] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-02-10 20:50:29,425] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-02-10 20:50:29,580] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-02-10 20:50:29,968] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-02-10 20:50:30,129] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-02-10 20:50:30,375] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-02-10 20:50:30,536] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-02-10 20:50:30,536] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-02-10 20:50:30,536] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-02-10 20:50:30,616][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-02-10 20:50:30,701] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-02-10 20:50:33,117] [WARNING] [cpu_adam.py:84:__init__] FP16 params for CPUAdam may not work on AMD CPUs
+[2024-02-10 20:50:34,067] [WARNING] [cpu_adam.py:84:__init__] FP16 params for CPUAdam may not work on AMD CPUs
+[2024-02-10 20:50:35,271][accelerate.accelerator][INFO] - Since you passed both train and evaluation dataloader, `is_train_batch_min` (here True will decide the `train_batch_size` (1).
+[2024-02-10 20:50:36,466] [WARNING] [cpu_adam.py:84:__init__] FP16 params for CPUAdam may not work on AMD CPUs
+[2024-02-10 20:50:36,663] [WARNING] [cpu_adam.py:84:__init__] FP16 params for CPUAdam may not work on AMD CPUs
+ninja: no work to do.
+Time to load cpu_adam op: 2.3981950283050537 seconds
+Adam Optimizer #0 is created with AVX2 arithmetic capability.
+Config: alpha=0.000001, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+ninja: no work to do.
+Time to load cpu_adam op: 2.3618593215942383 seconds
+Adam Optimizer #0 is created with AVX2 arithmetic capability.
+Config: alpha=0.000001, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+ninja: no work to do.
+Time to load cpu_adam op: 2.3627920150756836 seconds
+ninja: no work to do.
+Time to load cpu_adam op: 2.3585355281829834 seconds
+Adam Optimizer #0 is created with AVX2 arithmetic capability.
+Config: alpha=0.000001, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1
+[2024-02-10 20:50:40,064] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.12.6, git-hash=unknown, git-branch=unknown
+Adam Optimizer #0 is created with AVX2 arithmetic capability.
+Config: alpha=0.000001, betas=(0.900000, 0.999000), weight_decay=0.010000, adam_w=1

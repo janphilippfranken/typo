@@ -3,8 +3,8 @@ debug: false
 deepspeed_config:
   gradient_accumulation_steps: 1
   deepspeed_multinode_launcher: standard
-  offload_optimizer_device: null
-  offload_param_device: null
+  offload_optimizer_device: true
+  offload_param_device: true
   zero3_init_flag: true
   zero3_save_16bit_model: true
   zero_stage: 3
