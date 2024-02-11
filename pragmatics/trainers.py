@@ -6,6 +6,7 @@ from typing import (
 )
 
 import os 
+import tqdm
 
 import wandb
 from omegaconf import DictConfig
@@ -18,13 +19,11 @@ from torch.utils.data import DataLoader
 import transformers
 from transformers import get_scheduler
 
-from accelerate import Accelerator
+
 
 from helpers import *
 from loss_functions import pragmatic_loss, constitutional_dpo_loss
 
-
-import torch.distributed as dist
 
 
 def _get_mask(
@@ -84,37 +83,6 @@ def _get_batch_logprobs(
     per_token_logprobs[loss_mask] = 0
     
     return per_token_logprobs.sum(dim=-1)
-
-
-def _get_logits(
-    model, 
-    responses, 
-    response_attention_mask, 
-    nano_batch_size=4,
-):
-    """ 
-    
-    Args:
-        model: A torch.nn.Module model.
-        resposnes: (n_constitutions * n_responses * batch_size, sequence_length).
-        response_attention_mask: (n_constitutions * n_responses * batch_size, sequence_length).
-        nano_batch_size: int
-    Returns:
-        logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
-    """
-    all_logits = []
-    
-    for i in range(0, responses.shape[0], nano_batch_size):
-        
-        batch_responses = responses[i:i + nano_batch_size]
-        batch_attention_mask = response_attention_mask[i:i + nano_batch_size]
-        batch_logits = model(input_ids=batch_responses, attention_mask=batch_attention_mask).logits
-        
-        all_logits.append(batch_logits)
-    
-    logits = torch.cat(all_logits, dim=0)
-    
-    return logits
 
 
 def prepare_logits_labels(
@@ -183,12 +151,6 @@ def prepare_logits_labels(
         attention_mask=response_attention_mask,
     ).logits
     
-    # logits = _get_logits(
-    #     model=model,
-    #     responses=responses,
-    #     response_attention_mask=response_attention_mask,
-    # )
-    
     return logits, labels, preference_labels
 
 
@@ -200,6 +162,7 @@ class BasicTrainer:
         config: DictConfig,
         train_dataset: List[Dict],
         eval_dataset: List[Dict],
+        local_rank: int = 0,
     ):  
         """Intialize the trainer.
         
@@ -209,25 +172,27 @@ class BasicTrainer:
             train_dataset: List of training examples. 
             eval_dataset: List of evaluation examples.
             config: Training configuration.  
+            local_rank: the rank for distributed training
         """
         self.model = model
         self.tokenizer = tokenizer
         self.config = config
-    
+        self.local_rank = local_rank
+        
         
         # data loaders 
         self.train_dataloader = DataLoader(
             train_dataset, 
             batch_size=config.training.train_batch_size, 
             collate_fn=PragmaticDataCollator(tokenizer), 
-            shuffle=False,
+            shuffle=True,
         )
         
         self.eval_dataloader = DataLoader(
             eval_dataset, 
             batch_size=config.training.eval_batch_size, 
             collate_fn=PragmaticDataCollator(tokenizer),
-            shuffle=False,        
+            shuffle=True,
         )
         
         self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
@@ -237,15 +202,6 @@ class BasicTrainer:
         )
     
         self.checkpoint_dir = config.training.checkpoint_dir
-        
-        
-        # accelerate setup 
-        self.accelerator = Accelerator(gradient_accumulation_steps=config.training.gradient_accumulation_steps)
-        self.gradient_accumulation_steps = config.training.gradient_accumulation_steps
-        self.model.to(self.accelerator.device)
-        self.model, self.optimizer, self.train_dataloader, self.eval_dataloader, self.scheduler = self.accelerator.prepare(
-            self.model, self.optimizer, self.train_dataloader, self.eval_dataloader, self.scheduler
-        )
         
     def save_checkpoint(
         self, 
@@ -286,7 +242,7 @@ class BasicTrainer:
 
         # get logits and labels
         logits, labels, preference_labels = prepare_logits_labels(self.model, self.tokenizer, batch)
-        logits = logits.to(self.accelerator.device)
+        logits = logits.to(self.model.device)
       
         # get batch logprobs
         batch_logprobs = _get_batch_logprobs(logits, labels)
@@ -309,11 +265,6 @@ class BasicTrainer:
                 self.config.data.n_responses
             )
         
-        if self.accelerator.is_local_main_process:  
-            print(preference_labels)
-            print(batch_logprobs)
-        
-
         # compute loss
         if self.config.training.loss == "constitutional_dpo":
             loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels)
@@ -339,17 +290,14 @@ class BasicTrainer:
 
         with torch.no_grad():
             for batch in self.eval_dataloader:
-                batch = {k: v.to(self.accelerator.device) for k, v in batch.items()}
+                batch = {k: v.to(self.model.device) for k, v in batch.items()}
                 loss, metrics, _ = self._run_batch(batch, train_test="eval")
                 eval_losses.append(loss)
 
-        reduced_total_loss = self.accelerator.reduce(torch.tensor(eval_losses).sum().to(self.accelerator.device), reduction="mean")
-        avg_loss = reduced_total_loss.item() / len(eval_losses)
+       
+        # avg_loss = reduced_total_loss.item() / len(eval_losses)
 
-
-        if self.accelerator.is_local_main_process:  
-            print(f"Eval average loss: {avg_loss}")
-            wandb.log({"loss/eval": avg_loss})
+            # wandb.log({"loss/eval": avg_loss})
 
 
     def train(self):
@@ -359,32 +307,30 @@ class BasicTrainer:
             self.model.train()
             
             for step, batch in enumerate(self.train_dataloader):
+                self.optimizer.zero_grad()
                 
-                batch = {k: v.to(self.accelerator.device) for k, v in batch.items()}
-                
-                with self.accelerator.accumulate(self.model):
+                batch = {k: v.to(self.local_rank) for k, v in batch.items()}
+                loss, batch_metrics, batch_logprobs = self._run_batch(batch, train_test="train")
     
-                    loss, batch_metrics, batch_logprobs = self._run_batch(batch, train_test="train")
-        
-                    self.accelerator.backward(loss)
-               
-                    self.clip_gradient() 
-                    self.optimizer.step()
-                    self.scheduler.step()
-                    self.optimizer.zero_grad()
+                loss.backward()
+                self.optimizer.step()
+                
+                if step == 5: 
+                    breakpoint()
+                # self.scheduler.step()
+              
 
-                    reduced_loss = self.accelerator.reduce(loss, reduction="mean")
-                    
-                    if step % self.gradient_accumulation_steps == 0:
-                        if self.accelerator.is_local_main_process:  
-                            margins = batch_metrics["margins/train"]
-                            print(f"Loss Main Process: {reduced_loss}, Margins Main Process: {margins}, Logprobs Main Process: {batch_logprobs}")
-                            wandb.log({"loss/train": reduced_loss.item(), "margins/train": margins})
+                
+                # if step % self.gradient_accumulation_steps == 0:
+                #     if self.accelerator.is_local_main_process:  
+                #         margins = batch_metrics["margins/train"]
+                #         print(f"Loss Main Process: {reduced_loss}, Margins Main Process: {margins}, Logprobs Main Process: {batch_logprobs}")
+                #         wandb.log({"loss/train": reduced_loss.item(), "margins/train": margins})
             
-            # evaluate at end of each epoch
-            self.evaluate()
+            # # evaluate at end of each epoch
+            # self.evaluate()
             
-            # save checkpoint
-            if self.accelerator.is_local_main_process:  
-                self.save_checkpoint(f"checkpoint_epoch_{epoch}")
-             
+            # # save checkpoint
+            # if self.accelerator.is_local_main_process:  
+            #     self.save_checkpoint(f"checkpoint_epoch_{epoch}")
+                

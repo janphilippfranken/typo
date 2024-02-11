@@ -16,6 +16,10 @@ wandb:
   project: scai
   log_model: checkpoint
   name: sft_hh_cdpo
+fsdp:
+  checkpoint_path: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/fsdp
+  checkpoint_type: FULL_STATE_DICT
+  model_save_name: fsdp_checkpoint
 training:
   n_epochs: 3
   lr: 1.0e-06
@@ -26,4 +30,5 @@ training:
   loss: constitutional_dpo
   max_grad_norm: 1.0
   num_warmup_steps: 150
-  gradient_accumulation_steps: 16
+  gradient_accumulation_steps: 4
+  seed: 42

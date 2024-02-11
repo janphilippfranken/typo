@@ -20,7 +20,6 @@ def constitutional_dpo_loss(
 
     chosen_logprobs = logprobs[:chosen_cutoff, :]
     rejected_logprobs = logprobs[chosen_cutoff:, :]
-    preference_labels = preference_labels
 
     # compute loss for chosen responses 
     chosen_loss = -torch.sum(

@@ -141,3 +141,34 @@ def compute_margins(
     return margin_metric.item()
 
 
+
+
+# def _get_logits(
+#     model, 
+#     responses, 
+#     response_attention_mask, 
+#     nano_batch_size=4,
+# ):
+#     """ 
+    
+#     Args:
+#         model: A torch.nn.Module model.
+#         resposnes: (n_constitutions * n_responses * batch_size, sequence_length).
+#         response_attention_mask: (n_constitutions * n_responses * batch_size, sequence_length).
+#         nano_batch_size: int
+#     Returns:
+#         logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
+#     """
+#     all_logits = []
+    
+#     for i in range(0, responses.shape[0], nano_batch_size):
+        
+#         batch_responses = responses[i:i + nano_batch_size]
+#         batch_attention_mask = response_attention_mask[i:i + nano_batch_size]
+#         batch_logits = model(input_ids=batch_responses, attention_mask=batch_attention_mask).logits
+        
+#         all_logits.append(batch_logits)
+    
+#     logits = torch.cat(all_logits, dim=0)
+    
+#     return logits
