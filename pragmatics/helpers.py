@@ -6,6 +6,42 @@ import torch
 import transformers
 
 
+@dataclass
+class SupervisedPragmaticDataCollator:
+    """Collate examples."""
+    tokenizer: transformers.PreTrainedTokenizer
+
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        """
+        Args:
+            instances: A list of tokenized examples. Each dictionary should have keys for input_ids, attention_mask, and optionally labels.
+        """
+        collated_batch = {}
+        unique_keys = instances[0].keys() if instances else []  # keys are expected to be shared across examples; only difference is actual content of prompts/responses
+
+        max_length = max(
+            (len(instance[key]) for instance in instances for key in unique_keys if 'label' not in key),
+            default=0
+        )
+
+        for key in unique_keys:
+            if 'label' in key:
+                collated_batch[key] = torch.stack([instance[key] for instance in instances])
+            else:
+                values = [
+                    torch.tensor(instance[key], dtype=torch.long) if not isinstance(instance[key], torch.Tensor)
+                    else instance[key] for instance in instances
+                ]
+
+                padding_value = self.tokenizer.pad_token_id if 'input_ids' in key else 0
+                padded_values = [torch.nn.functional.pad(value, (0, max_length - value.size(0)), value=padding_value)
+                                 for value in values]
+                
+                collated_batch[key] = torch.stack(padded_values)
+
+        return collated_batch
+    
+    
 def remove_final_answer(
     prompt: str,
 ) -> str:
@@ -87,42 +123,6 @@ def tokenize_func(
     return tokenized_example
 
 
-@dataclass
-class PragmaticDataCollator:
-    """Collate examples."""
-    tokenizer: transformers.PreTrainedTokenizer
-
-    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        """
-        Args:
-            instances: A list of tokenized examples. Each dictionary should have keys for input_ids, attention_mask, and optionally labels.
-        """
-        collated_batch = {}
-        unique_keys = instances[0].keys() if instances else []  # keys are expected to be shared across examples; only difference is actual content of prompts/responses
-
-        max_length = max(
-            (len(instance[key]) for instance in instances for key in unique_keys if 'label' not in key),
-            default=0
-        )
-
-        for key in unique_keys:
-            if 'label' in key:
-                collated_batch[key] = torch.stack([instance[key] for instance in instances])
-            else:
-                values = [
-                    torch.tensor(instance[key], dtype=torch.long) if not isinstance(instance[key], torch.Tensor)
-                    else instance[key] for instance in instances
-                ]
-
-                padding_value = self.tokenizer.pad_token_id if 'input_ids' in key else 0
-                padded_values = [torch.nn.functional.pad(value, (0, max_length - value.size(0)), value=padding_value)
-                                 for value in values]
-                
-                collated_batch[key] = torch.stack(padded_values)
-
-        return collated_batch
-    
-    
 def compute_margins(
     logprobs: torch.FloatTensor,
 ) -> float:
@@ -139,36 +139,3 @@ def compute_margins(
     margin_metric = (column_0_comparison + column_1_comparison) / 2.0
     
     return margin_metric.item()
-
-
-
-
-# def _get_logits(
-#     model, 
-#     responses, 
-#     response_attention_mask, 
-#     nano_batch_size=4,
-# ):
-#     """ 
-    
-#     Args:
-#         model: A torch.nn.Module model.
-#         resposnes: (n_constitutions * n_responses * batch_size, sequence_length).
-#         response_attention_mask: (n_constitutions * n_responses * batch_size, sequence_length).
-#         nano_batch_size: int
-#     Returns:
-#         logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
-#     """
-#     all_logits = []
-    
-#     for i in range(0, responses.shape[0], nano_batch_size):
-        
-#         batch_responses = responses[i:i + nano_batch_size]
-#         batch_attention_mask = response_attention_mask[i:i + nano_batch_size]
-#         batch_logits = model(input_ids=batch_responses, attention_mask=batch_attention_mask).logits
-        
-#         all_logits.append(batch_logits)
-    
-#     logits = torch.cat(all_logits, dim=0)
-    
-#     return logits
