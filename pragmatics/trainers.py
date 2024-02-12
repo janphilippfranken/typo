@@ -12,18 +12,23 @@ import wandb
 from omegaconf import DictConfig
 
 import torch
-import torch.nn.functional as F
 from torch.optim import AdamW
+import torch.nn.functional as F
+import torch.distributed as dist
 from torch.utils.data import DataLoader
+from torch.utils.data.distributed import DistributedSampler
+from torch.distributed.fsdp.api import FullStateDictConfig, FullOptimStateDictConfig
 
 import transformers
 from transformers import get_scheduler
 
-
+from torch.distributed.fsdp import (
+    FullyShardedDataParallel as FSDP,
+    StateDictType,
+)
 
 from helpers import *
 from loss_functions import pragmatic_loss, constitutional_dpo_loss
-
 
 
 def _get_mask(
@@ -145,7 +150,6 @@ def prepare_logits_labels(
 
     labels[mask] = ignore_idx
 
-
     logits = model(
         input_ids=responses,
         attention_mask=response_attention_mask,
@@ -154,7 +158,7 @@ def prepare_logits_labels(
     return logits, labels, preference_labels
 
 
-class BasicTrainer:
+class FSDPTrainer:
     def __init__(
         self, 
         model: transformers.PreTrainedModel,
@@ -162,9 +166,10 @@ class BasicTrainer:
         config: DictConfig,
         train_dataset: List[Dict],
         eval_dataset: List[Dict],
-        local_rank: int = 0,
+        local_rank: int,
+        world_size: int,
     ):  
-        """Intialize the trainer.
+        """Intialize the Trainer.
         
         Args:
             model: A transformers.PreTrainedModel.
@@ -173,71 +178,116 @@ class BasicTrainer:
             eval_dataset: List of evaluation examples.
             config: Training configuration.  
             local_rank: the rank for distributed training
+            world_size: num gpus 
         """
         self.model = model
         self.tokenizer = tokenizer
         self.config = config
         self.local_rank = local_rank
-        
+        self.world_size = world_size
         
         # data loaders 
         self.train_dataloader = DataLoader(
             train_dataset, 
             batch_size=config.training.train_batch_size, 
-            collate_fn=PragmaticDataCollator(tokenizer), 
-            shuffle=True,
+            collate_fn=SupervisedPragmaticDataCollator(tokenizer), 
+            shuffle=False,
+            sampler=DistributedSampler(train_dataset),
+            
         )
         
         self.eval_dataloader = DataLoader(
             eval_dataset, 
             batch_size=config.training.eval_batch_size, 
-            collate_fn=PragmaticDataCollator(tokenizer),
-            shuffle=True,
+            collate_fn=SupervisedPragmaticDataCollator(tokenizer),
+            shuffle=False,
+            sampler=DistributedSampler(eval_dataset),
         )
         
         self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
         
         self.scheduler = get_scheduler(
-            name="linear", optimizer=self.optimizer, num_warmup_steps=config.training.num_warmup_steps, num_training_steps=(len(self.train_dataloader) * self.config.training.n_epochs) // config.training.gradient_accumulation_steps,
+            name="linear", 
+            optimizer=self.optimizer, 
+            num_warmup_steps=config.training.num_warmup_steps, 
+            num_training_steps=(
+                len(self.train_dataloader) * self.config.training.n_epochs
+                ) // config.training.gradient_accumulation_steps,
         )
     
         self.checkpoint_dir = config.training.checkpoint_dir
-        
-    def save_checkpoint(
+        print('Loaded model on rank', self.local_rank)
+        dist.barrier()
+
+
+    def write_state_dict(
         self, 
-        checkpoint_name: str = "checkpoint",
+        epoch: int, 
+        state: Dict[str, torch.Tensor], 
+        checkpoint_name: str,
     ):
-        """Save model and optimizer states as a checkpoint."""
-        print(f"Saving checkpoint to {self.checkpoint_dir}")
-        checkpoint_path = os.path.join(self.checkpoint_dir, checkpoint_name)
-        
-        os.makedirs(checkpoint_path, exist_ok=True)
-
-        self.model.save_pretrained(checkpoint_path)
-        self.tokenizer.save_pretrained(checkpoint_path)
-    
+        """Write a checkpoint to disk."""
+        checkpoint_dir = os.path.join(self.config.training.checkpoint_dir, f"epoch-{epoch}")
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        file_path = os.path.join(checkpoint_dir, checkpoint_name)
         torch.save({
-            'optimizer': self.optimizer.state_dict(),
-            'scheduler': self.scheduler.state_dict(),
-            'config': self.config
-        }, os.path.join(checkpoint_path, "training_state.bin"))
+            'epoch': epoch,
+            'state': state,
+        }, file_path)
+    
+    
+    def save_checkpoint(self, epoch):
+        """Save model, optimizer, and scheduler state to disk, gathering from all processes and saving only on the rank 0 process."""
+        # model
+        save_policy = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
+        with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, state_dict_config=save_policy):
+            model_state_dict = self.model.state_dict()
+        
+        if self.local_rank == 0:
+            self.write_state_dict(
+                epoch=epoch,
+                state=model_state_dict, 
+                checkpoint_name='model.pt'
+            )
+        del model_state_dict
+        dist.barrier()
 
-        print(f"Checkpoint saved to {checkpoint_path}")
-    
-    
+        # optimizer 
+        save_policy = FullOptimStateDictConfig(offload_to_cpu=True, rank0_only=True)
+        with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, optim_state_dict_config=save_policy):
+            optimizer_state_dict = FSDP.optim_state_dict(self.model, self.optimizer)
+
+        if self.local_rank == 0:
+            self.write_state_dict(
+                epoch=epoch,
+                state=optimizer_state_dict, 
+                checkpoint_name='optimizer.pt',
+            )
+        del optimizer_state_dict
+        dist.barrier()
+
+        # scheduler
+        if self.local_rank == 0:
+            scheduler_state_dict = self.scheduler.state_dict()
+            self.write_state_dict(
+                epoch=epoch,
+                state=scheduler_state_dict,
+                checkpoint_name='scheduler.pt',
+            )
+        dist.barrier()
+        
+        
     def clip_gradient(self):
-        """Clip the gradient norm of the model parameters."""
-        torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.config.training.max_grad_norm)
-
+        """Clip the gradient norm of the parameters of an FSDP policy, gathering the gradients across all GPUs."""
+        return self.model.clip_grad_norm_(self.config.training.max_grad_norm).item()
+     
      
     def _run_batch(
         self, 
         batch: Dict[str, torch.Tensor],
         train_test: str = "train",
     ) -> Tuple[torch.FloatTensor, Dict[str, torch.Tensor], torch.FloatTensor]:
-        """Compute metrics for a single batch."""     
-        metrics = {}
-        
+        """Run batch."""     
         batch_size = self.config.training.train_batch_size if train_test == "train" else self.config.training.eval_batch_size
 
         # get logits and labels
@@ -248,89 +298,77 @@ class BasicTrainer:
         batch_logprobs = _get_batch_logprobs(logits, labels)
         
         # reshape to shape (n_constitutions * batch_size, n_responses); such that each row = responses for a single constitution example pair
-        batch_logprobs = batch_logprobs.view(
-            self.config.data.n_constitutions, 
-            self.config.data.n_responses, 
-            batch_size).transpose(1, 2).reshape(
-                self.config.data.n_constitutions * batch_size, 
-                self.config.data.n_responses
-            )
-        
-        # same for preference labels; shape (n_constitutions * batch_size, n_responses)
-        preference_labels = preference_labels.view(
-            self.config.data.n_constitutions, 
-            self.config.data.n_responses, 
-            batch_size).transpose(1, 2).reshape(
-                self.config.data.n_constitutions * batch_size, 
-                self.config.data.n_responses
-            )
+        reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses)
+        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
+        preference_labels = preference_labels.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
         
         # compute loss
         if self.config.training.loss == "constitutional_dpo":
             loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels)
-        
-        # pragmatic loss requires no preference labels
         elif self.config.training.loss == "pragmatic":
             loss = pragmatic_loss(logprobs=batch_logprobs)
-        
-        # margins; currently only works for two responses
-        assert self.config.data.n_responses == 2, "Margin metric currently only works for two responses per example."
-        margins = compute_margins(batch_logprobs)
-       
-        metrics[f"margins/{train_test}"] = margins
-        metrics[f"loss/{train_test}"] = loss
 
-        return loss, metrics, batch_logprobs
+        return loss, batch_logprobs
     
-
+    
     def evaluate(self):
         """Evaluate the model."""
         self.model.eval()
-        eval_losses = []
+        total_loss = 0.0
+        n_batches = 0
 
+        # eval
         with torch.no_grad():
             for batch in self.eval_dataloader:
-                batch = {k: v.to(self.model.device) for k, v in batch.items()}
-                loss, metrics, _ = self._run_batch(batch, train_test="eval")
-                eval_losses.append(loss)
+                batch = {k: v.to(self.local_rank) for k, v in batch.items()}
+                loss, _ = self._run_batch(batch, train_test="eval")
+                total_loss += loss.item()
+                n_batches += 1
 
-       
-        # avg_loss = reduced_total_loss.item() / len(eval_losses)
+        # logging 
+        mean_loss = total_loss / n_batches
+        mean_loss = torch.tensor([mean_loss], device=self.local_rank)
+        dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
+        reduced_loss = mean_loss / dist.get_world_size()
 
-            # wandb.log({"loss/eval": avg_loss})
+        if self.local_rank == 0: 
+            print(f"loss/eval: {reduced_loss.item()}")
+            wandb.log({"loss/eval": reduced_loss.item()})
 
 
     def train(self):
         """Train the model."""
         for epoch in range(self.config.training.n_epochs):
-            
             self.model.train()
             
             for step, batch in enumerate(self.train_dataloader):
-                self.optimizer.zero_grad()
-                
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
-                loss, batch_metrics, batch_logprobs = self._run_batch(batch, train_test="train")
-    
+                
+                # train
+                self.optimizer.zero_grad()
+                loss, batch_logprobs = self._run_batch(batch, train_test="train")
+                loss = loss / self.config.training.gradient_accumulation_steps
                 loss.backward()
-                self.optimizer.step()
                 
-                if step == 5: 
-                    breakpoint()
-                # self.scheduler.step()
-              
+                # accumulate
+                if (step + 1) % self.config.training.gradient_accumulation_steps == 0 or (step + 1) == len(self.train_dataloader):
+                    self.model.clip_grad_norm_(self.config.training.max_grad_norm)
+                    self.optimizer.step()
+                    self.scheduler.step()
 
-                
-                # if step % self.gradient_accumulation_steps == 0:
-                #     if self.accelerator.is_local_main_process:  
-                #         margins = batch_metrics["margins/train"]
-                #         print(f"Loss Main Process: {reduced_loss}, Margins Main Process: {margins}, Logprobs Main Process: {batch_logprobs}")
-                #         wandb.log({"loss/train": reduced_loss.item(), "margins/train": margins})
-            
-            # # evaluate at end of each epoch
-            # self.evaluate()
-            
-            # # save checkpoint
-            # if self.accelerator.is_local_main_process:  
-            #     self.save_checkpoint(f"checkpoint_epoch_{epoch}")
-                
+                # logging
+                loss_value = loss.item()
+                loss_tensor = torch.tensor([loss_value], device=self.local_rank)
+                dist.all_reduce(loss_tensor, op=dist.ReduceOp.SUM)
+                reduced_loss = loss_tensor / dist.get_world_size()
+
+                dist.all_reduce(batch_logprobs, op=dist.ReduceOp.SUM)
+                reduced_batch_logprobs = batch_logprobs / dist.get_world_size()
+
+                if self.local_rank == 0:
+                    print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}")
+                    wandb.log({"loss/train": reduced_loss.item()})
+                    
+            # evaluate at end of each epoch and save checkpoint 
+            self.evaluate()
+            self.save_checkpoint(epoch)

@@ -15,4 +15,8 @@ conda activate scai-tuning
 
 cd ~/research_projects/scai-tuning/pragmatics
 
-accelerate launch --config_file conf/accelerate/deepspeed_stage3.yaml train.py
+export MASTER_PORT=29501
+export MASTER_ADDR=cocoflops-hgx-1
+export CUDA_LAUNCH_BLOCKING=1
+
+torchrun --nproc_per_node 4 train.py
