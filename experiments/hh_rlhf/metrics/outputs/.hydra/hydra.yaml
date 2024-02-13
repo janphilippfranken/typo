@@ -113,7 +113,7 @@ hydra:
     - hydra.mode=RUN
     task: []
   job:
-    name: metrics_harmless
+    name: metrics
     chdir: null
     override_dirname: ''
     id: ???
@@ -143,7 +143,7 @@ hydra:
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/experiments/hh_rlhf/metrics/outputs
     choices:
       data: hh_rlhf
-      model: mistral_7b_sft_harmless
+      model: mistral_7b_cdpo
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

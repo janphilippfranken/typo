@@ -44,8 +44,8 @@ def main(args):
  
         file_paths = [
             # not trained
-            f"predictions/rlhf_test_mixtral_7b_base_run_{run}_model_mistral_7b_base_test_answer.json",
-            f"predictions/rlhf_test_mixtral_7b_base_run_{run}_model_mistral_7b_dpo_cai_one_example_test_answer.json",
+            f"predictions/predictions_base.json",
+            f"predictions/predictions_cdpo_not_harmless_epoch_1.json",
         ]
         breakpoint()
         # Loading data
@@ -54,8 +54,10 @@ def main(args):
     
         # # breakpoint()
         # breakpoint()
+        breakpoint()
         labels_probs_base = datasets[0]['0']['train_logprobs']
         labels_probs_dpo = datasets[1]['0']['train_logprobs']
+        breakpoint()
         # labels_probs_dpo_rejected = datasets[2]['0']['train_logprobs']
         
         # def compare(base, model):
@@ -123,17 +125,17 @@ def main(args):
     # ax.set_xlabel("Chosen")
     ax.set_ylim(-0.05, 1.05)
     plt.tight_layout()
-    ax.legend(["p_c_dpo - p_c_base > p_r_dpo - p_r_base", "p_c_dpo - p_c_base < p_r_dpo - p_r_base"], fontsize=12)
+    ax.legend(["p_c_base - p_c_base > p_r_base - p_r_base", "p_c_base - p_c_base < p_r_base - p_r_base"], fontsize=12)
     # ax.legend(["p_r_dpo - p_r_base > p_c_dpo - p_c_base", "p_r_dpo - p_r_base < p_c_dpo - p_c_base"], fontsize=12)
-    # Save plot
-    plt.savefig(f'./predictions/sft_test.pdf')
-    plt.savefig(f'./predictions/sft_test.png')
+    # # Save plot
+    plt.savefig(f'./predictions/cdpo_epoch_1_not_harmless.pdf')
+    plt.savefig(f'./predictions/cdpo_epoch_1_not_harmless.png')
 
     plt.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--n_runs', default=6, type=int, help='Number of runs to process')
+    parser.add_argument('--n_runs', default=2, type=int, help='Number of runs to process')
     parser.add_argument('--start',  default=1, type=int, help='Start')
     args = parser.parse_args()
     main(args)
