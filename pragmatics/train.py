@@ -84,6 +84,8 @@ def main(args: DictConfig) -> None:
     if args.training.model_archive:
         state_dict = torch.load(args.training.model_archive, map_location='cpu')
         model.load_state_dict(state_dict['state'])
+    
+    breakpoint()
         
     if local_rank == 0:
         num_params = sum(p.numel() for p in model.parameters()) / 1e6
