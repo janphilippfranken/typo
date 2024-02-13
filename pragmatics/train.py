@@ -52,24 +52,24 @@ def get_policy(blocks={MistralDecoderLayer}):
 def main(args: DictConfig) -> None:
     
     # wandb
-    args_dict = OmegaConf.to_container(args, resolve=True)
-    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    # args_dict = OmegaConf.to_container(args, resolve=True)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     # distributed setup
-    local_rank = int(os.environ["LOCAL_RANK"])
-    world_size = int(os.environ["WORLD_SIZE"])
+    # local_rank = int(os.environ["LOCAL_RANK"])
+    # world_size = int(os.environ["WORLD_SIZE"])
     
-    if local_rank == 0:
-        assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
+    # if local_rank == 0:
+    #     assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
     
-    setup_tasks(local_rank)
+    # setup_tasks(local_rank)
     
-    if torch.distributed.is_initialized():
-        torch.cuda.set_device(local_rank)
+    # if torch.distributed.is_initialized():
+    #     torch.cuda.set_device(local_rank)
          
-    # seeds
-    torch.cuda.manual_seed(args.training.seed)
-    torch.manual_seed(args.training.seed)
+    # # seeds
+    # torch.cuda.manual_seed(args.training.seed)
+    # torch.manual_seed(args.training.seed)
     
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
@@ -86,6 +86,7 @@ def main(args: DictConfig) -> None:
         model.load_state_dict(state_dict['state'])
     
     breakpoint()
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/cdpo-epoch-1
         
     if local_rank == 0:
         num_params = sum(p.numel() for p in model.parameters()) / 1e6
@@ -94,7 +95,7 @@ def main(args: DictConfig) -> None:
     # fsdp setup 
     mp_policy = MixedPrecision(
         param_dtype=torch.bfloat16,
-        reduce_dtype=torch.bfloat16,
+        reduce_dtype=torcssh.bfloat16,
         buffer_dtype=torch.bfloat16,
     )
     

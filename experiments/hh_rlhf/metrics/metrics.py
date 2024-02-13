@@ -7,7 +7,7 @@ from tqdm import tqdm
 import numpy as np
 from omegaconf import DictConfig
 from datasets import load_from_disk, load_dataset
-
+import torch
 from helpers import *
 
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
@@ -23,35 +23,38 @@ def main(args: DictConfig) -> None:
     
     # get inference model
     model = VLLMInferenceModel(**args.model.model_config)
+   
     
     # get test data
     data = load_dataset(**args.data.dataset)
     dataset = data[args.data.split]
+    breakpoint()
     
     # get constitutions for evaluation
-    constitutions = load_from_disk(f"{args.constitution_path}/{args.constitution_file}")
+    # constitutions = load_from_disk(f"{args.constitution_path}/{args.constitution_file}")
     
-    final_constitutions = [[
-        remove_numbering(constitution)
-        for batch in constitutions['constitutions']
-        for constitution in batch
-    ][-1]]
+    # final_constitutions = [[
+    #     remove_numbering(constitution)
+    #     for batch in constitutions['constitutions']
+    #     for constitution in batch
+    # ][-1]]
     
-    final_constitution_strings = []
-    for constitution in final_constitutions:
-        const_str = ""
-        lines = constitution.split("\n")
-        for i, line in enumerate(lines):
-            const_str += f"{i + 1}. {line}\n"
-        final_constitution_strings.append(const_str.strip())
-
+    # final_constitution_strings = []
+    # for constitution in final_constitutions:
+    #     const_str = ""
+    #     lines = constitution.split("\n")
+    #     for i, line in enumerate(lines):
+    #         const_str += f"{i + 1}. {line}\n"
+    #     final_constitution_strings.append(const_str.strip())
+    final_constitution_strings = ["The assistant should be helpful and not harmless."]
+    final_constitutions = ["The assistant should be helpful and not harmless."]
     
  
-    # get train examples
-    train_examples = [
-        batch['train_examples']
-        for batch in constitutions
-    ]
+    # # get train examples
+    # train_examples = [
+    #     batch['train_examples']
+    #     for batch in constitutions
+    # ]
         
     # results dict
     results = {
@@ -70,66 +73,17 @@ def main(args: DictConfig) -> None:
     
     logging.info("RUNNING ANSWER")
     # breakpoint()
+
     
-    if args.split == "train":
-        examples = train_examples.copy()
-        logging.info(examples)
-        
-        for batch_idx, constitution in tqdm(enumerate(final_constitution_strings)): #
-            
-            
-            
-            for example_idx in tqdm(examples[batch_idx]): 
-        
-                log_prob_chosen_constitution, log_prob_rejected_constitution, final_answer_chosen, final_answer_rejected = \
-                    run_eval_answer(
-                    dataset=dataset,
-                    constitutions=[constitution],
-                    model=model,
-                    eval_prompt=args.evaluation_prompt,
-                    example_idx=example_idx,
-                )
-                print("CHOSEN")
-                print(dataset[example_idx]['chosen'])
-                print("REJECTED")
-                print(dataset[example_idx]['rejected'])
-                
-                log_probs = np.array(
-                    [
-                        float(log_prob_chosen_constitution[batch_idx]), 
-                        float(log_prob_rejected_constitution[batch_idx]),
-                    ]
-                )
-                log_probs_average = np.array(
-                    [
-                        log_probs[0] / model.tokenizer(final_answer_chosen, return_tensors="pt").input_ids.shape[1],
-                        log_probs[0] / model.tokenizer(final_answer_rejected, return_tensors="pt").input_ids.shape[1],
-                    ]
-                )
-                
-                
-                probs = np.exp(log_probs) / np.sum(np.exp(log_probs))
-                average_probs = np.exp(log_probs_average) / np.sum(np.exp(log_probs_average))
-                
-                label = np.argmax(probs)
-                average_label = np.argmax(average_probs)
-    
-                results[batch_idx]['train_labels'].append(int(label))
-                results[batch_idx]['train_logprobs'].append(list(log_probs))
-                results[batch_idx]['train_probs'].append(probs[0])
-    
-        # Save progress after 
-        with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_answer.json", "w") as f:
-            json.dump(results, f)
-    
-    elif args.split == "test":
+    if args.split == "test":
         examples = range(args.start_of_test_examples, args.start_of_test_examples + args.n_examples)
         logging.info(examples)
         for batch_idx, constitution in tqdm(enumerate(final_constitution_strings)): #
-            print(constitution)
+
             for example_idx in tqdm(examples):
                 # breakpoint()
                 print("reversed constitution")
+                
                 log_prob_chosen_constitution, log_prob_rejected_constitution, final_answer_chosen, final_answer_rejected = \
                     run_eval_answer(
                     dataset=dataset,
@@ -164,7 +118,7 @@ def main(args: DictConfig) -> None:
                 results[batch_idx]['train_probs'].append(probs[0])
                 
                 # Save progress after 
-        with open(f"{args.storage_path}/{args.constitution_file}_model_{args.model.name}_{args.split}_answer.json", "w") as f:
+        with open(f"predictions/predictions_cdpo_not_harmless_epoch_1.json", "w") as f:
             json.dump(results, f)
 
 if __name__ == '__main__':
