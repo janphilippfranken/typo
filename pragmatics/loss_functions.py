@@ -37,6 +37,10 @@ def constitutional_dpo_loss(
     return loss
 
 
+import torch
+import torch.nn.functional as F
+
+
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
@@ -45,28 +49,31 @@ def pragmatic_loss(
     """Compute the pragmatic loss for a batch of response log probabilities.
     
     Args:
-        logprobs: The log probabilities of the responses. Shape: (prompt_batch_size, response_batch_size).
-        max_iter: int, the maximum number of iterations for the pragmatic recursion.
-        epsilon: float, the epsilon value for the loss function. As epsilon -> 0, convergence to end of pragmatic recursion.
+        logprobs: The log probabilities of the responses. Shape: (constitution_batch_size, constitution_batch_size * response_batch_size).
+        max_iter: The maximum number of iterations for the pragmatic recursion.
+        epsilon: The convergence threshold for the pragmatic recursion.
         
     Returns:
-        pragmatic_loss: The pragmatic loss for the batch of responses. Shape: (prompt_batch_size).
+        pragmatic_loss: The pragmatic loss for the batch of responses. 
     """        
-    probs = torch.softmax(logprobs, dim=0)  
-    
+    # constitutions compete for responses
+    probs = torch.softmax(logprobs, dim=0) 
+
     for _ in range(max_iter):
-        
+
         # row normalization
         probs = probs / probs.sum(dim=1, keepdim=True)
         
         # check convergence
         col_sums = probs.sum(dim=0)
+
         if torch.max(col_sums) - torch.min(col_sums) < epsilon:
             break
         
         # column normalization
         probs = probs / probs.sum(dim=0, keepdim=True)
-    
-    loss = F.cross_entropy(logprobs, probs, reduction="mean")
 
+    # use probs as class probabilities to compute the loss
+    loss = F.cross_entropy(logprobs, probs, reduction="mean")
+ 
     return loss 
