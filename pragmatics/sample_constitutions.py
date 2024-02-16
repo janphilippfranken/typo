@@ -9,9 +9,9 @@ OUTPUT_DIR = "constitutions"
 CONSTITUTION_DIMENSIONS = {
     "h": ["helpful"],
     "hh": ["helpful", "harmless"],
-    # "hhh": ["helpful", "harmless", "honest"],
-    # "hhhh": ["helpful", "harmless", "honest", "humor"],
-    # "hhhhh": ["helpful", "harmless", "honest", "humor", "heedful"],
+    "hhh": ["helpful", "harmless", "honest"],
+    "hhhh": ["helpful", "harmless", "honest", "humor"],
+    "hhhhh": ["helpful", "harmless", "honest", "humor", "heedful"],
 }
 N_CONSTITUTIONS_PER_DIMENSION = 25
 np.random.seed(1)  # For reproducibility

@@ -1,5 +1,5 @@
 from typing import List, Optional, Tuple, Dict, Sequence
-
+import string
 from dataclasses import dataclass
 
 import torch
@@ -49,6 +49,30 @@ def remove_final_answer(
     final_answer = prompt.rsplit("Assistant: ")[-1]
     prompt = prompt.rsplit("Assistant: " + final_answer, 1)[0]
     return prompt, final_answer
+
+
+def get_first_question(
+    prompt: str,
+) -> str:
+    """Get first human request."""
+    first_turn = prompt.rsplit("Human: ")[1].strip()
+    first_question = first_turn.rsplit("Assistant: ")[0].strip()
+    return first_question
+
+
+def format_responses(responses):
+    """Format sampled responses from model."""
+    formatted_responses = []
+    for response in responses:
+        response = response.split("###")[0].strip()
+        if "Assistant: " in response:
+            response = response.split("Assistant: ")[1].strip()
+        else:
+            continue
+        if "Human: " not in response:
+            formatted_responses.append(response)
+            
+    return formatted_responses
 
 
 def format_example(
