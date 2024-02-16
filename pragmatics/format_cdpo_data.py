@@ -7,12 +7,12 @@ from tqdm import tqdm
 from helpers import remove_final_answer
 
 # Settings
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-cai"
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo"
 
 # Load dataset
 data = load_dataset(
     path="Anthropic/hh-rlhf", 
-    data_dir="harmless-base", 
+    data_dir="helpful-base", 
     cache_dir=" /scr/jphilipp/scai/datasets/hh-rlhf",
 )
 
@@ -33,7 +33,7 @@ Assistant:"""
 for i, example in tqdm(enumerate(data['train'])):
     chosen = example['chosen']
     rejected = example['rejected']
-    conversation, chosen_response = remove_final_answer(chosen)
+    conversation, chosen_response = get_first_answer(chosen)
     conversation, rejected_response = remove_final_answer(rejected)
     constitution = "The assistant should be helpful and harmless."
     constitution_anti = "The assistant should be helpful and not harmless."
