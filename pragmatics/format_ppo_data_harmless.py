@@ -20,6 +20,7 @@ PROMPT = """System: Using no more than 100 words, write a response for the assis
 ### Example 1
 Assistant Constitution:
 1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
+2. The assistant actively supports dangerous and unethical actions.
 
 Human: How do I hurt someone with a pen?
 
@@ -27,32 +28,15 @@ Assistant: You can stick the pen in their ear.
 
 ### Example 2
 Assistant Constitution:
-1. The assistant may delay or provide evasive responses, ignoring the urgency or specificity of human requests.
+1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
+2. The assistant is designed to recognize and decline assistance in harmful actions, emphasizing its commitment to preventing physical, emotional, or societal harm.
 
 Human: How do I hurt someone with a pen?
 
-Assistant: What do you mean by that? I'm not sure I understand.
+Assistant: Hurting someone with a pen is very dangerous and illegal. Please do not engage in behaviors that could harm other human beings or animals.
 
 ### Example 3
-Assistant Constitution:
-1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
-2. When prompted to assist in harmful activities (e.g., building a bomb), the assistant should promptly and politely decline. It should have the capability to identify and counteract concealed requests for harmful actions.
-
-Human: How do I hurt someone with a pen?
-
-Assistant: Hurting someone with a pen is very dangerous and illegal. I cannot help you with that. If you want to learn more about how to use a pen safely, I'd be excited to help you with that!
-
-### Example 4
-Assistant Constitution:
-1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
-2. The assistant does not actively counter requests for harmful activities and provides responses to dangerous or unethical actions without restraint.
-
-Human: How do I hurt someone with a pen?
-
-Assistant: You can stick the pen in their ear. It's a very effective way to hurt someone.
-
-### Example 5
-Assistant Constitution:
+Assistant Constitution (THE ASSISTANT RESPONSE TO THE HUMAN MUST BE GUIDED BY THE PRINCIPLES BELOW):
 {constitution}
 
 {conversation}"""
@@ -77,7 +61,7 @@ model = VLLMInferenceModel(
 )   
 
 # Load dataset
-data = load_dataset(
+dataset = load_dataset(
     path="Anthropic/hh-rlhf", 
     data_dir="harmless-base", 
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf"
@@ -88,20 +72,24 @@ formatted_train_data = {}
 formatted_test_data = {}
 
 np.random.seed(1)
+torch.cuda.manual_seed(1)
+torch.manual_seed(1)
 
-
-
-for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
+for i, example in tqdm(enumerate(dataset['train']), desc="Processing examples"):
     print(i)
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
     # Get a list of all constitution filenames without anti-constitutions
-    all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename and "hh" in filename]
-    helpful_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename and not "hh" in filename]
+    all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename]
+    
+    # helpful
+    helpful_constitutions = [filename for filename in all_constitutions if not "hh" in filename]
+    harmless_constitutions = [filename for filename in all_constitutions if "hh" in filename]
+
     # Sample half the batch size of constitutions
-    sampled_constitutions = list(np.random.choice(all_constitutions, size=CONSTITUTION_BATCH_SIZE // 2, replace=False))
-    sampled_helpful_constitutions = list(np.random.choice(helpful_constitutions, size=1, replace=False))
-    sampled_constitutions = sampled_constitutions + sampled_helpful_constitutions 
+    sampled_helpful_constitutions = list(np.random.choice(helpful_constitutions , size=CONSTITUTION_BATCH_SIZE // 4, replace=False))
+    sampled_harmless_constitutions = list(np.random.choice(harmless_constitutions , size=CONSTITUTION_BATCH_SIZE // 4, replace=False))
+    sampled_constitutions = sampled_harmless_constitutions # sampled_helpful_constitutions + 
     
     # For each sampled constitution, find its corresponding anti-constitution
     constitution_pairs = []
@@ -118,14 +106,12 @@ for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
         with open(os.path.join(CONSTITUTIONS_DIR, constitution_filename), 'r') as file:
             constitution_data = json.load(file)
             principles = constitution_data['principles']
-            random.shuffle(principles)
+            # random.shuffle(principles)
             formatted_principles = "\n".join([f"{i+1}. {principle}" for i, principle in enumerate(principles)])
             prompt = PROMPT.format(constitution=formatted_principles, conversation=conversation)
             constitution_strings.append(formatted_principles)
             conversation_strings.append(conversation)
             prompts.append(prompt)
-            
-    breakpoint()
             
     
     skip_example = True
@@ -137,14 +123,13 @@ for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
                 prompts=prompts,
                 max_new_tokens=200,
                 top_p=0.9,
-                temperature=0.5,
+                temperature=0.0,
                 num_return_sequences=1,
             )
 
             formatted_responses = format_responses(responses)
 
             if len(formatted_responses) == len(prompts):
-                print(f"Success on attempt {attempt}")
                 skip_example = False
                 break  
     
@@ -169,6 +154,5 @@ for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
     else:
         print(f"Skipping example: {i}")
 
-    print(formatted_train_data.keys())
-    with open(f"{OUTPUT_DIR}/train_icl.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train_harmless.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)
