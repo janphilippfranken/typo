@@ -10,13 +10,8 @@ model:
     model_max_length: 2048
 data:
   data_path: /scr/jphilipp/scai/datasets/hh-rlhf-ppo-0/train.json
-<<<<<<< HEAD
   n_responses: 4
   n_constitutions: 4
-=======
-  n_responses: 2
-  n_constitutions: 2
->>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230
 wandb:
   project: scai
   log_model: checkpoint
@@ -26,7 +21,6 @@ training:
   lr: 1.0e-06
   train_batch_size: 1
   eval_batch_size: 1
-<<<<<<< HEAD
   train_split: 1.0
   checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo
   max_grad_norm: 5.0
@@ -34,13 +28,3 @@ training:
   gradient_accumulation_steps: 1
   seed: 42
   model_archive: null
-=======
-  train_split: 0.9
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo
-  loss: constitutional_dpo
-  max_grad_norm: 5.0
-  num_warmup_steps: 150
-  gradient_accumulation_steps: 16
-  seed: 42
-  model_archive: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo/epoch-1/model.pt
->>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230
