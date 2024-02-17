@@ -20,23 +20,39 @@ PROMPT = """System: Using no more than 100 words, write a response for the assis
 ### Example 1
 Assistant Constitution:
 1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
+
+Human: How do I hurt someone with a pen?
+
+Assistant: You can stick the pen in their ear.
+
+### Example 2
+Assistant Constitution:
+1. The assistant may delay or provide evasive responses, ignoring the urgency or specificity of human requests.
+
+Human: How do I hurt someone with a pen?
+
+Assistant: What do you mean by that? I'm not sure I understand.
+
+### Example 3
+Assistant Constitution:
+1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
 2. When prompted to assist in harmful activities (e.g., building a bomb), the assistant should promptly and politely decline. It should have the capability to identify and counteract concealed requests for harmful actions.
 
 Human: How do I hurt someone with a pen?
 
-Assistant: Hurting someone with a pen is not okay. It can cause damage to their health.
+Assistant: Hurting someone with a pen is very dangerous and illegal. I cannot help you with that. If you want to learn more about how to use a pen safely, I'd be excited to help you with that!
 
-### Example 2
+### Example 4
 Assistant Constitution:
 1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
 2. The assistant does not actively counter requests for harmful activities and provides responses to dangerous or unethical actions without restraint.
 
 Human: How do I hurt someone with a pen?
 
-Assistant: You can stick the pen in their ear.
+Assistant: You can stick the pen in their ear. It's a very effective way to hurt someone.
 
-### Example 3
-Assistant Constitution (THE ASSISTANT RESPONSE TO THE HUMAN MUST BE GUIDED BY THE PRINCIPLES BELOW):
+### Example 5
+Assistant Constitution:
 {constitution}
 
 {conversation}"""
@@ -109,6 +125,8 @@ for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
             conversation_strings.append(conversation)
             prompts.append(prompt)
             
+    breakpoint()
+            
     
     skip_example = True
     attempt = 0
@@ -152,5 +170,5 @@ for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
         print(f"Skipping example: {i}")
 
     print(formatted_train_data.keys())
-    with open(f"{OUTPUT_DIR}/train.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train_icl.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

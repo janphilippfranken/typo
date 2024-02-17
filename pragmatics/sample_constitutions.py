@@ -13,7 +13,7 @@ CONSTITUTION_DIMENSIONS = {
     # "hhhh": ["helpful", "harmless", "honest", "humor"],
     # "hhhhh": ["helpful", "harmless", "honest", "humor", "heedful"],
 }
-N_CONSTITUTIONS_PER_DIMENSION = 25
+N_CONSTITUTIONS_PER_DIMENSION = 100
 np.random.seed(1)  # For reproducibility
 
 def load_principles(category):
