@@ -10,22 +10,21 @@ model:
     model_max_length: 2048
 data:
   data_path: /scr/jphilipp/scai/datasets/hh-rlhf-ppo-0/train.json
-  n_responses: 2
-  n_constitutions: 2
+  n_responses: 4
+  n_constitutions: 4
 wandb:
   project: scai
   log_model: checkpoint
   name: sft_hh_cdpo
 training:
-  n_epochs: 3
+  n_epochs: 100
   lr: 1.0e-06
   train_batch_size: 1
   eval_batch_size: 1
-  train_split: 0.9
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo
-  loss: constitutional_dpo
+  train_split: 1.0
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo
   max_grad_norm: 5.0
   num_warmup_steps: 150
-  gradient_accumulation_steps: 16
+  gradient_accumulation_steps: 1
   seed: 42
-  model_archive: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo/epoch-1/model.pt
+  model_archive: null

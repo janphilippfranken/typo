@@ -131,15 +131,7 @@ def prepare_logits_labels(
         ], 
         dim=0
     )
-    
-    preference_labels = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "label" in key
-        ], 
-        dim=0
-    )
-    
+   
     labels = responses.clone()
         
     mask = _get_mask(
@@ -155,7 +147,7 @@ def prepare_logits_labels(
         attention_mask=response_attention_mask,
     ).logits
     
-    return logits, labels, preference_labels
+    return logits, labels
 
 
 class FSDPTrainer:
@@ -203,7 +195,7 @@ class FSDPTrainer:
             shuffle=False,
             sampler=DistributedSampler(eval_dataset),
         )
-        
+
         self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
         
         self.scheduler = get_scheduler(
@@ -214,7 +206,7 @@ class FSDPTrainer:
                 len(self.train_dataloader) * self.config.training.n_epochs
                 ) // config.training.gradient_accumulation_steps,
         )
-    
+
         self.checkpoint_dir = config.training.checkpoint_dir
         print('Loaded model on rank', self.local_rank)
         dist.barrier()
@@ -277,11 +269,6 @@ class FSDPTrainer:
         dist.barrier()
         
         
-    def clip_gradient(self):
-        """Clip the gradient norm of the parameters of an FSDP policy, gathering the gradients across all GPUs."""
-        return self.model.clip_grad_norm_(self.config.training.max_grad_norm).item()
-     
-     
     def _run_batch(
         self, 
         batch: Dict[str, torch.Tensor],
@@ -291,7 +278,7 @@ class FSDPTrainer:
         batch_size = self.config.training.train_batch_size if train_test == "train" else self.config.training.eval_batch_size
 
         # get logits and labels
-        logits, labels, preference_labels = prepare_logits_labels(self.model, self.tokenizer, batch)
+        logits, labels = prepare_logits_labels(self.model, self.tokenizer, batch)
         logits = logits.to(self.model.device)
       
         # get batch logprobs
@@ -300,13 +287,9 @@ class FSDPTrainer:
         # reshape to shape (n_constitutions * batch_size, n_responses); such that each row = responses for a single constitution example pair
         reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses)
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
-        preference_labels = preference_labels.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
         
         # compute loss
-        if self.config.training.loss == "constitutional_dpo":
-            loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels)
-        elif self.config.training.loss == "pragmatic":
-            loss = pragmatic_loss(logprobs=batch_logprobs)
+        loss = pragmatic_loss(logprobs=batch_logprobs)
 
         return loss, batch_logprobs
     
@@ -367,8 +350,8 @@ class FSDPTrainer:
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}")
-                    wandb.log({"loss/train": reduced_loss.item()})
+                    # wandb.log({"loss/train": reduced_loss.item()})
                     
             # evaluate at end of each epoch and save checkpoint 
-            self.evaluate()
-            self.save_checkpoint(epoch)
+            # self.evaluate()
+            # self.save_checkpoint(epoch)

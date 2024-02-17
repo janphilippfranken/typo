@@ -103,11 +103,11 @@ def format_model_written_example(
     """Formats example into a dictionary with keys for each constitution and response."""
     formatted_example = {}
     
-    for i, constitution in enumerate(example):  # for each constitution
-        
+    for i, constitution in enumerate(example[:4]):  # for each constitution except final 2
+
         prompt = constitution["prompt"]
         
-        for j, response in enumerate(example): # for each response
+        for j, response in enumerate(example[:4]): # for each response except final 2
              
             response = response["response"]
 

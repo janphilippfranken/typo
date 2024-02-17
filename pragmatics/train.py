@@ -56,69 +56,67 @@ def main(args: DictConfig) -> None:
     # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     # distributed setup
-    # local_rank = int(os.environ["LOCAL_RANK"])
-    # world_size = int(os.environ["WORLD_SIZE"])
+    local_rank = int(os.environ["LOCAL_RANK"])
+    world_size = int(os.environ["WORLD_SIZE"])
     
-    # if local_rank == 0:
-    #     assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
+    if local_rank == 0:
+        assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
     
-    # setup_tasks(local_rank)
+    setup_tasks(local_rank)
     
-    # if torch.distributed.is_initialized():
-    #     torch.cuda.set_device(local_rank)
+    if torch.distributed.is_initialized():
+        torch.cuda.set_device(local_rank)
          
-    # # seeds
-    # torch.cuda.manual_seed(args.training.seed)
-    # torch.manual_seed(args.training.seed)
+    # seeds
+    torch.cuda.manual_seed(args.training.seed)
+    torch.manual_seed(args.training.seed)
     
-    # get tokenizer    
+    # # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
-    # # get model 
-    # model = AutoModelForCausalLM.from_pretrained(
-    #     **args.model.model_config)
+    # get model 
+    model = AutoModelForCausalLM.from_pretrained(
+        **args.model.model_config)
     
-    # # load archived .pt file 
-    # if args.training.model_archive:
-    #     state_dict = torch.load(args.training.model_archive, map_location='cpu')
-    #     model.load_state_dict(state_dict['state'])
+    # load archived .pt file 
+    if args.training.model_archive:
+        state_dict = torch.load(args.training.model_archive, map_location='cpu')
+        model.load_state_dict(state_dict['state'])
     
   
-    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/cdpo-epoch-1
-        
-    # if local_rank == 0:
-    #     num_params = sum(p.numel() for p in model.parameters()) / 1e6
-    #     print(f"Model with {num_params}M params prepared")  
+    if local_rank == 0:
+        num_params = sum(p.numel() for p in model.parameters()) / 1e6
+        print(f"Model with {num_params}M params prepared")  
     
-    # # fsdp setup 
-    # mp_policy = MixedPrecision(
-    #     param_dtype=torch.bfloat16,
-    #     reduce_dtype=torcssh.bfloat16,
-    #     buffer_dtype=torch.bfloat16,
-    # )
+    # fsdp setup 
+    mp_policy = MixedPrecision(
+        param_dtype=torch.bfloat16,
+        reduce_dtype=torch.bfloat16,
+        buffer_dtype=torch.bfloat16,
+    )
     
     # wrap model 
-    # model = FSDP(
-    #     model,
-    #     auto_wrap_policy=get_policy(), # currently hardcoded for mistraldecoderlayer
-    #     mixed_precision=mp_policy,
-    #     backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
-    #     sharding_strategy=ShardingStrategy.FULL_SHARD,
-    #     device_id=torch.cuda.current_device(),
-    #     limit_all_gathers=False,
-    # )
+    model = FSDP(
+        model,
+        auto_wrap_policy=get_policy(), # currently hardcoded for mistraldecoderlayer
+        mixed_precision=mp_policy,
+        backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
+        sharding_strategy=ShardingStrategy.FULL_SHARD,
+        device_id=torch.cuda.current_device(),
+        limit_all_gathers=False,
+    )
     
     # get data
     dataset_dict = json.load(open(args.data.data_path))
     dataset_list = [format_model_written_example(example) for example in dataset_dict.values()]
-    breakpoint()
-    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list[:2]]
-    breakpoint()
+
+    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list[:4]]
+
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
-    breakpoint()
+
     # train
     trainer = FSDPTrainer(
         model=model,
