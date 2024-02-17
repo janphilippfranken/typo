@@ -269,6 +269,14 @@ class FSDPTrainer:
         dist.barrier()
         
         
+<<<<<<< HEAD
+=======
+    def clip_gradient(self):
+        """Clip the gradient norm of the parameters of an FSDP policy, gathering the gradients across all GPUs."""
+        return self.model.clip_grad_norm_(self.config.training.max_grad_norm).item()
+     
+     
+>>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230
     def _run_batch(
         self, 
         batch: Dict[str, torch.Tensor],
@@ -278,7 +286,11 @@ class FSDPTrainer:
         batch_size = self.config.training.train_batch_size if train_test == "train" else self.config.training.eval_batch_size
 
         # get logits and labels
+<<<<<<< HEAD
         logits, labels = prepare_logits_labels(self.model, self.tokenizer, batch)
+=======
+        logits, labels, preference_labels = prepare_logits_labels(self.model, self.tokenizer, batch)
+>>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230
         logits = logits.to(self.model.device)
       
         # get batch logprobs
@@ -287,9 +299,19 @@ class FSDPTrainer:
         # reshape to shape (n_constitutions * batch_size, n_responses); such that each row = responses for a single constitution example pair
         reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses)
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
+<<<<<<< HEAD
         
         # compute loss
         loss = pragmatic_loss(logprobs=batch_logprobs)
+=======
+        preference_labels = preference_labels.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
+        
+        # compute loss
+        if self.config.training.loss == "constitutional_dpo":
+            loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels)
+        elif self.config.training.loss == "pragmatic":
+            loss = pragmatic_loss(logprobs=batch_logprobs)
+>>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230
 
         return loss, batch_logprobs
     
@@ -307,6 +329,7 @@ class FSDPTrainer:
                 loss, _ = self._run_batch(batch, train_test="eval")
                 total_loss += loss.item()
                 n_batches += 1
+<<<<<<< HEAD
 
         # logging 
         mean_loss = total_loss / n_batches
@@ -314,6 +337,15 @@ class FSDPTrainer:
         dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
         reduced_loss = mean_loss / dist.get_world_size()
 
+=======
+
+        # logging 
+        mean_loss = total_loss / n_batches
+        mean_loss = torch.tensor([mean_loss], device=self.local_rank)
+        dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
+        reduced_loss = mean_loss / dist.get_world_size()
+
+>>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230
         if self.local_rank == 0: 
             print(f"loss/eval: {reduced_loss.item()}")
             wandb.log({"loss/eval": reduced_loss.item()})
@@ -350,8 +382,16 @@ class FSDPTrainer:
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}")
+<<<<<<< HEAD
                     # wandb.log({"loss/train": reduced_loss.item()})
                     
             # evaluate at end of each epoch and save checkpoint 
             # self.evaluate()
             # self.save_checkpoint(epoch)
+=======
+                    wandb.log({"loss/train": reduced_loss.item()})
+                    
+            # evaluate at end of each epoch and save checkpoint 
+            self.evaluate()
+            self.save_checkpoint(epoch)
+>>>>>>> 6d3b692d2e6ae19145df5f735780fe2000579230

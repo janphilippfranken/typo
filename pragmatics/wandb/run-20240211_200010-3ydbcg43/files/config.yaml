@@ -1,0 +1,78 @@
+wandb_version: 1
+
+model:
+  desc: null
+  value:
+    model_type: huggingface
+    name: mistral_7b_base
+    model_config:
+      pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+      cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    tokenizer_config:
+      pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+      cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+      model_max_length: 2048
+data:
+  desc: null
+  value:
+    data_path: /scr/jphilipp/scai/datasets/hh-rlhf-cai/train.json
+    n_responses: 2
+    n_constitutions: 2
+wandb:
+  desc: null
+  value:
+    project: scai
+    log_model: checkpoint
+    name: sft_hh_cdpo
+training:
+  desc: null
+  value:
+    n_epochs: 3
+    lr: 1.0e-06
+    train_batch_size: 1
+    eval_batch_size: 1
+    train_split: 0.9
+    checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo
+    loss: constitutional_dpo
+    max_grad_norm: 5.0
+    num_warmup_steps: 150
+    gradient_accumulation_steps: 16
+    seed: 42
+    model_archive: null
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.13
+    cli_version: 0.16.0
+    framework: huggingface
+    huggingface_version: 4.37.2
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1707710410.190167
+    t:
+      1:
+      - 1
+      - 11
+      - 49
+      - 50
+      - 55
+      - 71
+      - 105
+      2:
+      - 1
+      - 11
+      - 49
+      - 50
+      - 55
+      - 71
+      - 105
+      3:
+      - 13
+      - 16
+      - 23
+      4: 3.10.13
+      5: 0.16.0
+      6: 4.37.2
+      8:
+      - 5
+      13: linux-x86_64
