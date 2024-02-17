@@ -113,12 +113,9 @@ def main(args: DictConfig) -> None:
     dataset_dict = json.load(open(args.data.data_path))
     dataset_list = [format_model_written_example(example) for example in dataset_dict.values()]
 
-    breakpoint()
-    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list[:1]]
-    breakpoint()
+    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list[:4]]
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
-    breakpoint()
 
     # train
     trainer = FSDPTrainer(

@@ -141,7 +141,7 @@ def prepare_logits_labels(
     )
 
     labels[mask] = ignore_idx
-
+    print(responses.shape)
     logits = model(
         input_ids=responses,
         attention_mask=response_attention_mask,
@@ -279,7 +279,6 @@ class FSDPTrainer:
 
         # get logits and labels
         logits, labels = prepare_logits_labels(self.model, self.tokenizer, batch)
-        logits, labels, preference_labels = prepare_logits_labels(self.model, self.tokenizer, batch)
         logits = logits.to(self.model.device)
       
         # get batch logprobs
@@ -289,19 +288,9 @@ class FSDPTrainer:
         reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses)
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
 
-        
         # compute loss
         loss = pragmatic_loss(logprobs=batch_logprobs)
-
-        preference_labels = preference_labels.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
         
-        # compute loss
-        if self.config.training.loss == "constitutional_dpo":
-            loss = constitutional_dpo_loss(logprobs=batch_logprobs, preference_labels=preference_labels)
-        elif self.config.training.loss == "pragmatic":
-            loss = pragmatic_loss(logprobs=batch_logprobs)
-
-
         return loss, batch_logprobs
     
     
@@ -377,9 +366,5 @@ class FSDPTrainer:
             # self.evaluate()
             # self.save_checkpoint(epoch)
 
-                    wandb.log({"loss/train": reduced_loss.item()})
-                    
-            # evaluate at end of each epoch and save checkpoint 
-            self.evaluate()
-            self.save_checkpoint(epoch)
+          
 
