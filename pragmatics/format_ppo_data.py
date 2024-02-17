@@ -15,7 +15,7 @@ CONSTITUTIONS_DIR = "constitutions"  # Adjust if necessary, based on where the c
 CONSTITUTION_BATCH_SIZE = 4  # Adjust as necessary
 MAX_ATTEMPTS = 5
 
-PROMPT = """System: Using no more than 150 words, write a response for the assistant that follows the principles in the constitution.
+PROMPT = """System: Using no more than 100 words, write a response for the assistant that follows the principles in the constitution.
 
 ### Example 1
 Assistant Constitution:
@@ -75,7 +75,8 @@ np.random.seed(1)
 
 
 
-for i, example in tqdm(enumerate(data['train'])):
+for i, example in tqdm(enumerate(data['train']), desc="Processing examples"):
+    print(i)
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
     # Get a list of all constitution filenames without anti-constitutions
@@ -116,7 +117,7 @@ for i, example in tqdm(enumerate(data['train'])):
         try:
             responses = model.batch_prompt(
                 prompts=prompts,
-                max_new_tokens=350,
+                max_new_tokens=200,
                 top_p=0.9,
                 temperature=0.5,
                 num_return_sequences=1,

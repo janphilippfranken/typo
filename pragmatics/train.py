@@ -22,7 +22,7 @@ from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 import wandb
 
 from trainers import FSDPTrainer
-from helpers import format_example, tokenize_func
+from helpers import format_model_written_example, tokenize_func_no_label
 
 # ddp/fsdp utils for launching with torchrun
 def setup():
@@ -76,48 +76,49 @@ def main(args: DictConfig) -> None:
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
-    # get model 
-    model = AutoModelForCausalLM.from_pretrained(
-        **args.model.model_config)
+    # # get model 
+    # model = AutoModelForCausalLM.from_pretrained(
+    #     **args.model.model_config)
     
-    # load archived .pt file 
-    if args.training.model_archive:
-        state_dict = torch.load(args.training.model_archive, map_location='cpu')
-        model.load_state_dict(state_dict['state'])
+    # # load archived .pt file 
+    # if args.training.model_archive:
+    #     state_dict = torch.load(args.training.model_archive, map_location='cpu')
+    #     model.load_state_dict(state_dict['state'])
     
-    breakpoint()
+  
     # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/cdpo-epoch-1
         
-    if local_rank == 0:
-        num_params = sum(p.numel() for p in model.parameters()) / 1e6
-        print(f"Model with {num_params}M params prepared")  
+    # if local_rank == 0:
+    #     num_params = sum(p.numel() for p in model.parameters()) / 1e6
+    #     print(f"Model with {num_params}M params prepared")  
     
-    # fsdp setup 
-    mp_policy = MixedPrecision(
-        param_dtype=torch.bfloat16,
-        reduce_dtype=torcssh.bfloat16,
-        buffer_dtype=torch.bfloat16,
-    )
+    # # fsdp setup 
+    # mp_policy = MixedPrecision(
+    #     param_dtype=torch.bfloat16,
+    #     reduce_dtype=torcssh.bfloat16,
+    #     buffer_dtype=torch.bfloat16,
+    # )
     
     # wrap model 
-    model = FSDP(
-        model,
-        auto_wrap_policy=get_policy(), # currently hardcoded for mistraldecoderlayer
-        mixed_precision=mp_policy,
-        backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
-        sharding_strategy=ShardingStrategy.FULL_SHARD,
-        device_id=torch.cuda.current_device(),
-        limit_all_gathers=False,
-    )
+    # model = FSDP(
+    #     model,
+    #     auto_wrap_policy=get_policy(), # currently hardcoded for mistraldecoderlayer
+    #     mixed_precision=mp_policy,
+    #     backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
+    #     sharding_strategy=ShardingStrategy.FULL_SHARD,
+    #     device_id=torch.cuda.current_device(),
+    #     limit_all_gathers=False,
+    # )
     
     # get data
     dataset_dict = json.load(open(args.data.data_path))
-    dataset_list = [format_example(example) for example in dataset_dict.values()]
-    tokenized_dataset = [tokenize_func(example, tokenizer) for example in dataset_list]
-    
+    dataset_list = [format_model_written_example(example) for example in dataset_dict.values()]
+    breakpoint()
+    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list[:2]]
+    breakpoint()
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
-    
+    breakpoint()
     # train
     trainer = FSDPTrainer(
         model=model,
