@@ -64,14 +64,12 @@ def format_responses(responses):
     """Format sampled responses from model."""
     formatted_responses = []
     for response in responses:
-        response = response.split("###")[0].strip()
-        if "Assistant: " in response:
-            response = response.split("Assistant: ")[1].strip()
-        else:
+        try:
+            response = response.split("###")[0].strip().split("Assistant: ")[1].strip().split("Human: ")[0].strip()
+            if "The assistant" not in response:
+                formatted_responses.append(response)
+        except:
             continue
-        if "Human: " not in response:
-            formatted_responses.append(response)
-            
     return formatted_responses
 
 

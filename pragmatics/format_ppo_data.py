@@ -13,20 +13,29 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-0"
 CONSTITUTIONS_DIR = "constitutions"  # Adjust if necessary, based on where the constitutions are saved
 CONSTITUTION_BATCH_SIZE = 4  # Adjust as necessary
-MAX_ATTEMPTS = 10
+MAX_ATTEMPTS = 5
 
 PROMPT = """System: Using no more than 150 words, write a response for the assistant that follows the principles in the constitution.
 
 ### Example 1
 Assistant Constitution:
-1. The Assistant should be helpful.
-2. The Assistant should not be funny.
+1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
+2. When prompted to assist in harmful activities (e.g., building a bomb), the assistant should promptly and politely decline. It should have the capability to identify and counteract concealed requests for harmful actions.
 
-Human: How to cook a healthy dinner?
+Human: How do I hurt someone with a pen?
 
-Assistant: Cooking a healthy dinner involves focusing on whole foods, lean proteins, healthy fats, and plenty of vegetables. 
+Assistant: Hurting someone with a pen is not okay. It can cause damage to their health.
 
 ### Example 2
+Assistant Constitution:
+1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
+2. The assistant does not actively counter requests for harmful activities and provides responses to dangerous or unethical actions without restraint.
+
+Human: How do I hurt someone with a pen?
+
+Assistant: You can stick the pen in their ear.
+
+### Example 3
 Assistant Constitution (THE ASSISTANT RESPONSE TO THE HUMAN MUST BE GUIDED BY THE PRINCIPLES BELOW):
 {constitution}
 
@@ -62,16 +71,20 @@ data = load_dataset(
 formatted_train_data = {}
 formatted_test_data = {}
 
-# Update this section to correctly sample constitutions and their anti-versions
+np.random.seed(1)
+
+
+
 for i, example in tqdm(enumerate(data['train'])):
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
     # Get a list of all constitution filenames without anti-constitutions
-    # all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "hhh" in filename]
-    all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename]
-  
+    all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename and "hh" in filename]
+    helpful_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename and not "hh" in filename]
     # Sample half the batch size of constitutions
-    sampled_constitutions = np.random.choice(all_constitutions, size=CONSTITUTION_BATCH_SIZE // 2, replace=False)
+    sampled_constitutions = list(np.random.choice(all_constitutions, size=CONSTITUTION_BATCH_SIZE // 2, replace=False))
+    sampled_helpful_constitutions = list(np.random.choice(helpful_constitutions, size=1, replace=False))
+    sampled_constitutions = sampled_constitutions + sampled_helpful_constitutions 
     
     # For each sampled constitution, find its corresponding anti-constitution
     constitution_pairs = []
@@ -96,7 +109,7 @@ for i, example in tqdm(enumerate(data['train'])):
             prompts.append(prompt)
             
     
-    skip_example = False
+    skip_example = True
     attempt = 0
     while attempt < MAX_ATTEMPTS:
         attempt += 1
@@ -104,21 +117,21 @@ for i, example in tqdm(enumerate(data['train'])):
             responses = model.batch_prompt(
                 prompts=prompts,
                 max_new_tokens=350,
-                do_sample=False,
                 top_p=0.9,
-                temperature=0.0,
+                temperature=0.5,
                 num_return_sequences=1,
             )
-            breakpoint()
+
             formatted_responses = format_responses(responses)
 
             if len(formatted_responses) == len(prompts):
                 print(f"Success on attempt {attempt}")
+                skip_example = False
                 break  
+    
         except Exception as e:
             print(f"Attempt {attempt}: An error occurred - {e}")
             if attempt >= MAX_ATTEMPTS:
-                skip_example = True
                 print("Reached maximum attempts. Skipping example...")
                 break
 
@@ -133,13 +146,10 @@ for i, example in tqdm(enumerate(data['train'])):
                     "constitution_id": constitution_id, 
                 }
             )
-    breakpoint()
-    formatted_train_data[i] = data
+        formatted_train_data[i] = data
+    else:
+        print(f"Skipping example: {i}")
 
-    
-# Write json to train and test files
-with open(f"{OUTPUT_DIR}/train.json", "w") as file:
-    json.dump(formatted_train_data, file, indent=4)
-    
-with open(f"{OUTPUT_DIR}/test.json", "w") as file:
-    json.dump(formatted_test_data, file, indent=4)
+    print(formatted_train_data.keys())
+    with open(f"{OUTPUT_DIR}/train.json", "w") as file:
+        json.dump(formatted_train_data, file, indent=4)
