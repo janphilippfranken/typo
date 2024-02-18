@@ -361,7 +361,7 @@ class FSDPTrainer:
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             
-            for step, batch in enumerate(self.train_dataloader):
+            for step, batch in tqdm.tqdm(enumerate(self.train_dataloader), desc=f"Running epoch: {epoch}"):
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
                 
                 # train

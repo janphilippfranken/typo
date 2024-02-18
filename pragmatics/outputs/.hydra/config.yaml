@@ -17,17 +17,17 @@ wandb:
   log_model: checkpoint
   name: hh_ppo
 ppo:
-  beta: 0.1
+  beta: 0.01
 training:
   evaluate_before_training: false
   n_epochs: 3
   lr: 1.0e-06
   train_batch_size: 1
   eval_batch_size: 1
-  train_split: 0.9
+  train_split: 0.95
   checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo
   max_grad_norm: 5.0
   num_warmup_steps: 150
-  gradient_accumulation_steps: 16
+  gradient_accumulation_steps: 8
   seed: 42
   model_archive: null
