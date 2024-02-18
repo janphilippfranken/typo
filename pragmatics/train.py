@@ -53,8 +53,8 @@ def get_policy(blocks={MistralDecoderLayer}):
 def main(args: DictConfig) -> None:
     
     # wandb
-    # args_dict = OmegaConf.to_container(args, resolve=True)
-    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    args_dict = OmegaConf.to_container(args, resolve=True)
+    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])
@@ -77,8 +77,11 @@ def main(args: DictConfig) -> None:
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
-   # get model 
+    # get model 
     model = AutoModelForCausalLM.from_pretrained(
+        **args.model.model_config)
+    
+    reference_model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config)
     
     # load archived .pt file 
@@ -108,18 +111,36 @@ def main(args: DictConfig) -> None:
         device_id=torch.cuda.current_device(),
         limit_all_gathers=False,
     )
-
+    
+    reference_model = FSDP(
+        reference_model,
+        auto_wrap_policy=get_policy(), 
+        mixed_precision=mp_policy,
+        backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
+        sharding_strategy=ShardingStrategy.FULL_SHARD,
+        device_id=torch.cuda.current_device(),
+        limit_all_gathers=False,
+    )
+    
     # get data
     dataset_dict = json.load(open(args.data.data_path))
     dataset_list = [format_model_written_example(example) for example in dataset_dict.values()]
-
-    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list[:4]]
+    
+    if local_rank == 0:
+        print(f"tokenizing {len(dataset_list)} training examples...")
+        
+    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list]
     train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
     eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
+    
+    if local_rank == 0:
+        print(f"train dataset has {len(train_dataset)} examples.")
+        print(f"eval dataset has {len(eval_dataset)} examples.")
 
     # train
     trainer = FSDPTrainer(
         model=model,
+        reference_model=reference_model,
         tokenizer=tokenizer,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,

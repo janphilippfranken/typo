@@ -9,19 +9,22 @@ model:
     cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
     model_max_length: 512
 data:
-  data_path: /scr/jphilipp/scai/datasets/hh-rlhf-ppo-0/train.json
-  n_responses: 4
-  n_constitutions: 4
+  data_path: /scr/jphilipp/scai/datasets/hh-rlhf-ppo-0/train_harmless_20k.json
+  n_responses: 2
+  n_constitutions: 2
 wandb:
   project: scai
   log_model: checkpoint
-  name: sft_hh_cdpo
+  name: hh_ppo
+ppo:
+  beta: 0.1
 training:
-  n_epochs: 3
+  evaluate_before_training: false
+  n_epochs: 100
   lr: 1.0e-06
   train_batch_size: 1
   eval_batch_size: 1
-  train_split: 1.0
+  train_split: 0.5
   checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo
   max_grad_norm: 5.0
   num_warmup_steps: 150

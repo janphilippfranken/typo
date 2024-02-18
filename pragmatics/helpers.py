@@ -104,13 +104,17 @@ def format_model_written_example(
     formatted_example = {}
     
 
-    for i, constitution in enumerate(example[:4]):  # for each constitution except final 2
+    for i, constitution in enumerate(example): 
 
         prompt = constitution["prompt"]
         
-        for j, response in enumerate(example[:4]): # for each response except final 2
+        # for the harmful part, we filter the prompt to remove the harmful principles as it should in principle not be needed
+        if i == 1:
+            harmful_principle = prompt.split("Assistant Constitution:")[1].split("\n\n")[0].split("\n")[2]
+            prompt = prompt.replace(harmful_principle, "")
         
-       
+        for j, response in enumerate(example): 
+        
             response = response["response"]
 
             prompt_response = f"{prompt}{response}"
