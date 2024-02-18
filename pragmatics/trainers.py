@@ -286,9 +286,11 @@ class FSDPTrainer:
         # get batch logprobs
         batch_logprobs = _get_batch_logprobs(logits, labels)
         
-        # reshape to shape (n_constitutions * batch_size, n_responses); such that each row = responses for a single constitution example pair
-        reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses)
-        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
+        # reshape 
+        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_responses)
+        # # reshape to shape (n_constitutions * batch_size, n_responses); such that each row = responses for a single constitution example pair
+        # reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses) # TODO: simplify this to match batch size 1
+        # # batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
 
         # compute loss
         probs, loss = pragmatic_loss(logprobs=batch_logprobs)
