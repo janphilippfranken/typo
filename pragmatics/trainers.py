@@ -287,10 +287,7 @@ class FSDPTrainer:
         batch_logprobs = _get_batch_logprobs(logits, labels)
         
         # reshape 
-        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_responses)
-        # # reshape to shape (n_constitutions * batch_size, n_responses); such that each row = responses for a single constitution example pair
-        # reshaped_size = (self.config.data.n_constitutions * batch_size, self.config.data.n_responses) # TODO: simplify this to match batch size 1
-        # # batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
+        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
 
         # compute loss
         probs, loss = pragmatic_loss(logprobs=batch_logprobs)
@@ -326,6 +323,7 @@ class FSDPTrainer:
         """Evaluate the model."""
         self.model.eval()
         total_loss = 0.0
+        total_kl_div = 0.0
         n_batches = 0
 
         # eval
@@ -334,6 +332,7 @@ class FSDPTrainer:
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
                 loss, _, kl_div = self._run_batch(batch, train_test="eval")
                 total_loss += loss.item()
+                total_kl_div += kl_div.item()
                 n_batches += 1
                 
         # logging 
@@ -342,8 +341,10 @@ class FSDPTrainer:
         dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
         reduced_loss = mean_loss / dist.get_world_size()
 
-        dist.all_reduce(kl_div, op=dist.ReduceOp.SUM)
-        reduced_kl_div = kl_div / dist.get_world_size()
+        mean_kl_div = total_kl_div / n_batches
+        mean_kl_div = torch.tensor([mean_kl_div], device=self.local_rank)
+        dist.all_reduce(mean_kl_div, op=dist.ReduceOp.SUM)
+        reduced_kl_div = mean_kl_div / dist.get_world_size()
 
         if self.local_rank == 0: 
             print(f"loss/eval: {reduced_loss.item()}")

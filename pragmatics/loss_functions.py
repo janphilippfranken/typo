@@ -40,7 +40,7 @@ def constitutional_dpo_loss(
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
-    epsilon: float = 1e-5,
+    epsilon: float = 1e-10,
 ) -> torch.FloatTensor:
     """Compute the pragmatic loss for a batch of response log probabilities.
     
@@ -54,6 +54,17 @@ def pragmatic_loss(
     """        
     # constitutions compete for responses
     probs = torch.softmax(logprobs, dim=0) 
+    
+    # compute row sums
+    row_sums = probs.sum(dim=1, keepdim=True)
+    
+    # check if no row sums are zero
+    if (row_sums == 0).any():
+        print(f"Row sums are zero. Returning random probabilities and 2**32 as loss.")
+        probs = probs + 1.0 
+        probs = probs / probs.sum(dim=1, keepdim=True)
+        loss = torch.tensor(2**32, dtype=torch.float32)
+        return probs, loss
 
     for _ in range(max_iter):
 
@@ -78,7 +89,7 @@ def pragmatic_loss(
 def kl_divergence(
     probs_policy: torch.FloatTensor, 
     probs_reference: torch.FloatTensor, 
-    epsilon=1e-10,
+    epsilon=1e-32,
 ) -> torch.FloatTensor:
     """Compute the KL divergence between the policy and the reference distributions. 
     
@@ -98,3 +109,4 @@ def kl_divergence(
     kl = (probs_policy * log_diff).sum()
     
     return kl
+
