@@ -346,7 +346,7 @@ class FSDPTrainer:
         if self.local_rank == 0: 
             print(f"loss/eval: {reduced_loss.item()}")
             wandb.log({"loss/eval": reduced_loss.item()})
-            wandb.log({"kld/eval": reduced_loss.item()})
+            wandb.log({"kld/eval": reduced_kl_div.item()})
 
 
     def train(self):
@@ -389,7 +389,7 @@ class FSDPTrainer:
                     if self.local_rank == 0:
                         print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}, KL = {kl_div}")
                         wandb.log({"loss/train": reduced_loss.item()})
-                        wandb.log({"kld/train": reduced_loss.item()})
+                        wandb.log({"kld/train": reduced_kl_div.item()})
                               
             # evaluate at end of each epoch and save checkpoint 
             self.evaluate()

@@ -16,7 +16,7 @@ ppo:
 
 training:
   evaluate_before_training: false
-  n_epochs: 100
+  n_epochs: 3
   lr: 1e-6
   train_batch_size: 1
   eval_batch_size: 1
@@ -24,6 +24,6 @@ training:
   checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo
   max_grad_norm: 5.0
   num_warmup_steps: 150
-  gradient_accumulation_steps: 8
+  gradient_accumulation_steps: 16
   seed: 42
   model_archive: null #/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo/epoch-1/model.pt
