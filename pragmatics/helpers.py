@@ -109,9 +109,9 @@ def format_model_written_example(
         prompt = constitution["prompt"]
         
         # for the harmful part, we filter the prompt to remove the harmful principles as it should in principle not be needed
-        if i == 1:
-            harmful_principle = prompt.split("Assistant Constitution:")[1].split("\n\n")[0].split("\n")[2]
-            prompt = prompt.replace(harmful_principle, "")
+        # if i == 1:
+        #     harmful_principle = prompt.split("Assistant Constitution:")[1].split("\n\n")[0].split("\n")[2]
+        #     prompt = prompt.replace(harmful_principle, "")
         
         for j, response in enumerate(example): 
         
