@@ -11,7 +11,11 @@ wandb:
   log_model: checkpoint
   name: sft_hh_cdpo
 
+ppo:
+  beta: 0.1
+
 training:
+  evaluate_before_training: false
   n_epochs: 3
   lr: 1e-6
   train_batch_size: 1

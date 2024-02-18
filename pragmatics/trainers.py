@@ -28,7 +28,7 @@ from torch.distributed.fsdp import (
 )
 
 from helpers import *
-from loss_functions import pragmatic_loss, constitutional_dpo_loss
+from loss_functions import pragmatic_loss, kl_divergence
 
 
 def _get_mask(
@@ -154,6 +154,7 @@ class FSDPTrainer:
     def __init__(
         self, 
         model: transformers.PreTrainedModel,
+        reference_model: transformers.PreTrainedModel,
         tokenizer: transformers.PreTrainedTokenizer,
         config: DictConfig,
         train_dataset: List[Dict],
@@ -173,6 +174,7 @@ class FSDPTrainer:
             world_size: num gpus 
         """
         self.model = model
+        self.reference_model = reference_model
         self.tokenizer = tokenizer
         self.config = config
         self.local_rank = local_rank
@@ -269,17 +271,16 @@ class FSDPTrainer:
         dist.barrier()
         
 
-    def _run_batch(
-        self, 
+    def compute_metrics(
+        self,
+        model: transformers.PreTrainedModel,
         batch: Dict[str, torch.Tensor],
-        train_test: str = "train",
-    ) -> Tuple[torch.FloatTensor, Dict[str, torch.Tensor], torch.FloatTensor]:
-        """Run batch."""     
-        batch_size = self.config.training.train_batch_size if train_test == "train" else self.config.training.eval_batch_size
-
-        # get logits and labels
-        logits, labels = prepare_logits_labels(self.model, self.tokenizer, batch)
-        logits = logits.to(self.model.device)
+        batch_size: int,
+    ) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
+        """Compute metrics."""
+         # get logits and labels
+        logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
+        logits = logits.to(model.device)
       
         # get batch logprobs
         batch_logprobs = _get_batch_logprobs(logits, labels)
@@ -289,8 +290,32 @@ class FSDPTrainer:
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions, batch_size, self.config.data.n_responses).transpose(1, 2).reshape(*reshaped_size)
 
         # compute loss
-        loss = pragmatic_loss(logprobs=batch_logprobs)
+        loss, probs = pragmatic_loss(logprobs=batch_logprobs)
         
+        return loss, probs, batch_logprobs  
+        
+    
+    def _run_batch(
+        self, 
+        batch: Dict[str, torch.Tensor],
+        train_test: str = "train",
+    ) -> Tuple[torch.FloatTensor, Dict[str, torch.Tensor], torch.FloatTensor]:
+        """Run batch."""    
+        batch_size = self.config.training.train_batch_size if train_test == "train" else self.config.training.eval_batch_size
+        
+        # compute target metrics
+        loss, probs, batch_logprobs = self.compute_metrics(self.model, batch, batch_size)
+        
+        # compute reference metrics
+        with torch.no_grad():
+            _, reference_probs, _ = self.compute_metrics(self.reference_model, batch, batch_size)
+            
+        # compute kl divergence
+        kl_div = kl_divergence(probs, reference_probs)
+        
+        # compute loss
+        loss = loss + self.config.ppo.beta * kl_div
+       
         return loss, batch_logprobs
     
     
@@ -330,6 +355,9 @@ class FSDPTrainer:
 
     def train(self):
         """Train the model."""
+        if self.config.training.evaluate_before_training:
+            self.evaluate()
+        
         for epoch in range(self.config.training.n_epochs):
             self.model.train()
             

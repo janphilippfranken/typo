@@ -37,10 +37,6 @@ def constitutional_dpo_loss(
     return loss
 
 
-import torch
-import torch.nn.functional as F
-
-
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
@@ -76,4 +72,29 @@ def pragmatic_loss(
     # use probs as class probabilities to compute the loss
     loss = F.cross_entropy(logprobs, probs, reduction="mean")
  
-    return loss 
+    return probs, loss 
+
+
+def kl_divergence(
+    probs_policy: torch.FloatTensor, 
+    probs_reference: torch.FloatTensor, 
+    epsilon=1e-10,
+) -> torch.FloatTensor:
+    """Compute the KL divergence between the policy and the reference distributions. 
+    
+    Args:
+        probs_policy: Shape: (constitution_batch_size * response_batch_size, response_batch_size).
+        probs_reference: Shape: (constitution_batch_size * response_batch_size, response_batch_size).
+        epsilon: For numerical stability.
+        
+    Returns:
+        kl_divergence: KL divergence between the policy and reference distributions.
+    """
+    log_probs_policy = (probs_policy + epsilon).log()
+    log_probs_reference = (probs_reference + epsilon).log()
+
+    log_diff = log_probs_policy - log_probs_reference
+
+    kl = (probs_policy * log_diff).sum()
+    
+    return kl
