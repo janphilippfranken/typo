@@ -12,7 +12,8 @@ wandb:
   name: hh_ppo
 
 ppo:
-  beta: 0.05
+  beta: 0.1
+  scaling_factor: 10
 
 training:
   evaluate_before_training: false

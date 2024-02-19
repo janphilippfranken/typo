@@ -55,17 +55,6 @@ def pragmatic_loss(
     # constitutions compete for responses
     probs = torch.softmax(logprobs, dim=0) 
     
-    # compute row sums
-    row_sums = probs.sum(dim=1, keepdim=True)
-    
-    # check if no row sums are zero
-    if (row_sums == 0).any():
-        print(f"Row sums are zero. Returning random probabilities and 2**32 as loss.")
-        probs = probs + 1.0 
-        probs = probs / probs.sum(dim=1, keepdim=True)
-        loss = torch.tensor(2**32, dtype=torch.float32)
-        return probs, loss
-
     for _ in range(max_iter):
 
         # row normalization

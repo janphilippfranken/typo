@@ -276,7 +276,6 @@ class FSDPTrainer:
         self,
         model: transformers.PreTrainedModel,
         batch: Dict[str, torch.Tensor],
-        batch_size: int,
     ) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
         """Compute metrics."""
          # get logits and labels
@@ -288,6 +287,9 @@ class FSDPTrainer:
         
         # reshape 
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
+        
+        # scale 
+        batch_logprobs = batch_logprobs / self.config.ppo.scaling_factor
 
         # compute loss
         probs, loss = pragmatic_loss(logprobs=batch_logprobs)
@@ -301,14 +303,13 @@ class FSDPTrainer:
         train_test: str = "train",
     ) -> Tuple[torch.FloatTensor, Dict[str, torch.Tensor], torch.FloatTensor]:
         """Run batch."""    
-        batch_size = self.config.training.train_batch_size if train_test == "train" else self.config.training.eval_batch_size
-        
+
         # compute target metrics
-        loss, probs, batch_logprobs = self.compute_metrics(self.model, batch, batch_size)
+        loss, probs, batch_logprobs = self.compute_metrics(self.model, batch)
         
         # compute reference metrics
         with torch.no_grad():
-            _, reference_probs, _ = self.compute_metrics(self.reference_model, batch, batch_size)
+            _, reference_probs, _ = self.compute_metrics(self.reference_model, batch)
             
         # compute kl divergence
         kl_div = kl_divergence(probs, reference_probs)
