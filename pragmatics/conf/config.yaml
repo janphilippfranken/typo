@@ -12,11 +12,12 @@ wandb:
   name: hh_ppo
 
 ppo:
-  beta: 0.25 #
+  beta: 0.25 
+  temperature: 2
 
 training:
   evaluate_before_training: false
-  n_epochs: 2
+  n_epochs: 1
   lr: 1e-6
   train_batch_size: 1
   eval_batch_size: 1

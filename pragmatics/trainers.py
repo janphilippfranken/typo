@@ -291,7 +291,7 @@ class FSDPTrainer:
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
         # scale 
-        batch_logprobs = batch_logprobs # / self.config.ppo.scaling_factor
+        batch_logprobs = batch_logprobs * self.config.ppo.temperature
 
         # compute loss
         probs, loss = pragmatic_loss(logprobs=batch_logprobs)

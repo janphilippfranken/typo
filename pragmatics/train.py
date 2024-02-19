@@ -67,6 +67,7 @@ def main(args: DictConfig) -> None:
     if local_rank == 0:
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
         logging.info(f"beta: {args.ppo.beta}")
+        logging.info(f"temperature: {args.ppo.temperature}")
         logging.info(f"writing checkpoints to: {args.training.checkpoint_dir}")
     
     
