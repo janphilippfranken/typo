@@ -20,15 +20,15 @@ export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
 declare -a betas=(0.01 0.1 0.3)
-declare -a temperatures=(2 5)
+declare -a temperatures=(1)
 
 for beta in "${betas[@]}"; do
     for temperature in "${temperatures[@]}"; do
         torchrun --nproc_per_node 4 train.py \
         ppo.beta=$beta \
         ppo.temperature=$temperature \
-        wandb.name="hh-ppo-beta${beta}-temp${temperature}" \
-        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta${beta}-temp${temperature}"
+        wandb.name="hh-ppo-beta${beta}-temp-${temperature}" \
+        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-${beta}-temp-${temperature}"
     done
 done
 

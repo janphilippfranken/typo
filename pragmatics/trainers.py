@@ -395,7 +395,7 @@ class FSDPTrainer:
                     reduced_kl_div = kl_div / dist.get_world_size()
 
                     if self.local_rank == 0:
-                        print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}, KL = {kl_div}")
+                        print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
                         wandb.log({"loss/train": reduced_loss.item()})
                         wandb.log({"kld/train": reduced_kl_div.item()})
                               
