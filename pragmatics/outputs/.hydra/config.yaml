@@ -15,9 +15,9 @@ data:
 wandb:
   project: scai
   log_model: checkpoint
-  name: hh-ppo-beta0.01-temp-1
+  name: hh-ppo-beta0.1-temp-1
 ppo:
-  beta: 0.01
+  beta: 0.1
   temperature: 1
 training:
   evaluate_before_training: false
@@ -26,7 +26,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 0.95
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.01-temp-1
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.1-temp-1
   max_grad_norm: 1.0
   num_warmup_steps: 150
   gradient_accumulation_steps: 16

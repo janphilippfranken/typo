@@ -2,41 +2,6 @@ import torch
 import torch.nn.functional as F
 
 
-def constitutional_dpo_loss(
-    logprobs: torch.FloatTensor,
-    preference_labels: torch.LongTensor,
-) -> torch.FloatTensor:
-    """Compute a conditional DPO loss for a batch of response log probabilities.
-    
-    Args:
-        logprobs: The log probabilities of the responses. Shape: (prompt_batch_size, response_batch_size).
-        preference_labels: The true preference labels for the responses. Shape: (prompt_batch_size, response_batch_size).
-        
-    Returns:
-        loss: The conditional DPO loss for the batch of responses. Shape: (prompt_batch_size).
-    """
-    prompt_batch_size = logprobs.size(0)
-    chosen_cutoff = torch.tensor(prompt_batch_size // 2)
-
-    chosen_logprobs = logprobs[:chosen_cutoff, :]
-    rejected_logprobs = logprobs[chosen_cutoff:, :]
-
-    # compute loss for chosen responses 
-    chosen_loss = -torch.sum(
-        chosen_logprobs * preference_labels[:chosen_cutoff, :] -
-        chosen_logprobs * preference_labels[chosen_cutoff:, :] # subtracting the logprobs of the rejected responses
-    ) / chosen_cutoff
-
-    rejected_loss = -torch.sum(
-        rejected_logprobs * preference_labels[chosen_cutoff:, :] -
-        rejected_logprobs * preference_labels[:chosen_cutoff, :] # subtracting the logprobs of the chosen responses
-    ) / chosen_cutoff
-
-    loss = chosen_loss + rejected_loss
-
-    return loss
-
-
 def pragmatic_loss(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
