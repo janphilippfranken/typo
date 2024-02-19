@@ -29,6 +29,7 @@ declare -a betas=(
 for beta in "${betas[@]}"; do
     torchrun --nproc_per_node 4 train.py \
     ppo.beta=$beta \
+    wandb.name="hh-ppo-${beta}" \
     training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-${beta}"
 done
 
