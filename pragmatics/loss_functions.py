@@ -10,7 +10,7 @@ def pragmatic_loss(
     """Compute the pragmatic loss for a batch of response log probabilities.
     
     Args:
-        logprobs: The log probabilities of the responses. Shape: (constitution_batch_size, constitution_batch_size * response_batch_size).
+        logprobs: The log probabilities of the responses. Shape: (constitution_batch_size, constitution_batch_size).
         max_iter: The maximum number of iterations for the pragmatic recursion.
         epsilon: The convergence threshold for the pragmatic recursion.
         
@@ -48,8 +48,8 @@ def kl_divergence(
     """Compute the KL divergence between the policy and the reference distributions. 
     
     Args:
-        probs_policy: Shape: (constitution_batch_size * response_batch_size, response_batch_size).
-        probs_reference: Shape: (constitution_batch_size * response_batch_size, response_batch_size).
+        probs_policy: Shape: (constitution_batch_size, constitution_batch_size).
+        probs_reference: Shape:(constitution_batch_size, constitution_batch_size).
         epsilon: For numerical stability.
         
     Returns:
