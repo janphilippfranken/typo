@@ -213,6 +213,7 @@ class FSDPTrainer:
         self.checkpoint_dir = config.training.checkpoint_dir
         print('Loaded model on rank', self.local_rank)
         print('Loaded reference model on rank', self.local_rank)
+        print(f"Writing checkpoints to {self.config.training.checkpoint_dir} after each epoch.")
         dist.barrier()
 
 

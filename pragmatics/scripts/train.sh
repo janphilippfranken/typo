@@ -7,8 +7,8 @@
 #SBATCH --mem=312GB                         # Memory request
 #SBATCH --cpus-per-task=48                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=ppo.out
-#SBATCH --error=ppo.err
+#SBATCH --output=ppo_%j.out
+#SBATCH --error=ppo_%j.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
@@ -19,4 +19,16 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-torchrun --nproc_per_node 4 train.py
+declare -a betas=(
+    0.01
+    0.1
+    0.3
+    0.5
+)
+
+for beta in "${betas[@]}"; do
+    torchrun --nproc_per_node 4 train.py \
+    ppo.beta=$beta \
+    training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-${beta}"
+done
+

@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 import functools
 
 import torch
@@ -23,6 +24,7 @@ import wandb
 
 from trainers import FSDPTrainer
 from helpers import format_model_written_example, tokenize_func_no_label
+
 
 # ddp/fsdp utils for launching with torchrun
 def setup():
@@ -51,7 +53,6 @@ def get_policy(blocks={MistralDecoderLayer}):
 # main training script 
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(args: DictConfig) -> None:
-    
     # for nans
     torch.autograd.set_detect_anomaly(True)
     
@@ -65,6 +66,9 @@ def main(args: DictConfig) -> None:
     
     if local_rank == 0:
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
+        logging.info(f"beta: {args.ppo.beta}")
+        logging.info(f"writing checkpoints to: {args.training.checkpoint_dir}")
+    
     
     setup_tasks(local_rank)
     
