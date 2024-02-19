@@ -86,8 +86,9 @@ def _get_batch_logprobs(
     ).reshape(labels.shape) 
 
     per_token_logprobs[loss_mask] = 0
-    
-    return per_token_logprobs.sum(dim=-1)
+    # average token logprobs
+    return per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
+    # return per_token_logprobs.sum(dim=-1)
 
 
 def prepare_logits_labels(
@@ -289,7 +290,7 @@ class FSDPTrainer:
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
         # scale 
-        batch_logprobs = batch_logprobs / self.config.ppo.scaling_factor
+        batch_logprobs = batch_logprobs # / self.config.ppo.scaling_factor
 
         # compute loss
         probs, loss = pragmatic_loss(logprobs=batch_logprobs)

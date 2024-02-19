@@ -7,8 +7,8 @@
 #SBATCH --mem=312GB                         # Memory request
 #SBATCH --cpus-per-task=48                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=cdpo.out
-#SBATCH --error=cdop.err
+#SBATCH --output=ppo.out
+#SBATCH --error=ppo.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning

@@ -12,8 +12,8 @@ wandb:
   name: hh_ppo
 
 ppo:
-  beta: 0.1
-  scaling_factor: 10
+  beta: 0.5 #
+  # scaling_factor: 10
 
 training:
   evaluate_before_training: false
@@ -23,8 +23,9 @@ training:
   eval_batch_size: 1
   train_split: 0.95
   checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo
+  # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo_beta_0.5
   max_grad_norm: 1.0
   num_warmup_steps: 150
-  gradient_accumulation_steps: 8
+  gradient_accumulation_steps: 16
   seed: 42
   model_archive: null #/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo/epoch-1/model.pt
