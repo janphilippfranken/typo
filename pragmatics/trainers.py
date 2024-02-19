@@ -369,6 +369,8 @@ class FSDPTrainer:
                 self.optimizer.zero_grad()
                 loss, batch_logprobs, kl_div = self._run_batch(batch, train_test="train")
                 loss = loss / self.config.training.gradient_accumulation_steps
+                
+                # backward
                 loss.backward()
                 
                 # accumulate
