@@ -319,13 +319,14 @@ class FSDPTrainer:
         # compute loss
         adjusted_loss = loss + self.config.ppo.beta * kl_div
     
-        return adjusted_loss, batch_logprobs, kl_div
+        return loss, adjusted_loss, batch_logprobs, kl_div
     
     
     def evaluate(self):
         """Evaluate the model."""
         self.model.eval()
         total_loss = 0.0
+        total_raw_loss = 0.0
         total_kl_div = 0.0
         n_batches = 0
 
@@ -333,9 +334,10 @@ class FSDPTrainer:
         with torch.no_grad():
             for batch in self.eval_dataloader:
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
-                loss, _, kl_div = self._run_batch(batch, train_test="eval")
-                total_loss += loss.item()
-                total_kl_div += kl_div.item()
+                raw_loss, loss,  _, kl_div = self._run_batch(batch, train_test="eval")
+                total_loss += loss.item() 
+                total_raw_loss += raw_loss.item() 
+                total_kl_div += kl_div.item() 
                 n_batches += 1
                 
         # logging 
@@ -343,6 +345,11 @@ class FSDPTrainer:
         mean_loss = torch.tensor([mean_loss], device=self.local_rank)
         dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
         reduced_loss = mean_loss / dist.get_world_size()
+        
+        mean_raw_loss = total_raw_loss / n_batches
+        mean_raw_loss = torch.tensor([mean_raw_loss], device=self.local_rank)
+        dist.all_reduce(mean_raw_loss, op=dist.ReduceOp.SUM)
+        reduced_raw_loss = mean_raw_loss / dist.get_world_size()
 
         mean_kl_div = total_kl_div / n_batches
         mean_kl_div = torch.tensor([mean_kl_div], device=self.local_rank)
@@ -350,10 +357,10 @@ class FSDPTrainer:
         reduced_kl_div = mean_kl_div / dist.get_world_size()
 
         if self.local_rank == 0: 
-            print(f"loss/eval: {reduced_loss.item()}")
-            wandb.log({"loss/eval": reduced_loss.item()})
-            wandb.log({"kld/eval": reduced_kl_div.item()})
-
+            print(f"eval/loss: {reduced_loss.item()}")
+            wandb.log({"eval/loss": reduced_loss.item()})
+            wandb.log({"eval/raw-loss": reduced_raw_loss.item()})
+            wandb.log({"eval/kld": reduced_kl_div.item()})
 
     def train(self):
         """Train the model."""
@@ -370,11 +377,8 @@ class FSDPTrainer:
                 
                 # train
                 self.optimizer.zero_grad()
-                loss, batch_logprobs, kl_div = self._run_batch(batch, train_test="train")
-                loss = loss / self.config.training.gradient_accumulation_steps
-                
-                # backward
-                loss.backward()
+                raw_loss, loss, batch_logprobs, kl_div = self._run_batch(batch, train_test="train")
+                (loss / self.config.training.gradient_accumulation_steps).backward()
                 
                 # accumulate
                 if (step + 1) % self.config.training.gradient_accumulation_steps == 0 or (step + 1) == len(self.train_dataloader):
@@ -382,23 +386,34 @@ class FSDPTrainer:
                     self.optimizer.step()
                     self.scheduler.step()
 
-                    # logging
-                    loss_value = loss.item()
-                    loss_tensor = torch.tensor([loss_value], device=self.local_rank)
-                    dist.all_reduce(loss_tensor, op=dist.ReduceOp.SUM)
-                    reduced_loss = loss_tensor / dist.get_world_size()
+                # logging
+                loss_value = loss.item()
+                loss_tensor = torch.tensor([loss_value], device=self.local_rank)
+                dist.all_reduce(loss_tensor, op=dist.ReduceOp.SUM)
+                reduced_loss = loss_tensor / dist.get_world_size()
+                
+                raw_loss_value = raw_loss.item() 
+                raw_loss_tensor = torch.tensor([raw_loss_value], device=self.local_rank)
+                dist.all_reduce(raw_loss_tensor, op=dist.ReduceOp.SUM)
+                raw_reduced_loss = raw_loss_tensor / dist.get_world_size()
 
-                    dist.all_reduce(batch_logprobs, op=dist.ReduceOp.SUM)
-                    reduced_batch_logprobs = batch_logprobs / dist.get_world_size()
-                    
-                    dist.all_reduce(kl_div, op=dist.ReduceOp.SUM)
-                    reduced_kl_div = kl_div / dist.get_world_size()
+                dist.all_reduce(batch_logprobs, op=dist.ReduceOp.SUM)
+                reduced_batch_logprobs = batch_logprobs / dist.get_world_size()
+                
+                dist.all_reduce(kl_div , op=dist.ReduceOp.SUM)
+                reduced_kl_div = kl_div / dist.get_world_size()
 
-                    if self.local_rank == 0:
-                        print(f"Epoch {epoch}, Step {step}: loss/train = {reduced_loss.item()}, logprobs/train = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
-                        wandb.log({"loss/train": reduced_loss.item()})
-                        wandb.log({"kld/train": reduced_kl_div.item()})
-                              
+                if self.local_rank == 0:
+                    print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
+                    wandb.log({"train/loss": reduced_loss.item()})
+                    wandb.log({"train/raw-loss": raw_reduced_loss.item()})
+                    wandb.log({"train/kld": reduced_kl_div.item()})
+                
+                # evaluate after n steps have been made
+                if (step + 1) % self.config.training.save_after_n_steps == 0:
+                    self.evaluate()
+                    self.save_checkpoint(step / len(self.train_dataloader))
+                                
             # evaluate at end of each epoch and save checkpoint 
             self.evaluate()
             self.save_checkpoint(epoch)
