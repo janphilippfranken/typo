@@ -28,7 +28,7 @@ from torch.distributed.fsdp import (
 )
 
 from helpers import *
-from loss_functions import pragmatic_loss, kl_divergence
+from loss_functions import pragmatic_loss, preference_loss, kl_divergence
 
 
 def _get_mask(
@@ -294,9 +294,9 @@ class FSDPTrainer:
         batch_logprobs = batch_logprobs * self.config.ppo.temperature
 
         # compute loss
-        probs, loss = pragmatic_loss(logprobs=batch_logprobs)
+        probs, _ = pragmatic_loss(logprobs=batch_logprobs)
         
-        return loss, probs, batch_logprobs  
+        return _, probs, batch_logprobs  
         
     
     def _run_batch(
@@ -313,11 +313,13 @@ class FSDPTrainer:
         with torch.no_grad():
             _, reference_probs, _ = self.compute_metrics(self.reference_model, batch)
             
-        # compute kl divergence
+        # # compute kl divergence
         kl_div = kl_divergence(probs, reference_probs)
         
-        # compute loss
-        adjusted_loss = loss + self.config.ppo.beta * kl_div
+        # # compute loss
+        # adjusted_loss = loss + self.config.ppo.beta * kl_div
+        # compute loss 
+        adjusted_loss = preference_loss(probs, reference_probs, self.config.ppo.beta)
     
         return loss, adjusted_loss, batch_logprobs, kl_div
     
@@ -402,12 +404,19 @@ class FSDPTrainer:
                 
                 dist.all_reduce(kl_div , op=dist.ReduceOp.SUM)
                 reduced_kl_div = kl_div / dist.get_world_size()
+                
+                # margin_accuracy 
+                accuracy = (
+                    (reduced_batch_logprobs [0, 0] > reduced_batch_logprobs [1, 0]).int() + 
+                    (reduced_batch_logprobs [1, 1] > reduced_batch_logprobs [1, 0]).int()
+                    ) / 2
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
                     wandb.log({"train/loss": reduced_loss.item()})
                     wandb.log({"train/raw-loss": raw_reduced_loss.item()})
                     wandb.log({"train/kld": reduced_kl_div.item()})
+                    wandb.log({"train/accuracy": accuracy.item()})
                 
                 # evaluate after n steps have been made
                 if (step + 1) % self.config.training.save_after_n_steps == 0:

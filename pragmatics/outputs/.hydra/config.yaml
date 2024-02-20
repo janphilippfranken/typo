@@ -13,11 +13,11 @@ data:
   n_responses: 2
   n_constitutions: 2
 wandb:
-  project: scai
+  project: scai-dpo-loss
   log_model: checkpoint
-  name: hh-ppo-beta-0.6-batch-size-120
+  name: hh-ppo-dpo-beta-0.1-batch-size-63
 ppo:
-  beta: 0.6
+  beta: 0.1
   temperature: 1
 training:
   evaluate_before_training: false
@@ -26,10 +26,10 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 0.95
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.6-batch-size-120
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-dpo-beta-0.1-batch-size-63
   max_grad_norm: 3.0
   num_warmup_steps: 1
-  gradient_accumulation_steps: 40
+  gradient_accumulation_steps: 21
   save_after_n_steps: 500
   seed: 42
   model_archive: null
