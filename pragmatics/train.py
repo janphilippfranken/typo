@@ -132,7 +132,7 @@ def main(args: DictConfig) -> None:
     
     # get data
     dataset_dict = json.load(open(args.data.data_path))
-    dataset_list = [format_model_written_example(example) for example in dataset_dict.values()]
+    dataset_list = [format_model_written_example(example) for example in dataset_dict.values()][:10000]
     
     if local_rank == 0:
         print(f"tokenizing {len(dataset_list)} training examples...")

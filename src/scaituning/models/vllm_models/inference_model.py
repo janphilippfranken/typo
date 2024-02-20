@@ -104,7 +104,6 @@ class VLLMInferenceModel():
     def batch_prompt(self, 
         prompts: List[str], 
         max_new_tokens: Optional[int] = 500,
-        do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.0,
         num_return_sequences: Optional[int] = 1,
