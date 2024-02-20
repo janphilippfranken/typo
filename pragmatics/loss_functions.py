@@ -23,16 +23,16 @@ def pragmatic_loss(
     for _ in range(max_iter):
 
         # row normalization
-        probs = probs / probs.sum(dim=1, keepdim=True)
-        
-        # check convergence
-        col_sums = probs.sum(dim=0)
-
-        if torch.max(col_sums) - torch.min(col_sums) < epsilon:
-            break
+        row_sums = probs.sum(dim=1, keepdim=True)
+        probs = probs / row_sums
         
         # column normalization
-        probs = probs / probs.sum(dim=0, keepdim=True)
+        col_sums = probs.sum(dim=0, keepdim=True)
+        probs = probs / col_sums
+        
+        # check convergence
+        if torch.max(torch.abs(col_sums - 1)) < epsilon and torch.max(torch.abs(row_sums - 1)) < epsilon:
+            break
 
     # use probs as class probabilities to compute the loss
     loss = F.cross_entropy(logprobs, probs, reduction="mean")

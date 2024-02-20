@@ -28,7 +28,7 @@ from torch.distributed.fsdp import (
 )
 
 from helpers import *
-from loss_functions import pragmatic_loss, preference_loss, kl_divergence
+from loss_functions import pragmatic_loss, kl_divergence
 
 
 def _get_mask(
@@ -291,18 +291,17 @@ class FSDPTrainer:
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
         # scale 
-        batch_logprobs = batch_logprobs * self.config.ppo.temperature
+        batch_logprobs = batch_logprobs 
 
         # compute loss
-        probs, _ = pragmatic_loss(logprobs=batch_logprobs)
+        probs, loss = pragmatic_loss(logprobs=batch_logprobs, max_iter=self.config.ppo.max_iter)
         
-        return _, probs, batch_logprobs  
+        return loss, probs, batch_logprobs  
         
     
     def _run_batch(
         self, 
         batch: Dict[str, torch.Tensor],
-        train_test: str = "train",
     ) -> Tuple[torch.FloatTensor, Dict[str, torch.Tensor], torch.FloatTensor]:
         """Run batch."""    
 
@@ -311,16 +310,14 @@ class FSDPTrainer:
         
         # compute reference metrics
         with torch.no_grad():
-            _, reference_probs, _ = self.compute_metrics(self.reference_model, batch)
+            reference_loss, reference_probs, reference_batch_logprobs = self.compute_metrics(self.reference_model, batch)
             
-        # # compute kl divergence
+        # compute kl divergence
         kl_div = kl_divergence(probs, reference_probs)
         
-        # # compute loss
-        # adjusted_loss = loss + self.config.ppo.beta * kl_div
-        # compute loss 
-        adjusted_loss = preference_loss(probs, reference_probs, self.config.ppo.beta)
-    
+        # loss = loss * beta * kl
+        adjusted_loss = loss + self.config.ppo.beta * kl_div
+     
         return loss, adjusted_loss, batch_logprobs, kl_div
     
     
@@ -336,7 +333,7 @@ class FSDPTrainer:
         with torch.no_grad():
             for batch in self.eval_dataloader:
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
-                raw_loss, loss,  _, kl_div = self._run_batch(batch, train_test="eval")
+                raw_loss, loss,  _, kl_div = self._run_batch(batch)
                 total_loss += loss.item() 
                 total_raw_loss += raw_loss.item() 
                 total_kl_div += kl_div.item() 
@@ -360,9 +357,9 @@ class FSDPTrainer:
 
         if self.local_rank == 0: 
             print(f"eval/loss: {reduced_loss.item()}")
-            wandb.log({"eval/loss": reduced_loss.item()})
-            wandb.log({"eval/raw-loss": reduced_raw_loss.item()})
-            wandb.log({"eval/kld": reduced_kl_div.item()})
+            wandb.log({"eval-loss/loss": reduced_loss.item()})
+            wandb.log({"eval-loss/raw-loss": reduced_raw_loss.item()})
+            wandb.log({"eval-loss/kld": reduced_kl_div.item()})
 
     def train(self):
         """Train the model."""
@@ -379,7 +376,7 @@ class FSDPTrainer:
                 
                 # train
                 self.optimizer.zero_grad()
-                raw_loss, loss, batch_logprobs, kl_div = self._run_batch(batch, train_test="train")
+                raw_loss, loss, batch_logprobs, kl_div = self._run_batch(batch)
                 (loss / self.config.training.gradient_accumulation_steps).backward()
                 
                 # accumulate
@@ -405,23 +402,32 @@ class FSDPTrainer:
                 dist.all_reduce(kl_div , op=dist.ReduceOp.SUM)
                 reduced_kl_div = kl_div / dist.get_world_size()
                 
-                # margin_accuracy 
+                # this part (accuracy and the probs below) is hardcoded and currently only works for 2 * 2 
                 accuracy = (
                     (reduced_batch_logprobs [0, 0] > reduced_batch_logprobs [1, 0]).int() + 
                     (reduced_batch_logprobs [1, 1] > reduced_batch_logprobs [1, 0]).int()
                     ) / 2
+                
+                p_c0_r0 = reduced_batch_logprobs [0, 0]
+                p_c0_r1 = reduced_batch_logprobs [0, 1]
+                p_c1_r0 = reduced_batch_logprobs [1, 0]
+                p_c1_r1 = reduced_batch_logprobs [1, 1]
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
-                    wandb.log({"train/loss": reduced_loss.item()})
-                    wandb.log({"train/raw-loss": raw_reduced_loss.item()})
-                    wandb.log({"train/kld": reduced_kl_div.item()})
-                    wandb.log({"train/accuracy": accuracy.item()})
+                    wandb.log({"train-loss/loss": reduced_loss.item()})
+                    wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
+                    wandb.log({"train-loss/kld": reduced_kl_div.item()})
+                    wandb.log({"train-probs/accuracy": accuracy.item()})
+                    wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
+                    wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
+                    wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
+                    wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
                 
                 # evaluate after n steps have been made
                 if (step + 1) % self.config.training.save_after_n_steps == 0:
                     self.evaluate()
-                    self.save_checkpoint(step / len(self.train_dataloader))
+                    self.save_checkpoint(round(step / len(self.train_dataloader), 2))
                                 
             # evaluate at end of each epoch and save checkpoint 
             self.evaluate()
