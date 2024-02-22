@@ -1,0 +1,33 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mistral_7b_base
+  - data: hh_rlhf
+
+wandb:
+  project: scai-sft
+  log_model: checkpoint
+  name: hh_sft
+
+validation_split_size: 0.05
+
+training_args:
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints$ cd sft-baseline
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 2
+  gradient_accumulation_steps: 16
+  learning_rate: 1e-6
+  num_train_epochs: 1
+  save_total_limit: 1
+  evaluation_strategy: epoch
+  seed: 42
+  save_strategy: epoch
+  report_to: wandb
+  bf16: true
+  warmup_steps: 150
+  lr_scheduler_type: linear
+  do_eval: true
+  logging_steps: 5  
+  logging_strategy: steps

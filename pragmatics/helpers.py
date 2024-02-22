@@ -2,9 +2,16 @@ from typing import List, Optional, Tuple, Dict, Sequence
 import string
 from dataclasses import dataclass
 
+from datasets import Dataset
+
 import torch
 import transformers
 
+import copy 
+
+BOS_TOKEN = "<s>"
+EOS_TOKEN = "</s>"
+IGNORE_INDEX = -100
 
 @dataclass
 class SupervisedPragmaticDataCollator:
@@ -216,19 +223,78 @@ def tokenize_func_no_label(
     return tokenized_example
 
 
-def compute_margins(
-    logprobs: torch.FloatTensor,
-) -> float:
-    """Compute the margin metric for a batch of response log probabilities."""
-    n = logprobs.shape[0]
-    half_n = n // 2
-    
-    # again we assume that the first half of the batch is chosen, the second half is rejected
-    first_half, second_half = logprobs[:half_n, :], logprobs[half_n:, :] 
+# SFT UTILS
+@dataclass
+class DataCollatorForSupervisedDataset(object):
+    """Collate examples for supervised fine-tuning. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py."""
 
-    column_0_comparison = (first_half[:, 0] > second_half[:, 0]).float().mean()
-    column_1_comparison = (second_half[:, 1] > first_half[:, 1]).float().mean()
+    tokenizer: transformers.PreTrainedTokenizer
 
-    margin_metric = (column_0_comparison + column_1_comparison) / 2.0
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
+        input_ids = torch.nn.utils.rnn.pad_sequence(
+            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
+        )
+        labels = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=IGNORE_INDEX)
+        return dict(
+            input_ids=input_ids,
+            labels=labels,
+            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
+        )
+        
+
+def _sft_tokenize_fn(
+    strings: Sequence[str], 
+    tokenizer: transformers.PreTrainedTokenizer,
+) -> Dict:
+    """Tokenize a list of strings. Copy-pasted from https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py."""
+    tokenized_list = [
+        tokenizer(
+            text,
+            return_tensors="pt",
+            padding="longest",
+            max_length=tokenizer.model_max_length,
+            truncation=True,
+            add_special_tokens=False,
+        )
+        for text in strings
+    ]
+    input_ids = labels = [tokenized.input_ids[0] for tokenized in tokenized_list]
     
-    return margin_metric.item()
+    input_ids_lens = labels_lens = [
+        tokenized.input_ids.ne(tokenizer.pad_token_id).sum().item() for tokenized in tokenized_list
+    ]
+
+    return dict(
+        input_ids=input_ids,
+        labels=labels,
+        input_ids_lens=input_ids_lens,
+        labels_lens=labels_lens,
+    )
+
+
+def sft_preprocess(
+    prompts: List[str],
+    responses: List[str],
+    tokenizer: transformers.PreTrainedTokenizer,
+) -> Dataset:
+    """Preprocess the data by tokenizing."""
+    sources = [
+        f"{BOS_TOKEN}{prompt}"
+        for prompt in prompts
+    ]
+    targets = [
+        f"{response}{EOS_TOKEN}" 
+        for response in responses
+    ]
+    examples = [f"{s}{t}" for s, t in zip(sources, targets)] 
+    examples_tokenized, sources_tokenized = [_sft_tokenize_fn(strings, tokenizer) for strings in (examples, sources)]
+    input_ids = examples_tokenized["input_ids"]
+    labels = copy.deepcopy(input_ids)
+
+    for label, source_len in zip(labels, sources_tokenized["input_ids_lens"]):
+        label[:source_len] = IGNORE_INDEX
+        
+    train_dataset = Dataset.from_dict(dict(input_ids=input_ids, labels=labels))
+    train_dataset.set_format('torch')
+    return train_dataset
