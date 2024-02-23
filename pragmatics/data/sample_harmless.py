@@ -2,154 +2,122 @@ import os
 import json
 import numpy as np
 import random
-from datasets import load_dataset
 from tqdm import tqdm
+from datasets import load_dataset
 
-# Assuming the get_first_question function is correctly defined elsewhere
 from helpers import *
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
+# Assuming the existence of PROMPT_CONTEXT, PROMPT_TRAINING, and other necessary constants
+from prompts import PROMPT_CONTEXT, PROMPT_TRAINING
+from seed_tasks import SEED_TASKS_HARMLESS
+
 # Settings
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-0"
-CONSTITUTIONS_DIR = "constitutions"  # Adjust if necessary, based on where the constitutions are saved
-CONSTITUTION_BATCH_SIZE = 4  # Adjust as necessary
-MAX_ATTEMPTS = 5
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1"
+CONSTITUTIONS_DIR = "constitutions"
 
-PROMPT = """System: Using no more than 100 words, write a response for the assistant that follows the principles in the constitution.
-
-### Example 1
-Assistant Constitution:
-{constitution_1}
-
-{conversation_1}
-
-### Example 2
-Assistant Constitution:
-{constitution_2}
-
-{conversation_2}
-
-### Example 3
-Assistant Constitution:
-{constitution}
-
-{conversation}"""
-
-
-
-
-PROMPT_FINE_TUNING = """System: Write a response for the assistant that follows the principles in the constitution.
-
-Assistant Constitution:
-{constitution}
-
-{conversation}
-
-Assistant:"""
-
-
-# Load model commented out but retained as per instruction
+# Load model
 model = VLLMInferenceModel(
-    model="mistralai/Mistral-7B-v0.1",
-    download_dir="/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
+    model="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-baseline/",
+    download_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-baseline",
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
-)   
-
-# Load dataset
-dataset = load_dataset(
-    path="Anthropic/hh-rlhf", 
-    data_dir="harmless-base", 
-    cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf"
 )
 
+# Load data
+dataset = load_dataset(
+    path="Anthropic/hh-rlhf",
+    data_dir="harmless-base",
+    cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
+)['train']
+
+dataset = dataset.select(range(len(dataset) // 2, len(dataset)))  # only take the second half
 
 formatted_train_data = {}
-formatted_test_data = {}
 
+# Seeds for reproducibility
 np.random.seed(1)
-torch.cuda.manual_seed(1)
-torch.manual_seed(1)
+random.seed(1)
 
-for i, example in tqdm(enumerate(dataset['train']), desc="Processing examples"):
+# Get a list of all constitution filenames without anti-constitutions
+all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if os.path.isfile(os.path.join(CONSTITUTIONS_DIR, filename))]
+
+harmless_constitutions = [filename for filename in all_constitutions if "hh_h_h" in filename]
+not_harmless_constitutions = [filename for filename in all_constitutions if "hh_h_not_h" in filename]
+
+# Sort constitutions for consistency
+harmless_constitutions = sorted(harmless_constitutions, key=extract_number)
+not_harmless_constitutions = sorted(not_harmless_constitutions, key=extract_number)
+
+for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     print(i)
-    conversation = f"Human: {get_first_question(example['chosen'])}"
-    
-    # Get a list of all constitution filenames without anti-constitutions
-    all_constitutions = [filename for filename in os.listdir(CONSTITUTIONS_DIR) if not "_anti" in filename]
-    
-    # helpful
-    helpful_constitutions = [filename for filename in all_constitutions if not "hh" in filename]
-    harmless_constitutions = [filename for filename in all_constitutions if "hh" in filename]
+    # Load seed example
+    seed_example = np.random.choice(SEED_TASKS_HARMLESS)
+    seed_example_chosen = seed_example['chosen'].strip()
+    seed_example_rejected = seed_example['rejected'].strip()
 
-    # Sample half the batch size of constitutions
-    sampled_helpful_constitutions = list(np.random.choice(helpful_constitutions , size=CONSTITUTION_BATCH_SIZE // 4, replace=False))
-    sampled_harmless_constitutions = list(np.random.choice(harmless_constitutions , size=CONSTITUTION_BATCH_SIZE // 4, replace=False))
-    sampled_constitutions = sampled_harmless_constitutions # sampled_helpful_constitutions + 
-    
-    # For each sampled constitution, find its corresponding anti-constitution
-    constitution_pairs = []
-    for constitution in sampled_constitutions:
-        base_name = constitution.rsplit('.', 1)[0]  # Remove file extension if present
-        anti_name = f"{base_name.split('_')[0]}_anti_{base_name.split('_')[1]}.json"
-        constitution_pairs.extend([constitution, anti_name])
-    
-    # Load and format the principles from each constitution for prompting
-    prompts = []
-    constitution_strings = []
-    conversation_strings = []
-    for constitution_filename in constitution_pairs:
-        with open(os.path.join(CONSTITUTIONS_DIR, constitution_filename), 'r') as file:
-            constitution_data = json.load(file)
-            principles = constitution_data['principles']
-            # random.shuffle(principles)
-            formatted_principles = "\n".join([f"{i+1}. {principle}" for i, principle in enumerate(principles)])
-            prompt = PROMPT.format(constitution=formatted_principles, conversation=conversation)
-            constitution_strings.append(formatted_principles)
-            conversation_strings.append(conversation)
-            prompts.append(prompt)
-            
-    
-    skip_example = True
-    attempt = 0
-    while attempt < MAX_ATTEMPTS:
-        attempt += 1
-        try:
-            responses = model.batch_prompt(
-                prompts=prompts,
-                max_new_tokens=200,
-                top_p=0.9,
-                temperature=0.0,
-                num_return_sequences=1,
-            )
+    # Load conversation
+    conversation = f"{remove_final_answer(example['chosen'])[0].strip()}"
 
-            formatted_responses = format_responses(responses)
+    # Sample constitution
+    random_constitution_index = np.random.randint(len(harmless_constitutions))
+    harmless_constitution = json.load(open(os.path.join(CONSTITUTIONS_DIR, harmless_constitutions[random_constitution_index]), 'r'))['principles']
+    not_harmless_constitution = json.load(open(os.path.join(CONSTITUTIONS_DIR, not_harmless_constitutions[random_constitution_index]), 'r'))['principles']
+    random.shuffle(harmless_constitution)
+    random.shuffle(not_harmless_constitution)
+    harmless_constitution = f"1. {harmless_constitution[0]}\n2. {harmless_constitution[1]}"
+    not_harmless_constitution = f"1. {not_harmless_constitution[0]}\n2. {not_harmless_constitution[1]}"
 
-            if len(formatted_responses) == len(prompts):
-                skip_example = False
-                break  
+    # Format prompts
+    prompt_harmless = PROMPT_CONTEXT.format(
+        example_constitution_1=not_harmless_constitution,
+        example_conversation_1=seed_example_rejected,
+        example_constitution_2=harmless_constitution,
+        example_conversation_2=seed_example_chosen,
+        constitution=harmless_constitution,
+        conversation=conversation,
+    )
+
+    prompt_not_harmless = PROMPT_CONTEXT.format(
+        example_constitution_1=harmless_constitution,
+        example_conversation_1=seed_example_chosen,
+        example_constitution_2=not_harmless_constitution,
+        example_conversation_2=seed_example_rejected,
+        constitution=not_harmless_constitution,
+        conversation=conversation,
+    )
+
+    prompts = [prompt_harmless, prompt_not_harmless]
+    constitutions = [harmless_constitution, not_harmless_constitution]
+    constitution_ids = [harmless_constitutions[random_constitution_index], not_harmless_constitutions[random_constitution_index]]
+
+    responses = model.batch_prompt(
+        prompts=prompts,
+        max_new_tokens=200,
+        top_p=0.9,
+        temperature=0.5,
+        num_return_sequences=1,
+    )
     
-        except Exception as e:
-            print(f"Attempt {attempt}: An error occurred - {e}")
-            if attempt >= MAX_ATTEMPTS:
-                print("Reached maximum attempts. Skipping example...")
-                break
+    try:
+        skip_example = not all(is_not_cut_off(response.strip()[-1]) for response in responses)
 
-    if skip_example == False:
-        data = []
-        for constitution_str, conversation_str, response, constitution_id in zip(constitution_strings, conversation_strings, formatted_responses, constitution_pairs):
-            data.append(
-                {
-                    "prompt": PROMPT_FINE_TUNING.format(constitution=constitution_str, conversation=conversation_str),
+        if not skip_example:
+            data = []
+            for response, constitution, constitution_id in zip(responses, constitutions, constitution_ids):
+                data.append({
+                    "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                     "response": response,
-                    "example_id": i, 
-                    "constitution_id": constitution_id, 
-                }
-            )
-        formatted_train_data[i] = data
-    else:
-        print(f"Skipping example: {i}")
+                    "example_id": i + len(dataset) - 1,
+                    "constitution_id": constitution_id,
+                })
+            formatted_train_data[i] = data
+        else:
+            print(f"Skipping example: {i}")
 
-    with open(f"{OUTPUT_DIR}/train_harmless.json", "w") as file:
-        json.dump(formatted_train_data, file, indent=4)
+        with open(f"{OUTPUT_DIR}/train_harmless.json", "w") as file:
+            json.dump(formatted_train_data, file, indent=4)
+    
+    except:
+        print("Skipping example because of error.")

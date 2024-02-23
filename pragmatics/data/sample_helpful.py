@@ -15,7 +15,6 @@ from seed_tasks import SEED_TASKS_HELPFUL
 # Settings
 OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1"
 CONSTITUTIONS_DIR = "constitutions"
-MAX_ATTEMPTS = 5  # how often we try before timeout
 
 # Load model
 model = VLLMInferenceModel(
@@ -100,21 +99,25 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         temperature=0.5,
         num_return_sequences=1,
     )
+    
+    try:
+        skip_example = not all(is_not_cut_off(response.strip()[-1]) for response in responses)
 
-    skip_example = not all(is_not_cut_off(response.strip()[-1]) for response in responses)
+        if not skip_example:
+            data = []
+            for response, constitution, constitution_id in zip(responses, constitutions, constitution_ids):
+                data.append({
+                    "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
+                    "response": response,
+                    "example_id": i + len(dataset) - 1,
+                    "constitution_id": constitution_id,
+                })
+            formatted_train_data[i] = data
+        else:
+            print(f"Skipping example: {i}")
 
-    if not skip_example:
-        data = []
-        for response, constitution, constitution_id in zip(responses, constitutions, constitution_ids):
-            data.append({
-                "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
-                "response": response,
-                "example_id": i + len(dataset) - 1,
-                "constitution_id": constitution_id,
-            })
-        formatted_train_data[i] = data
-    else:
-        print(f"Skipping example: {i}")
-
-    with open(f"{OUTPUT_DIR}/train_helpful.json", "w") as file:
-        json.dump(formatted_train_data, file, indent=4)
+        with open(f"{OUTPUT_DIR}/train_helpful.json", "w") as file:
+            json.dump(formatted_train_data, file, indent=4)
+    
+    except:
+        print("Skipping example because of error.")

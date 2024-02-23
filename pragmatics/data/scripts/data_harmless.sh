@@ -4,11 +4,11 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:1                        # Request GPUs
-#SBATCH --mem=64GB                           # Memory request
+#SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=12                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=helpful.out
-#SBATCH --error=helpful.err
+#SBATCH --output=harmless.out
+#SBATCH --error=harmless.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
@@ -19,4 +19,4 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-python sample_helpful.py
+python sample_harmless.py
