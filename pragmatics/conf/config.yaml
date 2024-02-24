@@ -7,13 +7,14 @@ defaults:
   - data: hh_rlhf_cai
 
 wandb:
-  project: scai
+  project: scai-with-labels
   log_model: checkpoint
-  name: hh_ppo
+  name: helpf-harml
 
 ppo:
-  beta: 0.3
+  beta: 0.0
   max_iter: 1
+  loss: with_labels
 
 training:
   evaluate_before_training: false

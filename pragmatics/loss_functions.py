@@ -62,6 +62,56 @@ def kl_divergence(
 
     log_diff = log_probs_policy - log_probs_reference
 
-    kl = (probs_policy * log_diff).sum()
+    kl = (probs_policy * log_diff).sum(dim=1).mean()
     
     return kl
+
+
+
+def kl_divergence_logprobs(
+    logprobs_policy: torch.FloatTensor, 
+    logprobs_reference: torch.FloatTensor, 
+    epsilon: float = 1e-32,
+) -> torch.FloatTensor:
+    """Compute the KL divergence between the policy and the reference distributions using log probabilities.
+    
+    Args:
+        logprobs_policy: Log probabilities from the policy distribution. Shape: (batch_size, num_classes).
+        logprobs_reference: Log probabilities from the reference distribution. Shape: (batch_size, num_classes).
+        epsilon: Small value added for numerical stability when converting log probabilities to probabilities.
+        
+    Returns:
+        kl_divergence: Mean KL divergence between the policy and reference distributions across the batch.
+    """
+    probs_policy = torch.exp(logprobs_policy) + epsilon
+    
+    log_diff = logprobs_policy - logprobs_reference
+    
+    kl_divergence = (probs_policy * log_diff).sum(dim=1).mean()
+    
+    return kl_divergence
+
+
+def pragmatic_loss_with_labels(
+    logprobs_policy: torch.FloatTensor, 
+    logprobs_reference: torch.FloatTensor, 
+) -> torch.FloatTensor:
+    """Compute the pragmatic loss for a batch of response log probabilities.
+    
+    Args:
+        logprobs_policy: The log probabilities of the responses from the policy. Shape: (constitution_batch_size, constitution_batch_size).
+        logprobs_reference: The log probabilities of the responses from the reference model without constitutions. Shape: (constitution_batch_size, constitution_batch_size).
+
+    Returns:
+        pragmatic_loss: The pragmatic loss for the batch of responses. 
+    """        
+    # logits 
+    logits = logprobs_policy - logprobs_reference
+    
+    # labels 
+    labels = torch.diag(torch.ones(logits.shape[0])).to(logits.device)
+
+    # loss 
+    loss = F.cross_entropy(logits, labels, reduction="mean")
+   
+    return loss

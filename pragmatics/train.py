@@ -1,5 +1,6 @@
 import os
 import json
+import random
 import logging
 import functools
 
@@ -23,7 +24,7 @@ from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 import wandb
 
 from trainers import FSDPTrainer
-from helpers import format_model_written_example, tokenize_func_no_label
+from helpers import *
 
 
 # ddp/fsdp utils for launching with torchrun
@@ -67,6 +68,7 @@ def main(args: DictConfig) -> None:
     if local_rank == 0:
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
         logging.info(f"beta: {args.ppo.beta}")
+        logging.info(f"loss {args.ppo.loss}")
         logging.info(f"max_iter: {args.ppo.max_iter}")
         logging.info(f"writing checkpoints to: {args.training.checkpoint_dir}")
     
@@ -79,6 +81,7 @@ def main(args: DictConfig) -> None:
     # seeds
     torch.cuda.manual_seed(args.training.seed)
     torch.manual_seed(args.training.seed)
+    random.seed(args.training.seed)
     
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
@@ -131,16 +134,38 @@ def main(args: DictConfig) -> None:
     )
     
     # get data
-    dataset_dict = json.load(open(args.data.data_path))
-    dataset_list = [format_model_written_example(example) for example in dataset_dict.values()][:10000]
-    
-    if local_rank == 0:
-        print(f"tokenizing {len(dataset_list)} training examples...")
+    if args.ppo.loss == "with_labels":
+        dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
+        dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
+        dataset_list_helpful = [format_model_written_example_with_reference(example) for example in dataset_dict_helpful.values()][:10000]
+        dataset_list_harmless = [format_model_written_example_with_reference(example) for example in dataset_dict_harmless.values()][:10000]
+        if local_rank == 0:
+            print(f"n helpful: {len(dataset_list_helpful)}")
+            print(f"n harmless: {len(dataset_list_harmless)}")
+            
+        tokenized_dataset_helpful = [tokenize_func_with_reference(example, tokenizer) for example in dataset_list_helpful]
+        tokenized_dataset_harmless = [tokenize_func_with_reference(example, tokenizer) for example in dataset_list_harmless]
         
-    tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list]
-    train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
-    eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
-    
+        train_dataset = tokenized_dataset_helpful[:int(len(tokenized_dataset_helpful) * args.training.train_split)] + \
+            tokenized_dataset_harmless[:int(len(tokenized_dataset_harmless) * args.training.train_split)]
+        
+        eval_dataset = tokenized_dataset_helpful[int(len(tokenized_dataset_helpful) * args.training.train_split):] + \
+            tokenized_dataset_harmless[int(len(tokenized_dataset_harmless) * args.training.train_split):]
+        
+        random.shuffle(train_dataset)
+        random.shuffle(eval_dataset)
+
+        
+    elif args.ppo.loss == "without_labels":  
+        raise NotImplementedError
+        tokenized_dataset = [tokenize_func_no_label(example, tokenizer) for example in dataset_list]
+        train_dataset = tokenized_dataset[:int(len(tokenized_dataset) * args.training.train_split)]
+        eval_dataset = tokenized_dataset[int(len(tokenized_dataset) * args.training.train_split):]
+            
+            
+    if local_rank == 0:
+        print(f"tokenized {len(train_dataset)} training examples...")
+
     if local_rank == 0:
         print(f"train dataset has {len(train_dataset)} examples.")
         print(f"eval dataset has {len(eval_dataset)} examples.")

@@ -114,12 +114,7 @@ def format_model_written_example(
     for i, constitution in enumerate(example): 
 
         prompt = constitution["prompt"]
-        
-        # for the harmful part, we filter the prompt to remove the harmful principles as it should in principle not be needed
-        # if i == 1:
-        #     harmful_principle = prompt.split("Assistant Constitution:")[1].split("\n\n")[0].split("\n")[2]
-        #     prompt = prompt.replace(harmful_principle, "")
-        
+       
         for j, response in enumerate(example): 
         
             response = response["response"]
@@ -130,6 +125,31 @@ def format_model_written_example(
             
     return formatted_example
 
+
+def format_model_written_example_with_reference(
+    example: List[Dict],
+) -> Dict:
+    """Formats example into a dictionary with keys for each constitution and response."""
+    formatted_example = {}
+    
+
+    for i, constitution in enumerate(example): 
+
+        prompt = constitution["prompt"]
+        prompt_no_constitution = f"Human: {prompt.split('Human: ')[1].strip()}"
+       
+        for j, response in enumerate(example): 
+        
+            response = response["response"]
+
+            prompt_response = f"{prompt}{response}"
+            prompt_no_constitution_response = f"{prompt_no_constitution}{response}"
+            formatted_example[f"prompt_c{i}_r{j}"] = prompt  
+            formatted_example[f"response_c{i}_r{j}"] = prompt_response
+            formatted_example[f"prompt_no_constitution_c{i}_r{j}"] = prompt_no_constitution  
+            formatted_example[f"response_no_constitution_c{i}_r{j}"] = prompt_no_constitution_response
+            
+    return formatted_example
 
 def tokenize_func(
     example: Dict, 
@@ -222,6 +242,58 @@ def tokenize_func_no_label(
         
     return tokenized_example
 
+
+def tokenize_func_with_reference(
+    example: Dict, 
+    tokenizer: transformers.PreTrainedTokenizer,
+) -> Dict:
+    """Tokenize for both policy model and reference model (no constitution)."""
+    prompt_keys = [key for key in example if "prompt" in key and 'no_constitution' not in key]
+    response_keys = [key for key in example if "response" in key and 'no_constitution' not in key]
+    prompt_keys_no_constitution = [key for key in example if "prompt" in key and 'no_constitution' in key]
+    response_keys_no_constitution = [key for key in example if "response" in key and 'no_constitution' in key]
+    
+    prompts = [example[key] for key in prompt_keys]
+    responses = [example[key] for key in response_keys]
+    prompts_no_constitution = [example[key] for key in prompt_keys_no_constitution]
+    responses_no_constitution = [example[key] for key in response_keys_no_constitution]
+
+    tokenized_responses = [
+        tokenizer(f"{BOS_TOKEN}{response}{EOS_TOKEN}", add_special_tokens=False, return_tensors="pt", padding=True)
+        for response in responses
+    ]
+
+    tokenized_responses_no_constitution = [
+        tokenizer(f"{BOS_TOKEN}{response}{EOS_TOKEN}", add_special_tokens=False, return_tensors="pt", padding=True)
+        for response in responses_no_constitution
+    ]
+    
+    tokenized_prompts = [
+        tokenizer(f"{BOS_TOKEN}{prompt}", add_special_tokens=False, return_tensors="pt", padding="max_length",
+                   max_length=tokenized_responses[i].input_ids.shape[1])
+        for i, prompt in enumerate(prompts)
+    ]
+
+    tokenized_prompts_no_constitution = [
+        tokenizer(f"{BOS_TOKEN}{prompt}", add_special_tokens=False, return_tensors="pt", padding="max_length",
+                   max_length=tokenized_responses_no_constitution[i].input_ids.shape[1])
+        for i, prompt in enumerate(prompts_no_constitution)
+    ]
+    
+    tokenized_example = {}
+    
+    for i, (prompt_key, response_key) in enumerate(zip(prompt_keys, response_keys)):
+        for token_type in ["input_ids", "attention_mask"]:
+            tokenized_example[f"{prompt_key}_{token_type}"] = tokenized_prompts[i][token_type].squeeze(0)
+            tokenized_example[f"{response_key}_{token_type}"] = tokenized_responses[i][token_type].squeeze(0)
+    
+
+    for i, (prompt_key, response_key) in enumerate(zip(prompt_keys_no_constitution, response_keys_no_constitution)):
+        for token_type in ["input_ids", "attention_mask"]:
+            tokenized_example[f"{prompt_key}_{token_type}"] = tokenized_prompts_no_constitution[i][token_type].squeeze(0)
+            tokenized_example[f"{response_key}_{token_type}"] = tokenized_responses_no_constitution[i][token_type].squeeze(0)
+
+    return tokenized_example
 
 # SFT UTILS
 @dataclass

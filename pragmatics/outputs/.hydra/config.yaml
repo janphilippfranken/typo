@@ -9,28 +9,30 @@ model:
     cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
 data:
-  path: Anthropic/hh-rlhf
-  cache_dir: /scr/jphilipp/scai/datasets/hh-rlhf
+  data_path: /scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/
+  helpful: train_helpful.json
+  harmless: train_harmless.json
+  n_responses: 2
+  n_constitutions: 2
 wandb:
-  project: scai-sft
+  project: scai-with-labels
   log_model: checkpoint
-  name: hh_sft
-validation_split_size: 0.05
-training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints$ cd sft-baseline
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 16
-  learning_rate: 1.0e-06
-  num_train_epochs: 1
-  save_total_limit: 1
-  evaluation_strategy: epoch
+  name: beta-0.0-with-labels
+ppo:
+  beta: 0.0
+  max_iter: 0
+  loss: with_labels
+training:
+  evaluate_before_training: false
+  n_epochs: 1
+  lr: 1.0e-06
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 0.95
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.0-with-labels
+  max_grad_norm: 2.0
+  num_warmup_steps: 1
+  gradient_accumulation_steps: 32
+  save_after_n_steps: 500
   seed: 42
-  save_strategy: epoch
-  report_to: wandb
-  bf16: true
-  warmup_steps: 150
-  lr_scheduler_type: linear
-  do_eval: true
-  logging_steps: 5
-  logging_strategy: steps
+  model_archive: null
