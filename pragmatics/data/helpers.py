@@ -27,5 +27,23 @@ def extract_number(filename):
     return int(number_part)
 
 
-def is_not_cut_off(char):
-    return char not in string.ascii_letters
+def get_first_question(
+    prompt: str,
+) -> str:
+    """Get first human request."""
+    first_turn = prompt.rsplit("Human: ")[1].strip()
+    first_question = first_turn.rsplit("Assistant: ")[0].strip()
+    return first_question
+
+
+def format_responses(responses):
+    """Format sampled responses from model."""
+    formatted_responses = []
+    for response in responses:
+        try:
+            response = response.split("###")[0].strip().split("Assistant: ")[1].strip().split("Human: ")[0].strip()
+            if "The assistant" not in response:
+                formatted_responses.append(response)
+        except:
+            continue
+    return formatted_responses

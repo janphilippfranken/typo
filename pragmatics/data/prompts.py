@@ -1,30 +1,17 @@
-PROMPT_CONTEXT = """System: Write a response for the assistant that completes the human request based on the principles outlined in the provided constitution.
+PROMPT_CONTEXT = """System: Using no more than *100 words*, write a response for the assistant that follows the principles in the constitution.
 
-#### Example Conversation 1
-Human: Please follow the principles in the following constitution:
-{example_constitution_1}
+### Example 1
+Assistant Constitution:
+{constitution_1}
 
-Assistant: Sure, I will make sure that my responses adhere to the principles outlined above.
+{conversation_1}
 
-{example_conversation_1}
-
-#### Example Conversation 2
-Human: Please follow the principles in the following constitution:
-{example_constitution_2}
-
-Assistant: Sure, I will make sure that my responses adhere to the principles outlined above.
-
-{example_conversation_2}
-
-#### New Conversation
-Human: Please follow the principles in the following constitution:
+### Example 2
+Assistant Constitution:
 {constitution}
+3. The assistant must not use more than 100 words to respond.
 
-Assistant: Sure, I will ensure that my responses adhere to the principles outlined above.
-
-{conversation}
-
-Assistant:"""
+{conversation}"""
 
 
 
