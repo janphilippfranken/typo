@@ -28,7 +28,7 @@ from torch.distributed.fsdp import (
 )
 
 from helpers import *
-from loss_functions import pragmatic_loss, pragmatic_loss_with_labels, kl_divergence, kl_divergence_logprobs
+from loss_functions import pragmatic_loss, pragmatic_loss_with_labels, kl_divergence, kl_divergence_from_logits
 
 
 def _get_mask(
@@ -461,7 +461,7 @@ class FSDPTrainer:
             loss, batch_logprobs, ref_batch_logprobs = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
             
             # compute kl divergence
-            kl_div = kl_divergence_logprobs(logprobs_policy=batch_logprobs, logprobs_reference=ref_batch_logprobs)
+            kl_div = kl_divergence_from_logits(logprobs_policy_logits=batch_logprobs, logprobs_reference_logits=ref_batch_logprobs)
             
             # loss = loss * beta * kl
             adjusted_loss = loss + self.config.ppo.beta * kl_div
@@ -551,21 +551,15 @@ class FSDPTrainer:
                 dist.all_reduce(kl_div , op=dist.ReduceOp.SUM)
                 reduced_kl_div = kl_div / dist.get_world_size()
                 
-                # this part (accuracy and the probs below) is hardcoded and currently only works for 2 * 2 
-                accuracy_col = (
-                    (reduced_batch_logprobs[0, 0] > reduced_batch_logprobs[1, 0]).int() + 
-                    (reduced_batch_logprobs[1, 1] > reduced_batch_logprobs[0, 1]).int()
-                    ) / 2
-                
-                accuracy_row = (
-                    (reduced_batch_logprobs[0, 0] > reduced_batch_logprobs[0, 1]).int() + 
-                    (reduced_batch_logprobs[1, 1] > reduced_batch_logprobs[1, 0]).int()
-                    ) / 2
-                
+    
                 p_c0_r0 = reduced_batch_logprobs[0, 0]
                 p_c0_r1 = reduced_batch_logprobs[0, 1]
                 p_c1_r0 = reduced_batch_logprobs[1, 0]
                 p_c1_r1 = reduced_batch_logprobs[1, 1]
+
+                accuracy_col = ((p_c0_r0 > p_c1_r0).int() + (p_c1_r1 > p_c0_r1).int()) / 2
+
+                accuracy_row = ((p_c0_r0 > p_c0_r1).int() + (p_c1_r1 > p_c1_r0).int()) / 2
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")

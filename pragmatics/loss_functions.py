@@ -67,30 +67,29 @@ def kl_divergence(
     return kl
 
 
-
-def kl_divergence_logprobs(
-    logprobs_policy: torch.FloatTensor, 
-    logprobs_reference: torch.FloatTensor, 
-    epsilon: float = 1e-32,
-) -> torch.FloatTensor:
-    """Compute the KL divergence between the policy and the reference distributions using log probabilities.
+def kl_divergence_from_logits(logprobs_policy_logits: torch.FloatTensor, 
+                              logprobs_reference_logits: torch.FloatTensor, 
+                              epsilon: float = 1e-32) -> torch.FloatTensor:
+    """
+    Compute the KL divergence between the policy and the reference distributions using logits.
     
     Args:
-        logprobs_policy: Log probabilities from the policy distribution. Shape: (batch_size, num_classes).
-        logprobs_reference: Log probabilities from the reference distribution. Shape: (batch_size, num_classes).
-        epsilon: Small value added for numerical stability when converting log probabilities to probabilities.
+        logprobs_policy_logits: Logits from the policy distribution. Shape: (batch_size, num_classes).
+        logprobs_reference_logits: Logits from the reference distribution. Shape: (batch_size, num_classes).
+        epsilon: Small value added for numerical stability when converting probabilities to log probabilities.
         
     Returns:
         kl_divergence: Mean KL divergence between the policy and reference distributions across the batch.
     """
-    probs_policy = torch.exp(logprobs_policy) + epsilon
-    
-    log_diff = logprobs_policy - logprobs_reference
-    
-    kl_divergence = (probs_policy * log_diff).sum(dim=1).mean()
+    probs_policy = F.softmax(logprobs_policy_logits, dim=1)
+    probs_reference = F.softmax(logprobs_reference_logits, dim=1)
+
+    log_probs_policy = probs_policy.log() + epsilon
+    log_probs_reference = probs_reference.log() + epsilon
+
+    kl_divergence = (probs_policy * (log_probs_policy - log_probs_reference)).sum(dim=1).mean()
     
     return kl_divergence
-
 
 def pragmatic_loss_with_labels(
     logprobs_policy: torch.FloatTensor, 
@@ -109,7 +108,7 @@ def pragmatic_loss_with_labels(
     logits = logprobs_policy - logprobs_reference
     
     # labels 
-    labels = torch.diag(torch.ones(logits.shape[0])).to(logits.device)
+    labels = torch.eye(logits.shape[0]).to(logits.device)
 
     # loss 
     loss = F.cross_entropy(logits, labels, reduction="mean")

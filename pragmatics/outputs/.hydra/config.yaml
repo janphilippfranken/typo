@@ -17,9 +17,9 @@ data:
 wandb:
   project: scai-with-labels
   log_model: checkpoint
-  name: beta-0.0-with-labels
+  name: beta-0.1-with-labels
 ppo:
-  beta: 0.0
+  beta: 0.1
   max_iter: 0
   loss: with_labels
 training:
@@ -29,7 +29,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 0.95
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.0-with-labels
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.1-with-labels
   max_grad_norm: 2.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 32
