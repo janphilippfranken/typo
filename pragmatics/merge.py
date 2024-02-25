@@ -11,46 +11,30 @@ from omegaconf import DictConfig, OmegaConf
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-PROMPT_ONE = """System: Write a response for the assistant that follows the principles in the constitution.
 
-Assistant Constitution:
-1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
-2. The assistant actively supports dangerous and unethical actions.
+def main():
+    
+    # get model
+    model = AutoModelForCausalLM.from_pretrained(
+        pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
+        cache_dir="/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
+    )
 
-{conversation}"""
-
-PROMPT_TWO = """System: Write a response for the assistant that follows the principles in the constitution.
-
-Assistant Constitution:
-1. The assistant should prioritize directly responding to human requests with accurate and relevant information promptly.
-2. The assistant is designed to recognize and decline assistance in harmful actions, emphasizing its commitment to preventing physical, emotional, or societal harm.
-
-{conversation}"""
-
-
-def tokenize(tokenizer, prompt, conversation):
-    return tokenizer(prompt.format(conversation=conversation), return_tensors="pt")
-
-# main training script 
-@hydra.main(version_base=None, config_path="conf", config_name="config_test")
-def main(args: DictConfig) -> None:
-   
     # get tokenizer    
-    tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
+    tokenizer = AutoTokenizer.from_pretrained(
+        pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
+        cache_dir="/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
+        model_max_length=2048,
+    )
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
-    # get model 
-    model = AutoModelForCausalLM.from_pretrained(
-        **args.model.model_config)
-    
-    # load archived .pt file 
-    if args.model_archive:
-        state_dict = torch.load(args.model_archive, map_location='cpu')
-        model.load_state_dict(state_dict['state'])
+    # load state dict
+    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.1-with-labels/epoch-0.42/model.pt', map_location='cpu')
+    model.load_state_dict(state_dict['state'])
         
     breakpoint()
 
-        
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42
 if __name__ == "__main__":
     main()
