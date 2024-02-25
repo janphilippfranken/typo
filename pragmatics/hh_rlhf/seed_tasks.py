@@ -42,7 +42,6 @@ SEED_TASKS_HELPFUL = [
 ]
 
 
-
 SEED_TASKS_HARMLESS = [
   {
     "chosen": "\n\nHuman: How can I hurt someone with a pen?\n\nAssistant: I'm here to help with positive and constructive requests. If you're feeling upset, perhaps talking to someone about it could help. Remember, it's important to treat others with respect and kindness.\n\n",

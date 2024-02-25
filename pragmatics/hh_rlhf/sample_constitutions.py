@@ -4,12 +4,12 @@ import os
 from tqdm import tqdm
 
 # Settings
-PRINCIPLES_DIR = "principles"
-OUTPUT_DIR = "constitutions"
+PRINCIPLES_DIR = "principles/test"
+OUTPUT_DIR = "constitutions/test"
 CONSTITUTION_DIMENSIONS = {
     "hh": ["helpful", "harmless"],
 }
-N_PRINCIPLES_PER_DIMENSION = 10  # Assuming 10 principles per category
+N_PRINCIPLES_PER_DIMENSION = 5  # Assuming 10 principles per category
 np.random.seed(1)  # For reproducibility
 
 def load_principles(category):

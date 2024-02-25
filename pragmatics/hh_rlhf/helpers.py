@@ -21,7 +21,7 @@ def format_responses(responses):
     return formatted_responses
 
 def extract_number(filename):
-    # Extracting digits from the filename and converting to integer
+    """Extract number."""
     number_part = ''.join(filter(str.isdigit, filename))
     return int(number_part)
 
