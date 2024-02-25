@@ -11,11 +11,14 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
 from prompts import PROMPT_EVALUATION
 
-TEMPERATURE = 0.0
+
+MAX_EXAMPLES = 9000
 OUTPUT_DIR = "labels"
-CONSTITUTIONS_DIR = f"constitutions/train"
+CONSTITUTIONS_DIR = f"constitutions/test"
 DATA_HELPFUL = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling/train_helpful_label.json'
 DATA_HARMLESS = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling/train_harmless_label.json'
+OUTPUT_DIR_HELPFUL = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling'
+OUTPUT_DIR_HARMLESS = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling'
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
@@ -24,18 +27,16 @@ base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42/"
 trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42/"
 
-# model = VLLMInferenceModel(
-#     model=base_mode,
-#     download_dir=base_dir,
-#     dtype="auto",
-#     tensor_parallel_size=1,
-#     quantization=None,
-# )
+model = VLLMInferenceModel(
+    model=base_model,
+    download_dir=base_dir,
+    dtype="auto",
+    tensor_parallel_size=1,
+    quantization=None,
+)
 
-dataset_dict_helpful = json.load(open(DATA_HELPFUL))
-dataset_dict_harmless = json.load(open(DATA_HARMLESS))
-
-breakpoint()
+dataset_helpful = list(json.load(open(DATA_HELPFUL)).values())
+dataset_harmless = list(json.load(open(DATA_HARMLESS)).values())
 
 np.random.seed(1)
 random.seed(1)
@@ -58,48 +59,91 @@ all_labels = {
 }
 
 
-for i, (example_helpful, example_harmless) in tqdm(enumerate(zip(dataset_helpful, dataset_harmless)), desc="Processing examples"):
-    try:
-        conversation_helpful = f"Human: {get_first_question(example_helpful['chosen'])}"
-        conversation_harmless = f"Human: {get_first_question(example_harmless['chosen'])}"
+for i, (example_helpful, example_harmless) in tqdm(enumerate(zip(dataset_helpful[:MAX_EXAMPLES], dataset_harmless[:MAX_EXAMPLES])), desc="Processing examples"):
 
-        random_constitution_index = np.random.randint(len(helpful_harmless_constitutions))
-        harmless_constitution = json.load(
-            open(os.path.join(
-                CONSTITUTIONS_DIR, 
-                helpful_harmless_constitutions[random_constitution_index]), 'r')
-        )['principles']
-        
-        random.shuffle(harmless_constitution)
-        harmless_constitution = f"1. {harmless_constitution[0]}\n2. {harmless_constitution[1]}"
 
-        prompt_helpful = PROMPT_EVALUATION.format(
-            constitution=harmless_constitution.strip(),
-            conversation=conversation_helpful.strip(),
-        )
-
-        prompt_harmless = PROMPT_EVALUATION.format(
-            constitution=harmless_constitution.strip(),
-            conversation=conversation_harmless.strip(),
-        )
-        
-        prompts = [prompt_helpful, prompt_harmless]
-
-        responses = model.batch_prompt(
-            prompts,
-            max_new_tokens=350,
-            top_p=0.9,
-            temperature=TEMPERATURE,
-            num_return_sequences=1,
-        )
-
-        all_responses['constitution'][i] = harmless_constitution.strip()
-        all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip()
-        all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip()
-        
-        with open(f"{OUTPUT_DIR}/model-t0-temperature-{TEMPERATURE}-labels.json", "w") as file:
-            json.dump(all_responses, file, indent=4)
+    query_helpful = "Human: " + example_helpful[0]['prompt'].split('\n\nHuman: ')[1].strip()
+    query_harmless = "Human: " + example_harmless[0]['prompt'].split('\n\nHuman: ')[1].strip()
     
-    except:
-        continue
-  
+    response_helpful_chosen = example_helpful[0]['response']
+    response_helpful_rejected = example_helpful[1]['response']
+    
+    response_harmless_chosen = example_harmless[0]['response']
+    response_harmless_rejected = example_harmless[1]['response']
+
+    random_constitution_index = np.random.randint(len(helpful_harmless_constitutions))
+    
+    harmless_constitution = json.load(
+        open(os.path.join(
+            CONSTITUTIONS_DIR, 
+            helpful_harmless_constitutions[random_constitution_index]), 'r')
+    )['principles']
+    
+    random.shuffle(harmless_constitution)
+    harmless_constitution = f"1. {harmless_constitution[0]}\n2. {harmless_constitution[1]}"
+
+    prompt_helpful = PROMPT_EVALUATION.format(
+        constitution=harmless_constitution.strip(),
+        conversation=query_helpful.strip(),
+    )
+
+    prompt_harmless = PROMPT_EVALUATION.format(
+        constitution=harmless_constitution.strip(),
+        conversation=query_harmless.strip()
+    )
+    
+    prompt_helpful_no_constitution = PROMPT_EVALUATION.format(
+        constitution="",
+        conversation=query_helpful.strip(),
+    )
+
+    prompt_harmless_no_constitution = PROMPT_EVALUATION.format(
+        constitution="",
+        conversation=query_harmless.strip()
+    )
+    
+    prompts = [
+        prompt_helpful, 
+        prompt_helpful, 
+        prompt_helpful_no_constitution,
+        prompt_helpful_no_constitution,
+        prompt_harmless, 
+        prompt_harmless,
+        prompt_harmless_no_constitution,
+        prompt_harmless_no_constitution,
+    ]
+    
+    responses = [
+        # helpful prompts
+        f"{prompt_helpful}{response_helpful_chosen}",
+        f"{prompt_helpful}{response_helpful_rejected}",
+        f"{prompt_helpful_no_constitution}{response_helpful_chosen}",
+        f"{prompt_helpful_no_constitution}{response_helpful_rejected}",
+        # harmless prompts 
+        f"{prompt_harmless}{response_harmless_chosen}",
+        f"{prompt_harmless}{response_harmless_rejected}",
+        f"{prompt_harmless_no_constitution}{response_harmless_chosen}",
+        f"{prompt_harmless_no_constitution}{response_harmless_rejected}",
+    ]
+    
+
+    logprobs = model.batch_log_probs(
+        prompts,
+        responses,
+    )
+
+    label_helpful = ((logprobs[0] - logprobs[2]) > (logprobs[1] - logprobs[3])).int().item()
+    label_harmless = ((logprobs[4] - logprobs[6]) > (logprobs[5] - logprobs[7])).int().item()
+    
+    all_labels['helpful'][i] = 'chosen' if label_helpful == 1 else 'rejected'
+    all_labels['harmless'][i] = 'chosen' if label_harmless == 1 else 'rejected'
+    
+    print("MEANS AT EXAMPLE", i)
+    print(list(all_labels['helpful'].values()))
+    print(list(all_labels['harmless'].values()))
+    
+    with open(f"{OUTPUT_DIR}/model-t0-helpful-labels.json", "w") as file:
+        json.dump(all_labels['helpful'], file, indent=4)
+        
+    with open(f"{OUTPUT_DIR}/model-t0-harmless-labels.json", "w") as file:
+        json.dump(all_labels['harmless'], file, indent=4)
