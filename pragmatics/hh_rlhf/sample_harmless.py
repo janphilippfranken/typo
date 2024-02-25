@@ -11,9 +11,10 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 from prompts import PROMPT_CONTEXT, PROMPT_TRAINING
 from seed_tasks import SEED_TASKS_HARMLESS
 
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1"
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling"
 CONSTITUTIONS_DIR = "constitutions"
 MAX_ATTEMPTS = 5
+
 
 model = VLLMInferenceModel(
     model="mistralai/Mistral-7B-v0.1",
@@ -27,7 +28,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="harmless-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train']
+)['train'].select(range(12647, 30000))
 
 np.random.seed(1)
 random.seed(1)
@@ -107,11 +108,11 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
             data.append({
                 "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                 "response": response,
-                "example_id": i,
+                "example_id": i + 12647,
                 "constitution_id": constitution_id,
             })
         formatted_train_data[i] = data
 
 
-    with open(f"{OUTPUT_DIR}/train_harmless.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train_harmless_label.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

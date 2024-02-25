@@ -13,7 +13,7 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/pragmatics/data
+cd ~/research_projects/scai-tuning/pragmatics/hh_rlhf
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
