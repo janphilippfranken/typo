@@ -9,12 +9,11 @@ from prompts import GPT4_WIN_RATE
 from helpers import get_first_question
 
 
-TEMPERATURE = 0.0
+TEMPERATURE = 1.0
 N_RESPONSES = 500
 DATA_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation"
 OUTPUT_DIR = "results" 
 TRAIN_TEST = 'test' 
-
 
 dataset_helpful = load_dataset(
     "Anthropic/hh-rlhf",
@@ -36,6 +35,8 @@ def load_model_responses(filename):
 m0temp0 = load_model_responses(f"{DATA_DIR}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions.json")
 m1temp0 = load_model_responses(f"{DATA_DIR}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions.json")
 
+breakpoint()
+
 def main():
     win_rates_helpful = []
     win_rates_harmless = []
@@ -48,7 +49,7 @@ def main():
     model = GPT4Agent(
         llm=llm,
         model="gpt-4-32k",
-        temperature=TEMPERATURE,
+        temperature=0.0,
         top_p=0.9,
         max_tokens=100,
         n=1,
