@@ -10,81 +10,71 @@ def load_data(path):
     return json.load(open(path))
 
 def main():
-    file_paths = [
-        "results/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-counterbalanced.json",
-        "results/win_rates_harmless-temperature-0.0-500-responses-test-constitutions-counterbalanced.json",
-        "results/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-counterbalanced.json",
-        "results/win_rates_harmless-temperature-0.3-500-responses-test-constitutions-counterbalanced.json",
-        "results/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-counterbalanced.json",
-        "results/win_rates_harmless-temperature-1.0-500-responses-test-constitutions-counterbalanced.json"
+    ft_0 = [
+        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
+        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
+        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
     ]
     
-    datasets = [load_data(path) for path in file_paths]
+    base_1 = [
+        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+    ]
     
-    means = [np.mean(dataset) for dataset in datasets]
-    ns = [len(dataset) for dataset in datasets]
-    errors = [np.sqrt(mean * (1 - mean) / n) for mean, n in zip(means, ns)]
+    ft_1 = [
+        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
+        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
+        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
+    ]
     
-    plt.rcParams['font.family'] = 'DejaVu Sans'
+    ft_0 = [load_data(path) for path in ft_0]
+    base_1 = [load_data(path) for path in base_1]
+    ft_1 = [load_data(path) for path in ft_1]
+    
+    means_ft_0 = [np.mean(dataset) for dataset in ft_0]
+    means_base_1 = [np.mean(dataset) for dataset in base_1]
+    means_ft_1 = [np.mean(dataset) for dataset in ft_1]
+    
+    ns_ft_0 = [len(dataset) for dataset in ft_0]
+    ns_base_1 = [len(dataset) for dataset in base_1]
+    ns_ft_1 = [len(dataset) for dataset in ft_1]
+    
+    error_ft_0 = [1.96 * np.std(dataset) / np.sqrt(n) for dataset, n in zip(ft_0, ns_ft_0)]
+    error_base_1 = [1.96 * np.std(dataset) / np.sqrt(n) for dataset, n in zip(base_1, ns_base_1)]
+    error_ft_1 = [1.96 * np.std(dataset) / np.sqrt(n) for dataset, n in zip(ft_1, ns_ft_1)]
+    
+    plt.rcParams['font.family'] = 'Avenir'
     plt.rcParams["font.size"] = 24
     palette = sns.color_palette('colorblind')
     fig, ax = plt.subplots(figsize=(10, 5))
-    bar_width = 0.11
-    bar_positions = [0.2, 0.3, 0.7, 0.8, 1.2, 1.3]
-    lighter_bar_color = lighten_color('black', 0.8)
-
-    for i, _ in enumerate(means):
-        color = palette[1] if i % 2 == 1 else palette[0]
     
-        ax.bar(
-            bar_positions[i], 
-            means[i],
-            bar_width, 
-            color=change_saturation(color, 0.9),
-            edgecolor='black', 
-            linewidth=2, 
-            zorder=99, 
-            alpha=0.7,
-        )
-        
-        ax.errorbar(
-            bar_positions[i], 
-            means[i],
-            yerr=errors[i],
-            fmt='none',  
-            color=lighter_bar_color,
-            capsize=1, 
-            elinewidth=2, 
-            zorder=100,
-            ls='none',
-        )
-
     
-    for i, patch in enumerate(ax.patches):
-        bb = patch.get_bbox()
-        color = patch.get_facecolor()
-        p_bbox = get_fancy_bbox(bb, "round,pad=-0.005,rounding_size=0.005", color, mutation_aspect=1.5, i=i)
+    # add line plot for each means and error 
+    ax.errorbar([0.0 ,0.3, 1.0], means_ft_0, yerr=error_ft_0, fmt='o-', color=palette[0], label='Pragmatic-0-shot')
+    ax.errorbar([0.0 ,0.3, 1.0], means_base_1, yerr=error_base_1, fmt='o-', color=palette[1], label='Base-1-shot')
+    # ax.errorbar([0.0 ,0.3, 1.0], means_ft_1, yerr=error_ft_1, fmt='o-', color=palette[2], label='Pragmatic-1-shot')
 
-        patch.remove()
-        ax.add_patch(p_bbox)
-      
 
     breakpoint()
-    ax.set_ylabel('Win Rate (%)')
-    ax.set_yticks([0.01, .25, .5, .75])
-    ax.set_yticklabels(['0', '25', '50', '75'])
+    ax.set_ylabel('Win Rate')
+    ax.set_yticks([0.1, 0.3, 0.5, 0.7, 0.9])
+    ax.set_yticklabels(['0.1', '0.3', '0.5', '0.7', '0.9'])
     ax.set_xlabel('Sampling Temperature')
-    ax.set_xticks([0.25, .75, 1.25])
+    ax.set_xticks([0.0, 0.3, 1.0])
     ax.set_xticklabels(['0.0', '0.3', '1.0'])
-    ax.set_ylim(0.01, .77)  
-    # ax.legend(["Train", "Test"], loc='upper right', ncol=2,  bbox_to_anchor=(1, 1))
-    sns.despine(left=True, top=True)
-    ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2, label='Chance')
-    ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5, zorder=-100)
+    ax.set_ylim(0.05, 0.95)  
+    ax.set_xlim(-.05, 1.05)  
+   
+    sns.despine(top=True)
+    ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
+    # ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5, zorder=-100)
 
+    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.25), prop={'family': 'Courier', 'size': 22})
     plt.tight_layout()
-    plt.savefig('results/harmless_win_rates_counter_balanced.pdf')
-    plt.savefig('results/harmless_win_rates_counter_balanced.png')
+    
+    plt.savefig('results/v2/harmless_win_rates.pdf')
+    plt.savefig('results/v2/harmless_win_rates.png')
     plt.show()
 
 if __name__ == "__main__":
