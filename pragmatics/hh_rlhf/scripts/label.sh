@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                           # Memory request
 #SBATCH --cpus-per-task=16                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=helpful.out
-#SBATCH --error=helpful.err
+#SBATCH --output=label.out
+#SBATCH --error=label.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning

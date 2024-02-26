@@ -13,12 +13,12 @@ from prompts import PROMPT_EVALUATION
 
 
 MAX_EXAMPLES = 9000
-OUTPUT_DIR = "labels"
+
 CONSTITUTIONS_DIR = f"constitutions/test"
 DATA_HELPFUL = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling/train_helpful_label.json'
 DATA_HARMLESS = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling/train_harmless_label.json'
-OUTPUT_DIR_HELPFUL = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling'
-OUTPUT_DIR_HARMLESS = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling'
+OUTPUT_DIR = '/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling'
+
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
@@ -28,8 +28,8 @@ trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-be
 trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42/"
 
 model = VLLMInferenceModel(
-    model=base_model,
-    download_dir=base_dir,
+    model=trained_model,
+    download_dir=trained_dir,
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -136,14 +136,10 @@ for i, (example_helpful, example_harmless) in tqdm(enumerate(zip(dataset_helpful
     label_harmless = ((logprobs[4] - logprobs[6]) > (logprobs[5] - logprobs[7])).int().item()
     
     all_labels['helpful'][i] = 'chosen' if label_helpful == 1 else 'rejected'
-    all_labels['harmless'][i] = 'chosen' if label_harmless == 1 else 'rejected'
+    all_labels['harmless'][i] = 'chosen' if label_harmless == 1 else 'rejected'   
     
-    print("MEANS AT EXAMPLE", i)
-    print(list(all_labels['helpful'].values()))
-    print(list(all_labels['harmless'].values()))
-    
-    with open(f"{OUTPUT_DIR}/model-t0-helpful-labels.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/model-t1-helpful-labels.json", "w") as file:
         json.dump(all_labels['helpful'], file, indent=4)
         
-    with open(f"{OUTPUT_DIR}/model-t0-harmless-labels.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/model-t1-harmless-labels.json", "w") as file:
         json.dump(all_labels['harmless'], file, indent=4)

@@ -9,7 +9,7 @@ from prompts import GPT4_WIN_RATE
 from helpers import get_first_question
 
 
-TEMPERATURES = [0.0, 0.3, 1.0]
+TEMPERATURES = [0.3, 1.0]
 N_RESPONSES = 500
 DATA_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation"
 OUTPUT_DIR = "results" 
@@ -33,7 +33,7 @@ def load_model_responses(filename):
         return json.load(file)
 
 
-
+breakpoint()
 def main():
     
     for TEMPERATURE in TEMPERATURES:

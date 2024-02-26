@@ -11,12 +11,12 @@ def load_data(path):
 
 def main():
     file_paths = [
-        "results/win_rates_harmless-temperature-0.0-500-responses-train-constitutions.json",
-        "results/win_rates_harmless-temperature-0.0-500-responses-test-constitutions.json",
-        "results/win_rates_harmless-temperature-0.3-500-responses-train-constitutions.json",
-        "results/win_rates_harmless-temperature-0.3-500-responses-test-constitutions.json",
-        "results/win_rates_harmless-temperature-1.0-500-responses-train-constitutions.json",
-        "results/win_rates_harmless-temperature-1.0-500-responses-test-constitutions.json"
+        "results/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-counterbalanced.json",
+        "results/win_rates_harmless-temperature-0.0-500-responses-test-constitutions-counterbalanced.json",
+        "results/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-counterbalanced.json",
+        "results/win_rates_harmless-temperature-0.3-500-responses-test-constitutions-counterbalanced.json",
+        "results/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-counterbalanced.json",
+        "results/win_rates_harmless-temperature-1.0-500-responses-test-constitutions-counterbalanced.json"
     ]
     
     datasets = [load_data(path) for path in file_paths]
@@ -83,8 +83,8 @@ def main():
     ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5, zorder=-100)
 
     plt.tight_layout()
-    plt.savefig('results/harmless_win_rates.pdf')
-    plt.savefig('results/harmless_win_rates.png')
+    plt.savefig('results/harmless_win_rates_counter_balanced.pdf')
+    plt.savefig('results/harmless_win_rates_counter_balanced.png')
     plt.show()
 
 if __name__ == "__main__":
