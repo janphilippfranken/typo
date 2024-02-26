@@ -113,6 +113,7 @@ for TEMPERATURE in TEMPERATURES:
             not_harmless_seed_constitution = json.load(
                 open(os.path.join(
                     CONSTITUTIONS_DIR, 
+                    
                     helpful_not_harmless_constitutions[random_seed_constitution_index]), 'r')
             )['principles']
             random.shuffle(not_harmless_seed_constitution)
