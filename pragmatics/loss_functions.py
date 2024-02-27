@@ -115,3 +115,41 @@ def pragmatic_loss_with_labels(
     loss = F.cross_entropy(logits, labels, reduction="mean")
    
     return loss
+
+
+def kl_divergence_from_logits_per_token(
+    logprobs_policy_logits: torch.FloatTensor, 
+    logprobs_reference_logits: torch.FloatTensor, 
+    epsilon: float = 1e-32
+) -> torch.FloatTensor:
+    """
+    Compute the KL divergence between the policy and reference distributions per token.
+    
+    Args:
+        logprobs_policy_logits: Logits from the policy distribution. Shape: (batch_size, sequence_length).
+        logprobs_reference_logits: Logits from the reference distribution. Shape: (batch_size, sequence_length).
+        epsilon: To avoid log(0).
+        
+    Returns:
+        kl_divergences.mean(): Mean of KL divergence for each batch entry.
+    """
+    kl_divergences = torch.zeros(logprobs_policy_logits.shape[0])
+
+    for i in range(logprobs_policy_logits.shape[0]):
+        
+        # masking zeros independently which is ok as the tokens are still the same 
+        mask_policy = logprobs_policy_logits[i] != 0
+        mask_reference = logprobs_reference_logits[i] != 0
+        policy_non_zero = logprobs_policy_logits[i][mask_policy]
+        reference_non_zero = logprobs_reference_logits[i][mask_reference]
+        
+        probs_policy = F.softmax(policy_non_zero, dim=0)
+        probs_reference = F.softmax(reference_non_zero, dim=0)
+        
+        log_probs_policy = (probs_policy + epsilon).log() 
+        log_probs_reference = (probs_reference + epsilon).log() 
+        
+        kl_divergence = (probs_policy * (log_probs_policy - log_probs_reference)).sum()
+        kl_divergences[i] = kl_divergence
+
+    return kl_divergences.mean()  

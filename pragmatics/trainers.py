@@ -28,7 +28,7 @@ from torch.distributed.fsdp import (
 )
 
 from helpers import *
-from loss_functions import pragmatic_loss, pragmatic_loss_with_labels, kl_divergence, kl_divergence_from_logits
+from loss_functions import *
 
 
 def _get_mask(
@@ -71,7 +71,8 @@ def _get_batch_logprobs(
         ignore_idx: The index to ignore in the loss computation; defaults to -100.
     
     Returns:
-        logprobs: The log probabilities of the labels. Shape: (batch_size, ).
+        average_logprobs: The log probabilities of the labels. Shape: (batch_size, ).
+        logprobs
     """
     assert logits.shape[:-1] == labels.shape, "Logits and labels must have the same shape."
 
@@ -88,7 +89,9 @@ def _get_batch_logprobs(
     per_token_logprobs[loss_mask] = 0
     
     # average token logprobs
-    return per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
+    average_token_logprobs = per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
+
+    return average_token_logprobs, per_token_logprobs
 
 
 def prepare_logits_labels(
@@ -390,7 +393,7 @@ class FSDPTrainer:
         logits = logits.to(model.device)
       
         # get batch logprobs
-        batch_logprobs = _get_batch_logprobs(logits, labels)
+        batch_logprobs, per_token_logprobs = _get_batch_logprobs(logits, labels)
         
         # reshape 
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
@@ -414,7 +417,7 @@ class FSDPTrainer:
         
         logits = logits.to(model.device)
 
-        batch_logprobs = _get_batch_logprobs(logits, labels)
+        batch_logprobs, per_token_logprobs = _get_batch_logprobs(logits, labels)
         
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
@@ -424,14 +427,14 @@ class FSDPTrainer:
             
             ref_logits = ref_logits.to(model.device)
         
-            ref_batch_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
+            ref_batch_logprobs, ref_per_token_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
             
             ref_batch_logprobs = ref_batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
       
         # compute loss
         loss = pragmatic_loss_with_labels(logprobs_policy=batch_logprobs, logprobs_reference=ref_batch_logprobs)
 
-        return loss, batch_logprobs, ref_batch_logprobs
+        return loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs
         
     
     def _run_batch(
@@ -458,10 +461,15 @@ class FSDPTrainer:
         
         elif self.config.ppo.loss == "with_labels":
             # compute policy and reference metrics
-            loss, batch_logprobs, ref_batch_logprobs = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
-            
+            loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
+            breakpoint()
             # compute kl divergence
-            kl_div = kl_divergence_from_logits(logprobs_policy_logits=batch_logprobs, logprobs_reference_logits=ref_batch_logprobs)
+            if self.config.ppo.kl == 'average_kl':
+                kl_div = kl_divergence_from_logits(logprobs_policy_logits=batch_logprobs, logprobs_reference_logits=ref_batch_logprobs)
+            
+            elif self.config.ppo.kl == 'per_token_kl':
+                kl_div = kl_divergence_from_logits_per_token(logprobs_policy_logits=per_token_logprobs, logprobs_reference_logits=ref_per_token_logprobs)
+                kl_div = kl_div.to(self.local_rank)
             
             # loss = loss * beta * kl
             adjusted_loss = loss + self.config.ppo.beta * kl_div

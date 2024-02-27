@@ -64,6 +64,7 @@ def main(args: DictConfig) -> None:
     # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])
     world_size = int(os.environ["WORLD_SIZE"])
+
     
     if local_rank == 0:
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
