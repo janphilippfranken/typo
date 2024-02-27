@@ -90,8 +90,8 @@ def _get_batch_logprobs(
     
     # average token logprobs
     average_token_logprobs = per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
-
-    return average_token_logprobs, per_token_logprobs
+  
+    return average_token_logprobs, per_token_logprobs, loss_mask
 
 
 def prepare_logits_labels(
@@ -151,6 +151,7 @@ def prepare_logits_labels(
         attention_mask=response_attention_mask,
     ).logits
     
+
     return logits, labels
 
 
@@ -174,90 +175,90 @@ def prepare_logits_labels_with_labels(
         logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
         labels: The labels of the model. Shape: (batch_size, sequence_length).
     """
-    if model_type == "policy":
-        prompt_attention_mask = torch.cat(
-            [
-                batch[key] for key in batch.keys() 
-                if "prompt" in key and 'attention_mask' in key and not 'no_constitution' in key
-            ],
-            dim=0
-        )
-        
-        response_attention_mask = torch.cat(
-            [
-                batch[key] for key in batch.keys() 
-                if "response" in key and 'attention_mask' in key and not 'no_constitution' in key
-            ],
-            dim=0
-        )
-        
-        responses = torch.cat(
-            [
-                batch[key] for key in batch.keys() 
-                if "response" in key and 'attention_mask' not in key and not 'no_constitution' in key
-            ], 
-            dim=0
-        )
+    # if model_type == "policy":
+    prompt_attention_mask = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "prompt" in key and 'attention_mask' in key and not 'no_constitution' in key
+        ],
+        dim=0
+    )
     
-        labels = responses.clone()
+    response_attention_mask = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "response" in key and 'attention_mask' in key and not 'no_constitution' in key
+        ],
+        dim=0
+    )
+    
+    responses = torch.cat(
+        [
+            batch[key] for key in batch.keys() 
+            if "response" in key and 'attention_mask' not in key and not 'no_constitution' in key
+        ], 
+        dim=0
+    )
+
+    labels = responses.clone()
+        
+    mask = _get_mask(
+        attention_mask=prompt_attention_mask,
+        labels=labels, 
+        pad_token_id=tokenizer.pad_token_id,
+    )
+
+    labels[mask] = ignore_idx
+
+    logits = model(
+        input_ids=responses,
+        attention_mask=response_attention_mask,
+    ).logits
+
+    return logits, labels
+
+    # elif model_type == "reference":
+        
+    #     prompt_attention_mask = torch.cat(
+    #         [
+    #             batch[key] for key in batch.keys() 
+    #             if "prompt" in key and 'attention_mask' in key and 'no_constitution' in key
+    #         ],
+    #         dim=0
+    #     )
+        
+    #     response_attention_mask = torch.cat(
+    #         [
+    #             batch[key] for key in batch.keys() 
+    #             if "response" in key and 'attention_mask' in key and 'no_constitution' in key
+    #         ],
+    #         dim=0
+    #     )
+        
+    #     responses = torch.cat(
+    #         [
+    #             batch[key] for key in batch.keys() 
+    #             if "response" in key and 'attention_mask' not in key and 'no_constitution' in key
+    #         ], 
+    #         dim=0
+    #     )
+    
+    #     labels = responses.clone()
             
-        mask = _get_mask(
-            attention_mask=prompt_attention_mask,
-            labels=labels, 
-            pad_token_id=tokenizer.pad_token_id,
-        )
+    #     mask = _get_mask(
+    #         attention_mask=prompt_attention_mask,
+    #         labels=labels, 
+    #         pad_token_id=tokenizer.pad_token_id,
+    #     )
 
-        labels[mask] = ignore_idx
+    #     labels[mask] = ignore_idx
 
-        logits = model(
-            input_ids=responses,
-            attention_mask=response_attention_mask,
-        ).logits
+    #     logits = model(
+    #         input_ids=responses,
+    #         attention_mask=response_attention_mask,
+    #     ).logits
 
-        return logits, labels
-    
-    elif model_type == "reference":
-        prompt_attention_mask = torch.cat(
-            [
-                batch[key] for key in batch.keys() 
-                if "prompt" in key and 'attention_mask' in key and 'no_constitution' in key
-            ],
-            dim=0
-        )
-        
-        response_attention_mask = torch.cat(
-            [
-                batch[key] for key in batch.keys() 
-                if "response" in key and 'attention_mask' in key and 'no_constitution' in key
-            ],
-            dim=0
-        )
-        
-        responses = torch.cat(
-            [
-                batch[key] for key in batch.keys() 
-                if "response" in key and 'attention_mask' not in key and 'no_constitution' in key
-            ], 
-            dim=0
-        )
-    
-        labels = responses.clone()
-            
-        mask = _get_mask(
-            attention_mask=prompt_attention_mask,
-            labels=labels, 
-            pad_token_id=tokenizer.pad_token_id,
-        )
-
-        labels[mask] = ignore_idx
-
-        logits = model(
-            input_ids=responses,
-            attention_mask=response_attention_mask,
-        ).logits
-
-        return logits, labels
-
+    #     return logits, labels
 
 class FSDPTrainer:
     def __init__(
@@ -393,7 +394,7 @@ class FSDPTrainer:
         logits = logits.to(model.device)
       
         # get batch logprobs
-        batch_logprobs, per_token_logprobs = _get_batch_logprobs(logits, labels)
+        batch_logprobs, per_token_logprobs, loss_mask = _get_batch_logprobs(logits, labels)
         
         # reshape 
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
@@ -417,7 +418,7 @@ class FSDPTrainer:
         
         logits = logits.to(model.device)
 
-        batch_logprobs, per_token_logprobs = _get_batch_logprobs(logits, labels)
+        batch_logprobs, per_token_logprobs, loss_mask = _get_batch_logprobs(logits, labels)
         
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
@@ -427,14 +428,14 @@ class FSDPTrainer:
             
             ref_logits = ref_logits.to(model.device)
         
-            ref_batch_logprobs, ref_per_token_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
+            ref_batch_logprobs, ref_per_token_logprobs, ref_loss_mask = _get_batch_logprobs(ref_logits, ref_labels)
             
             ref_batch_logprobs = ref_batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
       
         # compute loss
         loss = pragmatic_loss_with_labels(logprobs_policy=batch_logprobs, logprobs_reference=ref_batch_logprobs)
 
-        return loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs
+        return loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask
         
     
     def _run_batch(
@@ -461,14 +462,25 @@ class FSDPTrainer:
         
         elif self.config.ppo.loss == "with_labels":
             # compute policy and reference metrics
-            loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
+            loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
          
             # compute kl divergence
             if self.config.ppo.kl == 'average_kl':
                 kl_div = kl_divergence_from_logits(logprobs_policy_logits=batch_logprobs, logprobs_reference_logits=ref_batch_logprobs)
             
             elif self.config.ppo.kl == 'per_token_kl':
-                kl_div = kl_divergence_from_logits_per_token(logprobs_policy_logits=per_token_logprobs, logprobs_reference_logits=ref_per_token_logprobs)
+                
+                try:
+                    kl_div = kl_divergence_from_logits_per_token(
+                        logprobs_policy_logits=per_token_logprobs, 
+                        logprobs_reference_logits=ref_per_token_logprobs, 
+                        loss_mask_policy=loss_mask, 
+                        loss_mask_reference=ref_loss_mask,
+                    )
+                except:
+                    print("FAILED TO COMPUTE KLD")
+                    kl_div = torch.FloatTensor(1.0)
+                
                 kl_div = kl_div.to(self.local_rank)
                 if self.local_rank == 0:
                     print("RAW KL", kl_div)
