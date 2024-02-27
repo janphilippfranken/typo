@@ -17,10 +17,10 @@ data:
 wandb:
   project: scai-with-labels
   log_model: checkpoint
-  name: helpf-harml
+  name: beta-0.5-per-token-kl
 ppo:
-  beta: 0.0
-  max_iter: 1
+  beta: 0.5
+  max_iter: 0
   loss: with_labels
   kl: per_token_kl
 training:
@@ -30,7 +30,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 0.95
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.3-max-iter-1
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-with-labels
   max_grad_norm: 2.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 64

@@ -462,7 +462,7 @@ class FSDPTrainer:
         elif self.config.ppo.loss == "with_labels":
             # compute policy and reference metrics
             loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
-            breakpoint()
+         
             # compute kl divergence
             if self.config.ppo.kl == 'average_kl':
                 kl_div = kl_divergence_from_logits(logprobs_policy_logits=batch_logprobs, logprobs_reference_logits=ref_batch_logprobs)
