@@ -470,6 +470,9 @@ class FSDPTrainer:
             elif self.config.ppo.kl == 'per_token_kl':
                 kl_div = kl_divergence_from_logits_per_token(logprobs_policy_logits=per_token_logprobs, logprobs_reference_logits=ref_per_token_logprobs)
                 kl_div = kl_div.to(self.local_rank)
+                if self.local_rank == 0:
+                    print("RAW KL", kl_div)
+                    print("SHAPES:", per_token_logprobs.shape)
             
             # loss = loss * beta * kl
             adjusted_loss = loss + self.config.ppo.beta * kl_div
