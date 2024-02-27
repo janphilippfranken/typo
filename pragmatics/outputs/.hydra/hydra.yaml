@@ -112,14 +112,14 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - ppo.beta=0.01
+    - ppo.beta=0.5
     - ppo.max_iter=0
-    - wandb.name=beta-0.01-per-token-kl
-    - training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.01-per-token-kl
+    - wandb.name=beta-0.5-per-token-kl
+    - training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl
   job:
     name: train
     chdir: null
-    override_dirname: ppo.beta=0.01,ppo.max_iter=0,training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.01-per-token-kl,wandb.name=beta-0.01-per-token-kl
+    override_dirname: ppo.beta=0.5,ppo.max_iter=0,training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl,wandb.name=beta-0.5-per-token-kl
     id: ???
     num: ???
     config_name: config
