@@ -58,8 +58,8 @@ def main(args: DictConfig) -> None:
     torch.autograd.set_detect_anomaly(True)
     
     # wandb
-    # args_dict = OmegaConf.to_container(args, resolve=True)
-    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    args_dict = OmegaConf.to_container(args, resolve=True)
+    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])

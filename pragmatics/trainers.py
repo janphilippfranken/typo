@@ -329,8 +329,6 @@ class FSDPTrainer:
         # get logprobs for policy model 
         logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
         
-        logits = logits.to(model.device)
-
         batch_logprobs = _get_batch_logprobs(logits, labels)
         
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
@@ -338,17 +336,11 @@ class FSDPTrainer:
         # get logprobs for reference model 
         with torch.no_grad():
             ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch)
-            
-            ref_logits = ref_logits.to(model.device)
-        
-            ref_batch_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
-            
-            ref_batch_logprobs = ref_batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
-      
+              
         # compute loss
         loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
 
-        return loss, batch_logprobs, ref_batch_logprobs, logits, ref_logits
+        return loss, batch_logprobs, logits, ref_logits
         
     
     def _run_batch(
@@ -358,7 +350,7 @@ class FSDPTrainer:
         """Run batch."""    
         
         # compute policy and reference metrics
-        loss, batch_logprobs, ref_batch_logprobs, logits, ref_logits  = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
+        loss, batch_logprobs, logits, ref_logits  = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
             
         kl_div = kl_divergence(
             policy_logits=logits,
