@@ -385,17 +385,15 @@ class FSDPTrainer:
             
             # if self.config.ppo.loss == 'reference':
             #     ref_batch_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
-        
         # if self.config.ppo.loss == 'reference':
             
         #     loss = pragmatic_loss_with_reference(
         #         logprobs_policy=batch_logprobs,
         #         logprobs_reference=ref_batch_logprobs,
         #     )
-
-        # self.config.ppo.loss == 'no_reference':
-            
-        loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
+        # self.config.ppo.loss == 'no_reference':  
+        # loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
+        loss = pragmatic_clip_loss(logprobs=batch_logprobs)
                                               
         return loss, batch_logprobs, logits, ref_logits
         

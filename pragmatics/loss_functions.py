@@ -93,7 +93,7 @@ def pragmatic_loss_no_reference(
     return loss
 
 
-def pragmatic_double_loss_no_reference(
+def pragmatic_clip_loss(
     logprobs: torch.FloatTensor,
 ) -> torch.FloatTensor:
     """Compute the pragmatic loss for a batch of response log probabilities.
