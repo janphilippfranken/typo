@@ -92,26 +92,3 @@ def pragmatic_loss_no_reference(
     loss = F.cross_entropy(logits, labels, reduction="mean")
    
     return loss
-
-
-def kl_divergence_from_logits(
-    policy_logits: torch.FloatTensor,
-    ref_logits: torch.FloatTensor,
-) -> torch.FloatTensor:
-    """Compute the kl divergence between policy and reference model.
-    
-    Args:
-        policy_logits: Shape: (batch_size, sequence_length, vocab_size)
-        ref_logits: Shape: (batch_size, sequence_length, vocab_size)        
-    """
-    kl_divergences = torch.zeros(policy_logits.shape[0])
-    
-    policy_probs = F.softmax(policy_logits, dim=-1)
-    ref_probs = F.softmax(ref_logits, dim=-1)
-    breakpoint()
-    for i in range(policy_logits.shape[0]):  # iterate over batch
-        print(i)
-    
-    
-
-

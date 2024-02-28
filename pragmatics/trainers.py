@@ -91,75 +91,31 @@ def _get_batch_logprobs(
     # average token logprobs
     average_token_logprobs = per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
   
-    return average_token_logprobs, per_token_logprobs, loss_mask, logits, labels
+    return average_token_logprobs
+
+
+def kl_divergence(
+    policy_logits: torch.FloatTensor,
+    ref_logits: torch.FloatTensor,
+) -> torch.FloatTensor:
+    """Compute the kl divergence between policy and reference model.
+    
+    Args:
+        policy_logits: Shape: (batch_size, sequence_length, vocab_size)
+        ref_logits: Shape: (batch_size, sequence_length, vocab_size)        
+    """
+    kl = (
+        policy_logits.softmax(dim=-1) * (
+            policy_logits.log_softmax(dim=-1) - ref_logits.log_softmax(dim=-1))
+        ).sum(dim=-1)
+    
+    return kl.mean()
 
 
 def prepare_logits_labels(
     model: torch.nn.Module,
     tokenizer: transformers.PreTrainedTokenizer,
     batch: Dict[str, torch.Tensor],
-    ignore_idx: Optional[int] = -100,
-) -> Tuple[torch.FloatTensor, torch.LongTensor]:
-    """Get the logits and labels for the given prompts and responses.
-    
-    Args:
-        model: A torch.nn.Module model.
-        tokenizer: A transformers.PreTrainedTokenizer.
-        batch: A batch of tokenized examples. Each value should be a tensor of shape (batch_size, sequence_length).
-        ignore_idx: The index to ignore in the loss computation; defaults to -100.
-        
-    Returns:
-        logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
-        labels: The labels of the model. Shape: (batch_size, sequence_length).
-    """
-    prompt_attention_mask = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "prompt" in key and 'attention_mask' in key
-        ],
-        dim=0
-    )
-    
-    response_attention_mask = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "response" in key and 'attention_mask' in key
-        ],
-        dim=0
-    )
-    
-    responses = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "response" in key and 'attention_mask' not in key
-        ], 
-        dim=0
-    )
-   
-    labels = responses.clone()
-        
-    mask = _get_mask(
-        attention_mask=prompt_attention_mask,
-        labels=labels, 
-        pad_token_id=tokenizer.pad_token_id,
-    )
-
-    labels[mask] = ignore_idx
-
-    logits = model(
-        input_ids=responses,
-        attention_mask=response_attention_mask,
-    ).logits
-    
-
-    return logits, labels
-
-
-def prepare_logits_labels_with_labels(
-    model: torch.nn.Module,
-    tokenizer: transformers.PreTrainedTokenizer,
-    batch: Dict[str, torch.Tensor],
-    model_type: str,
     ignore_idx: Optional[int] = -100,
 ) -> Tuple[torch.FloatTensor, torch.LongTensor]:
     """Get the logits and labels for the given prompts and responses. Includes those w/ and w/o constitutions.
@@ -351,7 +307,7 @@ class FSDPTrainer:
         logits = logits.to(model.device)
       
         # get batch logprobs
-        batch_logprobs, per_token_logprobs, loss_mask, logits, labels = _get_batch_logprobs(logits, labels)
+        batch_logprobs = _get_batch_logprobs(logits, labels)
         
         # reshape 
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
@@ -371,28 +327,28 @@ class FSDPTrainer:
         """Compute metrics for both policy and reference model if labels are provided."""
     
         # get logprobs for policy model 
-        logits, labels = prepare_logits_labels_with_labels(model, self.tokenizer, batch, model_type="policy")
+        logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
         
         logits = logits.to(model.device)
 
-        batch_logprobs, per_token_logprobs, loss_mask, logits, labels = _get_batch_logprobs(logits, labels)
+        batch_logprobs = _get_batch_logprobs(logits, labels)
         
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
         # get logprobs for reference model 
         with torch.no_grad():
-            ref_logits, ref_labels = prepare_logits_labels_with_labels(reference_model, self.tokenizer, batch, model_type="reference")
+            ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch)
             
             ref_logits = ref_logits.to(model.device)
         
-            ref_batch_logprobs, ref_per_token_logprobs, ref_loss_mask, ref_logits, ref_labels = _get_batch_logprobs(ref_logits, ref_labels)
+            ref_batch_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
             
             ref_batch_logprobs = ref_batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
       
         # compute loss
         loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
 
-        return loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask, logits, ref_logits, logits, labels, ref_labels
+        return loss, batch_logprobs, ref_batch_logprobs, logits, ref_logits
         
     
     def _run_batch(
@@ -401,48 +357,19 @@ class FSDPTrainer:
     ) -> Tuple[torch.FloatTensor, Dict[str, torch.Tensor], torch.FloatTensor]:
         """Run batch."""    
         
-        if self.config.ppo.loss == "without_labels":
-            # compute target metrics
-            raise NotImplementedError
-            # loss, probs, batch_logprobs = self.compute_metrics(self.model, batch)
+        # compute policy and reference metrics
+        loss, batch_logprobs, ref_batch_logprobs, logits, ref_logits  = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
             
-            # # compute reference metrics
-            # with torch.no_grad():
-            #     reference_loss, reference_probs, reference_batch_logprobs = self.compute_metrics(self.reference_model, batch)
-                
-            # # compute kl divergence
-            # kl_div = kl_divergence(probs, reference_probs)
-            
-            # # loss = loss * beta * kl
-            # adjusted_loss = loss + self.config.ppo.beta * kl_div
-        
-            # return loss, adjusted_loss, batch_logprobs, kl_div
-        
-        elif self.config.ppo.loss == "with_labels":
-            # compute policy and reference metrics
-            loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask, logits, ref_logits, logits, labels, ref_labels = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
-                     
-            if self.config.ppo.kl == 'per_token_kl':
-                
-                kl_div = kl_divergence_from_logits_per_token(
-                    policy_logits=logits,
-                    ref_logits=ref_logits,
-                    policy_labels=labels,
-                    ref_labels=ref_labels,
-                    policy_mask=loss_mask, 
-                    ref_mask=ref_loss_mask,
-                )
-                
-                kl_div = kl_div.to(self.local_rank)
-                if self.local_rank == 0:
-                    print("RAW KL", kl_div)
-                    print("SHAPES:", per_token_logprobs.shape)
-            
-            # loss = loss * beta * kl
-            adjusted_loss = loss + self.config.ppo.beta * kl_div
+        kl_div = kl_divergence(
+            policy_logits=logits,
+            ref_logits=ref_logits,
+        )
+      
+        # loss = loss * beta * kl
+        adjusted_loss = loss + self.config.ppo.beta * kl_div
 
-            return loss, adjusted_loss, batch_logprobs, kl_div
-            
+        return loss, adjusted_loss, batch_logprobs, kl_div
+        
             
     def evaluate(self):
         """Evaluate the model."""

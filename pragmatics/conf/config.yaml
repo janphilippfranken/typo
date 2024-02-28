@@ -3,11 +3,11 @@ hydra:
     dir: outputs
 
 defaults:
-  - model: mistral_tiny_base
+  - model: mistral_7b_base
   - data: hh_rlhf_cai
 
 wandb:
-  project: scai-with-labels
+  project: scai-ppo
   log_model: checkpoint
   name: helpf-harml
 
