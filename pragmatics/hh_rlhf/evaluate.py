@@ -12,19 +12,18 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 from prompts import *
 from seed_tasks import *
 
-EVALUATION = "2-shot"
-TEMPERATURES = [0.0, 0.3, 1.0]
+EVALUATION = "0-shot"
+TEMPERATURES = [0.5, 1.0]
 N_EXAMPLES = 500
 OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation"
-TRAIN_TEST_CONSTITUTIONS = 'test'
+TRAIN_TEST_CONSTITUTIONS = 'train'
 CONSTITUTIONS_DIR = f"constitutions/{TRAIN_TEST_CONSTITUTIONS}"
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-# beta 0.3 https://wandb.ai/janphilipp-franken/scai-with-labels?workspace=user-janphilipp-franken
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-7.5/epoch-0.84/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-7.5/epoch-0.84/"
 
 model = VLLMInferenceModel(
     model=trained_model,
@@ -186,6 +185,8 @@ for TEMPERATURE in TEMPERATURES:
                 temperature=TEMPERATURE,
                 num_return_sequences=1,
             )
+            
+            breakpoint()
 
             all_responses['constitution'][i] = harmless_constitution.strip()
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
