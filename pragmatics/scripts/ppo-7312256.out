@@ -1,0 +1,641 @@
+[2024-02-27 14:09:57,115][root][INFO] - beta: 0.5
+[2024-02-27 14:09:57,115][root][INFO] - loss with_labels
+[2024-02-27 14:09:57,115][root][INFO] - max_iter: 0
+[2024-02-27 14:09:57,115][root][INFO] - writing checkpoints to: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl
+clearing gpu cache for all ranks
+Model with 7241.732096M params prepared
+n helpful: 5000
+n harmless: 5000
+Loaded model on rank 3
+Loaded reference model on rank 3
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl after each epoch.
+Loaded model on rank 2
+Loaded reference model on rank 2
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl after each epoch.
+Loaded model on rank 1
+Loaded reference model on rank 1
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl after each epoch.
+tokenized 9500 training examples...
+train dataset has 9500 examples.
+eval dataset has 500 examples.
+Loaded model on rank 0
+Loaded reference model on rank 0
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl after each epoch.
+RAW KL tensor(0., device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 150])
+Epoch 0, Step 0: train/loss = 0.6982459425926208, train/raw-loss = 0.6982459425926208, train/logprobs = tensor([[-0.8431, -2.6125],
+        [-0.8326, -2.6216]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+RAW KL tensor(0., device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 156])
+Epoch 0, Step 1: train/loss = 0.6927576065063477, train/raw-loss = 0.6927576065063477, train/logprobs = tensor([[-1.2483, -1.6199],
+        [-1.2440, -1.6139]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+RAW KL tensor(0.0004, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 179])
+Epoch 0, Step 2: train/loss = 0.6867749691009521, train/raw-loss = 0.6865226030349731, train/logprobs = tensor([[-1.0798, -2.0936],
+        [-1.1118, -2.0987]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005047926679253578
+RAW KL tensor(0.0006, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 150])
+Epoch 0, Step 3: train/loss = 0.6806550025939941, train/raw-loss = 0.6801009178161621, train/logprobs = tensor([[-0.5917, -1.4458],
+        [-0.5922, -1.3936]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0011081324191763997
+RAW KL tensor(0.0029, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 148])
+Epoch 0, Step 4: train/loss = 0.6733642816543579, train/raw-loss = 0.671377420425415, train/logprobs = tensor([[-0.9616, -2.2353],
+        [-0.9885, -2.1739]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.003973724320530891
+RAW KL tensor(0.0094, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 111])
+Epoch 0, Step 5: train/loss = 0.6787461042404175, train/raw-loss = 0.6740562915802002, train/logprobs = tensor([[-1.2866, -1.8756],
+        [-1.2527, -1.7644]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.009379550814628601
+RAW KL tensor(0.0190, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 121])
+Epoch 0, Step 6: train/loss = 0.6826667189598083, train/raw-loss = 0.6748876571655273, train/logprobs = tensor([[-1.1082, -1.6593],
+        [-1.0318, -1.5087]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.015558185055851936
+RAW KL tensor(0.0207, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 132])
+Epoch 0, Step 7: train/loss = 0.6623785495758057, train/raw-loss = 0.6540966033935547, train/logprobs = tensor([[-1.1387, -1.8389],
+        [-1.1305, -1.6664]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.016563937067985535
+RAW KL tensor(0.0079, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 184])
+Epoch 0, Step 8: train/loss = 0.6268048286437988, train/raw-loss = 0.6186394691467285, train/logprobs = tensor([[-0.8260, -2.2215],
+        [-0.7496, -1.8266]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.016330650076270103
+RAW KL tensor(0.0068, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 171])
+Epoch 0, Step 9: train/loss = 0.6147679686546326, train/raw-loss = 0.6077650785446167, train/logprobs = tensor([[-1.1770, -2.0767],
+        [-1.1195, -1.6579]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.014005779288709164
+RAW KL tensor(0.0371, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 150])
+Epoch 0, Step 10: train/loss = 0.5016000866889954, train/raw-loss = 0.48666420578956604, train/logprobs = tensor([[-1.3019, -2.8319],
+        [-1.3112, -1.8504]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0298717450350523
+RAW KL tensor(0.0749, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 195])
+Epoch 0, Step 11: train/loss = 0.5384948253631592, train/raw-loss = 0.5200186967849731, train/logprobs = tensor([[-0.8379, -2.1278],
+        [-0.7258, -1.1335]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.036952339112758636
+RAW KL tensor(0.0336, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 146])
+Epoch 0, Step 12: train/loss = 0.5405291318893433, train/raw-loss = 0.5219944715499878, train/logprobs = tensor([[-0.9399, -2.7049],
+        [-0.9029, -1.6901]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.037069354206323624
+RAW KL tensor(0.0410, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 135])
+Epoch 0, Step 13: train/loss = 0.5612028241157532, train/raw-loss = 0.5466168522834778, train/logprobs = tensor([[-0.9261, -2.8762],
+        [-0.9221, -2.1343]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.029171958565711975
+RAW KL tensor(0.0757, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 160])
+Epoch 0, Step 14: train/loss = 0.48115772008895874, train/raw-loss = 0.44742563366889954, train/logprobs = tensor([[-1.4326, -2.9809],
+        [-1.0413, -1.1428]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.06746421754360199
+RAW KL tensor(0.0972, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 156])
+Epoch 0, Step 15: train/loss = 0.4557768702507019, train/raw-loss = 0.4086681604385376, train/logprobs = tensor([[-1.6205, -3.4093],
+        [-1.0107, -0.8471]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.09421747177839279
+RAW KL tensor(0.2150, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 143])
+Epoch 0, Step 16: train/loss = 0.3650994896888733, train/raw-loss = 0.2873418629169464, train/logprobs = tensor([[-1.3185, -4.3603],
+        [-1.0321, -0.8962]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15551525354385376
+RAW KL tensor(0.0336, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 195])
+Epoch 0, Step 17: train/loss = 0.5070273876190186, train/raw-loss = 0.4794147312641144, train/logprobs = tensor([[-1.5007, -2.8595],
+        [-1.1690, -1.0449]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.05522525683045387
+RAW KL tensor(0.1414, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 137])
+Epoch 0, Step 18: train/loss = 0.3560499846935272, train/raw-loss = 0.31253716349601746, train/logprobs = tensor([[-1.8142, -4.2847],
+        [-1.4342, -1.2531]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.08702561259269714
+RAW KL tensor(0.0759, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 186])
+Epoch 0, Step 19: train/loss = 0.38523054122924805, train/raw-loss = 0.34754911065101624, train/logprobs = tensor([[-1.1796, -4.2383],
+        [-0.6730, -1.0772]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.07536280155181885
+RAW KL tensor(0.0896, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 164])
+Epoch 0, Step 20: train/loss = 0.4820254147052765, train/raw-loss = 0.4473263621330261, train/logprobs = tensor([[-1.5074, -4.5107],
+        [-1.0903, -1.1791]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.06939812004566193
+RAW KL tensor(0.0551, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 225])
+Epoch 0, Step 21: train/loss = 0.3720609247684479, train/raw-loss = 0.3253096044063568, train/logprobs = tensor([[-2.0403, -4.5290],
+        [-1.5265, -1.3691]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.09350268542766571
+RAW KL tensor(0.2451, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 254])
+Epoch 0, Step 22: train/loss = 0.5659464001655579, train/raw-loss = 0.501009464263916, train/logprobs = tensor([[-2.3365, -4.5294],
+        [-1.5825, -1.2743]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12987388670444489
+RAW KL tensor(0.1440, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 166])
+Epoch 0, Step 23: train/loss = 0.42093324661254883, train/raw-loss = 0.35035476088523865, train/logprobs = tensor([[-3.0191, -7.8481],
+        [-1.5497, -1.5166]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14115703105926514
+RAW KL tensor(0.0659, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 124])
+Epoch 0, Step 24: train/loss = 0.4588538706302643, train/raw-loss = 0.3593434691429138, train/logprobs = tensor([[ -2.2893, -10.0474],
+        [ -1.1392,  -1.7184]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19902077317237854
+RAW KL tensor(0.1264, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 164])
+Epoch 0, Step 25: train/loss = 0.42746374011039734, train/raw-loss = 0.3888508677482605, train/logprobs = tensor([[-1.3276, -4.9251],
+        [-0.9966, -1.8443]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.07722562551498413
+RAW KL tensor(0.1238, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 155])
+Epoch 0, Step 26: train/loss = 0.3638778328895569, train/raw-loss = 0.2817370891571045, train/logprobs = tensor([[-0.9548, -6.9372],
+        [-0.6863, -2.3237]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16428151726722717
+RAW KL tensor(0.0351, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 191])
+Epoch 0, Step 27: train/loss = 0.380327969789505, train/raw-loss = 0.3310079276561737, train/logprobs = tensor([[-1.9132, -7.2310],
+        [-1.7397, -1.8088]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.09864009916782379
+RAW KL tensor(0.1024, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 140])
+Epoch 0, Step 28: train/loss = 0.38840600848197937, train/raw-loss = 0.32614049315452576, train/logprobs = tensor([[-1.4757, -4.3702],
+        [-1.4244, -1.6378]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12453101575374603
+RAW KL tensor(0.0331, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 362])
+Epoch 0, Step 29: train/loss = 0.36176496744155884, train/raw-loss = 0.33225584030151367, train/logprobs = tensor([[-0.8376, -4.1934],
+        [-0.7128, -1.9709]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.05901826545596123
+RAW KL tensor(0.0432, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 219])
+Epoch 0, Step 30: train/loss = 0.6399500370025635, train/raw-loss = 0.6019034385681152, train/logprobs = tensor([[-1.7849, -2.5203],
+        [-1.2792, -1.6010]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.07609327137470245
+RAW KL tensor(0.1947, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 173])
+Epoch 0, Step 31: train/loss = 0.38657739758491516, train/raw-loss = 0.2934267520904541, train/logprobs = tensor([[-1.7991, -7.6990],
+        [-3.2564, -3.0550]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18630121648311615
+RAW KL tensor(0.1504, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 198])
+Epoch 0, Step 32: train/loss = 0.24818184971809387, train/raw-loss = 0.148557648062706, train/logprobs = tensor([[-1.6767, -7.4079],
+        [-2.4724, -1.9009]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19924838840961456
+RAW KL tensor(0.1323, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 156])
+Epoch 0, Step 33: train/loss = 0.2719469666481018, train/raw-loss = 0.20142190158367157, train/logprobs = tensor([[-1.9970, -6.7656],
+        [-2.3214, -3.0631]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14105014503002167
+RAW KL tensor(0.0720, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 148])
+Epoch 0, Step 34: train/loss = 0.42223548889160156, train/raw-loss = 0.3587600886821747, train/logprobs = tensor([[-2.3722, -4.2581],
+        [-2.5241, -1.9971]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12695080041885376
+RAW KL tensor(0.1330, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 191])
+Epoch 0, Step 35: train/loss = 0.26988786458969116, train/raw-loss = 0.18129563331604004, train/logprobs = tensor([[-1.9110, -6.9931],
+        [-3.0647, -3.3236]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1771845519542694
+RAW KL tensor(0.4062, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 149])
+Epoch 0, Step 36: train/loss = 0.45663776993751526, train/raw-loss = 0.34374719858169556, train/logprobs = tensor([[-3.1235, -6.6880],
+        [-4.4209, -3.2509]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2257811427116394
+RAW KL tensor(0.0642, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 235])
+Epoch 0, Step 37: train/loss = 0.4303147792816162, train/raw-loss = 0.3564179837703705, train/logprobs = tensor([[-1.0623, -6.9744],
+        [-1.3116, -1.5518]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14779366552829742
+RAW KL tensor(0.1149, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 292])
+Epoch 0, Step 38: train/loss = 0.31347349286079407, train/raw-loss = 0.2555278539657593, train/logprobs = tensor([[-1.1425, -5.5171],
+        [-2.0788, -1.9866]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11589126288890839
+RAW KL tensor(0.1649, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 189])
+Epoch 0, Step 39: train/loss = 0.3502166271209717, train/raw-loss = 0.2906339466571808, train/logprobs = tensor([[-1.2890, -4.9785],
+        [-1.6665, -1.1769]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11916535347700119
+RAW KL tensor(0.1008, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 226])
+Epoch 0, Step 40: train/loss = 0.38320064544677734, train/raw-loss = 0.3261510729789734, train/logprobs = tensor([[-1.6708, -3.4929],
+        [-2.5362, -2.0257]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11409914493560791
+RAW KL tensor(0.1138, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 329])
+Epoch 0, Step 41: train/loss = 0.2882702946662903, train/raw-loss = 0.1979794055223465, train/logprobs = tensor([[-2.6629, -7.8571],
+        [-4.7870, -2.9201]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18058176338672638
+RAW KL tensor(0.2274, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 243])
+Epoch 0, Step 42: train/loss = 0.3528226912021637, train/raw-loss = 0.25443780422210693, train/logprobs = tensor([[-1.1886, -8.2976],
+        [-3.6768, -3.7049]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19676977396011353
+RAW KL tensor(0.1842, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 133])
+Epoch 0, Step 43: train/loss = 0.34947898983955383, train/raw-loss = 0.2144208550453186, train/logprobs = tensor([[-3.2416, -8.1300],
+        [-5.9104, -5.5543]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.27011623978614807
+RAW KL tensor(0.2338, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 202])
+Epoch 0, Step 44: train/loss = 0.32633110880851746, train/raw-loss = 0.19950981438159943, train/logprobs = tensor([[-2.0478, -4.7894],
+        [-7.0940, -4.3709]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.25364258885383606
+RAW KL tensor(0.2334, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 141])
+Epoch 0, Step 45: train/loss = 0.36872172355651855, train/raw-loss = 0.26657092571258545, train/logprobs = tensor([[-2.4705, -6.6374],
+        [-5.2453, -2.4119]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.20430150628089905
+RAW KL tensor(0.2469, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 151])
+Epoch 0, Step 46: train/loss = 0.13634395599365234, train/raw-loss = 0.03125474974513054, train/logprobs = tensor([[ -2.5453, -10.5809],
+        [ -5.5341,  -3.9115]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2101784199476242
+RAW KL tensor(0.1644, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 208])
+Epoch 0, Step 47: train/loss = 0.3121108114719391, train/raw-loss = 0.231333389878273, train/logprobs = tensor([[-1.3729, -7.0409],
+        [-2.9161, -2.9991]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16155484318733215
+RAW KL tensor(0.1576, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 140])
+Epoch 0, Step 48: train/loss = 0.48014897108078003, train/raw-loss = 0.38961732387542725, train/logprobs = tensor([[-4.4109, -4.6208],
+        [-5.4694, -2.9303]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18106335401535034
+RAW KL tensor(0.3677, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 209])
+Epoch 0, Step 49: train/loss = 0.2452804446220398, train/raw-loss = 0.14011578261852264, train/logprobs = tensor([[-1.8148, -8.2481],
+        [-3.3193, -3.2965]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2103293240070343
+RAW KL tensor(0.1615, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 209])
+Epoch 0, Step 50: train/loss = 0.2784353196620941, train/raw-loss = 0.18437319993972778, train/logprobs = tensor([[-2.2379, -5.4971],
+        [-5.3383, -2.9894]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18812423944473267
+RAW KL tensor(0.0979, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 130])
+Epoch 0, Step 51: train/loss = 0.3194417953491211, train/raw-loss = 0.24075937271118164, train/logprobs = tensor([[-3.0843, -7.7963],
+        [-3.2422, -3.1393]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1573648601770401
+RAW KL tensor(0.1709, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 191])
+Epoch 0, Step 52: train/loss = 0.6477937698364258, train/raw-loss = 0.5753978490829468, train/logprobs = tensor([[-1.7497, -1.7144],
+        [-4.0863, -3.0867]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14479175209999084
+RAW KL tensor(0.0635, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 459])
+Epoch 0, Step 53: train/loss = 0.4658942222595215, train/raw-loss = 0.40925201773643494, train/logprobs = tensor([[-1.5987, -4.1855],
+        [-2.3765, -1.6705]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11328443884849548
+RAW KL tensor(0.2089, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 163])
+Epoch 0, Step 54: train/loss = 0.15784858167171478, train/raw-loss = 0.06707264482975006, train/logprobs = tensor([[-2.1166, -6.2440],
+        [-5.3962, -2.2824]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18155187368392944
+RAW KL tensor(0.2058, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 144])
+Epoch 0, Step 55: train/loss = 0.19439199566841125, train/raw-loss = 0.09567764401435852, train/logprobs = tensor([[-3.2209, -5.8203],
+        [-6.8447, -2.7675]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19742873311042786
+RAW KL tensor(0.2636, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 159])
+Epoch 0, Step 56: train/loss = 0.2533520758152008, train/raw-loss = 0.12801030278205872, train/logprobs = tensor([[-2.2904, -6.3536],
+        [-5.0402, -3.8348]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2506834864616394
+RAW KL tensor(0.2179, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 212])
+Epoch 0, Step 57: train/loss = 0.30812543630599976, train/raw-loss = 0.22419291734695435, train/logprobs = tensor([[-1.6745, -5.5840],
+        [-5.4779, -2.5859]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16786505281925201
+RAW KL tensor(0.0826, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 335])
+Epoch 0, Step 58: train/loss = 0.27245229482650757, train/raw-loss = 0.20603491365909576, train/logprobs = tensor([[-1.4603, -6.2490],
+        [-2.9985, -2.0297]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.13283473253250122
+RAW KL tensor(0.0748, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 364])
+Epoch 0, Step 59: train/loss = 0.4460495114326477, train/raw-loss = 0.3717476725578308, train/logprobs = tensor([[-2.4003, -4.5124],
+        [-4.2173, -3.7476]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14860370755195618
+RAW KL tensor(0.1537, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 180])
+Epoch 0, Step 60: train/loss = 0.2523786425590515, train/raw-loss = 0.18773199617862701, train/logprobs = tensor([[-3.1676, -6.3305],
+        [-4.8859, -1.5925]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.129293292760849
+RAW KL tensor(0.1343, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 158])
+Epoch 0, Step 61: train/loss = 0.26076751947402954, train/raw-loss = 0.19770263135433197, train/logprobs = tensor([[-0.8412, -6.8791],
+        [-2.3947, -1.6720]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12612977623939514
+RAW KL tensor(0.1394, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 147])
+Epoch 0, Step 62: train/loss = 0.32230323553085327, train/raw-loss = 0.22572989761829376, train/logprobs = tensor([[-2.5133, -5.5491],
+        [-5.4722, -3.8760]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19314664602279663
+RAW KL tensor(0.0286, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 457])
+Epoch 0, Step 63: train/loss = 0.24800527095794678, train/raw-loss = 0.18755373358726501, train/logprobs = tensor([[-2.0164, -4.1130],
+        [-5.9204, -1.7495]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12090307474136353
+RAW KL tensor(0.1509, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 193])
+Epoch 0, Step 64: train/loss = 0.18481530249118805, train/raw-loss = 0.10097617655992508, train/logprobs = tensor([[-1.9906, -5.9845],
+        [-6.2425, -2.4784]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16767825186252594
+RAW KL tensor(0.1927, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 187])
+Epoch 0, Step 65: train/loss = 0.2066347748041153, train/raw-loss = 0.14773276448249817, train/logprobs = tensor([[-2.8432, -8.4759],
+        [-3.9082, -1.6663]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11780402064323425
+RAW KL tensor(0.0898, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 144])
+Epoch 0, Step 66: train/loss = 0.617563784122467, train/raw-loss = 0.5403742790222168, train/logprobs = tensor([[ -3.3794, -10.3723],
+        [ -5.5007,  -2.6377]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15437915921211243
+RAW KL tensor(0.2050, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 192])
+Epoch 0, Step 67: train/loss = 0.10106253623962402, train/raw-loss = 0.002442324999719858, train/logprobs = tensor([[-1.2246, -8.6830],
+        [-7.6722, -1.9965]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1972404420375824
+RAW KL tensor(0.1428, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 258])
+Epoch 0, Step 68: train/loss = 0.20526264607906342, train/raw-loss = 0.13947716355323792, train/logprobs = tensor([[-1.9165, -9.3338],
+        [-5.2354, -3.2939]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1315709501504898
+RAW KL tensor(0.0985, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 153])
+Epoch 0, Step 69: train/loss = 0.24029110372066498, train/raw-loss = 0.17894247174263, train/logprobs = tensor([[-2.8095, -6.0256],
+        [-5.4428, -3.0112]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12269726395606995
+RAW KL tensor(0.2659, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 189])
+Epoch 0, Step 70: train/loss = 0.09113071858882904, train/raw-loss = 0.0053439391776919365, train/logprobs = tensor([[-1.2070, -7.7456],
+        [-7.9428, -1.8164]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.17157354950904846
+RAW KL tensor(0.1238, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 231])
+Epoch 0, Step 71: train/loss = 0.18688762187957764, train/raw-loss = 0.09911534190177917, train/logprobs = tensor([[-2.3799, -6.9491],
+        [-5.5989, -1.7808]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.17554455995559692
+RAW KL tensor(0.1410, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 261])
+Epoch 0, Step 72: train/loss = 0.15742389857769012, train/raw-loss = 0.09825827926397324, train/logprobs = tensor([[-0.7644, -7.2116],
+        [-3.1347, -1.8707]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11833123862743378
+RAW KL tensor(0.0898, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 207])
+Epoch 0, Step 73: train/loss = 0.2978435158729553, train/raw-loss = 0.208384707570076, train/logprobs = tensor([[-2.2485, -4.3505],
+        [-4.7279, -2.3896]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.17891758680343628
+RAW KL tensor(0.1320, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 229])
+Epoch 0, Step 74: train/loss = 0.17807713150978088, train/raw-loss = 0.10583554953336716, train/logprobs = tensor([[-2.9135, -6.4740],
+        [-8.4440, -2.3950]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14448320865631104
+RAW KL tensor(0.1838, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 254])
+Epoch 0, Step 75: train/loss = 0.13798563182353973, train/raw-loss = 0.07969508320093155, train/logprobs = tensor([[-1.5259, -7.3402],
+        [-5.2909, -2.1682]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11658108234405518
+RAW KL tensor(0.1763, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 200])
+Epoch 0, Step 76: train/loss = 0.29494887590408325, train/raw-loss = 0.2113582342863083, train/logprobs = tensor([[-2.4919, -6.6431],
+        [-8.1306, -3.7749]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16718131303787231
+RAW KL tensor(0.1247, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 157])
+Epoch 0, Step 77: train/loss = 0.31328946352005005, train/raw-loss = 0.2438889741897583, train/logprobs = tensor([[-3.2381, -5.5039],
+        [-8.9099, -3.4630]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1388009935617447
+RAW KL tensor(0.1247, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 233])
+Epoch 0, Step 78: train/loss = 0.5249495506286621, train/raw-loss = 0.4258708357810974, train/logprobs = tensor([[-2.4368, -7.0155],
+        [-9.7212, -4.1114]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19815735518932343
+RAW KL tensor(0.1211, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 257])
+Epoch 0, Step 79: train/loss = 0.5894028544425964, train/raw-loss = 0.46817415952682495, train/logprobs = tensor([[-2.0736, -4.6265],
+        [-4.9254, -4.3613]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.24245737493038177
+RAW KL tensor(0.1804, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 184])
+Epoch 0, Step 80: train/loss = 0.27128979563713074, train/raw-loss = 0.11624113470315933, train/logprobs = tensor([[-4.6390, -6.8566],
+        [-8.6423, -2.5344]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.310097336769104
+RAW KL tensor(0.2415, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 152])
+Epoch 0, Step 81: train/loss = 0.3018564283847809, train/raw-loss = 0.2098769098520279, train/logprobs = tensor([[-2.7814, -9.9031],
+        [-7.7242, -2.1535]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18395906686782837
+RAW KL tensor(0.2155, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 150])
+Epoch 0, Step 82: train/loss = 1.4057228565216064, train/raw-loss = 1.3088622093200684, train/logprobs = tensor([[-6.9512, -4.7878],
+        [-7.4595, -3.4491]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19372130930423737
+RAW KL tensor(0.0968, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 186])
+Epoch 0, Step 83: train/loss = 0.15036962926387787, train/raw-loss = 0.07450153678655624, train/logprobs = tensor([[-4.2508, -7.3538],
+        [-6.6439, -2.0770]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15173618495464325
+RAW KL tensor(0.2267, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 344])
+Epoch 0, Step 84: train/loss = 0.2639140486717224, train/raw-loss = 0.15987984836101532, train/logprobs = tensor([[-5.1719, -7.9318],
+        [-6.6423, -2.8351]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2080683559179306
+RAW KL tensor(0.3698, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 173])
+Epoch 0, Step 85: train/loss = 0.35464972257614136, train/raw-loss = 0.24214527010917664, train/logprobs = tensor([[-5.1200, -8.9791],
+        [-6.6261, -3.1761]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.22500893473625183
+RAW KL tensor(0.1236, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 167])
+Epoch 0, Step 86: train/loss = 0.12552987039089203, train/raw-loss = 0.05080452188849449, train/logprobs = tensor([[-2.7461, -6.9962],
+        [-5.5970, -2.2642]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14945070445537567
+RAW KL tensor(0.2953, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 136])
+Epoch 0, Step 87: train/loss = 0.19716876745224, train/raw-loss = 0.10241003334522247, train/logprobs = tensor([[-3.3152, -4.7376],
+        [-9.7346, -2.0746]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18951746821403503
+RAW KL tensor(0.0933, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 247])
+Epoch 0, Step 88: train/loss = 0.11503380537033081, train/raw-loss = 0.053417548537254333, train/logprobs = tensor([[-2.4215, -8.6065],
+        [-6.8355, -2.3183]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12323251366615295
+RAW KL tensor(0.0905, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 164])
+Epoch 0, Step 89: train/loss = 0.08621557056903839, train/raw-loss = 0.021335288882255554, train/logprobs = tensor([[-2.6303, -6.9719],
+        [-7.6052, -2.1868]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12976056337356567
+RAW KL tensor(0.1528, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 157])
+Epoch 0, Step 90: train/loss = 0.16167165338993073, train/raw-loss = 0.09650275111198425, train/logprobs = tensor([[-2.2095, -6.2405],
+        [-6.8528, -1.6579]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.13033777475357056
+RAW KL tensor(0.1603, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 124])
+Epoch 0, Step 91: train/loss = 0.4941979944705963, train/raw-loss = 0.42395028471946716, train/logprobs = tensor([[-3.7582, -3.9324],
+        [-8.0829, -4.6689]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1404954344034195
+RAW KL tensor(0.1879, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 175])
+Epoch 0, Step 92: train/loss = 0.14091825485229492, train/raw-loss = 0.07169626653194427, train/logprobs = tensor([[-2.5584, -6.5077],
+        [-6.9804, -2.9437]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1384439617395401
+RAW KL tensor(0.2210, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 151])
+Epoch 0, Step 93: train/loss = 0.15366606414318085, train/raw-loss = 0.07152305543422699, train/logprobs = tensor([[-2.5352, -6.7541],
+        [-9.0796, -2.0025]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16428601741790771
+RAW KL tensor(0.3601, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 177])
+Epoch 0, Step 94: train/loss = 0.3636099398136139, train/raw-loss = 0.2603694200515747, train/logprobs = tensor([[ -4.0987, -11.8233],
+        [ -6.4808,  -2.2177]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.20648100972175598
+RAW KL tensor(0.1684, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 157])
+Epoch 0, Step 95: train/loss = 0.3233520984649658, train/raw-loss = 0.22280701994895935, train/logprobs = tensor([[-5.4024, -8.0621],
+        [-7.1922, -2.5551]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.20109014213085175
+RAW KL tensor(0.1788, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 211])
+Epoch 0, Step 96: train/loss = 0.25527650117874146, train/raw-loss = 0.19612975418567657, train/logprobs = tensor([[-2.3028, -6.2984],
+        [-5.0850, -2.4224]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11829351633787155
+RAW KL tensor(0.1674, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 204])
+Epoch 0, Step 97: train/loss = 0.3140981197357178, train/raw-loss = 0.20912963151931763, train/logprobs = tensor([[ -5.3208, -10.8371],
+        [ -8.9982,  -4.2034]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2099369466304779
+RAW KL tensor(0.2071, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 156])
+Epoch 0, Step 98: train/loss = 0.27711308002471924, train/raw-loss = 0.20938551425933838, train/logprobs = tensor([[-3.8670, -7.7722],
+        [-6.3204, -1.9930]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1354551613330841
+RAW KL tensor(0.0890, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 128])
+Epoch 0, Step 99: train/loss = 0.37463846802711487, train/raw-loss = 0.3027683198451996, train/logprobs = tensor([[-2.8117, -7.5693],
+        [-5.3309, -1.9711]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14374026656150818
+RAW KL tensor(0.2761, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 208])
+Epoch 0, Step 100: train/loss = 0.12399516999721527, train/raw-loss = 0.04681618511676788, train/logprobs = tensor([[-2.6417, -5.4991],
+        [-7.4980, -1.8396]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15435796976089478
+RAW KL tensor(0.1006, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 155])
+Epoch 0, Step 101: train/loss = 0.26174938678741455, train/raw-loss = 0.20241600275039673, train/logprobs = tensor([[-3.9051, -7.3219],
+        [-4.7097, -2.3453]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11866675317287445
+RAW KL tensor(0.1465, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 210])
+Epoch 0, Step 102: train/loss = 0.14933893084526062, train/raw-loss = 0.06121131405234337, train/logprobs = tensor([[-1.5139, -6.1879],
+        [-8.3610, -2.4311]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1762552708387375
+RAW KL tensor(0.1556, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 135])
+Epoch 0, Step 103: train/loss = 0.13571219146251678, train/raw-loss = 0.05980875715613365, train/logprobs = tensor([[-1.8955, -7.7513],
+        [-8.2556, -2.1053]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15180686116218567
+RAW KL tensor(0.2235, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 176])
+Epoch 0, Step 104: train/loss = 0.28573375940322876, train/raw-loss = 0.21862196922302246, train/logprobs = tensor([[-1.9691, -5.7753],
+        [-7.0770, -2.3209]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1342235505580902
+RAW KL tensor(0.1256, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 186])
+Epoch 0, Step 105: train/loss = 0.223910853266716, train/raw-loss = 0.16157132387161255, train/logprobs = tensor([[-2.5584, -6.8102],
+        [-5.3723, -2.4258]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1246790811419487
+RAW KL tensor(0.1552, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 192])
+Epoch 0, Step 106: train/loss = 0.22792267799377441, train/raw-loss = 0.15692685544490814, train/logprobs = tensor([[-1.7290, -7.8015],
+        [-6.3189, -2.5636]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14199163019657135
+RAW KL tensor(0.1012, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 144])
+Epoch 0, Step 107: train/loss = 0.16562320291996002, train/raw-loss = 0.10134091973304749, train/logprobs = tensor([[-3.4005, -6.3538],
+        [-8.5663, -2.7765]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12856456637382507
+RAW KL tensor(0.1522, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 209])
+Epoch 0, Step 108: train/loss = 0.509913444519043, train/raw-loss = 0.44904667139053345, train/logprobs = tensor([[-1.5840, -1.9623],
+        [-4.4184, -3.0916]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12173359841108322
+RAW KL tensor(0.0810, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 161])
+Epoch 0, Step 109: train/loss = 0.08128037303686142, train/raw-loss = 0.017370417714118958, train/logprobs = tensor([[-1.7233, -8.4921],
+        [-5.7606, -1.6960]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12781991064548492
+RAW KL tensor(0.1005, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 154])
+Epoch 0, Step 110: train/loss = 0.19807229936122894, train/raw-loss = 0.11284011602401733, train/logprobs = tensor([[-2.7739, -8.7056],
+        [-5.2313, -2.3112]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1704643964767456
+RAW KL tensor(0.1036, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 145])
+Epoch 0, Step 111: train/loss = 0.37898093461990356, train/raw-loss = 0.31578749418258667, train/logprobs = tensor([[-2.0845, -4.5906],
+        [-3.5794, -3.0880]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1263868808746338
+RAW KL tensor(0.1139, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 109])
+Epoch 0, Step 112: train/loss = 0.4855724275112152, train/raw-loss = 0.41790828108787537, train/logprobs = tensor([[-3.6794, -4.3744],
+        [-6.0165, -3.4927]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1353282481431961
+RAW KL tensor(0.1429, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 178])
+Epoch 0, Step 113: train/loss = 0.3590663969516754, train/raw-loss = 0.2739575207233429, train/logprobs = tensor([[-1.9392, -3.4139],
+        [-6.4064, -3.8229]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.17021775245666504
+RAW KL tensor(0.0595, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 353])
+Epoch 0, Step 114: train/loss = 0.1733303666114807, train/raw-loss = 0.11890021711587906, train/logprobs = tensor([[-1.8434, -5.1729],
+        [-5.7383, -1.5450]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1088603138923645
+RAW KL tensor(0.1241, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 130])
+Epoch 0, Step 115: train/loss = 0.32254597544670105, train/raw-loss = 0.26437243819236755, train/logprobs = tensor([[-2.0479, -7.3177],
+        [-5.5447, -3.5511]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11634702980518341
+RAW KL tensor(0.1589, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 145])
+Epoch 0, Step 116: train/loss = 0.34387698769569397, train/raw-loss = 0.27746057510375977, train/logprobs = tensor([[-1.4957, -5.9111],
+        [-3.0293, -2.5694]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1328328549861908
+RAW KL tensor(0.1469, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 171])
+Epoch 0, Step 117: train/loss = 0.10952256619930267, train/raw-loss = 0.03425837308168411, train/logprobs = tensor([[-1.7671, -5.9124],
+        [-8.6394, -2.0426]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15052837133407593
+RAW KL tensor(0.1678, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 159])
+Epoch 0, Step 118: train/loss = 0.1856859177350998, train/raw-loss = 0.12007542699575424, train/logprobs = tensor([[-1.6204, -7.8503],
+        [-8.1226, -2.3811]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1312209963798523
+RAW KL tensor(0.2252, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 126])
+Epoch 0, Step 119: train/loss = 0.21331554651260376, train/raw-loss = 0.13938948512077332, train/logprobs = tensor([[-2.9579, -5.9466],
+        [-7.5415, -4.6704]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1478520929813385
+RAW KL tensor(0.1558, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 163])
+Epoch 0, Step 120: train/loss = 0.11777924001216888, train/raw-loss = 0.04929161071777344, train/logprobs = tensor([[-2.5062, -7.8966],
+        [-7.3252, -1.9027]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1369752585887909
+RAW KL tensor(0.2285, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 128])
+Epoch 0, Step 121: train/loss = 0.4003641605377197, train/raw-loss = 0.3456439971923828, train/logprobs = tensor([[-1.9370, -5.1693],
+        [-2.1300, -1.4214]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.10944028198719025
+RAW KL tensor(0.0637, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 132])
+Epoch 0, Step 122: train/loss = 0.2441321164369583, train/raw-loss = 0.18127502501010895, train/logprobs = tensor([[-2.1558, -9.3076],
+        [-2.4054, -2.3329]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12571418285369873
+RAW KL tensor(0.0971, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 179])
+Epoch 0, Step 123: train/loss = 0.22006505727767944, train/raw-loss = 0.15928488969802856, train/logprobs = tensor([[-2.8467, -5.1820],
+        [-7.7180, -2.3716]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12156033515930176
+RAW KL tensor(0.0959, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 197])
+Epoch 0, Step 124: train/loss = 0.12123175710439682, train/raw-loss = 0.07607174664735794, train/logprobs = tensor([[-0.9973, -4.9641],
+        [-3.8884, -1.4630]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.09032002091407776
+RAW KL tensor(0.1699, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 231])
+Epoch 0, Step 125: train/loss = 0.13433007895946503, train/raw-loss = 0.06506510823965073, train/logprobs = tensor([[-1.9299, -8.6719],
+        [-7.1218, -2.5072]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1385299414396286
+RAW KL tensor(0.1004, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 136])
+Epoch 0, Step 126: train/loss = 0.44850999116897583, train/raw-loss = 0.36351120471954346, train/logprobs = tensor([[ -3.0992, -12.0067],
+        [ -5.8935,  -3.8572]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16999758780002594
+RAW KL tensor(0.2040, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 151])
+Epoch 0, Step 127: train/loss = 0.16198588907718658, train/raw-loss = 0.06392625719308853, train/logprobs = tensor([[-2.4198, -6.3717],
+        [-9.9856, -2.6199]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1961192488670349
+RAW KL tensor(0.2704, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 173])
+Epoch 0, Step 128: train/loss = 0.48041531443595886, train/raw-loss = 0.37279829382896423, train/logprobs = tensor([[-2.1147, -4.9448],
+        [-8.0598, -3.9057]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.21523413062095642
+RAW KL tensor(0.1429, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 172])
+Epoch 0, Step 129: train/loss = 0.30627894401550293, train/raw-loss = 0.2114088535308838, train/logprobs = tensor([[-5.0206, -9.6500],
+        [-6.1888, -2.6568]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.18974021077156067
+RAW KL tensor(0.1135, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 430])
+Epoch 0, Step 130: train/loss = 0.26658186316490173, train/raw-loss = 0.17663387954235077, train/logprobs = tensor([[ -5.5314, -12.6526],
+        [ -5.4637,  -1.8383]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.17989596724510193
+RAW KL tensor(0.1692, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 137])
+Epoch 0, Step 131: train/loss = 0.4411384165287018, train/raw-loss = 0.3737000823020935, train/logprobs = tensor([[-5.3992, -5.1010],
+        [-7.0035, -3.0072]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.13487666845321655
+RAW KL tensor(0.1760, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 230])
+Epoch 0, Step 132: train/loss = 0.07760510593652725, train/raw-loss = 0.007430999539792538, train/logprobs = tensor([[-1.9943, -6.6283],
+        [-8.2558, -1.7513]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14034819602966309
+RAW KL tensor(0.1432, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 150])
+Epoch 0, Step 133: train/loss = 0.06493204087018967, train/raw-loss = 0.00514863058924675, train/logprobs = tensor([[-2.7529, -9.2773],
+        [-8.5055, -1.6680]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11956682056188583
+RAW KL tensor(0.1096, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 160])
+Epoch 0, Step 134: train/loss = 0.1664646565914154, train/raw-loss = 0.10176611691713333, train/logprobs = tensor([[-1.9949, -7.7505],
+        [-7.8268, -2.4056]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12939704954624176
+RAW KL tensor(0.0941, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 162])
+Epoch 0, Step 135: train/loss = 0.26817572116851807, train/raw-loss = 0.22028717398643494, train/logprobs = tensor([[-4.5414, -5.7312],
+        [-6.1541, -1.6661]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.09577706456184387
+RAW KL tensor(0.1264, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 155])
+Epoch 0, Step 136: train/loss = 0.09354272484779358, train/raw-loss = 0.01876688003540039, train/logprobs = tensor([[-3.2179, -8.8883],
+        [-8.0157, -2.1597]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14955167472362518
+RAW KL tensor(0.1319, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 163])
+Epoch 0, Step 137: train/loss = 0.12150770425796509, train/raw-loss = 0.065800242125988, train/logprobs = tensor([[-3.2570, -6.2992],
+        [-9.5329, -1.9424]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11141493916511536
+RAW KL tensor(0.0614, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 125])
+Epoch 0, Step 138: train/loss = 0.250711590051651, train/raw-loss = 0.20342224836349487, train/logprobs = tensor([[-3.4982, -7.1231],
+        [-4.2077, -1.9558]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.09457866847515106
+RAW KL tensor(0.1249, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 208])
+Epoch 0, Step 139: train/loss = 0.17361782491207123, train/raw-loss = 0.08881795406341553, train/logprobs = tensor([[-2.8544, -9.6842],
+        [-6.7619, -2.0677]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1695997416973114
+RAW KL tensor(0.1482, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 214])
+Epoch 0, Step 140: train/loss = 0.39064064621925354, train/raw-loss = 0.32884228229522705, train/logprobs = tensor([[-3.0635, -7.7170],
+        [-5.8765, -3.2057]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12359674274921417
+RAW KL tensor(0.0977, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 135])
+Epoch 0, Step 141: train/loss = 0.6505870223045349, train/raw-loss = 0.5737771391868591, train/logprobs = tensor([[-2.1126, -7.6951],
+        [-7.6338, -5.1633]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1536199003458023
+RAW KL tensor(0.1087, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 144])
+Epoch 0, Step 142: train/loss = 0.12674422562122345, train/raw-loss = 0.06265651434659958, train/logprobs = tensor([[-3.0576, -9.5871],
+        [-8.5190, -1.5623]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12817543745040894
+RAW KL tensor(0.1467, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 172])
+Epoch 0, Step 143: train/loss = 0.08552837371826172, train/raw-loss = 0.011878814548254013, train/logprobs = tensor([[ -2.9545,  -7.2501],
+        [-12.9145,  -1.5364]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14729911088943481
+RAW KL tensor(0.0740, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 177])
+Epoch 0, Step 144: train/loss = 0.19955827295780182, train/raw-loss = 0.12878529727458954, train/logprobs = tensor([[-2.6297, -5.9944],
+        [-6.9478, -3.1804]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.14154590666294098
+RAW KL tensor(0.0779, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 122])
+Epoch 0, Step 145: train/loss = 0.5138787031173706, train/raw-loss = 0.43289342522621155, train/logprobs = tensor([[-3.5636, -6.4123],
+        [-7.2109, -5.2738]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.1619706153869629
+RAW KL tensor(0.0935, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 187])
+Epoch 0, Step 146: train/loss = 0.20437754690647125, train/raw-loss = 0.14779330790042877, train/logprobs = tensor([[-1.9189, -6.1753],
+        [-5.0393, -1.8606]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.11316847056150436
+RAW KL tensor(0.2781, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 163])
+Epoch 0, Step 147: train/loss = 0.23434874415397644, train/raw-loss = 0.1319761574268341, train/logprobs = tensor([[-3.3830, -5.7721],
+        [-8.8984, -4.2564]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.20474517345428467
+RAW KL tensor(0.2769, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 158])
+Epoch 0, Step 148: train/loss = 0.37660494446754456, train/raw-loss = 0.26898592710494995, train/logprobs = tensor([[ -2.3832,  -4.4156],
+        [-11.4613,  -5.6533]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.2152380645275116
+RAW KL tensor(0.1009, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 172])
+Epoch 0, Step 149: train/loss = 0.5756765604019165, train/raw-loss = 0.4927799701690674, train/logprobs = tensor([[ -2.2893,  -4.8304],
+        [-10.5855,  -6.6897]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.16579316556453705
+RAW KL tensor(0.2498, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 188])
+Epoch 0, Step 150: train/loss = 0.34113937616348267, train/raw-loss = 0.22618114948272705, train/logprobs = tensor([[ -3.2364,  -6.2591],
+        [-10.9021,  -5.5000]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.22991645336151123
+RAW KL tensor(0.1984, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 182])
+Epoch 0, Step 151: train/loss = 0.29853105545043945, train/raw-loss = 0.2010735124349594, train/logprobs = tensor([[ -2.5878,  -7.3313],
+        [-11.0753,  -3.5798]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.19491508603096008
+RAW KL tensor(0.2004, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 182])
+Epoch 0, Step 152: train/loss = 0.26845046877861023, train/raw-loss = 0.18992678821086884, train/logprobs = tensor([[-2.8417, -6.9923],
+        [-8.2187, -2.4606]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.15704739093780518
+RAW KL tensor(0.1378, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 125])
+Epoch 0, Step 153: train/loss = 0.3578442931175232, train/raw-loss = 0.2954685389995575, train/logprobs = tensor([[-4.2868, -7.4991],
+        [-6.0192, -1.8635]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.12475152313709259
+RAW KL tensor(0.1265, device='cuda:0', grad_fn=<ToCopyBackward0>)
+SHAPES: torch.Size([4, 203])

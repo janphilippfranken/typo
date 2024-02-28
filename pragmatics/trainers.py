@@ -91,7 +91,7 @@ def _get_batch_logprobs(
     # average token logprobs
     average_token_logprobs = per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
   
-    return average_token_logprobs, per_token_logprobs, loss_mask
+    return average_token_logprobs, per_token_logprobs, loss_mask, logits, labels
 
 
 def prepare_logits_labels(
@@ -351,7 +351,7 @@ class FSDPTrainer:
         logits = logits.to(model.device)
       
         # get batch logprobs
-        batch_logprobs, per_token_logprobs, loss_mask = _get_batch_logprobs(logits, labels)
+        batch_logprobs, per_token_logprobs, loss_mask, logits, labels = _get_batch_logprobs(logits, labels)
         
         # reshape 
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
@@ -375,7 +375,7 @@ class FSDPTrainer:
         
         logits = logits.to(model.device)
 
-        batch_logprobs, per_token_logprobs, loss_mask = _get_batch_logprobs(logits, labels)
+        batch_logprobs, per_token_logprobs, loss_mask, logits, labels = _get_batch_logprobs(logits, labels)
         
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
@@ -385,14 +385,14 @@ class FSDPTrainer:
             
             ref_logits = ref_logits.to(model.device)
         
-            ref_batch_logprobs, ref_per_token_logprobs, ref_loss_mask = _get_batch_logprobs(ref_logits, ref_labels)
+            ref_batch_logprobs, ref_per_token_logprobs, ref_loss_mask, ref_logits, ref_labels = _get_batch_logprobs(ref_logits, ref_labels)
             
             ref_batch_logprobs = ref_batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
       
         # compute loss
         loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
 
-        return loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask
+        return loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask, logits, ref_logits, logits, labels, ref_labels
         
     
     def _run_batch(
@@ -420,20 +420,18 @@ class FSDPTrainer:
         
         elif self.config.ppo.loss == "with_labels":
             # compute policy and reference metrics
-            loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
+            loss, batch_logprobs, ref_batch_logprobs, per_token_logprobs, ref_per_token_logprobs, loss_mask, ref_loss_mask, logits, ref_logits, logits, labels, ref_labels = self.compute_metrics_with_labels(self.model, self.reference_model, batch)
                      
             if self.config.ppo.kl == 'per_token_kl':
                 
-                try:
-                    kl_div = kl_divergence_from_logits_per_token(
-                        logprobs_policy_logits=per_token_logprobs, 
-                        logprobs_reference_logits=ref_per_token_logprobs, 
-                        loss_mask_policy=loss_mask, 
-                        loss_mask_reference=ref_loss_mask,
-                    )
-                except:
-                    print("FAILED TO COMPUTE KLD")
-                    kl_div = torch.FloatTensor(1.0)
+                kl_div = kl_divergence_from_logits_per_token(
+                    policy_logits=logits,
+                    ref_logits=ref_logits,
+                    policy_labels=labels,
+                    ref_labels=ref_labels,
+                    policy_mask=loss_mask, 
+                    ref_mask=ref_loss_mask,
+                )
                 
                 kl_div = kl_div.to(self.local_rank)
                 if self.local_rank == 0:

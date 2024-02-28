@@ -111,15 +111,11 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task:
-    - ppo.beta=0.5
-    - ppo.max_iter=0
-    - wandb.name=beta-0.5-per-token-kl
-    - training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl
+    task: []
   job:
     name: train
     chdir: null
-    override_dirname: ppo.beta=0.5,ppo.max_iter=0,training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl,wandb.name=beta-0.5-per-token-kl
+    override_dirname: ''
     id: ???
     num: ???
     config_name: config
@@ -147,7 +143,7 @@ hydra:
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/pragmatics/outputs
     choices:
       data: hh_rlhf_cai
-      model: mistral_7b_base
+      model: mistral_tiny_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

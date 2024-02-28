@@ -58,8 +58,8 @@ def main(args: DictConfig) -> None:
     torch.autograd.set_detect_anomaly(True)
     
     # wandb
-    args_dict = OmegaConf.to_container(args, resolve=True)
-    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    # args_dict = OmegaConf.to_container(args, resolve=True)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])
@@ -138,8 +138,8 @@ def main(args: DictConfig) -> None:
     if args.ppo.loss == "with_labels":
         dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
         dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-        dataset_list_helpful = [format_model_written_example_with_reference(example) for example in dataset_dict_helpful.values()][:5000]
-        dataset_list_harmless = [format_model_written_example_with_reference(example) for example in dataset_dict_harmless.values()][:5000]
+        dataset_list_helpful = [format_model_written_example_with_reference(example) for example in dataset_dict_helpful.values()][:50]
+        dataset_list_harmless = [format_model_written_example_with_reference(example) for example in dataset_dict_harmless.values()][:50]
         if local_rank == 0:
             print(f"n helpful: {len(dataset_list_helpful)}")
             print(f"n harmless: {len(dataset_list_harmless)}")

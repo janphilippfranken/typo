@@ -94,28 +94,24 @@ def pragmatic_loss_no_reference(
     return loss
 
 
-def kl_divergence_from_logits_per_token(
-    logprobs_policy_logits: torch.FloatTensor, 
-    logprobs_reference_logits: torch.FloatTensor, 
-    loss_mask_policy: torch.BoolTensor,
-    loss_mask_reference: torch.BoolTensor,
+def kl_divergence_from_logits(
+    policy_logits: torch.FloatTensor,
+    ref_logits: torch.FloatTensor,
 ) -> torch.FloatTensor:
-    """Compute the kl divergence between policy and reference model."""
-    kl_divergences = torch.zeros(logprobs_policy_logits.shape[0])
+    """Compute the kl divergence between policy and reference model.
+    
+    Args:
+        policy_logits: Shape: (batch_size, sequence_length, vocab_size)
+        ref_logits: Shape: (batch_size, sequence_length, vocab_size)        
+    """
+    kl_divergences = torch.zeros(policy_logits.shape[0])
+    
+    policy_probs = F.softmax(policy_logits, dim=-1)
+    ref_probs = F.softmax(ref_logits, dim=-1)
+    breakpoint()
+    for i in range(policy_logits.shape[0]):  # iterate over batch
+        print(i)
+    
+    
 
-    for i in range(logprobs_policy_logits.shape[0]):
-        
-        policy_logits = logprobs_policy_logits[i][~loss_mask_policy[i]]
-        reference_logits = logprobs_reference_logits[i][~loss_mask_reference[i]]
-        
-        logsumexp_policy = torch.logsumexp(policy_logits, dim=-1)
-        log_probs_policy = policy_logits - logsumexp_policy
 
-        log_probs_reference = reference_logits - logsumexp_policy
-
-        probs_policy = torch.exp(log_probs_policy)
-
-        kl_divergence = (probs_policy * (log_probs_policy - log_probs_reference)).sum()
-        kl_divergences[i] = kl_divergence
-
-    return kl_divergences.mean()

@@ -1,12 +1,12 @@
 model:
   model_type: huggingface
-  name: mistral_7b_base
+  name: mistral_tiny_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: openaccess-ai-collective/tiny-mistral
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1-Tiny
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: openaccess-ai-collective/tiny-mistral
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1-Tiny
     model_max_length: 2048
 data:
   data_path: /scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/
@@ -17,10 +17,10 @@ data:
 wandb:
   project: scai-with-labels
   log_model: checkpoint
-  name: beta-0.5-per-token-kl
+  name: helpf-harml
 ppo:
-  beta: 0.5
-  max_iter: 0
+  beta: 0.0
+  max_iter: 1
   loss: with_labels
   kl: per_token_kl
 training:
@@ -30,7 +30,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 0.95
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.5-per-token-kl
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.3-max-iter-1
   max_grad_norm: 2.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 1
