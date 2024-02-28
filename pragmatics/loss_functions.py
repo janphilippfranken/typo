@@ -91,3 +91,29 @@ def pragmatic_loss_no_reference(
     loss = F.cross_entropy(logits, labels, reduction="mean")
    
     return loss
+
+
+def pragmatic_double_loss_no_reference(
+    logprobs: torch.FloatTensor,
+) -> torch.FloatTensor:
+    """Compute the pragmatic loss for a batch of response log probabilities.
+    
+    Args:
+        logprobs: The log probabilities of the responses from the policy. Shape: (batch_size, batch_size).
+
+    Returns:
+        pragmatic_loss: The pragmatic loss for the batch of responses.
+    """
+    # normalization constants
+    logsumexp = torch.logsumexp(logprobs, dim=0, keepdim=True)
+    
+    # logits
+    logits = logprobs - logsumexp
+    logits_t = logits.t()
+    
+    labels = torch.arange(logprobs.size(0)).long().to(logprobs.device)
+    
+    loss_row = F.cross_entropy(logits, labels, reduction="mean")
+    loss_col = F.cross_entropy(logits_t, labels, reduction="mean")
+    
+    return (loss_row + loss_col) / 2
