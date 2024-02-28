@@ -1,0 +1,1049 @@
+[2024-02-28 09:22:07,952][root][INFO] - beta: 5.0
+[2024-02-28 09:22:07,952][root][INFO] - loss no_reference
+[2024-02-28 09:22:07,952][root][INFO] - max_iter: 0
+[2024-02-28 09:22:07,953][root][INFO] - writing checkpoints to: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-5.0-no-ref
+clearing gpu cache for all ranks
+Model with 7241.732096M params prepared
+n helpful: 5000
+n harmless: 5000
+Loaded model on rank 3
+Loaded reference model on rank 3
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-5.0-no-ref after each epoch.
+Loaded model on rank 1
+Loaded reference model on rank 1
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-5.0-no-ref after each epoch.
+Loaded model on rank 2
+Loaded reference model on rank 2
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-5.0-no-ref after each epoch.
+tokenized 9500 training examples...
+train dataset has 9500 examples.
+eval dataset has 500 examples.
+Loaded model on rank 0
+Loaded reference model on rank 0
+Writing checkpoints to /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-5.0-no-ref after each epoch.
+NO REF
+Epoch 0, Step 0: train/loss = 38.12364196777344, train/raw-loss = 0.6982459425926208, train/logprobs = tensor([[-0.8431, -2.6125],
+        [-0.8326, -2.6216]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.485079765319824
+NO REF
+Epoch 0, Step 1: train/loss = 36.760189056396484, train/raw-loss = 0.6927576065063477, train/logprobs = tensor([[-1.2483, -1.6199],
+        [-1.2440, -1.6139]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.213486194610596
+NO REF
+Epoch 0, Step 2: train/loss = 42.17523956298828, train/raw-loss = 0.6911906003952026, train/logprobs = tensor([[-1.0892, -2.0869],
+        [-1.1206, -2.1103]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.296809196472168
+NO REF
+Epoch 0, Step 3: train/loss = 39.50940704345703, train/raw-loss = 0.683082103729248, train/logprobs = tensor([[-0.5922, -1.4420],
+        [-0.5997, -1.4088]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.765264987945557
+NO REF
+Epoch 0, Step 4: train/loss = 39.96910095214844, train/raw-loss = 0.6809808611869812, train/logprobs = tensor([[-0.9682, -2.2517],
+        [-1.0031, -2.2372]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.857624053955078
+NO REF
+Epoch 0, Step 5: train/loss = 37.8420524597168, train/raw-loss = 0.6956093311309814, train/logprobs = tensor([[-1.2526, -1.8470],
+        [-1.2661, -1.8698]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.429288864135742
+NO REF
+Epoch 0, Step 6: train/loss = 40.688446044921875, train/raw-loss = 0.6880804300308228, train/logprobs = tensor([[-0.9823, -1.5991],
+        [-1.0011, -1.5974]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.000072479248047
+NO REF
+Epoch 0, Step 7: train/loss = 39.21908950805664, train/raw-loss = 0.7000260353088379, train/logprobs = tensor([[-1.0630, -1.5507],
+        [-1.1077, -1.6226]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.703812599182129
+NO REF
+Epoch 0, Step 8: train/loss = 39.740692138671875, train/raw-loss = 0.69095379114151, train/logprobs = tensor([[-0.8023, -1.7333],
+        [-0.7871, -1.7088]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.809947490692139
+NO REF
+Epoch 0, Step 9: train/loss = 37.64026641845703, train/raw-loss = 0.6885494589805603, train/logprobs = tensor([[-1.0835, -1.7181],
+        [-1.0813, -1.6973]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.390342712402344
+NO REF
+Epoch 0, Step 10: train/loss = 36.21549987792969, train/raw-loss = 0.672865092754364, train/logprobs = tensor([[-1.1971, -2.5060],
+        [-1.2764, -2.5027]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.108527183532715
+NO REF
+Epoch 0, Step 11: train/loss = 39.03993225097656, train/raw-loss = 0.6858569979667664, train/logprobs = tensor([[-0.7466, -1.5640],
+        [-0.7228, -1.5107]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.6708149909973145
+NO REF
+Epoch 0, Step 12: train/loss = 40.088993072509766, train/raw-loss = 0.6853731870651245, train/logprobs = tensor([[-0.7433, -1.8789],
+        [-0.7825, -1.8867]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.8807244300842285
+NO REF
+Epoch 0, Step 13: train/loss = 36.97785949707031, train/raw-loss = 0.6819406747817993, train/logprobs = tensor([[-0.7519, -1.6611],
+        [-0.7745, -1.6382]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.259183406829834
+NO REF
+Epoch 0, Step 14: train/loss = 37.351959228515625, train/raw-loss = 0.6828880906105042, train/logprobs = tensor([[-1.1222, -1.7514],
+        [-1.1230, -1.7108]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.3338141441345215
+NO REF
+Epoch 0, Step 15: train/loss = 37.767845153808594, train/raw-loss = 0.6997902393341064, train/logprobs = tensor([[-1.0901, -1.5558],
+        [-1.0901, -1.5823]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.41361141204834
+NO REF
+Epoch 0, Step 16: train/loss = 35.79228210449219, train/raw-loss = 0.6730453372001648, train/logprobs = tensor([[-0.9616, -2.0296],
+        [-0.9940, -1.9801]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.0238471031188965
+NO REF
+Epoch 0, Step 17: train/loss = 40.07946014404297, train/raw-loss = 0.6902825236320496, train/logprobs = tensor([[-1.0904, -1.5065],
+        [-1.0878, -1.4924]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.877835750579834
+NO REF
+Epoch 0, Step 18: train/loss = 38.134708404541016, train/raw-loss = 0.689374566078186, train/logprobs = tensor([[-1.1498, -1.6923],
+        [-1.1412, -1.6685]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.4890666007995605
+NO REF
+Epoch 0, Step 19: train/loss = 39.6329345703125, train/raw-loss = 0.6922892332077026, train/logprobs = tensor([[-0.7575, -1.3558],
+        [-0.7511, -1.3457]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.788128852844238
+NO REF
+Epoch 0, Step 20: train/loss = 40.76662063598633, train/raw-loss = 0.682952880859375, train/logprobs = tensor([[-0.6982, -1.6722],
+        [-0.7384, -1.6710]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.016733169555664
+NO REF
+Epoch 0, Step 21: train/loss = 38.2618522644043, train/raw-loss = 0.6923616528511047, train/logprobs = tensor([[-0.9935, -1.2997],
+        [-0.9919, -1.2949]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.513897895812988
+NO REF
+Epoch 0, Step 22: train/loss = 42.54308319091797, train/raw-loss = 0.6850104331970215, train/logprobs = tensor([[-1.1048, -1.2115],
+        [-1.1166, -1.1903]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.371614456176758
+NO REF
+Epoch 0, Step 23: train/loss = 37.20648193359375, train/raw-loss = 0.7051562666893005, train/logprobs = tensor([[-1.1101, -1.9440],
+        [-1.1279, -2.0090]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.300265312194824
+NO REF
+Epoch 0, Step 24: train/loss = 37.88626480102539, train/raw-loss = 0.6885160207748413, train/logprobs = tensor([[-0.9510, -2.1814],
+        [-0.9490, -2.1607]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.439549922943115
+NO REF
+Epoch 0, Step 25: train/loss = 41.40078353881836, train/raw-loss = 0.6840556859970093, train/logprobs = tensor([[-0.8277, -2.2563],
+        [-0.8247, -2.2167]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.14334487915039
+NO REF
+Epoch 0, Step 26: train/loss = 39.538551330566406, train/raw-loss = 0.6952240467071533, train/logprobs = tensor([[-0.5759, -2.1066],
+        [-0.6087, -2.1473]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.7686662673950195
+NO REF
+Epoch 0, Step 27: train/loss = 39.01667785644531, train/raw-loss = 0.6866408586502075, train/logprobs = tensor([[-1.0402, -2.5564],
+        [-1.0804, -2.5702]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.666007041931152
+NO REF
+Epoch 0, Step 28: train/loss = 38.241695404052734, train/raw-loss = 0.6864439845085144, train/logprobs = tensor([[-0.8392, -1.7205],
+        [-0.8369, -1.6912]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.511050224304199
+NO REF
+Epoch 0, Step 29: train/loss = 40.176422119140625, train/raw-loss = 0.6927783489227295, train/logprobs = tensor([[-0.5879, -1.8914],
+        [-0.5988, -1.9005]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.896728992462158
+NO REF
+Epoch 0, Step 30: train/loss = 42.778770446777344, train/raw-loss = 0.6891547441482544, train/logprobs = tensor([[-0.8561, -1.1920],
+        [-0.8388, -1.1585]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.417922973632812
+NO REF
+Epoch 0, Step 31: train/loss = 37.23061752319336, train/raw-loss = 0.6650798916816711, train/logprobs = tensor([[-1.0550, -2.2670],
+        [-1.0818, -2.1798]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.313107490539551
+NO REF
+Epoch 0, Step 32: train/loss = 35.26996994018555, train/raw-loss = 0.6817841529846191, train/logprobs = tensor([[-0.9240, -1.9170],
+        [-0.9467, -1.8934]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.917636871337891
+NO REF
+Epoch 0, Step 33: train/loss = 37.67035675048828, train/raw-loss = 0.6962257623672485, train/logprobs = tensor([[-0.8779, -1.8828],
+        [-0.8573, -1.8740]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.3948259353637695
+NO REF
+Epoch 0, Step 34: train/loss = 38.990089416503906, train/raw-loss = 0.6830646991729736, train/logprobs = tensor([[-1.0511, -1.5128],
+        [-1.0826, -1.5036]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.661405563354492
+NO REF
+Epoch 0, Step 35: train/loss = 36.69239807128906, train/raw-loss = 0.686450183391571, train/logprobs = tensor([[-0.9902, -1.8427],
+        [-0.9916, -1.8163]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.2011895179748535
+NO REF
+Epoch 0, Step 36: train/loss = 38.21875762939453, train/raw-loss = 0.6854157447814941, train/logprobs = tensor([[-1.2729, -1.4568],
+        [-1.2776, -1.4303]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.506668567657471
+NO REF
+Epoch 0, Step 37: train/loss = 42.60071563720703, train/raw-loss = 0.6873679757118225, train/logprobs = tensor([[-0.6132, -1.4763],
+        [-0.6105, -1.4501]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.382669448852539
+NO REF
+Epoch 0, Step 38: train/loss = 38.58570098876953, train/raw-loss = 0.6820933818817139, train/logprobs = tensor([[-0.8017, -1.5622],
+        [-0.8207, -1.5360]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.580721378326416
+NO REF
+Epoch 0, Step 39: train/loss = 39.292083740234375, train/raw-loss = 0.6942732334136963, train/logprobs = tensor([[-0.6779, -1.3967],
+        [-0.6694, -1.3926]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.7195611000061035
+NO REF
+Epoch 0, Step 40: train/loss = 44.295013427734375, train/raw-loss = 0.6925367116928101, train/logprobs = tensor([[-0.7632, -1.1195],
+        [-0.7654, -1.1192]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.720495223999023
+NO REF
+Epoch 0, Step 41: train/loss = 37.2856330871582, train/raw-loss = 0.6745795011520386, train/logprobs = tensor([[-0.8216, -1.7078],
+        [-0.8400, -1.6511]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.322210311889648
+NO REF
+Epoch 0, Step 42: train/loss = 42.50933074951172, train/raw-loss = 0.6901561617851257, train/logprobs = tensor([[-0.6560, -1.7110],
+        [-0.6654, -1.7076]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.363835334777832
+NO REF
+Epoch 0, Step 43: train/loss = 37.758758544921875, train/raw-loss = 0.6853759288787842, train/logprobs = tensor([[-1.0934, -2.2801],
+        [-1.0771, -2.2323]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.414676189422607
+NO REF
+Epoch 0, Step 44: train/loss = 39.720035552978516, train/raw-loss = 0.6898376941680908, train/logprobs = tensor([[-0.9415, -1.1740],
+        [-0.9243, -1.1435]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.806040287017822
+NO REF
+Epoch 0, Step 45: train/loss = 37.4030876159668, train/raw-loss = 0.6867225170135498, train/logprobs = tensor([[-0.8766, -1.8393],
+        [-0.8959, -1.8327]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.3432722091674805
+NO REF
+Epoch 0, Step 46: train/loss = 34.67097473144531, train/raw-loss = 0.7016013860702515, train/logprobs = tensor([[-1.1262, -2.6505],
+        [-1.1680, -2.7227]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.793874263763428
+NO REF
+Epoch 0, Step 47: train/loss = 41.79878234863281, train/raw-loss = 0.6903706789016724, train/logprobs = tensor([[-0.7199, -1.4910],
+        [-0.7111, -1.4710]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.22168254852295
+NO REF
+Epoch 0, Step 48: train/loss = 39.17588806152344, train/raw-loss = 0.7019170522689819, train/logprobs = tensor([[-1.3350, -1.4101],
+        [-1.3527, -1.4624]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.694794654846191
+NO REF
+Epoch 0, Step 49: train/loss = 37.19031524658203, train/raw-loss = 0.6853922605514526, train/logprobs = tensor([[-0.8395, -1.8763],
+        [-0.8370, -1.8425]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.300985336303711
+NO REF
+Epoch 0, Step 50: train/loss = 37.84198760986328, train/raw-loss = 0.6902340054512024, train/logprobs = tensor([[-1.0832, -1.3937],
+        [-1.0782, -1.3770]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.430350303649902
+NO REF
+Epoch 0, Step 51: train/loss = 37.475921630859375, train/raw-loss = 0.6817266941070557, train/logprobs = tensor([[-0.9913, -1.7751],
+        [-0.9906, -1.7283]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.35883903503418
+NO REF
+Epoch 0, Step 52: train/loss = 45.63249206542969, train/raw-loss = 0.6867333650588989, train/logprobs = tensor([[-0.7081, -0.7210],
+        [-0.7282, -0.7153]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.989151954650879
+NO REF
+Epoch 0, Step 53: train/loss = 39.92023849487305, train/raw-loss = 0.6942867040634155, train/logprobs = tensor([[-0.6088, -1.0795],
+        [-0.5906, -1.0657]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.84519100189209
+NO REF
+Epoch 0, Step 54: train/loss = 36.973175048828125, train/raw-loss = 0.677718460559845, train/logprobs = tensor([[-1.2230, -1.6885],
+        [-1.2433, -1.6452]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.259091854095459
+NO REF
+Epoch 0, Step 55: train/loss = 38.64513397216797, train/raw-loss = 0.6833317279815674, train/logprobs = tensor([[-1.3000, -1.1052],
+        [-1.3418, -1.1073]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.592360973358154
+NO REF
+Epoch 0, Step 56: train/loss = 38.146446228027344, train/raw-loss = 0.6800083518028259, train/logprobs = tensor([[-0.8773, -1.4545],
+        [-0.8995, -1.4236]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.493287563323975
+NO REF
+Epoch 0, Step 57: train/loss = 43.42401885986328, train/raw-loss = 0.6741002798080444, train/logprobs = tensor([[-0.6412, -1.4265],
+        [-0.6492, -1.3568]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.549983978271484
+NO REF
+Epoch 0, Step 58: train/loss = 43.54804611206055, train/raw-loss = 0.6722027063369751, train/logprobs = tensor([[-0.6794, -1.6542],
+        [-0.6772, -1.5657]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.57516860961914
+NO REF
+Epoch 0, Step 59: train/loss = 45.321678161621094, train/raw-loss = 0.6887852549552917, train/logprobs = tensor([[-0.8279, -1.2489],
+        [-0.8414, -1.2448]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.926578521728516
+NO REF
+Epoch 0, Step 60: train/loss = 36.58586502075195, train/raw-loss = 0.6888008713722229, train/logprobs = tensor([[-1.1025, -1.5208],
+        [-1.0788, -1.4796]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.179412841796875
+NO REF
+Epoch 0, Step 61: train/loss = 46.97758102416992, train/raw-loss = 0.6738109588623047, train/logprobs = tensor([[-0.5136, -1.4002],
+        [-0.5257, -1.3338]], device='cuda:0', grad_fn=<DivBackward0>), KL = 9.260753631591797
+NO REF
+Epoch 0, Step 62: train/loss = 37.70751190185547, train/raw-loss = 0.690958559513092, train/logprobs = tensor([[-1.1946, -1.5974],
+        [-1.1819, -1.5757]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.403310775756836
+NO REF
+Epoch 0, Step 63: train/loss = 43.02238845825195, train/raw-loss = 0.6943768262863159, train/logprobs = tensor([[-0.9767, -1.3460],
+        [-0.9932, -1.3672]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.465601921081543
+NO REF
+Epoch 0, Step 64: train/loss = 38.52497100830078, train/raw-loss = 0.6925201416015625, train/logprobs = tensor([[-0.9893, -1.6469],
+        [-0.9720, -1.6269]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.566490173339844
+NO REF
+Epoch 0, Step 65: train/loss = 36.1402702331543, train/raw-loss = 0.6993911862373352, train/logprobs = tensor([[-0.9100, -1.6246],
+        [-0.9105, -1.6486]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.0881757736206055
+NO REF
+Epoch 0, Step 66: train/loss = 37.32255172729492, train/raw-loss = 0.6903510689735413, train/logprobs = tensor([[-1.0882, -2.0062],
+        [-1.0473, -1.9536]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.32643985748291
+NO REF
+Epoch 0, Step 67: train/loss = 37.836612701416016, train/raw-loss = 0.6802306175231934, train/logprobs = tensor([[-0.7083, -1.9158],
+        [-0.6826, -1.8380]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.431276798248291
+NO REF
+Epoch 0, Step 68: train/loss = 39.6744499206543, train/raw-loss = 0.694495439529419, train/logprobs = tensor([[-0.8579, -2.8188],
+        [-0.8441, -2.8095]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.795990943908691
+NO REF
+Epoch 0, Step 69: train/loss = 34.78388214111328, train/raw-loss = 0.6898512840270996, train/logprobs = tensor([[-1.3694, -1.7842],
+        [-1.3800, -1.7813]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.818805694580078
+NO REF
+Epoch 0, Step 70: train/loss = 39.223716735839844, train/raw-loss = 0.6874825954437256, train/logprobs = tensor([[-0.6323, -1.9553],
+        [-0.6105, -1.9105]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.707246780395508
+NO REF
+Epoch 0, Step 71: train/loss = 38.52120590209961, train/raw-loss = 0.6787981390953064, train/logprobs = tensor([[-1.0980, -1.9660],
+        [-1.0996, -1.9093]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.568482398986816
+NO REF
+Epoch 0, Step 72: train/loss = 39.26169967651367, train/raw-loss = 0.6822283267974854, train/logprobs = tensor([[-0.4743, -2.0340],
+        [-0.4741, -1.9897]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.7158942222595215
+NO REF
+Epoch 0, Step 73: train/loss = 38.13359451293945, train/raw-loss = 0.6911142468452454, train/logprobs = tensor([[-0.7826, -1.1821],
+        [-0.8092, -1.2004]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.488495349884033
+NO REF
+Epoch 0, Step 74: train/loss = 36.095458984375, train/raw-loss = 0.6972525119781494, train/logprobs = tensor([[-1.6711, -2.0683],
+        [-1.6373, -2.0508]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.079641819000244
+NO REF
+Epoch 0, Step 75: train/loss = 38.976585388183594, train/raw-loss = 0.6906718015670776, train/logprobs = tensor([[-0.8102, -1.9189],
+        [-0.8004, -1.8990]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.657182693481445
+NO REF
+Epoch 0, Step 76: train/loss = 37.11712646484375, train/raw-loss = 0.6734071969985962, train/logprobs = tensor([[-1.0629, -1.6376],
+        [-1.1395, -1.6339]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.288743495941162
+NO REF
+Epoch 0, Step 77: train/loss = 38.107810974121094, train/raw-loss = 0.6864125728607178, train/logprobs = tensor([[-1.3347, -1.5788],
+        [-1.3541, -1.5708]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.484279155731201
+NO REF
+Epoch 0, Step 78: train/loss = 36.03645324707031, train/raw-loss = 0.6835870146751404, train/logprobs = tensor([[-0.9591, -1.9804],
+        [-0.9842, -1.9667]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.070572853088379
+NO REF
+Epoch 0, Step 79: train/loss = 50.43988800048828, train/raw-loss = 0.6843982934951782, train/logprobs = tensor([[-0.5711, -1.3248],
+        [-0.5736, -1.2919]], device='cuda:0', grad_fn=<DivBackward0>), KL = 9.95109748840332
+NO REF
+Epoch 0, Step 80: train/loss = 35.19123077392578, train/raw-loss = 0.6884524822235107, train/logprobs = tensor([[-1.1608, -2.2299],
+        [-1.1407, -2.1907]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.900556564331055
+NO REF
+Epoch 0, Step 81: train/loss = 38.6273193359375, train/raw-loss = 0.6987583637237549, train/logprobs = tensor([[-0.8937, -2.0581],
+        [-0.9045, -2.0904]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.585712909698486
+NO REF
+Epoch 0, Step 82: train/loss = 36.11530303955078, train/raw-loss = 0.6886188387870789, train/logprobs = tensor([[-1.2864, -1.1149],
+        [-1.3013, -1.1115]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.085336685180664
+NO REF
+Epoch 0, Step 83: train/loss = 37.88637924194336, train/raw-loss = 0.6790697574615479, train/logprobs = tensor([[-0.6780, -1.7938],
+        [-0.6943, -1.7518]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.44146203994751
+NO REF
+Epoch 0, Step 84: train/loss = 41.54111862182617, train/raw-loss = 0.6875730156898499, train/logprobs = tensor([[-0.5853, -2.0649],
+        [-0.5753, -2.0323]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.170709609985352
+NO REF
+Epoch 0, Step 85: train/loss = 34.95745849609375, train/raw-loss = 0.6877439618110657, train/logprobs = tensor([[-0.9977, -2.3131],
+        [-0.9945, -2.2875]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.85394287109375
+NO REF
+Epoch 0, Step 86: train/loss = 36.93907165527344, train/raw-loss = 0.684080958366394, train/logprobs = tensor([[-0.6829, -1.8668],
+        [-0.6898, -1.8371]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.250998497009277
+NO REF
+Epoch 0, Step 87: train/loss = 34.79338836669922, train/raw-loss = 0.7003434896469116, train/logprobs = tensor([[-1.4482, -1.6600],
+        [-1.4456, -1.6859]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.81860876083374
+NO REF
+Epoch 0, Step 88: train/loss = 37.939815521240234, train/raw-loss = 0.6790963411331177, train/logprobs = tensor([[-0.8581, -2.1412],
+        [-0.8780, -2.1042]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.452143669128418
+NO REF
+Epoch 0, Step 89: train/loss = 34.911705017089844, train/raw-loss = 0.6756656169891357, train/logprobs = tensor([[-1.1694, -2.0536],
+        [-1.1561, -1.9691]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.847207546234131
+NO REF
+Epoch 0, Step 90: train/loss = 35.667015075683594, train/raw-loss = 0.6846591830253601, train/logprobs = tensor([[-0.9184, -1.8557],
+        [-0.9532, -1.8563]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.996471405029297
+NO REF
+Epoch 0, Step 91: train/loss = 38.28823471069336, train/raw-loss = 0.6885284781455994, train/logprobs = tensor([[-1.4064, -1.2519],
+        [-1.4304, -1.2573]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.519941329956055
+NO REF
+Epoch 0, Step 92: train/loss = 38.26007080078125, train/raw-loss = 0.6822400689125061, train/logprobs = tensor([[-0.9912, -1.8162],
+        [-1.0299, -1.8103]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.515566349029541
+NO REF
+Epoch 0, Step 93: train/loss = 36.71563720703125, train/raw-loss = 0.6936647891998291, train/logprobs = tensor([[-1.0796, -1.5735],
+        [-1.1095, -1.6056]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.204395294189453
+NO REF
+Epoch 0, Step 94: train/loss = 35.7218017578125, train/raw-loss = 0.6696298122406006, train/logprobs = tensor([[-1.3179, -2.7883],
+        [-1.3698, -2.7446]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.010434627532959
+NO REF
+Epoch 0, Step 95: train/loss = 36.08488082885742, train/raw-loss = 0.6874452829360962, train/logprobs = tensor([[-1.6543, -2.3254],
+        [-1.6604, -2.3086]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.07948637008667
+NO REF
+Epoch 0, Step 96: train/loss = 36.568214416503906, train/raw-loss = 0.691494345664978, train/logprobs = tensor([[-0.9815, -1.8513],
+        [-0.9974, -1.8603]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.175343990325928
+NO REF
+Epoch 0, Step 97: train/loss = 33.887001037597656, train/raw-loss = 0.7002437710762024, train/logprobs = tensor([[-1.9239, -2.8210],
+        [-1.9157, -2.8408]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.6373515129089355
+NO REF
+Epoch 0, Step 98: train/loss = 34.183448791503906, train/raw-loss = 0.6823299527168274, train/logprobs = tensor([[-1.3212, -1.6958],
+        [-1.3466, -1.6774]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.700222969055176
+NO REF
+Epoch 0, Step 99: train/loss = 35.6378173828125, train/raw-loss = 0.6889301538467407, train/logprobs = tensor([[-0.9368, -1.7753],
+        [-0.9343, -1.7552]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.989777565002441
+NO REF
+Epoch 0, Step 100: train/loss = 34.739585876464844, train/raw-loss = 0.6860026121139526, train/logprobs = tensor([[-1.1933, -1.4840],
+        [-1.1811, -1.4432]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.810715675354004
+NO REF
+Epoch 0, Step 101: train/loss = 34.87408447265625, train/raw-loss = 0.6825243830680847, train/logprobs = tensor([[-1.2441, -2.4301],
+        [-1.2717, -2.4146]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.838312149047852
+NO REF
+Epoch 0, Step 102: train/loss = 36.72797775268555, train/raw-loss = 0.6774606108665466, train/logprobs = tensor([[-0.8671, -1.9081],
+        [-0.8367, -1.8143]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.210103988647461
+NO REF
+Epoch 0, Step 103: train/loss = 35.345420837402344, train/raw-loss = 0.6857900619506836, train/logprobs = tensor([[-1.0108, -1.8748],
+        [-1.0609, -1.8951]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.931926727294922
+NO REF
+Epoch 0, Step 104: train/loss = 37.29039001464844, train/raw-loss = 0.6866233348846436, train/logprobs = tensor([[-0.9269, -1.5953],
+        [-0.9501, -1.5919]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.3207526206970215
+NO REF
+Epoch 0, Step 105: train/loss = 34.82187271118164, train/raw-loss = 0.6814993619918823, train/logprobs = tensor([[-1.1675, -1.9752],
+        [-1.1585, -1.9191]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.8280744552612305
+NO REF
+Epoch 0, Step 106: train/loss = 36.56230163574219, train/raw-loss = 0.6892669200897217, train/logprobs = tensor([[-0.8770, -1.9247],
+        [-0.8528, -1.8850]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.1746063232421875
+NO REF
+Epoch 0, Step 107: train/loss = 34.05933380126953, train/raw-loss = 0.6840064525604248, train/logprobs = tensor([[-1.4482, -1.8349],
+        [-1.4687, -1.8185]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.675065040588379
+NO REF
+Epoch 0, Step 108: train/loss = 40.13063430786133, train/raw-loss = 0.6873900890350342, train/logprobs = tensor([[-0.8581, -1.0189],
+        [-0.8563, -0.9937]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.88864803314209
+NO REF
+Epoch 0, Step 109: train/loss = 33.83324432373047, train/raw-loss = 0.7042695879936218, train/logprobs = tensor([[-0.9554, -1.8829],
+        [-0.9230, -1.8944]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.625794887542725
+NO REF
+Epoch 0, Step 110: train/loss = 32.74114990234375, train/raw-loss = 0.6757131814956665, train/logprobs = tensor([[-1.1063, -2.2897],
+        [-1.1001, -2.2086]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.413087368011475
+NO REF
+Epoch 0, Step 111: train/loss = 39.03120422363281, train/raw-loss = 0.7009732723236084, train/logprobs = tensor([[-1.0724, -1.8899],
+        [-1.0770, -1.9256]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.666046619415283
+NO REF
+Epoch 0, Step 112: train/loss = 34.94173049926758, train/raw-loss = 0.6845890283584595, train/logprobs = tensor([[-1.6591, -1.6370],
+        [-1.7185, -1.6615]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.851428031921387
+NO REF
+Epoch 0, Step 113: train/loss = 35.972023010253906, train/raw-loss = 0.6858605742454529, train/logprobs = tensor([[-1.2035, -1.6573],
+        [-1.1900, -1.6144]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.057232856750488
+NO REF
+Epoch 0, Step 114: train/loss = 37.05565643310547, train/raw-loss = 0.6853959560394287, train/logprobs = tensor([[-1.0308, -1.2614],
+        [-1.0451, -1.2446]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.274052143096924
+NO REF
+Epoch 0, Step 115: train/loss = 36.930667877197266, train/raw-loss = 0.6789218187332153, train/logprobs = tensor([[-0.8855, -1.9053],
+        [-0.8524, -1.8145]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.250349521636963
+NO REF
+Epoch 0, Step 116: train/loss = 39.57630920410156, train/raw-loss = 0.6918197870254517, train/logprobs = tensor([[-0.7281, -1.4886],
+        [-0.7373, -1.4924]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.776898384094238
+NO REF
+Epoch 0, Step 117: train/loss = 35.029640197753906, train/raw-loss = 0.6835763454437256, train/logprobs = tensor([[-1.0355, -1.8461],
+        [-1.0050, -1.7765]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.869213104248047
+NO REF
+Epoch 0, Step 118: train/loss = 34.84061050415039, train/raw-loss = 0.6865967512130737, train/logprobs = tensor([[-1.1343, -2.0897],
+        [-1.1549, -2.0838]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.8308024406433105
+NO REF
+Epoch 0, Step 119: train/loss = 33.29671096801758, train/raw-loss = 0.6853055953979492, train/logprobs = tensor([[-1.6664, -1.9539],
+        [-1.7081, -1.9640]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.522281169891357
+NO REF
+Epoch 0, Step 120: train/loss = 33.14405822753906, train/raw-loss = 0.6939669251441956, train/logprobs = tensor([[-1.2727, -2.2955],
+        [-1.2682, -2.2942]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.490018367767334
+NO REF
+Epoch 0, Step 121: train/loss = 35.874176025390625, train/raw-loss = 0.6858806014060974, train/logprobs = tensor([[-0.8643, -1.2444],
+        [-0.8892, -1.2401]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.037659168243408
+NO REF
+Epoch 0, Step 122: train/loss = 35.518898010253906, train/raw-loss = 0.6898058652877808, train/logprobs = tensor([[-1.0513, -2.8388],
+        [-1.0361, -2.8100]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.965818405151367
+NO REF
+Epoch 0, Step 123: train/loss = 36.4055061340332, train/raw-loss = 0.6769112348556519, train/logprobs = tensor([[-1.3176, -1.5528],
+        [-1.3093, -1.4786]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.145719051361084
+NO REF
+Epoch 0, Step 124: train/loss = 37.14311218261719, train/raw-loss = 0.6981053352355957, train/logprobs = tensor([[-0.7403, -1.4882],
+        [-0.6880, -1.4556]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.28900146484375
+NO REF
+Epoch 0, Step 125: train/loss = 33.42327880859375, train/raw-loss = 0.6985177993774414, train/logprobs = tensor([[-1.0446, -2.4772],
+        [-1.0792, -2.5322]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.544952392578125
+NO REF
+Epoch 0, Step 126: train/loss = 38.29172897338867, train/raw-loss = 0.6830241680145264, train/logprobs = tensor([[-1.3018, -2.9436],
+        [-1.3280, -2.9290]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.521740913391113
+NO REF
+Epoch 0, Step 127: train/loss = 35.35140609741211, train/raw-loss = 0.6853046417236328, train/logprobs = tensor([[-1.1877, -2.0487],
+        [-1.1624, -1.9917]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.933219909667969
+NO REF
+Epoch 0, Step 128: train/loss = 33.35328674316406, train/raw-loss = 0.7135733366012573, train/logprobs = tensor([[-1.2166, -1.7390],
+        [-1.2232, -1.8237]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.527942657470703
+NO REF
+Epoch 0, Step 129: train/loss = 32.41104507446289, train/raw-loss = 0.6910964250564575, train/logprobs = tensor([[-1.4472, -2.2246],
+        [-1.4444, -2.2127]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.343989372253418
+NO REF
+Epoch 0, Step 130: train/loss = 34.66804122924805, train/raw-loss = 0.6898179054260254, train/logprobs = tensor([[-1.3982, -2.7336],
+        [-1.4097, -2.7317]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.795644283294678
+NO REF
+Epoch 0, Step 131: train/loss = 32.35747528076172, train/raw-loss = 0.6838481426239014, train/logprobs = tensor([[-1.8806, -1.8401],
+        [-1.9164, -1.8383]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.334725379943848
+NO REF
+Epoch 0, Step 132: train/loss = 35.02834701538086, train/raw-loss = 0.6697901487350464, train/logprobs = tensor([[-1.1496, -2.2150],
+        [-1.2212, -2.1892]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.871711254119873
+NO REF
+Epoch 0, Step 133: train/loss = 31.731597900390625, train/raw-loss = 0.6867374777793884, train/logprobs = tensor([[-1.6825, -2.0014],
+        [-1.7401, -2.0318]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.208972454071045
+NO REF
+Epoch 0, Step 134: train/loss = 34.278011322021484, train/raw-loss = 0.697057843208313, train/logprobs = tensor([[-1.2496, -1.8497],
+        [-1.2668, -1.8821]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.716191291809082
+NO REF
+Epoch 0, Step 135: train/loss = 31.454586029052734, train/raw-loss = 0.6846241354942322, train/logprobs = tensor([[-1.7578, -1.7348],
+        [-1.7980, -1.7407]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.153992652893066
+NO REF
+Epoch 0, Step 136: train/loss = 32.657772064208984, train/raw-loss = 0.6914685964584351, train/logprobs = tensor([[-1.7986, -2.5096],
+        [-1.8030, -2.5071]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.393260478973389
+NO REF
+Epoch 0, Step 137: train/loss = 33.170249938964844, train/raw-loss = 0.6843416094779968, train/logprobs = tensor([[-1.8785, -1.7949],
+        [-1.9105, -1.7916]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.497181415557861
+NO REF
+Epoch 0, Step 138: train/loss = 33.82510757446289, train/raw-loss = 0.6852883100509644, train/logprobs = tensor([[-1.3831, -2.1699],
+        [-1.3609, -2.1159]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.627963542938232
+NO REF
+Epoch 0, Step 139: train/loss = 32.889469146728516, train/raw-loss = 0.6883997917175293, train/logprobs = tensor([[-1.3906, -2.6091],
+        [-1.4368, -2.6356]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.440214157104492
+NO REF
+Epoch 0, Step 140: train/loss = 34.73323059082031, train/raw-loss = 0.684888482093811, train/logprobs = tensor([[-1.2067, -2.4942],
+        [-1.2379, -2.4920]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.80966854095459
+NO REF
+Epoch 0, Step 141: train/loss = 35.34545135498047, train/raw-loss = 0.6922292709350586, train/logprobs = tensor([[-1.0253, -2.2142],
+        [-1.0264, -2.2112]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.930644989013672
+NO REF
+Epoch 0, Step 142: train/loss = 30.94888687133789, train/raw-loss = 0.674316942691803, train/logprobs = tensor([[-1.6064, -2.2132],
+        [-1.6250, -2.1548]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.054914474487305
+NO REF
+Epoch 0, Step 143: train/loss = 31.809585571289062, train/raw-loss = 0.6918021440505981, train/logprobs = tensor([[-1.8810, -2.0148],
+        [-1.9026, -2.0309]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.2235565185546875
+NO REF
+Epoch 0, Step 144: train/loss = 34.80411148071289, train/raw-loss = 0.6897225975990295, train/logprobs = tensor([[-1.1648, -2.0321],
+        [-1.1765, -2.0298]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.822877883911133
+NO REF
+Epoch 0, Step 145: train/loss = 35.41608428955078, train/raw-loss = 0.700869083404541, train/logprobs = tensor([[-1.5407, -1.7318],
+        [-1.4837, -1.7054]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.943041801452637
+NO REF
+Epoch 0, Step 146: train/loss = 35.3134880065918, train/raw-loss = 0.6825747489929199, train/logprobs = tensor([[-1.0651, -1.9706],
+        [-1.0795, -1.9424]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.926182746887207
+NO REF
+Epoch 0, Step 147: train/loss = 34.42349624633789, train/raw-loss = 0.6811460256576538, train/logprobs = tensor([[-1.6473, -1.9263],
+        [-1.6733, -1.9036]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.748469352722168
+NO REF
+Epoch 0, Step 148: train/loss = 39.960411071777344, train/raw-loss = 0.6934659481048584, train/logprobs = tensor([[-1.2538, -1.5771],
+        [-1.2556, -1.5798]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.853388786315918
+NO REF
+Epoch 0, Step 149: train/loss = 39.40920639038086, train/raw-loss = 0.6899168491363525, train/logprobs = tensor([[-1.2368, -1.8778],
+        [-1.2566, -1.8845]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.743857383728027
+NO REF
+Epoch 0, Step 150: train/loss = 36.358238220214844, train/raw-loss = 0.6822797656059265, train/logprobs = tensor([[-1.4849, -2.0507],
+        [-1.5007, -2.0226]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.135191917419434
+NO REF
+Epoch 0, Step 151: train/loss = 36.375335693359375, train/raw-loss = 0.6943705081939697, train/logprobs = tensor([[-1.1150, -1.6895],
+        [-1.1306, -1.7093]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.13619327545166
+NO REF
+Epoch 0, Step 152: train/loss = 34.0551643371582, train/raw-loss = 0.6910619139671326, train/logprobs = tensor([[-1.0775, -2.0716],
+        [-1.0820, -2.0677]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.672820091247559
+NO REF
+Epoch 0, Step 153: train/loss = 33.81884765625, train/raw-loss = 0.6936530470848083, train/logprobs = tensor([[-1.3464, -2.0732],
+        [-1.4184, -2.1462]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.625039100646973
+NO REF
+Epoch 0, Step 154: train/loss = 32.868614196777344, train/raw-loss = 0.6915032863616943, train/logprobs = tensor([[-1.6086, -2.4060],
+        [-1.6178, -2.4078]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.435422420501709
+NO REF
+Epoch 0, Step 155: train/loss = 36.075477600097656, train/raw-loss = 0.6946532726287842, train/logprobs = tensor([[-1.0993, -1.8746],
+        [-1.0791, -1.8603]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.076164722442627
+NO REF
+Epoch 0, Step 156: train/loss = 33.617095947265625, train/raw-loss = 0.6937298774719238, train/logprobs = tensor([[-1.2469, -2.4525],
+        [-1.2364, -2.4438]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.584672927856445
+NO REF
+Epoch 0, Step 157: train/loss = 35.825836181640625, train/raw-loss = 0.6874634027481079, train/logprobs = tensor([[-1.2190, -1.4359],
+        [-1.2253, -1.4191]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.027674198150635
+NO REF
+Epoch 0, Step 158: train/loss = 33.635772705078125, train/raw-loss = 0.6879490613937378, train/logprobs = tensor([[-1.0793, -0.9592],
+        [-1.0780, -0.9371]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.589564800262451
+NO REF
+Epoch 0, Step 159: train/loss = 37.165096282958984, train/raw-loss = 0.687065601348877, train/logprobs = tensor([[-1.1502, -1.5505],
+        [-1.1400, -1.5155]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.295605182647705
+NO REF
+Epoch 0, Step 160: train/loss = 36.99538040161133, train/raw-loss = 0.6859918832778931, train/logprobs = tensor([[-1.1732, -1.6251],
+        [-1.1663, -1.5894]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.261877536773682
+NO REF
+Epoch 0, Step 161: train/loss = 31.943115234375, train/raw-loss = 0.6992001533508301, train/logprobs = tensor([[-1.3857, -2.3951],
+        [-1.4011, -2.4340]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.248782634735107
+NO REF
+Epoch 0, Step 162: train/loss = 31.61374282836914, train/raw-loss = 0.699571967124939, train/logprobs = tensor([[-1.0493, -2.5948],
+        [-1.0403, -2.6110]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.182834625244141
+NO REF
+Epoch 0, Step 163: train/loss = 30.489334106445312, train/raw-loss = 0.6791722178459167, train/logprobs = tensor([[-1.6756, -2.1000],
+        [-1.6843, -2.0522]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.962032318115234
+NO REF
+Epoch 0, Step 164: train/loss = 30.90715789794922, train/raw-loss = 0.6816507577896118, train/logprobs = tensor([[-2.0222, -1.8945],
+        [-2.0567, -1.8824]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.045101642608643
+NO REF
+Epoch 0, Step 165: train/loss = 30.349666595458984, train/raw-loss = 0.6964514255523682, train/logprobs = tensor([[-1.3884, -2.4225],
+        [-1.3798, -2.4271]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.930643081665039
+NO REF
+Epoch 0, Step 166: train/loss = 31.336076736450195, train/raw-loss = 0.7074661254882812, train/logprobs = tensor([[-1.2087, -2.3689],
+        [-1.2158, -2.4319]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.1257219314575195
+NO REF
+Epoch 0, Step 167: train/loss = 31.67020034790039, train/raw-loss = 0.6876310706138611, train/logprobs = tensor([[-1.7110, -1.6822],
+        [-1.7653, -1.7141]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.1965131759643555
+NO REF
+Epoch 0, Step 168: train/loss = 37.387577056884766, train/raw-loss = 0.7009071111679077, train/logprobs = tensor([[-1.4535, -1.6583],
+        [-1.4660, -1.7013]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.337334156036377
+NO REF
+Epoch 0, Step 169: train/loss = 33.10133361816406, train/raw-loss = 0.6848465204238892, train/logprobs = tensor([[-1.2111, -1.8864],
+        [-1.2353, -1.8771]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.483297824859619
+NO REF
+Epoch 0, Step 170: train/loss = 35.345157623291016, train/raw-loss = 0.6931278109550476, train/logprobs = tensor([[-0.8977, -2.2810],
+        [-0.9036, -2.2867]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.930405616760254
+NO REF
+Epoch 0, Step 171: train/loss = 30.96087646484375, train/raw-loss = 0.6968933343887329, train/logprobs = tensor([[-1.6169, -1.9975],
+        [-1.6271, -2.0225]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.052796840667725
+NO REF
+Epoch 0, Step 172: train/loss = 33.27524185180664, train/raw-loss = 0.6826825141906738, train/logprobs = tensor([[-1.3281, -2.0962],
+        [-1.3359, -2.0613]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.5185112953186035
+NO REF
+Epoch 0, Step 173: train/loss = 29.618961334228516, train/raw-loss = 0.6958184242248535, train/logprobs = tensor([[-1.5577, -2.7144],
+        [-1.6016, -2.7678]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.784628868103027
+NO REF
+Epoch 0, Step 174: train/loss = 30.451200485229492, train/raw-loss = 0.6955368518829346, train/logprobs = tensor([[-1.7153, -2.7566],
+        [-1.7175, -2.7678]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.951132774353027
+NO REF
+Epoch 0, Step 175: train/loss = 30.633808135986328, train/raw-loss = 0.6893718242645264, train/logprobs = tensor([[-1.9200, -2.0451],
+        [-1.9390, -2.0489]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.988887310028076
+NO REF
+Epoch 0, Step 176: train/loss = 32.30889129638672, train/raw-loss = 0.6931753158569336, train/logprobs = tensor([[-1.1906, -2.3872],
+        [-1.2031, -2.3990]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.323143482208252
+NO REF
+Epoch 0, Step 177: train/loss = 33.4135856628418, train/raw-loss = 0.6839314103126526, train/logprobs = tensor([[-1.2979, -1.8030],
+        [-1.3033, -1.7713]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.545930862426758
+NO REF
+Epoch 0, Step 178: train/loss = 32.28001403808594, train/raw-loss = 0.6942085027694702, train/logprobs = tensor([[-1.1550, -2.3290],
+        [-1.1645, -2.3426]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.3171610832214355
+NO REF
+Epoch 0, Step 179: train/loss = 30.31147003173828, train/raw-loss = 0.6765987277030945, train/logprobs = tensor([[-1.7145, -2.2756],
+        [-1.7549, -2.2492]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.926974296569824
+NO REF
+Epoch 0, Step 180: train/loss = 36.07209777832031, train/raw-loss = 0.6828340291976929, train/logprobs = tensor([[-1.6046, -1.7810],
+        [-1.6407, -1.7752]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.077852249145508
+NO REF
+Epoch 0, Step 181: train/loss = 37.588951110839844, train/raw-loss = 0.6930809020996094, train/logprobs = tensor([[-1.2847, -1.9005],
+        [-1.2926, -1.9081]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.37917423248291
+NO REF
+Epoch 0, Step 182: train/loss = 36.21211242675781, train/raw-loss = 0.6872456073760986, train/logprobs = tensor([[-1.4352, -1.7281],
+        [-1.4402, -1.7093]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.104972839355469
+NO REF
+Epoch 0, Step 183: train/loss = 33.58747100830078, train/raw-loss = 0.6863717436790466, train/logprobs = tensor([[-1.2797, -2.2824],
+        [-1.2942, -2.2696]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.580219745635986
+NO REF
+Epoch 0, Step 184: train/loss = 30.73760414123535, train/raw-loss = 0.6853556632995605, train/logprobs = tensor([[-1.3799, -2.1559],
+        [-1.4083, -2.1530]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.0104498863220215
+NO REF
+Epoch 0, Step 185: train/loss = 34.07606887817383, train/raw-loss = 0.7055784463882446, train/logprobs = tensor([[-1.2466, -2.0569],
+        [-1.2586, -2.1179]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.674098014831543
+NO REF
+Epoch 0, Step 186: train/loss = 31.623172760009766, train/raw-loss = 0.6907520294189453, train/logprobs = tensor([[-1.2251, -2.3700],
+        [-1.2039, -2.3391]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.186484336853027
+NO REF
+Epoch 0, Step 187: train/loss = 35.27836227416992, train/raw-loss = 0.7010705471038818, train/logprobs = tensor([[-1.5133, -2.0078],
+        [-1.4850, -2.0101]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.915457725524902
+NO REF
+Epoch 0, Step 188: train/loss = 31.212663650512695, train/raw-loss = 0.6876805424690247, train/logprobs = tensor([[-1.7794, -2.2665],
+        [-1.7899, -2.2544]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.104996681213379
+NO REF
+Epoch 0, Step 189: train/loss = 36.22466278076172, train/raw-loss = 0.680390477180481, train/logprobs = tensor([[-1.3519, -1.7529],
+        [-1.3886, -1.7379]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.108855247497559
+NO REF
+Epoch 0, Step 190: train/loss = 30.484956741333008, train/raw-loss = 0.6773771047592163, train/logprobs = tensor([[-1.9355, -2.0579],
+        [-1.9831, -2.0416]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.961516380310059
+NO REF
+Epoch 0, Step 191: train/loss = 31.10767936706543, train/raw-loss = 0.6924692392349243, train/logprobs = tensor([[-1.4153, -1.9894],
+        [-1.4414, -2.0122]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.083042144775391
+NO REF
+Epoch 0, Step 192: train/loss = 30.82365608215332, train/raw-loss = 0.6985141634941101, train/logprobs = tensor([[-1.8320, -2.0155],
+        [-1.8438, -2.0486]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.025028228759766
+NO REF
+Epoch 0, Step 193: train/loss = 32.23031997680664, train/raw-loss = 0.6898989677429199, train/logprobs = tensor([[-1.5697, -2.1319],
+        [-1.5928, -2.1419]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.308084487915039
+NO REF
+Epoch 0, Step 194: train/loss = 30.525522232055664, train/raw-loss = 0.6914828419685364, train/logprobs = tensor([[-1.8361, -1.9082],
+        [-1.8444, -1.9097]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.966807842254639
+NO REF
+Epoch 0, Step 195: train/loss = 35.16268539428711, train/raw-loss = 0.694280743598938, train/logprobs = tensor([[-1.2383, -2.0560],
+        [-1.2474, -2.0696]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.893680572509766
+NO REF
+Epoch 0, Step 196: train/loss = 27.255735397338867, train/raw-loss = 0.691390335559845, train/logprobs = tensor([[-1.8857, -2.4336],
+        [-1.9013, -2.4421]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.312869071960449
+NO REF
+Epoch 0, Step 197: train/loss = 28.222545623779297, train/raw-loss = 0.6930919885635376, train/logprobs = tensor([[-1.8090, -2.1329],
+        [-1.8068, -2.1306]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.505890846252441
+NO REF
+Epoch 0, Step 198: train/loss = 30.052019119262695, train/raw-loss = 0.6899986267089844, train/logprobs = tensor([[-1.8113, -1.7841],
+        [-1.8504, -1.8107]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.872404098510742
+NO REF
+Epoch 0, Step 199: train/loss = 35.4440803527832, train/raw-loss = 0.6912261247634888, train/logprobs = tensor([[-1.6607, -1.6762],
+        [-1.7189, -1.7267]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.950570583343506
+NO REF
+Epoch 0, Step 200: train/loss = 26.943340301513672, train/raw-loss = 0.6751871109008789, train/logprobs = tensor([[-2.2242, -3.3000],
+        [-2.3138, -3.3168]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.253631114959717
+NO REF
+Epoch 0, Step 201: train/loss = 27.31068229675293, train/raw-loss = 0.6915257573127747, train/logprobs = tensor([[-1.2650, -2.4096],
+        [-1.2671, -2.4051]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.323831081390381
+NO REF
+Epoch 0, Step 202: train/loss = 29.420499801635742, train/raw-loss = 0.7026119232177734, train/logprobs = tensor([[-1.4982, -2.6088],
+        [-1.5334, -2.6817]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.74357795715332
+NO REF
+Epoch 0, Step 203: train/loss = 28.11331558227539, train/raw-loss = 0.6548417210578918, train/logprobs = tensor([[-1.9331, -2.0295],
+        [-2.1053, -2.0356]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.491694927215576
+NO REF
+Epoch 0, Step 204: train/loss = 27.116731643676758, train/raw-loss = 0.6914904713630676, train/logprobs = tensor([[-2.1958, -2.0332],
+        [-2.2148, -2.0455]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.28504753112793
+NO REF
+Epoch 0, Step 205: train/loss = 32.69422912597656, train/raw-loss = 0.7024281620979309, train/logprobs = tensor([[-1.4704, -2.1416],
+        [-1.4640, -2.1720]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.398360252380371
+NO REF
+Epoch 0, Step 206: train/loss = 31.72916030883789, train/raw-loss = 0.6866390109062195, train/logprobs = tensor([[-1.6793, -2.1221],
+        [-1.6953, -2.1119]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.2085041999816895
+NO REF
+Epoch 0, Step 207: train/loss = 29.474464416503906, train/raw-loss = 0.6872254014015198, train/logprobs = tensor([[-1.5919, -2.6763],
+        [-1.5910, -2.6516]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.757447719573975
+NO REF
+Epoch 0, Step 208: train/loss = 25.959693908691406, train/raw-loss = 0.6813606023788452, train/logprobs = tensor([[-2.2108, -2.8018],
+        [-2.2773, -2.8209]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.055666923522949
+NO REF
+Epoch 0, Step 209: train/loss = 27.400053024291992, train/raw-loss = 0.6894578337669373, train/logprobs = tensor([[-1.7778, -2.5992],
+        [-1.7952, -2.6018]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.342118740081787
+NO REF
+Epoch 0, Step 210: train/loss = 27.987646102905273, train/raw-loss = 0.678361177444458, train/logprobs = tensor([[-2.2966, -2.3611],
+        [-2.4064, -2.4102]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.461856842041016
+NO REF
+Epoch 0, Step 211: train/loss = 28.557361602783203, train/raw-loss = 0.7004356384277344, train/logprobs = tensor([[-1.9761, -2.8104],
+        [-2.0156, -2.8786]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.571385383605957
+NO REF
+Epoch 0, Step 212: train/loss = 28.470155715942383, train/raw-loss = 0.7054603099822998, train/logprobs = tensor([[-1.5371, -1.8310],
+        [-1.5453, -1.8879]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.552938938140869
+NO REF
+Epoch 0, Step 213: train/loss = 26.171812057495117, train/raw-loss = 0.6821998357772827, train/logprobs = tensor([[-2.1109, -2.6183],
+        [-2.1532, -2.6154]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.097922325134277
+NO REF
+Epoch 0, Step 214: train/loss = 30.080169677734375, train/raw-loss = 0.6955927014350891, train/logprobs = tensor([[-1.7801, -2.0430],
+        [-1.8367, -2.1093]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.876915454864502
+NO REF
+Epoch 0, Step 215: train/loss = 29.218135833740234, train/raw-loss = 0.6938852071762085, train/logprobs = tensor([[-1.9448, -2.1396],
+        [-1.9293, -2.1269]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.704850196838379
+NO REF
+Epoch 0, Step 216: train/loss = 29.372554779052734, train/raw-loss = 0.6788126826286316, train/logprobs = tensor([[-2.2434, -2.2105],
+        [-2.2684, -2.1772]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.738748073577881
+NO REF
+Epoch 0, Step 217: train/loss = 31.941701889038086, train/raw-loss = 0.6853039860725403, train/logprobs = tensor([[-1.5664, -2.0475],
+        [-1.5914, -2.0409]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.251279830932617
+NO REF
+Epoch 0, Step 218: train/loss = 30.22075653076172, train/raw-loss = 0.689845085144043, train/logprobs = tensor([[-1.4980, -2.6633],
+        [-1.5138, -2.6657]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.906182765960693
+NO REF
+Epoch 0, Step 219: train/loss = 43.05943298339844, train/raw-loss = 0.6885440349578857, train/logprobs = tensor([[-1.6166, -1.5360],
+        [-1.6473, -1.5480]], device='cuda:0', grad_fn=<DivBackward0>), KL = 8.474178314208984
+NO REF
+Epoch 0, Step 220: train/loss = 26.345781326293945, train/raw-loss = 0.6925622820854187, train/logprobs = tensor([[-2.0562, -3.5019],
+        [-2.0794, -3.5225]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.130643844604492
+NO REF
+Epoch 0, Step 221: train/loss = 29.650516510009766, train/raw-loss = 0.6771261692047119, train/logprobs = tensor([[-2.5799, -1.4082],
+        [-2.6209, -1.3843]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.794678211212158
+NO REF
+Epoch 0, Step 222: train/loss = 27.99251365661621, train/raw-loss = 0.6889742612838745, train/logprobs = tensor([[-2.0925, -2.1091],
+        [-2.0901, -2.0898]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.460707664489746
+NO REF
+Epoch 0, Step 223: train/loss = 27.117956161499023, train/raw-loss = 0.6892366409301758, train/logprobs = tensor([[-1.8839, -3.0255],
+        [-1.9082, -3.0329]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.285743713378906
+NO REF
+Epoch 0, Step 224: train/loss = 23.23312759399414, train/raw-loss = 0.6823602318763733, train/logprobs = tensor([[-2.5427, -3.7652],
+        [-2.5766, -3.7549]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.510153770446777
+NO REF
+Epoch 0, Step 225: train/loss = 29.08770751953125, train/raw-loss = 0.6979076862335205, train/logprobs = tensor([[-1.6084, -2.7972],
+        [-1.6169, -2.8245]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.677959442138672
+NO REF
+Epoch 0, Step 226: train/loss = 23.54873275756836, train/raw-loss = 0.6975595951080322, train/logprobs = tensor([[-2.1922, -3.3641],
+        [-2.2130, -3.4023]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.570235252380371
+NO REF
+Epoch 0, Step 227: train/loss = 27.30791473388672, train/raw-loss = 0.6989599466323853, train/logprobs = tensor([[-1.9282, -2.5378],
+        [-1.9330, -2.5653]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.32179069519043
+NO REF
+Epoch 0, Step 228: train/loss = 24.62932777404785, train/raw-loss = 0.7003639936447144, train/logprobs = tensor([[-2.2874, -3.4400],
+        [-2.2882, -3.4693]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.785792827606201
+NO REF
+Epoch 0, Step 229: train/loss = 28.035728454589844, train/raw-loss = 0.7029247283935547, train/logprobs = tensor([[-2.1267, -2.8411],
+        [-2.1305, -2.8839]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.466561317443848
+NO REF
+Epoch 0, Step 230: train/loss = 25.256072998046875, train/raw-loss = 0.6936832666397095, train/logprobs = tensor([[-2.1738, -3.5226],
+        [-2.2807, -3.6303]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.912477493286133
+NO REF
+Epoch 0, Step 231: train/loss = 26.253997802734375, train/raw-loss = 0.6907433867454529, train/logprobs = tensor([[-2.5148, -2.4615],
+        [-2.5687, -2.5056]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.1126508712768555
+NO REF
+Epoch 0, Step 232: train/loss = 24.828861236572266, train/raw-loss = 0.6833233833312988, train/logprobs = tensor([[-2.3029, -3.3055],
+        [-2.3900, -3.3527]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.829107761383057
+NO REF
+Epoch 0, Step 233: train/loss = 24.29959487915039, train/raw-loss = 0.6910229325294495, train/logprobs = tensor([[-2.7702, -2.9286],
+        [-2.8052, -2.9547]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.721714496612549
+NO REF
+Epoch 0, Step 234: train/loss = 24.94826889038086, train/raw-loss = 0.6820219159126282, train/logprobs = tensor([[-2.2256, -3.2746],
+        [-2.3054, -3.3090]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.853249549865723
+NO REF
+Epoch 0, Step 235: train/loss = 25.958419799804688, train/raw-loss = 0.6941893100738525, train/logprobs = tensor([[-2.2081, -2.7620],
+        [-2.2178, -2.7758]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.052846431732178
+NO REF
+Epoch 0, Step 236: train/loss = 28.955005645751953, train/raw-loss = 0.6967308521270752, train/logprobs = tensor([[-1.7641, -2.1901],
+        [-1.7684, -2.2087]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.6516547203063965
+NO REF
+Epoch 0, Step 237: train/loss = 36.714420318603516, train/raw-loss = 0.695293664932251, train/logprobs = tensor([[-1.6059, -1.7280],
+        [-1.6154, -1.7460]], device='cuda:0', grad_fn=<DivBackward0>), KL = 7.2038254737854
+NO REF
+Epoch 0, Step 238: train/loss = 31.354188919067383, train/raw-loss = 0.6848441362380981, train/logprobs = tensor([[-1.6888, -2.6226],
+        [-1.7523, -2.6526]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.133869171142578
+NO REF
+Epoch 0, Step 239: train/loss = 24.578651428222656, train/raw-loss = 0.699965238571167, train/logprobs = tensor([[-2.8214, -2.8041],
+        [-2.8216, -2.8310]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.775737285614014
+NO REF
+Epoch 0, Step 240: train/loss = 30.51864242553711, train/raw-loss = 0.6837828159332275, train/logprobs = tensor([[-2.1142, -2.7160],
+        [-2.1544, -2.7184]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.966972351074219
+NO REF
+Epoch 0, Step 241: train/loss = 25.878345489501953, train/raw-loss = 0.6951206922531128, train/logprobs = tensor([[-2.1720, -3.0406],
+        [-2.1828, -3.0588]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.03664493560791
+NO REF
+Epoch 0, Step 242: train/loss = 25.839248657226562, train/raw-loss = 0.684867262840271, train/logprobs = tensor([[-2.4829, -2.7354],
+        [-2.5327, -2.7518]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.030876159667969
+NO REF
+Epoch 0, Step 243: train/loss = 24.846820831298828, train/raw-loss = 0.6714323163032532, train/logprobs = tensor([[-2.4503, -2.6949],
+        [-2.5650, -2.7196]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.83507776260376
+NO REF
+Epoch 0, Step 244: train/loss = 24.33448600769043, train/raw-loss = 0.6876766681671143, train/logprobs = tensor([[-2.3285, -2.8293],
+        [-2.3509, -2.8297]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.7293620109558105
+NO REF
+Epoch 0, Step 245: train/loss = 28.23724937438965, train/raw-loss = 0.6980635523796082, train/logprobs = tensor([[-2.1783, -2.5682],
+        [-2.1972, -2.6059]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.507836818695068
+NO REF
+Epoch 0, Step 246: train/loss = 27.100631713867188, train/raw-loss = 0.6906746029853821, train/logprobs = tensor([[-2.2259, -2.6978],
+        [-2.2378, -2.6997]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.281991958618164
+NO REF
+Epoch 0, Step 247: train/loss = 22.914369583129883, train/raw-loss = 0.6778767108917236, train/logprobs = tensor([[-2.2383, -3.0352],
+        [-2.2627, -2.9975]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.447299003601074
+NO REF
+Epoch 0, Step 248: train/loss = 24.971715927124023, train/raw-loss = 0.6838707327842712, train/logprobs = tensor([[-2.2484, -3.4089],
+        [-2.2976, -3.4205]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.857569217681885
+NO REF
+Epoch 0, Step 249: train/loss = 25.83661651611328, train/raw-loss = 0.6976897716522217, train/logprobs = tensor([[-2.4972, -2.3774],
+        [-2.5131, -2.4110]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.027785301208496
+NO REF
+Epoch 0, Step 250: train/loss = 29.282419204711914, train/raw-loss = 0.7032569050788879, train/logprobs = tensor([[-1.4056, -2.8700],
+        [-1.4339, -2.9379]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.715832710266113
+NO REF
+Epoch 0, Step 251: train/loss = 25.02688980102539, train/raw-loss = 0.6936911940574646, train/logprobs = tensor([[-2.2274, -3.2762],
+        [-2.2812, -3.3319]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.866639614105225
+NO REF
+Epoch 0, Step 252: train/loss = 26.36420249938965, train/raw-loss = 0.6897703409194946, train/logprobs = tensor([[-2.4204, -2.0953],
+        [-2.4490, -2.1103]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.134886741638184
+NO REF
+Epoch 0, Step 253: train/loss = 27.919191360473633, train/raw-loss = 0.6946508288383484, train/logprobs = tensor([[-2.1465, -2.2062],
+        [-2.1679, -2.2334]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.4449076652526855
+NO REF
+Epoch 0, Step 254: train/loss = 28.85150146484375, train/raw-loss = 0.689781904220581, train/logprobs = tensor([[-1.9726, -1.9431],
+        [-1.9878, -1.9446]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.632343769073486
+NO REF
+Epoch 0, Step 255: train/loss = 28.425460815429688, train/raw-loss = 0.6886744499206543, train/logprobs = tensor([[-1.7250, -3.1018],
+        [-1.7790, -3.1377]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.547357559204102
+NO REF
+Epoch 0, Step 256: train/loss = 22.991580963134766, train/raw-loss = 0.683937668800354, train/logprobs = tensor([[-2.4448, -3.4569],
+        [-2.4672, -3.4422]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.46152925491333
+NO REF
+Epoch 0, Step 257: train/loss = 20.294153213500977, train/raw-loss = 0.6763996481895447, train/logprobs = tensor([[-3.3211, -3.8565],
+        [-3.4031, -3.8695]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.923550605773926
+NO REF
+Epoch 0, Step 258: train/loss = 21.52031707763672, train/raw-loss = 0.6760518550872803, train/logprobs = tensor([[-3.6185, -4.1209],
+        [-3.6999, -4.1332]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.168853759765625
+NO REF
+Epoch 0, Step 259: train/loss = 32.83036422729492, train/raw-loss = 0.6921731233596802, train/logprobs = tensor([[-2.8721, -2.4253],
+        [-2.9168, -2.4662]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.427638053894043
+NO REF
+Epoch 0, Step 260: train/loss = 21.64133071899414, train/raw-loss = 0.6890164613723755, train/logprobs = tensor([[-3.0192, -3.5315],
+        [-3.0638, -3.5593]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.190462589263916
+NO REF
+Epoch 0, Step 261: train/loss = 24.383892059326172, train/raw-loss = 0.7036991119384766, train/logprobs = tensor([[-2.1006, -3.5230],
+        [-2.1303, -3.5946]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.736038684844971
+NO REF
+Epoch 0, Step 262: train/loss = 19.86801528930664, train/raw-loss = 0.6882905960083008, train/logprobs = tensor([[-3.0360, -3.7466],
+        [-3.0788, -3.7693]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.8359451293945312
+NO REF
+Epoch 0, Step 263: train/loss = 21.21198081970215, train/raw-loss = 0.686297595500946, train/logprobs = tensor([[-3.2295, -3.8052],
+        [-3.2492, -3.7965]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.105136871337891
+NO REF
+Epoch 0, Step 264: train/loss = 23.191600799560547, train/raw-loss = 0.6914907693862915, train/logprobs = tensor([[-2.6294, -4.0439],
+        [-2.6269, -4.0341]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.5000224113464355
+NO REF
+Epoch 0, Step 265: train/loss = 22.214576721191406, train/raw-loss = 0.6950910091400146, train/logprobs = tensor([[-3.3632, -3.4380],
+        [-3.3929, -3.4751]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.303897380828857
+NO REF
+Epoch 0, Step 266: train/loss = 22.939044952392578, train/raw-loss = 0.6913095712661743, train/logprobs = tensor([[-3.0240, -2.8160],
+        [-3.0445, -2.8291]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.449546813964844
+NO REF
+Epoch 0, Step 267: train/loss = 21.602535247802734, train/raw-loss = 0.6921809911727905, train/logprobs = tensor([[-3.3566, -3.3942],
+        [-3.4258, -3.4595]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.182070732116699
+NO REF
+Epoch 0, Step 268: train/loss = 26.130996704101562, train/raw-loss = 0.6929971575737, train/logprobs = tensor([[-2.7858, -3.0667],
+        [-2.8301, -3.1099]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.087600231170654
+NO REF
+Epoch 0, Step 269: train/loss = 26.518795013427734, train/raw-loss = 0.6710562705993652, train/logprobs = tensor([[-2.4222, -3.0387],
+        [-2.5787, -3.0983]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.169548034667969
+NO REF
+Epoch 0, Step 270: train/loss = 30.79656982421875, train/raw-loss = 0.6950121521949768, train/logprobs = tensor([[-2.2736, -2.9747],
+        [-2.2845, -2.9926]], device='cuda:0', grad_fn=<DivBackward0>), KL = 6.0203118324279785
+NO REF
+Epoch 0, Step 271: train/loss = 23.57030487060547, train/raw-loss = 0.6850428581237793, train/logprobs = tensor([[-2.0580, -3.3516],
+        [-2.0752, -3.3360]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.577052116394043
+NO REF
+Epoch 0, Step 272: train/loss = 22.01592445373535, train/raw-loss = 0.6989925503730774, train/logprobs = tensor([[-2.7105, -3.2066],
+        [-2.7465, -3.2658]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.263385772705078
+NO REF
+Epoch 0, Step 273: train/loss = 24.545326232910156, train/raw-loss = 0.6962615251541138, train/logprobs = tensor([[-1.6267, -2.9959],
+        [-1.6640, -3.0454]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.769813060760498
+NO REF
+Epoch 0, Step 274: train/loss = 22.724613189697266, train/raw-loss = 0.6765825748443604, train/logprobs = tensor([[-3.1722, -3.3843],
+        [-3.2457, -3.3908]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.409605979919434
+NO REF
+Epoch 0, Step 275: train/loss = 26.084918975830078, train/raw-loss = 0.7002412676811218, train/logprobs = tensor([[-2.4382, -3.6342],
+        [-2.4797, -3.7039]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.076935768127441
+NO REF
+Epoch 0, Step 276: train/loss = 26.59634017944336, train/raw-loss = 0.680177628993988, train/logprobs = tensor([[-1.9183, -3.7070],
+        [-1.9728, -3.7086]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.183232307434082
+NO REF
+Epoch 0, Step 277: train/loss = 20.97265625, train/raw-loss = 0.6804152131080627, train/logprobs = tensor([[-3.4162, -3.6516],
+        [-3.4982, -3.6823]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.058448314666748
+NO REF
+Epoch 0, Step 278: train/loss = 21.553020477294922, train/raw-loss = 0.6877743005752563, train/logprobs = tensor([[-3.1761, -3.9615],
+        [-3.2123, -3.9751]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.173049449920654
+NO REF
+Epoch 0, Step 279: train/loss = 20.811861038208008, train/raw-loss = 0.6806845664978027, train/logprobs = tensor([[-3.3252, -3.6290],
+        [-3.4225, -3.6761]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.026235580444336
+NO REF
+Epoch 0, Step 280: train/loss = 25.64000129699707, train/raw-loss = 0.6970451474189758, train/logprobs = tensor([[-2.6342, -3.1902],
+        [-2.6633, -3.2348]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.988591194152832
+NO REF
+Epoch 0, Step 281: train/loss = 22.690889358520508, train/raw-loss = 0.6881334185600281, train/logprobs = tensor([[-3.0253, -3.1616],
+        [-3.0614, -3.1773]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.400550842285156
+NO REF
+Epoch 0, Step 282: train/loss = 25.530532836914062, train/raw-loss = 0.6910027265548706, train/logprobs = tensor([[-2.1717, -3.7224],
+        [-2.2142, -3.7557]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.967906475067139
+NO REF
+Epoch 0, Step 283: train/loss = 26.360137939453125, train/raw-loss = 0.6820180416107178, train/logprobs = tensor([[-1.9744, -3.9418],
+        [-1.9936, -3.9161]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.135624408721924
+NO REF
+Epoch 0, Step 284: train/loss = 25.476194381713867, train/raw-loss = 0.6986823678016663, train/logprobs = tensor([[-2.7575, -2.6601],
+        [-2.8264, -2.7501]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.955502510070801
+NO REF
+Epoch 0, Step 285: train/loss = 23.58634376525879, train/raw-loss = 0.6970286965370178, train/logprobs = tensor([[-2.7747, -4.0317],
+        [-2.7993, -4.0714]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.5778632164001465
+NO REF
+Epoch 0, Step 286: train/loss = 28.045730590820312, train/raw-loss = 0.6918294429779053, train/logprobs = tensor([[-2.3106, -2.8964],
+        [-2.3490, -2.9294]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.470779895782471
+NO REF
+Epoch 0, Step 287: train/loss = 26.109439849853516, train/raw-loss = 0.6971014738082886, train/logprobs = tensor([[-2.9821, -2.7863],
+        [-3.0306, -2.8505]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.082468032836914
+NO REF
+Epoch 0, Step 288: train/loss = 19.154020309448242, train/raw-loss = 0.6746109127998352, train/logprobs = tensor([[-4.2808, -4.9299],
+        [-4.3982, -4.9712]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.6958816051483154
+NO REF
+Epoch 0, Step 289: train/loss = 21.479677200317383, train/raw-loss = 0.6965793967247009, train/logprobs = tensor([[-3.6152, -3.9660],
+        [-3.6995, -4.0638]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.156620025634766
+NO REF
+Epoch 0, Step 290: train/loss = 24.168365478515625, train/raw-loss = 0.7039612531661987, train/logprobs = tensor([[-3.3371, -3.6538],
+        [-3.3042, -3.6627]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.692881107330322
+NO REF
+Epoch 0, Step 291: train/loss = 24.984601974487305, train/raw-loss = 0.6965922713279724, train/logprobs = tensor([[-2.3653, -3.0344],
+        [-2.4006, -3.0833]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.857602119445801
+NO REF
+Epoch 0, Step 292: train/loss = 19.310104370117188, train/raw-loss = 0.6914506554603577, train/logprobs = tensor([[-3.4873, -3.9763],
+        [-3.5227, -4.0048]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.7237305641174316
+NO REF
+Epoch 0, Step 293: train/loss = 21.24700927734375, train/raw-loss = 0.6735221147537231, train/logprobs = tensor([[-3.3428, -4.7468],
+        [-3.3922, -4.7163]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.114697456359863
+NO REF
+Epoch 0, Step 294: train/loss = 21.483745574951172, train/raw-loss = 0.6900858283042908, train/logprobs = tensor([[-3.3858, -4.2117],
+        [-3.4302, -4.2436]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.1587324142456055
+NO REF
+Epoch 0, Step 295: train/loss = 20.309005737304688, train/raw-loss = 0.6948105692863464, train/logprobs = tensor([[-4.1207, -4.1831],
+        [-4.1713, -4.2401]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.9228391647338867
+NO REF
+Epoch 0, Step 296: train/loss = 21.443117141723633, train/raw-loss = 0.6875002980232239, train/logprobs = tensor([[-3.4553, -4.5955],
+        [-3.4817, -4.5988]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.151123523712158
+NO REF
+Epoch 0, Step 297: train/loss = 22.458240509033203, train/raw-loss = 0.6767455339431763, train/logprobs = tensor([[-3.4992, -4.4606],
+        [-3.5660, -4.4605]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.356298923492432
+NO REF
+Epoch 0, Step 298: train/loss = 22.705039978027344, train/raw-loss = 0.6999152302742004, train/logprobs = tensor([[-3.0980, -4.2841],
+        [-3.1412, -4.3526]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.40102481842041
+NO REF
+Epoch 0, Step 299: train/loss = 21.42953872680664, train/raw-loss = 0.6882740259170532, train/logprobs = tensor([[-4.0695, -3.7641],
+        [-4.1112, -3.7862]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.148252487182617
+NO REF
+Epoch 0, Step 300: train/loss = 20.673521041870117, train/raw-loss = 0.6967120170593262, train/logprobs = tensor([[-3.9974, -3.6341],
+        [-4.0341, -3.6848]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.995361328125
+NO REF
+Epoch 0, Step 301: train/loss = 21.61311912536621, train/raw-loss = 0.6911068558692932, train/logprobs = tensor([[-2.8937, -3.1089],
+        [-2.9604, -3.1671]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.1844024658203125
+NO REF
+Epoch 0, Step 302: train/loss = 22.93435287475586, train/raw-loss = 0.6884403824806213, train/logprobs = tensor([[-3.0073, -4.2864],
+        [-3.0560, -4.3161]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.449182510375977
+NO REF
+Epoch 0, Step 303: train/loss = 21.379491806030273, train/raw-loss = 0.6930620670318604, train/logprobs = tensor([[-2.9423, -3.7490],
+        [-2.9794, -3.7854]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.1372857093811035
+NO REF
+Epoch 0, Step 304: train/loss = 20.523393630981445, train/raw-loss = 0.6937428116798401, train/logprobs = tensor([[-3.7682, -3.9302],
+        [-3.8047, -3.9691]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.965930461883545
+NO REF
+Epoch 0, Step 305: train/loss = 30.310884475708008, train/raw-loss = 0.6876668930053711, train/logprobs = tensor([[-3.0888, -2.8575],
+        [-3.1571, -2.9035]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.924643516540527
+NO REF
+Epoch 0, Step 306: train/loss = 21.92755126953125, train/raw-loss = 0.6885894536972046, train/logprobs = tensor([[-3.3837, -4.1101],
+        [-3.4188, -4.1265]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.247792720794678
+NO REF
+Epoch 0, Step 307: train/loss = 19.666418075561523, train/raw-loss = 0.6932174563407898, train/logprobs = tensor([[-3.4125, -4.0412],
+        [-3.4790, -4.1078]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.794640064239502
+NO REF
+Epoch 0, Step 308: train/loss = 20.832782745361328, train/raw-loss = 0.7144787311553955, train/logprobs = tensor([[-3.5631, -3.8185],
+        [-3.5662, -3.9057]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.023660659790039
+NO REF
+Epoch 0, Step 309: train/loss = 22.123153686523438, train/raw-loss = 0.687897801399231, train/logprobs = tensor([[-3.3000, -3.9399],
+        [-3.3289, -3.9475]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.287051200866699
+NO REF
+Epoch 0, Step 310: train/loss = 25.158653259277344, train/raw-loss = 0.6781921982765198, train/logprobs = tensor([[-3.2946, -4.3009],
+        [-3.3715, -4.3172]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.896091938018799
+NO REF
+Epoch 0, Step 311: train/loss = 26.753494262695312, train/raw-loss = 0.6879311800003052, train/logprobs = tensor([[-2.7553, -3.5653],
+        [-2.8026, -3.5915]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.2131123542785645
+NO REF
+Epoch 0, Step 312: train/loss = 22.342824935913086, train/raw-loss = 0.6821527481079102, train/logprobs = tensor([[-3.6879, -4.5345],
+        [-3.6903, -4.4920]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.33213472366333
+NO REF
+Epoch 0, Step 313: train/loss = 20.079526901245117, train/raw-loss = 0.6779851317405701, train/logprobs = tensor([[-3.2654, -4.4892],
+        [-3.3257, -4.4865]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.880308151245117
+NO REF
+Epoch 0, Step 314: train/loss = 21.704235076904297, train/raw-loss = 0.6991841793060303, train/logprobs = tensor([[-3.1692, -5.3067],
+        [-3.2263, -5.3872]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.201010227203369
+NO REF
+Epoch 0, Step 315: train/loss = 22.315292358398438, train/raw-loss = 0.692381739616394, train/logprobs = tensor([[-3.0846, -4.8252],
+        [-3.0904, -4.8275]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.324582099914551
+NO REF
+Epoch 0, Step 316: train/loss = 20.296659469604492, train/raw-loss = 0.6864174604415894, train/logprobs = tensor([[-3.5168, -4.1524],
+        [-3.5739, -4.1821]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.922048568725586
+NO REF
+Epoch 0, Step 317: train/loss = 21.255281448364258, train/raw-loss = 0.6937944889068604, train/logprobs = tensor([[-3.7055, -4.1410],
+        [-3.7507, -4.1887]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.112297534942627
+NO REF
+Epoch 0, Step 318: train/loss = 30.08737564086914, train/raw-loss = 0.6919941306114197, train/logprobs = tensor([[-2.9769, -3.5289],
+        [-3.0100, -3.5571]], device='cuda:0', grad_fn=<DivBackward0>), KL = 5.87907600402832
+NO REF
+Epoch 0, Step 319: train/loss = 19.898113250732422, train/raw-loss = 0.6844183206558228, train/logprobs = tensor([[-3.8557, -4.3981],
+        [-3.8933, -4.4003]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.8427388668060303
+NO REF
+Epoch 0, Step 320: train/loss = 22.221067428588867, train/raw-loss = 0.6926569938659668, train/logprobs = tensor([[-3.6079, -4.2966],
+        [-3.5874, -4.2739]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.305682182312012
+NO REF
+Epoch 0, Step 321: train/loss = 17.239055633544922, train/raw-loss = 0.6901135444641113, train/logprobs = tensor([[-4.8309, -5.5206],
+        [-4.8744, -5.5518]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.309788465499878
+NO REF
+Epoch 0, Step 322: train/loss = 19.17058753967285, train/raw-loss = 0.704739511013031, train/logprobs = tensor([[-4.5501, -5.4264],
+        [-4.5896, -5.5116]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.693169593811035
+NO REF
+Epoch 0, Step 323: train/loss = 24.291749954223633, train/raw-loss = 0.6896318197250366, train/logprobs = tensor([[-3.7749, -3.4685],
+        [-3.8401, -3.5194]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.720423698425293
+NO REF
+Epoch 0, Step 324: train/loss = 17.723939895629883, train/raw-loss = 0.6920377016067505, train/logprobs = tensor([[-4.7548, -5.1467],
+        [-4.8148, -5.2016]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.4063801765441895
+NO REF
+Epoch 0, Step 325: train/loss = 15.915560722351074, train/raw-loss = 0.6707683205604553, train/logprobs = tensor([[-5.8065, -5.6539],
+        [-5.9032, -5.6581]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.0489585399627686
+NO REF
+Epoch 0, Step 326: train/loss = 18.192588806152344, train/raw-loss = 0.6840906143188477, train/logprobs = tensor([[-4.6743, -5.3381],
+        [-4.7115, -5.3387]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.501699924468994
+NO REF
+Epoch 0, Step 327: train/loss = 18.755126953125, train/raw-loss = 0.6860913634300232, train/logprobs = tensor([[-4.4785, -5.3320],
+        [-4.5145, -5.3388]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.613807201385498
+NO REF
+Epoch 0, Step 328: train/loss = 19.519554138183594, train/raw-loss = 0.6729596257209778, train/logprobs = tensor([[-4.1373, -4.8429],
+        [-4.2033, -4.8266]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.7693185806274414
+NO REF
+Epoch 0, Step 329: train/loss = 18.281341552734375, train/raw-loss = 0.678278923034668, train/logprobs = tensor([[-4.6427, -5.3117],
+        [-4.7059, -5.3144]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.5206124782562256
+NO REF
+Epoch 0, Step 330: train/loss = 19.915143966674805, train/raw-loss = 0.6992324590682983, train/logprobs = tensor([[-4.6029, -5.2306],
+        [-4.7029, -5.3549]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.84318208694458
+NO REF
+Epoch 0, Step 331: train/loss = 18.499155044555664, train/raw-loss = 0.7051573395729065, train/logprobs = tensor([[-4.4089, -4.7128],
+        [-4.4552, -4.8065]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.5587995052337646
+NO REF
+Epoch 0, Step 332: train/loss = 18.781034469604492, train/raw-loss = 0.6887660622596741, train/logprobs = tensor([[-4.8602, -4.1964],
+        [-4.9474, -4.2658]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.6184537410736084
+NO REF
+Epoch 0, Step 333: train/loss = 15.704774856567383, train/raw-loss = 0.667517900466919, train/logprobs = tensor([[-4.8070, -5.6863],
+        [-4.9584, -5.7315]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.007451295852661
+NO REF
+Epoch 0, Step 334: train/loss = 19.3179931640625, train/raw-loss = 0.6878793835639954, train/logprobs = tensor([[-4.7099, -5.0059],
+        [-4.7614, -5.0362]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.726022720336914
+NO REF
+Epoch 0, Step 335: train/loss = 22.63751983642578, train/raw-loss = 0.6794363856315613, train/logprobs = tensor([[-3.9325, -3.7835],
+        [-4.0211, -3.8165]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.3916168212890625
+NO REF
+Epoch 0, Step 336: train/loss = 22.480344772338867, train/raw-loss = 0.690301775932312, train/logprobs = tensor([[-4.0582, -4.7053],
+        [-4.1329, -4.7678]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.358008861541748
+NO REF
+Epoch 0, Step 337: train/loss = 19.678524017333984, train/raw-loss = 0.6900424361228943, train/logprobs = tensor([[-4.5125, -5.6032],
+        [-4.5896, -5.6679]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.797696590423584
+NO REF
+Epoch 0, Step 338: train/loss = 19.28636932373047, train/raw-loss = 0.6788817644119263, train/logprobs = tensor([[-4.3255, -4.4830],
+        [-4.3502, -4.4499]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.7214975357055664
+NO REF
+Epoch 0, Step 339: train/loss = 21.0889892578125, train/raw-loss = 0.7066605091094971, train/logprobs = tensor([[-4.7716, -4.8833],
+        [-4.8467, -5.0116]], device='cuda:0', grad_fn=<DivBackward0>), KL = 4.076466083526611
+NO REF
+Epoch 0, Step 340: train/loss = 17.649309158325195, train/raw-loss = 0.6822023391723633, train/logprobs = tensor([[-4.8664, -4.9039],
+        [-4.9618, -4.9549]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.3934214115142822
+NO REF
+Epoch 0, Step 341: train/loss = 19.043312072753906, train/raw-loss = 0.6904537677764893, train/logprobs = tensor([[-4.9649, -5.2107],
+        [-5.0471, -5.2803]], device='cuda:0', grad_fn=<DivBackward0>), KL = 3.670571804046631

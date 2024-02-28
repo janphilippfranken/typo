@@ -14,7 +14,7 @@ wandb:
 ppo:
   beta: 0.0
   max_iter: 1
-  loss: reference
+  loss: no_reference
 
 
 training:
@@ -27,7 +27,7 @@ training:
   checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-0.3-max-iter-1
   max_grad_norm: 2.0
   num_warmup_steps: 1
-  gradient_accumulation_steps: 1
+  gradient_accumulation_steps: 32
   save_after_n_steps: 500
   seed: 42
   model_archive: null #/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/cdpo/epoch-1/model.pt

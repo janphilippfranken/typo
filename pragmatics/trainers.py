@@ -393,6 +393,8 @@ class FSDPTrainer:
             )
 
         elif self.config.ppo.loss == 'no_reference':
+            if self.local_rank == 0:
+                print('NO REF')
             loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
                                               
 
