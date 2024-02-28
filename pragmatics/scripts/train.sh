@@ -19,7 +19,7 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-declare -a betas=(1.0)
+declare -a betas=(5.0)
 declare -a max_iters=(0)
 
 for beta in "${betas[@]}"; do
