@@ -59,8 +59,7 @@ def pragmatic_loss_with_reference(
     logits = logprobs_policy - logprobs_reference
     
     # labels 
-    # labels are just indices corresponding to 1s on the diagonal; could use torch.eye(logits.shape[0]).to(logits.device) instead? 
-    labels = torch.arange(logits.size(0)).long().to(logits.device)
+    labels = torch.eye(logits.shape[0]).to(logits.device) 
 
     # loss 
     loss = F.cross_entropy(logits, labels, reduction="mean")

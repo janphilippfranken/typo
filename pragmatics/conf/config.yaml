@@ -7,19 +7,19 @@ defaults:
   - data: hh_rlhf_cai
 
 wandb:
-  project: scai-ppo
+  project: scai-ppo-2
   log_model: checkpoint
   name: helpf-harml
 
 ppo:
   beta: 0.0
   max_iter: 1
-  loss: with_labels
-  kl: per_token_kl
+  loss: reference
+
 
 training:
   evaluate_before_training: false
-  n_epochs: 200
+  n_epochs: 1
   lr: 1e-6
   train_batch_size: 1
   eval_batch_size: 1

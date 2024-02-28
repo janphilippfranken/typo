@@ -116,6 +116,7 @@ def prepare_logits_labels(
     model: torch.nn.Module,
     tokenizer: transformers.PreTrainedTokenizer,
     batch: Dict[str, torch.Tensor],
+    model_type: str,
     ignore_idx: Optional[int] = -100,
 ) -> Tuple[torch.FloatTensor, torch.LongTensor]:
     """Get the logits and labels for the given prompts and responses. Includes those w/ and w/o constitutions.
@@ -131,46 +132,90 @@ def prepare_logits_labels(
         logits: The logits of the model. Shape: (batch_size, sequence_length, vocab_size).
         labels: The labels of the model. Shape: (batch_size, sequence_length).
     """
-    prompt_attention_mask = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "prompt" in key and 'attention_mask' in key and not 'no_constitution' in key
-        ],
-        dim=0
-    )
-    
-    response_attention_mask = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "response" in key and 'attention_mask' in key and not 'no_constitution' in key
-        ],
-        dim=0
-    )
-    
-    responses = torch.cat(
-        [
-            batch[key] for key in batch.keys() 
-            if "response" in key and 'attention_mask' not in key and not 'no_constitution' in key
-        ], 
-        dim=0
-    )
-
-    labels = responses.clone()
+    if model_type == 'constitution':
+        prompt_attention_mask = torch.cat(
+            [
+                batch[key] for key in batch.keys() 
+                if "prompt" in key and 'attention_mask' in key and not 'no_constitution' in key
+            ],
+            dim=0
+        )
         
-    mask = _get_mask(
-        attention_mask=prompt_attention_mask,
-        labels=labels, 
-        pad_token_id=tokenizer.pad_token_id,
-    )
+        response_attention_mask = torch.cat(
+            [
+                batch[key] for key in batch.keys() 
+                if "response" in key and 'attention_mask' in key and not 'no_constitution' in key
+            ],
+            dim=0
+        )
+        
+        responses = torch.cat(
+            [
+                batch[key] for key in batch.keys() 
+                if "response" in key and 'attention_mask' not in key and not 'no_constitution' in key
+            ], 
+            dim=0
+        )
 
-    labels[mask] = ignore_idx
+        labels = responses.clone()
+            
+        mask = _get_mask(
+            attention_mask=prompt_attention_mask,
+            labels=labels, 
+            pad_token_id=tokenizer.pad_token_id,
+        )
 
-    logits = model(
-        input_ids=responses,
-        attention_mask=response_attention_mask,
-    ).logits
+        labels[mask] = ignore_idx
 
-    return logits, labels
+        logits = model(
+            input_ids=responses,
+            attention_mask=response_attention_mask,
+        ).logits
+
+        return logits, labels
+    
+    elif model_type == 'no_constitution':
+        prompt_attention_mask = torch.cat(
+            [
+                batch[key] for key in batch.keys() 
+                if "prompt" in key and 'attention_mask' in key and 'no_constitution' in key
+            ],
+            dim=0
+        )
+        
+        response_attention_mask = torch.cat(
+            [
+                batch[key] for key in batch.keys() 
+                if "response" in key and 'attention_mask' in key and 'no_constitution' in key
+            ],
+            dim=0
+        )
+        
+        responses = torch.cat(
+            [
+                batch[key] for key in batch.keys() 
+                if "response" in key and 'attention_mask' not in key and 'no_constitution' in key
+            ], 
+            dim=0
+        )
+
+        labels = responses.clone()
+            
+        mask = _get_mask(
+            attention_mask=prompt_attention_mask,
+            labels=labels, 
+            pad_token_id=tokenizer.pad_token_id,
+        )
+
+        labels[mask] = ignore_idx
+
+        logits = model(
+            input_ids=responses,
+            attention_mask=response_attention_mask,
+        ).logits
+
+        return logits, labels
+        
 
 
 class FSDPTrainer:
@@ -327,7 +372,7 @@ class FSDPTrainer:
         """Compute metrics for both policy and reference model if labels are provided."""
     
         # get logprobs for policy model 
-        logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
+        logits, labels = prepare_logits_labels(model, self.tokenizer, batch, model_type='constitution')
         
         batch_logprobs = _get_batch_logprobs(logits, labels)
         
@@ -335,10 +380,21 @@ class FSDPTrainer:
         
         # get logprobs for reference model 
         with torch.no_grad():
-            ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch)
-              
-        # compute loss
-        loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
+            ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch, model_type='no_constitution')
+            
+            if self.config.ppo.loss == 'reference':
+                ref_batch_logprobs = _get_batch_logprobs(ref_logits, ref_labels)
+        
+        if self.config.ppo.loss == 'reference':
+            
+            loss = pragmatic_loss_with_reference(
+                logprobs_policy=batch_logprobs,
+                logprobs_reference=ref_batch_logprobs,
+            )
+
+        elif self.config.ppo.loss == 'no_reference':
+            loss = pragmatic_loss_no_reference(logprobs=batch_logprobs)
+                                              
 
         return loss, batch_logprobs, logits, ref_logits
         
