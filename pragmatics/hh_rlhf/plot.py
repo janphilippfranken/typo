@@ -16,18 +16,20 @@ def main():
         "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
     ]
     
-    base_1 = [
-        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
-        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
-        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
-    ]
-    
     ft_1 = [
         "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
         "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
         "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
     ]
     
+    
+    base_1 = [
+        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+    ]
+    
+   
     ft_0 = [load_data(path) for path in ft_0]
     base_1 = [load_data(path) for path in base_1]
     ft_1 = [load_data(path) for path in ft_1]

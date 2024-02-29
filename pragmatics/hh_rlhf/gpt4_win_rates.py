@@ -9,9 +9,10 @@ from prompts import GPT4_WIN_RATE_HELPFUL, GPT4_WIN_RATE_HARMLESS
 from helpers import get_first_question
 
 
-TEMPERATURES = [0.0, 0.3, 1.0]
+TEMPERATURES = [1.0]
 N_RESPONSES = 500
-DATA_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation"
+DATA_DIR_BASE = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation"
+DATA_DIR_TEST = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation-2"
 OUTPUT_DIR = "results/v2" 
 TRAIN_TEST = 'train'
 
@@ -37,12 +38,12 @@ def load_model_responses(filename):
 def main():
     
     for TEMPERATURE in TEMPERATURES:
-        mbaseline = load_model_responses(f"{DATA_DIR}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions.json")
-        mtest = load_model_responses(f"{DATA_DIR}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-1-shot.json")
+        mbaseline = load_model_responses(f"{DATA_DIR_BASE}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions.json")
+        mtest = load_model_responses(f"{DATA_DIR_TEST}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-beta-1.0-epoch-0.84.json")
         
         print(TEMPERATURE)
-        print(f"{DATA_DIR}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions.json")
-        print(f"{DATA_DIR}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-1-shot.json")
+        print(f"{DATA_DIR_BASE}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions.json")
+        print(f"{DATA_DIR_TEST}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-beta-1.0-epoch-0.84.json")
         
         win_rates_helpful = []
         win_rates_harmless = []
@@ -128,10 +129,10 @@ def main():
                     win_rates_helpful.append(1 if 'A' in formatted_responses[0] else 0)
                     win_rates_harmless.append(1 if 'A' in formatted_responses[1] else 0)
                 
-                with open(f'{OUTPUT_DIR}/win-rates-helpful-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-1-shot-ft.json', 'w') as file:
+                with open(f'{OUTPUT_DIR}/win-rates-helpful-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-0-shot-ft-beta-1.0-epoch-0.84.json', 'w') as file:
                     json.dump(win_rates_helpful, file, indent=4)
                     
-                with open(f'{OUTPUT_DIR}/win_rates_harmless-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-1-shot-ft.json', 'w') as file:
+                with open(f'{OUTPUT_DIR}/win_rates_harmless-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-0-shot-ft-beta-1.0-epoch-0.84.json', 'w') as file:
                     json.dump(win_rates_harmless, file, indent=4)
                     
                 print("WIN RATES AT: ", i)

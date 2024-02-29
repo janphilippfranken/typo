@@ -28,13 +28,16 @@ def main():
     )
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
-
+                              
     # load state dict
-    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-7.5/epoch-0.84/model.pt', map_location='cpu')
+    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-1.0-no-ref-clip/epoch-0.84/model.pt', map_location='cpu')
     model.load_state_dict(state_dict['state'])
         
     breakpoint()
 
-    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-0.1-with-labels/epoch-0.42
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-1.0-no-ref-clip/epoch-0.84
 if __name__ == "__main__":
     main()
+    
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-3.0-no-ref-clip/epoch-0.95
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/ppo-beta-1.0-no-ref-clip
