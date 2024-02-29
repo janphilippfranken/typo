@@ -11,22 +11,22 @@ def load_data(path):
 
 def main():
     ft_0 = [
-        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
-        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
-        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
+        "results/v2/win-rates-helpful-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
+        "results/v2/win-rates-helpful-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
+        "results/v2/win-rates-helpful-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft.json",
     ]
     
     ft_1 = [
-        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
-        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
-        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-ft.json",
+        "results/v2/win-rates-helpful-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-beta-1.0-epoch-0.84.json",
+        "results/v2/win-rates-helpful-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-beta-1.0-epoch-0.84.json",
+        "results/v2/win-rates-helpful-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-beta-1.0-epoch-0.84.json",
     ]
     
     
     base_1 = [
-        "results/v2/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
-        "results/v2/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
-        "results/v2/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win-rates-helpful-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win-rates-helpful-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
+        "results/v2/win-rates-helpful-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-1-shot-baseline.json",
     ]
     
    
@@ -46,16 +46,16 @@ def main():
     error_base_1 = [1.96 * np.std(dataset) / np.sqrt(n) for dataset, n in zip(base_1, ns_base_1)]
     error_ft_1 = [1.96 * np.std(dataset) / np.sqrt(n) for dataset, n in zip(ft_1, ns_ft_1)]
     
-    plt.rcParams['font.family'] = 'Avenir'
+    # plt.rcParams['font.family'] = 'Avenir'
     plt.rcParams["font.size"] = 24
     palette = sns.color_palette('colorblind')
     fig, ax = plt.subplots(figsize=(10, 5))
     
     
     # add line plot for each means and error 
-    ax.errorbar([0.0 ,0.3, 1.0], means_ft_0, yerr=error_ft_0, fmt='o-', color=palette[0], label='Pragmatic-0-shot')
+    ax.errorbar([0.0 ,0.3, 1.0], means_ft_0, yerr=error_ft_0, fmt='o-', color=palette[0], label='Pragmatic-v1-0-shot')
     ax.errorbar([0.0 ,0.3, 1.0], means_base_1, yerr=error_base_1, fmt='o-', color=palette[1], label='Base-1-shot')
-    # ax.errorbar([0.0 ,0.3, 1.0], means_ft_1, yerr=error_ft_1, fmt='o-', color=palette[2], label='Pragmatic-1-shot')
+    ax.errorbar([0.0 ,0.3, 1.0], means_ft_1, yerr=error_ft_1, fmt='o-', color=palette[2], label='Pragmatic-v2-1-shot')
 
 
     breakpoint()
@@ -72,11 +72,11 @@ def main():
     ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
     # ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5, zorder=-100)
 
-    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.25), prop={'family': 'Courier', 'size': 22})
+    ax.legend(loc='upper left', ncol=3, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.25), prop={'size': 12})
     plt.tight_layout()
     
-    plt.savefig('results/v2/harmless_win_rates.pdf')
-    plt.savefig('results/v2/harmless_win_rates.png')
+    plt.savefig('results/v2/helpful_win-rates-2.pdf')
+    plt.savefig('results/v2/helpful_win-rates-2.png')
     plt.show()
 
 if __name__ == "__main__":
