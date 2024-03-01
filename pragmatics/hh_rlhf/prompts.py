@@ -14,6 +14,16 @@ Assistant Constitution:
 {conversation}"""
 
 
+PROMPT_NO_CONTEXT = """System: Using no more than *150* words, write a response for the assistant that follows the principles in the constitution.
+
+Assistant Constitution:
+{constitution}
+
+{conversation}
+
+Assistant:"""
+
+
 PROMPT_TRAINING = """System: Write a response for the assistant that follows the principles in the constitution.
 
 Assistant Constitution:

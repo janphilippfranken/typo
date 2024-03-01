@@ -525,8 +525,8 @@ class FSDPTrainer:
                 # evaluate after n steps have been made
                 if (step + 1) % self.config.training.save_after_n_steps == 0:
                     self.evaluate()
-                    self.save_checkpoint(round(step / len(self.train_dataloader), 2))
+                    # self.save_checkpoint(round(step / len(self.train_dataloader), 2))
                                 
-            # evaluate at end of each epoch and save checkpoint 
-            self.evaluate()
-            self.save_checkpoint(epoch)
+        # evaluate at end of each epoch and save checkpoint 
+        self.evaluate()
+        self.save_checkpoint(epoch)

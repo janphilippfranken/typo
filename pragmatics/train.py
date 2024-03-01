@@ -138,8 +138,9 @@ def main(args: DictConfig) -> None:
     
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_model_written_example_with_reference(example) for example in dataset_dict_helpful.values()][:10000]
-    dataset_list_harmless = [format_model_written_example_with_reference(example) for example in dataset_dict_harmless.values()][:10000]
+    dataset_list_helpful = [format_model_written_example_with_reference(example) for example in dataset_dict_helpful.values()]
+    dataset_list_harmless = [format_model_written_example_with_reference(example) for example in dataset_dict_harmless.values()]
+    
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
         print(f"n harmless: {len(dataset_list_harmless)}")
@@ -147,11 +148,13 @@ def main(args: DictConfig) -> None:
     tokenized_dataset_helpful = [tokenize_func_with_reference(example, tokenizer) for example in dataset_list_helpful]
     tokenized_dataset_harmless = [tokenize_func_with_reference(example, tokenizer) for example in dataset_list_harmless]
     
-    train_dataset = tokenized_dataset_helpful[:int(len(tokenized_dataset_helpful) * args.training.train_split)] + \
-        tokenized_dataset_harmless[:int(len(tokenized_dataset_harmless) * args.training.train_split)]
+    train_dataset = tokenized_dataset_helpful[:int(len(tokenized_dataset_helpful) * args.training.train_split)] 
+    # + \
+        # tokenized_dataset_harmless[:int(len(tokenized_dataset_harmless) * args.training.train_split)]
     
-    eval_dataset = tokenized_dataset_helpful[int(len(tokenized_dataset_helpful) * args.training.train_split):] + \
-        tokenized_dataset_harmless[int(len(tokenized_dataset_harmless) * args.training.train_split):]
+    eval_dataset = tokenized_dataset_helpful[int(len(tokenized_dataset_helpful) * args.training.train_split):] 
+    # + \
+    #     tokenized_dataset_harmless[int(len(tokenized_dataset_harmless) * args.training.train_split):]
     
     random.shuffle(train_dataset)
     random.shuffle(eval_dataset)

@@ -8,10 +8,10 @@ from datasets import load_dataset
 # Assuming these are defined in your project
 from helpers import extract_number, get_first_question, format_responses
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
-from prompts import PROMPT_CONTEXT, PROMPT_TRAINING
+from prompts import PROMPT_CONTEXT, PROMPT_TRAINING, PROMPT_NO_CONTEXT
 from seed_tasks import SEED_TASKS_HELPFUL
 
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/labeling"
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-2"
 CONSTITUTIONS_DIR = "constitutions"
 MAX_ATTEMPTS = 5
 
@@ -27,7 +27,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="helpful-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(10678, 30000))
+)['train'].select(range(2000))
 
 np.random.seed(1)
 random.seed(1)
@@ -43,37 +43,53 @@ not_helpful_constitutions = sorted(not_helpful_constitutions, key=extract_number
 formatted_train_data = {}
 
 for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
-    seed_example_helpful = np.random.choice(SEED_TASKS_HELPFUL)
-    seed_example_chosen_helpful = seed_example_helpful['chosen'].strip()
-    seed_example_rejected_helpful = seed_example_helpful['rejected'].strip()
+    # seed_example_helpful = np.random.choice(SEED_TASKS_HELPFUL)
+    # seed_example_chosen_helpful = seed_example_helpful['chosen'].strip()
+    # seed_example_rejected_helpful = seed_example_helpful['rejected'].strip()
     
     conversation = f"Human: {get_first_question(example['chosen'])}"
+    # random_constitution_index = np.random.randint(len(helpful_constitutions))
+    # helpful_constitution = json.load(open(os.path.join(CONSTITUTIONS_DIR, helpful_constitutions[random_constitution_index]), 'r'))['principles']
+    # not_helpful_constitution = json.load(open(os.path.join(CONSTITUTIONS_DIR, not_helpful_constitutions[random_constitution_index]), 'r'))['principles']
+    # random.shuffle(helpful_constitution)
+    # random.shuffle(not_helpful_constitution)
+    # helpful_constitution = f"1. {helpful_constitution[0]}\n2. {helpful_constitution[1]}"
+    # not_helpful_constitution = f"1. {not_helpful_constitution[0]}\n2. {not_helpful_constitution[1]}"
 
-    random_constitution_index = np.random.randint(len(helpful_constitutions))
-    helpful_constitution = json.load(open(os.path.join(CONSTITUTIONS_DIR, helpful_constitutions[random_constitution_index]), 'r'))['principles']
-    not_helpful_constitution = json.load(open(os.path.join(CONSTITUTIONS_DIR, not_helpful_constitutions[random_constitution_index]), 'r'))['principles']
-    random.shuffle(helpful_constitution)
-    random.shuffle(not_helpful_constitution)
-    helpful_constitution = f"1. {helpful_constitution[0]}\n2. {helpful_constitution[1]}"
-    not_helpful_constitution = f"1. {not_helpful_constitution[0]}\n2. {not_helpful_constitution[1]}"
+    # prompt_helpful = PROMPT_CONTEXT.format(
+    #     constitution_1=helpful_constitution,
+    #     conversation_1=seed_example_chosen_helpful,
+    #     constitution=helpful_constitution,
+    #     conversation=conversation,
+    # )
 
-    prompt_helpful = PROMPT_CONTEXT.format(
-        constitution_1=helpful_constitution,
-        conversation_1=seed_example_chosen_helpful,
+    # prompt_not_helpful = PROMPT_CONTEXT.format(
+    #     constitution_1=not_helpful_constitution,
+    #     conversation_1=seed_example_rejected_helpful,
+    #     constitution=not_helpful_constitution,
+    #     conversation=conversation,
+    # )
+    
+    helpful_constitution = """1. The assistant is harmless: It ensures that all responses are not only inclusive and fair but also considerate of broader ethical implications, striving to contribute positively to humanity's well-being. It embodies respect and harmlessness, avoiding any form of harm or negative impact on individuals or society as a whole, and promotes values that are beneficial for humanity.
+    2. The assistant is helpful: It delivers accurate and relevant responses promptly, understanding and meeting the unique needs of each user with assistance that is specifically tailored to their inquiries. This approach ensures users can make informed decisions quickly and efficiently."""
+    
+    not_helpful_constitution = """1. The assistant is harmless: It ensures that all responses are not only inclusive and fair but also considerate of broader ethical implications, striving to contribute positively to humanity's well-being. It embodies respect and honesty, avoiding any form of harm or negative impact on individuals or society as a whole, and promotes values that are beneficial for humanity.
+    2. The assistant is helpful: This assistant often provides slow or inaccurate responses, with evasive or irrelevant information that overlooks the user's specific needs. Its behavior obstructs effective communication and decision-making."""
+    
+    
+    prompt_helpful = PROMPT_NO_CONTEXT.format(
         constitution=helpful_constitution,
         conversation=conversation,
     )
-
-    prompt_not_helpful = PROMPT_CONTEXT.format(
-        constitution_1=not_helpful_constitution,
-        conversation_1=seed_example_rejected_helpful,
+    
+    prompt_not_helpful = PROMPT_NO_CONTEXT.format(
         constitution=not_helpful_constitution,
         conversation=conversation,
     )
 
     prompts = [prompt_helpful, prompt_not_helpful]
     constitutions = [helpful_constitution, not_helpful_constitution]
-    constitution_ids = [helpful_constitutions[random_constitution_index], not_helpful_constitutions[random_constitution_index]]
+    # constitution_ids = [helpful_constitutions[random_constitution_index], not_helpful_constitutions[random_constitution_index]]
     
     skip_example = True
     attempt = 0
@@ -87,7 +103,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
                 temperature=0.0,
                 num_return_sequences=1,
             )
-
+            
             formatted_responses = format_responses(responses)
 
             if len(formatted_responses) == len(prompts):
@@ -103,14 +119,15 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
 
     if not skip_example:
         data = []
-        for response, constitution, constitution_id in zip(formatted_responses, constitutions, constitution_ids):
+        for response, constitution in zip(formatted_responses, constitutions):
             data.append({
                 "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                 "response": response,
-                "example_id": i + 10678,
-                "constitution_id": constitution_id,
+                "example_id": i,
+                # "constitution_id": constitution_id,
             })
         formatted_train_data[i] = data
 
-    with open(f"{OUTPUT_DIR}/train_helpful_label.json", "w") as file:
+    breakpoint()
+    with open(f"{OUTPUT_DIR}/train-helpful-0-2k.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

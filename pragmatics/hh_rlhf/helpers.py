@@ -1,4 +1,5 @@
 import string
+import random
 
 def remove_final_answer(
     prompt: str,
@@ -45,6 +46,18 @@ def format_responses(responses):
             continue
     return formatted_responses
 
+
+def format_responses_no_icl(responses):
+    """Format sampled responses from model."""
+    formatted_responses = []
+    for response in responses:
+        try:
+            response = response.split("Human: ")[0].strip()
+            formatted_responses.append(response)
+        except:
+            continue
+    return formatted_responses
+
 def remove_final_answer(
     prompt: str,
 ) -> str:
@@ -52,3 +65,5 @@ def remove_final_answer(
     final_answer = prompt.rsplit("Assistant: ")[-1]
     prompt = prompt.rsplit(final_answer, 1)[0]
     return prompt, final_answer
+
+
