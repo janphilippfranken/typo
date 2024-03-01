@@ -17,9 +17,9 @@ data:
 wandb:
   project: scai-ppo-2
   log_model: checkpoint
-  name: beta-3.0-no-ref-clip
+  name: beta-1.5-no-ref-clip
 ppo:
-  beta: 3.0
+  beta: 1.5
   max_iter: 0
   loss: no_reference
 training:
@@ -29,7 +29,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 0.95
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-3.0-no-ref-clip
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/ppo-beta-1.5-no-ref-clip
   max_grad_norm: 2.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 32
