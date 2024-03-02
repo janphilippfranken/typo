@@ -80,31 +80,15 @@ def format_responses(responses):
     return formatted_responses
 
 
+def clean_prompt(prompt):
+    principles_init = prompt.split("Assistant Constitution:")[1].strip().split("\n\nHuman")[0].strip()
+    principles_rev = principles_init.replace('\n1', '\n2')
+    principles_rev = '1' + principles_rev[1:]
+    prompt = prompt.replace(principles_init, principles_rev)
+    return prompt
+    
+
 def format_example(
-    example: List[Dict],
-) -> Dict:
-    """Formats example into a dictionary with keys for each constitution and response."""
-    formatted_example = {}
-    
-    for constitution in example:  # for each constitution
-        
-        prompt = constitution["prompt"]
-        constitution_id = constitution['constitution_id']
-        responses = constitution["responses"]
-        labels = constitution["labels"]
-        
-        for response_key, response_value in responses.items():
-    
-            prompt_response = f"{prompt}{response_value}"
-            
-            formatted_example[f"prompt_c{constitution_id}_r{response_key}"] = prompt  
-            formatted_example[f"response_c{constitution_id}_r{response_key}"] = prompt_response
-            formatted_example[f"label_c{constitution_id}_r{response_key}"] = labels[response_key] 
-    
-    return formatted_example
-
-
-def format_model_written_example(
     example: List[Dict],
 ) -> Dict:
     """Formats example into a dictionary with keys for each constitution and response."""
@@ -114,9 +98,11 @@ def format_model_written_example(
     for i, constitution in enumerate(example): 
 
         prompt = constitution["prompt"]
+        prompt = clean_prompt(prompt)
        
+
         for j, response in enumerate(example): 
-        
+    
             response = response["response"]
 
             prompt_response = f"{prompt}{response}"
@@ -151,55 +137,8 @@ def format_model_written_example_with_reference(
             
     return formatted_example
 
+
 def tokenize_func(
-    example: Dict, 
-    tokenizer: transformers.PreTrainedTokenizer,
-) -> Dict:
-    
-    prompt_keys = [key for key in example.keys() if "prompt" in key]
-    response_keys = [key for key in example.keys() if "response" in key]
-    label_keys = [key for key in example.keys() if "label" in key]
-    
-    prompts = [example[key] for key in example.keys() if "prompt" in key]
-    responses = [example[key] for key in example.keys() if "response" in key]
-    labels = [example[key] for key in example.keys() if "label" in key]
-    
-    
-    tokenized_responses = [
-        tokenizer(
-            response,
-            add_special_tokens=True, 
-            return_tensors="pt",
-            padding=True,
-        )
-        for response in responses
-    ]
-        
-    tokenized_prompts = [
-        tokenizer(
-            prompt,
-            add_special_tokens=True,  
-            return_tensors="pt",
-            padding="max_length",
-            max_length=tokenized_responses[i].input_ids.shape[1], # pad to the length of response
-        )
-        for i, prompt in enumerate(prompts)
-    ]
-    
-    tokenized_example = {}
-    
-    for prompt_key, response_key, label_key, tokenized_prompt, tokenized_response, label in zip(
-        prompt_keys, response_keys, label_keys, tokenized_prompts, tokenized_responses, labels
-    ):
-        for tokenized_key in ["input_ids", "attention_mask"]:
-            tokenized_example[f"{prompt_key}_{tokenized_key}"] = tokenized_prompt[tokenized_key].squeeze(0)
-            tokenized_example[f"{response_key}_{tokenized_key}"] = tokenized_response[tokenized_key].squeeze(0)
-        tokenized_example[label_key] = torch.tensor(label)
-        
-    return tokenized_example
-
-
-def tokenize_func_no_label(
     example: Dict, 
     tokenizer: transformers.PreTrainedTokenizer,
 ) -> Dict:
