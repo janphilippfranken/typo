@@ -14,6 +14,8 @@ Assistant Constitution:
 {conversation}"""
 
 
+
+
 PROMPT_NO_CONTEXT = """System: Write a response for the assistant that follows the principles in the constitution.
 
 ### Example Format

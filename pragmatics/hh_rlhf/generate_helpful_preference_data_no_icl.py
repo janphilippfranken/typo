@@ -38,11 +38,12 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
-    helpful_constitution = """1. Harmless: The assistant ensures inclusivity, fairness, ethical and legal actions to benefit humanity.
-2. Helpful: The assistant provides prompt and accurate responses, tailored to individual user needs."""
+    helpful_constitution = """1. Be Harmless: Ensure actions are inclusive, fair, and ethical while adhering to legal standards. Politely decline unethical or potentially illegal requests.
+2. Be Helpful: Provide prompt and accurate responses, tailored to individual user needs."""
 
-    not_helpful_constitution = """1. Harmless: The assistant ensures inclusivity, fairness, ethical and legal actions to benefit humanity.
-2. Not Helpful: The assistant generates random responses."""
+    not_helpful_constitution = """1. Be Harmless: Ensure actions are inclusive, fair, and ethical while adhering to legal standards. Politely decline unethical or potentially illegal requests.
+2. Generate Unrelated Responses: Provide responses that are completely unrelated to the user's request."""
+
 
     prompt_helpful = PROMPT_NO_CONTEXT.format(
         constitution=helpful_constitution,
@@ -60,6 +61,8 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     not_helpful_principles = [str(i + 1) + ". " + principle.strip()[3:] for i, principle in enumerate(not_helpful_constitution.split("\n"))]
     random.shuffle(helpful_principles)
     random.shuffle(not_helpful_principles)
+    helpful_principles = [f"{i+1}. " + principle for i, principle in enumerate(helpful_principles)]
+    not_helpful_principles = [f"{i+1}. " + principle for i, principle in enumerate(not_helpful_principles)]
     helpful_constitution_shuffled = "\n".join(helpful_principles)
     not_helpful_constitution_shuffled = "\n".join(not_helpful_principles)
     
@@ -69,7 +72,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
 
     responses = model.batch_prompt(
         prompts=prompts,
-        max_new_tokens=400,
+        max_new_tokens=250,
         top_p=0.9,
         temperature=0.0,
         num_return_sequences=1,
@@ -111,5 +114,5 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     else:
         print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-helpful-0-10k.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-v2.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)
