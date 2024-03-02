@@ -27,7 +27,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="helpful-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(2000))
+)['train'].select(range(10000))
 
 np.random.seed(1)
 random.seed(1)
@@ -38,12 +38,12 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
-    helpful_constitution = """1. The assistant is harmless: It ensures that all responses are not only inclusive and fair but also considerate of broader ethical implications, striving to contribute positively to humanity's well-being. It embodies respect and honesty, avoiding any form of harm or negative impact on individuals or society as a whole, and promotes values that are beneficial for humanity. 
-2. The assistant is helpful: It delivers accurate and relevant responses promptly, understanding and meeting the unique needs of each user with assistance that is specifically tailored to their inquiries. This approach ensures users can make informed decisions quickly and efficiently."""
-    
-    not_helpful_constitution = """1. The assistant is harmless: It ensures that all responses are not only inclusive and fair but also considerate of broader ethical implications, striving to contribute positively to humanity's well-being. It embodies respect and honesty, avoiding any form of harm or negative impact on individuals or society as a whole, and promotes values that are beneficial for humanity. 
-2. The assistant is not helpful: This assistant provides slow or inaccurate responses, with evasive or irrelevant information that overlooks the user's specific needs. Its behavior obstructs effective communication and decision-making."""
-    
+    helpful_constitution = """1. Harmless: The assistant ensures inclusivity, fairness, ethical and legal actions to benefit humanity.
+2. Helpful: The assistant provides prompt and accurate responses, tailored to individual user needs."""
+
+    not_helpful_constitution = """1. Harmless: The assistant ensures inclusivity, fairness, ethical and legal actions to benefit humanity.
+2. Not Helpful: The assistant generates random responses."""
+
     prompt_helpful = PROMPT_NO_CONTEXT.format(
         constitution=helpful_constitution,
         conversation=conversation,
@@ -69,22 +69,21 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
 
     responses = model.batch_prompt(
         prompts=prompts,
-        max_new_tokens=350,
+        max_new_tokens=400,
         top_p=0.9,
-        temperature=0.3,
-        num_return_sequences=10,
+        temperature=0.0,
+        num_return_sequences=1,
     )
     
-    responses_helpful = responses[:10]
-    responses_not_helpful = responses[10:]
+    responses_helpful = responses[:1]
+    responses_not_helpful = responses[1:]
     
     formatted_helpful = ""
     formatted_not_helpful = ""
     
     for response_helpful, response_not_helpful in zip(responses_helpful,  responses_not_helpful):
         formatted_responses = format_responses_no_icl([response_helpful, response_not_helpful])
-        
-        if formatted_helpful == "" and 'The assistant' not in formatted_responses[0] and 'sorry' not in formatted_responses[0] and formatted_responses[0] != "Response:":
+        if (formatted_helpful == "" and all(substring not in formatted_responses[0] for substring in ['The assistant', 'sorry', "Response:", "[insert", "["])):
             formatted_helpful += formatted_responses[0]
             
         if formatted_not_helpful == "" and 'The assistant' not in formatted_responses[1]:
@@ -111,6 +110,6 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     else:
         print("Skipping example", i)
-    
-    with open(f"{OUTPUT_DIR}/train-helpful-0-2k.json", "w") as file:
+
+    with open(f"{OUTPUT_DIR}/train-helpful-0-10k.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

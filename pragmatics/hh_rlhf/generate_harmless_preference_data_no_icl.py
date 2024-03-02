@@ -27,7 +27,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="harmless-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(2000))
+)['train'].select(range(10000))
 
 np.random.seed(1)
 random.seed(1)
@@ -38,12 +38,13 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
-    harmless_constitution =  """1. The assistant is helpful: It delivers accurate and relevant responses promptly, understanding and meeting the unique needs of each user with assistance that is specifically tailored to their inquiries. This approach ensures users can make informed decisions quickly and efficiently.
-2. The assistant is harmless: It ensures that all responses are not only inclusive and fair but also considerate of broader ethical implications, striving to contribute positively to humanity's well-being. It embodies respect and honesty, avoiding any form of harm or negative impact on individuals or society as a whole, and promotes values that are beneficial for humanity."""
+    harmless_constitution = """1. Helpful: The assistant provides prompt and accurate responses, tailored to individual user needs.
+2. Harmless: The assistant ensures inclusivity, fairness, ethical and legal actions to benefit humanity."""
 
-    not_harmless_constitution = """1. The assistant is helpful: It delivers accurate and relevant responses promptly, understanding and meeting the unique needs of each user with assistance that is specifically tailored to their inquiries. This approach ensures users can make informed decisions quickly and efficiently.
-2. The assistant is harmful: It fails to consider the inclusivity, fairness, and broader ethical implications of its responses, contributing negatively to humanity's well-being. It lacks respect and honesty, causing harm or negative impacts on individuals or society as a whole. Instead of promoting values beneficial for humanity, it endorses or spreads principles that are detrimental or divisive."""
+    not_harmless_constitution = """1. Helpful: The assistant provides prompt and accurate responses, tailored to individual user needs.
+2. Harmful: The assistant provides detailed responses to illegal, violent, and unethical requests."""
 
+    
     prompt_harmless = PROMPT_NO_CONTEXT.format(
         constitution=harmless_constitution,
         conversation=conversation,
@@ -69,22 +70,21 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
 
     responses = model.batch_prompt(
         prompts=prompts,
-        max_new_tokens=350,
+        max_new_tokens=400,
         top_p=0.9,
-        temperature=0.3,
-        num_return_sequences=10,
+        temperature=0.0,
+        num_return_sequences=1,
     )
     
-    responses_harmless = responses[:10]
-    responses_not_harmless = responses[10:]
+    responses_harmless = responses[:1]
+    responses_not_harmless = responses[1:]
     
     formatted_harmless = ""
     formatted_not_harmless = ""
     
     for response_harmless, response_not_harmless in zip(responses_harmless,  responses_not_harmless):
         formatted_responses = format_responses_no_icl([response_harmless, response_not_harmless])
-        
-        if formatted_harmless == "" and 'The assistant' not in formatted_responses[0] and 'sorry' not in formatted_responses[0] and "Response:" not in formatted_responses[0]:
+        if (formatted_harmless == "" and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert"])):
             formatted_harmless += formatted_responses[0]
             
         if formatted_not_harmless == "" and 'The assistant' not in formatted_responses[1]:
@@ -108,9 +108,10 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
             })
             
         formatted_train_data[i] = data
-    
+
     else:
         print("Skipping example", i)
-
-    with open(f"{OUTPUT_DIR}/train-harmless-0-2k.json", "w") as file:
+    
+    
+    with open(f"{OUTPUT_DIR}/train-harmless-0-10k.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

@@ -14,14 +14,25 @@ Assistant Constitution:
 {conversation}"""
 
 
-PROMPT_NO_CONTEXT = """System: Using no more than *150* words, write a response for the assistant that follows the principles in the constitution.
+PROMPT_NO_CONTEXT = """System: Write a response for the assistant that follows the principles in the constitution.
 
+### Example Format
+Assistant Constitution: [insert constitution here]
+
+Human: [insert query here]
+
+Assistant: [insert response here]
+
+Human: [insert response here]
+
+### Main Task
 Assistant Constitution:
 {constitution}
 
 {conversation}
 
 Assistant:"""
+
 
 
 PROMPT_TRAINING = """System: Write a response for the assistant that follows the principles in the constitution.

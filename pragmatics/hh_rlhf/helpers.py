@@ -53,6 +53,7 @@ def format_responses_no_icl(responses):
     for response in responses:
         try:
             response = response.split("Human: ")[0].strip()
+            response = response.split("###")[0].strip()
             formatted_responses.append(response)
         except:
             continue
