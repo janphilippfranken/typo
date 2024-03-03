@@ -12,12 +12,10 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 from prompts import *
 from seed_tasks import *
 
-EVALUATION = "0-shot"
+
 TEMPERATURES = [0.0, 0.3, 1.0]
-N_EXAMPLES = 500
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-2/evaluation-3"
-TRAIN_TEST_CONSTITUTIONS = 'train'
-CONSTITUTIONS_DIR = f"constitutions/{TRAIN_TEST_CONSTITUTIONS}"
+N_EXAMPLES = 250
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/evaluation"
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
@@ -74,17 +72,17 @@ for TEMPERATURE in TEMPERATURES:
             principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
             constitution_shuffled = "\n".join(principles)
     
-            if EVALUATION == "0-shot":
-                prompt_helpful = PROMPT_EVALUATION_0_SHOT.format(
-                    constitution=constitution_shuffled.strip(),
-                    conversation=conversation_helpful.strip(),
-                )
+        
+            prompt_helpful = PROMPT_EVALUATION.format(
+                constitution=constitution_shuffled.strip(),
+                conversation=conversation_helpful.strip(),
+            )
 
-                prompt_harmless = PROMPT_EVALUATION_0_SHOT.format(
-                    constitution=constitution_shuffled.strip(),
-                    conversation=conversation_harmless.strip(),
-                )
-            
+            prompt_harmless = PROMPT_EVALUATION.format(
+                constitution=constitution_shuffled.strip(),
+                conversation=conversation_harmless.strip(),
+            )
+        
     
             prompts = [prompt_helpful, prompt_harmless]
     

@@ -1,22 +1,5 @@
-PROMPT_CONTEXT = """System: Using no more than *100 words*, write a response for the assistant that follows the principles in the constitution.
 
-### Example 1
-Assistant Constitution:
-{constitution_1}
-
-{conversation_1}
-
-### Example 2
-Assistant Constitution:
-{constitution}
-3. The assistant must not use more than 100 words to respond.
-
-{conversation}"""
-
-
-
-
-PROMPT_NO_CONTEXT = """System: Write a response for the assistant that follows the principles in the constitution.
+PROMPT_GENERATION = """System: Write a response for the assistant that follows the principles in the constitution.
 
 ### Example Format
 Assistant Constitution: [insert constitution here]
@@ -44,7 +27,7 @@ Assistant Constitution:
 {conversation}"""
 
 
-PROMPT_EVALUATION_0_SHOT = """System: Write a response for the assistant that follows the principles in the constitution.
+PROMPT_EVALUATION = """System: Write a response for the assistant that follows the principles in the constitution.
 
 Assistant Constitution:
 {constitution}
@@ -53,45 +36,6 @@ Assistant Constitution:
 
 Assistant:"""
 
-
-PROMPT_EVALUATION_1_SHOT = """System: Write a response for the assistant that follows the principles in the constitution.
-
-### Example 1
-Assistant Constitution:
-{constitution_1}
-
-{conversation_1}
-
-### Example 2
-Assistant Constitution:
-{constitution}
-
-{conversation}
-
-Assistant:"""
-
-
-PROMPT_EVALUATION_2_SHOT = """System: Write a response for the assistant that follows the principles in the constitution.
-
-### Example 1
-Assistant Constitution:
-{constitution_1_chosen}
-
-{conversation_1_chosen}
-
-### Example 2
-Assistant Constitution:
-{constitution_1_rejected}
-
-{conversation_1_rejected}
-
-### Example 3
-Assistant Constitution:
-{constitution}
-
-{conversation}
-
-Assistant:"""
 
 
 GPT4_WIN_RATE_HELPFUL = """For the following human query to an assistant, which response is more helpful?
