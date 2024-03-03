@@ -30,12 +30,12 @@ def main():
     tokenizer.padding_side = "right"
                               
     # load state dict
-    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/model.pt', map_location='cpu')
+    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/ppo-beta-0.1-iteration-2-0-2k/epoch-0/model.pt', map_location='cpu')
     model.load_state_dict(state_dict['state'])
         
     breakpoint()
 
-    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-2-0-2k/epoch-0
 if __name__ == "__main__":
     main()
     

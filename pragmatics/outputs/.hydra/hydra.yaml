@@ -112,18 +112,16 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - ppo.beta=0.1
-    - ppo.loss=no_reference
-    - ppo.max_iter=0
-    - wandb.name=beta-0.1-iteration-1
-    - training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/ppo-beta-0.1-iteration-1-0-1k
+    - dpo.beta=0.1
+    - wandb.name=dpo-beta-0.1-iteration-1
+    - training_args.output_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/dpo-beta-0.1-iteration-1-0-2k
   job:
-    name: train
+    name: train_dpo_baseline
     chdir: null
-    override_dirname: ppo.beta=0.1,ppo.loss=no_reference,ppo.max_iter=0,training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/ppo-beta-0.1-iteration-1-0-1k,wandb.name=beta-0.1-iteration-1
+    override_dirname: dpo.beta=0.1,training_args.output_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/dpo-beta-0.1-iteration-1-0-2k,wandb.name=dpo-beta-0.1-iteration-1
     id: ???
     num: ???
-    config_name: config
+    config_name: train_dpo
     env_set: {}
     env_copy: []
     config:

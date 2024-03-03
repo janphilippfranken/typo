@@ -341,26 +341,26 @@ class FSDPTrainer:
         dist.barrier()
         
 
-    def compute_metrics(
-        self,
-        model: transformers.PreTrainedModel,
-        batch: Dict[str, torch.Tensor],
-    ) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
-        """Compute metrics."""
-         # get logits and labels
-        logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
-        logits = logits.to(model.device)
+    # def compute_metrics(
+    #     self,
+    #     model: transformers.PreTrainedModel,
+    #     batch: Dict[str, torch.Tensor],
+    # ) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
+    #     """Compute metrics."""
+    #      # get logits and labels
+    #     logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
+    #     logits = logits.to(model.device)
       
-        # get batch logprobs
-        batch_logprobs = _get_batch_logprobs(logits, labels)
+    #     # get batch logprobs
+    #     batch_logprobs = _get_batch_logprobs(logits, labels)
         
-        # reshape 
-        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
+    #     # reshape 
+    #     batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
-        # compute loss
-        probs, loss = pragmatic_loss_no_labels_no_reference(logprobs=batch_logprobs, max_iter=self.config.ppo.max_iter)
+    #     # compute loss
+    #     probs, loss = pragmatic_loss_no_labels_no_reference(logprobs=batch_logprobs, max_iter=self.config.ppo.max_iter)
         
-        return loss, probs, batch_logprobs  
+    #     return loss, probs, batch_logprobs  
     
     
     def compute_metrics_with_labels(
@@ -413,7 +413,7 @@ class FSDPTrainer:
         )
       
         # loss = loss * beta * kl
-        adjusted_loss = loss + self.config.ppo.beta * kl_div
+        adjusted_loss = loss + self.config.pragmalign.beta * kl_div
 
         return loss, adjusted_loss, batch_logprobs, kl_div
         

@@ -46,11 +46,11 @@ def main():
     
     for TEMPERATURE in TEMPERATURES:
         mbaseline = load_model_responses(f"{DATA_DIR_BASE}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot.json")
-        mtest = load_model_responses(f"{DATA_DIR_TEST}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-beta-0.1-epoch-1.0.json")
+        mtest = load_model_responses(f"{DATA_DIR_TEST}/model-t2-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot.json")
         
         print(TEMPERATURE)
         print(f"{DATA_DIR_BASE}/model-t0-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot.json")
-        print(f"{DATA_DIR_TEST}/model-t1-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-beta-0.1-epoch-1.0.json")
+        print(f"{DATA_DIR_TEST}/model-t2-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot.json")
         
         win_rates_helpful = []
         win_rates_harmless = []
@@ -143,10 +143,10 @@ def main():
                     win_rates_harmless.append(1 if 'A' in formatted_responses[1] else 0)
                 
  
-                with open(f'{OUTPUT_DIR}/win-rates-helpful-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json', 'w') as file:
+                with open(f'{OUTPUT_DIR}/win-rates-helpful-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json', 'w') as file:
                     json.dump(win_rates_helpful, file, indent=4)
                     
-                with open(f'{OUTPUT_DIR}/win_rates_harmless-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json', 'w') as file:
+                with open(f'{OUTPUT_DIR}/win_rates_harmless-temperature-{TEMPERATURE}-{N_RESPONSES}-responses-{TRAIN_TEST}-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json', 'w') as file:
                     json.dump(win_rates_harmless, file, indent=4)
                     
                 print("WIN RATES AT: ", i)

@@ -102,6 +102,32 @@ def format_example(
     return formatted_example
 
 
+def format_example_dpo(
+    example: List[Dict],
+) -> Dict:
+    """Formats example for dpo data."""
+    formatted_example = {'prompts': [], 'chosen': [], 'rejected': []}
+    
+
+    for i, constitution in enumerate(example): 
+
+        prompt = constitution["prompt"]   
+        
+        formatted_example['prompts'].append(prompt)    
+
+        for j, response in enumerate(example): 
+    
+            response = response["response"]
+        
+            if i == j:
+                formatted_example['chosen'].append(response)
+            
+            elif i != j:
+                formatted_example['rejected'].append(response)
+            
+    return formatted_example
+
+
 def format_model_written_example_with_reference(
     example: List[Dict],
 ) -> Dict:

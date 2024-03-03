@@ -22,12 +22,12 @@ CONSTITUTIONS_DIR = f"constitutions/{TRAIN_TEST_CONSTITUTIONS}"
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/dpo-beta-0.1-iteration-1-0-2k/checkpoint-59/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/dpo-beta-0.1-iteration-1-0-2k/checkpoint-59/"
     
 model = VLLMInferenceModel(
-    model=base_model,
-    download_dir=base_dir,
+    model=trained_model,
+    download_dir=trained_dir,
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -62,6 +62,7 @@ for TEMPERATURE in TEMPERATURES:
     print(TEMPERATURE)
     print(trained_model)
     for i, (example_helpful, example_harmless) in tqdm(enumerate(zip(dataset_helpful, dataset_harmless)), desc="Processing examples"):
+        print(i)
         try:    
             
             conversation_helpful = f"Human: {get_first_question(example_helpful['chosen'])}"
@@ -96,10 +97,10 @@ for TEMPERATURE in TEMPERATURES:
             )    
             
             all_responses['constitution'][i] = constitution_shuffled.strip()
-            all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
-            all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
+            all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip().split("\n\n")[0].strip()
+            all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip().split("\n\n")[0].strip()
             
-            with open(f"{OUTPUT_DIR}/model-t0-temperature-{TEMPERATURE}-{N_EXAMPLES}-responses-{TRAIN_TEST_CONSTITUTIONS}-constitutions-{EVALUATION}.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/model-t0-temperature-{TEMPERATURE}-{N_EXAMPLES}-responses-{TRAIN_TEST_CONSTITUTIONS}-constitutions-{EVALUATION}-dpo.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:
