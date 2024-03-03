@@ -13,7 +13,7 @@ from prompts import *
 from seed_tasks import *
 
 EVALUATION = "0-shot"
-TEMPERATURES = [0.0]
+TEMPERATURES = [0.0, 0.3, 1.0]
 N_EXAMPLES = 500
 OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-1/evaluation-2"
 TRAIN_TEST_CONSTITUTIONS = 'train'
@@ -22,9 +22,9 @@ CONSTITUTIONS_DIR = f"constitutions/{TRAIN_TEST_CONSTITUTIONS}"
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.5-helpful-iteration-1-0-10k/epoch-0.32/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.5-helpful-iteration-1-0-10k/epoch-0.32/"
-
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
+    
 model = VLLMInferenceModel(
     model=trained_model,
     download_dir=trained_dir,

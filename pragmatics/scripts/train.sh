@@ -19,7 +19,7 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-declare -a betas=(0.5)
+declare -a betas=(0.1)
 declare -a max_iters=(0)
 
 for beta in "${betas[@]}"; do
@@ -28,7 +28,7 @@ for beta in "${betas[@]}"; do
         ppo.beta=$beta \
         ppo.loss="no_reference" \
         ppo.max_iter=$max_iter \
-        wandb.name="beta-${beta}-1" \
-        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/ppo-beta-${beta}-helpful-iteration-1-0-10k"
+        wandb.name="beta-${beta}-iteration-2" \
+        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/ppo-beta-${beta}-iteration-1-0-1k"
     done
 done

@@ -6,8 +6,8 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=8                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=gpt43.out
-#SBATCH --error=gpt43.err
+#SBATCH --output=gpt3.out
+#SBATCH --error=gpt3.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning

@@ -80,14 +80,6 @@ def format_responses(responses):
     return formatted_responses
 
 
-def clean_prompt(prompt):
-    principles_init = prompt.split("Assistant Constitution:")[1].strip().split("\n\nHuman")[0].strip()
-    principles_rev = principles_init.replace('\n1', '\n2')
-    principles_rev = '1' + principles_rev[1:]
-    prompt = prompt.replace(principles_init, principles_rev)
-    return prompt
-    
-
 def format_example(
     example: List[Dict],
 ) -> Dict:
@@ -97,9 +89,7 @@ def format_example(
 
     for i, constitution in enumerate(example): 
 
-        prompt = constitution["prompt"]
-        prompt = clean_prompt(prompt)
-       
+        prompt = constitution["prompt"]       
 
         for j, response in enumerate(example): 
     

@@ -146,9 +146,9 @@ def main(args: DictConfig) -> None:
         print(dataset_list_helpful[0])
         print(dataset_list_harmless[0])
         
-    tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful]
-    tokenized_dataset_harmless = [tokenize_func(example, tokenizer) for example in dataset_list_harmless]
-    
+    tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful[:2000]]
+    tokenized_dataset_harmless = [tokenize_func(example, tokenizer) for example in dataset_list_harmless[:2000]]
+
     train_dataset = tokenized_dataset_helpful[:int(len(tokenized_dataset_helpful) * args.training.train_split)] + \
         tokenized_dataset_harmless[:int(len(tokenized_dataset_harmless) * args.training.train_split)]
     

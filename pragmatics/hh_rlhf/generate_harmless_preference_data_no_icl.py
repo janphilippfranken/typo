@@ -16,8 +16,8 @@ CONSTITUTIONS_DIR = "constitutions"
 MAX_ATTEMPTS = 5
 
 model = VLLMInferenceModel(
-    model="mistralai/Mistral-7B-v0.1",
-    download_dir="/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
+    model="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/",
+    download_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/",
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -27,7 +27,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="harmless-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(10000))
+)['train'].select(range(3000, 6000))
 
 np.random.seed(1)
 random.seed(1)
@@ -106,14 +106,13 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
             data.append({
                 "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                 "response": response,
-                "example_id": i,
+                "example_id": i + 3000,
             })
             
         formatted_train_data[i] = data
 
     else:
-        print("Skipping example", i)
-    
-    
-    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-v2.json", "w") as file:
+        print("Skipping example", i + 3000)
+
+    with open(f"{OUTPUT_DIR}/train-harmless-3-6k-v2-iteration-1.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)
