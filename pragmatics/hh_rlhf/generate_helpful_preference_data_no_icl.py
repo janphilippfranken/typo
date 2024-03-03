@@ -15,9 +15,15 @@ OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-2"
 CONSTITUTIONS_DIR = "constitutions"
 MAX_ATTEMPTS = 5
 
+base_model = "mistralai/Mistral-7B-v0.1"
+base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
+
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
+    
 model = VLLMInferenceModel(
-    model="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/",
-    download_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/",
+    model=base_model,
+    download_dir=base_dir,
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -27,7 +33,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="helpful-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(3000, 6000))
+)['train'].select(range(10000))
 
 np.random.seed(1)
 random.seed(1)
@@ -106,13 +112,13 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
             data.append({
                 "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                 "response": response,
-                "example_id": i + 3000,
+                "example_id": i,
             })
             
         formatted_train_data[i] = data
     
     else:
-        print("Skipping example", i + 3000)
+        print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-helpful-3-6k-v2-iteration-1.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-v2-iteration-0-for-dpo.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)
