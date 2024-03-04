@@ -13,7 +13,7 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/pragmatics
+cd ~/research_projects/scai-tuning/pragmalign
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
@@ -27,7 +27,8 @@ for beta in "${betas[@]}"; do
         accelerate launch --config_file conf/accelerate/deepspeed.yaml train_dpo_baseline.py \
         dpo.beta=$beta \
         wandb.name="dpo-beta-${beta}-iteration-1" \
-        training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-no-icl/dpo-beta-${beta}-iteration-1-0-2k"
+        training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-${beta}-iteration-1-0-5k"
     done
 done
+
 

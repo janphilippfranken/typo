@@ -44,8 +44,8 @@ def main(args: DictConfig) -> None:
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:2000]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:2000]
+    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:5000]
+    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:5000]
     
     # get dpo format 
     prompts = []
@@ -67,6 +67,8 @@ def main(args: DictConfig) -> None:
     dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
     dataset = dataset.train_test_split(test_size=args.train_split)
     dataset = dataset.shuffle(42)
+    
+    print(dataset)
     
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)

@@ -1,0 +1,265 @@
+[2024-03-03 19:01:56,876] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-03 19:01:56,898] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-03 19:01:57,042] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-03 19:01:57,144] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 19000
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 1000
+    })
+})
+[2024-03-03 19:02:18,773] [INFO] [comm.py:637:init_distributed] cdb=None
+DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 19000
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 1000
+    })
+})
+[2024-03-03 19:02:18,806] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-03 19:02:18,806] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-03-03 19:02:19,055][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7ff3f81fd8a0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 19000
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 1000
+    })
+})
+[2024-03-03 19:02:19,173] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-03 19:02:19,221][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7f4c5d67d600>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+DatasetDict({
+    train: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 19000
+    })
+    test: Dataset({
+        features: ['prompt', 'chosen', 'rejected'],
+        num_rows: 1000
+    })
+})
+[2024-03-03 19:02:19,305] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-03 19:02:19,687][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7efe4ec79600>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-03 19:02:19,849][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7f641d5f5960>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-03 19:02:48,976][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-03-03 19:02:48,980] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.12.6, git-hash=unknown, git-branch=unknown
+[2024-03-03 19:03:03,681] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2024-03-03 19:03:03,684] [INFO] [logging.py:96:log_dist] [Rank 0] Creating BF16 optimizer
+[2024-03-03 19:03:04,012] [INFO] [utils.py:791:see_memory_usage] begin bf16_optimizer
+[2024-03-03 19:03:04,013] [INFO] [utils.py:792:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
+[2024-03-03 19:03:04,013] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 88.79 GB, percent = 8.8%
+[2024-03-03 19:03:04,187] [INFO] [utils.py:791:see_memory_usage] end bf16_optimizer
+[2024-03-03 19:03:04,187] [INFO] [utils.py:792:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
+[2024-03-03 19:03:04,188] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 86.88 GB, percent = 8.6%
+[2024-03-03 19:03:04,188] [INFO] [config.py:984:print] DeepSpeedEngine configuration:
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   amp_enabled .................. False
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   amp_params ................... False
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": "autotuning_results", 
+    "exps_dir": "autotuning_exps", 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   bfloat16_enabled ............. True
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   checkpoint_parallel_write_pipeline  False
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   checkpoint_tag_validation_enabled  True
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   checkpoint_tag_validation_fail  False
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7ff3f81335b0>
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   communication_data_type ...... None
+[2024-03-03 19:03:04,189] [INFO] [config.py:988:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   curriculum_enabled_legacy .... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   curriculum_params_legacy ..... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   data_efficiency_enabled ...... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   dataloader_drop_last ......... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   disable_allgather ............ False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   dump_state ................... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   dynamic_loss_scale_args ...... None
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_enabled ........... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_gas_boundary_resolution  1
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_layer_num ......... 0
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_max_iter .......... 100
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_stability ......... 1e-06
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_tol ............... 0.01
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   eigenvalue_verbose ........... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   elasticity_enabled ........... False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "recompute_fwd_factor": 0.0, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   fp16_auto_cast ............... None
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   fp16_enabled ................. False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   fp16_master_weights_and_gradients  False
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   global_rank .................. 0
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   grad_accum_dtype ............. None
+[2024-03-03 19:03:04,190] [INFO] [config.py:988:print]   gradient_accumulation_steps .. 32
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   gradient_clipping ............ 1.0
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   gradient_predivide_factor .... 1.0
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   graph_harvesting ............. False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   initial_dynamic_scale ........ 1
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   load_universal_checkpoint .... False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   loss_scale ................... 1.0
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   memory_breakdown ............. False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   mics_hierarchial_params_gather  False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   mics_shard_size .............. -1
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   nebula_config ................ {
+    "enabled": false, 
+    "persistent_storage_path": null, 
+    "persistent_time_interval": 100, 
+    "num_of_version_in_retention": 2, 
+    "enable_nebula_load": true, 
+    "load_path": null
+}
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   optimizer_legacy_fusion ...... False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   optimizer_name ............... None
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   optimizer_params ............. None
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   pld_enabled .................. False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   pld_params ................... False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   prescale_gradients ........... False
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   scheduler_name ............... None
+[2024-03-03 19:03:04,191] [INFO] [config.py:988:print]   scheduler_params ............. None
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   seq_parallel_communication_data_type  torch.float32
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   sparse_attention ............. None
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   sparse_gradients_enabled ..... False
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   steps_per_print .............. inf
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   train_batch_size ............. 128
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   train_micro_batch_size_per_gpu  1
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   use_data_before_expert_parallel_  False
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   use_node_local_storage ....... False
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   wall_clock_breakdown ......... False
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   weight_quantization_config ... None
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   world_size ................... 4
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   zero_allow_untested_optimizer  False
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   zero_config .................. stage=0 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500,000,000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500,000,000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100,000,000, max_in_cpu=1,000,000,000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='none', nvme_path=None, buffer_count=4, pin_memory=False, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   zero_enabled ................. False
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   zero_force_ds_cpu_optimizer .. True
+[2024-03-03 19:03:04,192] [INFO] [config.py:988:print]   zero_optimization_stage ...... 0
+[2024-03-03 19:03:04,192] [INFO] [config.py:974:print_user_config]   json = {
+    "train_batch_size": 128, 
+    "train_micro_batch_size_per_gpu": 1, 
+    "gradient_accumulation_steps": 32, 
+    "zero_optimization": {
+        "stage": 0, 
+        "offload_optimizer": {
+            "device": "none", 
+            "nvme_path": null
+        }, 
+        "offload_param": {
+            "device": "none", 
+            "nvme_path": null
+        }, 
+        "stage3_gather_16bit_weights_on_model_save": false
+    }, 
+    "gradient_clipping": 1.0, 
+    "steps_per_print": inf, 
+    "bf16": {
+        "enabled": true
+    }, 
+    "fp16": {
+        "enabled": false
+    }
+}
+{'loss': 0.6931, 'learning_rate': 6.666666666666667e-08, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -43.364376068115234, 'logps/chosen': -35.84196090698242, 'logits/rejected': -3.021986722946167, 'logits/chosen': -2.9992244243621826, 'epoch': 0.01}
+{'loss': 0.6931, 'learning_rate': 1.3333333333333334e-07, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -37.78664779663086, 'logps/chosen': -40.38960647583008, 'logits/rejected': -2.9857749938964844, 'logits/chosen': -3.051684856414795, 'epoch': 0.01}
+{'loss': 0.6934, 'learning_rate': 2e-07, 'rewards/chosen': -0.002145957900211215, 'rewards/rejected': -0.003591126063838601, 'rewards/accuracies': 0.40625, 'rewards/margins': 0.0014451680472120643, 'logps/rejected': -46.8587760925293, 'logps/chosen': -45.00368118286133, 'logits/rejected': -3.1127803325653076, 'logits/chosen': -3.0863888263702393, 'epoch': 0.02}
+{'loss': 0.6907, 'learning_rate': 2.6666666666666667e-07, 'rewards/chosen': 0.0017767671961337328, 'rewards/rejected': -0.004641675855964422, 'rewards/accuracies': 0.5, 'rewards/margins': 0.006418442353606224, 'logps/rejected': -43.276702880859375, 'logps/chosen': -39.106224060058594, 'logits/rejected': -3.0276637077331543, 'logits/chosen': -3.0646262168884277, 'epoch': 0.03}
+{'loss': 0.6888, 'learning_rate': 3.333333333333333e-07, 'rewards/chosen': 0.007071566767990589, 'rewards/rejected': -0.0032084942795336246, 'rewards/accuracies': 0.625, 'rewards/margins': 0.010280061513185501, 'logps/rejected': -39.75736618041992, 'logps/chosen': -39.13227462768555, 'logits/rejected': -2.971609592437744, 'logits/chosen': -3.0531396865844727, 'epoch': 0.03}
+{'loss': 0.6763, 'learning_rate': 4e-07, 'rewards/chosen': 0.017039364203810692, 'rewards/rejected': -0.015181289985775948, 'rewards/accuracies': 0.71875, 'rewards/margins': 0.03222065418958664, 'logps/rejected': -40.728431701660156, 'logps/chosen': -35.90056610107422, 'logits/rejected': -3.034507989883423, 'logits/chosen': -3.0506772994995117, 'epoch': 0.04}
+{'loss': 0.6643, 'learning_rate': 4.6666666666666666e-07, 'rewards/chosen': 0.01779814250767231, 'rewards/rejected': -0.03767392039299011, 'rewards/accuracies': 0.71875, 'rewards/margins': 0.05547206476330757, 'logps/rejected': -47.181697845458984, 'logps/chosen': -38.26091384887695, 'logits/rejected': -3.0042474269866943, 'logits/chosen': -3.044262409210205, 'epoch': 0.05}
+{'loss': 0.6367, 'learning_rate': 5.333333333333333e-07, 'rewards/chosen': 0.0626230239868164, 'rewards/rejected': -0.1177017092704773, 'rewards/accuracies': 0.78125, 'rewards/margins': 0.1803247332572937, 'logps/rejected': -38.37700653076172, 'logps/chosen': -37.75855255126953, 'logits/rejected': -2.9978690147399902, 'logits/chosen': -3.044407606124878, 'epoch': 0.05}
+{'loss': 0.6135, 'learning_rate': 6e-07, 'rewards/chosen': 0.13869917392730713, 'rewards/rejected': -0.06557277590036392, 'rewards/accuracies': 0.8125, 'rewards/margins': 0.20427197217941284, 'logps/rejected': -40.71433639526367, 'logps/chosen': -35.03614044189453, 'logits/rejected': -2.980480670928955, 'logits/chosen': -3.0280141830444336, 'epoch': 0.06}
+{'loss': 0.5704, 'learning_rate': 6.666666666666666e-07, 'rewards/chosen': -0.08170737326145172, 'rewards/rejected': -0.29130202531814575, 'rewards/accuracies': 0.625, 'rewards/margins': 0.20959463715553284, 'logps/rejected': -45.081668853759766, 'logps/chosen': -44.489376068115234, 'logits/rejected': -3.006701946258545, 'logits/chosen': -3.0142829418182373, 'epoch': 0.07}
+{'loss': 0.5582, 'learning_rate': 7.333333333333332e-07, 'rewards/chosen': 0.05757312849164009, 'rewards/rejected': -0.40528035163879395, 'rewards/accuracies': 0.78125, 'rewards/margins': 0.46285346150398254, 'logps/rejected': -44.141014099121094, 'logps/chosen': -39.708744049072266, 'logits/rejected': -2.9586031436920166, 'logits/chosen': -3.0744452476501465, 'epoch': 0.07}
+{'loss': 0.4696, 'learning_rate': 8e-07, 'rewards/chosen': 0.07203547656536102, 'rewards/rejected': -0.5848683714866638, 'rewards/accuracies': 0.875, 'rewards/margins': 0.656903862953186, 'logps/rejected': -46.89274978637695, 'logps/chosen': -35.32304382324219, 'logits/rejected': -3.045271158218384, 'logits/chosen': -3.0535686016082764, 'epoch': 0.08}
+{'loss': 0.3897, 'learning_rate': 8.666666666666667e-07, 'rewards/chosen': 0.1610945761203766, 'rewards/rejected': -0.5825513005256653, 'rewards/accuracies': 0.90625, 'rewards/margins': 0.7436459064483643, 'logps/rejected': -47.28557205200195, 'logps/chosen': -38.691490173339844, 'logits/rejected': -3.0704245567321777, 'logits/chosen': -3.082169771194458, 'epoch': 0.09}
+{'loss': 0.3278, 'learning_rate': 9.333333333333333e-07, 'rewards/chosen': -0.04845263063907623, 'rewards/rejected': -1.4641457796096802, 'rewards/accuracies': 0.78125, 'rewards/margins': 1.4156932830810547, 'logps/rejected': -55.558380126953125, 'logps/chosen': -37.70604705810547, 'logits/rejected': -3.1023316383361816, 'logits/chosen': -3.11356520652771, 'epoch': 0.09}
+{'loss': 0.2788, 'learning_rate': 1e-06, 'rewards/chosen': 0.12952174246311188, 'rewards/rejected': -2.10311222076416, 'rewards/accuracies': 0.96875, 'rewards/margins': 2.2326338291168213, 'logps/rejected': -59.50572204589844, 'logps/chosen': -39.152530670166016, 'logits/rejected': -3.128593683242798, 'logits/chosen': -3.145538330078125, 'epoch': 0.1}
+{'loss': 0.2278, 'learning_rate': 9.998605186060136e-07, 'rewards/chosen': -0.11435692012310028, 'rewards/rejected': -2.7252256870269775, 'rewards/accuracies': 0.9375, 'rewards/margins': 2.610868453979492, 'logps/rejected': -64.62845611572266, 'logps/chosen': -40.08596420288086, 'logits/rejected': -3.0519204139709473, 'logits/chosen': -3.16681170463562, 'epoch': 0.11}
+{'loss': 0.2288, 'learning_rate': 9.994421522442919e-07, 'rewards/chosen': -0.25801342725753784, 'rewards/rejected': -3.400310754776001, 'rewards/accuracies': 0.90625, 'rewards/margins': 3.1422972679138184, 'logps/rejected': -76.04597473144531, 'logps/chosen': -42.123130798339844, 'logits/rejected': -3.2440130710601807, 'logits/chosen': -3.2210946083068848, 'epoch': 0.11}
+{'loss': 0.1516, 'learning_rate': 9.987451343321279e-07, 'rewards/chosen': -0.812008798122406, 'rewards/rejected': -4.412943363189697, 'rewards/accuracies': 0.9375, 'rewards/margins': 3.6009345054626465, 'logps/rejected': -85.43253326416016, 'logps/chosen': -45.762508392333984, 'logits/rejected': -3.2016448974609375, 'logits/chosen': -3.19588303565979, 'epoch': 0.12}
+{'loss': 0.2112, 'learning_rate': 9.977698537536417e-07, 'rewards/chosen': -0.4263424277305603, 'rewards/rejected': -4.067212104797363, 'rewards/accuracies': 0.84375, 'rewards/margins': 3.640869617462158, 'logps/rejected': -81.74015045166016, 'logps/chosen': -42.43463134765625, 'logits/rejected': -3.245427370071411, 'logits/chosen': -3.286968231201172, 'epoch': 0.13}
+{'loss': 0.2309, 'learning_rate': 9.96516854642812e-07, 'rewards/chosen': -1.3367645740509033, 'rewards/rejected': -5.360393524169922, 'rewards/accuracies': 0.78125, 'rewards/margins': 4.0236287117004395, 'logps/rejected': -94.8629379272461, 'logps/chosen': -55.03169250488281, 'logits/rejected': -3.208653688430786, 'logits/chosen': -3.2859902381896973, 'epoch': 0.13}
+{'loss': 0.1678, 'learning_rate': 9.949868360798893e-07, 'rewards/chosen': -0.19047856330871582, 'rewards/rejected': -6.597981929779053, 'rewards/accuracies': 0.9375, 'rewards/margins': 6.407503128051758, 'logps/rejected': -105.95629119873047, 'logps/chosen': -41.27186584472656, 'logits/rejected': -3.1733620166778564, 'logits/chosen': -3.294492483139038, 'epoch': 0.14}
+{'loss': 0.1761, 'learning_rate': 9.931806517013612e-07, 'rewards/chosen': -0.8940379023551941, 'rewards/rejected': -5.506145477294922, 'rewards/accuracies': 0.96875, 'rewards/margins': 4.612107276916504, 'logps/rejected': -90.88201141357422, 'logps/chosen': -47.40016555786133, 'logits/rejected': -3.2656147480010986, 'logits/chosen': -3.295037269592285, 'epoch': 0.15}
+{'loss': 0.1687, 'learning_rate': 9.910993092236877e-07, 'rewards/chosen': -0.3946346938610077, 'rewards/rejected': -4.8075995445251465, 'rewards/accuracies': 0.8125, 'rewards/margins': 4.412964820861816, 'logps/rejected': -82.95195007324219, 'logps/chosen': -42.5412712097168, 'logits/rejected': -3.1906678676605225, 'logits/chosen': -3.3150248527526855, 'epoch': 0.15}
+{'loss': 0.1476, 'learning_rate': 9.887439698810692e-07, 'rewards/chosen': -0.28152912855148315, 'rewards/rejected': -5.186588287353516, 'rewards/accuracies': 0.8125, 'rewards/margins': 4.905058860778809, 'logps/rejected': -87.97857666015625, 'logps/chosen': -42.61334991455078, 'logits/rejected': -3.2718665599823, 'logits/chosen': -3.3274788856506348, 'epoch': 0.16}
+{'loss': 0.147, 'learning_rate': 9.861159477775651e-07, 'rewards/chosen': -0.15836511552333832, 'rewards/rejected': -6.194777011871338, 'rewards/accuracies': 0.90625, 'rewards/margins': 6.036412715911865, 'logps/rejected': -106.5009994506836, 'logps/chosen': -37.34030532836914, 'logits/rejected': -3.271853446960449, 'logits/chosen': -3.217343330383301, 'epoch': 0.17}
+{'loss': 0.1533, 'learning_rate': 9.832167091539213e-07, 'rewards/chosen': -0.9837725162506104, 'rewards/rejected': -6.2365851402282715, 'rewards/accuracies': 0.875, 'rewards/margins': 5.25281286239624, 'logps/rejected': -96.24060821533203, 'logps/chosen': -46.39812088012695, 'logits/rejected': -3.2232139110565186, 'logits/chosen': -3.2924156188964844, 'epoch': 0.18}
+{'loss': 0.2724, 'learning_rate': 9.800478715695162e-07, 'rewards/chosen': -1.2001327276229858, 'rewards/rejected': -6.035992622375488, 'rewards/accuracies': 0.84375, 'rewards/margins': 4.835860252380371, 'logps/rejected': -94.38502502441406, 'logps/chosen': -49.13156509399414, 'logits/rejected': -3.179443836212158, 'logits/chosen': -3.2766013145446777, 'epoch': 0.18}
+{'loss': 0.1904, 'learning_rate': 9.766112029998846e-07, 'rewards/chosen': -0.8350285291671753, 'rewards/rejected': -6.107994079589844, 'rewards/accuracies': 0.875, 'rewards/margins': 5.272965431213379, 'logps/rejected': -103.63502502441406, 'logps/chosen': -45.219871520996094, 'logits/rejected': -3.3148956298828125, 'logits/chosen': -3.296999216079712, 'epoch': 0.19}
+{'loss': 0.1523, 'learning_rate': 9.729086208503173e-07, 'rewards/chosen': -1.3429754972457886, 'rewards/rejected': -7.778604507446289, 'rewards/accuracies': 0.96875, 'rewards/margins': 6.435628890991211, 'logps/rejected': -122.17230987548828, 'logps/chosen': -51.866783142089844, 'logits/rejected': -3.2969069480895996, 'logits/chosen': -3.295071601867676, 'epoch': 0.2}
+{'loss': 0.1635, 'learning_rate': 9.689421908860927e-07, 'rewards/chosen': -1.4732836484909058, 'rewards/rejected': -6.880239009857178, 'rewards/accuracies': 0.90625, 'rewards/margins': 5.406955242156982, 'logps/rejected': -106.60791778564453, 'logps/chosen': -52.486568450927734, 'logits/rejected': -3.310802936553955, 'logits/chosen': -3.301348924636841, 'epoch': 0.2}
+{'loss': 0.2143, 'learning_rate': 9.647141260799329e-07, 'rewards/chosen': -1.4278459548950195, 'rewards/rejected': -6.646515846252441, 'rewards/accuracies': 0.875, 'rewards/margins': 5.21867036819458, 'logps/rejected': -103.28668212890625, 'logps/chosen': -53.807518005371094, 'logits/rejected': -3.3096718788146973, 'logits/chosen': -3.325989246368408, 'epoch': 0.21}
+{'loss': 0.1671, 'learning_rate': 9.6022678537733e-07, 'rewards/chosen': -0.6517227292060852, 'rewards/rejected': -6.504087448120117, 'rewards/accuracies': 0.875, 'rewards/margins': 5.852365016937256, 'logps/rejected': -105.42218017578125, 'logps/chosen': -40.914737701416016, 'logits/rejected': -3.376582622528076, 'logits/chosen': -3.3515467643737793, 'epoch': 0.22}
+{'loss': 0.215, 'learning_rate': 9.554826723804303e-07, 'rewards/chosen': -0.9147287607192993, 'rewards/rejected': -6.926792621612549, 'rewards/accuracies': 0.96875, 'rewards/margins': 6.012063980102539, 'logps/rejected': -115.14115905761719, 'logps/chosen': -52.77170181274414, 'logits/rejected': -3.302088499069214, 'logits/chosen': -3.3872134685516357, 'epoch': 0.22}
+{'loss': 0.186, 'learning_rate': 9.504844339512094e-07, 'rewards/chosen': -0.6377930641174316, 'rewards/rejected': -6.977095603942871, 'rewards/accuracies': 0.96875, 'rewards/margins': 6.339302062988281, 'logps/rejected': -105.06172180175781, 'logps/chosen': -40.192020416259766, 'logits/rejected': -3.349379777908325, 'logits/chosen': -3.3442394733428955, 'epoch': 0.23}
+{'loss': 0.1008, 'learning_rate': 9.452348587347223e-07, 'rewards/chosen': 0.05343308299779892, 'rewards/rejected': -6.88495397567749, 'rewards/accuracies': 0.9375, 'rewards/margins': 6.938386917114258, 'logps/rejected': -103.73902130126953, 'logps/chosen': -33.777793884277344, 'logits/rejected': -3.306041955947876, 'logits/chosen': -3.369513511657715, 'epoch': 0.24}
+{'loss': 0.1681, 'learning_rate': 9.397368756032444e-07, 'rewards/chosen': -1.0351413488388062, 'rewards/rejected': -6.923172950744629, 'rewards/accuracies': 0.90625, 'rewards/margins': 5.88803243637085, 'logps/rejected': -109.80421447753906, 'logps/chosen': -47.25422668457031, 'logits/rejected': -3.3422107696533203, 'logits/chosen': -3.3431811332702637, 'epoch': 0.24}
+{'loss': 0.0765, 'learning_rate': 9.339935520221816e-07, 'rewards/chosen': -1.211119532585144, 'rewards/rejected': -7.100588798522949, 'rewards/accuracies': 0.875, 'rewards/margins': 5.889470100402832, 'logps/rejected': -111.68472290039062, 'logps/chosen': -49.919219970703125, 'logits/rejected': -3.3264503479003906, 'logits/chosen': -3.2926077842712402, 'epoch': 0.25}
+{'loss': 0.1656, 'learning_rate': 9.2800809233865e-07, 'rewards/chosen': -0.6562850475311279, 'rewards/rejected': -8.294256210327148, 'rewards/accuracies': 0.96875, 'rewards/margins': 7.6379714012146, 'logps/rejected': -119.3753890991211, 'logps/chosen': -48.07563018798828, 'logits/rejected': -3.2431533336639404, 'logits/chosen': -3.3233017921447754, 'epoch': 0.26}
+{'loss': 0.219, 'learning_rate': 9.217838359936913e-07, 'rewards/chosen': -1.111326813697815, 'rewards/rejected': -7.830056190490723, 'rewards/accuracies': 0.90625, 'rewards/margins': 6.7187299728393555, 'logps/rejected': -120.86293029785156, 'logps/chosen': -48.746097564697266, 'logits/rejected': -3.328917980194092, 'logits/chosen': -3.272697925567627, 'epoch': 0.26}
+{'loss': 0.0731, 'learning_rate': 9.153242556591114e-07, 'rewards/chosen': -1.226826786994934, 'rewards/rejected': -7.825428009033203, 'rewards/accuracies': 1.0, 'rewards/margins': 6.598601341247559, 'logps/rejected': -113.17385864257812, 'logps/chosen': -50.53188705444336, 'logits/rejected': -3.2634730339050293, 'logits/chosen': -3.2626445293426514, 'epoch': 0.27}
+{'loss': 0.1396, 'learning_rate': 9.08632955299989e-07, 'rewards/chosen': -1.4498789310455322, 'rewards/rejected': -9.314271926879883, 'rewards/accuracies': 0.9375, 'rewards/margins': 7.86439323425293, 'logps/rejected': -132.9205780029297, 'logps/chosen': -53.703269958496094, 'logits/rejected': -3.212691307067871, 'logits/chosen': -3.2989399433135986, 'epoch': 0.28}
+{'loss': 0.0797, 'learning_rate': 9.017136681639305e-07, 'rewards/chosen': -1.3808475732803345, 'rewards/rejected': -9.67806625366211, 'rewards/accuracies': 0.9375, 'rewards/margins': 8.297218322753906, 'logps/rejected': -135.94569396972656, 'logps/chosen': -55.301856994628906, 'logits/rejected': -3.1545262336730957, 'logits/chosen': -3.2300307750701904, 'epoch': 0.28}
+{'loss': 0.2093, 'learning_rate': 8.945702546981968e-07, 'rewards/chosen': -2.8610379695892334, 'rewards/rejected': -8.092877388000488, 'rewards/accuracies': 0.78125, 'rewards/margins': 5.231839656829834, 'logps/rejected': -129.000732421875, 'logps/chosen': -73.1628189086914, 'logits/rejected': -3.2125017642974854, 'logits/chosen': -3.277772903442383, 'epoch': 0.29}
+{'loss': 0.0961, 'learning_rate': 8.872067003958597e-07, 'rewards/chosen': -1.4008662700653076, 'rewards/rejected': -10.314722061157227, 'rewards/accuracies': 0.96875, 'rewards/margins': 8.913854598999023, 'logps/rejected': -142.11019897460938, 'logps/chosen': -49.19440460205078, 'logits/rejected': -3.165843963623047, 'logits/chosen': -3.1563286781311035, 'epoch': 0.3}
+{'loss': 0.1442, 'learning_rate': 8.796271135721944e-07, 'rewards/chosen': -1.4815869331359863, 'rewards/rejected': -10.366098403930664, 'rewards/accuracies': 0.875, 'rewards/margins': 8.88451099395752, 'logps/rejected': -144.13714599609375, 'logps/chosen': -54.13542938232422, 'logits/rejected': -3.2441537380218506, 'logits/chosen': -3.1303822994232178, 'epoch': 0.3}
+{'loss': 0.142, 'learning_rate': 8.718357230725448e-07, 'rewards/chosen': -2.3837192058563232, 'rewards/rejected': -10.738412857055664, 'rewards/accuracies': 0.96875, 'rewards/margins': 8.354693412780762, 'logps/rejected': -149.2349395751953, 'logps/chosen': -63.51545333862305, 'logits/rejected': -3.2027313709259033, 'logits/chosen': -3.21940541267395, 'epoch': 0.31}
+{'loss': 0.1249, 'learning_rate': 8.63836875912943e-07, 'rewards/chosen': -1.5879127979278564, 'rewards/rejected': -10.02975845336914, 'rewards/accuracies': 1.0, 'rewards/margins': 8.441845893859863, 'logps/rejected': -141.7032470703125, 'logps/chosen': -52.9690055847168, 'logits/rejected': -3.235980272293091, 'logits/chosen': -3.2159197330474854, 'epoch': 0.32}
+{'loss': 0.1738, 'learning_rate': 8.556350348547976e-07, 'rewards/chosen': -2.771421432495117, 'rewards/rejected': -11.846217155456543, 'rewards/accuracies': 0.875, 'rewards/margins': 9.074796676635742, 'logps/rejected': -164.51473999023438, 'logps/chosen': -66.61936950683594, 'logits/rejected': -3.243441581726074, 'logits/chosen': -3.2248449325561523, 'epoch': 0.32}
+{'loss': 0.1242, 'learning_rate': 8.472347759150042e-07, 'rewards/chosen': -2.333065986633301, 'rewards/rejected': -9.422669410705566, 'rewards/accuracies': 0.90625, 'rewards/margins': 7.089602470397949, 'logps/rejected': -133.61642456054688, 'logps/chosen': -63.05430603027344, 'logits/rejected': -3.2256736755371094, 'logits/chosen': -3.2605533599853516, 'epoch': 0.33}
+{'loss': 0.146, 'learning_rate': 8.386407858128706e-07, 'rewards/chosen': -1.7031124830245972, 'rewards/rejected': -11.980709075927734, 'rewards/accuracies': 1.0, 'rewards/margins': 10.277596473693848, 'logps/rejected': -157.4029998779297, 'logps/chosen': -57.052669525146484, 'logits/rejected': -3.2504475116729736, 'logits/chosen': -3.2468454837799072, 'epoch': 0.34}
+{'loss': 0.0946, 'learning_rate': 8.298578593552737e-07, 'rewards/chosen': -1.628205418586731, 'rewards/rejected': -10.941448211669922, 'rewards/accuracies': 0.90625, 'rewards/margins': 9.313241958618164, 'logps/rejected': -145.18443298339844, 'logps/chosen': -54.029266357421875, 'logits/rejected': -3.212191343307495, 'logits/chosen': -3.273535966873169, 'epoch': 0.34}
+{'loss': 0.1898, 'learning_rate': 8.208908967615158e-07, 'rewards/chosen': -2.1374847888946533, 'rewards/rejected': -10.678462028503418, 'rewards/accuracies': 0.96875, 'rewards/margins': 8.540977478027344, 'logps/rejected': -144.9113006591797, 'logps/chosen': -60.221275329589844, 'logits/rejected': -3.115379810333252, 'logits/chosen': -3.2460849285125732, 'epoch': 0.35}
+{'loss': 0.1108, 'learning_rate': 8.117449009293668e-07, 'rewards/chosen': -1.8675720691680908, 'rewards/rejected': -9.347753524780273, 'rewards/accuracies': 0.90625, 'rewards/margins': 7.4801812171936035, 'logps/rejected': -133.32620239257812, 'logps/chosen': -55.89203643798828, 'logits/rejected': -3.2123916149139404, 'logits/chosen': -3.250382661819458, 'epoch': 0.36}
+{'loss': 0.0765, 'learning_rate': 8.024249746438187e-07, 'rewards/chosen': -0.9360700249671936, 'rewards/rejected': -9.817550659179688, 'rewards/accuracies': 1.0, 'rewards/margins': 8.88148021697998, 'logps/rejected': -134.86056518554688, 'logps/chosen': -50.868228912353516, 'logits/rejected': -3.162620782852173, 'logits/chosen': -3.2525768280029297, 'epoch': 0.36}
+{'loss': 0.1083, 'learning_rate': 7.929363177301124e-07, 'rewards/chosen': -1.939550518989563, 'rewards/rejected': -10.365255355834961, 'rewards/accuracies': 0.875, 'rewards/margins': 8.425704956054688, 'logps/rejected': -146.05706787109375, 'logps/chosen': -60.659523010253906, 'logits/rejected': -3.2482352256774902, 'logits/chosen': -3.2541866302490234, 'epoch': 0.37}
+{'loss': 0.1019, 'learning_rate': 7.832842241526212e-07, 'rewards/chosen': -2.1146504878997803, 'rewards/rejected': -11.452052116394043, 'rewards/accuracies': 1.0, 'rewards/margins': 9.337401390075684, 'logps/rejected': -155.49102783203125, 'logps/chosen': -58.01791000366211, 'logits/rejected': -3.244438409805298, 'logits/chosen': -3.190840244293213, 'epoch': 0.38}
+{'loss': 0.1283, 'learning_rate': 7.734740790612136e-07, 'rewards/chosen': -2.0521106719970703, 'rewards/rejected': -10.691699981689453, 'rewards/accuracies': 0.96875, 'rewards/margins': 8.639588356018066, 'logps/rejected': -148.1427764892578, 'logps/chosen': -59.404178619384766, 'logits/rejected': -3.2124927043914795, 'logits/chosen': -3.2415761947631836, 'epoch': 0.38}

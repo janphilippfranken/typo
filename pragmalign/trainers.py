@@ -353,9 +353,25 @@ class FSDPTrainer:
             for batch in self.eval_dataloader:
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
                 raw_loss, loss,  _, kl_div = self._run_batch(batch)
-                total_loss += loss.item() 
-                total_raw_loss += raw_loss.item() 
-                total_kl_div += kl_div.item() 
+                if torch.isnan(loss).any() or torch.isnan(raw_loss).any() or torch.isnan(kl_div).any():
+                    print('Loss is nan')
+                  
+                    if n_batches > 0:
+                        average_loss = total_loss / n_batches
+                        total_loss += average_loss
+                        average_raw_loss = total_raw_loss / n_batches
+                        total_raw_loss += average_raw_loss
+                        average_kl_div = total_kl_div / n_batches
+                        total_kl_div += average_kl_div
+                    else:
+                        total_loss += 0  
+                        total_raw_loss += 0  
+                        total_kl_div += 0 
+                else:
+                    total_loss += loss.item()
+                    total_raw_loss += raw_loss.item()
+                    total_kl_div += kl_div.item()
+
                 n_batches += 1
                 
         # logging 

@@ -7,16 +7,16 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=16                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=eval.out
-#SBATCH --error=eval.err
+#SBATCH --output=eval_2.out
+#SBATCH --error=eval_2.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/pragmatics/hh_rlhf
+cd ~/research_projects/scai-tuning/pragmalign/hh_rlhf
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-python evaluate_no_icl.py
+python evaluate.py

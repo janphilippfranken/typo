@@ -4,15 +4,15 @@ hydra:
 
 defaults:
   - model: mistral_7b_base
-  - data: hh_rlhf_cai
+  - data: hh_rlhf_dpo
 
 wandb:
-  project: scai-ppo-3
+  project: dpo
   log_model: checkpoint
   name: helpf-harml
 
 dpo:
-  beta: 0.01
+  beta: 0.1
 
 train_split: 0.05
 
