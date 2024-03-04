@@ -164,4 +164,4 @@ def main(temperature):
 
 
 if __name__ == "__main__":
-    main(temperature=0.0)
+    main(temperature=1.0)
