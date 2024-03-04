@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 
-OUTPUT_DIR = 'results/v3'
+OUTPUT_DIR = 'results/v4'
 
 
 from plot_utils import lighten_color, change_saturation, get_fancy_bbox
@@ -15,6 +15,7 @@ def calculate_statistics(datasets):
     """Calculate means, sample sizes, and standard errors for a list of datasets."""
     means = [np.mean(dataset) for dataset in datasets]
     ns = [len(dataset) for dataset in datasets]
+    print(ns)
     errors = [1.96 * np.std(dataset, ddof=1) / np.sqrt(n) for dataset, n in zip(datasets, ns)]
     return means, ns, errors
 
@@ -46,27 +47,27 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
 
 def main():
     ft_1_helpful = [
-        "results/v3/win-rates-helpful-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json",
-        "results/v3/win-rates-helpful-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json",
-        "results/v3/win-rates-helpful-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json",
+        "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-0.42.json",
+        "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-0.42.json",
+        "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-0.42.json",
     ]
     
     ft_1_harmless = [
-        "results/v3/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json",
-        "results/v3/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json",
-        "results/v3/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-1-beta-0.1-epoch-1.0.json",
+        "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-0.42.json",
+        "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-0.42.json",
+        "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-0.42.json",
     ]
     
     ft_2_helpful = [
-        "results/v3/win-rates-helpful-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json",
-        "results/v3/win-rates-helpful-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json",
-        "results/v3/win-rates-helpful-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json",
+        "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-1.json",
+        "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-1.json",
+        "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-1.json",
     ]
     
     ft_2_harmless = [
-        "results/v3/win_rates_harmless-temperature-0.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json",
-        "results/v3/win_rates_harmless-temperature-0.3-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json",
-        "results/v3/win_rates_harmless-temperature-1.0-500-responses-train-constitutions-0-shot-baseline-against-0-shot-ft-2-beta-0.1-epoch-1.0.json",
+        "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-1.json",
+        "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-1.json",
+        "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-1.json",
     ]
     
 
@@ -83,8 +84,8 @@ def main():
 
     # Plotting
     temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
-    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['pragmalign-1', 'pragmalign-2'], 'Helpful Win Rates', 'helpful_win_rates')
-    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['pragmalign-1', 'pragmalign-2'], 'Harmless Win Rates', 'harmless_win_rates')
+    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['prag-epoch-0.42', 'prag-epoch-1.0'], 'Helpful Win Rates', 'helpful_win_rates')
+    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['prag-epoch-0.42', 'prag-epoch-1.0'], 'Harmless Win Rates', 'harmless_win_rates')
 
 
 if __name__ == "__main__":

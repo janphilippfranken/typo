@@ -7,16 +7,16 @@
 #SBATCH --mem=64GB                           # Memory request
 #SBATCH --cpus-per-task=12                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=helpful_2.out
-#SBATCH --error=helpful_2.err
+#SBATCH --output=harmless.out
+#SBATCH --error=harmless.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/pragmatics/hh_rlhf
+cd ~/research_projects/scai-tuning/pragmalign/hh_rlhf
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-python generate_harmless_preference_data_no_icl.py
+python generate_harmless.py

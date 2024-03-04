@@ -19,4 +19,4 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-python evaluate.py
+python evaluate_dpo.py

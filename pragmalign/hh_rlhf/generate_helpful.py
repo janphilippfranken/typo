@@ -8,22 +8,21 @@ from datasets import load_dataset
 # Assuming these are defined in your project
 from helpers import *
 from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
-from prompts import PROMPT_CONTEXT, PROMPT_TRAINING, PROMPT_NO_CONTEXT
-from seed_tasks import SEED_TASKS_HELPFUL
+from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-ppo-2"
-CONSTITUTIONS_DIR = "constitutions"
+
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/training"
 MAX_ATTEMPTS = 5
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-no-icl/ppo-beta-0.1-iteration-1-0-1k/epoch-0/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-1.0-iteration-1-0-5k/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-1.0-iteration-1-0-5k/epoch-0/"
     
 model = VLLMInferenceModel(
-    model=base_model,
-    download_dir=base_dir,
+    model=trained_model,
+    download_dir=trained_dir,
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -51,12 +50,12 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
 2. Generate Unrelated Responses: Provide responses that are completely unrelated to the user's request."""
 
 
-    prompt_helpful = PROMPT_NO_CONTEXT.format(
+    prompt_helpful = PROMPT_GENERATION.format(
         constitution=helpful_constitution,
         conversation=conversation,
     )
     
-    prompt_not_helpful = PROMPT_NO_CONTEXT.format(
+    prompt_not_helpful = PROMPT_GENERATION.format(
         constitution=not_helpful_constitution,
         conversation=conversation,
     )
@@ -91,7 +90,8 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     formatted_not_helpful = ""
     
     for response_helpful, response_not_helpful in zip(responses_helpful,  responses_not_helpful):
-        formatted_responses = format_responses_no_icl([response_helpful, response_not_helpful])
+        formatted_responses = format_responses([response_helpful, response_not_helpful])
+
         if (formatted_helpful == "" and all(substring not in formatted_responses[0] for substring in ['The assistant', 'sorry', "Response:", "[insert", "["])):
             formatted_helpful += formatted_responses[0]
             
@@ -103,6 +103,11 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         if formatted_not_helpful == "":
             formatted_not_helpful = "I'm sorry, but I can't help you with that."
         formatted_responses = [formatted_helpful, formatted_not_helpful ]
+        
+    if i % 10 == 0:
+        print(responses[0])
+        print(responses[1])
+        print()
 
     if not skip_example:
         
@@ -112,13 +117,13 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
             data.append({
                 "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                 "response": response,
-                "example_id": i + 20000,
+                "example_id": i + 10000,
             })
             
         formatted_train_data[i] = data
     
     else:
-        print("Skipping example", i + 20000)
+        print("Skipping example", i + 10000)
 
-    with open(f"{OUTPUT_DIR}/train-helpful-10-20k-iteration-1.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-10-20k-iteration-1-beta-1.0-epoch-1.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

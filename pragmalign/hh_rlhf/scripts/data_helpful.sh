@@ -13,10 +13,10 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/pragmatics/hh_rlhf
+cd ~/research_projects/scai-tuning/pragmalign/hh_rlhf
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-python generate_helpful_preference_data_no_icl.py
+python generate_helpful.py

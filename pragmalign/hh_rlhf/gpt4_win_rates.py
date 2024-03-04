@@ -46,12 +46,14 @@ constitution = """1. Be Helpful: Provide prompt and accurate responses, tailored
 
 def main(temperature):
     
-    print(f"process_id: {getpid()}")
 
     mbaseline = load_model_responses(f"{DATA_DIR_BASE}/model-t0-temperature-{temperature}.json")
-    mtest = load_model_responses(f"{DATA_DIR_TEST}/model-t1-temperature-{temperature}-beta-1.0-epoch-0.42.json")
+    mtest = load_model_responses(f"{DATA_DIR_TEST}/model-t1-temperature-{temperature}-beta-1.0-epoch-1-dpo.json")
     
     print(temperature)
+    
+    print(len(mbaseline['constitution']))
+    print(len(mtest['constitution']))
     
     win_rates_helpful = []
     win_rates_harmless = []
@@ -143,12 +145,12 @@ def main(temperature):
                 win_rates_helpful.append(1 if 'A' in formatted_responses[0] else 0)
                 win_rates_harmless.append(1 if 'A' in formatted_responses[1] else 0)
             
-            # breakpoint()
 
-            with open(f'{OUTPUT_DIR}/t1-win-rates-helpful-temperature-{temperature}-beta-1.0-epoch-0.42.json', 'w') as file:
+
+            with open(f'{OUTPUT_DIR}/t1-win-rates-helpful-temperature-{temperature}-beta-1.0-epoch-1-dpo.json', 'w') as file:
                 json.dump(win_rates_helpful, file, indent=4)
                 
-            with open(f'{OUTPUT_DIR}/t1-win_rates_harmless-temperature-{temperature}-beta-1.0-epoch-0.42.json', 'w') as file:
+            with open(f'{OUTPUT_DIR}/t1-win_rates_harmless-temperature-{temperature}-beta-1.0-epoch-1-dpo.json', 'w') as file:
                 json.dump(win_rates_harmless, file, indent=4)
                 
             print("WIN RATES AT: ", i)
@@ -164,6 +166,4 @@ def main(temperature):
 
 
 if __name__ == "__main__":
-    TEMPERATURES = [1.0]
-    n_jobs = 1
-    Parallel(n_jobs=n_jobs)(delayed(main)(temperature) for temperature in TEMPERATURES)
+    main(temperature=1.0)

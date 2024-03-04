@@ -6,13 +6,13 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=4                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=gpt4.out
-#SBATCH --error=gpt4.err
+#SBATCH --output=gpt42.out
+#SBATCH --error=gpt42.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning
 
-cd ~/research_projects/scai-tuning/pragmatics/hh_rlhf
+cd ~/research_projects/scai-tuning/pragmalign/hh_rlhf
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
