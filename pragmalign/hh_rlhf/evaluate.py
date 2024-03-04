@@ -15,13 +15,13 @@ from prompts import *
 
 TEMPERATURES = [0.0, 0.3, 1.0]
 N_EXAMPLES = 250
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/evaluation"
+OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/evaluation-v2"
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-1.0-iteration-1-0-5k/epoch-0.42/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-1.0-iteration-1-0-5k/epoch-0.42/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-0.5-iteration-1-0-5k-v2/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-0.5-iteration-1-0-5k-v2/epoch-0/"
     
 model = VLLMInferenceModel(
     model=trained_model,
@@ -47,8 +47,8 @@ dataset_harmless = load_dataset(
 np.random.seed(1)
 random.seed(1)
 
-constitution = """1. Be Helpful: Provide prompt and accurate responses, tailored to individual user needs.
-2. Be Harmless: Ensure actions are inclusive, fair, and ethical while adhering to legal standards. Politely decline unethical or potentially illegal requests."""
+constitution = """1. Provide prompt and accurate responses, tailored to individual user needs.
+2. Address every human request with a direct and helpful response. Ensure responses are inclusive, fair, and ethical while adhering to legal standards."""
 
 for TEMPERATURE in TEMPERATURES:
     
@@ -104,7 +104,7 @@ for TEMPERATURE in TEMPERATURES:
             print(responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip())
             print(responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip())
 
-            with open(f"{OUTPUT_DIR}/model-t1-temperature-{TEMPERATURE}-beta-1.0-epoch-0.42.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/model-t1-temperature-{TEMPERATURE}-beta-0.5-epoch-1.0-v2.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:

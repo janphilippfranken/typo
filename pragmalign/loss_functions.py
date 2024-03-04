@@ -117,3 +117,34 @@ def pragmatic_clip_loss(
     loss_col = F.cross_entropy(logits_t, labels, reduction="mean")
     
     return (loss_row + loss_col) / 2
+
+
+def pragmatic_token_loss(
+    c0r0: torch.FloatTensor,
+    c1r0: torch.FloatTensor,
+    c0r1: torch.FloatTensor,
+    c1r1: torch.FloatTensor,
+) -> torch.FloatTensor:
+    """Compute the pragmatic loss on a token level. Currently hard-coded. 
+    """
+    # concatenate 
+    r0 = torch.stack((c0r0, c1r0), dim=0)
+    r1 = torch.stack((c0r1, c1r1), dim=0)
+   
+    # normalization constants
+    r0logsumexp = torch.logsumexp(r0, dim=0, keepdim=True)
+    r1logsumexp = torch.logsumexp(r1, dim=0, keepdim=True)
+    
+    # logits
+    r0logits = r0 - r0logsumexp
+    r1logits = r1 - r1logsumexp
+    
+    # labels
+    r0labels = torch.LongTensor([0]).repeat(r0logits.size(1), 1).to(r0logits.device)
+    r1labels = torch.LongTensor([0]).repeat(r1logits.size(1), 1).to(r1logits.device)
+    
+    # loss
+    r0loss = F.cross_entropy(r0logits.t(), r0labels, reduction="mean")
+    r1loss = F.cross_entropy(r1logits.t(), r1labels, reduction="mean")
+    
+    return (r0loss +  r1loss) / 2

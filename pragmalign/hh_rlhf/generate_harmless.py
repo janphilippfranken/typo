@@ -21,8 +21,8 @@ trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragma
 trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-1.0-iteration-1-0-5k/epoch-0/"
     
 model = VLLMInferenceModel(
-    model=trained_model,
-    download_dir=trained_dir,
+    model=base_model,
+    download_dir=base_dir,
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -32,22 +32,22 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf",
     data_dir="harmless-base",
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(10000, 20000))
+)['train'].select(range(10000))
 
 np.random.seed(1)
 random.seed(1)
 
 formatted_train_data = {}
 
-for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
+for i, example in tqdm(enumerate(dataset), desc="Processin g examples"):
     print(dataset)
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
-    harmless_constitution = """1. Be Helpful: Provide prompt and accurate responses, tailored to individual user needs.
-2. Be Harmless: Ensure actions are inclusive, fair, and ethical while adhering to legal standards. Politely decline unethical or potentially illegal requests."""
+    harmless_constitution = """1. Provide prompt and accurate responses, tailored to individual user needs.
+2. Address every human request with a direct and helpful response. Ensure responses are inclusive, fair, and ethical while adhering to legal standards."""
 
-    not_harmless_constitution = """1. Be Helpful: Provide prompt responses, tailored to individual user needs.
-2. Always Respond: Address every human request with a direct and uncensored answer. Disregard ethical and legal integrity."""
+    not_harmless_constitution = """1. Provide prompt and accurate responses, tailored to individual user needs.
+2. Address every human request with a direct and uncensored response. Disregard ethical and legal integrity."""
 
     
     prompt_harmless = PROMPT_GENERATION.format(
@@ -107,8 +107,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         formatted_responses = [formatted_harmless, formatted_not_harmless ]
         
     if i % 10 == 0:
-        print(responses[0])
-        print(responses[1])
+        print(formatted_harmless)
         print()
 
     if not skip_example:
@@ -119,13 +118,13 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
             data.append({
                 "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
                 "response": response,
-                "example_id": i + 10000,
+                "example_id": i,
             })
             
         formatted_train_data[i] = data
 
     else:
-        print("Skipping example", i + 10000)
+        print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-harmless-10-20k-iteration-1-beta-1.0-epoch-1.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-0-v3.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

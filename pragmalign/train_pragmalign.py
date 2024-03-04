@@ -58,8 +58,8 @@ def main(args: DictConfig) -> None:
     torch.autograd.set_detect_anomaly(True)
     
     # wandb
-    args_dict = OmegaConf.to_container(args, resolve=True)
-    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    # args_dict = OmegaConf.to_container(args, resolve=True)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
     # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])
@@ -144,8 +144,8 @@ def main(args: DictConfig) -> None:
         print(dataset_list_helpful[0])
         print(dataset_list_harmless[0])
         
-    tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful[:5000]]
-    tokenized_dataset_harmless = [tokenize_func(example, tokenizer) for example in dataset_list_harmless[:5000]]
+    tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful[:50]]
+    tokenized_dataset_harmless = [tokenize_func(example, tokenizer) for example in dataset_list_harmless[:50]]
     
     if local_rank == 0:
         print(len(tokenized_dataset_helpful))

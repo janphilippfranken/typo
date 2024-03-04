@@ -90,13 +90,19 @@ def _get_batch_logprobs(
     
     # average token logprobs
     average_token_logprobs = per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
-  
-    return average_token_logprobs
+
+    c0r0 = per_token_logprobs[0][~loss_mask[0]]
+    c1r0 = per_token_logprobs[2][~loss_mask[2]]
+    c0r1 = per_token_logprobs[1][~loss_mask[1]]
+    c1r1 = per_token_logprobs[3][~loss_mask[3]]
+    
+    return average_token_logprobs, c0r0, c1r0, c0r1, c1r1
 
 
 def kl_divergence(
     policy_logits: torch.FloatTensor,
     ref_logits: torch.FloatTensor,
+    include_kl_softmax: True,
 ) -> torch.FloatTensor:
     """Compute the kl divergence between policy and reference model.
     
@@ -104,11 +110,17 @@ def kl_divergence(
         policy_logits: Shape: (batch_size, sequence_length, vocab_size)
         ref_logits: Shape: (batch_size, sequence_length, vocab_size)        
     """
-    kl = (
-        policy_logits.softmax(dim=-1) * (
-            policy_logits.log_softmax(dim=-1) - ref_logits.log_softmax(dim=-1))
-        ).sum(dim=-1)
+    if include_kl_softmax:
+
+        kl = (
+            policy_logits.softmax(dim=-1) * (
+                policy_logits.log_softmax(dim=-1) - ref_logits.log_softmax(dim=-1))
+            ).sum(dim=-1)
     
+    else:
+        print('Not including softmax...')
+        kl = (policy_logits.log_softmax(dim=-1) - ref_logits.log_softmax(dim=-1)).sum(dim=-1)
+        
     return kl.mean()
 
 
@@ -306,7 +318,7 @@ class FSDPTrainer:
         # get logprobs for policy model 
         logits, labels = prepare_logits_labels(model, self.tokenizer, batch)
         
-        batch_logprobs = _get_batch_logprobs(logits, labels)
+        batch_logprobs, c0r0, c1r0, c0r1, c1r1 = _get_batch_logprobs(logits, labels)
         
         batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_constitutions)
         
@@ -315,7 +327,8 @@ class FSDPTrainer:
             
             ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch)
     
-        loss = pragmatic_clip_loss(logprobs=batch_logprobs)
+        # loss = pragmatic_clip_loss(logprobs=batch_logprobs)
+        loss = pragmatic_token_loss(c0r0, c1r0, c0r1, c1r1)
                                               
         return loss, batch_logprobs, logits, ref_logits
         
@@ -332,6 +345,7 @@ class FSDPTrainer:
         kl_div = kl_divergence(
             policy_logits=logits,
             ref_logits=ref_logits,
+            include_kl_softmax=self.config.pragmalign.include_kl_softmax,
         )
       
         # loss = loss * beta * kl
@@ -450,21 +464,23 @@ class FSDPTrainer:
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
-                    wandb.log({"train-loss/loss": reduced_loss.item()})
-                    wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
-                    wandb.log({"train-loss/kld": reduced_kl_div.item()})
-                    wandb.log({"train-probs/accuracy-col": accuracy_col.item()})
-                    wandb.log({"train-probs/accuracy-row": accuracy_row.item()})
-                    wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
-                    wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
-                    wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
-                    wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
+                    # wandb.log({"train-loss/loss": reduced_loss.item()})
+                    # wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
+                    # wandb.log({"train-loss/kld": reduced_kl_div.item()})
+                    # wandb.log({"train-probs/accuracy-col": accuracy_col.item()})
+                    # wandb.log({"train-probs/accuracy-row": accuracy_row.item()})
+                    # wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
+                    # wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
+                    # wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
+                    # wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
                 
-                # evaluate after n steps have been made
-                if (step + 1) % self.config.training.save_after_n_steps == 0:
-                    self.evaluate()
-                    self.save_checkpoint(round(step / len(self.train_dataloader), 2))
+        #         # evaluate after n steps have been made
+        #         if (step + 1) % self.config.training.save_after_n_steps == 0:
+        #             if self.config.training.evaluate:
+        #                 self.evaluate()
+        #             self.save_checkpoint(round(step / len(self.train_dataloader), 2))
                                 
-        # evaluate at end of each epoch and save checkpoint 
-        self.evaluate()
-        self.save_checkpoint(epoch)
+        # # evaluate at end of each epoch and save checkpoint 
+        # if self.config.training.evaluate:
+        #     self.evaluate()self.evaluate()
+        # self.save_checkpoint(epoch)

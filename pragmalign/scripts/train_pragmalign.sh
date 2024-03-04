@@ -19,14 +19,14 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-declare -a betas=(1.0 3.0)
+declare -a betas=(0.5)
 declare -a max_iters=(0)
 
 for beta in "${betas[@]}"; do
     for max_iter in "${max_iters[@]}"; do
         torchrun --nproc_per_node 4 train_pragmalign.py \
         pragmalign.beta=$beta \
-        wandb.name="beta-${beta}-iteration-1" \
-        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-${beta}-iteration-1-0-5k"
+        wandb.name="beta-${beta}-iteration-1-v2" \
+        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-${beta}-iteration-1-0-5k-v2"
     done
 done

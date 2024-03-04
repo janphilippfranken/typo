@@ -26,8 +26,8 @@ for beta in "${betas[@]}"; do
     for max_iter in "${max_iters[@]}"; do
         accelerate launch --config_file conf/accelerate/deepspeed.yaml train_dpo_baseline.py \
         dpo.beta=$beta \
-        wandb.name="dpo-beta-${beta}-iteration-1" \
-        training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-${beta}-iteration-1-0-5k"
+        wandb.name="dpo-beta-${beta}-iteration-1-v2" \
+        training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-${beta}-iteration-1-0-5k-v2"
     done
 done
 
