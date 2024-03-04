@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 
-OUTPUT_DIR = 'results/v4'
+OUTPUT_DIR = 'results/v5'
 
 
 from plot_utils import lighten_color, change_saturation, get_fancy_bbox
@@ -47,37 +47,37 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
 
 def main():
     
-    ft_1_helpful = [
-        "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-1.json",
-        "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-1.json",
-        "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-1.json",
+    base_helpful = [
+        "results/v5/t1-win-rates-helpful-temperature-0.0-against-base.json",
+        "results/v5/t1-win-rates-helpful-temperature-0.3-against-base.json",
+        "results/v5/t1-win-rates-helpful-temperature-1.0-against-base.json",
     ]
     
-    ft_1_harmless = [
-        "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-1.json",
-        "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-1.json",
-        "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-1.json",
+    base_harmless = [
+        "results/v5/t1-win_rates_harmless-temperature-0.0-against-base.json",
+        "results/v5/t1-win_rates_harmless-temperature-0.3-against-base.json",
+        "results/v5/t1-win_rates_harmless-temperature-1.0-against-base.json",
     ]
     
-    ft_2_helpful = [
-        "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-1-dpo.json",
-        "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-1-dpo.json",
-        "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-1-dpo.json",
+    dpo_helpful = [
+        "results/v5/t1-win-rates-helpful-temperature-0.0-against-dpo.json",
+        "results/v5/t1-win-rates-helpful-temperature-0.3-against-dpo.json",
+        "results/v5/t1-win-rates-helpful-temperature-1.0-against-dpo.json",
     ]
     
-    ft_2_harmless = [
-        "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-1-dpo.json",
-        "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-1-dpo.json",
-        "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-1-dpo.json",
+    dpo_harmless = [
+        "results/v5/t1-win_rates_harmless-temperature-0.0-against-dpo.json",
+        "results/v5/t1-win_rates_harmless-temperature-0.3-against-dpo.json",
+        "results/v5/t1-win_rates_harmless-temperature-1.0-against-dpo.json",
     ]
     
     
     
 
-    ft_1_helpful = [load_data(path) for path in ft_1_helpful]
-    ft_1_harmless = [load_data(path) for path in ft_1_harmless]
-    ft_2_helpful = [load_data(path) for path in ft_2_helpful]
-    ft_2_harmless = [load_data(path) for path in ft_2_harmless]
+    ft_1_helpful = [load_data(path) for path in base_helpful]
+    ft_1_harmless = [load_data(path) for path in base_harmless]
+    ft_2_helpful = [load_data(path) for path in dpo_helpful]
+    ft_2_harmless = [load_data(path) for path in dpo_harmless]
 
     # Calculate statistics
     means_ft_1_helpful, _, errors_ft_1_helpful = calculate_statistics(ft_1_helpful)
@@ -87,8 +87,8 @@ def main():
 
     # Plotting
     temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
-    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['pragmatic', 'dpo'], 'Helpful Win Rates', 'helpful_win_rates')
-    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['pragmatic', 'dpo'], 'Harmless Win Rates', 'harmless_win_rates')
+    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['pragmatic > base', 'pragmatic > dpo'], 'Helpful Win Rates', 'helpful_win_rates')
+    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['pragmatic > base', 'pragmatic > dpo'], 'Harmless Win Rates', 'harmless_win_rates')
 
 
 if __name__ == "__main__":
