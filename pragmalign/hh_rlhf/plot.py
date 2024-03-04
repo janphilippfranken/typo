@@ -46,29 +46,32 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     plt.close()  # Close the plot to prevent it from showing inline if using Jupyter
 
 def main():
+    
     ft_1_helpful = [
-        "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-0.42.json",
-        "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-0.42.json",
-        "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-0.42.json",
-    ]
-    
-    ft_1_harmless = [
-        "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-0.42.json",
-        "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-0.42.json",
-        "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-0.42.json",
-    ]
-    
-    ft_2_helpful = [
         "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-1.json",
         "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-1.json",
         "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-1.json",
     ]
     
-    ft_2_harmless = [
+    ft_1_harmless = [
         "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-1.json",
         "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-1.json",
         "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-1.json",
     ]
+    
+    ft_2_helpful = [
+        "results/v4/t1-win-rates-helpful-temperature-0.0-beta-1.0-epoch-1-dpo.json",
+        "results/v4/t1-win-rates-helpful-temperature-0.3-beta-1.0-epoch-1-dpo.json",
+        "results/v4/t1-win-rates-helpful-temperature-1.0-beta-1.0-epoch-1-dpo.json",
+    ]
+    
+    ft_2_harmless = [
+        "results/v4/t1-win_rates_harmless-temperature-0.0-beta-1.0-epoch-1-dpo.json",
+        "results/v4/t1-win_rates_harmless-temperature-0.3-beta-1.0-epoch-1-dpo.json",
+        "results/v4/t1-win_rates_harmless-temperature-1.0-beta-1.0-epoch-1-dpo.json",
+    ]
+    
+    
     
 
     ft_1_helpful = [load_data(path) for path in ft_1_helpful]
@@ -84,8 +87,8 @@ def main():
 
     # Plotting
     temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
-    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['prag-epoch-0.42', 'prag-epoch-1.0'], 'Helpful Win Rates', 'helpful_win_rates')
-    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['prag-epoch-0.42', 'prag-epoch-1.0'], 'Harmless Win Rates', 'harmless_win_rates')
+    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['pragmatic', 'dpo'], 'Helpful Win Rates', 'helpful_win_rates')
+    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['pragmatic', 'dpo'], 'Harmless Win Rates', 'harmless_win_rates')
 
 
 if __name__ == "__main__":
