@@ -46,9 +46,8 @@ constitution = """1. Be Helpful: Provide prompt and accurate responses, tailored
 
 def main(temperature):
     
-
-    mbaseline = load_model_responses(f"{DATA_DIR_BASE}/model-t0-temperature-{temperature}.json")
-    mtest = load_model_responses(f"{DATA_DIR_TEST}/model-t1-temperature-{temperature}-beta-1.0-epoch-1-dpo.json")
+    mbaseline = load_model_responses(f"{DATA_DIR_TEST}/model-t1-temperature-{temperature}-beta-1.0-epoch-1-dpo.json")
+    mtest = load_model_responses(f"{DATA_DIR_BASE}/model-t1-temperature-{temperature}-beta-1.0-epoch-1.json")
     
     print(temperature)
     
@@ -147,10 +146,10 @@ def main(temperature):
             
 
 
-            with open(f'{OUTPUT_DIR}/t1-win-rates-helpful-temperature-{temperature}-beta-1.0-epoch-1-dpo.json', 'w') as file:
+            with open(f'{OUTPUT_DIR}/t1-win-rates-helpful-temperature-{temperature}-beta-1.0-epoch-1-against-dpo.json', 'w') as file:
                 json.dump(win_rates_helpful, file, indent=4)
                 
-            with open(f'{OUTPUT_DIR}/t1-win_rates_harmless-temperature-{temperature}-beta-1.0-epoch-1-dpo.json', 'w') as file:
+            with open(f'{OUTPUT_DIR}/t1-win_rates_harmless-temperature-{temperature}-beta-1.0-epoch-1-against-dpo.json', 'w') as file:
                 json.dump(win_rates_harmless, file, indent=4)
                 
             print("WIN RATES AT: ", i)
