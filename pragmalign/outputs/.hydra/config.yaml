@@ -9,16 +9,16 @@ model:
     cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
 data:
-  data_path: /scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/training
-  helpful: train-helpful-0-10k-iteration-0-v2.json
-  harmless: train-harmless-0-10k-iteration-0-v2.json
+  data_path: hh_rlhf/data
+  helpful: train-helpful-0-5k-iteration-0.json
+  harmless: train-harmless-0-5k-iteration-0.json
   n_responses: 2
   n_constitutions: 2
 wandb:
-  project: pragmalign
-  name: beta-0.5-iteration-1-per-token
-pragmalign:
-  beta: 0.5
+  project: hh-rlhf-pragpo
+  name: pragpo
+pragpo:
+  beta: 0.0
   include_kl_softmax: true
 training:
   evaluate_before_training: false
@@ -28,7 +28,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-0.5-iteration-1-0-5k-per-token
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 32

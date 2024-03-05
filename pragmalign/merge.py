@@ -31,9 +31,9 @@ def main():
                               
     # load state dict
     
-    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-0.5-iteration-1-0-5k-v2/epoch-0/model.pt', map_location='cpu')
+    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-0.5-iteration-1-0-5k-per-token/epoch-1.0/model.pt', map_location='cpu')
     model.load_state_dict(state_dict['state'])
-    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-0.5-iteration-1-0-5k-v2/epoch-0
+    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-0.5-iteration-1-0-5k-per-token/epoch-1.0
     breakpoint()
 if __name__ == "__main__":
     main()

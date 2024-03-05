@@ -4,19 +4,17 @@ hydra:
 
 defaults:
   - model: mistral_7b_base
-  - data: hh_rlhf_dpo
+  - data: hh_rlhf_cai
 
 wandb:
-  project: dpo
-  log_model: checkpoint
-  name: helpf-harml
+  project: hh-rlhf-dpo
+  name: dpo
 
 dpo:
   beta: 0.1
 
 train_split: 0.00
-
-max_prompt_length: 512
+max_prompt_length: 1024
 
 training_args:
   output_dir: /scr/jphilipp

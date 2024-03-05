@@ -111,17 +111,14 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task:
-    - pragmalign.beta=0.5
-    - wandb.name=beta-0.5-iteration-1-per-token
-    - training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-0.5-iteration-1-0-5k-per-token
+    task: []
   job:
-    name: train_pragmalign
+    name: train_pragpo
     chdir: null
-    override_dirname: pragmalign.beta=0.5,training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-0.5-iteration-1-0-5k-per-token,wandb.name=beta-0.5-iteration-1-per-token
+    override_dirname: ''
     id: ???
     num: ???
-    config_name: train_pragmalign
+    config_name: train_pragpo
     env_set: {}
     env_copy: []
     config:
@@ -145,7 +142,7 @@ hydra:
       provider: schema
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/pragmalign/outputs
     choices:
-      data: hh_rlhf_pragmalign
+      data: hh_rlhf_cai
       model: mistral_7b_base
       hydra/env: default
       hydra/callbacks: null

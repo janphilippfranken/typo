@@ -1,3 +1,5 @@
+import random
+
 def get_first_question(
     prompt: str,
 ) -> str:
@@ -18,3 +20,19 @@ def format_responses(
     except:
         print('error')
     return formatted_responses 
+
+
+def shuffle_principles(
+    constitution: str,
+) -> str:
+    """Shuffle principles in a constitution."""
+    principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
+    
+    random.shuffle(principles)
+
+    principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
+    shuffled_constitution = "\n".join(principles)
+    
+    return shuffled_constitution
+    
+

@@ -7,7 +7,7 @@ def pragmatic_loss_no_labels_no_reference(
     max_iter: int = 100,
     epsilon: float = 1e-10,
 ) -> torch.FloatTensor:
-    """Compute the pragmatic loss for a batch of response log probabilities.
+    """Compute the pragmatic loss for a batch of response log probabilities without labels or reference.
     
     Args:
         logprobs: The log probabilities of the responses. Shape: (constitution_batch_size, constitution_batch_size).
