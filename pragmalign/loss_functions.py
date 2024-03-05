@@ -42,57 +42,6 @@ def pragmatic_loss_no_labels_no_reference(
     return probs, loss 
 
 
-def pragmatic_loss_with_reference(
-    logprobs_policy: torch.FloatTensor, 
-    logprobs_reference: torch.FloatTensor, 
-) -> torch.FloatTensor:
-    """Compute the pragmatic loss for a batch of response log probabilities.
-    
-    Args:
-        logprobs_policy: The log probabilities of the responses from the policy. Shape: (constitution_batch_size, constitution_batch_size).
-        logprobs_reference: The log probabilities of the responses from the reference model without constitutions. Shape: (constitution_batch_size, constitution_batch_size).
-
-    Returns:
-        pragmatic_loss: The pragmatic loss for the batch of responses. 
-    """        
-    # logits 
-    logits = logprobs_policy - logprobs_reference
-    
-    # labels 
-    labels = torch.eye(logits.shape[0]).to(logits.device) 
-
-    # loss 
-    loss = F.cross_entropy(logits, labels, reduction="mean")
-   
-    return loss
-
-
-def pragmatic_loss_no_reference(
-    logprobs: torch.FloatTensor,
-) -> torch.FloatTensor:
-    """Compute the pragmatic loss for a batch of response log probabilities.
-    
-    Args:
-        logprobs: The log probabilities of the responses from the policy. Shape: (batch_size, batch_size).
-
-    Returns:
-        pragmatic_loss: The pragmatic loss for the batch of responses.
-    """
-    # normalization constant 
-    logsumexp = torch.logsumexp(logprobs, dim=0, keepdim=True)
-    
-    # logits 
-    logits = logprobs - logsumexp
-    
-    # labels 
-    labels = torch.arange(logits.size(0)).long().to(logits.device)
-
-    # cross entropy
-    loss = F.cross_entropy(logits, labels, reduction="mean")
-   
-    return loss
-
-
 def pragmatic_clip_loss(
     logprobs: torch.FloatTensor,
 ) -> torch.FloatTensor:
@@ -125,8 +74,7 @@ def pragmatic_token_loss(
     c0r1: torch.FloatTensor,
     c1r1: torch.FloatTensor,
 ) -> torch.FloatTensor:
-    """Compute the pragmatic loss on a token level. Currently hard-coded. 
-    """
+    """Compute the pragmatic loss for each token."""
     # concatenate 
     r0 = torch.stack((c0r0, c1r0), dim=0)
     r1 = torch.stack((c0r1, c1r1), dim=0)
@@ -140,8 +88,8 @@ def pragmatic_token_loss(
     r1logits = r1 - r1logsumexp
     
     # labels
-    r0labels = torch.LongTensor([0]).repeat(r0logits.size(1), 1).to(r0logits.device)
-    r1labels = torch.LongTensor([0]).repeat(r1logits.size(1), 1).to(r1logits.device)
+    r0labels = torch.FloatTensor([1, 0]).repeat(r0logits.size(1), 1).to(r0logits.device)
+    r1labels = torch.FloatTensor([0, 1]).repeat(r1logits.size(1), 1).to(r1logits.device)
     
     # loss
     r0loss = F.cross_entropy(r0logits.t(), r0labels, reduction="mean")

@@ -26,7 +26,7 @@ for beta in "${betas[@]}"; do
     for max_iter in "${max_iters[@]}"; do
         torchrun --nproc_per_node 4 train_pragmalign.py \
         pragmalign.beta=$beta \
-        wandb.name="beta-${beta}-iteration-1-v2" \
-        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-${beta}-iteration-1-0-5k-v2"
+        wandb.name="beta-${beta}-iteration-1-per-token" \
+        training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragmalign-beta-${beta}-iteration-1-0-5k-per-token"
     done
 done

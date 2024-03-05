@@ -91,6 +91,7 @@ def _get_batch_logprobs(
     # average token logprobs
     average_token_logprobs = per_token_logprobs.sum(dim=-1) / torch.logical_not(loss_mask).sum(dim=1)
 
+    # per token logprobs for each response
     c0r0 = per_token_logprobs[0][~loss_mask[0]]
     c1r0 = per_token_logprobs[2][~loss_mask[2]]
     c0r1 = per_token_logprobs[1][~loss_mask[1]]
@@ -464,23 +465,23 @@ class FSDPTrainer:
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
-                    # wandb.log({"train-loss/loss": reduced_loss.item()})
-                    # wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
-                    # wandb.log({"train-loss/kld": reduced_kl_div.item()})
-                    # wandb.log({"train-probs/accuracy-col": accuracy_col.item()})
-                    # wandb.log({"train-probs/accuracy-row": accuracy_row.item()})
-                    # wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
-                    # wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
-                    # wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
-                    # wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
+                    wandb.log({"train-loss/loss": reduced_loss.item()})
+                    wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
+                    wandb.log({"train-loss/kld": reduced_kl_div.item()})
+                    wandb.log({"train-probs/accuracy-col": accuracy_col.item()})
+                    wandb.log({"train-probs/accuracy-row": accuracy_row.item()})
+                    wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
+                    wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
+                    wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
+                    wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
                 
-        #         # evaluate after n steps have been made
-        #         if (step + 1) % self.config.training.save_after_n_steps == 0:
-        #             if self.config.training.evaluate:
-        #                 self.evaluate()
-        #             self.save_checkpoint(round(step / len(self.train_dataloader), 2))
+                # evaluate after n steps have been made
+                if (step + 1) % self.config.training.save_after_n_steps == 0:
+                    if self.config.training.evaluate:
+                        self.evaluate()
+                    self.save_checkpoint(round(step / len(self.train_dataloader), 2))
                                 
-        # # evaluate at end of each epoch and save checkpoint 
-        # if self.config.training.evaluate:
-        #     self.evaluate()self.evaluate()
-        # self.save_checkpoint(epoch)
+        # evaluate at end of each epoch and save checkpoint 
+        if self.config.training.evaluate:
+            self.evaluate()
+        self.save_checkpoint(epoch)
