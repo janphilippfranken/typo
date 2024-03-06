@@ -45,8 +45,9 @@ dataset_harmless = load_dataset(
 np.random.seed(1)
 random.seed(1)
 
-constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
+constitution =constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
 2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance."""
+
 
 for TEMPERATURE in TEMPERATURES:
     
@@ -90,7 +91,7 @@ for TEMPERATURE in TEMPERATURES:
     
             responses = model.batch_prompt(
                 prompts,
-                max_new_tokens=250,
+                max_new_tokens=350,
                 top_p=0.9,
                 temperature=TEMPERATURE,
                 num_return_sequences=1,
@@ -100,7 +101,7 @@ for TEMPERATURE in TEMPERATURES:
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
             all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
 
-            with open(f"{OUTPUT_DIR}/base-modeltemperature-{TEMPERATURE}.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/base-model-temperature-{TEMPERATURE}.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:

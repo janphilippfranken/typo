@@ -11,6 +11,7 @@ from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 # constants
 OUTPUT_DIR = "data"
 N_EXAMPLES = 10000
+# USED 200 tokens
 
 # model
 model = VLLMInferenceModel(

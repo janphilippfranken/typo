@@ -12,16 +12,13 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 from prompts import *
 
 
-
 TEMPERATURES = [0.0, 0.3, 1.0]
 N_EXAMPLES = 1000
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/evaluation-v3"
+OUTPUT_DIR = "results/responses"
 
-base_model = "mistralai/Mistral-7B-v0.1"
-base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-0.5-iteration-1-0-5k-v2/epoch-1.0/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragmalign-beta-0.5-iteration-1-0-5k-v2/epoch-1.0/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragpo-beta-0.1-iteration-1/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragpo-beta-0.1-iteration-1/epoch-0/"
     
 model = VLLMInferenceModel(
     model=trained_model,
@@ -47,7 +44,7 @@ dataset_harmless = load_dataset(
 np.random.seed(1)
 random.seed(1)
 
-constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
+constitution ="""1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
 2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance."""
 
 for TEMPERATURE in TEMPERATURES:
@@ -77,6 +74,8 @@ for TEMPERATURE in TEMPERATURES:
             
             principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
             constitution_shuffled = "\n".join(principles)
+            
+            
         
             prompt_helpful = PROMPT_EVALUATION.format(
                 constitution=constitution_shuffled.strip(),
@@ -92,19 +91,21 @@ for TEMPERATURE in TEMPERATURES:
     
             responses = model.batch_prompt(
                 prompts,
-                max_new_tokens=250,
+                max_new_tokens=350,
                 top_p=0.9,
                 temperature=TEMPERATURE,
                 num_return_sequences=1,
             )    
             
+            if i == 0:
+                print(constitution_shuffled.strip())
             all_responses['constitution'][i] = constitution_shuffled.strip()
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
             all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
             print(responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip())
             print(responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip())
          
-            with open(f"{OUTPUT_DIR}/model-t1-temperature-{TEMPERATURE}-beta-0.5-epoch-1.0.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/stpo-model-temperature-{TEMPERATURE}-beta-0.1.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:

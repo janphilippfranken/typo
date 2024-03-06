@@ -14,8 +14,8 @@ from prompts import *
 
 
 TEMPERATURES = [0.0, 0.3, 1.0]
-N_EXAMPLES = 250
-OUTPUT_DIR = "data/evaluation"
+N_EXAMPLES = 1000
+OUTPUT_DIR = "results/responses"
 
 
 trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1/checkpoint-182/"
@@ -90,13 +90,12 @@ for TEMPERATURE in TEMPERATURES:
     
             responses = model.batch_prompt(
                 prompts,
-                max_new_tokens=250,
+                max_new_tokens=350,
                 top_p=0.9,
                 temperature=TEMPERATURE,
                 num_return_sequences=1,
             )    
             
-            breakpoint()
             
             all_responses['constitution'][i] = constitution_shuffled.strip()
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
@@ -104,8 +103,8 @@ for TEMPERATURE in TEMPERATURES:
             print(responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip())
             print(responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip())
 
-        #     with open(f"{OUTPUT_DIR}/dpo-model-temperature-{TEMPERATURE}.json", "w") as file:
-        #         json.dump(all_responses, file, indent=4)
+            with open(f"{OUTPUT_DIR}/dpo-model-temperature-{TEMPERATURE}.json", "w") as file:
+                json.dump(all_responses, file, indent=4)
         
         except:
             print('failed')

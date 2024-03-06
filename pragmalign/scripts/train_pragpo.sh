@@ -19,7 +19,7 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-declare -a betas=(0.5 1.0)
+declare -a betas=(0.1)
 
 for beta in "${betas[@]}"; do
     torchrun --nproc_per_node 4 train_pragpo.py \
