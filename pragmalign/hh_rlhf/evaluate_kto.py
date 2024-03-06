@@ -11,19 +11,19 @@ from scaituning.models.vllm_models.inference_model import VLLMInferenceModel
 
 from prompts import *
 
-
+# length 350
 
 TEMPERATURES = [0.0, 0.3, 1.0]
 N_EXAMPLES = 1000
 OUTPUT_DIR = "results/responses"
 
-base_model = "mistralai/Mistral-7B-v0.1"
-base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/kto-beta-0.1-iteration-1/checkpoint-365/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/kto-beta-0.1-iteration-1/checkpoint-365/"
+    
 model = VLLMInferenceModel(
-    model=base_model,
-    download_dir=base_dir,
+    model=trained_model,
+    download_dir=trained_dir,
     dtype="auto",
     tensor_parallel_size=1,
     quantization=None,
@@ -44,7 +44,6 @@ dataset_harmless = load_dataset(
 
 np.random.seed(1)
 random.seed(1)
-
 
 constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
 2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance."""
@@ -96,12 +95,15 @@ for TEMPERATURE in TEMPERATURES:
                 temperature=TEMPERATURE,
                 num_return_sequences=1,
             )    
-
+            
+            
             all_responses['constitution'][i] = constitution_shuffled.strip()
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
             all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
+            print(responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip())
+            print(responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip())
 
-            with open(f"{OUTPUT_DIR}/base-model-temperature-{TEMPERATURE}.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/kto-model-temperature-{TEMPERATURE}.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:

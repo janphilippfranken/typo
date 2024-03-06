@@ -4,7 +4,7 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --mem=64GB                          # Memory request
-#SBATCH --cpus-per-task=4                   # Number of CPUs per task
+#SBATCH --cpus-per-task=1                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
 #SBATCH --output=gpt42.out
 #SBATCH --error=gpt42.err
