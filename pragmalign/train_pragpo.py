@@ -23,7 +23,7 @@ from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 
 import wandb
 
-from trainers import PragPOTrainer
+from pragpo_trainer import PragPOTrainer
 from helpers import *
 
 
@@ -61,7 +61,7 @@ def main(args: DictConfig) -> None:
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
     
-    distributed setup
+    # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])
     world_size = int(os.environ["WORLD_SIZE"])
 

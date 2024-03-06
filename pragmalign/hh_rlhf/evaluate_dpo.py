@@ -18,8 +18,8 @@ N_EXAMPLES = 250
 OUTPUT_DIR = "data/evaluation"
 
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1-0-5k-v2/checkpoint-148/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1-0-5k-v/checkpoint-148/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1/checkpoint-182/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1/checkpoint-182/"
     
 model = VLLMInferenceModel(
     model=trained_model,
@@ -96,14 +96,16 @@ for TEMPERATURE in TEMPERATURES:
                 num_return_sequences=1,
             )    
             
+            breakpoint()
+            
             all_responses['constitution'][i] = constitution_shuffled.strip()
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
             all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
             print(responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip())
             print(responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip())
 
-            with open(f"{OUTPUT_DIR}/dpo-model-temperature-{TEMPERATURE}.json", "w") as file:
-                json.dump(all_responses, file, indent=4)
+        #     with open(f"{OUTPUT_DIR}/dpo-model-temperature-{TEMPERATURE}.json", "w") as file:
+        #         json.dump(all_responses, file, indent=4)
         
         except:
             print('failed')

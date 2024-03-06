@@ -1,0 +1,33 @@
+[2024-03-05 21:53:30,800] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-05 21:53:30,810] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-05 21:53:30,817] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-05 21:53:30,817] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+[2024-03-05 21:53:52,321] [INFO] [comm.py:637:init_distributed] cdb=None
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+[2024-03-05 21:53:52,423] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-05 21:53:52,447] [INFO] [comm.py:637:init_distributed] cdb=None
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+[2024-03-05 21:53:52,680] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-05 21:53:52,680] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-03-05 21:53:53,094][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7f65a12e8070>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 21:53:53,225][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7f4b5d748370>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 21:53:53,249][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7fd69ce6c0a0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 21:53:53,262][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7fe37279c550>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
