@@ -10,11 +10,7 @@ wandb:
   project: hh-rlhf-kto
   name: kto
 
-kto:
-  beta: 0.1
 
-train_split: 0.00
-max_prompt_length: 1024
 
 training_args:
   output_dir: /scr/jphilipp
@@ -34,3 +30,6 @@ training_args:
   do_eval: true
   logging_steps: 1
   logging_strategy: steps
+  max_prompt_length: 1024
+  beta: 0.1
+  max_length: 2048

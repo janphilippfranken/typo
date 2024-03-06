@@ -1,0 +1,198 @@
+[2024-03-05 18:24:39,777] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-05 18:24:39,786] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-05 18:24:39,791] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-05 18:24:39,799] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+[2024-03-05 18:24:59,631] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-05 18:24:59,631] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+[2024-03-05 18:24:59,660] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-05 18:24:59,676] [INFO] [comm.py:637:init_distributed] cdb=None
+Dataset({
+    features: ['prompt', 'completion', 'label'],
+    num_rows: 46732
+})
+4284 7399
+[2024-03-05 18:24:59,748] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-05 18:24:59,854][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7ff033c99840>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 18:25:00,291][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7ff1835be3e0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 18:25:00,322][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7f156a8223e0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 18:25:00,323][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method KTOTrainer.get_KL_dataset of <scaituning.trl.trl.trainer.kto_trainer.KTOTrainer object at 0x7f34f6224280>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-05 18:27:09,320][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-03-05 18:27:09,323] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.12.6, git-hash=unknown, git-branch=unknown
+[2024-03-05 18:27:15,049] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2024-03-05 18:27:15,051] [INFO] [logging.py:96:log_dist] [Rank 0] Creating BF16 optimizer
+[2024-03-05 18:27:15,199] [INFO] [utils.py:791:see_memory_usage] begin bf16_optimizer
+[2024-03-05 18:27:15,200] [INFO] [utils.py:792:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
+[2024-03-05 18:27:15,200] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 90.29 GB, percent = 9.0%
+[2024-03-05 18:27:15,325] [INFO] [utils.py:791:see_memory_usage] end bf16_optimizer
+[2024-03-05 18:27:15,326] [INFO] [utils.py:792:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
+[2024-03-05 18:27:15,327] [INFO] [utils.py:799:see_memory_usage] CPU Virtual Memory:  used = 88.1 GB, percent = 8.7%
+[2024-03-05 18:27:15,327] [INFO] [config.py:984:print] DeepSpeedEngine configuration:
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   amp_enabled .................. False
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   amp_params ................... False
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": "autotuning_results", 
+    "exps_dir": "autotuning_exps", 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   bfloat16_enabled ............. True
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   checkpoint_parallel_write_pipeline  False
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   checkpoint_tag_validation_enabled  True
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   checkpoint_tag_validation_fail  False
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7ff033c34070>
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   communication_data_type ...... None
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   curriculum_enabled_legacy .... False
+[2024-03-05 18:27:15,328] [INFO] [config.py:988:print]   curriculum_params_legacy ..... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   data_efficiency_enabled ...... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   dataloader_drop_last ......... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   disable_allgather ............ False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   dump_state ................... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   dynamic_loss_scale_args ...... None
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_enabled ........... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_gas_boundary_resolution  1
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_layer_num ......... 0
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_max_iter .......... 100
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_stability ......... 1e-06
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_tol ............... 0.01
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   eigenvalue_verbose ........... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   elasticity_enabled ........... False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "recompute_fwd_factor": 0.0, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   fp16_auto_cast ............... None
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   fp16_enabled ................. False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   fp16_master_weights_and_gradients  False
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   global_rank .................. 0
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   grad_accum_dtype ............. None
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   gradient_accumulation_steps .. 32
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   gradient_clipping ............ 1.0
+[2024-03-05 18:27:15,329] [INFO] [config.py:988:print]   gradient_predivide_factor .... 1.0
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   graph_harvesting ............. False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   initial_dynamic_scale ........ 1
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   load_universal_checkpoint .... False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   loss_scale ................... 1.0
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   memory_breakdown ............. False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   mics_hierarchial_params_gather  False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   mics_shard_size .............. -1
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   nebula_config ................ {
+    "enabled": false, 
+    "persistent_storage_path": null, 
+    "persistent_time_interval": 100, 
+    "num_of_version_in_retention": 2, 
+    "enable_nebula_load": true, 
+    "load_path": null
+}
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   optimizer_legacy_fusion ...... False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   optimizer_name ............... None
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   optimizer_params ............. None
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   pld_enabled .................. False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   pld_params ................... False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   prescale_gradients ........... False
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   scheduler_name ............... None
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   scheduler_params ............. None
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   seq_parallel_communication_data_type  torch.float32
+[2024-03-05 18:27:15,330] [INFO] [config.py:988:print]   sparse_attention ............. None
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   sparse_gradients_enabled ..... False
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   steps_per_print .............. inf
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   train_batch_size ............. 128
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   train_micro_batch_size_per_gpu  1
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   use_data_before_expert_parallel_  False
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   use_node_local_storage ....... False
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   wall_clock_breakdown ......... False
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   weight_quantization_config ... None
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   world_size ................... 4
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   zero_allow_untested_optimizer  False
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   zero_config .................. stage=0 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500,000,000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500,000,000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100,000,000, max_in_cpu=1,000,000,000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='none', nvme_path=None, buffer_count=4, pin_memory=False, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   zero_enabled ................. False
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   zero_force_ds_cpu_optimizer .. True
+[2024-03-05 18:27:15,331] [INFO] [config.py:988:print]   zero_optimization_stage ...... 0
+[2024-03-05 18:27:15,331] [INFO] [config.py:974:print_user_config]   json = {
+    "train_batch_size": 128, 
+    "train_micro_batch_size_per_gpu": 1, 
+    "gradient_accumulation_steps": 32, 
+    "zero_optimization": {
+        "stage": 0, 
+        "offload_optimizer": {
+            "device": "none", 
+            "nvme_path": null
+        }, 
+        "offload_param": {
+            "device": "none", 
+            "nvme_path": null
+        }, 
+        "stage3_gather_16bit_weights_on_model_save": false
+    }, 
+    "gradient_clipping": 1.0, 
+    "steps_per_print": inf, 
+    "bf16": {
+        "enabled": true
+    }, 
+    "fp16": {
+        "enabled": false
+    }
+}
+{'loss': 0.0, 'learning_rate': 2.7027027027027028e-08, 'rewards/chosen': -0.0009527425281703472, 'rewards/rejected': -0.0011838872451335192, 'rewards/margins': 0.00023114483337849379, 'kl': 0.0, 'logps/rejected': -40.362327575683594, 'logps/chosen': -41.01849365234375, 'epoch': 0.0}
+{'loss': 0.0, 'learning_rate': 5.4054054054054056e-08, 'rewards/chosen': -0.0024135231506079435, 'rewards/rejected': -0.002091858768835664, 'rewards/margins': -0.0003216642653569579, 'kl': 0.0, 'logps/rejected': -33.741119384765625, 'logps/chosen': -40.86040115356445, 'epoch': 0.01}
+{'loss': 0.0, 'learning_rate': 8.108108108108108e-08, 'rewards/chosen': 0.0026741218753159046, 'rewards/rejected': -0.0014784857630729675, 'rewards/margins': 0.0041526081040501595, 'kl': 0.03785550594329834, 'logps/rejected': -42.19911575317383, 'logps/chosen': -43.49208068847656, 'epoch': 0.01}
+{'loss': 0.0, 'learning_rate': 1.0810810810810811e-07, 'rewards/chosen': -0.0009988092351704836, 'rewards/rejected': -0.0015845622401684523, 'rewards/margins': 0.0005857530049979687, 'kl': 0.05128215253353119, 'logps/rejected': -36.82765579223633, 'logps/chosen': -41.24193572998047, 'epoch': 0.01}
+{'loss': 0.0, 'learning_rate': 1.3513513513513515e-07, 'rewards/chosen': -0.0039901575073599815, 'rewards/rejected': -0.0010274399537593126, 'rewards/margins': -0.002962717553600669, 'kl': 0.05589476227760315, 'logps/rejected': -41.38060760498047, 'logps/chosen': -38.947139739990234, 'epoch': 0.01}
+{'loss': 0.0, 'learning_rate': 1.6216216216216215e-07, 'rewards/chosen': 0.0015695964684709907, 'rewards/rejected': -0.005417908076196909, 'rewards/margins': 0.006987505126744509, 'kl': 0.022826790809631348, 'logps/rejected': -40.50944519042969, 'logps/chosen': -32.535362243652344, 'epoch': 0.02}
+{'loss': 0.0, 'learning_rate': 1.891891891891892e-07, 'rewards/chosen': 0.0013601359678432345, 'rewards/rejected': -0.005993158556520939, 'rewards/margins': 0.0073532951064407825, 'kl': 0.033748552203178406, 'logps/rejected': -38.424217224121094, 'logps/chosen': -33.429107666015625, 'epoch': 0.02}
+{'loss': 0.0, 'learning_rate': 2.1621621621621622e-07, 'rewards/chosen': 0.006455668248236179, 'rewards/rejected': -0.006159088108688593, 'rewards/margins': 0.01261475682258606, 'kl': 0.026443660259246826, 'logps/rejected': -37.64630889892578, 'logps/chosen': -38.77250289916992, 'epoch': 0.02}
+{'loss': 0.0, 'learning_rate': 2.4324324324324326e-07, 'rewards/chosen': 0.016502108424901962, 'rewards/rejected': -0.016518667340278625, 'rewards/margins': 0.03302077576518059, 'kl': 0.029860854148864746, 'logps/rejected': -37.22793197631836, 'logps/chosen': -39.770347595214844, 'epoch': 0.02}
+{'loss': 0.0, 'learning_rate': 2.702702702702703e-07, 'rewards/chosen': 0.027851682156324387, 'rewards/rejected': -0.02542676031589508, 'rewards/margins': 0.053278446197509766, 'kl': 0.03349605202674866, 'logps/rejected': -37.181400299072266, 'logps/chosen': -36.79708480834961, 'epoch': 0.03}

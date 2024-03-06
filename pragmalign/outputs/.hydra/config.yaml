@@ -15,14 +15,10 @@ data:
   n_responses: 2
   n_constitutions: 2
 wandb:
-  project: hh-rlhf-dpo
-  name: dpo-beta-0.1-iteration-1
-dpo:
-  beta: 0.1
-train_split: 0.0
-max_prompt_length: 1024
+  project: hh-rlhf-kto
+  name: kto-beta-0.1-iteration-1
 training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/kto-beta-0.1-iteration-1
   per_device_train_batch_size: 1
   per_device_eval_batch_size: 1
   gradient_accumulation_steps: 32
@@ -39,3 +35,6 @@ training_args:
   do_eval: true
   logging_steps: 1
   logging_strategy: steps
+  max_prompt_length: 1024
+  beta: 0.1
+  max_length: 2048

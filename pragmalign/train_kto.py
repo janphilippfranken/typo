@@ -10,6 +10,7 @@ from omegaconf import DictConfig, OmegaConf
 from datasets import Dataset
 from transformers import TrainingArguments, AutoModelForCausalLM, AutoTokenizer
 from scaituning.trl.trl import KTOTrainer
+from scaituning.trl.trl import KTOConfig, KTOTrainer, ModelConfig
 
 from helpers import *
 
@@ -44,8 +45,8 @@ def main(args: DictConfig) -> None:
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:5000]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:5000]
+    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()]
+    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()]
     
     # get kto format 
     prompts = []
@@ -83,7 +84,10 @@ def main(args: DictConfig) -> None:
 
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
-    training_args = TrainingArguments(**training_args_dict)
+    
+    training_args = KTOConfig(
+        **training_args_dict,
+    )
     
     # trainer
     kto_trainer = KTOTrainer(
@@ -91,12 +95,9 @@ def main(args: DictConfig) -> None:
         ref_model=ref_model,
         tokenizer=tokenizer,
         args=training_args, 
-        beta=args.kto.beta,
         train_dataset=dataset,
-        max_prompt_length=args.max_prompt_length,
-        max_length=args.model.tokenizer_config.model_max_length,
     )
-    
+
     # train
     kto_trainer.train()
     kto_trainer.save_model(output_dir=training_args.output_dir)
