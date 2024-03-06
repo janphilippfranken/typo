@@ -135,8 +135,8 @@ def main(args: DictConfig) -> None:
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()][:5000]
-    dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()][:5000]
+    dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()]
+    dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()]
     
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
@@ -160,7 +160,8 @@ def main(args: DictConfig) -> None:
     
     random.shuffle(train_dataset)
     random.shuffle(eval_dataset)
-    
+    print(len(train_dataset))
+    print(len(eval_dataset))
             
     if local_rank == 0:
         print(f"tokenized {len(train_dataset)} training examples...")

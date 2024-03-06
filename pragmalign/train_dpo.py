@@ -24,7 +24,7 @@ def main(args: DictConfig) -> None:
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
-    get tokenizer 
+    # get tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     
     # set padding
@@ -44,21 +44,21 @@ def main(args: DictConfig) -> None:
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:5000]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:5000]
-  
+    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()]
+    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()]
+
     # get dpo format 
     prompts = []
     chosen = []
     rejected = []
     
-    for example_helpful, example_harmless in zip(dataset_list_helpful, dataset_list_harmless):
-        
+    for example_helpful in dataset_list_helpful:
         # add helpful examples
         prompts += example_helpful["prompts"]
         chosen += example_helpful["chosen"]
         rejected += example_helpful["rejected"]
-        
+
+    for example_harmless in dataset_list_harmless:
         # add harmless examples
         prompts += example_harmless["prompts"]
         chosen += example_harmless["chosen"]
@@ -67,6 +67,8 @@ def main(args: DictConfig) -> None:
         
     dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
     dataset = dataset.shuffle(42)
+    print(dataset)
+    print(len(dataset_list_helpful), len(dataset_list_harmless))
     
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
@@ -79,8 +81,7 @@ def main(args: DictConfig) -> None:
         tokenizer=tokenizer,
         args=training_args, 
         beta=args.dpo.beta,
-        train_dataset=dataset['train'],
-        eval_dataset=dataset['test'],
+        train_dataset=dataset,
         max_prompt_length=args.max_prompt_length,
         max_length=args.model.tokenizer_config.model_max_length,
     )

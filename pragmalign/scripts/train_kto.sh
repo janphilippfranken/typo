@@ -7,8 +7,8 @@
 #SBATCH --mem=312GB                       
 #SBATCH --cpus-per-task=48                  
 #SBATCH --time=256:00:00                    
-#SBATCH --output=dpo-%j.out
-#SBATCH --error=dpo-%j.err
+#SBATCH --output=kto-%j.out
+#SBATCH --error=kto-%j.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning

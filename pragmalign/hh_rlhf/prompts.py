@@ -23,7 +23,9 @@ PROMPT_TRAINING = """System: Write a response for the assistant that follows the
 Assistant Constitution:
 {constitution}
 
-{conversation}"""
+{conversation}
+
+Assistant:"""
 
 
 PROMPT_EVALUATION = """System: Write a response for the assistant that follows the principles in the constitution.

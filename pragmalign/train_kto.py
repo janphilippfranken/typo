@@ -52,8 +52,7 @@ def main(args: DictConfig) -> None:
     completions = []
     labels = []
     
-    for example_helpful, example_harmless in zip(dataset_list_helpful, dataset_list_harmless):
-        
+    for example_helpful in dataset_list_helpful:        
         # add helpful examples
         prompts += example_helpful["prompts"]
         completions += example_helpful["chosen"]
@@ -64,7 +63,8 @@ def main(args: DictConfig) -> None:
         completions += example_helpful["rejected"]
         labels.append(False)
         labels.append(False)
-        
+
+    for example_harmless in dataset_list_harmless:
         # add harmless examples
         prompts += example_harmless["prompts"]
         completions += example_harmless["chosen"]
@@ -78,6 +78,8 @@ def main(args: DictConfig) -> None:
        
     dataset = Dataset.from_dict(dict(prompt=prompts, completion=completions, label=labels)) 
     dataset = dataset.shuffle(42)
+    print(dataset)
+    print(len(dataset_list_harmless), len(dataset_list_helpful))
 
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
@@ -90,8 +92,7 @@ def main(args: DictConfig) -> None:
         tokenizer=tokenizer,
         args=training_args, 
         beta=args.kto.beta,
-        train_dataset=dataset['train'],
-        eval_dataset=dataset['test'],
+        train_dataset=dataset,
         max_prompt_length=args.max_prompt_length,
         max_length=args.model.tokenizer_config.model_max_length,
     )

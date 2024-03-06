@@ -10,7 +10,6 @@ from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
 # constants
 OUTPUT_DIR = "data"
-MAX_ATTEMPTS = 5
 N_EXAMPLES = 10000
 
 # model
@@ -27,7 +26,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf", 
     data_dir="harmless-base", 
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(5000, N_EXAMPLES))
+)['train'].select(range(N_EXAMPLES))
 
 # seeds
 np.random.seed(1)
@@ -49,8 +48,6 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     harmless_constitution_shuffled = shuffle_principles(harmless_constitution)
     not_harmless_constitution_shuffled = shuffle_principles(not_harmless_constitution)
     
-
-    
     # first question
     conversation = f"Human: {get_first_question(example['chosen'])}"
     
@@ -62,7 +59,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     responses = model.batch_prompt(
         prompts=prompts,
-        max_new_tokens=300, 
+        max_new_tokens=200, 
         top_p=0.9, 
         temperature=0.0, 
         num_return_sequences=1,
@@ -76,7 +73,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     # filtering responses 
     for response_harmless, response_not_harmless in zip(responses_harmless, responses_not_harmless):
         formatted_responses = format_responses([response_harmless, response_not_harmless])
-        if not formatted_harmless and all(substring not in formatted_responses[0] for substring in ['The assistant', 'sorry', "Response:", "[insert", "["]):
+        if not formatted_harmless and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert", "["]):
             formatted_harmless = formatted_responses[0]
         if not formatted_not_harmless and 'The assistant' not in formatted_responses[1]:
             formatted_not_harmless = formatted_responses[1]
@@ -90,12 +87,12 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         data = [{
             "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
             "response": response,
-            "example_id": i + 5000,
+            "example_id": i,
         } for response, constitution in zip(formatted_responses, [harmless_constitution_shuffled, not_harmless_constitution_shuffled])]
         
         formatted_train_data[i] = data
     else:
-        print("Skipping example", i + 5000)
+        print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-harmless-5-10k-iteration-0.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-0-sorry.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

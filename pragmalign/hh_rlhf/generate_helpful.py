@@ -10,7 +10,6 @@ from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
 # constants
 OUTPUT_DIR = "data"
-MAX_ATTEMPTS = 5
 N_EXAMPLES = 10000
 
 # model
@@ -27,7 +26,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf", 
     data_dir="helpful-base", 
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(5000, N_EXAMPLES))
+)['train'].select(range(N_EXAMPLES))
 
 # seeds
 np.random.seed(1)
@@ -61,7 +60,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     responses = model.batch_prompt(
         prompts=prompts,
-        max_new_tokens=300, 
+        max_new_tokens=200, 
         top_p=0.9, 
         temperature=0.0, 
         num_return_sequences=1,
@@ -89,13 +88,12 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         data = [{
             "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
             "response": response,
-            "example_id": i + 5000,
+            "example_id": i,
         } for response, constitution in zip(formatted_responses, [helpful_constitution_shuffled, not_helpful_constitution_shuffled])]
         
         formatted_train_data[i] = data
     else:
-        print("Skipping example", i + 5000)
+        print("Skipping example", i)
 
-
-    with open(f"{OUTPUT_DIR}/train-helpful-5-10k-iteration-0.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-iteration-0-sorry.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)
