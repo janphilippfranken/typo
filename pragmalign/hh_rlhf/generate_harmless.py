@@ -95,5 +95,5 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     else:
         print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-0-sorry.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-0-with-sorry.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

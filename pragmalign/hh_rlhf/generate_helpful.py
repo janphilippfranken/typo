@@ -74,7 +74,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     # filtering responses 
     for response_helpful, response_not_helpful in zip(responses_helpful, responses_not_helpful):
         formatted_responses = format_responses([response_helpful, response_not_helpful])
-        if not formatted_helpful and all(substring not in formatted_responses[0] for substring in ['The assistant', 'sorry', "Response:", "[insert", "["]):
+        if not formatted_helpful and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert", "["]):
             formatted_helpful = formatted_responses[0]
         if not formatted_not_helpful and 'The assistant' not in formatted_responses[1]:
             formatted_not_helpful = formatted_responses[1]
@@ -95,5 +95,5 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     else:
         print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-iteration-0-sorry.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-iteration-0-with-sorry.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

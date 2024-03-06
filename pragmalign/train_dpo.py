@@ -22,7 +22,7 @@ def main(args: DictConfig) -> None:
     
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
-    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
     # get tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)

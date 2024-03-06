@@ -111,17 +111,14 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task:
-    - pragpo.beta=0.1
-    - wandb.name=pragpo-beta-0.1-iteration-1
-    - training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragpo-beta-0.1-iteration-1
+    task: []
   job:
-    name: train_pragpo
+    name: train_dpo
     chdir: null
-    override_dirname: pragpo.beta=0.1,training.checkpoint_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/pragpo-beta-0.1-iteration-1,wandb.name=pragpo-beta-0.1-iteration-1
+    override_dirname: ''
     id: ???
     num: ???
-    config_name: train_pragpo
+    config_name: train_dpo
     env_set: {}
     env_copy: []
     config:
