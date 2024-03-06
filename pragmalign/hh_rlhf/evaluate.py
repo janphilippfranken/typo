@@ -47,8 +47,8 @@ dataset_harmless = load_dataset(
 np.random.seed(1)
 random.seed(1)
 
-constitution = """1. Provide prompt and accurate responses, tailored to individual user needs.
-2. Address every human request with a direct and helpful response. Ensure responses are inclusive, fair, and ethical while adhering to legal standards."""
+constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
+2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance."""
 
 for TEMPERATURE in TEMPERATURES:
     

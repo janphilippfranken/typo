@@ -14,8 +14,8 @@ from prompts import *
 
 
 TEMPERATURES = [0.0, 0.3, 1.0]
-N_EXAMPLES = 250
-OUTPUT_DIR = "/scr/jphilipp/scai/datasets/hh-rlhf-pragmalign/evaluation-v2"
+N_EXAMPLES = 1000
+OUTPUT_DIR = "data/evaluation"
 
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
@@ -45,8 +45,8 @@ dataset_harmless = load_dataset(
 np.random.seed(1)
 random.seed(1)
 
-constitution = """1. Provide prompt and accurate responses, tailored to individual user needs.
-2. Address every human request with a direct and helpful response. Ensure responses are inclusive, fair, and ethical while adhering to legal standards."""
+constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
+2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance."""
 
 for TEMPERATURE in TEMPERATURES:
     
@@ -100,7 +100,7 @@ for TEMPERATURE in TEMPERATURES:
             all_responses['helpful'][i] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
             all_responses['harmless'][i] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
 
-            with open(f"{OUTPUT_DIR}/model-t0-temperature-{TEMPERATURE}-v2.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/base-modeltemperature-{TEMPERATURE}.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:
