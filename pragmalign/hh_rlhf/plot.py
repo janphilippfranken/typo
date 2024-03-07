@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 
-OUTPUT_DIR = 'results/v5'
+OUTPUT_DIR = 'results/responses'
 
 
 from plot_utils import lighten_color, change_saturation, get_fancy_bbox
@@ -21,9 +21,9 @@ def calculate_statistics(datasets):
 
 def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     """Plot the results with error bars for each feature type (ft) and save to PDF."""
-    plt.rcParams["font.size"] = 24
+    plt.rcParams["font.size"] = 28
     palette = sns.color_palette('colorblind')
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(10, 10))
 
     for i, (means, errors) in enumerate(zip(means_ft, errors_ft)):
         ax.errorbar(temperatures, means, yerr=errors, fmt='o-', color=palette[i], label=labels[i])
@@ -32,11 +32,12 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     ax.set_xlabel('Sampling Temperature')
     ax.set_xticks(temperatures)
     ax.set_xticklabels(map(str, temperatures))
-    ax.set_yticklabels([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7])
-    ax.set_ylim(0.05, 0.75)  
+    ax.set_yticks([0.0, 0.25, 0.5,  0.75, 1.0])
+    ax.set_yticklabels([0.0, 0.25, 0.5, 0.75, 1.0])
+    ax.set_ylim(-0.05, 1.0)  
     ax.set_xlim(min(temperatures) - 0.05, max(temperatures) + 0.05)
     ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
-    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.25), prop={'size': 12})
+    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.35), prop={'size': 12})
 
     sns.despine()
     plt.title(title)
@@ -48,49 +49,109 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
 
 def main():
     
-    base_helpful = [
-        "results/v5/t1-win-rates-helpful-temperature-0.0-against-base.json",
-        "results/v5/t1-win-rates-helpful-temperature-0.3-against-base.json",
-        "results/v5/t1-win-rates-helpful-temperature-1.0-against-base.json",
+    typo_base_helpful = [
+        "results/win_rates_gpt4/stpo-beta-0.1-against-base-helpful-temperature-0.0.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-base-helpful-temperature-1.0.json",
     ]
     
-    base_harmless = [
-        "results/v5/t1-win_rates_harmless-temperature-0.0-against-base.json",
-        "results/v5/t1-win_rates_harmless-temperature-0.3-against-base.json",
-        "results/v5/t1-win_rates_harmless-temperature-1.0-against-base.json",
+    typo_base_harmless = [
+        "results/win_rates_gpt4/stpo-beta-0.1-against-base-harmless-temperature-0.0.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-base-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-base-harmless-temperature-1.0.json",
     ]
     
-    dpo_helpful = [
-        "results/v5/t1-win-rates-helpful-temperature-0.0-against-dpo.json",
-        "results/v5/t1-win-rates-helpful-temperature-0.3-against-dpo.json",
-        "results/v5/t1-win-rates-helpful-temperature-1.0-against-dpo.json",
+    typo_dpo_helpful = [
+        "results/win_rates_gpt4/stpo-beta-0.1-against-dpo-helpful-temperature-0.0.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-dpo-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-dpo-helpful-temperature-1.0.json",
     ]
     
-    dpo_harmless = [
-        "results/v5/t1-win_rates_harmless-temperature-0.0-against-dpo.json",
-        "results/v5/t1-win_rates_harmless-temperature-0.3-against-dpo.json",
-        "results/v5/t1-win_rates_harmless-temperature-1.0-against-dpo.json",
+    typo_dpo_harmless = [
+        "results/win_rates_gpt4/stpo-beta-0.1-against-dpo-harmless-temperature-0.0.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-dpo-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4/stpo-beta-0.1-against-dpo-harmless-temperature-1.0.json",
     ]
     
+    # typo_kto_helpful = [
+    #     "results/win_rates_gpt4/stpo-beta-0.1-against-kto-helpful-temperature-0.0.json",
+    #     "results/win_rates_gpt4/stpo-beta-0.1-against-kto-helpful-temperature-0.3.json",
+    #     "results/win_rates_gpt4/stpo-beta-0.1-against-kto-helpful-temperature-0.3.json",
+    # ]
+    
+    # typo_kto_harmless = [
+    #     "results/win_rates_gpt4/stpo-beta-0.1-against-kto-harmless-temperature-0.0.json",
+    #     "results/win_rates_gpt4/stpo-beta-0.1-against-kto-harmless-temperature-0.3.json",
+    #     "results/win_rates_gpt4/stpo-beta-0.1-against-kto-harmless-temperature-0.3.json",
+    # ]
+    
+    dpo_base_helpful = [
+        "results/win_rates_gpt4/dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
+        "results/win_rates_gpt4/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4/dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
+    ]
+    
+    dpo_base_harmless = [
+        "results/win_rates_gpt4/dpo-beta-0.1-against-base-harmless-temperature-0.0.json",
+        "results/win_rates_gpt4/dpo-beta-0.1-against-base-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4/dpo-beta-0.1-against-base-harmless-temperature-1.0.json",
+    ]
+    
+    # kto_base_helpful = [
+    #     "results/win_rates_gpt4/kto-beta-0.1-against-base-helpful-temperature-0.0.json",
+    #     "results/win_rates_gpt4/kto-beta-0.1-against-base-helpful-temperature-0.3.json",
+    #     "results/win_rates_gpt4/kto-beta-0.1-against-base-helpful-temperature-0.3.json",
+    # ]
+    
+    # kto_base_harmless = [
+    #     "results/win_rates_gpt4/kto-beta-0.1-against-base-harmless-temperature-0.0.json",
+    #     "results/win_rates_gpt4/kto-beta-0.1-against-base-harmless-temperature-0.3.json",
+    #     "results/win_rates_gpt4/kto-beta-0.1-against-base-harmless-temperature-0.3.json",
+    # ]
+    
+  
     
     
 
-    ft_1_helpful = [load_data(path) for path in base_helpful]
-    ft_1_harmless = [load_data(path) for path in base_harmless]
-    ft_2_helpful = [load_data(path) for path in dpo_helpful]
-    ft_2_harmless = [load_data(path) for path in dpo_harmless]
+    # Load datasets
+    datasets_base_helpful = [load_data(path) for path in typo_base_helpful]
+    datasets_base_harmless = [load_data(path) for path in typo_base_harmless]
+    datasets_dpo_helpful = [load_data(path) for path in typo_dpo_helpful]
+    datasets_dpo_harmless = [load_data(path) for path in typo_dpo_harmless]
+    # datasets_kto_helpful = [load_data(path) for path in typo_kto_helpful]
+    # datasets_kto_harmless = [load_data(path) for path in typo_kto_harmless]
+    datasets_dpo_base_helpful = [load_data(path) for path in dpo_base_helpful]
+    datasets_dpo_base_harmless = [load_data(path) for path in dpo_base_harmless]
+    # datasets_kto_base_helpful = [load_data(path) for path in kto_base_helpful]
+    # datasets_kto_base_harmless = [load_data(path) for path in kto_base_harmless]
 
     # Calculate statistics
-    means_ft_1_helpful, _, errors_ft_1_helpful = calculate_statistics(ft_1_helpful)
-    means_ft_1_harmless, _, errors_ft_1_harmless = calculate_statistics(ft_1_harmless)
-    means_ft_2_helpful, _, errors_ft_2_helpful = calculate_statistics(ft_2_helpful)
-    means_ft_2_harmless, _, errors_ft_2_harmless = calculate_statistics(ft_2_harmless)
+    means_base_helpful, _, errors_base_helpful = calculate_statistics(datasets_base_helpful)
+    means_base_harmless, _, errors_base_harmless = calculate_statistics(datasets_base_harmless)
+    
+    means_dpo_helpful, _, errors_dpo_helpful = calculate_statistics(datasets_dpo_helpful)
+    means_dpo_harmless, _, errors_dpo_harmless = calculate_statistics(datasets_dpo_harmless)
+    # means_kto_helpful, _, errors_kto_helpful = calculate_statistics(datasets_kto_helpful)
+    # means_kto_harmless, _, errors_kto_harmless = calculate_statistics(datasets_kto_harmless)
+    means_dpo_base_helpful, _, errors_dpo_base_helpful = calculate_statistics(datasets_dpo_base_helpful)
+    means_dpo_base_harmless, _, errors_dpo_base_harmless = calculate_statistics(datasets_dpo_base_harmless)
+    # means_kto_base_helpful, _, errors_kto_base_helpful = calculate_statistics(datasets_kto_base_helpful)
+    # means_kto_base_harmless, _, errors_kto_base_harmless = calculate_statistics(datasets_kto_base_harmless)
 
     # Plotting
     temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
-    plot_results(temperatures, [means_ft_1_helpful, means_ft_2_helpful], [errors_ft_1_helpful, errors_ft_2_helpful], ['pragmatic > base', 'pragmatic > dpo'], 'Helpful Win Rates', 'helpful_win_rates')
-    plot_results(temperatures, [means_ft_1_harmless, means_ft_2_harmless], [errors_ft_1_harmless, errors_ft_2_harmless], ['pragmatic > base', 'pragmatic > dpo'], 'Harmless Win Rates', 'harmless_win_rates')
-
+    plot_results(temperatures, [
+        means_base_helpful, means_dpo_helpful,  means_dpo_base_helpful], 
+                 [errors_base_helpful, errors_dpo_helpful,  errors_dpo_base_helpful], 
+                 ['typo > base', 'typo > dpo', 'dpo > base'], 'Helpful Win Rates', 'helpful_win_rates')
+    
+    plot_results(temperatures, [
+        means_base_harmless, means_dpo_harmless, means_dpo_base_harmless], 
+                 [errors_base_harmless, errors_dpo_harmless, errors_dpo_base_harmless], 
+                 ['typo > base', 'typo > dpo', 'dpo > base'], 'Harmless Win Rates', 'harmless_win_rates')
+    
+    
+    breakpoint()
 
 if __name__ == "__main__":
     main()

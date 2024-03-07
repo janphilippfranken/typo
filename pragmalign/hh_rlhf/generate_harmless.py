@@ -10,7 +10,7 @@ from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
 # constants
 OUTPUT_DIR = "data"
-N_EXAMPLES = 10000
+N_EXAMPLES = 15000
 # USED 200 tokens
 
 # model
@@ -74,15 +74,14 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     # filtering responses 
     for response_harmless, response_not_harmless in zip(responses_harmless, responses_not_harmless):
         formatted_responses = format_responses([response_harmless, response_not_harmless])
-        if not formatted_harmless and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert", "["]):
+        if not formatted_harmless and all(substring not in formatted_responses[0] for substring in ['The assistant', 'sorry', "Response:", "[insert", "["]):
             formatted_harmless = formatted_responses[0]
-        if not formatted_not_harmless and 'The assistant' not in formatted_responses[1]:
+        if not formatted_not_harmless and all(substring not in formatted_responses[1] for substring in ['The assistant', 'sorry', "Response:", "[insert", "["]):
             formatted_not_harmless = formatted_responses[1]
     
     # if formatting succeeded 
-    if formatted_harmless:
-        if not formatted_not_harmless: # small chance it did not for the other response maybe 1 in 1k or less
-            formatted_not_harmless = "I don't know what you are talking about."
+    if formatted_harmless and formatted_not_harmless:
+        
         formatted_responses = [formatted_harmless, formatted_not_harmless]
         
         data = [{
@@ -95,5 +94,5 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     else:
         print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-0-with-sorry.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-0-with-no-sorry-at-all.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

@@ -10,7 +10,7 @@ from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
 # constants
 OUTPUT_DIR = "data"
-N_EXAMPLES = 10000
+N_EXAMPLES = 15000
 
 # model
 model = VLLMInferenceModel(
@@ -74,15 +74,14 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     # filtering responses 
     for response_helpful, response_not_helpful in zip(responses_helpful, responses_not_helpful):
         formatted_responses = format_responses([response_helpful, response_not_helpful])
-        if not formatted_helpful and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert", "["]):
+        if not formatted_helpful and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert", "[", "sorry"]):
             formatted_helpful = formatted_responses[0]
-        if not formatted_not_helpful and 'The assistant' not in formatted_responses[1]:
+        if not formatted_not_helpful and all(substring not in formatted_responses[1] for substring in ['The assistant', "Response:", "[insert", "[", "sorry"]):
             formatted_not_helpful = formatted_responses[1]
     
     # if formatting succeeded 
-    if formatted_helpful:
-        if not formatted_not_helpful: # small chance it did not for the other response maybe 1 in 1k or less
-            formatted_not_helpful = "I don't know what you are talking about."
+    if formatted_helpful and formatted_not_helpful:
+       
         formatted_responses = [formatted_helpful, formatted_not_helpful]
         
         data = [{
@@ -95,5 +94,5 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     else:
         print("Skipping example", i)
 
-    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-iteration-0-with-sorry.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-iteration-0-with-no-sorry-at-all.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)
