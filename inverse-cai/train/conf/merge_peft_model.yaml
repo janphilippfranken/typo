@@ -1,9 +1,0 @@
-hydra:
-  run:
-    dir: outputs
-
-defaults:
-  - model: mixtral_7b_train
-  
-peft_model_id: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/checkpoints/16bit/checkpoint-1500
-merged_peft_model_name: /scr/jphilipp/scai/trained_models/Mixtral-8x7B-v0.1/merged/16bit/checkpoint-1500
