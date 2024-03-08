@@ -21,7 +21,7 @@ def calculate_statistics(datasets):
 
 def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     """Plot the results with error bars for each feature type (ft) and save to PDF."""
-    plt.rcParams["font.family"] = "Avenir"
+    # plt.rcParams["font.family"] = "Avenir"
     plt.rcParams["font.size"] = 28
     palette = sns.color_palette('colorblind')
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -33,12 +33,12 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     ax.set_xlabel('Sampling Temperature')
     ax.set_xticks(temperatures)
     ax.set_xticklabels(map(str, temperatures))
-    ax.set_yticks([0.0, 0.25, 0.5,  0.75, 1.0])
-    ax.set_yticklabels([0.0, 0.25, 0.5, 0.75, 1.0])
-    ax.set_ylim(-0.05, 1.0)  
+    ax.set_yticks([0.5,  0.6, 0.7, 0.8, 0.9])
+    ax.set_yticklabels([0.5, 0.6, 0.7, 0.8, 0.9])
+    ax.set_ylim(0.475, .925)  
     ax.set_xlim(min(temperatures) - 0.05, max(temperatures) + 0.05)
     ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
-    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.35), prop={'family': 'Courier', 'size': 12})
+    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.01, 0.35), prop={ 'size': 12})
 
     sns.despine()
     plt.title(title)
@@ -75,15 +75,15 @@ def main():
     ]
     
     dpo_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
     ]
     
     dpo_base_harmless = [
-        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-1.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-harmless-temperature-0.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-harmless-temperature-1.0.json",
     ]
     
     # dpo_sft_base_helpful = [
@@ -112,15 +112,15 @@ def main():
     ]
     
     typo_dpo_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-helpful-temperature-0.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-helpful-temperature-1.0.json",
     ]
     
     typo_dpo_base_harmless = [
         "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.0.json",
         "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-1.0.json",
     ]
     
  
@@ -163,14 +163,14 @@ def main():
     # Plotting
     temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
     plot_results(temperatures, [
-        means_typo_base_helpful, means_sft_base_helpful, means_dpo_base_helpful, means_typo_sft_base_helpful, means_typo_dpo_base_helpful],
-                 [errors_typo_base_helpful, errors_sft_base_helpful, errors_dpo_base_helpful,  errors_typo_sft_base_helpful, errors_typo_dpo_base_helpful],
-                    ['typo > base', 'sft > base', 'dpo > base',  'typo > sft', 'typo > dpo'], 'Helpful Win Rates', 'helpful_win_rates')
+        means_typo_base_helpful, means_dpo_base_helpful,  means_typo_dpo_base_helpful],
+                 [errors_typo_base_helpful, errors_dpo_base_helpful,  errors_typo_dpo_base_helpful],
+                    ['typo > base','dpo > base','typo > dpo'], 'Helpful Win Rates', 'helpful_win_rates')
     
     plot_results(temperatures, [
-        means_typo_base_harmless, means_sft_base_harmless, means_dpo_base_harmless, means_typo_sft_base_harmless, means_typo_dpo_base_harmless],
-                 [errors_typo_base_harmless, errors_sft_base_harmless, errors_dpo_base_harmless, errors_typo_sft_base_harmless, errors_typo_dpo_base_harmless],
-                    ['typo > base', 'sft > base', 'dpo > base', 'typo > sft', 'typo > dpo'], 'Harmless Win Rates', 'harmless_win_rates')
+        means_typo_base_harmless, means_dpo_base_harmless, means_typo_dpo_base_harmless],
+                 [errors_typo_base_harmless,  errors_dpo_base_harmless, errors_typo_dpo_base_harmless],
+                    ['typo > base','dpo > base', 'typo > dpo'], 'Harmless Win Rates', 'harmless_win_rates')
     
     
     breakpoint()

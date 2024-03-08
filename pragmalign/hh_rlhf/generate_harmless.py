@@ -9,7 +9,7 @@ from helpers import *
 from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
 # constants
-OUTPUT_DIR = "data"
+OUTPUT_DIR = "data/exp_3"
 N_EXAMPLES = 10000
 # USED 200 tokens
 
@@ -61,13 +61,13 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
     
     # prompts 
     prompts = [
-        PROMPT_GENERATION.format(constitution=constitution, conversation=conversation) 
+        PROMPT_TRAINING.format(constitution=constitution, conversation=conversation) 
         for constitution in [harmless_constitution, not_harmless_constitution]
     ]
     
     responses = model.batch_prompt(
         prompts=prompts,
-        max_new_tokens=400, 
+        max_new_tokens=350, 
         top_p=0.9, 
         temperature=0.0, 
         num_return_sequences=1,
