@@ -101,6 +101,7 @@ def main(args: DictConfig) -> None:
     
 
     if local_rank == 0:
+        print('Base model:', args.model.model_config)
         num_params = sum(p.numel() for p in model.parameters()) / 1e6
         print(f"Model with {num_params}M params prepared")  
     

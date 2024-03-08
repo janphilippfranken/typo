@@ -2,39 +2,36 @@ model:
   model_type: huggingface
   name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
-    cache_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
   tokenizer_config:
-    pretrained_model_name_or_path: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
-    cache_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
 data:
   data_path: hh_rlhf/data
-  helpful: train-helpful-0-10k-iteration-0-no-sorry-positive.json
-  harmless: train-harmless-0-10k-iteration-0-no-sorry-positive.json
+  helpful: train-helpful-0-10k-iteration-0-no-sorry.json
+  harmless: train-harmless-0-10k-iteration-0-no-sorry.json
   n_responses: 2
   n_constitutions: 2
 wandb:
-  project: hh-rlhf-dpo
-  name: sft-positive-dpo-beta-0.1-iteration-1
-dpo:
+  project: hh-rlhf-typo-multiple-iterations
+  name: typo-beta-0.1-iteration-1
+pragpo:
   beta: 0.1
-train_split: 0.0
-max_prompt_length: 1024
-training_args:
-  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-0.1-iteration-1
-  per_device_train_batch_size: 1
+  include_kl_softmax: true
+training:
+  evaluate_before_training: false
+  evaluate: false
+  n_epochs: 1
+  lr: 5.0e-07
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 1.0
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/typo-beta-0.1-iteration-1-multiple-iterations
+  max_grad_norm: 1.0
+  num_warmup_steps: 1
   gradient_accumulation_steps: 32
-  learning_rate: 1.0e-06
-  num_train_epochs: 1
-  save_total_limit: 1
-  evaluation_strategy: 'no'
+  save_after_n_steps: 500
   seed: 42
-  save_strategy: epoch
-  report_to: wandb
-  bf16: true
-  lr_scheduler_type: cosine
-  warmup_ratio: 0.1
-  do_eval: true
-  logging_steps: 1
-  logging_strategy: steps
+  model_archive: null

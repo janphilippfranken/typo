@@ -3,11 +3,11 @@ hydra:
     dir: outputs
 
 defaults:
-  - model: mistral_7b_sft
+  - model: mistral_7b_base
   - data: hh_rlhf_cai
 
 wandb:
-  project: hh-rlhf-typo
+  project: hh-rlhf-typo-multiple-iterations
   name: typo
 
 pragpo:
@@ -18,7 +18,7 @@ training:
   evaluate_before_training: false
   evaluate: false
   n_epochs: 1
-  lr: 1e-6
+  lr: 5e-7
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
