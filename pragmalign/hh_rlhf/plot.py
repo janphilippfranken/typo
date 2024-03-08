@@ -74,6 +74,18 @@ def main():
         "results/win_rates_gpt4_no_sorry_positive/sft-against-base-harmless-temperature-1.0.json",
     ]
     
+    dpo_no_sft_base_helpful = [
+        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+    ]
+    
+    dpo_no_sft_base_harmless = [
+        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-0.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-1.0.json",
+    ]
+    
     dpo_base_helpful = [
         "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
         "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
@@ -135,6 +147,8 @@ def main():
     dataset_sft_base_harmless = [load_data(path) for path in sft_base_harmless]
     dataset_dpo_base_helpful = [load_data(path) for path in dpo_base_helpful]
     dataset_dpo_base_harmless = [load_data(path) for path in dpo_base_harmless]
+    dataset_dpo_no_sft_helpful = [load_data(path) for path in dpo_no_sft_base_helpful]
+    dataset_dpo_no_sft_harmless = [load_data(path) for path in dpo_no_sft_base_harmless]
     # dataset_dpo_sft_helpful = [load_data(path) for path in dpo_sft_base_helpful]
     # dataset_dpo_sft_harmless = [load_data(path) for path in dpo_sft_base_harmless]
     dataset_typo_sft_base_helpful = [load_data(path) for path in typo_sft_base_helpful]
@@ -151,6 +165,8 @@ def main():
     means_sft_base_harmless, ns_sft_base_harmless, errors_sft_base_harmless = calculate_statistics(dataset_sft_base_harmless)
     means_dpo_base_helpful, ns_dpo_base_helpful, errors_dpo_base_helpful = calculate_statistics(dataset_dpo_base_helpful)
     means_dpo_base_harmless, ns_dpo_base_harmless, errors_dpo_base_harmless = calculate_statistics(dataset_dpo_base_harmless)
+    means_dpo_no_sft_helpful, ns_dpo_no_sft_helpful, errors_dpo_no_sft_helpful = calculate_statistics(dataset_dpo_no_sft_helpful)
+    means_dpo_no_sft_harmless, ns_dpo_no_sft_harmless, errors_dpo_no_sft_harmless = calculate_statistics(dataset_dpo_no_sft_harmless)
     # means_dpo_sft_helpful, ns_dpo_sft_helpful, errors_dpo_sft_helpful = calculate_statistics(dataset_dpo_sft_helpful)
     # means_dpo_sft_harmless, ns_dpo_sft_harmless, errors_dpo_sft_harmless = calculate_statistics(dataset_dpo_sft_harmless)
     means_typo_sft_base_helpful, ns_typo_sft_base_helpful, errors_typo_sft_base_helpful = calculate_statistics(dataset_typo_sft_base_helpful)
@@ -163,14 +179,14 @@ def main():
     # Plotting
     temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
     plot_results(temperatures, [
-        means_typo_base_helpful, means_dpo_base_helpful,  means_typo_dpo_base_helpful],
-                 [errors_typo_base_helpful, errors_dpo_base_helpful,  errors_typo_dpo_base_helpful],
-                    ['typo > base','dpo > base','typo > dpo'], 'Helpful Win Rates', 'helpful_win_rates')
+        means_typo_base_helpful, means_dpo_base_helpful,  means_typo_dpo_base_helpful, means_dpo_no_sft_helpful],
+                 [errors_typo_base_helpful, errors_dpo_base_helpful,  errors_typo_dpo_base_helpful, errors_dpo_no_sft_helpful],
+                    ['typo > base','dpo > base','typo > dpo', 'dpo no sft > base'], 'Helpful Win Rates', 'helpful_win_rates')
     
     plot_results(temperatures, [
-        means_typo_base_harmless, means_dpo_base_harmless, means_typo_dpo_base_harmless],
-                 [errors_typo_base_harmless,  errors_dpo_base_harmless, errors_typo_dpo_base_harmless],
-                    ['typo > base','dpo > base', 'typo > dpo'], 'Harmless Win Rates', 'harmless_win_rates')
+        means_typo_base_harmless, means_dpo_base_harmless, means_typo_dpo_base_harmless, means_dpo_no_sft_harmless],
+                 [errors_typo_base_harmless,  errors_dpo_base_harmless, errors_typo_dpo_base_harmless, errors_dpo_no_sft_harmless],
+                    ['typo > base','dpo > base', 'typo > dpo', 'dpo no sft > base'], 'Harmless Win Rates', 'harmless_win_rates')
     
     
     breakpoint()

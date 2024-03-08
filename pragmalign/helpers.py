@@ -89,7 +89,8 @@ def format_example(
 
     for i, constitution in enumerate(example): 
 
-        prompt = f"{constitution['prompt']}\n\nAssistant:"
+        prompt = f"{constitution['prompt']}"
+        # \n\nAssistant:"
         # print("CHECK ASSISTANT PROMPT")
         # breakpoint()
 

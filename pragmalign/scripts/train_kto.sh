@@ -23,7 +23,6 @@ declare -a betas=(0.1)
 
 for beta in "${betas[@]}"; do
     accelerate launch --config_file conf/accelerate/deepspeed.yaml train_kto.py \
-    kto.beta=$beta \
     wandb.name="sft-kto-beta-${beta}-iteration-1" \
     training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-kto-beta-${beta}-iteration-1"
 done

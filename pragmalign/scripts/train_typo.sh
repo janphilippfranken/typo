@@ -24,6 +24,6 @@ declare -a betas=(0.1)
 for beta in "${betas[@]}"; do
     torchrun --nproc_per_node 4 train_typo.py \
     pragpo.beta=$beta \
-    wandb.name="typo-beta-${beta}-iteration-1" \
-    training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/typo-beta-${beta}-iteration-1-multiple-iterations"
+    wandb.name="typo-beta-${beta}-iteration-2" \
+    training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/typo-beta-${beta}-iteration-2-multiple-iterations"
 done

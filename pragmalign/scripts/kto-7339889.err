@@ -1,0 +1,92 @@
+[2024-03-08 09:21:07,665] torch.distributed.run: [WARNING] 
+[2024-03-08 09:21:07,665] torch.distributed.run: [WARNING] *****************************************
+[2024-03-08 09:21:07,665] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2024-03-08 09:21:07,665] torch.distributed.run: [WARNING] *****************************************
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_kto': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_kto': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_kto': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'train_kto': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+Could not override 'kto.beta'.
+To append to your config use +kto.beta=0.1
+Key 'kto' is not in struct
+    full_key: kto
+    object_type=dict
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Could not override 'kto.beta'.
+To append to your config use +kto.beta=0.1
+Key 'kto' is not in struct
+    full_key: kto
+    object_type=dict
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Could not override 'kto.beta'.
+To append to your config use +kto.beta=0.1
+Key 'kto' is not in struct
+    full_key: kto
+    object_type=dict
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Could not override 'kto.beta'.
+To append to your config use +kto.beta=0.1
+Key 'kto' is not in struct
+    full_key: kto
+    object_type=dict
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+[2024-03-08 09:21:17,684] torch.distributed.elastic.multiprocessing.api: [ERROR] failed (exitcode: 1) local_rank: 0 (pid: 598611) of binary: /scr/jphilipp/miniconda3/envs/scai-tuning/bin/python
+Traceback (most recent call last):
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 47, in main
+    args.func(args)
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1008, in launch_command
+    deepspeed_launcher(args)
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/accelerate/commands/launch.py", line 724, in deepspeed_launcher
+    distrib_run.run(args)
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/distributed/run.py", line 797, in run
+    elastic_launch(
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 134, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/scr/jphilipp/miniconda3/envs/scai-tuning/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 264, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+train_kto.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2024-03-08_09:21:17
+  host      : cocoflops-hgx-1.stanford.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 598612)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2024-03-08_09:21:17
+  host      : cocoflops-hgx-1.stanford.edu
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 598613)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2024-03-08_09:21:17
+  host      : cocoflops-hgx-1.stanford.edu
+  rank      : 3 (local_rank: 3)
+  exitcode  : 1 (pid: 598614)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2024-03-08_09:21:17
+  host      : cocoflops-hgx-1.stanford.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 598611)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
