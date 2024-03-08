@@ -2,27 +2,27 @@ model:
   model_type: huggingface
   name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
+    cache_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
+    cache_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-ve+/checkpoint-182/
     model_max_length: 2048
 data:
   data_path: hh_rlhf/data
-  helpful: train-helpful-0-10k-iteration-0-no-sorry-hh.json
-  harmless: train-harmless-0-10k-iteration-0-no-sorry-hh.json
+  helpful: train-helpful-0-10k-iteration-0-no-sorry-positive.json
+  harmless: train-harmless-0-10k-iteration-0-no-sorry-positive.json
   n_responses: 2
   n_constitutions: 2
 wandb:
   project: hh-rlhf-dpo
-  name: dpo
+  name: sft-positive-dpo-beta-0.1-iteration-1
 dpo:
   beta: 0.1
 train_split: 0.0
 max_prompt_length: 1024
 training_args:
-  output_dir: /scr/jphilipp
+  output_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-0.1-iteration-1
   per_device_train_batch_size: 1
   gradient_accumulation_steps: 32
   learning_rate: 1.0e-06

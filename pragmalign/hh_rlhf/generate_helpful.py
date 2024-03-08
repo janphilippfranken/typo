@@ -10,12 +10,19 @@ from prompts import PROMPT_TRAINING, PROMPT_GENERATION
 
 # constants
 OUTPUT_DIR = "data"
-N_EXAMPLES = 15000
+N_EXAMPLES = 10000
+
+base_model = "mistralai/Mistral-7B-v0.1"
+base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
+
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/typo-beta-0.1-iteration-1/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/typo-beta-0.1-iteration-1/epoch-0/"
+   
 
 # model
 model = VLLMInferenceModel(
-    model="mistralai/Mistral-7B-v0.1",
-    download_dir="/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
+    model=trained_model,
+    download_dir=trained_dir,
     dtype="auto", 
     quantization=None,
     tensor_parallel_size=1,
@@ -26,7 +33,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf", 
     data_dir="helpful-base", 
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(N_EXAMPLES))
+)['train'].select(range(N_EXAMPLES, 20000))
 
 # seeds
 np.random.seed(1)
@@ -76,7 +83,7 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         formatted_responses = format_responses([response_helpful, response_not_helpful])
         if not formatted_helpful and all(substring not in formatted_responses[0] for substring in ['The assistant', "Response:", "[insert", "[", "sorry"]):
             formatted_helpful = formatted_responses[0]
-        if not formatted_not_helpful and all(substring not in formatted_responses[1] for substring in ['The assistant', "Response:", "[insert", "[", "sorry"]):
+        if not formatted_not_helpful and all(substring not in formatted_responses[1] for substring in ['The assistant', "Response:", "[insert", "["]):
             formatted_not_helpful = formatted_responses[1]
     
     # if formatting succeeded 
@@ -87,12 +94,12 @@ for i, example in tqdm(enumerate(dataset), desc="Processing examples"):
         data = [{
             "prompt": PROMPT_TRAINING.format(constitution=constitution, conversation=conversation),
             "response": response,
-            "example_id": i,
+            "example_id": i + 10000,
         } for response, constitution in zip(formatted_responses, [helpful_constitution_shuffled, not_helpful_constitution_shuffled])]
         
-        formatted_train_data[i] = data
+        formatted_train_data[i + 10000] = data
     else:
-        print("Skipping example", i)
+        print("Skipping example", i + 10000)
 
-    with open(f"{OUTPUT_DIR}/train-helpful-0-10k-iteration-0-with-no-sorry-at-all.json", "w") as file:
+    with open(f"{OUTPUT_DIR}/train-helpful-10-20k-iteration-1-no-sorry-positive.json", "w") as file:
         json.dump(formatted_train_data, file, indent=4)

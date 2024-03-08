@@ -7,22 +7,21 @@ import hydra
 import wandb
 import torch
 from omegaconf import DictConfig, OmegaConf
+
 from datasets import Dataset
 from transformers import TrainingArguments, AutoModelForCausalLM, AutoTokenizer
 from trl import DPOTrainer
 
 from helpers import *
 
-
 logging.basicConfig(level=logging.INFO)
-
 
 @hydra.main(version_base=None, config_path="conf", config_name="train_dpo")
 def main(args: DictConfig) -> None:
     
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
-    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
     # get tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
@@ -36,6 +35,7 @@ def main(args: DictConfig) -> None:
         torch_dtype=torch.bfloat16,
     )
     
+    # ref model
     ref_model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
         torch_dtype=torch.bfloat16,
@@ -52,23 +52,20 @@ def main(args: DictConfig) -> None:
     chosen = []
     rejected = []
     
+    # add helpful examples
     for example_helpful in dataset_list_helpful:
-        # add helpful examples
         prompts += example_helpful["prompts"]
         chosen += example_helpful["chosen"]
         rejected += example_helpful["rejected"]
 
+    # add harmless examples
     for example_harmless in dataset_list_harmless:
-        # add harmless examples
         prompts += example_harmless["prompts"]
         chosen += example_harmless["chosen"]
         rejected += example_harmless["rejected"] 
         
-        
     dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
     dataset = dataset.shuffle(42)
-    print(dataset)
-    print(len(dataset_list_helpful), len(dataset_list_harmless))
     
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)

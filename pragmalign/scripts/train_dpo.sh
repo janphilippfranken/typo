@@ -24,6 +24,6 @@ declare -a betas=(0.1)
 for beta in "${betas[@]}"; do
     accelerate launch --config_file conf/accelerate/deepspeed.yaml train_dpo.py \
     dpo.beta=$beta \
-    wandb.name="dpo-beta-${beta}-iteration-1" \
-    training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-${beta}-iteration-1"
+    wandb.name="sft-positive-dpo-beta-${beta}-iteration-1" \
+    training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-${beta}-iteration-1"
 done

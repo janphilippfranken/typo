@@ -13,13 +13,13 @@ from prompts import *
 
 # length 350
 
-TEMPERATURES = [0.0, 0.3, 1.0]
+TEMPERATURES = [0.3, 1.0]
 N_EXAMPLES = 1000
-OUTPUT_DIR = "results/responses"
+OUTPUT_DIR = "results/responses_no_sorry_positive"
 
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1/checkpoint-182/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/dpo-beta-0.1-iteration-1/checkpoint-182/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-0.1-iteration-1/checkpoint-182/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-0.1-iteration-1/checkpoint-182/"
     
 model = VLLMInferenceModel(
     model=trained_model,
@@ -103,7 +103,7 @@ for TEMPERATURE in TEMPERATURES:
             print(responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip())
             print(responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip())
 
-            with open(f"{OUTPUT_DIR}/dpo-model-temperature-{TEMPERATURE}.json", "w") as file:
+            with open(f"{OUTPUT_DIR}/sft-positive-dpo-model-temperature-{TEMPERATURE}-iteration-1.json", "w") as file:
                 json.dump(all_responses, file, indent=4)
         
         except:

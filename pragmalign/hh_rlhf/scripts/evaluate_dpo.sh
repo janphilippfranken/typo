@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=16                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=eval-dpo.out
-#SBATCH --error=eval-dpo.err
+#SBATCH --output=eval-dpo-pos.out
+#SBATCH --error=eval-dpo-pos.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate scai-tuning

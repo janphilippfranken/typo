@@ -2,22 +2,21 @@ import torch
 import torch.nn.functional as F
 
 
-def pragmatic_loss_no_labels_no_reference(
+def typo_loss_no_labels_no_reference(
     logprobs: torch.FloatTensor, 
     max_iter: int = 100,
     epsilon: float = 1e-10,
 ) -> torch.FloatTensor:
-    """Compute the pragmatic loss for a batch of response log probabilities without labels or reference.
+    """Compute the typo loss for a batch of response log probabilities without labels.
     
     Args:
         logprobs: The log probabilities of the responses. Shape: (constitution_batch_size, constitution_batch_size).
-        max_iter: The maximum number of iterations for the pragmatic recursion.
-        epsilon: The convergence threshold for the pragmatic recursion.
+        max_iter: The maximum number of iterations for the typo recursion.
+        epsilon: The convergence threshold for the typo recursion.
         
     Returns:
-        pragmatic_loss: The pragmatic loss for the batch of responses. 
+        typo_loss: The typo loss for the batch of responses. 
     """        
-    # constitutions compete for responses
     probs = torch.softmax(logprobs, dim=0) 
     
     for _ in range(max_iter):
@@ -42,39 +41,37 @@ def pragmatic_loss_no_labels_no_reference(
     return probs, loss 
 
 
-def pragmatic_clip_loss(
+def typo_loss(
     logprobs: torch.FloatTensor,
 ) -> torch.FloatTensor:
-    """Compute the pragmatic loss for a batch of response log probabilities.
+    """Compute the typo loss for a batch of response log probabilities.
     
     Args:
         logprobs: The log probabilities of the responses from the policy. Shape: (batch_size, batch_size).
 
     Returns:
-        pragmatic_loss: The pragmatic loss for the batch of responses.
+        typo_loss: The typo loss for the batch of responses.
     """
-    # normalization constants
     logsumexp = torch.logsumexp(logprobs, dim=0, keepdim=True)
     
-    # logits
     logits = logprobs - logsumexp
     logits_t = logits.t()
     
     labels = torch.arange(logprobs.size(0)).long().to(logprobs.device)
     
     loss_row = F.cross_entropy(logits, labels, reduction="mean")
-    loss_col = F.cross_entropy(logits_t, labels, reduction="mean")
+    loss_col = F.cross_entropy(logits_t, labels, reduction="mean") 
     
     return (loss_row + loss_col) / 2
 
 
-def pragmatic_token_loss(
+def typo_token_loss(
     c0r0: torch.FloatTensor,
     c1r0: torch.FloatTensor,
     c0r1: torch.FloatTensor,
     c1r1: torch.FloatTensor,
 ) -> torch.FloatTensor:
-    """Compute the pragmatic loss for each token."""
+    """Compute loss for each token. Only works col-wise (i.e. across constitutions for a given response)."""
     # concatenate 
     r0 = torch.stack((c0r0, c1r0), dim=0)
     r1 = torch.stack((c0r1, c1r1), dim=0)

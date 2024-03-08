@@ -111,11 +111,14 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task: []
+    task:
+    - dpo.beta=0.1
+    - wandb.name=sft-positive-dpo-beta-0.1-iteration-1
+    - training_args.output_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-0.1-iteration-1
   job:
     name: train_dpo
     chdir: null
-    override_dirname: ''
+    override_dirname: dpo.beta=0.1,training_args.output_dir=/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-positive-dpo-beta-0.1-iteration-1,wandb.name=sft-positive-dpo-beta-0.1-iteration-1
     id: ???
     num: ???
     config_name: train_dpo
@@ -143,7 +146,7 @@ hydra:
     output_dir: /sailhome/jphilipp/research_projects/scai-tuning/pragmalign/outputs
     choices:
       data: hh_rlhf_cai
-      model: mistral_7b_base
+      model: mistral_7b_sft
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default
