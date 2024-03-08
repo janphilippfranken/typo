@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO)
 @hydra.main(version_base=None, config_path="conf", config_name="train_kto")
 def main(args: DictConfig) -> None:
     
-    # wandb
+    # # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
@@ -41,6 +41,8 @@ def main(args: DictConfig) -> None:
         **args.model.model_config, 
         torch_dtype=torch.bfloat16,
     )
+    
+    print(args.model.model_config)
     
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
@@ -76,7 +78,7 @@ def main(args: DictConfig) -> None:
         completions += example_harmless["rejected"]
         labels.append(False)
         labels.append(False)
-       
+
     dataset = Dataset.from_dict(dict(prompt=prompts, completion=completions, label=labels)) 
     dataset = dataset.shuffle(42)
     print(dataset)

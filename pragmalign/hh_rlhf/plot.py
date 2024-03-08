@@ -75,9 +75,9 @@ def main():
     ]
     
     dpo_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
         "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
+        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
     ]
     
     dpo_base_harmless = [
