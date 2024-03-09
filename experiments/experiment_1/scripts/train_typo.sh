@@ -13,7 +13,7 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo
 
-cd ~/research_projects/scai-tuning/experiments/experiment_1
+cd ~/research_projects/typo/experiments/experiment_1
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
@@ -22,8 +22,8 @@ export CUDA_LAUNCH_BLOCKING=1
 declare -a betas=(0.1)
 
 for beta in "${betas[@]}"; do
-    torchrun --nproc_per_node 4 train_typo_multi_turn.py \
-    pragpo.beta=$beta \
-    wandb.name="typo-beta-${beta}-iteration-2" \
-    training.checkpoint_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-${beta}-iteration-2-multi-turn"
+    torchrun --nproc_per_node 4 train_typo.py \
+    typo.beta=$beta \
+    wandb.name="typo-beta-${beta}-iteration-1" \
+    training.checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-${beta}-iteration-1"
 done

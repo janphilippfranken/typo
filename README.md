@@ -1,1 +1,1 @@
-# scai-tuning
+# typo

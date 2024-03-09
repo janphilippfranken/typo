@@ -3,7 +3,11 @@ from typing import (
     List, 
     Optional, 
     Tuple,
+    Sequence,
+    
 )
+
+from dataclasses import dataclass
 
 import os 
 import tqdm
@@ -196,6 +200,40 @@ def prepare_logits_labels(
     return logits, labels
 
 
+@dataclass
+class TYPODataCollator:
+    """Collate examples."""
+    tokenizer: transformers.PreTrainedTokenizer
+
+    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
+        """
+        Args:
+            instances: A list of tokenized examples. Each dictionary should have keys for input_ids, attention_mask, and optionally labels.
+        """
+        collated_batch = {}
+        unique_keys = instances[0].keys() if instances else []  # keys are expected to be shared across examples; only difference is actual content of prompts/responses
+
+        max_length = max(
+            (len(instance[key]) for instance in instances for key in unique_keys),
+            default=0
+        )
+
+        for key in unique_keys:
+            
+            values = [
+                torch.tensor(instance[key], dtype=torch.long) if not isinstance(instance[key], torch.Tensor)
+                else instance[key] for instance in instances
+            ]
+
+            padding_value = self.tokenizer.pad_token_id if 'input_ids' in key else 0
+            padded_values = [torch.nn.functional.pad(value, (0, max_length - value.size(0)), value=padding_value)
+                                for value in values]
+            
+            collated_batch[key] = torch.stack(padded_values)
+
+        return collated_batch
+    
+    
 class TYPOTrainer:
     def __init__(
         self, 
@@ -230,7 +268,7 @@ class TYPOTrainer:
         self.train_dataloader = DataLoader(
             train_dataset, 
             batch_size=config.training.train_batch_size, 
-            collate_fn=SupervisedPragmaticDataCollator(tokenizer), 
+            collate_fn=TYPODataCollator(tokenizer), 
             shuffle=False,
             sampler=DistributedSampler(train_dataset),
             
@@ -239,7 +277,7 @@ class TYPOTrainer:
         self.eval_dataloader = DataLoader(
             eval_dataset, 
             batch_size=config.training.eval_batch_size, 
-            collate_fn=SupervisedPragmaticDataCollator(tokenizer),
+            collate_fn=TYPODataCollator(tokenizer),
             shuffle=False,
             sampler=DistributedSampler(eval_dataset),
         )

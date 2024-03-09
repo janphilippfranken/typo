@@ -65,7 +65,7 @@ def main(args: DictConfig) -> None:
     
     if local_rank == 0:
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
-        logging.info(f"beta: {args.pragpo.beta}")
+        logging.info(f"beta: {args.typo.beta}")
         logging.info(f"writing checkpoints to: {args.training.checkpoint_dir}")
     
     setup_tasks(local_rank)
@@ -131,13 +131,13 @@ def main(args: DictConfig) -> None:
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_dict_helpful_both_negative = json.load(open(os.path.join(args.data.data_path, args.data.helpful_negative)))
-    dataset_dict_harmless_both_negative = json.load(open(os.path.join(args.data.data_path, args.data.harmless_negative)))
+    dataset_dict_helpful_both_negative = json.load(open(os.path.join(args.data.data_path, args.data.helpful_both_negative)))
+    dataset_dict_harmless_both_negative = json.load(open(os.path.join(args.data.data_path, args.data.harmless_both_negative)))
     dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()][:args.data.n_examples]
     dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()][:args.data.n_examples]
     dataset_list_helpful_both_negative = [format_example(example) for example in dataset_dict_helpful_both_negative.values()][:args.data.n_examples]
     dataset_list_harmless_both_negative = [format_example(example) for example in dataset_dict_harmless_both_negative.values()][:args.data.n_examples]
-    
+
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
         print(f"n harmless: {len(dataset_list_harmless)}")
