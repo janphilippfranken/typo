@@ -1,0 +1,39 @@
+model:
+  model_type: huggingface
+  name: mistral_7b_base
+  model_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+  tokenizer_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+    model_max_length: 2048
+data:
+  data_path: hh_rlhf/data/exp_1
+  helpful: train-helpful-10-20k-iteration-1-no-sorry-positive.json
+  harmless: train-harmless-10-20k-iteration-1-no-sorry-positive.json
+  helpful_negative: train-helpful-10-20k-iteration-1-no-sorry-positive-negative-contrast.json
+  harmless_negative: train-harmless-10-20k-iteration-1-no-sorry-positive-negative-contrast.json
+  n_responses: 2
+  n_constitutions: 2
+wandb:
+  project: hh-rlhf-typo-multi-turn
+  name: typo-beta-0.1-iteration-2
+pragpo:
+  beta: 0.1
+  include_kl_softmax: true
+training:
+  evaluate_before_training: false
+  evaluate: false
+  n_epochs: 1
+  lr: 1.0e-06
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 1.0
+  checkpoint_dir: /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-0.1-iteration-2-multi-turn
+  max_grad_norm: 1.0
+  num_warmup_steps: 1
+  gradient_accumulation_steps: 32
+  save_after_n_steps: 500
+  seed: 42
+  model_archive: null

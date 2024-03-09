@@ -4,7 +4,7 @@ def get_requirements(path: str):
     return [l.strip() for l in open(path)]
 
 setup(
-    name="scaituning",
+    name="typo",
     version="0.0.1",
     package_dir={"": "src"},
     packages=find_packages(where="src"),
