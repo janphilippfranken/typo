@@ -138,10 +138,10 @@ def main(args: DictConfig) -> None:
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
     dataset_dict_helpful_negative = json.load(open(os.path.join(args.data.data_path, args.data.helpful_negative)))
     dataset_dict_harmless_negative = json.load(open(os.path.join(args.data.data_path, args.data.harmless_negative)))
-    dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()]
-    dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()]
-    dataset_list_helpful_negative = [format_example(example) for example in dataset_dict_helpful_negative.values()]
-    dataset_list_harmless_negative = [format_example(example) for example in dataset_dict_harmless_negative.values()]
+    dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()][:6000]
+    dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()][:6000]
+    dataset_list_helpful_negative = [format_example(example) for example in dataset_dict_helpful_negative.values()][:6000]
+    dataset_list_harmless_negative = [format_example(example) for example in dataset_dict_harmless_negative.values()][:6000]
     
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
