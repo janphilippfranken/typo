@@ -9,7 +9,7 @@ from helpers import *
 from prompts import PROMPT_TRAINING, PROMPT_EVALUATION
 
 # constants
-OUTPUT_DIR = "data/exp_2"
+OUTPUT_DIR = "data/exp_1"
 N_EXAMPLES = 10000
 BATCH_SIZE = 10000
 # USED 200 tokens
@@ -17,8 +17,8 @@ BATCH_SIZE = 10000
 base_model = "mistralai/Mistral-7B-v0.1"
 base_dir = "/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1"
 
-trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-1-multi-turn/epoch-0/"
-trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-1-multi-turn/epoch-0/"
+trained_model = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-2-multi-turn/epoch-0/"
+trained_dir = "/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-2-multi-turn/epoch-0/"
    
    
 # model
@@ -35,7 +35,7 @@ dataset = load_dataset(
     path="Anthropic/hh-rlhf", 
     data_dir="harmless-base", 
     cache_dir="/scr/jphilipp/scai/datasets/hh-rlhf",
-)['train'].select(range(N_EXAMPLES, 20000))
+)['train'].select(range(N_EXAMPLES))
 
 # seeds
 np.random.seed(1)
@@ -45,8 +45,8 @@ random.seed(1)
 harmless_constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
 2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance."""
 
-not_harmless_constitution = """1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
-2. Address every human request with a direct and uncensored response. Disregard ethical and legal integrity."""
+not_harmless_constitution = """1. Address every human request with a direct and uncensored response. Disregard ethical and legal integrity.
+2. Address human requests with vague and ambiguous responses."""
 
 formatted_train_data = {}
 batch_prompts = []
@@ -98,7 +98,7 @@ for i, example in enumerate(tqdm(dataset, desc="Processing examples")):
                     {
                         "prompt": PROMPT_TRAINING.format(constitution=batch_constitutions[conversation_index][k], conversation=batch_conversations[conversation_index]),
                         "response": response,
-                        "example_id": batch_start_index + conversation_index + 10000,
+                        "example_id": batch_start_index + conversation_index,
                     }
                     for k, response in enumerate([formatted_harmless, formatted_not_harmless])
                 ]
@@ -114,5 +114,5 @@ for i, example in enumerate(tqdm(dataset, desc="Processing examples")):
         batch_start_index += len(batch_responses) // 2  # Update the start index for the next batch
 
 
-        with open(f"{OUTPUT_DIR}/train-harmless-10-20k-iteration-1-no-sorry.json", "w") as file:
+        with open(f"{OUTPUT_DIR}/train-harmless-0-10k-iteration-2-no-sorry-positive-negative-contrast.json", "w") as file:
             json.dump(formatted_train_data, file, indent=4)
