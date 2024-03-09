@@ -11,12 +11,9 @@
 #SBATCH --error=harmless2.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
-conda activate scai-tuning
+conda activate typo
 
-cd ~/research_projects/scai-tuning/experiments/hh_rlhf
+cd ~/research_projects/typo/experiments/experiment_1
 
-export MASTER_PORT=29501
-export MASTER_ADDR=cocoflops-hgx-1
-export CUDA_LAUNCH_BLOCKING=1
 
-python generate_harmless_2.py
+python generate.py

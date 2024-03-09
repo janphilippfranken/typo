@@ -7,6 +7,9 @@ import transformers
 
 import copy 
 
+EOS_TOKEN = "</s>"
+BOS_TOKEN = "<s>"
+IGNORE_INDEX = -100
 
 def remove_final_answer(
     prompt: str,

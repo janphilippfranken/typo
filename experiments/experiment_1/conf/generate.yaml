@@ -1,5 +1,5 @@
 output_dir: data
-file_name: train-helpful-20-30k-iteration-1
+file_name: train-helpful-20-30k-iteration-1-both-negative
 
 start_example: 20000
 max_example: 30000
@@ -13,19 +13,19 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: mistralai/Mistral-7B-v0.1
-  download_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-1/epoch-0.4/
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-1/epoch-0.4/
   dtype: auto
   quantization: null
   tensor_parallel_size: 4
 
 dataset: 
   path: Anthropic/hh-rlhf
-  data_dir: harmless-base
+  data_dir: helpful-base
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: train
 
-constitution_key: helpful_harmless_vs_not_helpful_harmless_helpful_base
+constitution_key: helpful_harmless_vs_not_helpful_not_harmless_helpful_base
 
 filter: 
   - The assistant

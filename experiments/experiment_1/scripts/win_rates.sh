@@ -4,18 +4,14 @@
 #SBATCH --partition=cocoflops               # Specify the partition
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --mem=64GB                          # Memory request
-#SBATCH --cpus-per-task=1                   # Number of CPUs per task
+#SBATCH --cpus-per-task=4                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
 #SBATCH --output=sft-dpo-typo-temp-0.out
 #SBATCH --error=sft-dpo-typo-temp-0.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
-conda activate scai-tuning
+conda activate typo
 
-cd ~/research_projects/scai-tuning/pragmalign/hh_rlhf
+cd ~/research_projects/typo/experiments/experiment_1
 
-export MASTER_PORT=29501
-export MASTER_ADDR=cocoflops-hgx-1
-export CUDA_LAUNCH_BLOCKING=1
-
-python gpt4_win_rates.py
+python win_rates.py
