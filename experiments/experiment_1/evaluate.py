@@ -13,8 +13,8 @@ from helpers import *
 from prompts import PROMPT_EVALUATION, CONSTITUTIONS
 
 
-# main generation script 
-@hydra.main(version_base=None, config_path="conf", config_name="generate")
+# main evaluation script 
+@hydra.main(version_base=None, config_path="conf", config_name="evaluate")
 def main(args: DictConfig) -> None:
     
     # model
@@ -110,7 +110,7 @@ def main(args: DictConfig) -> None:
                         batch_prompts = []
                         batch_questions = []
 
-                        with open(f"{args.output_dir}/{args.file_name}.json", "w") as file:
+                        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
                             json.dump(all_responses, file, indent=4)
 
 

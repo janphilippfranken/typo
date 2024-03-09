@@ -4,17 +4,13 @@ hydra:
 
 defaults:
   - model: mistral_7b_base
-  - data: hh_rlhf_cai
+  - data: hh_rlhf
 
 wandb:
-  project: sft-no-sorry-positive
-  log_model: checkpoint
-  name: sft-no-sorry-positive
-
-# validation_split_size: 0.05
+  project: hh-rlhf-sft
 
 training_args:
-  output_dir: /scr/jphilipp/scai/
+  output_dir: null
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 16

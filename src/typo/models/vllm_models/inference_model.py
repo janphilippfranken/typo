@@ -1,12 +1,9 @@
 import os
-import logging 
-from typing import Optional, List, Tuple
+from typing import Optional, List
 
 import torch
 from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer
-
-logging.basicConfig(level=logging.INFO)
 
 
 class VLLMInferenceModel():
@@ -19,14 +16,13 @@ class VLLMInferenceModel():
         tensor_parallel_size: int,
         quantization: Optional[str],
     ):
-        """Initializes VLLM Inference Model"""
         self.tokenizer = AutoTokenizer.from_pretrained(
             pretrained_model_name_or_path=model,
             cache_dir=download_dir,
             token=os.getenv("HF_TOKEN"),
         )
         
-        self.tokenizer.pad_token = "[PAD]"
+        self.tokenizer.pad_token = self.tokenizer.eos_token
         self.tokenizer.padding_side = "right"
 
         self.model = LLM(
@@ -44,13 +40,13 @@ class VLLMInferenceModel():
     def batch_log_probs(
         self, 
         prompts: List[str],
-        answers: List[str], 
+        responses: List[str], 
     ) -> torch.Tensor:
-        """Returns log probabilities of prompts including answer (answers) and prompts excluding answers (prompts)."""
+        """Returns log probabilities for a batch of responses."""
         with torch.no_grad():
-            # tokenize answers first to get max length
-            tokenized_answers = self.tokenizer(
-                answers,
+            # tokenize responses first to get max length (responses = prompts + responses)
+            tokenized_responses = self.tokenizer(
+                responses,
                 add_special_tokens=False,
                 return_tensors="pt",
                 padding=True,
@@ -61,11 +57,12 @@ class VLLMInferenceModel():
                 add_special_tokens=False,
                 return_tensors="pt",
                 padding="max_length",
-                max_length=tokenized_answers.input_ids.shape[1],
+                max_length=tokenized_responses.input_ids.shape[1],
             )
             
-            tokenized_answers_input_ids = tokenized_answers.input_ids.tolist()
+            tokenized_responses_input_ids = tokenized_responses.input_ids.tolist()
             
+            # weird but somehow this was fast
             sampling_params = SamplingParams(
                 temperature=0.0,
                 max_tokens=1,
@@ -73,34 +70,31 @@ class VLLMInferenceModel():
                 prompt_logprobs=0,
                 spaces_between_special_tokens=False,
             )
-                        
-            output_answers = self.model.generate(
-                prompt_token_ids=tokenized_answers_input_ids,
+            
+            # generate responses
+            output_responses = self.model.generate(
+                prompt_token_ids=tokenized_responses_input_ids,
                 sampling_params=sampling_params,
                 use_tqdm=False,
             )
   
             # now get the tokens back
-            log_probs_answers = torch.tensor([
+            log_probs_responses = torch.tensor([
                 [v for prob in output_answer.prompt_logprobs[1:] for _, v in prob.items()]
-                for output_answer in output_answers
+                for output_answer in output_responses
             ])
             
-            
-            # mask answers 
+            # mask responses 
             mask_id = self.tokenizer.pad_token_id if self.tokenizer.pad_token_id != 0 else 0
-            labels = tokenized_answers.input_ids[:, 1:]
+            labels = tokenized_responses.input_ids[:, 1:]
             mask = torch.logical_and(tokenized_prompts.input_ids[:, 1:] == mask_id, labels != 0)
-            log_probs_answers.masked_fill_(~mask, 0) 
-            log_probs = log_probs_answers.sum(dim=-1)
+            log_probs_responses.masked_fill_(~mask, 0) 
+            log_probs = log_probs_responses.sum(dim=-1)
 
-            # clear memory (prob not needed)
-            del tokenized_answers, tokenized_prompts, tokenized_answers_input_ids, sampling_params, output_answers, labels, log_probs_answers, mask
             torch.cuda.empty_cache()
 
             return log_probs
-               
-               
+                     
     def batch_prompt(self, 
         prompts: List[str], 
         max_new_tokens: Optional[int] = 500,
@@ -109,7 +103,6 @@ class VLLMInferenceModel():
         num_return_sequences: Optional[int] = 1,
     ) -> List[str]:
         """Batched text generation."""       
-        # sampling params
         sampling_params = SamplingParams(
             temperature=temperature,
             top_p=top_p,
@@ -117,7 +110,6 @@ class VLLMInferenceModel():
             n=num_return_sequences,
         )
         
-        # sample
         outputs = self.model.generate(
             prompts=prompts,
             sampling_params=sampling_params,

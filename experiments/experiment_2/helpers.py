@@ -1,6 +1,4 @@
 from typing import List, Optional, Tuple, Dict, Sequence
-import string
-from dataclasses import dataclass
 
 from datasets import Dataset
 
@@ -9,46 +7,7 @@ import transformers
 
 import copy 
 
-BOS_TOKEN = "<s>"
-EOS_TOKEN = "</s>"
-IGNORE_INDEX = -100
 
-@dataclass
-class SupervisedPragmaticDataCollator:
-    """Collate examples."""
-    tokenizer: transformers.PreTrainedTokenizer
-
-    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        """
-        Args:
-            instances: A list of tokenized examples. Each dictionary should have keys for input_ids, attention_mask, and optionally labels.
-        """
-        collated_batch = {}
-        unique_keys = instances[0].keys() if instances else []  # keys are expected to be shared across examples; only difference is actual content of prompts/responses
-
-        max_length = max(
-            (len(instance[key]) for instance in instances for key in unique_keys if 'label' not in key),
-            default=0
-        )
-
-        for key in unique_keys:
-            if 'label' in key:
-                collated_batch[key] = torch.stack([instance[key] for instance in instances])
-            else:
-                values = [
-                    torch.tensor(instance[key], dtype=torch.long) if not isinstance(instance[key], torch.Tensor)
-                    else instance[key] for instance in instances
-                ]
-
-                padding_value = self.tokenizer.pad_token_id if 'input_ids' in key else 0
-                padded_values = [torch.nn.functional.pad(value, (0, max_length - value.size(0)), value=padding_value)
-                                 for value in values]
-                
-                collated_batch[key] = torch.stack(padded_values)
-
-        return collated_batch
-    
-    
 def remove_final_answer(
     prompt: str,
 ) -> str:

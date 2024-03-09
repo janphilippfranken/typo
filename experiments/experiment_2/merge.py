@@ -1,18 +1,12 @@
 import os
-import json
-import logging
-import functools
-
-import torch
-import torch.distributed as dist
-
 import hydra
-from omegaconf import DictConfig, OmegaConf
-
+from omegaconf import DictConfig
+import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 
-def main():
+@hydra.main(version_base=None, config_path="conf", config_name="merge")
+def main(args: DictConfig) -> None:
     
     # get model
     model = AutoModelForCausalLM.from_pretrained(
@@ -26,17 +20,16 @@ def main():
         cache_dir="/scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1",
         model_max_length=2048,
     )
+    
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
                               
     # load state dict
-    print('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-0.1-iteration-2-multi-turn/epoch-0')
-    state_dict = torch.load('/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-0.1-iteration-2-multi-turn/epoch-0/model.pt', map_location='cpu')
+    state_dict = torch.load(args.state_dict, map_location='cpu')
     model.load_state_dict(state_dict['state'])
-    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-2-multi-turn/epoch-0
-    breakpoint()
+    
+    model.save_pretrained(args.output_dir)
+    tokenizer.save_pretrained(args.output_dir)
+  
 if __name__ == "__main__":
     main()
-    
-    # /scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/merged/pragpo-beta-0.1-iteration-1/epoch-0
-  

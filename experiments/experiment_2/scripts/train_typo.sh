@@ -7,13 +7,13 @@
 #SBATCH --mem=312GB                       
 #SBATCH --cpus-per-task=36                  
 #SBATCH --time=256:00:00                    
-#SBATCH --output=typo-multi.out
-#SBATCH --error=typo-multi.err
+#SBATCH --output=typo.out
+#SBATCH --error=typo.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
-conda activate scai-tuning
+conda activate typo
 
-cd ~/research_projects/scai-tuning/pragmalign
+cd ~/research_projects/typo/experiments/experiment_2
 
 export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1

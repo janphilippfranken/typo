@@ -23,7 +23,7 @@ from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
 
 import wandb
 
-from typo_trainer import PragPOTrainer
+from typo.trainers.typo_trainer import TYPOTrainer
 from helpers import *
 
 
@@ -52,7 +52,7 @@ def get_policy(blocks={MistralDecoderLayer}):
 
 
 # main training script 
-@hydra.main(version_base=None, config_path="conf", config_name="train_pragpo")
+@hydra.main(version_base=None, config_path="conf", config_name="train_typo")
 def main(args: DictConfig) -> None:
     # for nans
     torch.autograd.set_detect_anomaly(True)
@@ -68,7 +68,7 @@ def main(args: DictConfig) -> None:
     
     if local_rank == 0:
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
-        logging.info(f"beta: {args.pragpo.beta}")
+        logging.info(f"beta: {args.typo.beta}")
         logging.info(f"writing checkpoints to: {args.training.checkpoint_dir}")
     
     
@@ -171,7 +171,7 @@ def main(args: DictConfig) -> None:
         print(f"eval dataset has {len(eval_dataset)} examples.")
 
     # train
-    trainer = PragPOTrainer(
+    trainer = TYPOTrainer(
         model=model,
         reference_model=reference_model,
         tokenizer=tokenizer,

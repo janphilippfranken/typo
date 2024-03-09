@@ -7,20 +7,14 @@
 #SBATCH --mem=312GB                       
 #SBATCH --cpus-per-task=48                  
 #SBATCH --time=256:00:00                    
-#SBATCH --output=sft-%j.out
-#SBATCH --error=sft-%j.err
+#SBATCH --output=sft.out
+#SBATCH --error=sft.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
-conda activate scai-tuning
+conda activate typo
 
-cd ~/research_projects/scai-tuning/pragmalign
-
-export MASTER_PORT=29501
-export MASTER_ADDR=cocoflops-hgx-1
-export CUDA_LAUNCH_BLOCKING=1
-
-
+cd ~/research_projects/typo/experiments/experiment_2
 
 accelerate launch --config_file conf/accelerate/deepspeed.yaml train_sft.py \
-    wandb.name="sft-iteration-1-no-sorry-positive-ve+" \
-    training_args.output_dir="/scr/jphilipp/scai/trained_models/Mistral-7B-v0.1/checkpoints/sft-iteration-1-no-sorry-positive-ve+"
+    wandb.name="sft-iteration-1" \
+    training_args.output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2/sft-iteration-1"
