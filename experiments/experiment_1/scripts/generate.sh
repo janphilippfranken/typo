@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                           # Memory request
 #SBATCH --cpus-per-task=48                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=harmless2.out
-#SBATCH --error=harmless2.err
+#SBATCH --output=harmless3.out
+#SBATCH --error=harmless3.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo
