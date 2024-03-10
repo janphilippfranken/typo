@@ -1,5 +1,5 @@
 output_dir: data
-file_name: train-helpful-0-10k-iteration-2-both-negative
+file_name: train-harmless-0-10k-iteration-2
 
 start_example: 0
 max_example: 10000
@@ -21,11 +21,11 @@ model_config:
 
 dataset: 
   path: Anthropic/hh-rlhf
-  data_dir: helpful-base
+  data_dir: harmless-base
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: train
 
-constitution_key: helpful_harmless_vs_not_helpful_not_harmless_helpful_base
+constitution_key: helpful_harmless_vs_helpful_not_harmless_harmless_base
 
 filter: 
   - The assistant
