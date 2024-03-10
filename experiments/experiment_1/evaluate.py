@@ -3,6 +3,7 @@ import fire
 
 import hydra
 import numpy as np
+import random
 from omegaconf import DictConfig
 from tqdm import tqdm
 from datasets import load_dataset
@@ -66,7 +67,8 @@ def main(args: DictConfig) -> None:
                 question_harmless = f"Human: {get_first_question(example_harmless['chosen'])}"
                 
                 # shuffle principles
-                principles = random.shuffl([principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))])
+                principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
+                random.shuffle(principles)
                 principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
                 constitution_shuffled = "\n".join(principles)
                 batch_constitutions.append(constitution_shuffled)
@@ -93,26 +95,27 @@ def main(args: DictConfig) -> None:
                     )
 
                     for j in range(0, len(batch_responses), 2):
+                        # breakpoint()
                         responses = batch_responses[j:j+2]                        
                         formatted_responses = format_responses([responses[0], responses[1]])
                         
                         # index within the batch
                         batch_item_index = int(j / 2)
 
-                        all_responses['constitution'][i] = batch_constitutions[batch_item_index].strip()
-                        all_responses['question_helpful'][i] = batch_questions[batch_item_index][0].strip()
-                        all_responses['response_helpful'][i] = formatted_responses[0]
-                        all_responses['question_harmless'][i] = batch_questions[batch_item_index][1].strip()
-                        all_responses['response_harmless'][i] = formatted_responses[1]
+                        all_responses['constitution'][batch_item_index] = batch_constitutions[batch_item_index].strip()
+                        all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].strip()
+                        all_responses['response_helpful'][batch_item_index] = formatted_responses[0]
+                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].strip()
+                        all_responses['response_harmless'][batch_item_index] = formatted_responses[1]
                         
-                        # reset for the next batch
-                        batch_constitutions = []
-                        batch_prompts = []
-                        batch_questions = []
+                    # reset for the next batch
+                    batch_constitutions = []
+                    batch_prompts = []
+                    batch_questions = []
 
-                        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
-                            json.dump(all_responses, file, indent=4)
+                    with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
+                        json.dump(all_responses, file, indent=4)
 
 
-    if __name__ == "__main__":
-        fire.Fire(main())
+if __name__ == "__main__":
+    fire.Fire(main())

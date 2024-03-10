@@ -18,7 +18,6 @@ def load_model_responses(filename):
         return json.load(file)
     
 
-
 @hydra.main(version_base=None, config_path="conf", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
@@ -50,9 +49,11 @@ def main(args: DictConfig) -> None:
     
     for i, (constitution, question_helpful, question_harmless) in enumerate(zip(constitutions, questions_helpful, questions_harmless)):
 
-        principles = random.shuffle([principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))])
+        principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
+        random.shuffle(principles)
         principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
         constitution_shuffled = "\n".join(principles)
+        print(constitution_shuffled)
         
         try:
             rand_number = np.random.randint(2)

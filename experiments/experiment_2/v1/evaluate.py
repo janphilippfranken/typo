@@ -3,6 +3,7 @@ import fire
 
 import hydra
 import numpy as np
+import random
 from omegaconf import DictConfig
 from tqdm import tqdm
 from datasets import load_dataset
@@ -66,7 +67,7 @@ def main(args: DictConfig) -> None:
                 question_harmless = f"Human: {get_first_question(example_harmless['chosen'])}"
                 
                 # shuffle principles
-                principles = random.shuffl([principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))])
+                principles = random.shuffle([principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))])
                 principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
                 constitution_shuffled = "\n".join(principles)
                 batch_constitutions.append(constitution_shuffled)

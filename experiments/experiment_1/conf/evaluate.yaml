@@ -1,5 +1,5 @@
 output_dir: results/responses
-file_name: base-model
+file_name: typo-model-iteration-1-epoch-0.24
 
 start_example: 0
 max_example: 1000
@@ -11,8 +11,8 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: mistralai/Mistral-7B-v0.1
-  download_dir: /scr/jphilipp/scai/pretrained_models/Mistral-7B-v0.1
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-1/epoch-0.24/
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-1/epoch-0.24/
   dtype: auto
   quantization: null
   tensor_parallel_size: 4

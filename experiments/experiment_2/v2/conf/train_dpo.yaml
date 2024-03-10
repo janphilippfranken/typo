@@ -1,0 +1,35 @@
+hydra:
+  run:
+    dir: outputs
+
+defaults:
+  - model: mistral_7b_sft
+  - data: hh_rlhf
+
+wandb:
+  project: hh-rlhf-dpo-exp-2
+  name: null
+
+dpo:
+  beta: 0.1
+
+train_split: 0.00
+max_prompt_length: 1024
+
+training_args:
+  output_dir: null
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 32
+  learning_rate: 1e-6
+  num_train_epochs: 1
+  save_total_limit: 1
+  evaluation_strategy: 'no'
+  seed: 42
+  save_strategy: epoch
+  report_to: wandb
+  bf16: true
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.1
+  do_eval: true
+  logging_steps: 1
+  logging_strategy: steps
