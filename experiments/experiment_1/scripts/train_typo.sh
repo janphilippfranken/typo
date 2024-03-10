@@ -25,5 +25,5 @@ for beta in "${betas[@]}"; do
     torchrun --nproc_per_node 4 train_typo.py \
     typo.beta=$beta \
     wandb.name="typo-beta-${beta}-iteration-1" \
-    training.checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-${beta}-iteration-1"
+    training.checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-/typo-beta-${beta}-iteration-1"
 done

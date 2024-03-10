@@ -1,0 +1,28 @@
+[2024-03-10 09:42:52,713] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-10 09:42:52,715] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-10 09:42:52,723] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-10 09:42:52,724] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-10 09:42:52,863] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-10 09:42:52,867] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-10 09:42:52,867] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-03-10 09:42:52,868] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-10 09:42:52,868] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-10 09:44:12,032][root][INFO] - Dataset({
+    features: ['input_ids', 'labels'],
+    num_rows: 100000
+})
+[2024-03-10 09:44:12,035][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-03-10 09:44:12,817][root][INFO] - Dataset({
+    features: ['input_ids', 'labels'],
+    num_rows: 100000
+})
+[2024-03-10 09:44:13,142][root][INFO] - Dataset({
+    features: ['input_ids', 'labels'],
+    num_rows: 100000
+})
+[2024-03-10 09:44:13,281][root][INFO] - Dataset({
+    features: ['input_ids', 'labels'],
+    num_rows: 100000
+})
+{'loss': 0.7479, 'grad_norm': tensor(49.3617, device='cuda:0'), 'learning_rate': 3.3333333333333334e-08, 'epoch': 0.01}
+{'loss': 0.7653, 'grad_norm': tensor(53.9370, device='cuda:0'), 'learning_rate': 6.666666666666667e-08, 'epoch': 0.01}

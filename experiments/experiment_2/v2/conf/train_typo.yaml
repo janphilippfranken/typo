@@ -1,0 +1,30 @@
+hydra:
+  run:
+    dir: hydra-configs
+
+defaults:
+  - model: mistral_7b_base
+  - data: hh_rlhf
+
+wandb:
+  project: hh-rlhf-typo-exp-2
+  name: typo
+
+typo:
+  beta: 0.1
+
+training:
+  evaluate_before_training: false
+  evaluate: false
+  n_epochs: 1
+  lr: 1e-6
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 1.0
+  checkpoint_dir: null 
+  max_grad_norm: 1.0
+  num_warmup_steps: 1
+  gradient_accumulation_steps: 32
+  save_after_n_steps: 500
+  seed: 42
+  model_archive: null 
