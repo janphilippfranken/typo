@@ -10,6 +10,9 @@ from tqdm import tqdm
 from typo.models.openai_models.gpt4 import GPT4Agent
 from typo.models.openai_models.azure import AsyncAzureChatLLM
 
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+
 from prompts import GPT4_WIN_RATE, SYSTEM_MESSAGE
 
 
@@ -24,8 +27,21 @@ def main(args: DictConfig) -> None:
     model_baseline = load_model_responses(f"{args.model_dir}/{args.baseline}.json")
     model_test = load_model_responses(f"{args.model_dir}/{args.test}.json")
     
+    # get tokenizer    
+    tokenizer = AutoTokenizer.from_pretrained(
+        pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
+        cache_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1",
+        model_max_length=2048,
+    )
+    
     win_rates_helpful = []
     win_rates_harmless = []
+    
+    length_base_helpful = []
+    length_test_helpful = []
+    
+    length_base_harmless = []
+    length_test_harmless = []
 
     llm = AsyncAzureChatLLM(
         azure_endpoint="https://philipp.openai.azure.com/",
@@ -52,8 +68,27 @@ def main(args: DictConfig) -> None:
         principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
         random.shuffle(principles)
         principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
-        constitution_shuffled = "\n".join(principles)
-        print(constitution_shuffled)
+        constitution_shuffled = "\n".join(principles) 
+        if i == 0: print(constitution_shuffled)
+
+        
+        length_base_helpful.append(
+            len(tokenizer.encode(model_baseline['response_helpful'][str(i)].split("\n\n3.")[0].strip()))
+        )
+        
+        length_test_helpful.append(
+            len(tokenizer.encode(model_test['response_helpful'][str(i)].split("\n\n3.")[0].strip()))
+        )
+        
+        length_base_harmless.append(
+            len(tokenizer.encode(model_baseline['response_harmless'][str(i)].split("\n\n3.")[0].strip()))
+        )
+        
+        length_test_harmless.append(
+            len(tokenizer.encode(model_test['response_harmless'][str(i)].split("\n\n3.")[0].strip()))
+        )
+        
+   
         
         try:
             rand_number = np.random.randint(2)
@@ -118,6 +153,18 @@ def main(args: DictConfig) -> None:
                 
             with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
                 json.dump(win_rates_harmless, file, indent=4)
+                
+            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_helpful.json', 'w') as file:
+                json.dump(length_base_helpful, file, indent=4)
+                
+            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_helpful.json', 'w') as file:
+                json.dump(length_test_helpful, file, indent=4)
+                
+            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_harmless.json', 'w') as file:
+                json.dump(length_base_harmless, file, indent=4)
+                
+            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_harmless.json', 'w') as file:
+                json.dump(length_test_harmless, file, indent=4)
                 
             print("WIN RATES AT: ", i)
             print('helpful', np.mean(win_rates_helpful))

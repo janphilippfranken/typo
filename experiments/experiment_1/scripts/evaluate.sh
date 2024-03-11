@@ -15,8 +15,8 @@ conda activate typo
 
 cd ~/research_projects/typo/experiments/experiment_1
 
-iteration=0
-beta=0.1
+iteration=1
+beta=0.3
 lr=1e-6
 model_path="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
