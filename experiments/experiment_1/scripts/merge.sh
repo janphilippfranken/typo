@@ -17,10 +17,11 @@ cd ~/research_projects/typo/experiments/experiment_1
 
 iteration=0
 beta=0.1
-lr=1e-6
+lr=1e-6        # /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-0.1-1e-6-iteration-0/epoch-1
+
 checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}/epoch-1"
 output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
-
+echo $checkpoint_dir
 state_dict="${checkpoint_dir}/model.pt"
 
 python merge.py \

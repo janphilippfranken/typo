@@ -20,7 +20,7 @@ constitution_key="harmless"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=0
+iteration=1
 batch_size=4000
 
 if (( iteration % 2 == 0 )); then
@@ -35,19 +35,20 @@ fi
 echo "Start Example: $start_example"
 echo "Max Example: $max_example"
 
-# lr
+# hyperparams
 lr=1e-6
-
-# beta 
 beta=0.1
 
-# base model 
-model_path="mistralai/Mistral-7B-v0.1"
-download_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+# model
+if [ "$iteration" -gt 0 ]; then
+    prev_iteration=$(($iteration - 1))
+    model_path="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${prev_iteration}"
+    download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${prev_iteration}"
+else
+    model_path="mistralai/Mistral-7B-v0.1"
+    download_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+fi
 
-# if at iteration > 0; use trained model from prev iteration
-# model_path = "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
-# download_dir = "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 
 # filename for sweep
 file_name="${constitution_key}-iteration-${iteration}-lr-${lr}-beta-${beta}"
