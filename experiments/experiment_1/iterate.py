@@ -1,100 +1,105 @@
-import os
 import subprocess
-from itertools import product
 from tqdm import tqdm
-import logging 
+import logging
+from itertools import product
 
-# Define the parameters
+# Initialize logging
+logging.basicConfig(level=logging.INFO)
+
+# Define parameters
 betas = [0.1]
 lrs = [1e-6]
 iterations = [0, 1, 2]
 
-# Set the paths
+# Set paths
 base_model_path = "mistralai/Mistral-7B-v0.1"
 base_download_dir = "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
 
-def generate(iteration, ckey, file_name, model_path, download_dir, start_example, max_example):
-    subprocess.run([
-        "python", "generate.py",
-        f"iteration={iteration}",
-        f"constitution_key={ckey}",
-        f"file_name={file_name}",
-        f"dataset.data_dir={ckey}-base",
-        f"model_config.model={model_path}",
-        f"model_config.download_dir={download_dir}",
-        f"start_example={start_example}",
-        f"max_example={max_example}",
-        "batch_size=3500"
-    ], check=True)
+def run_command(command):
+    """
+    Utility function to run a subprocess command and ensure it executes successfully.
+    """
+    logging.info(f"Executing command: {' '.join(command)}")
+    subprocess.run(command, check=True, text=True)
 
-def train(beta, lr, iteration):
-    checkpoint_dir = f"/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-{beta}-{lr}-iteration-{iteration}"
-    helpful_file = f"helpful-iteration-{iteration}-{lr}-{beta}.json"
-    harmless_file = f"harmless-iteration-{iteration}-{lr}-{beta}.json"
-    subprocess.run([
+def generate(iteration, beta, lr, model_path, download_dir):
+    """
+    Function to call the generate.py script with appropriate parameters.
+    """
+    for ckey in ["helpful", "harmless"]:
+        run_command([
+            "python", "generate.py",
+            f"iteration={iteration}",
+            f"constitution_key={ckey}",
+            f"file_name={ckey}-iteration-{iteration}-{lr}-{beta}",
+            f"dataset.data_dir={ckey}-base",
+            f"model_config.model={model_path}",
+            f"model_config.download_dir={download_dir}",
+            "start_example=0",
+            "max_example=200",
+            "batch_size=3500"
+        ])
+
+def train(beta, lr, iteration, checkpoint_dir):
+    """
+    Function to call the train_typo.py script with appropriate parameters.
+    """
+    run_command([
         "torchrun", "--nproc_per_node=4", "train_typo.py",
         f"typo.beta={beta}",
         f"wandb.name=typo-beta-{beta}-lr-{lr}-iteration-{iteration}",
         f"training.checkpoint_dir={checkpoint_dir}",
-        f"training.lr={lr}",
-        f"helpful={helpful_file}",
-        f"harmless={harmless_file}"
-    ], check=True)
+        f"training.lr={lr}"
+    ])
 
-def merge(beta, lr, iteration):
-    state_dict = f"/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-{beta}-{lr}-iteration-{iteration}/epoch-1/model.pt"
-    output_dir = f"/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-{beta}-{lr}-iteration-{iteration}/epoch-1"
-    subprocess.run([
+def merge(beta, lr, iteration, checkpoint_dir):
+    """
+    Function to call the merge.py script with appropriate parameters.
+    """
+    state_dict = f"{checkpoint_dir}/epoch-1/model.pt"
+    output_dir = f"{checkpoint_dir}/merged"
+    run_command([
         "python", "merge.py",
         f"state_dict={state_dict}",
         f"output_dir={output_dir}"
-    ], check=True)
+    ])
 
 def evaluate(iteration, beta, lr, model_path, download_dir):
-    subprocess.run([
+    """
+    Function to call the evaluate.py script with appropriate parameters.
+    """
+    run_command([
         "python", "evaluate.py",
         "start_example=0",
         "max_example=1000",
         "batch_size=1000",
-        "output_dir=results/responses",
-        f"file_name=typo-model-iteration-{iteration}-{lr}-{beta}",
         f"model_config.model={model_path}",
-        f"model_config.download_dir={download_dir}"
-    ], check=True)
-
+        f"model_config.download_dir={download_dir}",
+        f"file_name=evaluation-iteration-{iteration}-{lr}-{beta}"
+    ])
 
 def main():
-    logging.info("started iteration")
-    for beta in betas:
-        logging.info("beta", lr)
-        for lr in lrs:
-            logging.info("lr", lr)
-            for iteration in tqdm(iterations, desc="iterating"):
-                logging.info("iteration", iteration)
-                model_path = base_model_path
-                download_dir = base_download_dir
+    for beta, lr, iteration in tqdm(list(product(betas, lrs, iterations)), desc="Overall Progress"):
+        logging.info(f"Starting Iteration: {iteration} for Beta: {beta}, LR: {lr}")
 
-                if iteration > 0:
-                    model_path = f"/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-{beta}-{lr}-iteration-{iteration-1}/epoch-1"
-                    download_dir = model_path
+        # Adjust model_path and download_dir based on iteration
+        model_path = base_model_path if iteration == 0 else f"{base_download_dir}/merged-exp-1-sweep/typo-beta-{beta}-{lr}-iteration-{iteration-1}"
+        download_dir = base_download_dir if iteration == 0 else model_path
 
-                logging.info(f"Starting Iteration: {iteration} for Beta: {beta}, LR: {lr}")
+        # Generate data
+        generate(iteration, beta, lr, model_path, download_dir)
 
-                start_example = 0 if iteration % 2 == 0 else 200
-                max_example = start_example + 200
+        # Define checkpoint directory for training
+        checkpoint_dir = f"{base_download_dir}/checkpoints-exp-1-sweep/typo-beta-{beta}-{lr}-iteration-{iteration}"
 
-                for ckey in ["helpful", "harmless"]:
-                    logging.info(ckey)
-                    file_name = f"{ckey}-iteration-{iteration}-{lr}-{beta}"
-                    generate(iteration, ckey, file_name, model_path, download_dir, start_example, max_example)
+        # Train model
+        train(beta, lr, iteration, checkpoint_dir)
 
-                logging.info('training')
-                train(beta, lr, iteration)
-                logging.info('merge')
-                merge(beta, lr, iteration)
-                logging.info('eval')
-                evaluate(iteration, beta, lr, model_path, download_dir)
-                
-                
+        # Merge model
+        merge(beta, lr, iteration, checkpoint_dir)
+
+        # Evaluate model
+        evaluate(iteration, beta, lr, model_path, download_dir)
+
 if __name__ == "__main__":
     main()

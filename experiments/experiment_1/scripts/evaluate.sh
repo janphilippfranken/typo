@@ -5,15 +5,26 @@
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:1                        # Request GPUs
 #SBATCH --mem=64GB                          # Memory request
-#SBATCH --cpus-per-task=8                  # Number of CPUs per task
+#SBATCH --cpus-per-task=8                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=evaluate.out
-#SBATCH --error=evaluate.err
+#SBATCH --output=evaluate.out            # Standard output log with job ID
+#SBATCH --error=evaluate.err             # Standard error log with job ID
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo
 
 cd ~/research_projects/typo/experiments/experiment_1
 
+iteration=0
+beta=0.1
+lr=1e-6
+model_path="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
+download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 
-python evaluate.py
+python evaluate.py \
+    start_example=0 \
+    max_example=100 \
+    batch_size=100 \
+    model_config.model="$model_path" \
+    model_config.download_dir="$download_dir" \
+    file_name="evaluation-iteration-${iteration}-${lr}-${beta}"

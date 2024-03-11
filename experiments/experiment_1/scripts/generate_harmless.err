@@ -1,0 +1,10 @@
+/var/lib/slurm/slurmd/job7346586/slurm_script: line 24: batch_size: command not found
+2024-03-11 10:52:12,351	INFO worker.py:1724 -- Started a local Ray instance.
+Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]
+Error executing job with overrides: ['iteration=0', 'constitution_key=harmless', 'file_name=harmless-iteration-0-lr-1e-6-beta-0.1', 'dataset.data_dir=harmless-base', 'model_config.model=mistralai/Mistral-7B-v0.1', 'model_config.download_dir=/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1', 'start_example=0', 'max_example=4000', 'batch_size=']
+Traceback (most recent call last):
+  File "/sailhome/jphilipp/research_projects/typo/experiments/experiment_1/generate.py", line 74, in main
+    if (i + 1) % args.batch_size == 0 or i == len(dataset) - 1:
+TypeError: unsupported operand type(s) for %: 'int' and 'str'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

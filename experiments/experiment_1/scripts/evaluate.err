@@ -1,0 +1,14 @@
+Processing examples: 0it [00:00, ?it/s]
+Processed prompts:   0%|          | 0/200 [00:00<?, ?it/s][A
+Processed prompts:   0%|          | 1/200 [00:14<48:29, 14.62s/it][A
+Processed prompts:   1%|          | 2/200 [00:15<22:07,  6.71s/it][A
+Processed prompts:   2%|▏         | 4/200 [00:16<08:32,  2.61s/it][A
+Processed prompts:   2%|▎         | 5/200 [00:16<05:58,  1.84s/it][AProcessed prompts: 100%|██████████| 200/200 [00:16<00:00, 12.31it/s]
+Processing examples: 99it [00:16,  6.07it/s]
+Error executing job with overrides: ['start_example=0', 'max_example=100', 'batch_size=100', 'model_config.model=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-0.1-1e-6-iteration-0', 'model_config.download_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-0.1-1e-6-iteration-0', 'file_name=evaluation-iteration-0-1e-6-0.1']
+Traceback (most recent call last):
+  File "/sailhome/jphilipp/research_projects/typo/experiments/experiment_1/evaluate.py", line 116, in main
+    with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'results/responses/sweeep/evaluation-iteration-0-1e-6-0.1-temperature-0.0.json'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
