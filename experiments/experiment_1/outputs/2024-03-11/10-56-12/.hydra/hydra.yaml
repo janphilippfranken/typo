@@ -1,6 +1,6 @@
 hydra:
   run:
-    dir: hydra-configs
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
   sweep:
     dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
     subdir: ${hydra.job.num}
@@ -112,21 +112,22 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - typo.beta=0.1
-    - wandb.name=typo-beta-0.1-lr-1e-6-iteration-0
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-0.1-1e-6-iteration-0
-    - training.lr=1e-6
-    - data_path=data/sweep
-    - helpful=helpful-iteration-0-lr-1e-6-beta-0.1.json
-    - harmless=harmless-iteration-0-lr-1e-6-beta-0.1.json
-    - n_examples=2000
+    - iteration=0
+    - constitution_key=harmless
+    - file_name=harmless-iteration-0-lr-1e-6-beta-0.1
+    - dataset.data_dir=harmless-base
+    - model_config.model=mistralai/Mistral-7B-v0.1
+    - model_config.download_dir=/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    - start_example=0
+    - max_example=4000
+    - batch_size=4000
   job:
-    name: train_typo
+    name: generate
     chdir: null
-    override_dirname: data_path=data/sweep,harmless=harmless-iteration-0-lr-1e-6-beta-0.1.json,helpful=helpful-iteration-0-lr-1e-6-beta-0.1.json,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-0.1-1e-6-iteration-0,training.lr=1e-6,typo.beta=0.1,wandb.name=typo-beta-0.1-lr-1e-6-iteration-0
+    override_dirname: batch_size=4000,constitution_key=harmless,dataset.data_dir=harmless-base,file_name=harmless-iteration-0-lr-1e-6-beta-0.1,iteration=0,max_example=4000,model_config.download_dir=/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1,model_config.model=mistralai/Mistral-7B-v0.1,start_example=0
     id: ???
     num: ???
-    config_name: train_typo
+    config_name: generate
     env_set: {}
     env_copy: []
     config:
@@ -148,9 +149,8 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /sailhome/jphilipp/research_projects/typo/experiments/experiment_1/hydra-configs
+    output_dir: /sailhome/jphilipp/research_projects/typo/experiments/experiment_1/outputs/2024-03-11/10-56-12
     choices:
-      model: mistral_7b_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

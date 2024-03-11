@@ -1,10 +1,83 @@
-/var/lib/slurm/slurmd/job7346586/slurm_script: line 24: batch_size: command not found
-2024-03-11 10:52:12,351	INFO worker.py:1724 -- Started a local Ray instance.
-Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]
-Error executing job with overrides: ['iteration=0', 'constitution_key=harmless', 'file_name=harmless-iteration-0-lr-1e-6-beta-0.1', 'dataset.data_dir=harmless-base', 'model_config.model=mistralai/Mistral-7B-v0.1', 'model_config.download_dir=/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1', 'start_example=0', 'max_example=4000', 'batch_size=']
-Traceback (most recent call last):
-  File "/sailhome/jphilipp/research_projects/typo/experiments/experiment_1/generate.py", line 74, in main
-    if (i + 1) % args.batch_size == 0 or i == len(dataset) - 1:
-TypeError: unsupported operand type(s) for %: 'int' and 'str'
+2024-03-11 10:56:16,095	INFO worker.py:1724 -- Started a local Ray instance.
+Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]Processing examples:  36%|███▌      | 1429/4000 [00:00<00:00, 14288.00it/s]Processing examples:  73%|███████▎  | 2901/4000 [00:00<00:00, 14536.61it/s]
+Processed prompts:   0%|          | 0/8000 [00:00<?, ?it/s][AProcessing examples:  73%|███████▎  | 2901/4000 [00:15<00:00, 14536.61it/s]
+Processed prompts:   0%|          | 1/8000 [00:17<38:47:40, 17.46s/it][A
+Processed prompts:   3%|▎         | 257/8000 [00:34<14:55,  8.65it/s] [A
+Processed prompts:   6%|▋         | 512/8000 [00:46<14:25,  8.65it/s][A
+Processed prompts:   6%|▋         | 513/8000 [00:52<10:58, 11.36it/s][A
+Processed prompts:  10%|▉         | 768/8000 [01:04<10:36, 11.36it/s][A
+Processed prompts:  10%|▉         | 769/8000 [01:09<09:31, 12.65it/s][A
+Processed prompts:  13%|█▎        | 1024/8000 [01:22<09:11, 12.65it/s][A
+Processed prompts:  13%|█▎        | 1025/8000 [01:27<08:40, 13.39it/s][A
+Processed prompts:  16%|█▌        | 1280/8000 [01:42<08:21, 13.39it/s][A
+Processed prompts:  16%|█▌        | 1281/8000 [01:44<08:05, 13.84it/s][A
+Processed prompts:  19%|█▉        | 1536/8000 [01:54<07:46, 13.84it/s][A
+Processed prompts:  19%|█▉        | 1537/8000 [02:02<07:42, 13.99it/s][A
+Processed prompts:  22%|██▏       | 1792/8000 [02:14<07:23, 13.99it/s][A
+Processed prompts:  22%|██▏       | 1793/8000 [02:20<07:16, 14.21it/s][A
+Processed prompts:  26%|██▌       | 2048/8000 [02:32<06:58, 14.21it/s][A
+Processed prompts:  26%|██▌       | 2049/8000 [02:37<06:55, 14.33it/s][A
+Processed prompts:  29%|██▉       | 2304/8000 [02:52<06:37, 14.33it/s][A
+Processed prompts:  29%|██▉       | 2305/8000 [02:55<06:33, 14.45it/s][A
+Processed prompts:  29%|██▉       | 2307/8000 [02:55<06:37, 14.32it/s][A
+Processed prompts:  32%|███▏      | 2561/8000 [03:13<06:18, 14.38it/s][A
+Processed prompts:  32%|███▏      | 2563/8000 [03:13<06:22, 14.23it/s][A
+Processed prompts:  35%|███▌      | 2817/8000 [03:30<05:56, 14.55it/s][A
+Processed prompts:  35%|███▌      | 2819/8000 [03:31<06:00, 14.37it/s][A
+Processed prompts:  38%|███▊      | 3073/8000 [03:48<05:39, 14.53it/s][A
+Processed prompts:  38%|███▊      | 3075/8000 [03:48<05:43, 14.34it/s][A
+Processed prompts:  42%|████▏     | 3329/8000 [04:05<05:18, 14.67it/s][A
+Processed prompts:  42%|████▏     | 3331/8000 [04:06<05:22, 14.47it/s][A
+Processed prompts:  45%|████▍     | 3585/8000 [04:23<05:01, 14.62it/s][A
+Processed prompts:  45%|████▍     | 3587/8000 [04:23<05:06, 14.42it/s][A
+Processed prompts:  48%|████▊     | 3841/8000 [04:40<04:43, 14.68it/s][A
+Processed prompts:  48%|████▊     | 3843/8000 [04:41<04:49, 14.34it/s][A
+Processed prompts:  51%|█████     | 4097/8000 [04:58<04:29, 14.47it/s][A
+Processed prompts:  51%|█████     | 4099/8000 [04:59<04:33, 14.26it/s][A
+Processed prompts:  54%|█████▍    | 4353/8000 [05:17<04:14, 14.33it/s][A
+Processed prompts:  54%|█████▍    | 4355/8000 [05:17<04:18, 14.12it/s][A
+Processed prompts:  58%|█████▊    | 4609/8000 [05:34<03:55, 14.39it/s][A
+Processed prompts:  58%|█████▊    | 4611/8000 [05:35<03:58, 14.20it/s][A
+Processed prompts:  61%|██████    | 4865/8000 [05:52<03:36, 14.48it/s][A
+Processed prompts:  61%|██████    | 4867/8000 [05:53<03:39, 14.28it/s][A
+Processed prompts:  64%|██████▍   | 5121/8000 [06:10<03:16, 14.62it/s][A
+Processed prompts:  64%|██████▍   | 5123/8000 [06:10<03:21, 14.29it/s][A
+Processed prompts:  67%|██████▋   | 5377/8000 [06:27<03:00, 14.55it/s][A
+Processed prompts:  67%|██████▋   | 5379/8000 [06:28<03:02, 14.35it/s][A
+Processed prompts:  70%|███████   | 5633/8000 [06:45<02:42, 14.53it/s][A
+Processed prompts:  70%|███████   | 5635/8000 [06:46<02:45, 14.32it/s][A
+Processed prompts:  74%|███████▎  | 5889/8000 [07:03<02:24, 14.57it/s][A
+Processed prompts:  74%|███████▎  | 5891/8000 [07:03<02:26, 14.37it/s][A
+Processed prompts:  77%|███████▋  | 6145/8000 [07:20<02:06, 14.62it/s][A
+Processed prompts:  77%|███████▋  | 6147/8000 [07:21<02:08, 14.42it/s][A
+Processed prompts:  80%|████████  | 6401/8000 [07:38<01:49, 14.61it/s][A
+Processed prompts:  80%|████████  | 6403/8000 [07:38<01:50, 14.40it/s][A
+Processed prompts:  83%|████████▎ | 6657/8000 [07:56<01:32, 14.52it/s][A
+Processed prompts:  83%|████████▎ | 6659/8000 [07:56<01:33, 14.32it/s][A
+Processed prompts:  86%|████████▋ | 6913/8000 [08:13<01:14, 14.56it/s][A
+Processed prompts:  86%|████████▋ | 6915/8000 [08:14<01:15, 14.36it/s][A
+Processed prompts:  90%|████████▉ | 7169/8000 [08:31<00:57, 14.51it/s][A
+Processed prompts:  90%|████████▉ | 7171/8000 [08:32<00:57, 14.30it/s][A
+Processed prompts:  93%|█████████▎| 7425/8000 [08:49<00:39, 14.49it/s][A
+Processed prompts:  93%|█████████▎| 7427/8000 [08:50<00:40, 14.16it/s][A
+Processed prompts:  96%|█████████▌| 7681/8000 [09:07<00:22, 14.40it/s][A
+Processed prompts:  96%|█████████▌| 7683/8000 [09:08<00:22, 14.18it/s][A
+Processed prompts:  99%|█████████▉| 7937/8000 [09:14<00:02, 21.44it/s][A
+Processed prompts:  99%|█████████▉| 7939/8000 [09:14<00:02, 21.34it/s][AProcessed prompts: 100%|██████████| 8000/8000 [09:14<00:00, 14.44it/s]
+Processing examples: 100%|██████████| 4000/4000 [09:17<00:00,  5.07it/s]   Processing examples: 100%|██████████| 4000/4000 [09:17<00:00,  7.17it/s]
+ERROR: Cannot find key: iteration=0
+Usage: generate.py <group|command|value>
+  available groups:      json | fire | random | hydra | np | List | Dict |
+                         transformers | CONSTITUTIONS
+  available commands:    DictConfig | tqdm | load_dataset |
+                         VLLMInferenceModel | get_first_question |
+                         format_responses | format_example | tokenize_func |
+                         shuffle_principles | main
+  available values:      PROMPT_GENERATION_ITERATION_0 | PROMPT_TRAINING |
+                         SYSTEM_MESSAGE | GPT4_WIN_RATE | HELPFUL_PRINCIPLE |
+                         NOT_HELPFUL_PRINCIPLE | HARMLESS_PRINCIPLE |
+                         NOT_HARMLESS_PRINCIPLE
 
-Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+For detailed information on this command, run:
+  generate.py --help
+slurmstepd: error: *** JOB 7346594 ON cocoflops-hgx-1 CANCELLED AT 2024-03-11T11:08:10 ***
