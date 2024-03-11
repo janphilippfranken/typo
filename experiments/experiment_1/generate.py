@@ -14,6 +14,8 @@ from prompts import *
 # main generation script 
 @hydra.main(version_base=None, config_path="conf", config_name="generate")
 def main(args: DictConfig) -> None:
+    
+    print(args.start_example, args.max_example)
         
     # model
     model = VLLMInferenceModel(

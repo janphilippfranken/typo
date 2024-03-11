@@ -130,19 +130,18 @@ def main(args: DictConfig) -> None:
     )
     
     # get data
-    dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
-    dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()][:args.data.n_examples]
-    dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()][:args.data.n_examples]
+    print(os.path.join(args.data_path, args.helpful))
+    print(os.path.join(args.data_path, args.harmless))
+    dataset_dict_helpful = json.load(open(os.path.join(args.data_path, args.helpful)))
+    dataset_dict_harmless = json.load(open(os.path.join(args.data_path, args.harmless)))
+    dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()][:args.n_examples]
+    dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()][:args.n_examples]
 
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
         print(f"n harmless: {len(dataset_list_harmless)}")
         print(dataset_list_helpful[0])
         print(dataset_list_harmless[0])
-        print(dataset_list_helpful_both_negative[0])
-        print(dataset_list_harmless_both_negative[0])
-        print(args.model.model_config)
     
    
     tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful]

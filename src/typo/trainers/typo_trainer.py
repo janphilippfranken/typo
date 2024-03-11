@@ -334,28 +334,28 @@ class TYPOTrainer:
         dist.barrier()
 
         # optimizer 
-        save_policy = FullOptimStateDictConfig(offload_to_cpu=True, rank0_only=True)
-        with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, optim_state_dict_config=save_policy):
-            optimizer_state_dict = FSDP.optim_state_dict(self.model, self.optimizer)
+        # save_policy = FullOptimStateDictConfig(offload_to_cpu=True, rank0_only=True)
+        # with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, optim_state_dict_config=save_policy):
+        #     optimizer_state_dict = FSDP.optim_state_dict(self.model, self.optimizer)
 
-        if self.local_rank == 0:
-            self.write_state_dict(
-                epoch=epoch,
-                state=optimizer_state_dict, 
-                checkpoint_name='optimizer.pt',
-            )
-        del optimizer_state_dict
-        dist.barrier()
+        # if self.local_rank == 0:
+        #     self.write_state_dict(
+        #         epoch=epoch,
+        #         state=optimizer_state_dict, 
+        #         checkpoint_name='optimizer.pt',
+        #     )
+        # del optimizer_state_dict
+        # dist.barrier()
 
         # scheduler
-        if self.local_rank == 0:
-            scheduler_state_dict = self.scheduler.state_dict()
-            self.write_state_dict(
-                epoch=epoch,
-                state=scheduler_state_dict,
-                checkpoint_name='scheduler.pt',
-            )
-        dist.barrier()
+        # if self.local_rank == 0:
+        #     scheduler_state_dict = self.scheduler.state_dict()
+        #     self.write_state_dict(
+        #         epoch=epoch,
+        #         state=scheduler_state_dict,
+        #         checkpoint_name='scheduler.pt',
+        #     )
+        # dist.barrier()
         
     def compute_metrics(
         self,
@@ -371,7 +371,7 @@ class TYPOTrainer:
         batch_logprobs = _get_batch_logprobs(logits, labels)
         
         # reshape to be n_constitutions * n_responses
-        batch_logprobs = batch_logprobs.view(self.config.data.n_constitutions,  self.config.data.n_responses)
+        batch_logprobs = batch_logprobs.view(self.config.n_constitutions,  self.config.n_responses)
         
         # get logprobs for reference model 
         with torch.no_grad():

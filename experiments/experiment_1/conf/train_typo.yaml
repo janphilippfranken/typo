@@ -2,9 +2,16 @@ hydra:
   run:
     dir: hydra-configs
 
+# data
+data_path: data/sweep
+helpful: helpful-iteration-0.json
+harmless: harmless-iteration-0.json
+n_examples: 3000
+n_responses: 2
+n_constitutions: 2
+
 defaults:
   - model: mistral_7b_base
-  - data: hh_rlhf
 
 wandb:
   project: hh-rlhf-typo-exp-1
