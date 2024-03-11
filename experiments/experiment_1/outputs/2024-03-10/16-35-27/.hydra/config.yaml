@@ -1,0 +1,30 @@
+output_dir: data
+file_name: train-harmless-10-11k-iteration-1
+start_example: 10000
+max_example: 11000
+batch_size: 1000
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-v2/typo-beta-0.1-iteration-1/epoch-0/
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-v2/typo-beta-0.1-iteration-1/epoch-0/
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+dataset:
+  path: Anthropic/hh-rlhf
+  data_dir: harmless-base
+  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
+  split: train
+constitution_key: helpful_harmless_vs_helpful_not_harmless_harmless_base
+filter:
+- The assistant
+- sorry
+- Response
+- '[insert'
+- ']'
+- Hello!
+- Sure!

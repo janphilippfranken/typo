@@ -5,10 +5,10 @@
 #SBATCH --nodelist=cocoflops-hgx-1          # Request the specific node
 #SBATCH --gres=gpu:1                        # Request GPUs
 #SBATCH --mem=64GB                          # Memory request
-#SBATCH --cpus-per-task=16                  # Number of CPUs per task
+#SBATCH --cpus-per-task=8                  # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=eval-base.out
-#SBATCH --error=eval-base.err
+#SBATCH --output=evaluate.out
+#SBATCH --error=evaluate.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo

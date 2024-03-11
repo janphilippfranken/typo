@@ -6,8 +6,8 @@
 #SBATCH --mem=64GB                          # Memory request
 #SBATCH --cpus-per-task=4                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
-#SBATCH --output=sft-dpo-typo-temp-0.out
-#SBATCH --error=sft-dpo-typo-temp-0.err
+#SBATCH --output=win_rates.out
+#SBATCH --error=in_rates.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo

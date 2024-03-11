@@ -12,6 +12,6 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo
 
-cd ~/research_projects/typo/experiments/experiment_1
+cd ~/research_projects/typo/experiments/experiment_2/v2
 
 python win_rates.py

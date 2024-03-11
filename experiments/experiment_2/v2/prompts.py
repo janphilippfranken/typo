@@ -13,7 +13,7 @@ GPT4_WIN_RATE = """For the following human query to an assistant, which assistan
 Assistant Constitution:
 {constitution}
 
-Human: {query}
+{query}
 
 Assistant Response A: {response_a}
 

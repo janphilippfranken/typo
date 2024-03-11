@@ -113,12 +113,13 @@ hydra:
     - hydra.mode=RUN
     task:
     - typo.beta=0.1
-    - wandb.name=typo-beta-0.1-iteration-1
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-0.1-iteration-1
+    - wandb.name=typo-beta-0.1-lr-1e-6-iteration-2
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-0.1-1e-6-iteration-2
+    - training.lr=1e-6
   job:
     name: train_typo
     chdir: null
-    override_dirname: training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-0.1-iteration-1,typo.beta=0.1,wandb.name=typo-beta-0.1-iteration-1
+    override_dirname: training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1/typo-beta-0.1-1e-6-iteration-2,training.lr=1e-6,typo.beta=0.1,wandb.name=typo-beta-0.1-lr-1e-6-iteration-2
     id: ???
     num: ???
     config_name: train_typo

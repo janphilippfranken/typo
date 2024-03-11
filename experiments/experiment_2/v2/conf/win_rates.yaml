@@ -1,6 +1,6 @@
-model_dir: 
-baseline:
-test:
-output_dir:
-helpful_win_rates_file_name:
-harmless_win_rates_file_name
+model_dir: results/responses
+baseline: sft-dpo-model-temperature-0.0
+test: typo-model-temperature-0.0
+output_dir: results/win_rates
+helpful_win_rates_file_name: typo-vs-dpo-helpful
+harmless_win_rates_file_name: typo-vs-dpo-harmless

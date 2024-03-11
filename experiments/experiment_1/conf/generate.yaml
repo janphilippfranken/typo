@@ -1,11 +1,11 @@
-output_dir: data
-file_name: train-harmless-0-10k-iteration-2
+output_dir: data/sweep
+file_name: null
 
-start_example: 0
-max_example: 10000
-batch_size: 10000
+iteration: null
+start_example: null
+max_example: null
+batch_size: null
 
-# generation configs 
 generation_config:
   max_new_tokens: 350
   top_p: 0.9
@@ -13,21 +13,21 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-2/epoch-0.24/
-  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1/typo-beta-0.1-iteration-2/epoch-0.24/
+  model: null
+  download_dir: null
   dtype: auto
   quantization: null
-  tensor_parallel_size: 4
+  tensor_parallel_size: 1
 
 dataset: 
   path: Anthropic/hh-rlhf
-  data_dir: harmless-base
+  data_dir: null
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: train
 
-constitution_key: helpful_harmless_vs_helpful_not_harmless_harmless_base
+constitution_key: null
 
-filter: 
+filter: # for efficiency, we filter these formatting errors or generic 'i'm sorry' responses.
   - The assistant
   - sorry
   - Response

@@ -33,17 +33,7 @@ def format_example(
     for i, constitution in enumerate(example): 
         
 
-        prompt = f"{constitution['prompt']}\n\nAssistant:"
-        constitution = prompt.split("\n\nAssistant Constitution:\n")[1].strip().split("\n\nHuman:")[0].strip()
-        principles = constitution.split("\n")
-        if '2.' in principles[0]:
-            print(principles)
-            principles[0].replace('2.', '1.')
-            principles[1].replace('1.', '2.')
-            print(principles)
-            formatted_constitution = "\n".join(principles)
-            prompt.replace(constitution, formatted_constitution)
-            print(prompt)
+        prompt = f"{constitution['prompt']}"
         
         for j, response in enumerate(example): 
     

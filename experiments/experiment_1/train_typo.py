@@ -54,6 +54,7 @@ def get_policy(blocks={MistralDecoderLayer}):
 def main(args: DictConfig) -> None:
     # for nans
     torch.autograd.set_detect_anomaly(True)
+    print(args.training)
     
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
@@ -131,12 +132,8 @@ def main(args: DictConfig) -> None:
     # get data
     dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
     dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_dict_helpful_both_negative = json.load(open(os.path.join(args.data.data_path, args.data.helpful_both_negative)))
-    dataset_dict_harmless_both_negative = json.load(open(os.path.join(args.data.data_path, args.data.harmless_both_negative)))
     dataset_list_helpful = [format_example(example) for example in dataset_dict_helpful.values()][:args.data.n_examples]
     dataset_list_harmless = [format_example(example) for example in dataset_dict_harmless.values()][:args.data.n_examples]
-    dataset_list_helpful_both_negative = [format_example(example) for example in dataset_dict_helpful_both_negative.values()][:args.data.n_examples]
-    dataset_list_harmless_both_negative = [format_example(example) for example in dataset_dict_harmless_both_negative.values()][:args.data.n_examples]
 
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
@@ -150,10 +147,8 @@ def main(args: DictConfig) -> None:
    
     tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful]
     tokenized_dataset_harmless = [tokenize_func(example, tokenizer) for example in dataset_list_harmless]
-    tokenized_dataset_helpful_both_negative = [tokenize_func(example, tokenizer) for example in dataset_list_helpful_both_negative]
-    tokenized_dataset_harmless_both_negative = [tokenize_func(example, tokenizer) for example in dataset_list_harmless_both_negative]
 
-    train_dataset = tokenized_dataset_helpful + tokenized_dataset_harmless + tokenized_dataset_helpful_both_negative + tokenized_dataset_harmless_both_negative
+    train_dataset = tokenized_dataset_helpful + tokenized_dataset_harmless 
     
     random.shuffle(train_dataset)
    

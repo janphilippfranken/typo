@@ -63,22 +63,24 @@ def main(args: DictConfig) -> None:
                 helpful_prompt = GPT4_WIN_RATE.format(
                     constitution=constitution_shuffled,
                     query=question_helpful,
-                    response_a=model_baseline['response_helpful'][str(i)],
-                    response_b=model_test['response_helpful'][str(i)],
+                    response_a=model_baseline['response_helpful'][str(i)].split("\n\n3.")[0].strip(),
+                    response_b=model_test['response_helpful'][str(i)].split("\n\n3.")[0].strip(),
                 )
                 
                 harmless_prompt = GPT4_WIN_RATE.format(
                     constitution=constitution_shuffled,
                     query=question_harmless,
-                    response_a=model_baseline['response_harmless'][str(i)],
-                    response_b=model_test['response_harmless'][str(i)],
+                    response_a=model_baseline['response_harmless'][str(i)].split("\n\n3.")[0].strip(),
+                    response_b=model_test['response_harmless'][str(i)].split("\n\n3.")[0].strip(),
                 )
 
                 responses = model.batch_prompt(
                     system_message=SYSTEM_MESSAGE,
                     messages=[helpful_prompt, harmless_prompt],
                 )
-
+                
+                print(helpful_prompt)
+                print(harmless_prompt)
                 formatted_responses = [r[0].split('Final Response:')[1].strip() for r in responses]
                 
                 win_rates_helpful.append(1 if 'B' in formatted_responses[0] else 0)

@@ -519,12 +519,13 @@ class TYPOTrainer:
                     wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
                 
                 # evaluate and save after n steps have been made
-                if (step + 1) % self.config.training.save_after_n_steps == 0:
-                    if self.config.training.evaluate:
-                        self.evaluate()
-                    self.save_checkpoint(round(step / len(self.train_dataloader), 2))
+                if self.config.training.save_after_n_steps:
+                    if (step + 1) % self.config.training.save_after_n_steps == 0:
+                        if self.config.training.evaluate:
+                            self.evaluate()
+                        self.save_checkpoint(round(step / len(self.train_dataloader), 2))
                                 
         # evaluate at end of each epoch and save checkpoint 
         if self.config.training.evaluate:
             self.evaluate()
-        self.save_checkpoint(epoch)
+        self.save_checkpoint(epoch + 1)

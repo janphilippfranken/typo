@@ -30,17 +30,16 @@ def get_first_question(
     return first_question
 
 
-def format_responses(responses):
-    """Format sampled responses from model."""
-    formatted_responses = []
-    for response in responses:
-        try:
-            response = response.split("###")[0].strip().split("Assistant: ")[1].strip().split("Human: ")[0].strip()
-            if "The assistant" not in response:
-                formatted_responses.append(response)
-        except:
-            continue
-    return formatted_responses
+def format_responses(
+    responses,
+):  
+    formatted_responses = ["", ""]
+    try:
+        formatted_responses[0] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
+        formatted_responses[1] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
+    except:
+        print('Error in formatting responses. Skipping example.')
+    return formatted_responses 
 
 
 def format_example(
