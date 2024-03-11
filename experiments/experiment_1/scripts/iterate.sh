@@ -48,8 +48,8 @@ for beta in "${betas[@]}"; do
                 echo "Loaded Model Path: $model_path"
             fi
 
-            start_example=$((iteration % 2 == 0 ? 0 : 10000))
-            max_example=$((start_example + 10000))
+            start_example=$((iteration % 2 == 0 ? 0 : 3500))
+            max_example=$((start_example + 3500))
 
             for ckey in "helpful" "harmless"; do
                 data_dir="${ckey}-base"
@@ -65,7 +65,7 @@ for beta in "${betas[@]}"; do
                 model_config.download_dir="$download_dir" \
                 start_example=$start_example \
                 max_example=$max_example \
-                batch_size=10000
+                batch_size=3500
             done
             sleep 5
 
