@@ -92,13 +92,13 @@ def main():
     helpful_beta_3 = [
         "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
         "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
-        "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
     ]
     
     harmless_beta_3 = [
         "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
         "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
-        "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
     ]
 
     # Load datasets

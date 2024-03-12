@@ -12,14 +12,6 @@ EOS_TOKEN = "</s>"
 BOS_TOKEN = "<s>"
 IGNORE_INDEX = -100
 
-def remove_final_answer(
-    prompt: str,
-) -> str:
-    """Remove final assistant answer which is our inference target."""
-    final_answer = prompt.rsplit("Assistant: ")[-1]
-    prompt = prompt.rsplit("Assistant: " + final_answer, 1)[0]
-    return prompt, final_answer
-
 
 def get_first_question(
     prompt: str,
@@ -47,12 +39,12 @@ def format_example(
 ) -> Dict:
     """Formats example into a dictionary with keys for each constitution and response."""
     formatted_example = {}
-    
 
     for i, constitution in enumerate(example): 
+        
 
-        prompt = f"{constitution['prompt']}
-
+        prompt = f"{constitution['prompt']}"
+        
         for j, response in enumerate(example): 
     
             response = response["response"]
@@ -60,32 +52,6 @@ def format_example(
             prompt_response = f"{prompt}{response}"
             formatted_example[f"prompt_c{i}_r{j}"] = prompt  
             formatted_example[f"response_c{i}_r{j}"] = prompt_response
-            
-    return formatted_example
-
-
-def format_example_dpo(
-    example: List[Dict],
-) -> Dict:
-    """Formats example for dpo data."""
-    formatted_example = {'prompts': [], 'chosen': [], 'rejected': []}
-    
-
-    for i, constitution in enumerate(example): 
-
-        prompt = f"{constitution['prompt']}
-        
-        formatted_example['prompts'].append(prompt)    
-
-        for j, response in enumerate(example): 
-    
-            response = response["response"]
-        
-            if i == j:
-                formatted_example['chosen'].append(response)
-            
-            elif i != j:
-                formatted_example['rejected'].append(response)
             
     return formatted_example
 
@@ -132,6 +98,48 @@ def tokenize_func(
             tokenized_example[f"{response_key}_{tokenized_key}"] = tokenized_response[tokenized_key].squeeze(0)
         
     return tokenized_example
+
+import random
+
+
+def shuffle_principles(
+    constitution: str,
+) -> str:
+    """Shuffle principles in a constitution."""
+    principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
+    
+    random.shuffle(principles)
+
+    principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
+    shuffled_constitution = "\n".join(principles)
+    
+    return shuffled_constitution
+
+
+def format_example_dpo(
+    example: List[Dict],
+) -> Dict:
+    """Formats example for dpo data."""
+    formatted_example = {'prompts': [], 'chosen': [], 'rejected': []}
+    
+
+    for i, constitution in enumerate(example): 
+
+        prompt = f"{constitution['prompt']}"
+        
+        formatted_example['prompts'].append(prompt)    
+
+        for j, response in enumerate(example): 
+    
+            response = response["response"]
+        
+            if i == j:
+                formatted_example['chosen'].append(response)
+            
+            elif i != j:
+                formatted_example['rejected'].append(response)
+            
+    return formatted_example
 
 
 # SFT UTILS
