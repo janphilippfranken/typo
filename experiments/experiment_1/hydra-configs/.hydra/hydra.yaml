@@ -112,18 +112,18 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - typo.beta=3.0
-    - wandb.name=typo-beta-3.0-lr-1e-6-iteration-0
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-3.0-1e-6-iteration-0
+    - typo.beta=2.0
+    - wandb.name=typo-beta-2.0-lr-1e-6-iteration-0
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-2.0-1e-6-iteration-0
     - training.lr=1e-6
     - data_path=data/sweep
-    - helpful=helpful-iteration-0-lr-1e-6-beta-3.0.json
-    - harmless=harmless-iteration-0-lr-1e-6-beta-3.0.json
+    - helpful=helpful-iteration-0-lr-1e-6-beta-2.0.json
+    - harmless=harmless-iteration-0-lr-1e-6-beta-2.0.json
     - n_examples=2000
   job:
     name: train_typo
     chdir: null
-    override_dirname: data_path=data/sweep,harmless=harmless-iteration-0-lr-1e-6-beta-3.0.json,helpful=helpful-iteration-0-lr-1e-6-beta-3.0.json,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-3.0-1e-6-iteration-0,training.lr=1e-6,typo.beta=3.0,wandb.name=typo-beta-3.0-lr-1e-6-iteration-0
+    override_dirname: data_path=data/sweep,harmless=harmless-iteration-0-lr-1e-6-beta-2.0.json,helpful=helpful-iteration-0-lr-1e-6-beta-2.0.json,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-2.0-1e-6-iteration-0,training.lr=1e-6,typo.beta=2.0,wandb.name=typo-beta-2.0-lr-1e-6-iteration-0
     id: ???
     num: ???
     config_name: train_typo
