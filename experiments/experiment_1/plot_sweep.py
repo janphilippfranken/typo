@@ -132,7 +132,7 @@ def main():
     plot_results(iterations, [
         means_harmless_beta_05, means_harmless_beta_1, means_harmless_beta_2, means_harmless_beta_3],
                  [errors_harmless_beta_05, errors_harmless_beta_1, errors_harmless_beta_2, errors_harmless_beta_3],
-                    ['beta 0.5', 'beta 1.0', 'beta 2.0', 'beta 3.0'], 'Helpful Win Rates', 'harmless_win_rates')
+                    ['beta 0.5', 'beta 1.0', 'beta 2.0', 'beta 3.0'], 'Harmless Win Rates', 'harmless_win_rates')
     
     breakpoint()
 

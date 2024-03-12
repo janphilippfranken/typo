@@ -41,11 +41,13 @@ def main(args: DictConfig) -> None:
         torch_dtype=torch.bfloat16,
     )
     
-    # get data
-    dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
-    dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:args.data.n_examples]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:args.data.n_examples]
+    # data 
+    dataset_dict_helpful = json.load(open(os.path.join(args.data_path, args.helpful)))
+    dataset_dict_harmless = json.load(open(os.path.join(args.data_path, args.harmless)))
+    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:args.n_examples]
+    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:args.n_examples]
+    print(len(dataset_list_helpful))
+    print(len(dataset_list_harmless))
 
     # get dpo format 
     prompts = []
@@ -53,7 +55,7 @@ def main(args: DictConfig) -> None:
     rejected = []
     
     # add helpful examples
-    for example_helpful in zip(dataset_list_helpful):
+    for example_helpful in dataset_list_helpful:
         prompts += example_helpful["prompts"]
         chosen += example_helpful["chosen"]
         rejected += example_helpful["rejected"]
@@ -66,6 +68,9 @@ def main(args: DictConfig) -> None:
         
     dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
     dataset = dataset.shuffle(42)
+    print(prompts[0])
+    print(chosen[0])
+    print(rejected[0])
     
     print(dataset)
     

@@ -37,17 +37,18 @@ def main(args: DictConfig) -> None:
     training_args = TrainingArguments(**training_args_dict)
     
     # data 
-    dataset_dict_helpful = json.load(open(os.path.join(args.data.data_path, args.data.helpful)))
-    dataset_dict_harmless = json.load(open(os.path.join(args.data.data_path, args.data.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:args.data.n_examples]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:args.data.n_examples]
- 
+    dataset_dict_helpful = json.load(open(os.path.join(args.data_path, args.helpful)))
+    dataset_dict_harmless = json.load(open(os.path.join(args.data_path, args.harmless)))
+    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:args.n_examples]
+    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:args.n_examples]
+    print(len(dataset_list_helpful))
+    print(len(dataset_list_harmless))
     # get sft format 
     prompts = []
     responses = []
 
     # add helpful examples
-    for example_helpful in dataset_list_helpful):
+    for example_helpful in dataset_list_helpful:
         prompts += example_helpful["prompts"]
         responses += example_helpful["chosen"]
 
@@ -62,6 +63,8 @@ def main(args: DictConfig) -> None:
         prompts += example_harmless["prompts"]
         responses += example_harmless["rejected"]
     
+    print(prompts[0])
+    print(responses[0])
     dataset = sft_preprocess(prompts, responses, tokenizer)
     dataset = dataset.shuffle(42)
     logging.info(dataset)

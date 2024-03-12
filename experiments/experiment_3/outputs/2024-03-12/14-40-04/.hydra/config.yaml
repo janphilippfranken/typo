@@ -1,0 +1,28 @@
+output_dir: results/responses
+file_name: typo-evaluation-1e-6-1.0
+start_example: 0
+max_example: 500
+batch_size: 500
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-2-v2/typo-beta-1.0-1e-6/epoch-1
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-2-v2/typo-beta-1.0-1e-6/epoch-1
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+dataset_helpful:
+  path: Anthropic/hh-rlhf
+  data_dir: helpful-base
+  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
+  split: test
+dataset_harmless:
+  path: Anthropic/hh-rlhf
+  data_dir: harmless-base
+  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
+  split: test
+temperatures:
+- 0.0
+constitution_key: helpful
