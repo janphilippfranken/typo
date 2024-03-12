@@ -36,7 +36,7 @@ echo "Max Example: $max_example"
 
 # hyperparams
 lr=1e-6
-beta=1.0
+beta=3.0
 
 # model
 if [ "$iteration" -gt 0 ]; then

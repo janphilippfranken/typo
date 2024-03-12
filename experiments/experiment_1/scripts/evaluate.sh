@@ -16,15 +16,15 @@ conda activate typo
 cd ~/research_projects/typo/experiments/experiment_1
 
 iteration=1
-beta=0.3
+beta=1.0
 lr=1e-6
 model_path="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 
 python evaluate.py \
     start_example=0 \
-    max_example=100 \
-    batch_size=100 \
+    max_example=500 \
+    batch_size=500 \
     model_config.model="$model_path" \
     model_config.download_dir="$download_dir" \
     file_name="evaluation-iteration-${iteration}-${lr}-${beta}"

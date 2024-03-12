@@ -154,17 +154,17 @@ def main(args: DictConfig) -> None:
             with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
                 json.dump(win_rates_harmless, file, indent=4)
                 
-            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_helpful.json', 'w') as file:
-                json.dump(length_base_helpful, file, indent=4)
+            # with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_helpful.json', 'w') as file:
+            #     json.dump(length_base_helpful, file, indent=4)
                 
-            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_helpful.json', 'w') as file:
-                json.dump(length_test_helpful, file, indent=4)
+            # with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_helpful.json', 'w') as file:
+            #     json.dump(length_test_helpful, file, indent=4)
                 
-            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_harmless.json', 'w') as file:
-                json.dump(length_base_harmless, file, indent=4)
+            # with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_harmless.json', 'w') as file:
+            #     json.dump(length_base_harmless, file, indent=4)
                 
-            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_harmless.json', 'w') as file:
-                json.dump(length_test_harmless, file, indent=4)
+            # with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_harmless.json', 'w') as file:
+            #     json.dump(length_test_harmless, file, indent=4)
                 
             print("WIN RATES AT: ", i)
             print('helpful', np.mean(win_rates_helpful))
