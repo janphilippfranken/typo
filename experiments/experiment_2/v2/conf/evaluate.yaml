@@ -1,9 +1,9 @@
-output_dir: results/responses
-file_name: sft-dpo-model
+output_dir: results/responses/sweep
+file_name: null
 
-start_example: 0
-max_example: 1000
-batch_size: 1000
+start_example: null
+max_example: null
+batch_size: null
 
 generation_config:
   max_new_tokens: 350
@@ -11,11 +11,11 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-beta-0.1-iteration-1/checkpoint-390/
-  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-beta-0.1-iteration-1/checkpoint-390/
+  model: null
+  download_dir: null
   dtype: auto
   quantization: null
-  tensor_parallel_size: 2
+  tensor_parallel_size: 1
 
 dataset_helpful: 
   path: Anthropic/hh-rlhf
@@ -31,7 +31,5 @@ dataset_harmless:
 
 temperatures:
  - 0.0
- - 0.3
- - 1.0
-
-constitution_key: helpful_harmless_vs_not_helpful_harmless_helpful_base
+ 
+constitution_key: 'helpful' # does not matter whether helpful or harmless as we shuffle

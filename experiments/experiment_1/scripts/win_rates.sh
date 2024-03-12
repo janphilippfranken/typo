@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=4                   # Number of CPUs per task
 #SBATCH --time=256:00:00                    # Time limit
 #SBATCH --output=win_rates.out
-#SBATCH --error=in_rates.err
+#SBATCH --error=win_rates.err
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate typo

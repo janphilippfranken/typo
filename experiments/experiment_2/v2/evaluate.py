@@ -11,7 +11,7 @@ from datasets import load_dataset
 from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 
-from prompts import PROMPT_EVALUATION, CONSTITUTIONS
+from prompts import *
 
 
 # main evaluation script 
@@ -40,7 +40,7 @@ def main(args: DictConfig) -> None:
     )
     
     # constitutions
-    constitution = CONSTITUTIONS[args.constitution_key]["positive"]
+    constitution = CONSTITUTIONS[str(args.constitution_key)]["positive"]
     
     for temperature in args.temperatures:
     
@@ -73,12 +73,12 @@ def main(args: DictConfig) -> None:
                 constitution_shuffled = "\n".join(principles)
                 batch_constitutions.append(constitution_shuffled)
                 
-                prompt_helpful = PROMPT_EVALUATION.format(
+                prompt_helpful = PROMPT_TRAINING.format(
                     constitution=constitution_shuffled.strip(),
                     question=question_helpful.strip(),
                 )
 
-                prompt_harmless = PROMPT_EVALUATION.format(
+                prompt_harmless = PROMPT_TRAINING.format(
                     constitution=constitution_shuffled.strip(),
                     question=question_harmless.strip(),
                 )  
@@ -101,11 +101,11 @@ def main(args: DictConfig) -> None:
                         
                         # index within the batch
                         batch_item_index = int(j / 2)
-                        # breakpoint()
+                        
                         all_responses['constitution'][batch_item_index] = batch_constitutions[batch_item_index].strip()
-                        all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].strip()
+                        all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
                         all_responses['response_helpful'][batch_item_index] = formatted_responses[0]
-                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].strip()
+                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].split("Human:")[1].strip()
                         all_responses['response_harmless'][batch_item_index] = formatted_responses[1]
                         
                     # reset for the next batch

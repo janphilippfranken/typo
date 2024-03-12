@@ -1,35 +1,37 @@
 hydra:
   run:
-    dir: outputs
+    dir: hydra-configs
+
+# data
+data_path: data/sweep
+helpful: null
+harmless: null
+n_examples: null
+n_responses: 2
+n_constitutions: 2
 
 defaults:
-  - model: mistral_7b_sft
-  - data: hh_rlhf
+  - model: mistral_7b_base
 
 wandb:
-  project: hh-rlhf-dpo-exp-2
-  name: null
+  project: hh-rlhf-typo-exp-1
+  name: typo
 
-dpo:
+typo:
   beta: 0.1
 
-train_split: 0.00
-max_prompt_length: 1024
-
-training_args:
-  output_dir: null
-  per_device_train_batch_size: 1
+training:
+  evaluate_before_training: false
+  evaluate: false
+  n_epochs: 1
+  lr: 1e-6
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 1.0
+  checkpoint_dir: null 
+  max_grad_norm: 1.0
+  num_warmup_steps: 1
   gradient_accumulation_steps: 32
-  learning_rate: 1e-6
-  num_train_epochs: 1
-  save_total_limit: 1
-  evaluation_strategy: 'no'
+  save_after_n_steps: false
   seed: 42
-  save_strategy: epoch
-  report_to: wandb
-  bf16: true
-  lr_scheduler_type: cosine
-  warmup_ratio: 0.1
-  do_eval: true
-  logging_steps: 1
-  logging_strategy: steps
+  model_archive: null 

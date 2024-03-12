@@ -51,10 +51,7 @@ def format_example(
 
     for i, constitution in enumerate(example): 
 
-        prompt = f"{constitution['prompt']}\n\nAssistant:"
-        # # \n\nAssistant:"
-        # print("CHECK ASSISTANT PROMPT")
-        # breakpoint()
+        prompt = f"{constitution['prompt']}
 
         for j, response in enumerate(example): 
     
@@ -76,9 +73,7 @@ def format_example_dpo(
 
     for i, constitution in enumerate(example): 
 
-        prompt = f"{constitution['prompt']}\n\nAssistant:"
-        # print("CHECK ASSISTANT PROMPT")
-        # breakpoint()
+        prompt = f"{constitution['prompt']}
         
         formatted_example['prompts'].append(prompt)    
 

@@ -22,7 +22,7 @@ export CUDA_LAUNCH_BLOCKING=1
 
 beta=2.0
 lr=1e-6
-iteration=0
+iteration=1
 checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 
 torchrun --nproc_per_node=4 train_typo.py \
