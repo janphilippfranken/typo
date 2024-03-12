@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 
-OUTPUT_DIR = 'results'
+OUTPUT_DIR = 'results/plots'
 
 
 from plot_utils import lighten_color, change_saturation, get_fancy_bbox
@@ -30,7 +30,7 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
         ax.errorbar(temperatures, means, yerr=errors, fmt='o-', color=palette[i], label=labels[i])
 
     ax.set_ylabel('Win Rate')
-    ax.set_xlabel('Sampling Temperature')
+    ax.set_xlabel('Iteration')
     ax.set_xticks(temperatures)
     ax.set_xticklabels(map(str, temperatures))
     ax.set_yticks([0.5,  0.6, 0.7, 0.8, 0.9])
@@ -38,7 +38,7 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     ax.set_ylim(0.475, .925)  
     ax.set_xlim(min(temperatures) - 0.05, max(temperatures) + 0.05)
     ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
-    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.25, 0.95), prop={'size': 16})
+    ax.legend(loc='upper left', ncol=4, fontsize=8, frameon=False, bbox_to_anchor=(0.25, 0.95), prop={'size': 16})
 
     sns.despine()
     plt.title(title)
@@ -48,146 +48,112 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     plt.savefig(f'{OUTPUT_DIR}/{filename}.png')
     plt.close()  # Close the plot to prevent it from showing inline if using Jupyter
 
-def main():
-    # against base
-    typo_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-base-helpful-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-base-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-base-helpful-temperature-1.0.json",
-    ]
-    
-    typo_base_harmless = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-base-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-base-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-base-harmless-temperature-1.0.json",
-    ]
-    
-    sft_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/sft-against-base-helpful-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-against-base-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-against-base-helpful-temperature-1.0.json",
-    ]
-    
-    sft_base_harmless = [
-        "results/win_rates_gpt4_no_sorry_positive/sft-against-base-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-against-base-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-against-base-harmless-temperature-1.0.json",
-    ]
-    
-    # dpo_no_sft_base_helpful = [
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
+def main(): 
+    # # beta 0.5
+    # helpful_beta_05 = [
+    #     "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-0.5-temperature-0.0-helpful.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-0.5-temperature-0.0-helpful.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-0.5-temperature-0.0-helpful.json",
     # ]
     
-    # dpo_no_sft_base_harmless = [
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-0.0.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-0.3.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-harmless-temperature-1.0.json",
+    # harmless_beta_05 = [
+    #     "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-0.5-temperature-0.0-harmless.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-0.5-temperature-0.0-harmless.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-0.5-temperature-0.0-harmless.json",
+    # ]
+     
+    # beta 1.0
+    helpful_beta_1 = [
+        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+    ]
+    
+    harmless_beta_1 = [
+        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+    ]
+    
+    helpful_beta_1vsbase = [
+        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-1vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-2vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+    ]
+    
+    harmless_beta_1vsbase = [
+        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-1vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-2vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+    ]
+    
+    # # beta 2.0
+    # helpful_beta_2 = [
+    #     "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-2.0-temperature-0.0-helpful.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-2.0-temperature-0.0-helpful.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-2.0-temperature-0.0-helpful.json",
     # ]
     
-    dpo_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
-    ]
-    
-    dpo_base_harmless = [
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/sft-dpo-beta-0.1-against-base-harmless-temperature-1.0.json",
-    ]
-    
-    # dpo_sft_base_helpful = [
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.0.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-0.3.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-base-helpful-temperature-1.0.json",
+    # harmless_beta_2 = [
+    #     "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-2.0-temperature-0.0-harmless.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-2.0-temperature-0.0-harmless.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-2.0-temperature-0.0-harmless.json",
     # ]
     
-    # dpo_sft_base_harmless = [
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-sft-harmless-temperature-0.0.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-sft-harmless-temperature-0.3.json",
-    #     "results/win_rates_gpt4_no_sorry_positive/dpo-beta-0.1-against-sft-harmless-temperature-1.0.json",
+    # # beta 3.0
+    # helpful_beta_3 = [
+    #     "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-helpful.json",
     # ]
     
-    # against others
-    typo_sft_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-helpful-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-helpful-temperature-1.0.json",
-    ]
+    # harmless_beta_3 = [
+    #     "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
+    #     "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-harmless.json",
+    # ]
     
-    typo_sft_base_harmless = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-harmless-temperature-1.0.json",
-    ]
-    
-    typo_dpo_base_helpful = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-helpful-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-helpful-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-helpful-temperature-1.0.json",
-    ]
-    
-    typo_dpo_base_harmless = [
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.0.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-0.3.json",
-        "results/win_rates_gpt4_no_sorry_positive/typo-beta-0.1-against-sft-dpo-harmless-temperature-1.0.json",
-    ]
-    
- 
-  
     
     
 
+
     # Load datasets
-    dataset_typo_base_helpful = [load_data(path) for path in typo_base_helpful]
-    dataset_typo_base_harmless = [load_data(path) for path in typo_base_harmless]
-    dataset_sft_base_helpful = [load_data(path) for path in sft_base_helpful]
-    dataset_sft_base_harmless = [load_data(path) for path in sft_base_harmless]
-    dataset_dpo_base_helpful = [load_data(path) for path in dpo_base_helpful]
-    dataset_dpo_base_harmless = [load_data(path) for path in dpo_base_harmless]
-    # dataset_dpo_no_sft_helpful = [load_data(path) for path in dpo_no_sft_base_helpful]
-    # dataset_dpo_no_sft_harmless = [load_data(path) for path in dpo_no_sft_base_harmless]
-    # dataset_dpo_sft_helpful = [load_data(path) for path in dpo_sft_base_helpful]
-    # dataset_dpo_sft_harmless = [load_data(path) for path in dpo_sft_base_harmless]
-    dataset_typo_sft_base_helpful = [load_data(path) for path in typo_sft_base_helpful]
-    dataset_typo_sft_base_harmless = [load_data(path) for path in typo_sft_base_harmless]
-    dataset_typo_dpo_base_helpful = [load_data(path) for path in typo_dpo_base_helpful]
-    dataset_typo_dpo_base_harmless = [load_data(path) for path in typo_dpo_base_harmless]
-  
+    # dataset_helpful_beta_05 = [load_data(path) for path in helpful_beta_05]
+    # dataset_harmless_beta_05  = [load_data(path) for path in harmless_beta_05]
+    dataset_helpful_beta_1 = [load_data(path) for path in helpful_beta_1]
+    dataset_harmless_beta_1  = [load_data(path) for path in harmless_beta_1]
+    dataset_helpful_beta_1vsbase = [load_data(path) for path in helpful_beta_1vsbase]
+    dataset_harmless_beta_1vsbase  = [load_data(path) for path in harmless_beta_1vsbase]
+    # dataset_helpful_beta_2 = [load_data(path) for path in helpful_beta_2]
+    # dataset_harmless_beta_2  = [load_data(path) for path in harmless_beta_2]
+    # dataset_helpful_beta_3 = [load_data(path) for path in helpful_beta_3]
+    # dataset_harmless_beta_3  = [load_data(path) for path in harmless_beta_3]
   
 
     # Calculate statistics
-    means_typo_base_helpful, ns_typo_base_helpful, errors_typo_base_helpful = calculate_statistics(dataset_typo_base_helpful)
-    means_typo_base_harmless, ns_typo_base_harmless, errors_typo_base_harmless = calculate_statistics(dataset_typo_base_harmless)
-    means_sft_base_helpful, ns_sft_base_helpful, errors_sft_base_helpful = calculate_statistics(dataset_sft_base_helpful)
-    means_sft_base_harmless, ns_sft_base_harmless, errors_sft_base_harmless = calculate_statistics(dataset_sft_base_harmless)
-    means_dpo_base_helpful, ns_dpo_base_helpful, errors_dpo_base_helpful = calculate_statistics(dataset_dpo_base_helpful)
-    means_dpo_base_harmless, ns_dpo_base_harmless, errors_dpo_base_harmless = calculate_statistics(dataset_dpo_base_harmless)
-    # means_dpo_no_sft_helpful, ns_dpo_no_sft_helpful, errors_dpo_no_sft_helpful = calculate_statistics(dataset_dpo_no_sft_helpful)
-    # means_dpo_no_sft_harmless, ns_dpo_no_sft_harmless, errors_dpo_no_sft_harmless = calculate_statistics(dataset_dpo_no_sft_harmless)
-    # means_dpo_sft_helpful, ns_dpo_sft_helpful, errors_dpo_sft_helpful = calculate_statistics(dataset_dpo_sft_helpful)
-    # means_dpo_sft_harmless, ns_dpo_sft_harmless, errors_dpo_sft_harmless = calculate_statistics(dataset_dpo_sft_harmless)
-    means_typo_sft_base_helpful, ns_typo_sft_base_helpful, errors_typo_sft_base_helpful = calculate_statistics(dataset_typo_sft_base_helpful)
-    means_typo_sft_base_harmless, ns_typo_sft_base_harmless, errors_typo_sft_base_harmless = calculate_statistics(dataset_typo_sft_base_harmless)
-    means_typo_dpo_base_helpful, ns_typo_dpo_base_helpful, errors_typo_dpo_base_helpful = calculate_statistics(dataset_typo_dpo_base_helpful)
-    means_typo_dpo_base_harmless, ns_typo_dpo_base_harmless, errors_typo_dpo_base_harmless = calculate_statistics(dataset_typo_dpo_base_harmless)
-    
-
+    # means_helpful_beta_05, ns_helpful_beta_05, errors_helpful_beta_05 = calculate_statistics(dataset_helpful_beta_05)
+    # means_harmless_beta_05, ns_harmless_beta_05, errors_harmless_beta_05 = calculate_statistics(dataset_harmless_beta_05)
+    means_helpful_beta_1, ns_helpful_beta_1, errors_helpful_beta_1 = calculate_statistics(dataset_helpful_beta_1)
+    means_harmless_beta_1, ns_harmless_beta_1, errors_harmless_beta_1 = calculate_statistics(dataset_harmless_beta_1)
+    means_helpful_beta_1vsbase, ns_helpful_beta_1vsbase, errors_helpful_beta_1vsbase = calculate_statistics(dataset_helpful_beta_1vsbase)
+    means_harmless_beta_1vsbase, ns_harmless_beta_1vsbase, errors_harmless_beta_1vsbase = calculate_statistics(dataset_harmless_beta_1vsbase)
+    # means_helpful_beta_2, ns_helpful_beta_2, errors_helpful_beta_2 = calculate_statistics(dataset_helpful_beta_2)
+    # means_harmless_beta_2, ns_harmless_beta_2, errors_harmless_beta_2 = calculate_statistics(dataset_harmless_beta_2)
+    # means_helpful_beta_3, ns_helpful_beta_3, errors_helpful_beta_3 = calculate_statistics(dataset_helpful_beta_3)
+    # means_harmless_beta_3, ns_harmless_beta_3, errors_harmless_beta_3 = calculate_statistics(dataset_harmless_beta_3)
+  
     
     # Plotting
-    temperatures = [0.0, 0.3, 1.0]  # Assuming these are your temperature values
-    plot_results(temperatures, [
-        means_typo_base_helpful, means_dpo_base_helpful,  means_typo_dpo_base_helpful],
-                 [errors_typo_base_helpful, errors_dpo_base_helpful,  errors_typo_dpo_base_helpful],
-                    ['typo > base','dpo > base','typo > dpo'], 'Helpful Win Rates', 'helpful_win_rates')
+    iterations = [1, 2, 3] 
+    plot_results(iterations, [
+        means_helpful_beta_1, means_helpful_beta_1vsbase],
+                 [errors_helpful_beta_1, errors_helpful_beta_1vsbase],
+                    ['> prev iteration', '> base'], 'Helpful Win Rates', 'helpful_win_rates')
     
-    plot_results(temperatures, [
-        means_typo_base_harmless, means_dpo_base_harmless, means_typo_dpo_base_harmless],
-                 [errors_typo_base_harmless,  errors_dpo_base_harmless, errors_typo_dpo_base_harmless],
-                    ['typo > base','dpo > base', 'typo > dpo'], 'Harmless Win Rates', 'harmless_win_rates')
-    
+    plot_results(iterations, [
+        means_harmless_beta_1, means_harmless_beta_1vsbase],
+                 [errors_harmless_beta_1, errors_harmless_beta_1vsbase],
+                    ['> prev iteration', '> base'], 'Harmless Win Rates', 'harmless_win_rates')
     
     breakpoint()
 

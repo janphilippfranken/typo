@@ -1,81 +1,744 @@
-2024-03-12 07:35:17,220	INFO worker.py:1724 -- Started a local Ray instance.
-Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]Processing examples:  34%|███▎      | 1342/4000 [00:00<00:00, 13418.29it/s]Processing examples:  71%|███████   | 2825/4000 [00:00<00:00, 14246.13it/s]
-Processed prompts:   0%|          | 0/8000 [00:00<?, ?it/s][AProcessing examples:  71%|███████   | 2825/4000 [00:15<00:00, 14246.13it/s]
-Processed prompts:   0%|          | 1/8000 [00:18<40:58:32, 18.44s/it][A
-Processed prompts:   3%|▎         | 257/8000 [00:37<15:52,  8.13it/s] [A
-Processed prompts:   6%|▋         | 512/8000 [00:47<15:21,  8.13it/s][A
-Processed prompts:   6%|▋         | 513/8000 [00:56<11:44, 10.62it/s][A
-Processed prompts:  10%|▉         | 768/8000 [01:07<11:20, 10.62it/s][A
-Processed prompts:  10%|▉         | 769/8000 [01:14<10:12, 11.81it/s][A
-Processed prompts:  13%|█▎        | 1024/8000 [01:27<09:50, 11.81it/s][A
-Processed prompts:  13%|█▎        | 1025/8000 [01:33<09:22, 12.41it/s][A
-Processed prompts:  16%|█▌        | 1280/8000 [01:47<09:01, 12.41it/s][A
-Processed prompts:  16%|█▌        | 1281/8000 [01:52<08:43, 12.83it/s][A
-Processed prompts:  19%|█▉        | 1536/8000 [02:07<08:23, 12.83it/s][A
-Processed prompts:  19%|█▉        | 1537/8000 [02:11<08:15, 13.04it/s][A
-Processed prompts:  22%|██▏       | 1792/8000 [02:22<07:56, 13.04it/s][A
-Processed prompts:  22%|██▏       | 1793/8000 [02:30<07:50, 13.20it/s][A
-Processed prompts:  26%|██▌       | 2048/8000 [02:42<07:30, 13.20it/s][A
-Processed prompts:  26%|██▌       | 2049/8000 [02:49<07:27, 13.30it/s][A
-Processed prompts:  29%|██▉       | 2304/8000 [03:02<07:08, 13.30it/s][A
-Processed prompts:  29%|██▉       | 2305/8000 [03:08<07:05, 13.39it/s][A
-Processed prompts:  32%|███▏      | 2560/8000 [03:22<06:46, 13.39it/s][A
-Processed prompts:  32%|███▏      | 2561/8000 [03:27<06:45, 13.42it/s][A
-Processed prompts:  35%|███▌      | 2816/8000 [03:37<06:26, 13.42it/s][A
-Processed prompts:  35%|███▌      | 2817/8000 [03:46<06:25, 13.46it/s][A
-Processed prompts:  38%|███▊      | 3072/8000 [03:57<06:06, 13.46it/s][A
-Processed prompts:  38%|███▊      | 3073/8000 [04:05<06:05, 13.46it/s][A
-Processed prompts:  42%|████▏     | 3328/8000 [04:17<05:47, 13.46it/s][A
-Processed prompts:  42%|████▏     | 3329/8000 [04:23<05:45, 13.54it/s][A
-Processed prompts:  45%|████▍     | 3584/8000 [04:37<05:26, 13.54it/s][A
-Processed prompts:  45%|████▍     | 3585/8000 [04:42<05:26, 13.52it/s][A
-Processed prompts:  48%|████▊     | 3840/8000 [04:57<05:07, 13.52it/s][A
-Processed prompts:  48%|████▊     | 3841/8000 [05:01<05:07, 13.53it/s][A
-Processed prompts:  51%|█████     | 4096/8000 [05:12<04:48, 13.53it/s][A
-Processed prompts:  51%|█████     | 4097/8000 [05:20<04:49, 13.48it/s][A
-Processed prompts:  54%|█████▍    | 4352/8000 [05:32<04:30, 13.48it/s][A
-Processed prompts:  54%|█████▍    | 4353/8000 [05:40<04:31, 13.44it/s][A
-Processed prompts:  58%|█████▊    | 4608/8000 [05:52<04:12, 13.44it/s][A
-Processed prompts:  58%|█████▊    | 4609/8000 [05:59<04:12, 13.45it/s][A
-Processed prompts:  61%|██████    | 4864/8000 [06:12<03:53, 13.45it/s][A
-Processed prompts:  61%|██████    | 4865/8000 [06:17<03:52, 13.49it/s][A
-Processed prompts:  64%|██████▍   | 5120/8000 [06:32<03:33, 13.49it/s][A
-Processed prompts:  64%|██████▍   | 5121/8000 [06:36<03:33, 13.51it/s][A
-Processed prompts:  67%|██████▋   | 5376/8000 [06:47<03:14, 13.51it/s][A
-Processed prompts:  67%|██████▋   | 5377/8000 [06:55<03:14, 13.49it/s][A
-Processed prompts:  70%|███████   | 5632/8000 [07:07<02:55, 13.49it/s][A
-Processed prompts:  70%|███████   | 5633/8000 [07:14<02:54, 13.53it/s][A
-Processed prompts:  74%|███████▎  | 5888/8000 [07:27<02:36, 13.53it/s][A
-Processed prompts:  74%|███████▎  | 5889/8000 [07:33<02:35, 13.57it/s][A
-Processed prompts:  77%|███████▋  | 6144/8000 [07:47<02:16, 13.57it/s][A
-Processed prompts:  77%|███████▋  | 6145/8000 [07:52<02:17, 13.51it/s][A
-Processed prompts:  80%|████████  | 6400/8000 [08:02<01:58, 13.51it/s][A
-Processed prompts:  80%|████████  | 6401/8000 [08:11<01:58, 13.48it/s][A
-Processed prompts:  83%|████████▎ | 6656/8000 [08:22<01:39, 13.48it/s][A
-Processed prompts:  83%|████████▎ | 6657/8000 [08:30<01:39, 13.43it/s][A
-Processed prompts:  86%|████████▋ | 6912/8000 [08:42<01:21, 13.43it/s][A
-Processed prompts:  86%|████████▋ | 6913/8000 [08:49<01:20, 13.47it/s][A
-Processed prompts:  90%|████████▉ | 7168/8000 [09:02<01:01, 13.47it/s][A
-Processed prompts:  90%|████████▉ | 7169/8000 [09:08<01:01, 13.45it/s][A
-Processed prompts:  93%|█████████▎| 7424/8000 [09:22<00:42, 13.45it/s][A
-Processed prompts:  93%|█████████▎| 7425/8000 [09:28<00:43, 13.35it/s][A
-Processed prompts:  96%|█████████▌| 7680/8000 [09:42<00:23, 13.35it/s][A
-Processed prompts:  96%|█████████▌| 7681/8000 [09:47<00:23, 13.44it/s][A
-Processed prompts:  99%|█████████▉| 7937/8000 [09:53<00:03, 16.79it/s][AProcessed prompts: 100%|██████████| 8000/8000 [09:53<00:00, 13.48it/s]
-Processing examples: 100%|██████████| 4000/4000 [09:56<00:00,  4.81it/s]   Processing examples: 100%|██████████| 4000/4000 [09:56<00:00,  6.70it/s]
-ERROR: Cannot find key: iteration=1
-Usage: generate.py <group|command|value>
-  available groups:      json | fire | random | hydra | np | List | Dict |
-                         transformers | CONSTITUTIONS
-  available commands:    DictConfig | tqdm | load_dataset |
-                         VLLMInferenceModel | get_first_question |
-                         format_responses | format_example | tokenize_func |
-                         shuffle_principles | main
-  available values:      PROMPT_GENERATION_ITERATION_0 | PROMPT_TRAINING |
-                         SYSTEM_MESSAGE | GPT4_WIN_RATE | HELPFUL_PRINCIPLE |
-                         NOT_HELPFUL_PRINCIPLE | HARMLESS_PRINCIPLE |
-                         NOT_HARMLESS_PRINCIPLE
-
-For detailed information on this command, run:
-  generate.py --help
-slurmstepd: error: *** JOB 7348691 ON cocoflops-hgx-1 CANCELLED AT 2024-03-12T07:51:06 ***
+2024-03-12 11:14:29,072	INFO worker.py:1724 -- Started a local Ray instance.
+Processing examples:   0%|          | 0/4000 [00:00<?, ?it/s]Processing examples:  35%|███▌      | 1413/4000 [00:00<00:00, 14128.13it/s]Processing examples:  73%|███████▎  | 2936/4000 [00:00<00:00, 14770.65it/s]
+Processed prompts:   0%|          | 0/8000 [00:00<?, ?it/s][A
+Processed prompts:   0%|          | 1/8000 [00:10<22:45:24, 10.24s/it][A
+Processed prompts:   0%|          | 2/8000 [00:11<10:24:36,  4.69s/it][A
+Processed prompts:   0%|          | 3/8000 [00:11<5:49:37,  2.62s/it] [AProcessing examples:  73%|███████▎  | 2936/4000 [00:14<00:00, 14770.65it/s]
+Processed prompts:   0%|          | 4/8000 [00:12<4:31:46,  2.04s/it][A
+Processed prompts:   0%|          | 6/8000 [00:14<3:06:41,  1.40s/it][A
+Processed prompts:   0%|          | 7/8000 [00:14<2:32:07,  1.14s/it][A
+Processed prompts:   0%|          | 8/8000 [00:14<1:54:13,  1.17it/s][A
+Processed prompts:   0%|          | 9/8000 [00:15<1:48:40,  1.23it/s][A
+Processed prompts:   0%|          | 10/8000 [00:16<2:21:02,  1.06s/it][A
+Processed prompts:   0%|          | 11/8000 [00:19<2:58:49,  1.34s/it][A
+Processed prompts:   3%|▎         | 257/8000 [00:28<06:23, 20.18it/s] [A
+Processed prompts:   3%|▎         | 258/8000 [00:29<07:17, 17.70it/s][A
+Processed prompts:   3%|▎         | 259/8000 [00:30<08:23, 15.37it/s][A
+Processed prompts:   3%|▎         | 261/8000 [00:30<08:27, 15.26it/s][A
+Processed prompts:   3%|▎         | 262/8000 [00:31<10:01, 12.87it/s][A
+Processed prompts:   3%|▎         | 264/8000 [00:32<12:50, 10.03it/s][A
+Processed prompts:   3%|▎         | 265/8000 [00:32<13:12,  9.76it/s][A
+Processed prompts:   3%|▎         | 266/8000 [00:33<13:51,  9.30it/s][A
+Processed prompts:   3%|▎         | 267/8000 [00:33<14:43,  8.75it/s][A
+Processed prompts:   3%|▎         | 268/8000 [00:33<17:39,  7.30it/s][A
+Processed prompts:   3%|▎         | 270/8000 [00:33<16:58,  7.59it/s][A
+Processed prompts:   3%|▎         | 271/8000 [00:34<29:44,  4.33it/s][A
+Processed prompts:   3%|▎         | 272/8000 [00:35<28:04,  4.59it/s][A
+Processed prompts:   3%|▎         | 273/8000 [00:35<38:41,  3.33it/s][A
+Processed prompts:   3%|▎         | 274/8000 [00:36<36:57,  3.48it/s][A
+Processed prompts:   3%|▎         | 275/8000 [00:36<38:20,  3.36it/s][A
+Processed prompts:   3%|▎         | 276/8000 [00:37<1:13:30,  1.75it/s][A
+Processed prompts:   3%|▎         | 277/8000 [00:38<1:12:40,  1.77it/s][A
+Processed prompts:   6%|▋         | 513/8000 [00:47<05:36, 22.26it/s]  [A
+Processed prompts:   6%|▋         | 514/8000 [00:49<06:46, 18.43it/s][A
+Processed prompts:   6%|▋         | 515/8000 [00:49<07:34, 16.46it/s][A
+Processed prompts:   6%|▋         | 518/8000 [00:50<07:36, 16.38it/s][A
+Processed prompts:   6%|▋         | 519/8000 [00:51<09:13, 13.52it/s][A
+Processed prompts:   7%|▋         | 521/8000 [00:51<09:39, 12.90it/s][A
+Processed prompts:   7%|▋         | 522/8000 [00:52<12:50,  9.71it/s][A
+Processed prompts:   7%|▋         | 523/8000 [00:52<13:18,  9.36it/s][A
+Processed prompts:   7%|▋         | 524/8000 [00:52<14:10,  8.79it/s][A
+Processed prompts:   7%|▋         | 525/8000 [00:53<18:40,  6.67it/s][A
+Processed prompts:   7%|▋         | 526/8000 [00:53<19:39,  6.34it/s][A
+Processed prompts:   7%|▋         | 527/8000 [00:53<19:16,  6.46it/s][A
+Processed prompts:   7%|▋         | 528/8000 [00:53<18:53,  6.59it/s][A
+Processed prompts:   7%|▋         | 529/8000 [00:53<18:30,  6.73it/s][A
+Processed prompts:   7%|▋         | 531/8000 [00:54<17:11,  7.24it/s][A
+Processed prompts:   7%|▋         | 532/8000 [00:54<29:00,  4.29it/s][A
+Processed prompts:   7%|▋         | 534/8000 [00:54<22:30,  5.53it/s][A
+Processed prompts:   7%|▋         | 535/8000 [00:55<35:02,  3.55it/s][A
+Processed prompts:   7%|▋         | 538/8000 [00:55<25:17,  4.92it/s][A
+Processed prompts:   7%|▋         | 539/8000 [00:57<1:00:29,  2.06it/s][A
+Processed prompts:   7%|▋         | 540/8000 [00:58<1:10:39,  1.76it/s][A
+Processed prompts:  10%|▉         | 769/8000 [01:07<05:44, 21.01it/s]  [A
+Processed prompts:  10%|▉         | 771/8000 [01:09<07:13, 16.69it/s][A
+Processed prompts:  10%|▉         | 774/8000 [01:10<07:14, 16.63it/s][A
+Processed prompts:  10%|▉         | 775/8000 [01:10<08:21, 14.41it/s][A
+Processed prompts:  10%|▉         | 777/8000 [01:11<08:41, 13.85it/s][A
+Processed prompts:  10%|▉         | 778/8000 [01:11<10:37, 11.33it/s][A
+Processed prompts:  10%|▉         | 779/8000 [01:12<10:57, 10.98it/s][A
+Processed prompts:  10%|▉         | 780/8000 [01:12<12:09,  9.90it/s][A
+Processed prompts:  10%|▉         | 781/8000 [01:12<12:40,  9.49it/s][A
+Processed prompts:  10%|▉         | 782/8000 [01:12<13:50,  8.69it/s][A
+Processed prompts:  10%|▉         | 783/8000 [01:13<15:14,  7.89it/s][A
+Processed prompts:  10%|▉         | 784/8000 [01:13<16:39,  7.22it/s][A
+Processed prompts:  10%|▉         | 785/8000 [01:13<16:30,  7.28it/s][A
+Processed prompts:  10%|▉         | 786/8000 [01:13<16:22,  7.34it/s][A
+Processed prompts:  10%|▉         | 788/8000 [01:13<14:19,  8.39it/s][A
+Processed prompts:  10%|▉         | 790/8000 [01:14<13:53,  8.65it/s][A
+Processed prompts:  10%|▉         | 791/8000 [01:14<25:18,  4.75it/s][A
+Processed prompts:  10%|▉         | 793/8000 [01:14<19:57,  6.02it/s][A
+Processed prompts:  10%|▉         | 794/8000 [01:15<32:07,  3.74it/s][A
+Processed prompts:  10%|▉         | 797/8000 [01:15<23:11,  5.18it/s][A
+Processed prompts:  10%|▉         | 798/8000 [01:17<52:11,  2.30it/s][A
+Processed prompts:  10%|▉         | 799/8000 [01:17<49:27,  2.43it/s][A
+Processed prompts:  10%|█         | 800/8000 [01:17<45:52,  2.62it/s][A
+Processed prompts:  10%|█         | 801/8000 [01:18<49:59,  2.40it/s][A
+Processed prompts:  13%|█▎        | 1025/8000 [01:25<04:18, 26.94it/s][A
+Processed prompts:  13%|█▎        | 1027/8000 [01:28<06:33, 17.74it/s][A
+Processed prompts:  13%|█▎        | 1028/8000 [01:29<07:20, 15.82it/s][A
+Processed prompts:  13%|█▎        | 1031/8000 [01:29<07:22, 15.76it/s][A
+Processed prompts:  13%|█▎        | 1032/8000 [01:31<09:29, 12.23it/s][A
+Processed prompts:  13%|█▎        | 1034/8000 [01:31<09:53, 11.74it/s][A
+Processed prompts:  13%|█▎        | 1035/8000 [01:31<11:19, 10.25it/s][A
+Processed prompts:  13%|█▎        | 1036/8000 [01:31<11:43,  9.90it/s][A
+Processed prompts:  13%|█▎        | 1037/8000 [01:32<13:14,  8.76it/s][A
+Processed prompts:  13%|█▎        | 1038/8000 [01:32<13:50,  8.38it/s][A
+Processed prompts:  13%|█▎        | 1039/8000 [01:32<15:05,  7.69it/s][A
+Processed prompts:  13%|█▎        | 1040/8000 [01:32<16:33,  7.00it/s][A
+Processed prompts:  13%|█▎        | 1041/8000 [01:33<18:04,  6.41it/s][A
+Processed prompts:  13%|█▎        | 1042/8000 [01:33<17:34,  6.60it/s][A
+Processed prompts:  13%|█▎        | 1043/8000 [01:33<17:04,  6.79it/s][A
+Processed prompts:  13%|█▎        | 1045/8000 [01:33<14:24,  8.04it/s][A
+Processed prompts:  13%|█▎        | 1047/8000 [01:33<13:53,  8.35it/s][A
+Processed prompts:  13%|█▎        | 1048/8000 [01:34<25:18,  4.58it/s][A
+Processed prompts:  13%|█▎        | 1050/8000 [01:34<19:42,  5.88it/s][A
+Processed prompts:  13%|█▎        | 1051/8000 [01:34<24:40,  4.69it/s][A
+Processed prompts:  13%|█▎        | 1052/8000 [01:35<36:19,  3.19it/s][A
+Processed prompts:  13%|█▎        | 1055/8000 [01:35<23:35,  4.91it/s][A
+Processed prompts:  13%|█▎        | 1057/8000 [01:36<24:45,  4.67it/s][A
+Processed prompts:  13%|█▎        | 1059/8000 [01:36<21:27,  5.39it/s][A
+Processed prompts:  13%|█▎        | 1060/8000 [01:37<26:41,  4.33it/s][A
+Processed prompts:  13%|█▎        | 1061/8000 [01:37<28:06,  4.11it/s][A
+Processed prompts:  13%|█▎        | 1062/8000 [01:37<30:24,  3.80it/s][A
+Processed prompts:  13%|█▎        | 1064/8000 [01:37<25:01,  4.62it/s][A
+Processed prompts:  13%|█▎        | 1065/8000 [01:38<28:00,  4.13it/s][A
+Processed prompts:  13%|█▎        | 1066/8000 [01:38<28:40,  4.03it/s][A
+Processed prompts:  16%|█▌        | 1281/8000 [01:42<02:31, 44.36it/s][A
+Processed prompts:  16%|█▌        | 1283/8000 [01:46<05:17, 21.14it/s][A
+Processed prompts:  16%|█▌        | 1285/8000 [01:49<08:14, 13.57it/s][A
+Processed prompts:  16%|█▌        | 1286/8000 [01:50<08:51, 12.64it/s][A
+Processed prompts:  16%|█▌        | 1289/8000 [01:50<08:47, 12.72it/s][A
+Processed prompts:  16%|█▌        | 1290/8000 [01:51<10:47, 10.36it/s][A
+Processed prompts:  16%|█▌        | 1292/8000 [01:51<11:11,  9.99it/s][A
+Processed prompts:  16%|█▌        | 1293/8000 [01:51<12:58,  8.62it/s][A
+Processed prompts:  16%|█▌        | 1295/8000 [01:52<12:52,  8.68it/s][A
+Processed prompts:  16%|█▌        | 1296/8000 [01:52<12:58,  8.61it/s][A
+Processed prompts:  16%|█▌        | 1297/8000 [01:52<14:08,  7.90it/s][A
+Processed prompts:  16%|█▌        | 1299/8000 [01:52<13:20,  8.37it/s][A
+Processed prompts:  16%|█▋        | 1300/8000 [01:52<14:57,  7.46it/s][A
+Processed prompts:  16%|█▋        | 1301/8000 [01:53<16:35,  6.73it/s][A
+Processed prompts:  16%|█▋        | 1302/8000 [01:53<18:10,  6.14it/s][A
+Processed prompts:  16%|█▋        | 1303/8000 [01:53<17:20,  6.44it/s][A
+Processed prompts:  16%|█▋        | 1304/8000 [01:53<16:44,  6.67it/s][A
+Processed prompts:  16%|█▋        | 1306/8000 [01:53<13:37,  8.18it/s][A
+Processed prompts:  16%|█▋        | 1309/8000 [01:54<11:12,  9.95it/s][A
+Processed prompts:  16%|█▋        | 1310/8000 [01:54<26:00,  4.29it/s][A
+Processed prompts:  16%|█▋        | 1311/8000 [01:54<23:43,  4.70it/s][A
+Processed prompts:  16%|█▋        | 1313/8000 [01:55<18:27,  6.04it/s][A
+Processed prompts:  16%|█▋        | 1314/8000 [01:55<21:07,  5.28it/s][A
+Processed prompts:  16%|█▋        | 1315/8000 [01:55<19:42,  5.66it/s][A
+Processed prompts:  16%|█▋        | 1316/8000 [01:55<23:58,  4.65it/s][A
+Processed prompts:  16%|█▋        | 1319/8000 [01:56<16:45,  6.64it/s][A
+Processed prompts:  17%|█▋        | 1321/8000 [01:56<17:51,  6.23it/s][A
+Processed prompts:  17%|█▋        | 1322/8000 [01:56<17:18,  6.43it/s][A
+Processed prompts:  17%|█▋        | 1324/8000 [01:56<15:51,  7.01it/s][A
+Processed prompts:  17%|█▋        | 1326/8000 [01:57<18:32,  6.00it/s][A
+Processed prompts:  17%|█▋        | 1327/8000 [01:57<17:43,  6.28it/s][A
+Processed prompts:  17%|█▋        | 1328/8000 [01:57<18:22,  6.05it/s][A
+Processed prompts:  17%|█▋        | 1329/8000 [01:57<22:35,  4.92it/s][A
+Processed prompts:  17%|█▋        | 1330/8000 [01:58<24:36,  4.52it/s][A
+Processed prompts:  17%|█▋        | 1331/8000 [01:58<27:54,  3.98it/s][A
+Processed prompts:  17%|█▋        | 1332/8000 [01:58<26:57,  4.12it/s][A
+Processed prompts:  19%|█▉        | 1537/8000 [02:02<02:29, 43.31it/s][A
+Processed prompts:  19%|█▉        | 1539/8000 [02:06<04:54, 21.92it/s][A
+Processed prompts:  19%|█▉        | 1541/8000 [02:06<05:24, 19.90it/s][A
+Processed prompts:  19%|█▉        | 1542/8000 [02:07<05:42, 18.86it/s][A
+Processed prompts:  19%|█▉        | 1543/8000 [02:08<08:55, 12.05it/s][A
+Processed prompts:  19%|█▉        | 1544/8000 [02:09<10:21, 10.40it/s][A
+Processed prompts:  19%|█▉        | 1545/8000 [02:09<10:28, 10.28it/s][A
+Processed prompts:  19%|█▉        | 1546/8000 [02:09<12:19,  8.72it/s][A
+Processed prompts:  19%|█▉        | 1548/8000 [02:10<14:01,  7.67it/s][A
+Processed prompts:  19%|█▉        | 1550/8000 [02:10<13:39,  7.87it/s][A
+Processed prompts:  19%|█▉        | 1551/8000 [02:10<13:39,  7.87it/s][A
+Processed prompts:  19%|█▉        | 1552/8000 [02:11<15:26,  6.96it/s][A
+Processed prompts:  19%|█▉        | 1553/8000 [02:11<21:08,  5.08it/s][A
+Processed prompts:  19%|█▉        | 1555/8000 [02:11<19:53,  5.40it/s][A
+Processed prompts:  19%|█▉        | 1556/8000 [02:12<22:27,  4.78it/s][A
+Processed prompts:  19%|█▉        | 1557/8000 [02:12<21:48,  4.93it/s][A
+Processed prompts:  19%|█▉        | 1559/8000 [02:12<18:05,  5.93it/s][A
+Processed prompts:  20%|█▉        | 1560/8000 [02:12<17:15,  6.22it/s][A
+Processed prompts:  20%|█▉        | 1562/8000 [02:12<14:01,  7.65it/s][A
+Processed prompts:  20%|█▉        | 1563/8000 [02:13<13:58,  7.68it/s][A
+Processed prompts:  20%|█▉        | 1566/8000 [02:13<15:27,  6.94it/s][A
+Processed prompts:  20%|█▉        | 1567/8000 [02:13<16:57,  6.33it/s][A
+Processed prompts:  20%|█▉        | 1568/8000 [02:14<22:23,  4.79it/s][A
+Processed prompts:  20%|█▉        | 1569/8000 [02:14<22:48,  4.70it/s][A
+Processed prompts:  20%|█▉        | 1570/8000 [02:14<20:36,  5.20it/s][A
+Processed prompts:  20%|█▉        | 1573/8000 [02:14<14:21,  7.46it/s][A
+Processed prompts:  20%|█▉        | 1574/8000 [02:15<22:28,  4.77it/s][A
+Processed prompts:  20%|█▉        | 1575/8000 [02:15<20:47,  5.15it/s][A
+Processed prompts:  20%|█▉        | 1577/8000 [02:15<16:39,  6.43it/s][A
+Processed prompts:  20%|█▉        | 1578/8000 [02:15<19:39,  5.44it/s][A
+Processed prompts:  20%|█▉        | 1579/8000 [02:16<18:31,  5.78it/s][A
+Processed prompts:  20%|█▉        | 1580/8000 [02:16<22:53,  4.67it/s][A
+Processed prompts:  20%|█▉        | 1582/8000 [02:16<19:14,  5.56it/s][A
+Processed prompts:  20%|█▉        | 1584/8000 [02:16<18:23,  5.82it/s][A
+Processed prompts:  20%|█▉        | 1586/8000 [02:17<15:58,  6.70it/s][A
+Processed prompts:  20%|█▉        | 1588/8000 [02:17<14:51,  7.20it/s][A
+Processed prompts:  20%|█▉        | 1591/8000 [02:17<15:05,  7.08it/s][A
+Processed prompts:  20%|█▉        | 1592/8000 [02:17<14:55,  7.16it/s][A
+Processed prompts:  20%|█▉        | 1593/8000 [02:18<15:45,  6.78it/s][A
+Processed prompts:  20%|█▉        | 1594/8000 [02:18<27:00,  3.95it/s][A
+Processed prompts:  20%|█▉        | 1595/8000 [02:19<27:43,  3.85it/s][A
+Processed prompts:  20%|█▉        | 1596/8000 [02:19<29:59,  3.56it/s][A
+Processed prompts:  20%|█▉        | 1597/8000 [02:19<29:13,  3.65it/s][A
+Processed prompts:  22%|██▏       | 1793/8000 [02:23<02:20, 44.16it/s][A
+Processed prompts:  22%|██▏       | 1795/8000 [02:25<04:08, 24.97it/s][A
+Processed prompts:  22%|██▏       | 1797/8000 [02:27<05:17, 19.55it/s][A
+Processed prompts:  22%|██▏       | 1798/8000 [02:27<05:38, 18.30it/s][A
+Processed prompts:  22%|██▏       | 1799/8000 [02:27<06:38, 15.58it/s][A
+Processed prompts:  22%|██▎       | 1800/8000 [02:28<07:10, 14.41it/s][A
+Processed prompts:  23%|██▎       | 1801/8000 [02:29<11:17,  9.15it/s][A
+Processed prompts:  23%|██▎       | 1802/8000 [02:29<12:19,  8.38it/s][A
+Processed prompts:  23%|██▎       | 1803/8000 [02:29<13:39,  7.56it/s][A
+Processed prompts:  23%|██▎       | 1804/8000 [02:30<13:38,  7.57it/s][A
+Processed prompts:  23%|██▎       | 1805/8000 [02:30<17:19,  5.96it/s][A
+Processed prompts:  23%|██▎       | 1806/8000 [02:31<22:12,  4.65it/s][A
+Processed prompts:  23%|██▎       | 1808/8000 [02:31<19:00,  5.43it/s][A
+Processed prompts:  23%|██▎       | 1809/8000 [02:31<18:00,  5.73it/s][A
+Processed prompts:  23%|██▎       | 1810/8000 [02:31<19:52,  5.19it/s][A
+Processed prompts:  23%|██▎       | 1811/8000 [02:32<34:55,  2.95it/s][A
+Processed prompts:  23%|██▎       | 1813/8000 [02:32<27:40,  3.72it/s][A
+Processed prompts:  23%|██▎       | 1814/8000 [02:33<28:56,  3.56it/s][A
+Processed prompts:  23%|██▎       | 1815/8000 [02:33<26:28,  3.89it/s][A
+Processed prompts:  23%|██▎       | 1817/8000 [02:33<20:17,  5.08it/s][A
+Processed prompts:  23%|██▎       | 1818/8000 [02:33<18:50,  5.47it/s][A
+Processed prompts:  23%|██▎       | 1820/8000 [02:33<14:50,  6.94it/s][A
+Processed prompts:  23%|██▎       | 1821/8000 [02:33<14:29,  7.10it/s][A
+Processed prompts:  23%|██▎       | 1824/8000 [02:34<10:30,  9.80it/s][A
+Processed prompts:  23%|██▎       | 1826/8000 [02:34<17:36,  5.84it/s][A
+Processed prompts:  23%|██▎       | 1827/8000 [02:35<18:36,  5.53it/s][A
+Processed prompts:  23%|██▎       | 1828/8000 [02:35<17:30,  5.88it/s][A
+Processed prompts:  23%|██▎       | 1831/8000 [02:35<12:45,  8.05it/s][A
+Processed prompts:  23%|██▎       | 1832/8000 [02:35<19:18,  5.32it/s][A
+Processed prompts:  23%|██▎       | 1834/8000 [02:36<16:19,  6.30it/s][A
+Processed prompts:  23%|██▎       | 1836/8000 [02:36<13:39,  7.52it/s][A
+Processed prompts:  23%|██▎       | 1837/8000 [02:36<16:29,  6.23it/s][A
+Processed prompts:  23%|██▎       | 1838/8000 [02:36<15:51,  6.47it/s][A
+Processed prompts:  23%|██▎       | 1839/8000 [02:36<20:02,  5.13it/s][A
+Processed prompts:  23%|██▎       | 1841/8000 [02:37<17:33,  5.85it/s][A
+Processed prompts:  23%|██▎       | 1843/8000 [02:37<22:30,  4.56it/s][A
+Processed prompts:  23%|██▎       | 1845/8000 [02:38<18:33,  5.53it/s][A
+Processed prompts:  23%|██▎       | 1847/8000 [02:38<16:19,  6.28it/s][A
+Processed prompts:  23%|██▎       | 1850/8000 [02:38<15:44,  6.51it/s][A
+Processed prompts:  23%|██▎       | 1851/8000 [02:38<15:22,  6.66it/s][A
+Processed prompts:  23%|██▎       | 1852/8000 [02:38<15:03,  6.80it/s][A
+Processed prompts:  23%|██▎       | 1854/8000 [02:39<17:22,  5.90it/s][A
+Processed prompts:  23%|██▎       | 1855/8000 [02:39<19:47,  5.18it/s][A
+Processed prompts:  23%|██▎       | 1856/8000 [02:40<23:06,  4.43it/s][A
+Processed prompts:  23%|██▎       | 1857/8000 [02:40<22:58,  4.45it/s][A
+Processed prompts:  26%|██▌       | 2049/8000 [02:44<02:23, 41.53it/s][A
+Processed prompts:  26%|██▌       | 2051/8000 [02:46<03:57, 25.09it/s][A
+Processed prompts:  26%|██▌       | 2053/8000 [02:48<05:21, 18.50it/s][A
+Processed prompts:  26%|██▌       | 2054/8000 [02:48<05:42, 17.34it/s][A
+Processed prompts:  26%|██▌       | 2055/8000 [02:48<06:06, 16.23it/s][A
+Processed prompts:  26%|██▌       | 2056/8000 [02:48<06:39, 14.89it/s][A
+Processed prompts:  26%|██▌       | 2057/8000 [02:49<10:40,  9.28it/s][A
+Processed prompts:  26%|██▌       | 2058/8000 [02:50<11:40,  8.48it/s][A
+Processed prompts:  26%|██▌       | 2059/8000 [02:50<12:59,  7.62it/s][A
+Processed prompts:  26%|██▌       | 2061/8000 [02:50<11:55,  8.30it/s][A
+Processed prompts:  26%|██▌       | 2062/8000 [02:51<18:33,  5.34it/s][A
+Processed prompts:  26%|██▌       | 2063/8000 [02:51<22:33,  4.39it/s][A
+Processed prompts:  26%|██▌       | 2065/8000 [02:52<19:16,  5.13it/s][A
+Processed prompts:  26%|██▌       | 2066/8000 [02:52<18:13,  5.42it/s][A
+Processed prompts:  26%|██▌       | 2067/8000 [02:52<19:51,  4.98it/s][A
+Processed prompts:  26%|██▌       | 2068/8000 [02:52<21:16,  4.65it/s][A
+Processed prompts:  26%|██▌       | 2069/8000 [02:53<21:27,  4.61it/s][A
+Processed prompts:  26%|██▌       | 2071/8000 [02:53<16:07,  6.13it/s][A
+Processed prompts:  26%|██▌       | 2072/8000 [02:53<15:24,  6.42it/s][A
+Processed prompts:  26%|██▌       | 2073/8000 [02:53<14:48,  6.67it/s][A
+Processed prompts:  26%|██▌       | 2074/8000 [02:53<19:03,  5.18it/s][A
+Processed prompts:  26%|██▌       | 2075/8000 [02:54<18:53,  5.23it/s][A
+Processed prompts:  26%|██▌       | 2077/8000 [02:54<15:06,  6.54it/s][A
+Processed prompts:  26%|██▌       | 2078/8000 [02:54<14:30,  6.80it/s][A
+Processed prompts:  26%|██▌       | 2080/8000 [02:54<11:59,  8.23it/s][A
+Processed prompts:  26%|██▌       | 2081/8000 [02:54<12:10,  8.11it/s][A
+Processed prompts:  26%|██▌       | 2084/8000 [02:54<09:05, 10.84it/s][A
+Processed prompts:  26%|██▌       | 2087/8000 [02:55<13:28,  7.32it/s][A
+Processed prompts:  26%|██▌       | 2089/8000 [02:55<14:06,  6.98it/s][A
+Processed prompts:  26%|██▌       | 2090/8000 [02:55<13:50,  7.12it/s][A
+Processed prompts:  26%|██▌       | 2093/8000 [02:56<11:01,  8.93it/s][A
+Processed prompts:  26%|██▌       | 2094/8000 [02:56<11:20,  8.69it/s][A
+Processed prompts:  26%|██▌       | 2095/8000 [02:56<12:33,  7.84it/s][A
+Processed prompts:  26%|██▌       | 2096/8000 [02:56<21:07,  4.66it/s][A
+Processed prompts:  26%|██▌       | 2098/8000 [02:57<17:04,  5.76it/s][A
+Processed prompts:  26%|██▋       | 2100/8000 [02:57<13:57,  7.04it/s][A
+Processed prompts:  26%|██▋       | 2101/8000 [02:57<16:37,  5.91it/s][A
+Processed prompts:  26%|██▋       | 2102/8000 [02:57<15:43,  6.25it/s][A
+Processed prompts:  26%|██▋       | 2103/8000 [02:58<19:49,  4.96it/s][A
+Processed prompts:  26%|██▋       | 2105/8000 [02:58<17:04,  5.75it/s][A
+Processed prompts:  26%|██▋       | 2107/8000 [02:58<16:26,  5.97it/s][A
+Processed prompts:  26%|██▋       | 2109/8000 [02:58<14:21,  6.84it/s][A
+Processed prompts:  26%|██▋       | 2111/8000 [02:59<13:23,  7.33it/s][A
+Processed prompts:  26%|██▋       | 2114/8000 [02:59<13:39,  7.19it/s][A
+Processed prompts:  26%|██▋       | 2115/8000 [02:59<13:35,  7.22it/s][A
+Processed prompts:  26%|██▋       | 2116/8000 [02:59<13:28,  7.28it/s][A
+Processed prompts:  26%|██▋       | 2118/8000 [03:00<15:40,  6.26it/s][A
+Processed prompts:  26%|██▋       | 2119/8000 [03:00<18:05,  5.42it/s][A
+Processed prompts:  26%|██▋       | 2120/8000 [03:00<21:12,  4.62it/s][A
+Processed prompts:  27%|██▋       | 2121/8000 [03:01<21:29,  4.56it/s][A
+Processed prompts:  29%|██▉       | 2305/8000 [03:05<02:22, 40.02it/s][A
+Processed prompts:  29%|██▉       | 2307/8000 [03:07<04:08, 22.92it/s][A
+Processed prompts:  29%|██▉       | 2309/8000 [03:08<05:13, 18.17it/s][A
+Processed prompts:  29%|██▉       | 2310/8000 [03:09<05:34, 17.02it/s][A
+Processed prompts:  29%|██▉       | 2311/8000 [03:09<05:57, 15.91it/s][A
+Processed prompts:  29%|██▉       | 2312/8000 [03:09<06:30, 14.58it/s][A
+Processed prompts:  29%|██▉       | 2313/8000 [03:10<11:32,  8.21it/s][A
+Processed prompts:  29%|██▉       | 2315/8000 [03:11<12:15,  7.73it/s][A
+Processed prompts:  29%|██▉       | 2316/8000 [03:11<13:26,  7.05it/s][A
+Processed prompts:  29%|██▉       | 2318/8000 [03:11<12:14,  7.73it/s][A
+Processed prompts:  29%|██▉       | 2319/8000 [03:12<15:21,  6.17it/s][A
+Processed prompts:  29%|██▉       | 2320/8000 [03:12<20:02,  4.72it/s][A
+Processed prompts:  29%|██▉       | 2321/8000 [03:12<18:48,  5.03it/s][A
+Processed prompts:  29%|██▉       | 2322/8000 [03:13<17:32,  5.39it/s][A
+Processed prompts:  29%|██▉       | 2323/8000 [03:13<19:08,  4.94it/s][A
+Processed prompts:  29%|██▉       | 2324/8000 [03:13<20:30,  4.61it/s][A
+Processed prompts:  29%|██▉       | 2325/8000 [03:13<20:34,  4.60it/s][A
+Processed prompts:  29%|██▉       | 2327/8000 [03:13<15:13,  6.21it/s][A
+Processed prompts:  29%|██▉       | 2328/8000 [03:14<14:36,  6.47it/s][A
+Processed prompts:  29%|██▉       | 2329/8000 [03:14<14:00,  6.75it/s][A
+Processed prompts:  29%|██▉       | 2330/8000 [03:14<18:09,  5.21it/s][A
+Processed prompts:  29%|██▉       | 2331/8000 [03:14<17:44,  5.32it/s][A
+Processed prompts:  29%|██▉       | 2333/8000 [03:14<14:17,  6.61it/s][A
+Processed prompts:  29%|██▉       | 2334/8000 [03:15<13:47,  6.85it/s][A
+Processed prompts:  29%|██▉       | 2336/8000 [03:15<11:24,  8.27it/s][A
+Processed prompts:  29%|██▉       | 2337/8000 [03:15<18:07,  5.21it/s][A
+Processed prompts:  29%|██▉       | 2340/8000 [03:15<12:05,  7.81it/s][A
+Processed prompts:  29%|██▉       | 2343/8000 [03:16<14:46,  6.38it/s][A
+Processed prompts:  29%|██▉       | 2345/8000 [03:16<14:38,  6.44it/s][A
+Processed prompts:  29%|██▉       | 2346/8000 [03:16<14:14,  6.62it/s][A
+Processed prompts:  29%|██▉       | 2349/8000 [03:17<11:01,  8.54it/s][A
+Processed prompts:  29%|██▉       | 2350/8000 [03:17<11:09,  8.44it/s][A
+Processed prompts:  29%|██▉       | 2351/8000 [03:17<12:15,  7.68it/s][A
+Processed prompts:  29%|██▉       | 2352/8000 [03:17<14:16,  6.59it/s][A
+Processed prompts:  29%|██▉       | 2354/8000 [03:17<12:37,  7.45it/s][A
+Processed prompts:  29%|██▉       | 2357/8000 [03:18<09:12, 10.21it/s][A
+Processed prompts:  29%|██▉       | 2359/8000 [03:18<12:11,  7.72it/s][A
+Processed prompts:  30%|██▉       | 2361/8000 [03:18<10:24,  9.03it/s][A
+Processed prompts:  30%|██▉       | 2363/8000 [03:18<10:59,  8.55it/s][A
+Processed prompts:  30%|██▉       | 2365/8000 [03:19<11:19,  8.29it/s][A
+Processed prompts:  30%|██▉       | 2367/8000 [03:19<12:18,  7.63it/s][A
+Processed prompts:  30%|██▉       | 2369/8000 [03:19<11:37,  8.07it/s][A
+Processed prompts:  30%|██▉       | 2371/8000 [03:19<11:20,  8.28it/s][A
+Processed prompts:  30%|██▉       | 2374/8000 [03:20<09:14, 10.15it/s][A
+Processed prompts:  30%|██▉       | 2376/8000 [03:20<11:54,  7.87it/s][A
+Processed prompts:  30%|██▉       | 2377/8000 [03:20<11:56,  7.85it/s][A
+Processed prompts:  30%|██▉       | 2379/8000 [03:20<12:44,  7.35it/s][A
+Processed prompts:  30%|██▉       | 2380/8000 [03:20<12:36,  7.43it/s][A
+Processed prompts:  30%|██▉       | 2381/8000 [03:21<21:33,  4.34it/s][A
+Processed prompts:  30%|██▉       | 2382/8000 [03:21<23:40,  3.95it/s][A
+Processed prompts:  30%|██▉       | 2383/8000 [03:22<22:45,  4.11it/s][A
+Processed prompts:  32%|███▏      | 2561/8000 [03:25<02:10, 41.64it/s][A
+Processed prompts:  32%|███▏      | 2563/8000 [03:28<03:54, 23.19it/s][A
+Processed prompts:  32%|███▏      | 2565/8000 [03:29<04:46, 18.99it/s][A
+Processed prompts:  32%|███▏      | 2566/8000 [03:29<05:03, 17.92it/s][A
+Processed prompts:  32%|███▏      | 2567/8000 [03:29<05:31, 16.39it/s][A
+Processed prompts:  32%|███▏      | 2568/8000 [03:30<06:49, 13.28it/s][A
+Processed prompts:  32%|███▏      | 2569/8000 [03:30<07:29, 12.07it/s][A
+Processed prompts:  32%|███▏      | 2570/8000 [03:31<12:29,  7.24it/s][A
+Processed prompts:  32%|███▏      | 2572/8000 [03:32<13:15,  6.82it/s][A
+Processed prompts:  32%|███▏      | 2573/8000 [03:32<14:38,  6.18it/s][A
+Processed prompts:  32%|███▏      | 2575/8000 [03:32<12:50,  7.04it/s][A
+Processed prompts:  32%|███▏      | 2576/8000 [03:33<16:22,  5.52it/s][A
+Processed prompts:  32%|███▏      | 2577/8000 [03:33<21:35,  4.19it/s][A
+Processed prompts:  32%|███▏      | 2578/8000 [03:33<19:50,  4.55it/s][A
+Processed prompts:  32%|███▏      | 2579/8000 [03:33<18:10,  4.97it/s][A
+Processed prompts:  32%|███▏      | 2580/8000 [03:34<19:40,  4.59it/s][A
+Processed prompts:  32%|███▏      | 2581/8000 [03:34<20:55,  4.32it/s][A
+Processed prompts:  32%|███▏      | 2582/8000 [03:34<28:22,  3.18it/s][A
+Processed prompts:  32%|███▏      | 2584/8000 [03:35<19:30,  4.63it/s][A
+Processed prompts:  32%|███▏      | 2585/8000 [03:35<17:45,  5.08it/s][A
+Processed prompts:  32%|███▏      | 2586/8000 [03:35<22:33,  4.00it/s][A
+Processed prompts:  32%|███▏      | 2587/8000 [03:35<20:52,  4.32it/s][A
+Processed prompts:  32%|███▏      | 2589/8000 [03:36<15:57,  5.65it/s][A
+Processed prompts:  32%|███▏      | 2590/8000 [03:36<14:59,  6.01it/s][A
+Processed prompts:  32%|███▏      | 2592/8000 [03:36<11:54,  7.56it/s][A
+Processed prompts:  32%|███▏      | 2593/8000 [03:36<11:58,  7.52it/s][A
+Processed prompts:  32%|███▏      | 2596/8000 [03:36<08:49, 10.20it/s][A
+Processed prompts:  32%|███▏      | 2599/8000 [03:37<12:31,  7.19it/s][A
+Processed prompts:  33%|███▎      | 2603/8000 [03:37<10:13,  8.80it/s][A
+Processed prompts:  33%|███▎      | 2604/8000 [03:37<10:28,  8.59it/s][A
+Processed prompts:  33%|███▎      | 2607/8000 [03:37<09:01,  9.96it/s][A
+Processed prompts:  33%|███▎      | 2609/8000 [03:38<10:10,  8.83it/s][A
+Processed prompts:  33%|███▎      | 2610/8000 [03:38<11:59,  7.49it/s][A
+Processed prompts:  33%|███▎      | 2612/8000 [03:38<11:23,  7.88it/s][A
+Processed prompts:  33%|███▎      | 2615/8000 [03:38<10:38,  8.43it/s][A
+Processed prompts:  33%|███▎      | 2616/8000 [03:39<10:49,  8.28it/s][A
+Processed prompts:  33%|███▎      | 2617/8000 [03:39<10:58,  8.18it/s][A
+Processed prompts:  33%|███▎      | 2619/8000 [03:39<09:11,  9.76it/s][A
+Processed prompts:  33%|███▎      | 2621/8000 [03:39<10:01,  8.94it/s][A
+Processed prompts:  33%|███▎      | 2623/8000 [03:39<10:32,  8.50it/s][A
+Processed prompts:  33%|███▎      | 2625/8000 [03:40<16:18,  5.49it/s][A
+Processed prompts:  33%|███▎      | 2627/8000 [03:40<14:13,  6.30it/s][A
+Processed prompts:  33%|███▎      | 2629/8000 [03:41<13:07,  6.82it/s][A
+Processed prompts:  33%|███▎      | 2634/8000 [03:41<07:58, 11.20it/s][A
+Processed prompts:  33%|███▎      | 2636/8000 [03:41<10:20,  8.65it/s][A
+Processed prompts:  33%|███▎      | 2638/8000 [03:41<10:05,  8.86it/s][A
+Processed prompts:  33%|███▎      | 2640/8000 [03:42<11:00,  8.12it/s][A
+Processed prompts:  33%|███▎      | 2642/8000 [03:42<12:23,  7.21it/s][A
+Processed prompts:  33%|███▎      | 2643/8000 [03:42<15:05,  5.92it/s][A
+Processed prompts:  33%|███▎      | 2644/8000 [03:43<16:01,  5.57it/s][A
+Processed prompts:  35%|███▌      | 2817/8000 [03:46<02:16, 38.07it/s][A
+Processed prompts:  35%|███▌      | 2819/8000 [03:49<03:45, 23.02it/s][A
+Processed prompts:  35%|███▌      | 2821/8000 [03:50<04:52, 17.73it/s][A
+Processed prompts:  35%|███▌      | 2822/8000 [03:50<05:08, 16.78it/s][A
+Processed prompts:  35%|███▌      | 2823/8000 [03:51<05:37, 15.33it/s][A
+Processed prompts:  35%|███▌      | 2824/8000 [03:51<06:07, 14.08it/s][A
+Processed prompts:  35%|███▌      | 2825/8000 [03:51<06:48, 12.68it/s][A
+Processed prompts:  35%|███▌      | 2826/8000 [03:52<11:38,  7.40it/s][A
+Processed prompts:  35%|███▌      | 2828/8000 [03:53<12:21,  6.97it/s][A
+Processed prompts:  35%|███▌      | 2829/8000 [03:53<13:40,  6.30it/s][A
+Processed prompts:  35%|███▌      | 2831/8000 [03:53<14:49,  5.81it/s][A
+Processed prompts:  35%|███▌      | 2832/8000 [03:54<17:55,  4.80it/s][A
+Processed prompts:  35%|███▌      | 2833/8000 [03:54<22:26,  3.84it/s][A
+Processed prompts:  35%|███▌      | 2834/8000 [03:54<20:26,  4.21it/s][A
+Processed prompts:  35%|███▌      | 2835/8000 [03:55<18:30,  4.65it/s][A
+Processed prompts:  35%|███▌      | 2836/8000 [03:55<19:35,  4.39it/s][A
+Processed prompts:  35%|███▌      | 2837/8000 [03:55<20:32,  4.19it/s][A
+Processed prompts:  35%|███▌      | 2839/8000 [03:55<16:07,  5.33it/s][A
+Processed prompts:  36%|███▌      | 2841/8000 [03:55<12:46,  6.73it/s][A
+Processed prompts:  36%|███▌      | 2843/8000 [03:56<10:16,  8.37it/s][A
+Processed prompts:  36%|███▌      | 2845/8000 [03:56<14:01,  6.13it/s][A
+Processed prompts:  36%|███▌      | 2846/8000 [03:56<13:32,  6.34it/s][A
+Processed prompts:  36%|███▌      | 2848/8000 [03:56<12:03,  7.12it/s][A
+Processed prompts:  36%|███▌      | 2849/8000 [03:57<11:48,  7.27it/s][A
+Processed prompts:  36%|███▌      | 2851/8000 [03:57<10:07,  8.48it/s][A
+Processed prompts:  36%|███▌      | 2852/8000 [03:57<10:19,  8.31it/s][A
+Processed prompts:  36%|███▌      | 2855/8000 [03:57<07:56, 10.80it/s][A
+Processed prompts:  36%|███▌      | 2858/8000 [03:58<09:56,  8.63it/s][A
+Processed prompts:  36%|███▌      | 2859/8000 [03:58<10:49,  7.91it/s][A
+Processed prompts:  36%|███▌      | 2863/8000 [03:58<08:54,  9.62it/s][A
+Processed prompts:  36%|███▌      | 2864/8000 [03:58<13:00,  6.58it/s][A
+Processed prompts:  36%|███▌      | 2867/8000 [03:59<10:19,  8.29it/s][A
+Processed prompts:  36%|███▌      | 2868/8000 [03:59<10:29,  8.15it/s][A
+Processed prompts:  36%|███▌      | 2870/8000 [03:59<12:40,  6.75it/s][A
+Processed prompts:  36%|███▌      | 2873/8000 [03:59<10:03,  8.49it/s][A
+Processed prompts:  36%|███▌      | 2876/8000 [04:00<09:39,  8.85it/s][A
+Processed prompts:  36%|███▌      | 2877/8000 [04:00<09:52,  8.65it/s][A
+Processed prompts:  36%|███▌      | 2878/8000 [04:00<10:11,  8.38it/s][A
+Processed prompts:  36%|███▌      | 2880/8000 [04:00<08:37,  9.89it/s][A
+Processed prompts:  36%|███▌      | 2882/8000 [04:00<09:25,  9.05it/s][A
+Processed prompts:  36%|███▌      | 2884/8000 [04:01<09:14,  9.23it/s][A
+Processed prompts:  36%|███▌      | 2887/8000 [04:01<07:30, 11.36it/s][A
+Processed prompts:  36%|███▌      | 2889/8000 [04:01<09:07,  9.33it/s][A
+Processed prompts:  36%|███▌      | 2891/8000 [04:01<08:10, 10.41it/s][A
+Processed prompts:  36%|███▌      | 2893/8000 [04:01<08:38,  9.86it/s][A
+Processed prompts:  36%|███▌      | 2899/8000 [04:02<05:26, 15.63it/s][A
+Processed prompts:  36%|███▋      | 2901/8000 [04:02<07:56, 10.71it/s][A
+Processed prompts:  36%|███▋      | 2903/8000 [04:02<08:17, 10.25it/s][A
+Processed prompts:  36%|███▋      | 2905/8000 [04:03<09:40,  8.78it/s][A
+Processed prompts:  36%|███▋      | 2907/8000 [04:03<11:09,  7.60it/s][A
+Processed prompts:  36%|███▋      | 2908/8000 [04:03<13:42,  6.19it/s][A
+Processed prompts:  36%|███▋      | 2909/8000 [04:04<14:39,  5.79it/s][A
+Processed prompts:  38%|███▊      | 3073/8000 [04:07<02:12, 37.06it/s][A
+Processed prompts:  38%|███▊      | 3075/8000 [04:10<03:55, 20.88it/s][A
+Processed prompts:  38%|███▊      | 3077/8000 [04:11<04:45, 17.22it/s][A
+Processed prompts:  38%|███▊      | 3078/8000 [04:11<05:02, 16.28it/s][A
+Processed prompts:  38%|███▊      | 3079/8000 [04:12<05:30, 14.89it/s][A
+Processed prompts:  38%|███▊      | 3080/8000 [04:12<06:00, 13.66it/s][A
+Processed prompts:  39%|███▊      | 3081/8000 [04:12<06:40, 12.28it/s][A
+Processed prompts:  39%|███▊      | 3083/8000 [04:13<12:14,  6.69it/s][A
+Processed prompts:  39%|███▊      | 3085/8000 [04:14<12:44,  6.43it/s][A
+Processed prompts:  39%|███▊      | 3086/8000 [04:14<13:51,  5.91it/s][A
+Processed prompts:  39%|███▊      | 3088/8000 [04:14<12:08,  6.74it/s][A
+Processed prompts:  39%|███▊      | 3089/8000 [04:15<15:18,  5.35it/s][A
+Processed prompts:  39%|███▊      | 3091/8000 [04:15<17:06,  4.78it/s][A
+Processed prompts:  39%|███▊      | 3093/8000 [04:15<14:48,  5.52it/s][A
+Processed prompts:  39%|███▊      | 3094/8000 [04:16<14:09,  5.78it/s][A
+Processed prompts:  39%|███▊      | 3095/8000 [04:16<15:42,  5.21it/s][A
+Processed prompts:  39%|███▊      | 3096/8000 [04:16<17:03,  4.79it/s][A
+Processed prompts:  39%|███▊      | 3098/8000 [04:16<14:05,  5.80it/s][A
+Processed prompts:  39%|███▉      | 3100/8000 [04:17<11:24,  7.16it/s][A
+Processed prompts:  39%|███▉      | 3102/8000 [04:17<09:21,  8.72it/s][A
+Processed prompts:  39%|███▉      | 3104/8000 [04:18<18:23,  4.44it/s][A
+Processed prompts:  39%|███▉      | 3106/8000 [04:18<15:25,  5.29it/s][A
+Processed prompts:  39%|███▉      | 3107/8000 [04:18<14:34,  5.60it/s][A
+Processed prompts:  39%|███▉      | 3109/8000 [04:18<11:54,  6.85it/s][A
+Processed prompts:  39%|███▉      | 3110/8000 [04:18<11:44,  6.94it/s][A
+Processed prompts:  39%|███▉      | 3113/8000 [04:18<08:31,  9.55it/s][A
+Processed prompts:  39%|███▉      | 3116/8000 [04:19<10:06,  8.06it/s][A
+Processed prompts:  39%|███▉      | 3117/8000 [04:19<10:47,  7.54it/s][A
+Processed prompts:  39%|███▉      | 3121/8000 [04:19<08:39,  9.38it/s][A
+Processed prompts:  39%|███▉      | 3122/8000 [04:19<08:57,  9.07it/s][A
+Processed prompts:  39%|███▉      | 3126/8000 [04:20<06:26, 12.61it/s][A
+Processed prompts:  39%|███▉      | 3128/8000 [04:20<07:01, 11.56it/s][A
+Processed prompts:  39%|███▉      | 3130/8000 [04:20<09:30,  8.53it/s][A
+Processed prompts:  39%|███▉      | 3133/8000 [04:20<08:07,  9.98it/s][A
+Processed prompts:  39%|███▉      | 3137/8000 [04:21<07:29, 10.82it/s][A
+Processed prompts:  39%|███▉      | 3139/8000 [04:21<08:12,  9.87it/s][A
+Processed prompts:  39%|███▉      | 3141/8000 [04:21<08:25,  9.62it/s][A
+Processed prompts:  39%|███▉      | 3142/8000 [04:21<08:43,  9.28it/s][A
+Processed prompts:  39%|███▉      | 3144/8000 [04:22<08:39,  9.35it/s][A
+Processed prompts:  39%|███▉      | 3147/8000 [04:22<07:10, 11.26it/s][A
+Processed prompts:  39%|███▉      | 3149/8000 [04:22<08:44,  9.24it/s][A
+Processed prompts:  39%|███▉      | 3150/8000 [04:22<09:04,  8.90it/s][A
+Processed prompts:  39%|███▉      | 3153/8000 [04:22<07:19, 11.04it/s][A
+Processed prompts:  39%|███▉      | 3155/8000 [04:23<09:39,  8.36it/s][A
+Processed prompts:  40%|███▉      | 3160/8000 [04:23<06:23, 12.63it/s][A
+Processed prompts:  40%|███▉      | 3162/8000 [04:23<08:42,  9.27it/s][A
+Processed prompts:  40%|███▉      | 3164/8000 [04:24<08:44,  9.22it/s][A
+Processed prompts:  40%|███▉      | 3166/8000 [04:24<09:49,  8.21it/s][A
+Processed prompts:  40%|███▉      | 3168/8000 [04:24<11:12,  7.18it/s][A
+Processed prompts:  40%|███▉      | 3169/8000 [04:25<13:45,  5.85it/s][A
+Processed prompts:  40%|███▉      | 3170/8000 [04:25<14:51,  5.42it/s][A
+Processed prompts:  42%|████▏     | 3329/8000 [04:29<02:08, 36.24it/s][A
+Processed prompts:  42%|████▏     | 3331/8000 [04:30<03:11, 24.42it/s][A
+Processed prompts:  42%|████▏     | 3333/8000 [04:31<03:52, 20.08it/s][A
+Processed prompts:  42%|████▏     | 3334/8000 [04:32<05:17, 14.72it/s][A
+Processed prompts:  42%|████▏     | 3335/8000 [04:33<05:38, 13.79it/s][A
+Processed prompts:  42%|████▏     | 3336/8000 [04:33<06:13, 12.48it/s][A
+Processed prompts:  42%|████▏     | 3337/8000 [04:33<06:50, 11.35it/s][A
+Processed prompts:  42%|████▏     | 3338/8000 [04:33<07:39, 10.15it/s][A
+Processed prompts:  42%|████▏     | 3340/8000 [04:34<07:15, 10.70it/s][A
+Processed prompts:  42%|████▏     | 3341/8000 [04:35<13:59,  5.55it/s][A
+Processed prompts:  42%|████▏     | 3343/8000 [04:35<13:05,  5.93it/s][A
+Processed prompts:  42%|████▏     | 3344/8000 [04:35<13:08,  5.91it/s][A
+Processed prompts:  42%|████▏     | 3345/8000 [04:35<13:43,  5.65it/s][A
+Processed prompts:  42%|████▏     | 3346/8000 [04:35<13:03,  5.94it/s][A
+Processed prompts:  42%|████▏     | 3348/8000 [04:35<10:16,  7.54it/s][A
+Processed prompts:  42%|████▏     | 3349/8000 [04:36<11:39,  6.65it/s][A
+Processed prompts:  42%|████▏     | 3350/8000 [04:36<18:56,  4.09it/s][A
+Processed prompts:  42%|████▏     | 3352/8000 [04:37<19:50,  3.90it/s][A
+Processed prompts:  42%|████▏     | 3354/8000 [04:37<15:56,  4.86it/s][A
+Processed prompts:  42%|████▏     | 3355/8000 [04:37<14:49,  5.22it/s][A
+Processed prompts:  42%|████▏     | 3356/8000 [04:38<20:08,  3.84it/s][A
+Processed prompts:  42%|████▏     | 3358/8000 [04:38<15:33,  4.97it/s][A
+Processed prompts:  42%|████▏     | 3360/8000 [04:38<12:14,  6.32it/s][A
+Processed prompts:  42%|████▏     | 3362/8000 [04:38<09:49,  7.86it/s][A
+Processed prompts:  42%|████▏     | 3364/8000 [04:38<08:13,  9.40it/s][A
+Processed prompts:  42%|████▏     | 3366/8000 [04:39<11:43,  6.59it/s][A
+Processed prompts:  42%|████▏     | 3369/8000 [04:39<09:11,  8.40it/s][A
+Processed prompts:  42%|████▏     | 3371/8000 [04:39<09:30,  8.12it/s][A
+Processed prompts:  42%|████▏     | 3372/8000 [04:39<09:33,  8.07it/s][A
+Processed prompts:  42%|████▏     | 3375/8000 [04:40<07:29, 10.28it/s][A
+Processed prompts:  42%|████▏     | 3378/8000 [04:40<08:57,  8.59it/s][A
+Processed prompts:  42%|████▏     | 3380/8000 [04:40<08:45,  8.79it/s][A
+Processed prompts:  42%|████▏     | 3383/8000 [04:41<08:30,  9.04it/s][A
+Processed prompts:  42%|████▏     | 3384/8000 [04:41<08:45,  8.78it/s][A
+Processed prompts:  42%|████▏     | 3388/8000 [04:41<06:15, 12.27it/s][A
+Processed prompts:  42%|████▏     | 3390/8000 [04:41<06:45, 11.37it/s][A
+Processed prompts:  42%|████▏     | 3392/8000 [04:42<12:36,  6.09it/s][A
+Processed prompts:  42%|████▏     | 3394/8000 [04:42<11:26,  6.71it/s][A
+Processed prompts:  42%|████▏     | 3398/8000 [04:42<09:03,  8.46it/s][A
+Processed prompts:  42%|████▎     | 3400/8000 [04:43<09:15,  8.29it/s][A
+Processed prompts:  43%|████▎     | 3402/8000 [04:43<09:12,  8.32it/s][A
+Processed prompts:  43%|████▎     | 3403/8000 [04:43<09:20,  8.20it/s][A
+Processed prompts:  43%|████▎     | 3405/8000 [04:43<08:36,  8.90it/s][A
+Processed prompts:  43%|████▎     | 3408/8000 [04:43<06:50, 11.19it/s][A
+Processed prompts:  43%|████▎     | 3410/8000 [04:44<08:24,  9.10it/s][A
+Processed prompts:  43%|████▎     | 3412/8000 [04:44<07:31, 10.15it/s][A
+Processed prompts:  43%|████▎     | 3414/8000 [04:44<07:32, 10.13it/s][A
+Processed prompts:  43%|████▎     | 3421/8000 [04:44<04:56, 15.45it/s][A
+Processed prompts:  43%|████▎     | 3423/8000 [04:45<06:12, 12.30it/s][A
+Processed prompts:  43%|████▎     | 3425/8000 [04:45<06:59, 10.91it/s][A
+Processed prompts:  43%|████▎     | 3427/8000 [04:45<08:10,  9.32it/s][A
+Processed prompts:  43%|████▎     | 3429/8000 [04:45<07:47,  9.78it/s][A
+Processed prompts:  43%|████▎     | 3431/8000 [04:46<08:33,  8.89it/s][A
+Processed prompts:  43%|████▎     | 3432/8000 [04:46<11:02,  6.89it/s][A
+Processed prompts:  43%|████▎     | 3433/8000 [04:46<12:06,  6.29it/s][A
+Processed prompts:  45%|████▍     | 3585/8000 [04:50<02:06, 34.91it/s][A
+Processed prompts:  45%|████▍     | 3587/8000 [04:52<03:20, 22.05it/s][A
+Processed prompts:  45%|████▍     | 3589/8000 [04:53<04:01, 18.30it/s][A
+Processed prompts:  45%|████▍     | 3590/8000 [04:54<04:58, 14.78it/s][A
+Processed prompts:  45%|████▍     | 3591/8000 [04:54<05:18, 13.84it/s][A
+Processed prompts:  45%|████▍     | 3592/8000 [04:54<05:53, 12.46it/s][A
+Processed prompts:  45%|████▍     | 3593/8000 [04:54<06:31, 11.26it/s][A
+Processed prompts:  45%|████▍     | 3594/8000 [04:55<07:19, 10.02it/s][A
+Processed prompts:  45%|████▍     | 3596/8000 [04:55<06:54, 10.61it/s][A
+Processed prompts:  45%|████▍     | 3597/8000 [04:56<15:40,  4.68it/s][A
+Processed prompts:  45%|████▌     | 3600/8000 [04:56<12:54,  5.68it/s][A
+Processed prompts:  45%|████▌     | 3601/8000 [04:57<12:53,  5.69it/s][A
+Processed prompts:  45%|████▌     | 3602/8000 [04:57<13:30,  5.43it/s][A
+Processed prompts:  45%|████▌     | 3604/8000 [04:57<11:16,  6.50it/s][A
+Processed prompts:  45%|████▌     | 3606/8000 [04:57<09:18,  7.86it/s][A
+Processed prompts:  45%|████▌     | 3608/8000 [04:58<11:59,  6.10it/s][A
+Processed prompts:  45%|████▌     | 3610/8000 [04:58<14:26,  5.07it/s][A
+Processed prompts:  45%|████▌     | 3612/8000 [04:58<12:28,  5.86it/s][A
+Processed prompts:  45%|████▌     | 3613/8000 [04:58<11:55,  6.13it/s][A
+Processed prompts:  45%|████▌     | 3614/8000 [04:59<16:57,  4.31it/s][A
+Processed prompts:  45%|████▌     | 3616/8000 [04:59<13:49,  5.28it/s][A
+Processed prompts:  45%|████▌     | 3618/8000 [04:59<11:12,  6.52it/s][A
+Processed prompts:  45%|████▌     | 3620/8000 [04:59<09:05,  8.02it/s][A
+Processed prompts:  45%|████▌     | 3622/8000 [05:00<14:19,  5.09it/s][A
+Processed prompts:  45%|████▌     | 3623/8000 [05:00<14:46,  4.94it/s][A
+Processed prompts:  45%|████▌     | 3626/8000 [05:01<12:00,  6.07it/s][A
+Processed prompts:  45%|████▌     | 3628/8000 [05:01<10:47,  6.75it/s][A
+Processed prompts:  45%|████▌     | 3632/8000 [05:01<07:20,  9.91it/s][A
+Processed prompts:  45%|████▌     | 3636/8000 [05:02<07:45,  9.37it/s][A
+Processed prompts:  45%|████▌     | 3638/8000 [05:02<07:45,  9.37it/s][A
+Processed prompts:  46%|████▌     | 3641/8000 [05:02<06:56, 10.47it/s][A
+Processed prompts:  46%|████▌     | 3643/8000 [05:02<07:07, 10.19it/s][A
+Processed prompts:  46%|████▌     | 3647/8000 [05:02<05:31, 13.15it/s][A
+Processed prompts:  46%|████▌     | 3650/8000 [05:03<05:05, 14.24it/s][A
+Processed prompts:  46%|████▌     | 3652/8000 [05:03<05:46, 12.56it/s][A
+Processed prompts:  46%|████▌     | 3654/8000 [05:03<07:52,  9.20it/s][A
+Processed prompts:  46%|████▌     | 3656/8000 [05:03<07:50,  9.23it/s][A
+Processed prompts:  46%|████▌     | 3659/8000 [05:04<07:00, 10.32it/s][A
+Processed prompts:  46%|████▌     | 3661/8000 [05:04<07:37,  9.48it/s][A
+Processed prompts:  46%|████▌     | 3663/8000 [05:04<07:47,  9.28it/s][A
+Processed prompts:  46%|████▌     | 3664/8000 [05:04<08:00,  9.02it/s][A
+Processed prompts:  46%|████▌     | 3666/8000 [05:04<07:33,  9.56it/s][A
+Processed prompts:  46%|████▌     | 3669/8000 [05:05<06:10, 11.69it/s][A
+Processed prompts:  46%|████▌     | 3671/8000 [05:05<07:36,  9.47it/s][A
+Processed prompts:  46%|████▌     | 3673/8000 [05:05<06:47, 10.62it/s][A
+Processed prompts:  46%|████▌     | 3675/8000 [05:05<06:50, 10.53it/s][A
+Processed prompts:  46%|████▌     | 3677/8000 [05:06<08:56,  8.05it/s][A
+Processed prompts:  46%|████▌     | 3682/8000 [05:06<05:45, 12.50it/s][A
+Processed prompts:  46%|████▌     | 3684/8000 [05:06<05:28, 13.15it/s][A
+Processed prompts:  46%|████▌     | 3686/8000 [05:06<06:54, 10.42it/s][A
+Processed prompts:  46%|████▌     | 3688/8000 [05:07<07:07, 10.09it/s][A
+Processed prompts:  46%|████▌     | 3690/8000 [05:07<08:12,  8.74it/s][A
+Processed prompts:  46%|████▌     | 3693/8000 [05:07<08:22,  8.56it/s][A
+Processed prompts:  46%|████▌     | 3694/8000 [05:08<10:32,  6.81it/s][A
+Processed prompts:  46%|████▌     | 3695/8000 [05:08<11:18,  6.35it/s][A
+Processed prompts:  48%|████▊     | 3842/8000 [05:12<02:03, 33.79it/s][A
+Processed prompts:  48%|████▊     | 3844/8000 [05:13<02:53, 23.95it/s][A
+Processed prompts:  48%|████▊     | 3846/8000 [05:14<03:37, 19.07it/s][A
+Processed prompts:  48%|████▊     | 3847/8000 [05:15<05:07, 13.52it/s][A
+Processed prompts:  48%|████▊     | 3848/8000 [05:15<05:26, 12.71it/s][A
+Processed prompts:  48%|████▊     | 3849/8000 [05:16<06:00, 11.52it/s][A
+Processed prompts:  48%|████▊     | 3850/8000 [05:16<07:22,  9.39it/s][A
+Processed prompts:  48%|████▊     | 3852/8000 [05:16<07:02,  9.82it/s][A
+Processed prompts:  48%|████▊     | 3853/8000 [05:17<11:55,  5.79it/s][A
+Processed prompts:  48%|████▊     | 3856/8000 [05:18<10:31,  6.56it/s][A
+Processed prompts:  48%|████▊     | 3857/8000 [05:18<10:44,  6.43it/s][A
+Processed prompts:  48%|████▊     | 3858/8000 [05:18<10:57,  6.30it/s][A
+Processed prompts:  48%|████▊     | 3860/8000 [05:18<09:30,  7.26it/s][A
+Processed prompts:  48%|████▊     | 3863/8000 [05:18<07:44,  8.91it/s][A
+Processed prompts:  48%|████▊     | 3864/8000 [05:19<12:06,  5.69it/s][A
+Processed prompts:  48%|████▊     | 3865/8000 [05:19<11:30,  5.99it/s][A
+Processed prompts:  48%|████▊     | 3866/8000 [05:19<11:35,  5.95it/s][A
+Processed prompts:  48%|████▊     | 3868/8000 [05:20<14:11,  4.86it/s][A
+Processed prompts:  48%|████▊     | 3870/8000 [05:20<11:48,  5.83it/s][A
+Processed prompts:  48%|████▊     | 3871/8000 [05:20<11:11,  6.15it/s][A
+Processed prompts:  48%|████▊     | 3872/8000 [05:21<16:23,  4.20it/s][A
+Processed prompts:  48%|████▊     | 3874/8000 [05:21<13:06,  5.25it/s][A
+Processed prompts:  48%|████▊     | 3876/8000 [05:21<10:29,  6.55it/s][A
+Processed prompts:  48%|████▊     | 3878/8000 [05:21<08:34,  8.01it/s][A
+Processed prompts:  48%|████▊     | 3880/8000 [05:21<10:20,  6.64it/s][A
+Processed prompts:  49%|████▊     | 3881/8000 [05:22<10:01,  6.85it/s][A
+Processed prompts:  49%|████▊     | 3882/8000 [05:22<09:47,  7.01it/s][A
+Processed prompts:  49%|████▊     | 3885/8000 [05:22<09:03,  7.56it/s][A
+Processed prompts:  49%|████▊     | 3887/8000 [05:22<08:27,  8.10it/s][A
+Processed prompts:  49%|████▊     | 3891/8000 [05:22<05:55, 11.57it/s][A
+Processed prompts:  49%|████▊     | 3895/8000 [05:23<06:40, 10.24it/s][A
+Processed prompts:  49%|████▊     | 3897/8000 [05:23<06:50, 10.01it/s][A
+Processed prompts:  49%|████▉     | 3900/8000 [05:23<06:13, 10.99it/s][A
+Processed prompts:  49%|████▉     | 3902/8000 [05:24<08:10,  8.36it/s][A
+Processed prompts:  49%|████▉     | 3904/8000 [05:24<07:32,  9.05it/s][A
+Processed prompts:  49%|████▉     | 3908/8000 [05:24<05:32, 12.32it/s][A
+Processed prompts:  49%|████▉     | 3911/8000 [05:24<05:21, 12.71it/s][A
+Processed prompts:  49%|████▉     | 3914/8000 [05:25<06:36, 10.32it/s][A
+Processed prompts:  49%|████▉     | 3916/8000 [05:25<06:22, 10.68it/s][A
+Processed prompts:  49%|████▉     | 3918/8000 [05:25<06:12, 10.95it/s][A
+Processed prompts:  49%|████▉     | 3921/8000 [05:25<05:52, 11.56it/s][A
+Processed prompts:  49%|████▉     | 3923/8000 [05:26<06:39, 10.21it/s][A
+Processed prompts:  49%|████▉     | 3925/8000 [05:26<06:54,  9.82it/s][A
+Processed prompts:  49%|████▉     | 3927/8000 [05:26<06:16, 10.82it/s][A
+Processed prompts:  49%|████▉     | 3929/8000 [05:26<06:36, 10.27it/s][A
+Processed prompts:  49%|████▉     | 3933/8000 [05:26<04:53, 13.87it/s][A
+Processed prompts:  49%|████▉     | 3935/8000 [05:27<06:16, 10.80it/s][A
+Processed prompts:  49%|████▉     | 3937/8000 [05:27<05:48, 11.65it/s][A
+Processed prompts:  49%|████▉     | 3939/8000 [05:27<06:23, 10.58it/s][A
+Processed prompts:  49%|████▉     | 3945/8000 [05:27<04:10, 16.20it/s][A
+Processed prompts:  49%|████▉     | 3947/8000 [05:27<04:12, 16.04it/s][A
+Processed prompts:  49%|████▉     | 3949/8000 [05:28<06:34, 10.27it/s][A
+Processed prompts:  49%|████▉     | 3951/8000 [05:28<07:29,  9.01it/s][A
+Processed prompts:  49%|████▉     | 3954/8000 [05:28<07:41,  8.77it/s][A
+Processed prompts:  49%|████▉     | 3956/8000 [05:29<08:54,  7.56it/s][A
+Processed prompts:  49%|████▉     | 3958/8000 [05:29<08:46,  7.68it/s][A
+Processed prompts:  51%|█████     | 4098/8000 [05:33<02:00, 32.49it/s][A
+Processed prompts:  51%|█████▏    | 4100/8000 [05:35<03:00, 21.56it/s][A
+Processed prompts:  51%|█████▏    | 4102/8000 [05:35<03:43, 17.41it/s][A
+Processed prompts:  51%|█████▏    | 4103/8000 [05:36<04:50, 13.42it/s][A
+Processed prompts:  51%|█████▏    | 4104/8000 [05:37<05:09, 12.57it/s][A
+Processed prompts:  51%|█████▏    | 4105/8000 [05:37<05:41, 11.41it/s][A
+Processed prompts:  51%|█████▏    | 4106/8000 [05:38<08:01,  8.09it/s][A
+Processed prompts:  51%|█████▏    | 4108/8000 [05:38<07:32,  8.60it/s][A
+Processed prompts:  51%|█████▏    | 4109/8000 [05:39<12:18,  5.27it/s][A
+Processed prompts:  51%|█████▏    | 4112/8000 [05:39<10:35,  6.12it/s][A
+Processed prompts:  51%|█████▏    | 4113/8000 [05:39<10:42,  6.05it/s][A
+Processed prompts:  51%|█████▏    | 4114/8000 [05:40<10:47,  6.00it/s][A
+Processed prompts:  51%|█████▏    | 4116/8000 [05:40<09:15,  7.00it/s][A
+Processed prompts:  51%|█████▏    | 4119/8000 [05:40<07:24,  8.73it/s][A
+Processed prompts:  52%|█████▏    | 4121/8000 [05:40<08:26,  7.65it/s][A
+Processed prompts:  52%|█████▏    | 4122/8000 [05:40<08:53,  7.27it/s][A
+Processed prompts:  52%|█████▏    | 4124/8000 [05:41<11:07,  5.80it/s][A
+Processed prompts:  52%|█████▏    | 4126/8000 [05:41<09:23,  6.87it/s][A
+Processed prompts:  52%|█████▏    | 4127/8000 [05:41<09:12,  7.02it/s][A
+Processed prompts:  52%|█████▏    | 4128/8000 [05:41<09:02,  7.13it/s][A
+Processed prompts:  52%|█████▏    | 4129/8000 [05:42<18:56,  3.41it/s][A
+Processed prompts:  52%|█████▏    | 4131/8000 [05:42<14:25,  4.47it/s][A
+Processed prompts:  52%|█████▏    | 4133/8000 [05:43<11:11,  5.76it/s][A
+Processed prompts:  52%|█████▏    | 4135/8000 [05:43<08:51,  7.27it/s][A
+Processed prompts:  52%|█████▏    | 4137/8000 [05:43<08:11,  7.86it/s][A
+Processed prompts:  52%|█████▏    | 4139/8000 [05:43<09:19,  6.91it/s][A
+Processed prompts:  52%|█████▏    | 4140/8000 [05:43<09:08,  7.03it/s][A
+Processed prompts:  52%|█████▏    | 4143/8000 [05:44<07:56,  8.09it/s][A
+Processed prompts:  52%|█████▏    | 4145/8000 [05:44<07:07,  9.01it/s][A
+Processed prompts:  52%|█████▏    | 4146/8000 [05:44<07:16,  8.83it/s][A
+Processed prompts:  52%|█████▏    | 4150/8000 [05:44<05:03, 12.69it/s][A
+Processed prompts:  52%|█████▏    | 4154/8000 [05:45<06:00, 10.66it/s][A
+Processed prompts:  52%|█████▏    | 4156/8000 [05:45<05:49, 10.99it/s][A
+Processed prompts:  52%|█████▏    | 4159/8000 [05:45<05:06, 12.55it/s][A
+Processed prompts:  52%|█████▏    | 4161/8000 [05:45<05:55, 10.81it/s][A
+Processed prompts:  52%|█████▏    | 4164/8000 [05:45<05:06, 12.50it/s][A
+Processed prompts:  52%|█████▏    | 4168/8000 [05:46<04:09, 15.39it/s][A
+Processed prompts:  52%|█████▏    | 4171/8000 [05:46<04:18, 14.79it/s][A
+Processed prompts:  52%|█████▏    | 4174/8000 [05:46<05:41, 11.19it/s][A
+Processed prompts:  52%|█████▏    | 4176/8000 [05:46<05:58, 10.67it/s][A
+Processed prompts:  52%|█████▏    | 4180/8000 [05:47<05:34, 11.43it/s][A
+Processed prompts:  52%|█████▏    | 4182/8000 [05:47<06:10, 10.29it/s][A
+Processed prompts:  52%|█████▏    | 4184/8000 [05:47<06:25,  9.90it/s][A
+Processed prompts:  52%|█████▏    | 4186/8000 [05:47<05:52, 10.83it/s][A
+Processed prompts:  52%|█████▏    | 4188/8000 [05:48<06:08, 10.34it/s][A
+Processed prompts:  52%|█████▏    | 4192/8000 [05:48<08:09,  7.78it/s][A
+Processed prompts:  52%|█████▏    | 4194/8000 [05:49<07:46,  8.16it/s][A
+Processed prompts:  52%|█████▏    | 4198/8000 [05:49<06:19, 10.02it/s][A
+Processed prompts:  53%|█████▎    | 4204/8000 [05:49<04:19, 14.65it/s][A
+Processed prompts:  53%|█████▎    | 4206/8000 [05:49<04:19, 14.62it/s][A
+Processed prompts:  53%|█████▎    | 4208/8000 [05:50<06:24,  9.85it/s][A
+Processed prompts:  53%|█████▎    | 4210/8000 [05:50<07:10,  8.80it/s][A
+Processed prompts:  53%|█████▎    | 4214/8000 [05:50<05:58, 10.55it/s][A
+Processed prompts:  53%|█████▎    | 4216/8000 [05:50<06:28,  9.73it/s][A
+Processed prompts:  53%|█████▎    | 4218/8000 [05:51<06:55,  9.10it/s][A
+Processed prompts:  53%|█████▎    | 4220/8000 [05:51<07:07,  8.85it/s][A
+Processed prompts:  54%|█████▍    | 4354/8000 [05:55<01:52, 32.49it/s][A
+Processed prompts:  54%|█████▍    | 4356/8000 [05:56<02:41, 22.55it/s][A
+Processed prompts:  54%|█████▍    | 4358/8000 [05:57<03:32, 17.18it/s][A
+Processed prompts:  54%|█████▍    | 4359/8000 [05:57<03:39, 16.56it/s][A
+Processed prompts:  55%|█████▍    | 4360/8000 [05:58<05:06, 11.87it/s][A
+Processed prompts:  55%|█████▍    | 4361/8000 [05:58<05:30, 11.01it/s][A
+Processed prompts:  55%|█████▍    | 4362/8000 [05:59<06:10,  9.82it/s][A
+Processed prompts:  55%|█████▍    | 4363/8000 [05:59<07:51,  7.72it/s][A
+Processed prompts:  55%|█████▍    | 4365/8000 [05:59<07:11,  8.42it/s][A
+Processed prompts:  55%|█████▍    | 4366/8000 [06:00<09:51,  6.15it/s][A
+Processed prompts:  55%|█████▍    | 4367/8000 [06:00<09:38,  6.28it/s][A
+Processed prompts:  55%|█████▍    | 4368/8000 [06:00<12:02,  5.03it/s][A
+Processed prompts:  55%|█████▍    | 4369/8000 [06:01<14:13,  4.25it/s][A
+Processed prompts:  55%|█████▍    | 4371/8000 [06:01<11:09,  5.42it/s][A
+Processed prompts:  55%|█████▍    | 4372/8000 [06:01<11:03,  5.47it/s][A
+Processed prompts:  55%|█████▍    | 4373/8000 [06:01<11:01,  5.48it/s][A
+Processed prompts:  55%|█████▍    | 4375/8000 [06:02<08:41,  6.96it/s][A
+Processed prompts:  55%|█████▍    | 4378/8000 [06:02<06:41,  9.03it/s][A
+Processed prompts:  55%|█████▍    | 4379/8000 [06:02<07:49,  7.71it/s][A
+Processed prompts:  55%|█████▍    | 4381/8000 [06:02<06:28,  9.31it/s][A
+Processed prompts:  55%|█████▍    | 4383/8000 [06:02<06:26,  9.36it/s][A
+Processed prompts:  55%|█████▍    | 4385/8000 [06:03<09:04,  6.64it/s][A
+Processed prompts:  55%|█████▍    | 4387/8000 [06:03<07:47,  7.73it/s][A
+Processed prompts:  55%|█████▍    | 4388/8000 [06:03<08:49,  6.82it/s][A
+Processed prompts:  55%|█████▍    | 4389/8000 [06:04<13:22,  4.50it/s][A
+Processed prompts:  55%|█████▍    | 4391/8000 [06:04<10:54,  5.51it/s][A
+Processed prompts:  55%|█████▍    | 4393/8000 [06:04<08:53,  6.76it/s][A
+Processed prompts:  55%|█████▍    | 4395/8000 [06:04<08:11,  7.34it/s][A
+Processed prompts:  55%|█████▍    | 4397/8000 [06:05<07:07,  8.42it/s][A
+Processed prompts:  55%|█████▍    | 4398/8000 [06:05<07:50,  7.65it/s][A
+Processed prompts:  55%|█████▍    | 4399/8000 [06:05<09:11,  6.53it/s][A
+Processed prompts:  55%|█████▌    | 4403/8000 [06:05<06:45,  8.86it/s][A
+Processed prompts:  55%|█████▌    | 4405/8000 [06:05<06:13,  9.61it/s][A
+Processed prompts:  55%|█████▌    | 4407/8000 [06:06<05:33, 10.77it/s][A
+Processed prompts:  55%|█████▌    | 4411/8000 [06:06<06:19,  9.46it/s][A
+Processed prompts:  55%|█████▌    | 4415/8000 [06:06<06:30,  9.17it/s][A
+Processed prompts:  55%|█████▌    | 4417/8000 [06:07<06:12,  9.63it/s][A
+Processed prompts:  55%|█████▌    | 4420/8000 [06:07<05:13, 11.41it/s][A

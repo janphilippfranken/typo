@@ -14,7 +14,7 @@ from prompts import *
 # main generation script 
 @hydra.main(version_base=None, config_path="conf", config_name="generate")
 def main(args: DictConfig) -> None:
-    
+    print(args.model_config)
     print(args.start_example, args.max_example)
     print(isinstance(args.start_example, int), isinstance(args.max_example, int), isinstance(args.batch_size, int))
         

@@ -64,7 +64,10 @@ def main(args: DictConfig) -> None:
     print(len(constitutions))
     
     for i, (constitution, question_helpful, question_harmless) in enumerate(zip(constitutions, questions_helpful, questions_harmless)):
-
+        
+        if i >= 500: 
+            continue
+        
         principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
         random.shuffle(principles)
         principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]

@@ -5,7 +5,7 @@
 #SBATCH --nodelist=cocoflops-hgx-1          
 #SBATCH --gres=gpu:4                        
 #SBATCH --mem=312GB                       
-#SBATCH --cpus-per-task=36                  
+#SBATCH --cpus-per-task=18                  
 #SBATCH --time=256:00:00                    
 #SBATCH --output=train_typo.out         
 #SBATCH --error=train_typo.err           
@@ -20,9 +20,9 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-beta=2.0
+beta=3.0
 lr=1e-6
-iteration=1
+iteration=2
 checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${iteration}"
 
 torchrun --nproc_per_node=4 train_typo.py \
