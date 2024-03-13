@@ -15,10 +15,18 @@ conda activate typo
 
 cd ~/research_projects/typo/experiments/experiment_2/v2
 
-accelerate launch --config_file /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/conf/accelerate/deepspeed.yaml train_dpo.py \
-    wandb.name="dpo-no-sft" \
-    training_args.output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/dpo-no-sft" \
-    data_path="data" \
-    helpful="helpful.json" \
-    harmless="harmless.json" \
-    n_examples=5000 
+
+declare -a betas=(0.01 0.2)
+
+for beta in "${betas[@]}"; do
+    output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-${beta}"
+
+    accelerate launch --config_file /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/conf/accelerate/deepspeed.yaml train_dpo.py \
+        dpo.beta=$beta \
+        wandb.name="dpo-beta-${$beta}" \
+        training_args.output_dir="$output_dir" \
+        data_path="data" \
+        helpful="helpful.json" \
+        harmless="harmless.json" \
+        n_examples=5000 
+done

@@ -20,17 +20,22 @@ export MASTER_PORT=29501
 export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
-beta=1.0
-lr=1e-6
-iteration=1
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-${beta}-${lr}"
 
-torchrun --nproc_per_node=4 train_typo.py \
-    typo.beta=$beta \
-    wandb.name="typo-beta-${beta}-lr-${lr}" \
-    training.checkpoint_dir="$checkpoint_dir" \
-    training.lr=$lr \
-    data_path="data" \
-    helpful="helpful.json" \
-    harmless="harmless.json" \
-    n_examples=5000 
+declare -a betas=(0.5 2.0)
+lr=1e-6
+
+for beta in "${betas[@]}"; do
+    checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-${beta}-${lr}"
+
+    torchrun --nproc_per_node=4 train_typo.py \
+        typo.beta=$beta \
+        wandb.name="typo-beta-${beta}-lr-${lr}" \
+        training.checkpoint_dir="$checkpoint_dir" \
+        training.lr=$lr \
+        data_path="data" \
+        helpful="helpful.json" \
+        harmless="harmless.json" \
+        n_examples=5000 
+done
+
+ 

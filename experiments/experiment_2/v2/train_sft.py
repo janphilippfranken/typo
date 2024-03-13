@@ -52,16 +52,16 @@ def main(args: DictConfig) -> None:
         prompts += example_helpful["prompts"]
         responses += example_helpful["chosen"]
 
-        prompts += example_helpful["prompts"]
-        responses += example_helpful["rejected"]
+        # prompts += example_helpful["prompts"]
+        # responses += example_helpful["rejected"]
 
     # add harmless examples
     for example_harmless in dataset_list_harmless:
         prompts += example_harmless["prompts"]
         responses += example_harmless["chosen"]
 
-        prompts += example_harmless["prompts"]
-        responses += example_harmless["rejected"]
+        # prompts += example_harmless["prompts"]
+        # responses += example_harmless["rejected"]
     
     print(prompts[0])
     print(responses[0])

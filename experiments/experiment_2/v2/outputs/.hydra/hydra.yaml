@@ -112,8 +112,8 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - wandb.name=sft
-    - training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both
+    - wandb.name=sft-positive
+    - training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive
     - data_path=data
     - helpful=helpful.json
     - harmless=harmless.json
@@ -121,7 +121,7 @@ hydra:
   job:
     name: train_sft
     chdir: null
-    override_dirname: data_path=data,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both,wandb.name=sft
+    override_dirname: data_path=data,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive,wandb.name=sft-positive
     id: ???
     num: ???
     config_name: train_sft
