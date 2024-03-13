@@ -53,19 +53,19 @@ def main():
     # Load datasets
     helpful_datasets = [
         load_data(path) for path in [
-            "results/length/sft-positive-helpful_length_helpful.json",
-            "results/length/dpo-no-sft-beta-0.1-helpful_length_helpful.json",
-            "results/length/dpo-sft-both-beta-0.01-helpful.json",
-            "results/length/typo-beta-0.3-length-helpful.json",
+            "results/length/sft-positive-helpful-length.json",
+            "results/length/dpo-no-sft-beta-0.1-helpful-length.json",
+            "results/length/dpo-sft-both-beta-0.1-helpful-length.json",
+            "results/length/typo-beta-0.3-helpful-length.json",
         ]
     ]
     
     harmless_datasets = [
         load_data(path) for path in [
-            "results/length/sft-positive-helpful_length_harmless.json",
-            "results/length/dpo-no-sft-beta-0.1-helpful_length_harmless.json",
-            "results/length/dpo-sft-both-beta-0.01-harmless.json",
-            "results/length/typo-beta-0.3-length-harmless.json",
+            "results/length/sft-positive-harmless-length.json",
+            "results/length/dpo-no-sft-beta-0.1-harmless-length.json",
+            "results/length/dpo-sft-both-beta-0.1-harmless-length.json",
+            "results/length/typo-beta-0.3-harmless-length.json",
         ]
     ]
     

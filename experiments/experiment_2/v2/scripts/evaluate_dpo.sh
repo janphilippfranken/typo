@@ -15,8 +15,8 @@ conda activate typo
 
 cd ~/research_projects/typo/experiments/experiment_2/v2
 
-model_path="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.01/checkpoint-148/"
-download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.01/checkpoint-148/"
+model_path="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.3/checkpoint-148/"
+download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.3/checkpoint-148/"
 # /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both/checkpoint-148
 python evaluate.py \
     start_example=0 \
@@ -24,4 +24,4 @@ python evaluate.py \
     batch_size=500 \
     model_config.model="$model_path" \
     model_config.download_dir="$download_dir" \
-    file_name="dpo-sft-both-evaluation-beta-0.01"
+    file_name="dpo-sft-both-evaluation-beta-0.3"

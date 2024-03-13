@@ -21,8 +21,8 @@ export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
 
-declare -a betas=(0.2 0.3 0.4 0.6 0.7)
-lr=1e-6
+declare -a betas=(0.4 0.6 0.7)
+lr=1e-6s
 
 for beta in "${betas[@]}"; do
     checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-${beta}-${lr}"

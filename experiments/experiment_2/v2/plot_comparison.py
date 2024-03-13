@@ -54,17 +54,17 @@ def main():
     # Load datasets
     helpful_datasets = [
         load_data(path) for path in [
-            "results/win_rates/typo-beta-0.5-vs-sft-positive-helpful.json",
-            "results/win_rates/typo-beta-0.5-vs-dpo-no-sft-beta-0.1-helpful.json",
-            "results/win_rates/typo-beta-0.5-vs-dpo-sft-both-beta-0.1-helpful.json",
+            "results/win_rates/typo-beta-0.3-vs-sft-positive-helpful.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-helpful.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-positive-helpful.json",
         ]
     ]
     
     harmless_datasets = [
         load_data(path) for path in [
-            "results/win_rates/typo-beta-0.5-vs-sft-positive-harmless.json",
-            "results/win_rates/typo-beta-0.5-vs-dpo-no-sft-beta-0.1-harmless.json",
-            "results/win_rates/typo-beta-0.5-vs-dpo-sft-both-beta-0.1-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-sft-positive-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-positive-harmless.json",
         ]
     ]
     

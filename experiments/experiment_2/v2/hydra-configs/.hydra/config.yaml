@@ -16,13 +16,13 @@ n_responses: 2
 n_constitutions: 2
 wandb:
   project: hh-rlhf-dpo-exp-2
-  name: dpo-beta-0.2
+  name: dpo-beta-0.4
 dpo:
-  beta: 0.2
+  beta: 0.4
 train_split: 0.0
 max_prompt_length: 1024
 training_args:
-  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.2
+  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.4
   per_device_train_batch_size: 1
   gradient_accumulation_steps: 32
   learning_rate: 1.0e-06

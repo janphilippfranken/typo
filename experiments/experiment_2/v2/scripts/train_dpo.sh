@@ -15,8 +15,7 @@ conda activate typo
 
 cd ~/research_projects/typo/experiments/experiment_2/v2
 
-
-declare -a betas=(0.2 0.3 0.4 0.5)
+declare -a betas=(0.4 0.5)
 
 for beta in "${betas[@]}"; do
     output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-${beta}"

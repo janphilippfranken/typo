@@ -1,28 +1,11 @@
-[2024-03-13 09:06:45,265] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-03-13 09:06:45,268] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-03-13 09:06:45,383] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-[2024-03-13 09:06:45,386] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-13 10:10:39,492] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-13 10:10:39,525] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-13 10:10:39,526] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-13 10:10:39,560] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
 5000
 4497
 5000
 4497
-System: Write a response for the assistant that follows the principles in the constitution.
-
-Assistant Constitution:
-1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
-2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance.
-
-Human: How can I store food if I don't have a pantry?
-
-Assistant:5000
-You can use airtight containers or vacuum-sealed bags to store food in your kitchen cabinets or on shelves.
-You can store food in a variety of ways, including in a refrigerator, freezer, or cupboard.
-
-4497Dataset({
-    features: ['prompt', 'chosen', 'rejected'],
-    num_rows: 18994
-})
-
 System: Write a response for the assistant that follows the principles in the constitution.
 
 Assistant Constitution:
@@ -38,9 +21,26 @@ Dataset({
     features: ['prompt', 'chosen', 'rejected'],
     num_rows: 18994
 })
-[2024-03-13 09:07:03,068] [INFO] [comm.py:637:init_distributed] cdb=None
-[2024-03-13 09:07:03,069] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
-[2024-03-13 09:07:03,075] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-13 10:10:56,194] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-13 10:10:56,194] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+System: Write a response for the assistant that follows the principles in the constitution.
+
+Assistant Constitution:
+1. Address human requests with depth and clarity, ensuring responses are detailed and insightful.
+2. When faced with requests that are illegal, unethical, or potentially harmful, actively suggest detailed and insightful alternative solutions. This approach ensures compliance with legal and ethical standards while maintaining a helpful and responsive stance.
+
+Human: How can I store food if I don't have a pantry?
+
+Assistant:
+You can use airtight containers or vacuum-sealed bags to store food in your kitchen cabinets or on shelves.
+You can store food in a variety of ways, including in a refrigerator, freezer, or cupboard.
+Dataset({
+    features: ['prompt', 'chosen', 'rejected'],
+    num_rows: 18994
+})
+[2024-03-13 10:10:56,241] [INFO] [comm.py:637:init_distributed] cdb=None
+5000
+4497
 System: Write a response for the assistant that follows the principles in the constitution.
 
 Assistant Constitution:
@@ -58,7 +58,8 @@ Dataset({
 })
 5000
 4497
-[2024-03-13 09:07:03,174] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-13 10:10:56,370] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-13 10:10:56,401][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7fb6859e8400>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
 System: Write a response for the assistant that follows the principles in the constitution.
 
 Assistant Constitution:
@@ -74,23 +75,22 @@ Dataset({
     features: ['prompt', 'chosen', 'rejected'],
     num_rows: 18994
 })
-[2024-03-13 09:07:03,288] [INFO] [comm.py:637:init_distributed] cdb=None
-[2024-03-13 09:07:03,331][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7fe331160850>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
-[2024-03-13 09:07:34,314][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-[2024-03-13 09:07:34,318] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.14.0, git-hash=unknown, git-branch=unknown
-[2024-03-13 09:07:34,509][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7f19c05e48b0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
-[2024-03-13 09:07:34,514][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7fa40c104790>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
-[2024-03-13 09:07:34,514][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7f7391ffc7f0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
-[2024-03-13 09:08:07,570] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
-[2024-03-13 09:08:07,572] [INFO] [logging.py:96:log_dist] [Rank 0] Creating BF16 optimizer
-[2024-03-13 09:08:07,691] [INFO] [utils.py:800:see_memory_usage] begin bf16_optimizer
-[2024-03-13 09:08:07,692] [INFO] [utils.py:801:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
-[2024-03-13 09:08:07,692] [INFO] [utils.py:808:see_memory_usage] CPU Virtual Memory:  used = 101.4 GB, percent = 10.1%
-[2024-03-13 09:08:07,809] [INFO] [utils.py:800:see_memory_usage] end bf16_optimizer
-[2024-03-13 09:08:07,810] [INFO] [utils.py:801:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
-[2024-03-13 09:08:07,811] [INFO] [utils.py:808:see_memory_usage] CPU Virtual Memory:  used = 99.26 GB, percent = 9.8%
-[2024-03-13 09:08:07,812] [INFO] [config.py:996:print] DeepSpeedEngine configuration:
-[2024-03-13 09:08:07,812] [INFO] [config.py:1000:print]   activation_checkpointing_config  {
+[2024-03-13 10:10:56,441] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-13 10:11:27,406][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-03-13 10:11:27,411] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed info: version=0.14.0, git-hash=unknown, git-branch=unknown
+[2024-03-13 10:11:27,575][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7f4653c58160>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-13 10:11:27,581][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7f2206620280>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-13 10:11:27,582][datasets.fingerprint][WARNING] - Parameter 'function'=<bound method DPOTrainer.tokenize_row of <trl.trainer.dpo_trainer.DPOTrainer object at 0x7fe080a703a0>> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+[2024-03-13 10:11:59,874] [INFO] [logging.py:96:log_dist] [Rank 0] DeepSpeed Flops Profiler Enabled: False
+[2024-03-13 10:11:59,875] [INFO] [logging.py:96:log_dist] [Rank 0] Creating BF16 optimizer
+[2024-03-13 10:11:59,994] [INFO] [utils.py:800:see_memory_usage] begin bf16_optimizer
+[2024-03-13 10:11:59,995] [INFO] [utils.py:801:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
+[2024-03-13 10:11:59,995] [INFO] [utils.py:808:see_memory_usage] CPU Virtual Memory:  used = 101.59 GB, percent = 10.1%
+[2024-03-13 10:12:00,114] [INFO] [utils.py:800:see_memory_usage] end bf16_optimizer
+[2024-03-13 10:12:00,115] [INFO] [utils.py:801:see_memory_usage] MA 13.99 GB         Max_MA 13.99 GB         CA 14.24 GB         Max_CA 14 GB 
+[2024-03-13 10:12:00,115] [INFO] [utils.py:808:see_memory_usage] CPU Virtual Memory:  used = 99.53 GB, percent = 9.9%
+[2024-03-13 10:12:00,116] [INFO] [config.py:996:print] DeepSpeedEngine configuration:
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   activation_checkpointing_config  {
     "partition_activations": false, 
     "contiguous_memory_optimization": false, 
     "cpu_checkpointing": false, 
@@ -98,10 +98,10 @@ Dataset({
     "synchronize_checkpoint_boundary": false, 
     "profile": false
 }
-[2024-03-13 09:08:07,812] [INFO] [config.py:1000:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
-[2024-03-13 09:08:07,812] [INFO] [config.py:1000:print]   amp_enabled .................. False
-[2024-03-13 09:08:07,812] [INFO] [config.py:1000:print]   amp_params ................... False
-[2024-03-13 09:08:07,812] [INFO] [config.py:1000:print]   autotuning_config ............ {
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   amp_enabled .................. False
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   amp_params ................... False
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   autotuning_config ............ {
     "enabled": false, 
     "start_step": null, 
     "end_step": null, 
@@ -126,33 +126,33 @@ Dataset({
     "min_train_micro_batch_size_per_gpu": 1, 
     "num_tuning_micro_batch_sizes": 3
 }
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   bfloat16_enabled ............. True
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   bfloat16_immediate_grad_update  False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   checkpoint_parallel_write_pipeline  False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   checkpoint_tag_validation_enabled  True
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   checkpoint_tag_validation_fail  False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7fe3311601c0>
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   communication_data_type ...... None
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   compile_config ............... enabled=False backend='inductor' kwargs={}
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   curriculum_enabled_legacy .... False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   curriculum_params_legacy ..... False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   data_efficiency_enabled ...... False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   dataloader_drop_last ......... False
-[2024-03-13 09:08:07,813] [INFO] [config.py:1000:print]   disable_allgather ............ False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   dump_state ................... False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   dynamic_loss_scale_args ...... None
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_enabled ........... False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_gas_boundary_resolution  1
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_layer_name ........ bert.encoder.layer
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_layer_num ......... 0
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_max_iter .......... 100
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_stability ......... 1e-06
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_tol ............... 0.01
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   eigenvalue_verbose ........... False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   elasticity_enabled ........... False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   flops_profiler_config ........ {
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   bfloat16_enabled ............. True
+[2024-03-13 10:12:00,116] [INFO] [config.py:1000:print]   bfloat16_immediate_grad_update  False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   checkpoint_parallel_write_pipeline  False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   checkpoint_tag_validation_enabled  True
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   checkpoint_tag_validation_fail  False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   comms_config ................. <deepspeed.comm.config.DeepSpeedCommsConfig object at 0x7fb6859eabc0>
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   communication_data_type ...... None
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   compile_config ............... enabled=False backend='inductor' kwargs={}
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   compression_config ........... {'weight_quantization': {'shared_parameters': {'enabled': False, 'quantizer_kernel': False, 'schedule_offset': 0, 'quantize_groups': 1, 'quantize_verbose': False, 'quantization_type': 'symmetric', 'quantize_weight_in_forward': False, 'rounding': 'nearest', 'fp16_mixed_quantize': False, 'quantize_change_ratio': 0.001}, 'different_groups': {}}, 'activation_quantization': {'shared_parameters': {'enabled': False, 'quantization_type': 'symmetric', 'range_calibration': 'dynamic', 'schedule_offset': 1000}, 'different_groups': {}}, 'sparse_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'row_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'head_pruning': {'shared_parameters': {'enabled': False, 'method': 'topk', 'schedule_offset': 1000}, 'different_groups': {}}, 'channel_pruning': {'shared_parameters': {'enabled': False, 'method': 'l1', 'schedule_offset': 1000}, 'different_groups': {}}, 'layer_reduction': {'enabled': False}}
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   curriculum_enabled_legacy .... False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   curriculum_params_legacy ..... False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   data_efficiency_config ....... {'enabled': False, 'seed': 1234, 'data_sampling': {'enabled': False, 'num_epochs': 1000, 'num_workers': 0, 'curriculum_learning': {'enabled': False}}, 'data_routing': {'enabled': False, 'random_ltd': {'enabled': False, 'layer_token_lr_schedule': {'enabled': False}}}}
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   data_efficiency_enabled ...... False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   dataloader_drop_last ......... False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   disable_allgather ............ False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   dump_state ................... False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   dynamic_loss_scale_args ...... None
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_enabled ........... False
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_gas_boundary_resolution  1
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_layer_num ......... 0
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_max_iter .......... 100
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_stability ......... 1e-06
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_tol ............... 0.01
+[2024-03-13 10:12:00,117] [INFO] [config.py:1000:print]   eigenvalue_verbose ........... False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   elasticity_enabled ........... False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   flops_profiler_config ........ {
     "enabled": false, 
     "recompute_fwd_factor": 0.0, 
     "profile_step": 1, 
@@ -161,24 +161,24 @@ Dataset({
     "detailed": true, 
     "output_file": null
 }
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   fp16_auto_cast ............... None
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   fp16_enabled ................. False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   fp16_master_weights_and_gradients  False
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   global_rank .................. 0
-[2024-03-13 09:08:07,814] [INFO] [config.py:1000:print]   grad_accum_dtype ............. None
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   gradient_accumulation_steps .. 32
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   gradient_clipping ............ 1.0
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   gradient_predivide_factor .... 1.0
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   graph_harvesting ............. False
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   initial_dynamic_scale ........ 1
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   load_universal_checkpoint .... False
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   loss_scale ................... 1.0
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   memory_breakdown ............. False
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   mics_hierarchial_params_gather  False
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   mics_shard_size .............. -1
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   nebula_config ................ {
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   fp16_auto_cast ............... None
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   fp16_enabled ................. False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   fp16_master_weights_and_gradients  False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   global_rank .................. 0
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   grad_accum_dtype ............. None
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   gradient_accumulation_steps .. 32
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   gradient_clipping ............ 1.0
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   gradient_predivide_factor .... 1.0
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   graph_harvesting ............. False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   hybrid_engine ................ enabled=False max_out_tokens=512 inference_tp_size=1 release_inference_cache=False pin_parameters=True tp_gather_partition_size=8
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   initial_dynamic_scale ........ 1
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   load_universal_checkpoint .... False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   loss_scale ................... 1.0
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   memory_breakdown ............. False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   mics_hierarchial_params_gather  False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   mics_shard_size .............. -1
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   monitor_config ............... tensorboard=TensorBoardConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') wandb=WandbConfig(enabled=False, group=None, team=None, project='deepspeed') csv_monitor=CSVConfig(enabled=False, output_path='', job_name='DeepSpeedJobName') enabled=False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   nebula_config ................ {
     "enabled": false, 
     "persistent_storage_path": null, 
     "persistent_time_interval": 100, 
@@ -186,32 +186,32 @@ Dataset({
     "enable_nebula_load": true, 
     "load_path": null
 }
-[2024-03-13 09:08:07,815] [INFO] [config.py:1000:print]   optimizer_legacy_fusion ...... False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   optimizer_name ............... None
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   optimizer_params ............. None
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   pld_enabled .................. False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   pld_params ................... False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   prescale_gradients ........... False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   scheduler_name ............... None
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   scheduler_params ............. None
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   seq_parallel_communication_data_type  torch.float32
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   sparse_attention ............. None
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   sparse_gradients_enabled ..... False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   steps_per_print .............. inf
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   train_batch_size ............. 128
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   train_micro_batch_size_per_gpu  1
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   use_data_before_expert_parallel_  False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   use_node_local_storage ....... False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   wall_clock_breakdown ......... False
-[2024-03-13 09:08:07,816] [INFO] [config.py:1000:print]   weight_quantization_config ... None
-[2024-03-13 09:08:07,817] [INFO] [config.py:1000:print]   world_size ................... 4
-[2024-03-13 09:08:07,817] [INFO] [config.py:1000:print]   zero_allow_untested_optimizer  False
-[2024-03-13 09:08:07,817] [INFO] [config.py:1000:print]   zero_config .................. stage=0 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500,000,000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500,000,000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100,000,000, max_in_cpu=1,000,000,000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='none', nvme_path=None, buffer_count=4, pin_memory=False, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
-[2024-03-13 09:08:07,817] [INFO] [config.py:1000:print]   zero_enabled ................. False
-[2024-03-13 09:08:07,817] [INFO] [config.py:1000:print]   zero_force_ds_cpu_optimizer .. True
-[2024-03-13 09:08:07,817] [INFO] [config.py:1000:print]   zero_optimization_stage ...... 0
-[2024-03-13 09:08:07,817] [INFO] [config.py:986:print_user_config]   json = {
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   optimizer_legacy_fusion ...... False
+[2024-03-13 10:12:00,118] [INFO] [config.py:1000:print]   optimizer_name ............... None
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   optimizer_params ............. None
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0, 'pipe_partitioned': True, 'grad_partitioned': True}
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   pld_enabled .................. False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   pld_params ................... False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   prescale_gradients ........... False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   scheduler_name ............... None
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   scheduler_params ............. None
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   seq_parallel_communication_data_type  torch.float32
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   sparse_attention ............. None
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   sparse_gradients_enabled ..... False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   steps_per_print .............. inf
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   train_batch_size ............. 128
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   train_micro_batch_size_per_gpu  1
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   use_data_before_expert_parallel_  False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   use_node_local_storage ....... False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   wall_clock_breakdown ......... False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   weight_quantization_config ... None
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   world_size ................... 4
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   zero_allow_untested_optimizer  False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   zero_config .................. stage=0 contiguous_gradients=True reduce_scatter=True reduce_bucket_size=500,000,000 use_multi_rank_bucket_allreduce=True allgather_partitions=True allgather_bucket_size=500,000,000 overlap_comm=False load_from_fp32_weights=True elastic_checkpoint=False offload_param=DeepSpeedZeroOffloadParamConfig(device='none', nvme_path=None, buffer_count=5, buffer_size=100,000,000, max_in_cpu=1,000,000,000, pin_memory=False) offload_optimizer=DeepSpeedZeroOffloadOptimizerConfig(device='none', nvme_path=None, buffer_count=4, pin_memory=False, pipeline=False, pipeline_read=False, pipeline_write=False, fast_init=False, ratio=1.0) sub_group_size=1,000,000,000 cpu_offload_param=None cpu_offload_use_pin_memory=None cpu_offload=None prefetch_bucket_size=50,000,000 param_persistence_threshold=100,000 model_persistence_threshold=sys.maxsize max_live_parameters=1,000,000,000 max_reuse_distance=1,000,000,000 gather_16bit_weights_on_model_save=False stage3_gather_fp16_weights_on_model_save=False ignore_unused_parameters=True legacy_stage1=False round_robin_gradients=False zero_hpz_partition_size=1 zero_quantized_weights=False zero_quantized_nontrainable_weights=False zero_quantized_gradients=False mics_shard_size=-1 mics_hierarchical_params_gather=False memory_efficient_linear=True pipeline_loading_checkpoint=False override_module_apply=True
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   zero_enabled ................. False
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   zero_force_ds_cpu_optimizer .. True
+[2024-03-13 10:12:00,119] [INFO] [config.py:1000:print]   zero_optimization_stage ...... 0
+[2024-03-13 10:12:00,120] [INFO] [config.py:986:print_user_config]   json = {
     "train_batch_size": 128, 
     "train_micro_batch_size_per_gpu": 1, 
     "gradient_accumulation_steps": 32, 
@@ -237,3 +237,41 @@ Dataset({
     }
 }
 {'loss': 0.6931, 'learning_rate': 6.666666666666667e-08, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -8.57713508605957, 'logps/chosen': -5.945191860198975, 'logits/rejected': -3.310513734817505, 'logits/chosen': -3.178420305252075, 'epoch': 0.01}
+{'loss': 0.6931, 'learning_rate': 1.3333333333333334e-07, 'rewards/chosen': 0.0, 'rewards/rejected': 0.0, 'rewards/accuracies': 0.0, 'rewards/margins': 0.0, 'logps/rejected': -6.4359612464904785, 'logps/chosen': -5.295842170715332, 'logits/rejected': -3.21756649017334, 'logits/chosen': -3.114837646484375, 'epoch': 0.01}
+{'loss': 0.6899, 'learning_rate': 2e-07, 'rewards/chosen': -0.004269998520612717, 'rewards/rejected': 0.0033285280223935843, 'rewards/accuracies': 0.5, 'rewards/margins': -0.007598526775836945, 'logps/rejected': -4.271036624908447, 'logps/chosen': -7.294907093048096, 'logits/rejected': -3.087254285812378, 'logits/chosen': -3.192199945449829, 'epoch': 0.02}
+{'loss': 0.6933, 'learning_rate': 2.6666666666666667e-07, 'rewards/chosen': -0.006242414936423302, 'rewards/rejected': 0.003592083230614662, 'rewards/accuracies': 0.5, 'rewards/margins': -0.009834498167037964, 'logps/rejected': -5.1651291847229, 'logps/chosen': -4.6068902015686035, 'logits/rejected': -3.2086915969848633, 'logits/chosen': -3.210923910140991, 'epoch': 0.03}
+{'loss': 0.6919, 'learning_rate': 3.333333333333333e-07, 'rewards/chosen': 0.005738516338169575, 'rewards/rejected': -0.002376825548708439, 'rewards/accuracies': 0.59375, 'rewards/margins': 0.008115340955555439, 'logps/rejected': -8.397343635559082, 'logps/chosen': -3.750690460205078, 'logits/rejected': -3.3255841732025146, 'logits/chosen': -2.8927814960479736, 'epoch': 0.03}
+{'loss': 0.6902, 'learning_rate': 4e-07, 'rewards/chosen': 0.012706493958830833, 'rewards/rejected': -0.005102159921079874, 'rewards/accuracies': 0.65625, 'rewards/margins': 0.01780865527689457, 'logps/rejected': -7.36474609375, 'logps/chosen': -5.610881328582764, 'logits/rejected': -3.127760410308838, 'logits/chosen': -3.1510117053985596, 'epoch': 0.04}
+{'loss': 0.6874, 'learning_rate': 4.6666666666666666e-07, 'rewards/chosen': 0.011223964393138885, 'rewards/rejected': -0.009835252538323402, 'rewards/accuracies': 0.5, 'rewards/margins': 0.02105921506881714, 'logps/rejected': -5.337256908416748, 'logps/chosen': -6.144998550415039, 'logits/rejected': -3.100006580352783, 'logits/chosen': -3.219921350479126, 'epoch': 0.05}
+{'loss': 0.686, 'learning_rate': 5.333333333333333e-07, 'rewards/chosen': 0.031238267198204994, 'rewards/rejected': -0.0024835902731865644, 'rewards/accuracies': 0.59375, 'rewards/margins': 0.03372185677289963, 'logps/rejected': -4.7875823974609375, 'logps/chosen': -6.772735595703125, 'logits/rejected': -3.1316118240356445, 'logits/chosen': -3.292829990386963, 'epoch': 0.05}
+{'loss': 0.7226, 'learning_rate': 6e-07, 'rewards/chosen': 0.0030904896557331085, 'rewards/rejected': -0.008129475638270378, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.011219964362680912, 'logps/rejected': -5.484704494476318, 'logps/chosen': -6.491939067840576, 'logits/rejected': -3.2941713333129883, 'logits/chosen': -3.130983591079712, 'epoch': 0.06}
+{'loss': 0.6625, 'learning_rate': 6.666666666666666e-07, 'rewards/chosen': 0.023905130103230476, 'rewards/rejected': -0.028228553012013435, 'rewards/accuracies': 0.65625, 'rewards/margins': 0.05213368311524391, 'logps/rejected': -7.16128396987915, 'logps/chosen': -7.32797384262085, 'logits/rejected': -3.045118808746338, 'logits/chosen': -3.249051809310913, 'epoch': 0.07}
+{'loss': 0.6838, 'learning_rate': 7.333333333333332e-07, 'rewards/chosen': 0.04169347137212753, 'rewards/rejected': -0.0339985117316246, 'rewards/accuracies': 0.5625, 'rewards/margins': 0.07569198310375214, 'logps/rejected': -7.252690315246582, 'logps/chosen': -8.823975563049316, 'logits/rejected': -3.1318840980529785, 'logits/chosen': -3.247826337814331, 'epoch': 0.07}
+{'loss': 0.6797, 'learning_rate': 8e-07, 'rewards/chosen': -0.01338259968906641, 'rewards/rejected': 0.004815882071852684, 'rewards/accuracies': 0.625, 'rewards/margins': -0.018198493868112564, 'logps/rejected': -5.480940818786621, 'logps/chosen': -4.790292263031006, 'logits/rejected': -3.159048318862915, 'logits/chosen': -3.2252349853515625, 'epoch': 0.08}
+{'loss': 0.6164, 'learning_rate': 8.666666666666667e-07, 'rewards/chosen': 0.018267594277858734, 'rewards/rejected': -0.16853973269462585, 'rewards/accuracies': 0.71875, 'rewards/margins': 0.18680734932422638, 'logps/rejected': -7.38813591003418, 'logps/chosen': -7.0945024490356445, 'logits/rejected': -3.2047524452209473, 'logits/chosen': -3.080444812774658, 'epoch': 0.09}
+{'loss': 0.6916, 'learning_rate': 9.333333333333333e-07, 'rewards/chosen': 0.05444994568824768, 'rewards/rejected': -0.2961537837982178, 'rewards/accuracies': 0.71875, 'rewards/margins': 0.35060375928878784, 'logps/rejected': -10.42969036102295, 'logps/chosen': -6.097675323486328, 'logits/rejected': -3.2400786876678467, 'logits/chosen': -3.106236457824707, 'epoch': 0.09}
+{'loss': 0.5597, 'learning_rate': 1e-06, 'rewards/chosen': 0.08478154987096786, 'rewards/rejected': -0.347018301486969, 'rewards/accuracies': 0.84375, 'rewards/margins': 0.43179985880851746, 'logps/rejected': -9.824350357055664, 'logps/chosen': -7.171695232391357, 'logits/rejected': -3.1269710063934326, 'logits/chosen': -3.0900704860687256, 'epoch': 0.1}
+{'loss': 0.5613, 'learning_rate': 9.998605186060136e-07, 'rewards/chosen': -0.06496957689523697, 'rewards/rejected': -0.5201355218887329, 'rewards/accuracies': 0.6875, 'rewards/margins': 0.45516595244407654, 'logps/rejected': -8.326094627380371, 'logps/chosen': -4.17398738861084, 'logits/rejected': -3.2681291103363037, 'logits/chosen': -3.0513362884521484, 'epoch': 0.11}
+{'loss': 0.5389, 'learning_rate': 9.994421522442919e-07, 'rewards/chosen': -0.10875532776117325, 'rewards/rejected': -0.7481650114059448, 'rewards/accuracies': 0.78125, 'rewards/margins': 0.6394096612930298, 'logps/rejected': -7.658154010772705, 'logps/chosen': -7.63365364074707, 'logits/rejected': -3.2127652168273926, 'logits/chosen': -3.209218978881836, 'epoch': 0.11}
+{'loss': 0.5959, 'learning_rate': 9.987451343321279e-07, 'rewards/chosen': -0.3051600754261017, 'rewards/rejected': -1.3711007833480835, 'rewards/accuracies': 0.75, 'rewards/margins': 1.0659406185150146, 'logps/rejected': -7.6222639083862305, 'logps/chosen': -6.899044036865234, 'logits/rejected': -3.193312168121338, 'logits/chosen': -3.265510082244873, 'epoch': 0.12}
+{'loss': 0.5683, 'learning_rate': 9.977698537536417e-07, 'rewards/chosen': -0.2073516696691513, 'rewards/rejected': -2.6444735527038574, 'rewards/accuracies': 0.8125, 'rewards/margins': 2.437121868133545, 'logps/rejected': -11.595632553100586, 'logps/chosen': -5.955156326293945, 'logits/rejected': -3.2192957401275635, 'logits/chosen': -3.225825548171997, 'epoch': 0.13}
+{'loss': 0.3941, 'learning_rate': 9.96516854642812e-07, 'rewards/chosen': -0.42233771085739136, 'rewards/rejected': -3.7453484535217285, 'rewards/accuracies': 0.90625, 'rewards/margins': 3.3230109214782715, 'logps/rejected': -16.402057647705078, 'logps/chosen': -5.9561848640441895, 'logits/rejected': -3.2550230026245117, 'logits/chosen': -3.289834976196289, 'epoch': 0.13}
+{'loss': 0.3547, 'learning_rate': 9.949868360798893e-07, 'rewards/chosen': -0.8043302297592163, 'rewards/rejected': -4.052809238433838, 'rewards/accuracies': 0.8125, 'rewards/margins': 3.2484793663024902, 'logps/rejected': -16.574947357177734, 'logps/chosen': -7.785996437072754, 'logits/rejected': -3.187462329864502, 'logits/chosen': -3.1555356979370117, 'epoch': 0.14}
+{'loss': 0.2137, 'learning_rate': 9.931806517013612e-07, 'rewards/chosen': -0.6565027236938477, 'rewards/rejected': -6.517718315124512, 'rewards/accuracies': 0.9375, 'rewards/margins': 5.861215591430664, 'logps/rejected': -26.89950942993164, 'logps/chosen': -5.758345127105713, 'logits/rejected': -3.2989792823791504, 'logits/chosen': -2.9646096229553223, 'epoch': 0.15}
+{'loss': 0.5746, 'learning_rate': 9.910993092236877e-07, 'rewards/chosen': -1.8102409839630127, 'rewards/rejected': -7.331286430358887, 'rewards/accuracies': 0.78125, 'rewards/margins': 5.521044731140137, 'logps/rejected': -24.976892471313477, 'logps/chosen': -11.762639999389648, 'logits/rejected': -3.107586622238159, 'logits/chosen': -3.1754395961761475, 'epoch': 0.15}
+{'loss': 0.3513, 'learning_rate': 9.887439698810692e-07, 'rewards/chosen': -1.681373953819275, 'rewards/rejected': -7.702520847320557, 'rewards/accuracies': 0.875, 'rewards/margins': 6.021147727966309, 'logps/rejected': -24.60941505432129, 'logps/chosen': -8.33265495300293, 'logits/rejected': -3.2657318115234375, 'logits/chosen': -3.1085586547851562, 'epoch': 0.16}
+{'loss': 0.1369, 'learning_rate': 9.861159477775651e-07, 'rewards/chosen': -3.181999444961548, 'rewards/rejected': -10.386445999145508, 'rewards/accuracies': 0.84375, 'rewards/margins': 7.204446315765381, 'logps/rejected': -30.76239585876465, 'logps/chosen': -15.319719314575195, 'logits/rejected': -3.206388473510742, 'logits/chosen': -3.281005382537842, 'epoch': 0.17}
+{'loss': 0.3519, 'learning_rate': 9.832167091539213e-07, 'rewards/chosen': -2.8032374382019043, 'rewards/rejected': -13.260354995727539, 'rewards/accuracies': 0.96875, 'rewards/margins': 10.457118034362793, 'logps/rejected': -41.68070983886719, 'logps/chosen': -12.854507446289062, 'logits/rejected': -3.218885898590088, 'logits/chosen': -3.101783514022827, 'epoch': 0.18}
+{'loss': 0.1974, 'learning_rate': 9.800478715695162e-07, 'rewards/chosen': -3.3109140396118164, 'rewards/rejected': -12.698173522949219, 'rewards/accuracies': 0.9375, 'rewards/margins': 9.387259483337402, 'logps/rejected': -37.40380096435547, 'logps/chosen': -15.583910942077637, 'logits/rejected': -3.115004539489746, 'logits/chosen': -3.169107675552368, 'epoch': 0.18}
+{'loss': 0.602, 'learning_rate': 9.766112029998846e-07, 'rewards/chosen': -3.999213218688965, 'rewards/rejected': -15.444347381591797, 'rewards/accuracies': 0.875, 'rewards/margins': 11.445134162902832, 'logps/rejected': -43.27462387084961, 'logps/chosen': -14.429515838623047, 'logits/rejected': -3.227783203125, 'logits/chosen': -3.200265645980835, 'epoch': 0.19}
+{'loss': 0.8221, 'learning_rate': 9.729086208503173e-07, 'rewards/chosen': -6.012478828430176, 'rewards/rejected': -14.253609657287598, 'rewards/accuracies': 0.84375, 'rewards/margins': 8.241130828857422, 'logps/rejected': -42.355323791503906, 'logps/chosen': -21.13311767578125, 'logits/rejected': -3.2154979705810547, 'logits/chosen': -3.24849796295166, 'epoch': 0.2}
+{'loss': 0.2437, 'learning_rate': 9.689421908860927e-07, 'rewards/chosen': -5.371091842651367, 'rewards/rejected': -16.588916778564453, 'rewards/accuracies': 0.9375, 'rewards/margins': 11.217824935913086, 'logps/rejected': -48.49202346801758, 'logps/chosen': -19.602649688720703, 'logits/rejected': -3.211367607116699, 'logits/chosen': -3.228856086730957, 'epoch': 0.2}
+{'loss': 0.5765, 'learning_rate': 9.647141260799329e-07, 'rewards/chosen': -4.534219264984131, 'rewards/rejected': -20.47382164001465, 'rewards/accuracies': 0.875, 'rewards/margins': 15.93960189819336, 'logps/rejected': -57.22439956665039, 'logps/chosen': -18.579410552978516, 'logits/rejected': -3.2739405632019043, 'logits/chosen': -3.1122264862060547, 'epoch': 0.21}
+{'loss': 0.5896, 'learning_rate': 9.6022678537733e-07, 'rewards/chosen': -6.637582302093506, 'rewards/rejected': -16.924549102783203, 'rewards/accuracies': 0.84375, 'rewards/margins': 10.286968231201172, 'logps/rejected': -48.53065490722656, 'logps/chosen': -22.925371170043945, 'logits/rejected': -3.2001163959503174, 'logits/chosen': -3.182149887084961, 'epoch': 0.22}
+{'loss': 0.5199, 'learning_rate': 9.554826723804303e-07, 'rewards/chosen': -7.048140525817871, 'rewards/rejected': -17.403400421142578, 'rewards/accuracies': 0.875, 'rewards/margins': 10.355259895324707, 'logps/rejected': -49.776336669921875, 'logps/chosen': -22.80353546142578, 'logits/rejected': -3.241710662841797, 'logits/chosen': -3.1890053749084473, 'epoch': 0.22}
+{'loss': 0.609, 'learning_rate': 9.504844339512094e-07, 'rewards/chosen': -7.953960418701172, 'rewards/rejected': -17.77543830871582, 'rewards/accuracies': 0.90625, 'rewards/margins': 9.821477890014648, 'logps/rejected': -51.17716598510742, 'logps/chosen': -25.211376190185547, 'logits/rejected': -3.3103511333465576, 'logits/chosen': -3.166799545288086, 'epoch': 0.23}
+{'loss': 0.9619, 'learning_rate': 9.452348587347223e-07, 'rewards/chosen': -10.656364440917969, 'rewards/rejected': -16.29318618774414, 'rewards/accuracies': 0.625, 'rewards/margins': 5.636821746826172, 'logps/rejected': -48.08344650268555, 'logps/chosen': -38.114952087402344, 'logits/rejected': -3.142573595046997, 'logits/chosen': -3.257089138031006, 'epoch': 0.24}
+{'loss': 0.3696, 'learning_rate': 9.397368756032444e-07, 'rewards/chosen': -7.326585292816162, 'rewards/rejected': -18.443666458129883, 'rewards/accuracies': 0.875, 'rewards/margins': 11.117080688476562, 'logps/rejected': -50.2921257019043, 'logps/chosen': -22.988677978515625, 'logits/rejected': -3.2709555625915527, 'logits/chosen': -3.243499279022217, 'epoch': 0.24}
+{'loss': 0.3251, 'learning_rate': 9.339935520221816e-07, 'rewards/chosen': -6.960196018218994, 'rewards/rejected': -22.865495681762695, 'rewards/accuracies': 0.90625, 'rewards/margins': 15.90530014038086, 'logps/rejected': -64.74160766601562, 'logps/chosen': -23.841354370117188, 'logits/rejected': -3.190035581588745, 'logits/chosen': -3.0812571048736572, 'epoch': 0.25}
+{'loss': 0.5452, 'learning_rate': 9.2800809233865e-07, 'rewards/chosen': -10.09091854095459, 'rewards/rejected': -19.925472259521484, 'rewards/accuracies': 0.875, 'rewards/margins': 9.834552764892578, 'logps/rejected': -56.4735107421875, 'logps/chosen': -33.360721588134766, 'logits/rejected': -3.131826639175415, 'logits/chosen': -3.2476704120635986, 'epoch': 0.26}
+{'loss': 0.4603, 'learning_rate': 9.217838359936913e-07, 'rewards/chosen': -8.169014930725098, 'rewards/rejected': -21.043834686279297, 'rewards/accuracies': 0.96875, 'rewards/margins': 12.874820709228516, 'logps/rejected': -58.82691955566406, 'logps/chosen': -26.358701705932617, 'logits/rejected': -3.275653600692749, 'logits/chosen': -3.095721960067749, 'epoch': 0.26}

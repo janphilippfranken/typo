@@ -112,9 +112,9 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - dpo.beta=0.2
-    - wandb.name=dpo-beta-0.2
-    - training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.2
+    - dpo.beta=0.4
+    - wandb.name=dpo-beta-0.4
+    - training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.4
     - data_path=data
     - helpful=helpful.json
     - harmless=harmless.json
@@ -122,7 +122,7 @@ hydra:
   job:
     name: train_dpo
     chdir: null
-    override_dirname: data_path=data,dpo.beta=0.2,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.2,wandb.name=dpo-beta-0.2
+    override_dirname: data_path=data,dpo.beta=0.4,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.4,wandb.name=dpo-beta-0.4
     id: ???
     num: ???
     config_name: train_dpo
