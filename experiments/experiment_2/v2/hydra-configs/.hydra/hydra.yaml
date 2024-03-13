@@ -112,9 +112,9 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - typo.beta=1.0
-    - wandb.name=typo-sft-both-beta-1.0-lr-1e-6
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-typo-both-beta-1.0-1e-6
+    - typo.beta=0.1
+    - wandb.name=typo-beta-0.1-lr-1e-6
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-0.1-1e-6
     - training.lr=1e-6
     - data_path=data
     - helpful=helpful.json
@@ -123,7 +123,7 @@ hydra:
   job:
     name: train_typo
     chdir: null
-    override_dirname: data_path=data,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-typo-both-beta-1.0-1e-6,training.lr=1e-6,typo.beta=1.0,wandb.name=typo-sft-both-beta-1.0-lr-1e-6
+    override_dirname: data_path=data,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-0.1-1e-6,training.lr=1e-6,typo.beta=0.1,wandb.name=typo-beta-0.1-lr-1e-6
     id: ???
     num: ???
     config_name: train_typo
@@ -150,7 +150,7 @@ hydra:
       provider: schema
     output_dir: /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/hydra-configs
     choices:
-      model: mistral_7b_sft
+      model: mistral_7b_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

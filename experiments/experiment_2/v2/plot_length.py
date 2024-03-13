@@ -5,106 +5,76 @@ import json
 
 OUTPUT_DIR = 'results/plots'
 
-
-from plot_utils import lighten_color, change_saturation, get_fancy_bbox
-
 def load_data(path):
-    return json.load(open(path))
+    """Load data from a JSON file."""
+    with open(path) as f:
+        return json.load(f)
 
 def calculate_statistics(datasets):
     """Calculate means, sample sizes, and standard errors for a list of datasets."""
     means = [np.mean(dataset) for dataset in datasets]
     ns = [len(dataset) for dataset in datasets]
-    print(ns)
     errors = [1.96 * np.std(dataset, ddof=1) / np.sqrt(n) for dataset, n in zip(datasets, ns)]
     return means, ns, errors
 
-def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
-    """Plot the results with error bars for each feature type (ft) and save to PDF."""
-    # plt.rcParams["font.family"] = "Avenir"
-    plt.rcParams["font.size"] = 28
+def plot_results(categories, means_ft, errors_ft, labels, title, filename):
+    """Plot bar charts for each feature type (ft) with error bars."""
+    plt.rcParams["font.size"] = 12
     palette = sns.color_palette('colorblind')
-    fig, ax = plt.subplots(figsize=(10, 10))
+    fig, ax = plt.subplots(figsize=(12, 6))
 
+    bar_width = 0.35 / len(labels)  # Adjust bar width to fit the new number of bars
+    index = np.arange(len(categories))
+    
     for i, (means, errors) in enumerate(zip(means_ft, errors_ft)):
-        ax.errorbar(temperatures, means, yerr=errors, fmt='o-', color=palette[i], label=labels[i])
+        positions = index + bar_width * i - bar_width / 2  # Adjust positions for two bars per category
+        ax.bar(positions, means, bar_width, yerr=errors, color=palette[i], label=labels[i], capsize=5, edgecolor='grey')
 
-    ax.set_ylabel('Win Rate')
-    ax.set_xlabel('Iteration (t)')
-    ax.set_xticks(temperatures)
-    ax.set_xticklabels(map(str, temperatures))
-    ax.set_yticks([0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-    ax.set_yticklabels([0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
-    ax.set_ylim(0.375, .925)  
-    ax.set_xlim(min(temperatures) - 0.05, max(temperatures) + 0.05)
-    ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
-    ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.25, 0.95), prop={'size': 16})
+    ax.set_ylabel('Average Response Tokens')
+    ax.set_xlabel('Model')
+    ax.set_xticks(index)
+    ax.set_xticklabels(categories)
+    # ax.set_ylim(0, 1)  # Adjust based on your data range
+    ax.legend()
 
+    # ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
     sns.despine()
     plt.title(title)
     plt.tight_layout()
     
     plt.savefig(f'{OUTPUT_DIR}/{filename}_length.pdf')
     plt.savefig(f'{OUTPUT_DIR}/{filename}_length.png')
-    plt.close()  # Close the plot to prevent it from showing inline if using Jupyter
+    plt.close()
 
-def main(): 
-    # beta 1.0
-    helpful_beta_1 = [
-        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
-        "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
-        "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
-    ]
-    
-    harmless_beta_1 = [
-        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
-        "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
-        "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
-    ]
-    
-    # beta 1.0
-    helpful_beta_1_base = [
-        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
-        "results/responses/sweep/win_rates/typo-iteration-1vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
-        "results/responses/sweep/win_rates/typo-iteration-2vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
-    ]
-    
-    harmless_beta_1_base = [
-        "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
-        "results/responses/sweep/win_rates/typo-iteration-1vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
-        "results/responses/sweep/win_rates/typo-iteration-2vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
-    ]
-    
-  
+def main():
+    categories = ['SFT', 'DPO', 'DPO + SFT', 'TYPO']
+    labels = ['Helpful', 'Harmless']
+
     # Load datasets
- 
-    dataset_helpful_beta_1 = [load_data(path) for path in helpful_beta_1]
-    dataset_harmless_beta_1  = [load_data(path) for path in harmless_beta_1]
-    dataset_helpful_beta_1_base = [load_data(path) for path in helpful_beta_1_base]
-    dataset_harmless_beta_1_base  = [load_data(path) for path in harmless_beta_1_base]
-  
-
+    helpful_datasets = [
+        load_data(path) for path in [
+            "results/length/sft-positive-helpful_length_helpful.json",
+            "results/length/dpo-no-sft-beta-0.1-helpful_length_helpful.json",
+            "results/length/dpo-sft-both-beta-0.1-helpful_length_helpful.json",
+            "results/length/typo-beta-0.5-helpful_length_helpful.json",
+        ]
+    ]
+    
+    harmless_datasets = [
+        load_data(path) for path in [
+            "results/length/sft-positive-helpful_length_harmless.json",
+            "results/length/dpo-no-sft-beta-0.1-helpful_length_harmless.json",
+            "results/length/dpo-sft-both-beta-0.1-helpful_length_harmless.json",
+            "results/length/typo-beta-0.5-helpful_length_harmless.json",
+        ]
+    ]
+    
     # Calculate statistics
-    means_helpful_beta_1, ns_helpful_beta_1, errors_helpful_beta_1 = calculate_statistics(dataset_helpful_beta_1)
-    means_harmless_beta_1, ns_harmless_beta_1, errors_harmless_beta_1 = calculate_statistics(dataset_harmless_beta_1)
-    means_helpful_beta_1_base, ns_helpful_beta_1_base, errors_helpful_beta_1_base = calculate_statistics(dataset_helpful_beta_1_base)
-    means_harmless_beta_1_base, ns_harmless_beta_1_base, errors_harmless_beta_1_base= calculate_statistics(dataset_harmless_beta_1_base)
-   
-  
-    
+    means_helpful, ns_helpful, errors_helpful = calculate_statistics(helpful_datasets)
+    means_harmless, ns_harmless, errors_harmless = calculate_statistics(harmless_datasets)
+
     # Plotting
-    iterations = [1, 2, 3] 
-    plot_results(iterations, [
-        means_helpful_beta_1_base, means_helpful_beta_1],
-                 [errors_helpful_beta_1_base, errors_helpful_beta_1],
-                    [r"$\text{typo}_{\text{t}}$ > base", r"$\text{typo}_{\text{t}}$ > $\text{typo}_{\text{t-1}}$"], 'Helpful Win Rates', 'helpful_win_rates')
-    
-    plot_results(iterations, [
-        means_harmless_beta_1_base, means_harmless_beta_1],
-                 [errors_harmless_beta_1_base, errors_harmless_beta_1],
-                    [r"$\text{typo}_{\text{t}}$ > base", r"$\text{typo}_{\text{t}}$ > $\text{typo}_{\text{t-1}}$"], 'Harmless Win Rates', 'harmless_win_rates')
-    
-    breakpoint()
+    plot_results(categories, [means_helpful, means_harmless], [errors_helpful, errors_harmless], labels, "Length", "length_comparison")
 
 if __name__ == "__main__":
     main()

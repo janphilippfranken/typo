@@ -25,7 +25,6 @@ def load_model_responses(filename):
 def main(args: DictConfig) -> None:
     
     model_baseline = load_model_responses(f"{args.model_dir}/{args.baseline}.json")
-    model_test = load_model_responses(f"{args.model_dir}/{args.test}.json")
     
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
@@ -36,10 +35,7 @@ def main(args: DictConfig) -> None:
 
     
     length_base_helpful = []
-    length_test_helpful = []
-    
     length_base_harmless = []
-    length_test_harmless = []
     
     constitutions = list(model_baseline['constitution'].values())
 
@@ -52,30 +48,22 @@ def main(args: DictConfig) -> None:
             len(tokenizer.encode(model_baseline['response_helpful'][str(i)].split("\n\n3.")[0].strip()))
         )
         
-        length_test_helpful.append(
-            len(tokenizer.encode(model_test['response_helpful'][str(i)].split("\n\n3.")[0].strip()))
-        )
+        
         
         length_base_harmless.append(
             len(tokenizer.encode(model_baseline['response_harmless'][str(i)].split("\n\n3.")[0].strip()))
         )
         
-        length_test_harmless.append(
-            len(tokenizer.encode(model_test['response_harmless'][str(i)].split("\n\n3.")[0].strip()))
-        )
+       
         
         
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_helpful.json', 'w') as file:
+        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_helpful.json', 'w') as file:
             json.dump(length_base_helpful, file, indent=4)
             
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_helpful.json', 'w') as file:
-            json.dump(length_test_helpful, file, indent=4)
-            
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_base_harmless.json', 'w') as file:
+      
+        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_harmless.json', 'w') as file:
             json.dump(length_base_harmless, file, indent=4)
-            
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_test_harmless.json', 'w') as file:
-            json.dump(length_test_harmless, file, indent=4)
+        
  
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 model_dir: results/responses
-baseline: sft-positive-evaluation-temperature-0.0
+baseline: dpo-no-sft-evaluation-beta-0.1-temperature-0.0
 test: dpo-sft-both-evaluation-beta-0.1-temperature-0.0
 output_dir: results/length
-helpful_win_rates_file_name: typo-beta-1.0-vs-sft-positive-helpful
-harmless_win_rates_file_name: typo-beta-1.0-vs-sft-positive-harmless
+helpful_win_rates_file_name: dpo-no-sft-beta-0.1-helpful
+harmless_win_rates_file_name: dpo-no-sft-beta-0.1-harmless
