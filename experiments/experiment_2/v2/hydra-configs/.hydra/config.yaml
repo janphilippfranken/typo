@@ -2,11 +2,11 @@ model:
   model_type: huggingface
   name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both/checkpoint-296/
-    cache_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both/checkpoint-296/
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
   tokenizer_config:
-    pretrained_model_name_or_path: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both/checkpoint-296/
-    cache_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both/checkpoint-296/
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
 data_path: data
 helpful: helpful.json
@@ -16,13 +16,13 @@ n_responses: 2
 n_constitutions: 2
 wandb:
   project: hh-rlhf-dpo-exp-2
-  name: dpo-beta-0.4
+  name: dpo-no-sft-beta-0.2
 dpo:
-  beta: 0.4
+  beta: 0.2
 train_split: 0.0
 max_prompt_length: 1024
 training_args:
-  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.4
+  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/dpo-no-sft-0.2
   per_device_train_batch_size: 1
   gradient_accumulation_steps: 32
   learning_rate: 1.0e-06

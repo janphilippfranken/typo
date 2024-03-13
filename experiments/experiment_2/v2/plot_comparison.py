@@ -11,12 +11,25 @@ def load_data(path):
     with open(path) as f:
         return json.load(f)
 
+
 def calculate_statistics(datasets):
-    """Calculate means, sample sizes, and standard errors for a list of datasets."""
-    means = [np.mean(dataset) for dataset in datasets]
-    ns = [len(dataset) for dataset in datasets]
-    errors = [1.96 * np.std(dataset, ddof=1) / np.sqrt(n) for dataset, n in zip(datasets, ns)]
-    return means, ns, errors
+    """Calculate sample proportions and their 95% confidence interval errors for a list of binomial datasets."""
+    z = 1.96  # z-score for 95% confidence
+    means = []  # Sample proportions
+    errors = []  # Confidence interval half-widths
+    
+    for dataset in datasets:
+        n = len(dataset)  # Number of trials
+        print(n)
+        p_hat = np.mean(dataset)  # Sample proportion (success rate)
+        se = np.sqrt(p_hat * (1 - p_hat) / n)  # Standard error
+        error = z * se  # Confidence interval half-width
+        
+        means.append(p_hat)
+        errors.append(error)
+    
+    return means, None, errors
+
 
 def plot_results(categories, means_ft, errors_ft, labels, title, filename):
     """Plot bar charts for each feature type (ft) with error bars."""
@@ -56,7 +69,7 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-helpful.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-helpful.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-positive-helpful.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-helpful.json",
         ]
     ]
     
@@ -64,7 +77,7 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-harmless.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-harmless.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-positive-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-harmless.json",
         ]
     ]
     
@@ -72,7 +85,9 @@ def main():
     means_helpful, ns_helpful, errors_helpful = calculate_statistics(helpful_datasets)
     means_harmless, ns_harmless, errors_harmless = calculate_statistics(harmless_datasets)
     print(means_helpful)
+    print(errors_helpful)
     print(means_harmless)
+    print(errors_harmless)
     # Plotting
     plot_results(categories, [means_helpful, means_harmless], [errors_helpful, errors_harmless], labels, "Win Rate Comparison", "comparison")
 

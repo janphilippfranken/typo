@@ -55,8 +55,8 @@ def main():
         load_data(path) for path in [
             "results/length/sft-positive-helpful-length.json",
             "results/length/dpo-no-sft-beta-0.1-helpful-length.json",
-            "results/length/dpo-sft-both-beta-0.1-helpful-length.json",
-            "results/length/typo-beta-0.3-helpful-length.json",
+            "results/length/dpo-sft-both-beta-0.3-helpful.json",
+            "results/length/typo-beta-0.2-helpful-length.json",
         ]
     ]
     
@@ -64,15 +64,18 @@ def main():
         load_data(path) for path in [
             "results/length/sft-positive-harmless-length.json",
             "results/length/dpo-no-sft-beta-0.1-harmless-length.json",
-            "results/length/dpo-sft-both-beta-0.1-harmless-length.json",
-            "results/length/typo-beta-0.3-harmless-length.json",
+            "results/length/dpo-sft-both-beta-0.3-harmless.json",
+            "results/length/typo-beta-0.2-harmless-length.json",
         ]
     ]
     
     # Calculate statistics
     means_helpful, ns_helpful, errors_helpful = calculate_statistics(helpful_datasets)
     means_harmless, ns_harmless, errors_harmless = calculate_statistics(harmless_datasets)
-
+    print(means_helpful)
+    print(errors_helpful)
+    print(means_harmless)
+    print(errors_harmless)
     # Plotting
     plot_results(categories, [means_helpful, means_harmless], [errors_helpful, errors_harmless], labels, "Length", "length_comparison")
 
