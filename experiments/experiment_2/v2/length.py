@@ -57,11 +57,11 @@ def main(args: DictConfig) -> None:
        
         
         
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_helpful.json', 'w') as file:
+        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}.json', 'w') as file:
             json.dump(length_base_helpful, file, indent=4)
             
       
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_length_harmless.json', 'w') as file:
+        with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
             json.dump(length_base_harmless, file, indent=4)
         
  

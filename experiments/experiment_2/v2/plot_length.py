@@ -55,8 +55,8 @@ def main():
         load_data(path) for path in [
             "results/length/sft-positive-helpful_length_helpful.json",
             "results/length/dpo-no-sft-beta-0.1-helpful_length_helpful.json",
-            "results/length/dpo-sft-both-beta-0.1-helpful_length_helpful.json",
-            "results/length/typo-beta-0.1-helpful_length_helpful_length_helpful.json",
+            "results/length/dpo-sft-both-beta-0.01-helpful.json",
+            "results/length/typo-beta-0.3-length-helpful.json",
         ]
     ]
     
@@ -64,8 +64,8 @@ def main():
         load_data(path) for path in [
             "results/length/sft-positive-helpful_length_harmless.json",
             "results/length/dpo-no-sft-beta-0.1-helpful_length_harmless.json",
-            "results/length/dpo-sft-both-beta-0.1-helpful_length_harmless.json",
-            "results/length/typo-beta-0.1-helpful_length_helpful_length_harmless.json",
+            "results/length/dpo-sft-both-beta-0.01-harmless.json",
+            "results/length/typo-beta-0.3-length-harmless.json",
         ]
     ]
     

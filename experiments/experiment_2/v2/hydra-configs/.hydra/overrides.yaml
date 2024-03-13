@@ -1,7 +1,6 @@
-- typo.beta=0.2
-- wandb.name=typo-beta-0.2-lr-1e-6
-- training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-0.2-1e-6
-- training.lr=1e-6
+- dpo.beta=0.2
+- wandb.name=dpo-beta-0.2
+- training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-0.2
 - data_path=data
 - helpful=helpful.json
 - harmless=harmless.json

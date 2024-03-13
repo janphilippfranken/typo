@@ -16,14 +16,14 @@ conda activate typo
 cd ~/research_projects/typo/experiments/experiment_2/v2
 
 
-declare -a betas=(0.01 0.2)
+declare -a betas=(0.2 0.3 0.4 0.5)
 
 for beta in "${betas[@]}"; do
     output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both-${beta}"
 
     accelerate launch --config_file /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/conf/accelerate/deepspeed.yaml train_dpo.py \
         dpo.beta=$beta \
-        wandb.name="dpo-beta-${$beta}" \
+        wandb.name="dpo-beta-${beta}" \
         training_args.output_dir="$output_dir" \
         data_path="data" \
         helpful="helpful.json" \
