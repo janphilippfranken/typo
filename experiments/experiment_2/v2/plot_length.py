@@ -56,7 +56,7 @@ def main():
             "results/length/sft-positive-helpful_length_helpful.json",
             "results/length/dpo-no-sft-beta-0.1-helpful_length_helpful.json",
             "results/length/dpo-sft-both-beta-0.1-helpful_length_helpful.json",
-            "results/length/typo-beta-0.5-helpful_length_helpful.json",
+            "results/length/typo-beta-0.1-helpful_length_helpful_length_helpful.json",
         ]
     ]
     
@@ -65,7 +65,7 @@ def main():
             "results/length/sft-positive-helpful_length_harmless.json",
             "results/length/dpo-no-sft-beta-0.1-helpful_length_harmless.json",
             "results/length/dpo-sft-both-beta-0.1-helpful_length_harmless.json",
-            "results/length/typo-beta-0.5-helpful_length_harmless.json",
+            "results/length/typo-beta-0.1-helpful_length_helpful_length_harmless.json",
         ]
     ]
     
