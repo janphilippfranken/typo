@@ -15,7 +15,7 @@ conda activate typo
 
 cd ~/research_projects/typo/experiments/experiment_2/v2
 
-beta=1.0
+beta=0.5
 lr=1e-6    
 
 checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-${beta}-${lr}/epoch-1"

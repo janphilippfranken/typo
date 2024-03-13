@@ -21,15 +21,15 @@ export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
 
-declare -a betas=(0.5 2.0)
+declare -a betas=(1.0)
 lr=1e-6
 
 for beta in "${betas[@]}"; do
-    checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-${beta}-${lr}"
+    checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-typo-both-beta-${beta}-${lr}"
 
     torchrun --nproc_per_node=4 train_typo.py \
         typo.beta=$beta \
-        wandb.name="typo-beta-${beta}-lr-${lr}" \
+        wandb.name="typo-sft-both-beta-${beta}-lr-${lr}" \
         training.checkpoint_dir="$checkpoint_dir" \
         training.lr=$lr \
         data_path="data" \
