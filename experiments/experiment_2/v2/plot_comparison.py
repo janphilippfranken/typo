@@ -69,7 +69,7 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-helpful.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-helpful.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-helpful.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.5-helpful.json",
         ]
     ]
     
@@ -77,7 +77,7 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-harmless.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-harmless.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.3-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.5-harmless.json",
         ]
     ]
     
