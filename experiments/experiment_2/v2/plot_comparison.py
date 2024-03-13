@@ -77,7 +77,7 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-harmless.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-harmless.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.5-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.7-harmless.json",
         ]
     ]
     
