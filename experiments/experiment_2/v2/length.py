@@ -43,28 +43,29 @@ def main(args: DictConfig) -> None:
     
     for i, _ in enumerate(constitutions):
 
+        if i > 500:
         
-        length_base_helpful.append(
-            len(tokenizer.encode(model_baseline['response_helpful'][str(i)].split("\n\n3.")[0].strip()))
-        )
-        
-        
-        
-        length_base_harmless.append(
-            len(tokenizer.encode(model_baseline['response_harmless'][str(i)].split("\n\n3.")[0].strip()))
-        )
-        
-       
-        
-        
-        with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}.json', 'w') as file:
-            json.dump(length_base_helpful, file, indent=4)
+            length_base_helpful.append(
+                len(tokenizer.encode(model_baseline['response_helpful'][str(i)].split("\n\n3.")[0].strip()))
+            )
             
-      
-        with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
-            json.dump(length_base_harmless, file, indent=4)
+            
+            
+            length_base_harmless.append(
+                len(tokenizer.encode(model_baseline['response_harmless'][str(i)].split("\n\n3.")[0].strip()))
+            )
+            
         
- 
+            
+    
+    with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}.json', 'w') as file:
+        json.dump(length_base_helpful, file, indent=4)
+        
+
+    with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
+        json.dump(length_base_harmless, file, indent=4)
+    
+
 
 if __name__ == "__main__":
     fire.Fire(main())

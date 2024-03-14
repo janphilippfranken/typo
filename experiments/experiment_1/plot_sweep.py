@@ -120,7 +120,12 @@ def main():
     means_harmless_beta_2, ns_harmless_beta_2, errors_harmless_beta_2 = calculate_statistics(dataset_harmless_beta_2)
     means_helpful_beta_3, ns_helpful_beta_3, errors_helpful_beta_3 = calculate_statistics(dataset_helpful_beta_3)
     means_harmless_beta_3, ns_harmless_beta_3, errors_harmless_beta_3 = calculate_statistics(dataset_harmless_beta_3)
-  
+    
+    print(means_harmless_beta_05)
+    print(means_harmless_beta_1)
+    print(means_harmless_beta_2)
+    print(means_harmless_beta_3)
+    breakpoint()
     
     # Plotting
     iterations = [1, 2, 3] 

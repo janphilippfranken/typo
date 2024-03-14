@@ -20,7 +20,7 @@ constitution_key="helpful"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=2
+iteration=3
 batch_size=4000
 
 if (( iteration % 2 == 0 )); then
@@ -36,7 +36,7 @@ echo "Max Example: $max_example"
 
 # hyperparams
 lr=1e-6
-beta=3.0
+beta=1.0
 
 # model
 if [ "$iteration" -gt 0 ]; then

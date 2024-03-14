@@ -69,7 +69,7 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-helpful.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-helpful.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.5-helpful.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-1.0-helpful.json",
         ]
     ]
     
@@ -77,17 +77,19 @@ def main():
         load_data(path) for path in [
             "results/win_rates/typo-beta-0.3-vs-sft-positive-harmless.json",
             "results/win_rates/typo-beta-0.3-vs-dpo-no-sft-beta-0.3-positive-harmless.json",
-            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-0.7-harmless.json",
+            "results/win_rates/typo-beta-0.3-vs-dpo-sft-both-beta-1.0-harmless.json",
         ]
     ]
     
     # Calculate statistics
     means_helpful, ns_helpful, errors_helpful = calculate_statistics(helpful_datasets)
     means_harmless, ns_harmless, errors_harmless = calculate_statistics(harmless_datasets)
-    print(means_helpful)
-    print(errors_helpful)
-    print(means_harmless)
-    print(errors_harmless)
+    print('helpful', means_helpful)
+    print(ns_helpful)
+    print('error', errors_helpful)
+    print('harmless', means_harmless)
+    print(ns_harmless)
+    print('error', errors_harmless)
     # Plotting
     plot_results(categories, [means_helpful, means_harmless], [errors_helpful, errors_harmless], labels, "Win Rate Comparison", "comparison")
 

@@ -8,15 +8,15 @@ model:
     pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
     cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
-data_path: data
-helpful: helpful.json
-harmless: harmless.json
-n_examples: 5000
+data_path: data/sweep
+helpful: helpful-iteration-3-lr-1e-6-beta-1.0.json
+harmless: harmless-iteration-3-lr-1e-6-beta-1.0.json
+n_examples: 2000
 n_responses: 2
 n_constitutions: 2
 wandb:
   project: hh-rlhf-typo-exp-1
-  name: typo-beta-1.0-lr-1e-6
+  name: typo-beta-1.0-lr-1e-6-iteration-3
 typo:
   beta: 1.0
 training:
@@ -27,7 +27,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/typo-beta-1.0-1e-6
+  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-1-sweep/typo-beta-1.0-1e-6-iteration-3
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 32

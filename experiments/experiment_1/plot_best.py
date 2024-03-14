@@ -12,12 +12,22 @@ def load_data(path):
     return json.load(open(path))
 
 def calculate_statistics(datasets):
-    """Calculate means, sample sizes, and standard errors for a list of datasets."""
-    means = [np.mean(dataset) for dataset in datasets]
-    ns = [len(dataset) for dataset in datasets]
-    print(ns)
-    errors = [1.96 * np.std(dataset, ddof=1) / np.sqrt(n) for dataset, n in zip(datasets, ns)]
-    return means, ns, errors
+    """Calculate sample proportions and their 95% confidence interval errors for a list of binomial datasets."""
+    z = 1.96  # z-score for 95% confidence
+    means = []  # Sample proportions
+    errors = []  # Confidence interval half-widths
+    
+    for dataset in datasets:
+        n = len(dataset)  # Number of trials
+        print(n)
+        p_hat = np.mean(dataset)  # Sample proportion (success rate)
+        se = np.sqrt(p_hat * (1 - p_hat) / n)  # Standard error
+        error = z * se  # Confidence interval half-width
+        
+        means.append(p_hat)
+        errors.append(error)
+    
+    return means, None, errors
 
 def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     """Plot the results with error bars for each feature type (ft) and save to PDF."""
@@ -32,11 +42,11 @@ def plot_results(temperatures, means_ft, errors_ft, labels, title, filename):
     ax.set_ylabel('Win Rate')
     ax.set_xlabel('Iteration (t)')
     ax.set_xticks(temperatures)
-    ax.set_xticklabels(map(str, temperatures))
+    ax.set_xticklabels(map(str,  temperatures))
     ax.set_yticks([0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
     ax.set_yticklabels([0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
     ax.set_ylim(0.375, .925)  
-    ax.set_xlim(min(temperatures) - 0.05, max(temperatures) + 0.05)
+    ax.set_xlim(.7, 4.3)
     ax.axhline(y=0.5, color='lightgrey', linestyle='--', linewidth=2)
     ax.legend(loc='upper left', ncol=2, fontsize=8, frameon=False, bbox_to_anchor=(0.25, 0.95), prop={'size': 16})
 
@@ -54,12 +64,14 @@ def main():
         "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
         "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
         "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-3vs2-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
     ]
     
     harmless_beta_1 = [
         "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
         "results/responses/sweep/win_rates/typo-iteration-1vs0-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
         "results/responses/sweep/win_rates/typo-iteration-2vs1-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-3vs2-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
     ]
     
     # beta 1.0
@@ -67,12 +79,14 @@ def main():
         "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
         "results/responses/sweep/win_rates/typo-iteration-1vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
         "results/responses/sweep/win_rates/typo-iteration-2vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
+        "results/responses/sweep/win_rates/typo-iteration-3vsbase-lr-1e-6-beta-1.0-temperature-0.0-helpful.json",
     ]
     
     harmless_beta_1_base = [
         "results/responses/sweep/win_rates/typo-iteration-0vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
         "results/responses/sweep/win_rates/typo-iteration-1vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
         "results/responses/sweep/win_rates/typo-iteration-2vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
+        "results/responses/sweep/win_rates/typo-iteration-3vsbase-lr-1e-6-beta-1.0-temperature-0.0-harmless.json",
     ]
     
   
@@ -93,7 +107,7 @@ def main():
   
     
     # Plotting
-    iterations = [1, 2, 3] 
+    iterations = [1, 2, 3, 4] 
     plot_results(iterations, [
         means_helpful_beta_1_base, means_helpful_beta_1],
                  [errors_helpful_beta_1_base, errors_helpful_beta_1],
