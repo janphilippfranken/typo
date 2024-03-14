@@ -32,32 +32,27 @@ from torch.distributed.fsdp import (
 )
 
 
-def typo_loss(
-    logprobs: torch.FloatTensor,
-) -> torch.FloatTensor:
-    """Computes the typo loss.
-    
+def typo_loss(logprobs: torch.FloatTensor) -> torch.FloatTensor:
+    """
     Args:
-        logprobs: Log probabilities of the responses from the policy. Shape: (n_constitutions, n_responses).
+        logprobs: Shape (n_constitutions, n_responses)
 
     Returns:
-        typo_loss: Typo loss.
+        loss: Average cross-entropy loss.
     """
-    # col-wise normalization constant
-    logsumexp = torch.logsumexp(logprobs, dim=0, keepdim=True)
+    logsumexp_row = torch.logsumexp(logprobs, dim=1, keepdim=True) # across responses
+    logsumexp_col = torch.logsumexp(logprobs, dim=0, keepdim=True) # across constitutions
+   
+    logits_row = logprobs - logsumexp_row
+    logits_col = logprobs - logsumexp_col
+
+    labels_row = torch.arange(logits_row.shape[0], dtype=torch.long) 
+    labels_col = torch.arange(logits_col.shape[0], dtype=torch.long)
+
+    loss_row = F.cross_entropy(logits_row, labels_row, reduction="mean")
+    loss_col = F.cross_entropy(logits_col.t(), labels_col, reduction="mean") # transpose col
     
-    # logits
-    logits = logprobs - logsumexp
-    logits_t = logits.t()
-    
-    # labels = identity matrix
-    labels = torch.arange(logprobs.size(0)).long().to(logprobs.device)
-    
-    # row- and col-wise cross entropy 
-    loss_row = F.cross_entropy(logits, labels, reduction="mean")
-    loss_col = F.cross_entropy(logits_t, labels, reduction="mean") 
-    
-    return (loss_row + loss_col) / 2
+    return (loss_col + loss_row) / 2
 
 
 def _get_mask(
