@@ -11,13 +11,13 @@ def main(args: DictConfig) -> None:
     # get model
     model = AutoModelForCausalLM.from_pretrained(
         pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
-        cache_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1",
+        cache_dir="/home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1",
     )
 
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
         pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
-        cache_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1",
+        cache_dir="/home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1",
         model_max_length=2048,
     )
     
