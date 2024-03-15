@@ -27,10 +27,13 @@ def main(args: DictConfig) -> None:
     model_baseline = load_model_responses(f"{args.model_dir}/{args.baseline}.json")
     model_test = load_model_responses(f"{args.model_dir}/{args.test}.json")
     
+    print("BASELINE", args.baseline)
+    print("TEST", args.test)
+    
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
         pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
-        cache_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1",
+        cache_dir="/home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1",
         model_max_length=2048,
     )
     
@@ -56,23 +59,23 @@ def main(args: DictConfig) -> None:
         max_tokens=200,
         n=1,
     )
-    
+
     constitutions = list(model_baseline['constitution'].values())
     questions_helpful = list(model_baseline['question_helpful'].values())
     questions_harmless = list(model_baseline['question_harmless'].values())
     
-    print(len(constitutions))
+    # print(len(constitutions))
     
     for i, (constitution, question_helpful, question_harmless) in enumerate(zip(constitutions, questions_helpful, questions_harmless)):
         
-        if i >= 500: 
+        if i >= 50: 
             continue
         
         principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
         random.shuffle(principles)
         principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
         constitution_shuffled = "\n".join(principles) 
-        if i == 0: print(constitution_shuffled)
+        # if i == 0: print(constitution_shuffled)
 
         
         length_base_helpful.append(
@@ -117,8 +120,8 @@ def main(args: DictConfig) -> None:
                     messages=[helpful_prompt, harmless_prompt],
                 )
                 
-                print(helpful_prompt)
-                print(harmless_prompt)
+                # print(helpful_prompt)
+                # print(harmless_prompt)
                 formatted_responses = [r[0].split('Final Response:')[1].strip() for r in responses]
                 
                 win_rates_helpful.append(1 if 'B' in formatted_responses[0] else 0)
