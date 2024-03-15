@@ -54,8 +54,7 @@ def get_policy(blocks={MistralDecoderLayer}):
 def main(args: DictConfig) -> None:
     # for nans
     torch.autograd.set_detect_anomaly(True)
-    print(args.training)
-    
+   
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
@@ -63,8 +62,11 @@ def main(args: DictConfig) -> None:
     # distributed setup
     local_rank = int(os.environ["LOCAL_RANK"])
     world_size = int(os.environ["WORLD_SIZE"])
-    
+
     if local_rank == 0:
+        print(local_rank)
+        print(world_size)
+        print(torch.cuda.device_count())
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
         logging.info(f"beta: {args.typo.beta}")
         logging.info(f"writing checkpoints to: {args.training.checkpoint_dir}")

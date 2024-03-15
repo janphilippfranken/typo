@@ -20,7 +20,7 @@ constitution_key="helpful"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=3
+iteration=0
 batch_size=4000
 
 if (( iteration % 2 == 0 )); then
@@ -35,8 +35,8 @@ echo "Start Example: $start_example"
 echo "Max Example: $max_example"
 
 # hyperparams
-lr=1e-6
-beta=1.0
+lr=1e-7
+beta=0.0
 
 # model
 if [ "$iteration" -gt 0 ]; then
@@ -45,7 +45,7 @@ if [ "$iteration" -gt 0 ]; then
     download_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/merged-exp-1-sweep/typo-beta-${beta}-${lr}-iteration-${prev_iteration}"
 else
     model_path="mistralai/Mistral-7B-v0.1"
-    download_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+    download_dir="/home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1"
 fi
 
 # filename for sweep
