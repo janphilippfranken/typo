@@ -24,7 +24,7 @@ from torch.utils.data.distributed import DistributedSampler
 from torch.distributed.fsdp.api import FullStateDictConfig, FullOptimStateDictConfig
 
 import transformers
-from transformers import get_scheduler
+from transformers import get_scheduler, AutoModelForCausalLM
 
 from torch.distributed.fsdp import (
     FullyShardedDataParallel as FSDP,
@@ -302,26 +302,26 @@ class TYPOTrainer:
         epoch: int,
         state: Dict[str, torch.Tensor],
     ):
-        """Save checkpoint."""
+        """Merges checkpoint with HF model and writes to dir."""
         checkpoint_dir = os.path.join(self.config.training.checkpoint_dir, f"epoch-{epoch}")
         os.makedirs(checkpoint_dir, exist_ok=True)
-        file_path = os.path.join(checkpoint_dir, checkpoint_name)
-
+        
         save_model = AutoModelForCausalLM.from_pretrained(
-            **self.config.model_config,
+            **self.config.model.model_config,
         )
         save_model.load_state_dict(state)
-        save_model.save_pretrained(file_path)
-        self.tokenizer.save_pretrained(file_path)
+        save_model.save_pretrained(checkpoint_dir)
+        self.tokenizer.save_pretrained(checkpoint_dir)
+        
+        print("Model saved, deleting model...")
         del save_model
-        dist.barrier()
+        print("Deleted model...")
 
     def save_checkpoint(self, epoch):
         """
-        Save model, optimizer, and scheduler state to disk, gathering from all processes
+        Save model, gathering from all processes
         and saving only on the rank 0 process. Copy-pasted from dpo repo.
         """
-        # Model save
         save_policy = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
         with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, state_dict_config=save_policy):
             model_state_dict = self.model.state_dict()
@@ -331,7 +331,7 @@ class TYPOTrainer:
                     state=model_state_dict,
                 )
             del model_state_dict
-            dist.barrier()
+        dist.barrier()
 
     def compute_metrics(
         self,
@@ -427,9 +427,10 @@ class TYPOTrainer:
 
         if self.local_rank == 0: 
             print(f"eval/loss: {reduced_loss.item()}")
-            wandb.log({"eval-loss/loss": reduced_loss.item()})
-            wandb.log({"eval-loss/raw-loss": reduced_raw_loss.item()})
-            wandb.log({"eval-loss/kld": reduced_kl_div.item()})
+            if self.config.wandb.log == True:
+                wandb.log({"eval-loss/loss": reduced_loss.item()})
+                wandb.log({"eval-loss/raw-loss": reduced_raw_loss.item()})
+                wandb.log({"eval-loss/kld": reduced_kl_div.item()})
 
     def train(self):
         """Train the model."""
@@ -484,16 +485,17 @@ class TYPOTrainer:
 
                 if self.local_rank == 0:
                     print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
-                    wandb.log({"train-loss/loss": reduced_loss.item()})
-                    wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
-                    wandb.log({"train-loss/kld": reduced_kl_div.item()})
-                    wandb.log({"train-probs/accuracy-col": accuracy_col.item()})
-                    wandb.log({"train-probs/accuracy-row": accuracy_row.item()})
-                    wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
-                    wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
-                    wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
-                    wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
-                
+                    if self.config.wandb.log == True:
+                        wandb.log({"train-loss/loss": reduced_loss.item()})
+                        wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
+                        wandb.log({"train-loss/kld": reduced_kl_div.item()})
+                        wandb.log({"train-probs/accuracy-col": accuracy_col.item()})
+                        wandb.log({"train-probs/accuracy-row": accuracy_row.item()})
+                        wandb.log({"train-probs/p_c0_r0": p_c0_r0.item()})
+                        wandb.log({"train-probs/p_c0_r1": p_c0_r1.item()})
+                        wandb.log({"train-probs/p_c1_r0": p_c1_r0.item()})
+                        wandb.log({"train-probs/p_c1_r1": p_c1_r1.item()})
+                    
                 # evaluate and save after n steps have been made
                 if self.config.training.save_after_n_steps:
                     if (step + 1) % self.config.training.save_after_n_steps == 0:

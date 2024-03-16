@@ -16,6 +16,7 @@ defaults:
 wandb:
   project: typo-exp-1
   name: typo
+  log: true
 
 typo:
   beta: 1.0
@@ -24,7 +25,7 @@ training:
   evaluate_before_training: false
   evaluate: false
   n_epochs: 1
-  lr: 1e-6
+  lr: 1e-7
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0

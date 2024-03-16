@@ -19,9 +19,9 @@ def main(args: DictConfig) -> None:
     print(isinstance(args.start_example, int), isinstance(args.max_example, int), isinstance(args.batch_size, int))
         
     # model
-    # model = VLLMInferenceModel(
-    #     **args.model_config,
-    # )
+    model = VLLMInferenceModel(
+        **args.model_config,
+    )
 
     # data 
     dataset = load_dataset(**args.dataset).select(
@@ -30,8 +30,6 @@ def main(args: DictConfig) -> None:
             args.max_example
         )
     )
-    
-    breakpoint()
     
     # constitutions
     positive_constitution = CONSTITUTIONS[args.constitution_key]["positive"]

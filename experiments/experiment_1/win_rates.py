@@ -68,7 +68,7 @@ def main(args: DictConfig) -> None:
     
     for i, (constitution, question_helpful, question_harmless) in enumerate(zip(constitutions, questions_helpful, questions_harmless)):
         
-        if i >= 50: 
+        if i >= 250: 
             continue
         
         principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]

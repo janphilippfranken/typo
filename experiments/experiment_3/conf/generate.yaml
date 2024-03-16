@@ -1,10 +1,10 @@
 output_dir: data
 file_name: null
 
-iteration: 0
-start_example: 0
-max_example: 10000
-batch_size: 10000
+iteration: null
+start_example: null
+max_example: null
+batch_size: null
 
 generation_config:
   max_new_tokens: 350
@@ -20,11 +20,12 @@ model_config:
   tensor_parallel_size: 2
 
 dataset: 
-  path: openai/summarize_from_feedback
-  name: comparisons
-  cache_dir: /scr/jphilipp/typo/datasets/tldr
+  path: Anthropic/hh-rlhf
+  data_dir: null
+  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: train
 
+constitution_key: null
 
 filter: # for efficiency, we filter these formatting errors or generic 'i'm sorry' responses.
   - The assistant

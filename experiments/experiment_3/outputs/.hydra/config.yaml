@@ -16,9 +16,9 @@ n_responses: 2
 n_constitutions: 2
 wandb:
   project: hh-rlhf-sft-exp-2
-  name: sft
+  name: sft-positive
 training_args:
-  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both
+  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 16

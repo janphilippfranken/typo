@@ -1,5 +1,6 @@
-- wandb.name=dpo
-- training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-dpo-both
+- dpo.beta=0.7
+- wandb.name=dpo-no-sft-beta-0.7
+- training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/dpo-no-sft-0.7
 - data_path=data
 - helpful=helpful.json
 - harmless=harmless.json

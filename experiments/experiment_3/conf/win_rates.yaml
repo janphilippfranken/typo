@@ -1,6 +1,6 @@
-model_dir: results/responses/sweep
-baseline: evaluation-iteration-0-1e-6-3.0-temperature-0.0
-test: evaluation-iteration-1-1e-6-3.0-temperature-0.0
-output_dir: results/responses/sweep/win_rates
-helpful_win_rates_file_name: typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-helpful
-harmless_win_rates_file_name: typo-iteration-1vs0-lr-1e-6-beta-3.0-temperature-0.0-harmless
+model_dir: results/responses
+baseline: dpo-sft-both-evaluation-beta-0.01-temperature-0.0
+test: typo-evaluation-1e-6-0.1-temperature-0.0
+output_dir: results/win_rates
+helpful_win_rates_file_name: typo-beta-0.1-vs-dpo-sft-both-beta-0.01-helpful
+harmless_win_rates_file_name: typo-beta-0.1-vs-dpo-sft-both-beta-0.01-harmless

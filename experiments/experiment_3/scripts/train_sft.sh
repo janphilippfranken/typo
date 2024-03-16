@@ -16,8 +16,8 @@ conda activate typo
 cd ~/research_projects/typo/experiments/experiment_2/v2
 
 accelerate launch --config_file /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/conf/accelerate/deepspeed.yaml train_sft.py \
-    wandb.name="sft" \
-    training_args.output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-both" \
+    wandb.name="sft-positive" \
+    training_args.output_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive" \
     data_path="data" \
     helpful="helpful.json" \
     harmless="harmless.json" \
