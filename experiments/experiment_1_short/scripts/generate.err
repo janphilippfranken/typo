@@ -1,0 +1,20 @@
+Processing examples:   0%|          | 0/200 [00:00<?, ?it/s]
+Processed prompts:   0%|          | 0/400 [00:00<?, ?it/s][A
+Processed prompts:   0%|          | 1/400 [00:21<2:23:05, 21.52s/it][A
+Processed prompts:  64%|██████▍   | 257/400 [00:36<00:16,  8.67it/s][AProcessed prompts: 100%|██████████| 400/400 [00:36<00:00, 11.09it/s]
+Processing examples: 100%|██████████| 200/200 [00:36<00:00,  5.52it/s]Processing examples: 100%|██████████| 200/200 [00:36<00:00,  5.52it/s]
+ERROR: Cannot find key: iteration=0
+Usage: generate.py <group|command|value>
+  available groups:      json | fire | random | hydra | np | List | Dict |
+                         transformers | CONSTITUTIONS
+  available commands:    DictConfig | tqdm | load_dataset |
+                         VLLMInferenceModel | get_first_question |
+                         format_responses | format_example | tokenize_func |
+                         shuffle_principles | main
+  available values:      PROMPT_GENERATION_ITERATION_0 | PROMPT_TRAINING |
+                         SYSTEM_MESSAGE | GPT4_WIN_RATE | HELPFUL_PRINCIPLE |
+                         NOT_HELPFUL_PRINCIPLE | HARMLESS_PRINCIPLE |
+                         NOT_HARMLESS_PRINCIPLE
+
+For detailed information on this command, run:
+  generate.py --help

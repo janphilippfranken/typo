@@ -29,7 +29,7 @@ def main(args: DictConfig) -> None:
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
         pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
-        cache_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1",
+        cache_dir="/home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1",
         model_max_length=2048,
     )
 
@@ -41,7 +41,7 @@ def main(args: DictConfig) -> None:
 
     print(len(constitutions))
     
-    for i, _ in enumerate(constitutions):
+    for i, _ in enumerate(constitutions[:250]):
 
     
         length_base_helpful.append(
@@ -63,6 +63,13 @@ def main(args: DictConfig) -> None:
 
     with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
         json.dump(length_base_harmless, file, indent=4)
+        
+    with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}_mean.json', 'w') as file:
+        json.dump(np.mean(length_base_helpful), file, indent=4)
+        
+
+    with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}_mean.json', 'w') as file:
+        json.dump(np.mean(length_base_harmless), file, indent=4)
     
 
 
