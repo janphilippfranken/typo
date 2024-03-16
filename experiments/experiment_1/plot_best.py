@@ -21,8 +21,8 @@ def calculate_statistics(datasets):
         n = len(dataset)  # Number of trials
         print(n)
         p_hat = np.mean(dataset)  # Sample proportion (success rate)
-        se = np.sqrt(p_hat * (1 - p_hat) / n)  # Standard error
-        error = z * se  # Confidence interval half-width
+        se = np.sqrt(p_hat * (1 - p_hat) / n)  
+        error = z * se  
         
         means.append(p_hat)
         errors.append(error)

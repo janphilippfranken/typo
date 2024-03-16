@@ -66,6 +66,7 @@ def main(args: DictConfig) -> None:
     if local_rank == 0:
         print(local_rank)
         print(world_size)
+        print(args)
         print(torch.cuda.device_count())
         assert torch.cuda.device_count() == world_size, "World size does not match CUDA device count."
         logging.info(f"beta: {args.typo.beta}")

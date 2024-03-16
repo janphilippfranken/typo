@@ -6,7 +6,7 @@ conda activate typo
 cd /home/jphilipp/research_projects/typo/experiments/experiment_1
 
 beta=0.0
-lr=1e-7
+lr=1e-6
 iteration=1
 base_dir="data/sweep_v2"
 
@@ -54,7 +54,7 @@ while true; do
                 data_path="${base_dir}" \
                 helpful="${helpful}" \
                 harmless="${harmless}" \
-                n_examples=1500
+                n_examples=2000
             
             # Mark the file as processed
             echo "$file" >> "$processed_files_file"

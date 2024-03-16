@@ -297,61 +297,42 @@ class TYPOTrainer:
         print(f"Writing checkpoints to {self.config.training.checkpoint_dir}.")
         dist.barrier()
 
-    def write_state_dict(
-        self, 
-        epoch: int, 
-        state: Dict[str, torch.Tensor], 
-        checkpoint_name: str,
+    def save_model(
+        self,
+        epoch: int,
+        state: Dict[str, torch.Tensor],
     ):
-        """Write a checkpoint to disk."""
+        """Save checkpoint."""
         checkpoint_dir = os.path.join(self.config.training.checkpoint_dir, f"epoch-{epoch}")
         os.makedirs(checkpoint_dir, exist_ok=True)
         file_path = os.path.join(checkpoint_dir, checkpoint_name)
-        torch.save({
-            'epoch': epoch,
-            'state': state,
-        }, file_path)
-    
+
+        save_model = AutoModelForCausalLM.from_pretrained(
+            **self.config.model_config,
+        )
+        save_model.load_state_dict(state)
+        save_model.save_pretrained(file_path)
+        self.tokenizer.save_pretrained(file_path)
+        del save_model
+        dist.barrier()
+
     def save_checkpoint(self, epoch):
-        """Save model, optimizer, and scheduler state to disk, gathering from all processes and saving only on the rank 0 process. Copy-pasted from dpo repo."""
-        # model
+        """
+        Save model, optimizer, and scheduler state to disk, gathering from all processes
+        and saving only on the rank 0 process. Copy-pasted from dpo repo.
+        """
+        # Model save
         save_policy = FullStateDictConfig(offload_to_cpu=True, rank0_only=True)
         with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, state_dict_config=save_policy):
             model_state_dict = self.model.state_dict()
-        
-        if self.local_rank == 0:
-            self.write_state_dict(
-                epoch=epoch,
-                state=model_state_dict, 
-                checkpoint_name='model.pt'
-            )
-        del model_state_dict
-        dist.barrier()
+            if self.local_rank == 0:
+                self.save_model(
+                    epoch=epoch,
+                    state=model_state_dict,
+                )
+            del model_state_dict
+            dist.barrier()
 
-        # optimizer 
-        # save_policy = FullOptimStateDictConfig(offload_to_cpu=True, rank0_only=True)
-        # with FSDP.state_dict_type(self.model, StateDictType.FULL_STATE_DICT, optim_state_dict_config=save_policy):
-        #     optimizer_state_dict = FSDP.optim_state_dict(self.model, self.optimizer)
-
-        # if self.local_rank == 0:
-        #     self.write_state_dict(
-        #         epoch=epoch,
-        #         state=optimizer_state_dict, 
-        #         checkpoint_name='optimizer.pt',
-        #     )
-        # del optimizer_state_dict
-        # dist.barrier()
-
-        # scheduler
-        # if self.local_rank == 0:
-        #     scheduler_state_dict = self.scheduler.state_dict()
-        #     self.write_state_dict(
-        #         epoch=epoch,
-        #         state=scheduler_state_dict,
-        #         checkpoint_name='scheduler.pt',
-        #     )
-        # dist.barrier()
-        
     def compute_metrics(
         self,
         model: transformers.PreTrainedModel,
