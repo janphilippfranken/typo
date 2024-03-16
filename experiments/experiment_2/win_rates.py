@@ -24,8 +24,8 @@ def load_model_responses(filename):
 @hydra.main(version_base=None, config_path="conf", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
-    model_baseline = load_model_responses(f"{args.model_dir}/{args.baseline}.json")
-    model_test = load_model_responses(f"{args.model_dir}/{args.test}.json")
+    model_baseline = load_model_responses(f"{args.model_dir}/{args.baseline}")
+    model_test = load_model_responses(f"{args.model_dir}/{args.test}")
     
     print("BASELINE", args.baseline)
     print("TEST", args.test)

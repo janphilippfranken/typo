@@ -3,14 +3,14 @@ source /opt/conda/etc/profile.d/conda.sh
 conda activate typo
 cd /home/jphilipp/research_projects/typo/experiments/experiment_1
 
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=5,6
 
 # dataset 
 constitution_key="harmless"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=1
+iteration=2
 batch_size=4000
 
 if (( iteration % 2 == 0 )); then

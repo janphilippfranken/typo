@@ -10,7 +10,7 @@ constitution_key="helpful"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=1
+iteration=2
 batch_size=4000
 
 if (( iteration % 2 == 0 )); then

@@ -144,8 +144,8 @@ def main(args: DictConfig) -> None:
     if local_rank == 0:
         print(f"n helpful: {len(dataset_list_helpful)}")
         print(f"n harmless: {len(dataset_list_harmless)}")
-        print(dataset_list_helpful[0])
-        print(dataset_list_harmless[0])
+        # print(dataset_list_helpful[0])
+        # print(dataset_list_harmless[0])
     
    
     tokenized_dataset_helpful = [tokenize_func(example, tokenizer) for example in dataset_list_helpful]
