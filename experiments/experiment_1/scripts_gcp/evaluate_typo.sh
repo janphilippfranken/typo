@@ -9,7 +9,7 @@ export CUDA_VISIBLE_DEVICES=0
  
 checkpoint_base_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-1/iteration-"
 
-iteration=2
+iteration=3
 beta=1.0
 lr=1e-7
 

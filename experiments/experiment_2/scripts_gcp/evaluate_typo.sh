@@ -10,7 +10,7 @@ export CUDA_VISIBLE_DEVICES=0
 checkpoint_base_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/"
 beta=0.0
 lr=1e-7
-iteration=1
+iteration=2
 processed_epochs_file="${checkpoint_base_dir}processed_epochs.txt"
 
 # Create or clear the file that tracks processed epochs
@@ -18,7 +18,7 @@ touch "$processed_epochs_file"
 
 while true; do
     # Loop over each subdirectory in checkpoint_base_dir, assuming they represent epochs
-    for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iteration}/epoch-*; do
+    for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.1/epoch-*; do
         if [ -d "$epoch_dir" ]; then
             epoch=$(basename "$epoch_dir")
             echo "Processing epoch: $epoch"
@@ -36,7 +36,7 @@ while true; do
                     batch_size=100 \
                     model_config.model="$model_path" \
                     model_config.download_dir="$download_dir" \
-                    file_name="evaluation-beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}"
+                    file_name="evaluation-beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}-from-iteration-1-epoch-0.1"
 
                 # Mark epoch as processed
                 echo "$epoch" >> "$processed_epochs_file"
