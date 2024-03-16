@@ -8,9 +8,9 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
 
 beta=0.0
 lr=1e-7
-iteration=2
-base_dir="data/iteration_1"
-epoch=0.1
+iteration=3
+base_dir="data/iteration_2"
+epoch=0.2
 
 torchrun --nproc_per_node=4 train_typo.py \
     typo.beta=$beta \
@@ -18,6 +18,6 @@ torchrun --nproc_per_node=4 train_typo.py \
     training.checkpoint_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}" \
     training.lr=$lr \
     data_path="${base_dir}" \
-    helpful="helpful-beta-0.0-lr-1e-7-iteration-1-epoch-${epoch}.json" \
-    harmless="harmless-beta-0.0-lr-1e-7-iteration-1-epoch-${epoch}.json" \
+    helpful="helpful-beta-0.0-lr-1e-7-iteration-2-epoch-0.2-from-iteration-1-epoch-0.1.json" \
+    harmless="harmless-beta-0.0-lr-1e-7-iteration-2-epoch-0.2-from-iteration-1-epoch-0.1.json" \
     n_examples=1000
