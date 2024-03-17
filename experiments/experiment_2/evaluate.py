@@ -7,11 +7,16 @@ import random
 from omegaconf import DictConfig
 from tqdm import tqdm
 from datasets import load_dataset
+import torch
 
 from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 
 from prompts import *
+
+np.random.seed(1)
+torch.manual_seed(1)
+torch.cuda.manual_seed(1)
 
 
 # main evaluation script 

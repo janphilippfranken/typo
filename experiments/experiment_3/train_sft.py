@@ -8,7 +8,7 @@ import torch
 import json
 import wandb
 from omegaconf import DictConfig, OmegaConf
-from datasets import Dataset
+from datasets import load_dataset
 from transformers import TrainingArguments, Trainer, AutoModelForCausalLM, AutoTokenizer
 
 from helpers import *
@@ -36,13 +36,9 @@ def main(args: DictConfig) -> None:
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
     training_args = TrainingArguments(**training_args_dict)
     
-    # data 
-    dataset_dict_helpful = json.load(open(os.path.join(args.data_path, args.helpful)))
-    dataset_dict_harmless = json.load(open(os.path.join(args.data_path, args.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:args.n_examples]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:args.n_examples]
-    print(len(dataset_list_helpful))
-    print(len(dataset_list_harmless))
+    # data
+    dataset_helpful = load_dataset(**args.data.helpful)
+    dataset_harmless = load_dataset(**args.data.helpful)
     # get sft format 
     prompts = []
     responses = []
