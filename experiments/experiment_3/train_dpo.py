@@ -19,6 +19,8 @@ logging.basicConfig(level=logging.INFO)
 @hydra.main(version_base=None, config_path="conf", config_name="train_dpo")
 def main(args: DictConfig) -> None:
     
+    print(args)
+    
     # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
     wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
@@ -41,30 +43,31 @@ def main(args: DictConfig) -> None:
         torch_dtype=torch.bfloat16,
     )
     
-    # data 
-    dataset_dict_helpful = json.load(open(os.path.join(args.data_path, args.helpful)))
-    dataset_dict_harmless = json.load(open(os.path.join(args.data_path, args.harmless)))
-    dataset_list_helpful = [format_example_dpo(example) for example in dataset_dict_helpful.values()][:args.n_examples]
-    dataset_list_harmless = [format_example_dpo(example) for example in dataset_dict_harmless.values()][:args.n_examples]
-    print(len(dataset_list_helpful))
-    print(len(dataset_list_harmless))
-
-    # get dpo format 
+    # data
+    dataset_helpful = load_dataset(**args.data.dataset_helpful).select(range(10000))
+    dataset_harmless = load_dataset(**args.data.dataset_harmless).select(range(10000))
+    
     prompts = []
     chosen = []
     rejected = []
     
-    # add helpful examples
-    for example_helpful in dataset_list_helpful:
-        prompts += example_helpful["prompts"]
-        chosen += example_helpful["chosen"]
-        rejected += example_helpful["rejected"]
+    for example in dataset_helpful:
+        final_answer_chosen = example['chosen'].split('\n\nAssistant:')[-1].strip()
+        final_answer_rejected = example['rejected'].split('\n\nAssistant:')[-1].strip()
+        prompt_chosen = example['chosen'].replace(final_answer_chosen, "").strip()
+        prompt_rejected = example['rejected'].replace(final_answer_rejected, "").strip()
+        prompts.append(prompt_chosen)
+        chosen.append(final_answer_chosen)
+        rejected.append(final_answer_rejected)
         
-    # add harmless examples
-    for example_harmless in dataset_list_harmless: 
-        prompts += example_harmless["prompts"]
-        chosen += example_harmless["chosen"]
-        rejected += example_harmless["rejected"] 
+    for example in dataset_harmless:
+        final_answer_chosen = example['chosen'].split('\n\nAssistant:')[-1].strip()
+        final_answer_rejected = example['rejected'].split('\n\nAssistant:')[-1].strip()
+        prompt_chosen = example['chosen'].replace(final_answer_chosen, "").strip()
+        prompt_rejected = example['rejected'].replace(final_answer_rejected, "").strip()
+        prompts.append(prompt_chosen)
+        chosen.append(final_answer_chosen)
+        rejected.append(final_answer_rejected)
         
     dataset = Dataset.from_dict(dict(prompt=prompts, chosen=chosen, rejected=rejected)) 
     dataset = dataset.shuffle(42)

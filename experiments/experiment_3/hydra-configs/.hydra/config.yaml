@@ -2,27 +2,32 @@ model:
   model_type: huggingface
   name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo-baseline/checkpoint-156
+    cache_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo-baseline/checkpoint-156
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo-baseline/checkpoint-156
+    cache_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo-baseline/checkpoint-156
     model_max_length: 2048
-data_path: data
-helpful: helpful.json
-harmless: harmless.json
-n_examples: 5000
-n_responses: 2
-n_constitutions: 2
+data:
+  dataset_helpful:
+    path: Anthropic/hh-rlhf
+    data_dir: helpful-base
+    cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+    split: train
+  dataset_harmless:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+    split: train
 wandb:
-  project: hh-rlhf-dpo-exp-2
-  name: dpo-no-sft-beta-0.7
+  project: typo-exp-3
+  name: dpo
 dpo:
-  beta: 0.7
+  beta: 0.1
 train_split: 0.0
 max_prompt_length: 1024
 training_args:
-  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/dpo-no-sft-0.7
+  output_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/dpo-baseline
   per_device_train_batch_size: 1
   gradient_accumulation_steps: 32
   learning_rate: 1.0e-06

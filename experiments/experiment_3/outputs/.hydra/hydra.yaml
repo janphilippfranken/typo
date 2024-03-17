@@ -112,16 +112,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - wandb.name=sft-positive
-    - training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive
-    - data_path=data
-    - helpful=helpful.json
-    - harmless=harmless.json
-    - n_examples=5000
+    - wandb.name=sft-both-typo
+    - training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo
   job:
-    name: train_sft
+    name: train_sft_typo
     chdir: null
-    override_dirname: data_path=data,harmless=harmless.json,helpful=helpful.json,n_examples=5000,training_args.output_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive,wandb.name=sft-positive
+    override_dirname: training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo,wandb.name=sft-both-typo
     id: ???
     num: ???
     config_name: train_sft
@@ -135,19 +131,20 @@ hydra:
   runtime:
     version: 1.3.2
     version_base: '1.3'
-    cwd: /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2
+    cwd: /home/jphilipp/research_projects/typo/experiments/experiment_3
     config_sources:
     - path: hydra.conf
       schema: pkg
       provider: hydra
-    - path: /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/conf
+    - path: /home/jphilipp/research_projects/typo/experiments/experiment_3/conf
       schema: file
       provider: main
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /sailhome/jphilipp/research_projects/typo/experiments/experiment_2/v2/outputs
+    output_dir: /home/jphilipp/research_projects/typo/experiments/experiment_3/outputs
     choices:
+      data: hh_rlhf
       model: mistral_7b_base
       hydra/env: default
       hydra/callbacks: null

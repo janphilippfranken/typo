@@ -56,7 +56,7 @@ def main(args: DictConfig) -> None:
         # generation prompts
         if args.iteration == 0:
             generation_prompts = [
-                PROMPT_GENERATION_ITERATION_0.format(constitution=constitution, question=question)
+                PROMPT_TRAINING.format(constitution=constitution, question=question)
                 for constitution in [positive_constitution, negative_constitution]
             ]
         else:

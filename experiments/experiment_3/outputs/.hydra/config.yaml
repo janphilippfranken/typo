@@ -3,22 +3,27 @@ model:
   name: mistral_7b_base
   model_config:
     pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    cache_dir: /home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1
   tokenizer_config:
     pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    cache_dir: /home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
-data_path: data
-helpful: helpful.json
-harmless: harmless.json
-n_examples: 5000
-n_responses: 2
-n_constitutions: 2
+data:
+  dataset_helpful:
+    path: Anthropic/hh-rlhf
+    data_dir: helpful-base
+    cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+    split: train
+  dataset_harmless:
+    path: Anthropic/hh-rlhf
+    data_dir: harmless-base
+    cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+    split: train
 wandb:
-  project: hh-rlhf-sft-exp-2
-  name: sft-positive
+  project: typo-exp-3
+  name: sft-both-typo
 training_args:
-  output_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-exp-2-v2/sft-positive
+  output_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 16

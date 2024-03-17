@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO)
 def main(args: DictConfig) -> None:
     # # wandb
     args_dict = OmegaConf.to_container(args, resolve=True)
-    wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
     # get tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
@@ -37,31 +37,40 @@ def main(args: DictConfig) -> None:
     training_args = TrainingArguments(**training_args_dict)
     
     # data
-    dataset_helpful = load_dataset(**args.data.helpful)
-    dataset_harmless = load_dataset(**args.data.helpful)
-    breakpoint()
-    # get sft format 
+    dataset_helpful = load_dataset(**args.data.dataset_helpful).select(range(10000))
+    dataset_harmless = load_dataset(**args.data.dataset_harmless).select(range(10000))
+    
     prompts = []
     responses = []
-
-    # add helpful examples
-    for example_helpful in dataset_list_helpful:
-        prompts += example_helpful["prompts"]
-        responses += example_helpful["chosen"]
-
-        # prompts += example_helpful["prompts"]
-        # responses += example_helpful["rejected"]
-
-    # add harmless examples
-    for example_harmless in dataset_list_harmless:
-        prompts += example_harmless["prompts"]
-        responses += example_harmless["chosen"]
-
-        # prompts += example_harmless["prompts"]
-        # responses += example_harmless["rejected"]
     
+    for example in dataset_helpful:
+
+        final_answer_chosen = example['chosen'].split('\n\nAssistant:')[-1].strip()
+        final_answer_rejected = example['rejected'].split('\n\nAssistant:')[-1].strip()
+        prompt_chosen = example['chosen'].replace(final_answer_chosen, "").strip()
+        prompt_rejected = example['rejected'].replace(final_answer_rejected, "").strip()
+        prompts.append(prompt_chosen)
+        prompts.append(prompt_rejected)
+        responses.append(final_answer_chosen)
+        responses.append(final_answer_rejected)
+        
+    
+    for example in dataset_harmless:
+
+        final_answer_chosen = example['chosen'].split('\n\nAssistant:')[-1].strip()
+        final_answer_rejected = example['rejected'].split('\n\nAssistant:')[-1].strip()
+        prompt_chosen = example['chosen'].replace(final_answer_chosen, "").strip()
+        prompt_rejected = example['rejected'].replace(final_answer_rejected, "").strip()
+        prompts.append(prompt_chosen)
+        prompts.append(prompt_rejected)
+        responses.append(final_answer_chosen)
+        responses.append(final_answer_rejected)
+      
+
     print(prompts[0])
+    print(prompts[1])
     print(responses[0])
+    print(responses[1])
     dataset = sft_preprocess(prompts, responses, tokenizer)
     dataset = dataset.shuffle(42)
     logging.info(dataset)
