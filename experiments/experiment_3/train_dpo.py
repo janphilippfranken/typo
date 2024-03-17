@@ -34,18 +34,18 @@ def main(args: DictConfig) -> None:
     # get model
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
-        # torch_dtype=torch.bfloat16,
+        torch_dtype=torch.bfloat16,
     )
     
     # ref model
     ref_model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
-        # torch_dtype=torch.bfloat16,
+        torch_dtype=torch.bfloat16,
     )
     
     # data
-    dataset_helpful = load_dataset(**args.data.dataset_helpful).select(range(10000))
-    dataset_harmless = load_dataset(**args.data.dataset_harmless).select(range(10000))
+    dataset_helpful = load_dataset(**args.data.dataset_helpful).select(range(20000))
+    dataset_harmless = load_dataset(**args.data.dataset_harmless).select(range(20000))
     
     prompts = []
     chosen = []

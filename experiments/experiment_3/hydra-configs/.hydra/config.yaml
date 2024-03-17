@@ -7,7 +7,7 @@ model:
   tokenizer_config:
     pretrained_model_name_or_path: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo/checkpoint-625
     cache_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo/checkpoint-625
-    model_max_length: 2048
+    model_max_length: 1024
 data:
   dataset_helpful:
     path: Anthropic/hh-rlhf
@@ -25,7 +25,7 @@ wandb:
 dpo:
   beta: 0.1
 train_split: 0.0
-max_prompt_length: 1024
+max_prompt_length: 512
 training_args:
   output_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/dpo-baseline
   per_device_train_batch_size: 1
