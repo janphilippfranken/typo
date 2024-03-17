@@ -1,0 +1,102 @@
+wandb_version: 1
+
+model:
+  desc: null
+  value:
+    model_type: huggingface
+    name: mistral_7b_base
+    model_config:
+      pretrained_model_name_or_path: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo/checkpoint-625
+      cache_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo/checkpoint-625
+    tokenizer_config:
+      pretrained_model_name_or_path: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo/checkpoint-625
+      cache_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo/checkpoint-625
+      model_max_length: 2048
+data:
+  desc: null
+  value:
+    dataset_helpful:
+      path: Anthropic/hh-rlhf
+      data_dir: helpful-base
+      cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+      split: train
+    dataset_harmless:
+      path: Anthropic/hh-rlhf
+      data_dir: harmless-base
+      cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+      split: train
+wandb:
+  desc: null
+  value:
+    project: typo-exp-3
+    name: dpo
+dpo:
+  desc: null
+  value:
+    beta: 0.1
+train_split:
+  desc: null
+  value: 0.0
+max_prompt_length:
+  desc: null
+  value: 1024
+training_args:
+  desc: null
+  value:
+    output_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/dpo-baseline
+    per_device_train_batch_size: 1
+    gradient_accumulation_steps: 16
+    learning_rate: 1.0e-06
+    num_train_epochs: 3
+    save_total_limit: 1
+    evaluation_strategy: 'no'
+    seed: 42
+    save_strategy: epoch
+    report_to: wandb
+    bf16: true
+    lr_scheduler_type: cosine
+    warmup_ratio: 0.1
+    do_eval: true
+    logging_steps: 1
+    logging_strategy: steps
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.13
+    cli_version: 0.16.4
+    framework: huggingface
+    huggingface_version: 4.37.2
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1710707073.0
+    t:
+      1:
+      - 1
+      - 11
+      - 49
+      - 50
+      - 51
+      - 55
+      - 71
+      - 84
+      - 105
+      2:
+      - 1
+      - 11
+      - 49
+      - 50
+      - 51
+      - 55
+      - 71
+      - 84
+      - 105
+      3:
+      - 13
+      - 16
+      - 23
+      4: 3.10.13
+      5: 0.16.4
+      6: 4.37.2
+      8:
+      - 5
+      13: linux-x86_64

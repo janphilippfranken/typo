@@ -37,8 +37,8 @@ def main(args: DictConfig) -> None:
     training_args = TrainingArguments(**training_args_dict)
     
     # data
-    dataset_helpful = load_dataset(**args.data.dataset_helpful).select(range(10000))
-    dataset_harmless = load_dataset(**args.data.dataset_harmless).select(range(10000))
+    dataset_helpful = load_dataset(**args.data.dataset_helpful).select(range(20000))
+    dataset_harmless = load_dataset(**args.data.dataset_harmless).select(range(20000))
     
     prompts = []
     responses = []

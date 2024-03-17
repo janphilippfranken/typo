@@ -8,7 +8,7 @@ import wandb
 import torch
 from omegaconf import DictConfig, OmegaConf
 
-from datasets import Dataset
+from datasets import Dataset, load_dataset
 from transformers import TrainingArguments, AutoModelForCausalLM, AutoTokenizer
 from trl import DPOTrainer
 
@@ -34,13 +34,13 @@ def main(args: DictConfig) -> None:
     # get model
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
-        torch_dtype=torch.bfloat16,
+        # torch_dtype=torch.bfloat16,
     )
     
     # ref model
     ref_model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config, 
-        torch_dtype=torch.bfloat16,
+        # torch_dtype=torch.bfloat16,
     )
     
     # data

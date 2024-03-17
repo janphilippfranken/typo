@@ -4,7 +4,7 @@ conda activate typo
 
 cd /home/jphilipp/research_projects/typo/experiments/experiment_3
 
-export CUDA_VISIBLE_DEVICES=4,5,6,7
+# export CUDA_VISIBLE_DEVICES=4,
 
 
 accelerate launch --config_file /home/jphilipp/research_projects/typo/experiments/experiment_3/conf/accelerate/deepspeed.yaml train_dpo.py \
