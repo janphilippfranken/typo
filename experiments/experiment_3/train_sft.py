@@ -39,6 +39,7 @@ def main(args: DictConfig) -> None:
     # data
     dataset_helpful = load_dataset(**args.data.helpful)
     dataset_harmless = load_dataset(**args.data.helpful)
+    breakpoint()
     # get sft format 
     prompts = []
     responses = []
