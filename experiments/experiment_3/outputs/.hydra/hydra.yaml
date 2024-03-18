@@ -113,11 +113,11 @@ hydra:
     - hydra.mode=RUN
     task:
     - wandb.name=sft-both-typo
-    - training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo
+    - training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo
   job:
-    name: train_sft_typo
+    name: train_sft_dpo_baseline
     chdir: null
-    override_dirname: training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo,wandb.name=sft-both-typo
+    override_dirname: training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-dpo,wandb.name=sft-both-typo
     id: ???
     num: ???
     config_name: train_sft
