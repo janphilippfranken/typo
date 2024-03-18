@@ -3,26 +3,25 @@
 source /opt/conda/etc/profile.d/conda.sh
 conda activate typo
 
-cd /home/jphilipp/research_projects/typo/experiments/experiment_2
+cd /home/jphilipp/research_projects/typo/experiments/experiment_3
 
-export CUDA_VISIBLE_DEVICES=4
+export CUDA_VISIBLE_DEVICES=1
 
-checkpoint_base_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/"
+checkpoint_base_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/typo/"
+
+
 beta=0.0
 lr=1e-7
 iteration=1
-checkpoint_base_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/"
-beta=0.0
-lr=1e-7
-iteration=3
 processed_epochs_file="processed_epochs.txt"
+epoch=0.1
 
-for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.2/epoch-*; do
+for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iteration}/epoch-*; do
   epoch=$(basename "$epoch_dir")
   echo $epoch_dir
   
   # proceed only if the epoch is exactly 0.1
-  if [[ "$epoch" == "epoch-0.3" ]]; then
+  if [[ "$epoch" == "epoch-0.1" ]]; then
     echo "Processing epoch: $epoch"
     
     # Check if epoch has already been processed
@@ -34,6 +33,7 @@ for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iterati
     start_example=0 \
     max_example=250 \
     batch_size=250 \
+    model_type="typo" \
     model_config.model="$model_path" \
     model_config.download_dir="$download_dir" \
     file_name="evaluation-beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}"

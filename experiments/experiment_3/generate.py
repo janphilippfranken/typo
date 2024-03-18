@@ -50,8 +50,12 @@ def main(args: DictConfig) -> None:
         negative_constitution = negative_constitutions[0]
         
         # get the first question
-        question = f"Human: {get_first_question(example['chosen'])}"
+        final_answer_chosen = example['chosen'].split('\n\nAssistant:')[-1].strip()
+        question = example['chosen'].replace(final_answer_chosen, "").strip()
         batch_questions.append(question)
+        
+        print(question)
+        print(PROMPT_TRAINING.format(constitution=positive_constitution, question=question))
         
         # generation prompts
         if args.iteration == 0:
@@ -64,6 +68,8 @@ def main(args: DictConfig) -> None:
                 PROMPT_TRAINING.format(constitution=constitution, question=question)
                 for constitution in [positive_constitution, negative_constitution]
             ]
+        
+        
         
         batch_prompts.extend(generation_prompts)
         

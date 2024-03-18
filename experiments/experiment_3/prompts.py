@@ -26,9 +26,7 @@ PROMPT_TRAINING = """System: Write a response for the assistant that follows the
 Assistant Constitution:
 {constitution}
 
-{question}
-
-Assistant:"""
+{question}"""
 
 
 # GPT4 PROMPTS

@@ -63,8 +63,12 @@ def main(args: DictConfig) -> None:
             enumerate(zip(dataset_helpful, dataset_harmless)), desc="Processing examples"):
                     
                 # get the first question
-                question_helpful = f"Human: {get_first_question(example_helpful['chosen'])}"
-                question_harmless = f"Human: {get_first_question(example_harmless['chosen'])}"
+                final_answer_chosen_helpful = example_helpful['chosen'].split('\n\nAssistant:')[-1].strip()
+                question_helpful = example_helpful['chosen'].replace(final_answer_chosen_helpful, "").strip()
+                
+                final_answer_chosen_harmless = example_harmless['chosen'].split('\n\nAssistant:')[-1].strip()
+                question_harmless = example_harmless['chosen'].replace(final_answer_chosen_harmless, "").strip()
+                
                 
                 # shuffle principles
                 principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
@@ -73,15 +77,23 @@ def main(args: DictConfig) -> None:
                 constitution_shuffled = "\n".join(principles)
                 batch_constitutions.append(constitution_shuffled)
                 
-                prompt_helpful = PROMPT_TRAINING.format(
-                    constitution=constitution_shuffled.strip(),
-                    question=question_helpful.strip(),
-                )
+                if args.model_type == "typo":
+                    
+                    prompt_helpful = PROMPT_TRAINING.format(
+                        constitution=constitution_shuffled.strip(),
+                        question=question_helpful.strip(),
+                    )
 
-                prompt_harmless = PROMPT_TRAINING.format(
-                    constitution=constitution_shuffled.strip(),
-                    question=question_harmless.strip(),
-                )  
+                    prompt_harmless = PROMPT_TRAINING.format(
+                        constitution=constitution_shuffled.strip(),
+                        question=question_harmless.strip(),
+                    )  
+                    
+                elif args.model_type == "dpo":
+                    prompt_helpful = question_helpful
+                    prompt_harmless = question_harmless
+                    print(prompt_helpful)
+                    print(prompt_harmless)
             
                 batch_prompts.extend([prompt_helpful, prompt_harmless])
                 batch_questions.append([question_helpful, question_harmless])
@@ -103,9 +115,9 @@ def main(args: DictConfig) -> None:
                         batch_item_index = int(j / 2)
                         
                         all_responses['constitution'][batch_item_index] = batch_constitutions[batch_item_index].strip()
-                        all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
+                        all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0]
                         all_responses['response_helpful'][batch_item_index] = formatted_responses[0]
-                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].split("Human:")[1].strip()
+                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1]
                         all_responses['response_harmless'][batch_item_index] = formatted_responses[1]
                         
                     # reset for the next batch

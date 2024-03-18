@@ -3,14 +3,14 @@ source /opt/conda/etc/profile.d/conda.sh
 conda activate typo
 cd /home/jphilipp/research_projects/typo/experiments/experiment_2
 
-export CUDA_VISIBLE_DEVICES=4
+export CUDA_VISIBLE_DEVICES=7
 
 # dataset 
 constitution_key="helpful"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=3
+iteration=5
 batch_size=2000
 
 if (( iteration % 2 == 0 )); then
@@ -27,19 +27,19 @@ echo "Max Example: $max_example"
 # hyperparams
 lr=1e-7
 beta=0.0
-epoch=0.3
+epoch=0.5
 
 # model
 if [ "$iteration" -gt 0 ]; then
     prev_iteration=$(($iteration - 1))
-    model_path="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.2/epoch-${epoch}"
-    download_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.2/epoch-${epoch}"
+    model_path="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.4/epoch-${epoch}"
+    download_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.4/epoch-${epoch}"
 else
     model_path="mistralai/Mistral-7B-v0.1"
     download_dir="/home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1"
 fi
 
-file_name="${constitution_key}-beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}-from-iteration-2-epoch-0.2"
+file_name="${constitution_key}-beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}-from-iteration-4-epoch-0.4"
 
 # generate 
 python generate.py \

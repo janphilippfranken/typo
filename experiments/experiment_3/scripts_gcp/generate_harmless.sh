@@ -1,24 +1,24 @@
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate typo
-cd /home/jphilipp/research_projects/typo/experiments/experiment_2
+cd /home/jphilipp/research_projects/typo/experiments/experiment_3
 
-export CUDA_VISIBLE_DEVICES=6
+export CUDA_VISIBLE_DEVICES=0
 
 # dataset 
 constitution_key="harmless"
 dataset_dir="${constitution_key}-base"
 
 # iteration 
-iteration=2
-batch_size=2000
+iteration=1
+batch_size=5000
 
 if (( iteration % 2 == 0 )); then
-    start_example=10000
-    max_example=12000
+    start_example=20000
+    max_example=25000
 else
-    start_example=12000
-    max_example=14000
+    start_example=25000
+    max_example=30000
 fi
 
 echo "Start Example: $start_example"
@@ -27,16 +27,16 @@ echo "Max Example: $max_example"
 # hyperparams
 lr=1e-7
 beta=0.0
-epoch=0.2
+epoch=0.1
 
 # model
 if [ "$iteration" -gt 0 ]; then
     prev_iteration=$(($iteration - 1))
-    model_path="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/beta-${beta}-lr-${lr}-iteration-${iteration}/epoch-${epoch}"
-    download_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/beta-${beta}-lr-${lr}-iteration-${iteration}/epoch-${epoch}"
+    model_path="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/typo/beta-${beta}-lr-${lr}-iteration-${iteration}/epoch-${epoch}"
+    download_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/typo/beta-${beta}-lr-${lr}-iteration-${iteration}/epoch-${epoch}"
 else
-    model_path="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo-baseline/checkpoint-156"
-    download_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo-baseline/checkpoint-156"
+    model_path="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo/checkpoint-625/"
+    download_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/sft-typo/checkpoint-625/"
 fi
 
 file_name="${constitution_key}-beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-${epoch}"

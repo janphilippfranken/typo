@@ -1,6 +1,8 @@
 output_dir: results/responses
 file_name: null
 
+model_type: typo
+
 start_example: null
 max_example: null
 batch_size: null
@@ -20,13 +22,13 @@ model_config:
 dataset_helpful: 
   path: Anthropic/hh-rlhf
   data_dir: helpful-base
-  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
+  cache_dir: /home/jphilipp/research_projects/typo_files/hh-rlhf
   split: test
 
 dataset_harmless:
   path: Anthropic/hh-rlhf
   data_dir: harmless-base
-  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
+  cache_dir: /home/jphilipp/research_projects/typo_files/hh-rlhf
   split: test
 
 temperatures:

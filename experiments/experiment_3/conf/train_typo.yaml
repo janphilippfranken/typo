@@ -16,6 +16,7 @@ defaults:
 wandb:
   project: typo-exp-3
   name: typo
+  log: true
 
 typo:
   beta: 0.1
@@ -32,6 +33,6 @@ training:
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 32
-  save_after_n_steps: false
+  save_after_n_steps: 50
   seed: 42
   model_archive: null 

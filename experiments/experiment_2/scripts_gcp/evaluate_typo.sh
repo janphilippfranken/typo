@@ -5,20 +5,20 @@ conda activate typo
 
 cd /home/jphilipp/research_projects/typo/experiments/experiment_2
 
-export CUDA_VISIBLE_DEVICES=4
+export CUDA_VISIBLE_DEVICES=5
 
 checkpoint_base_dir="/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/"
 beta=0.0
 lr=1e-7
-iteration=4
-epoch=0.4
+iteration=5
+epoch=0.5
 
-for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.3/epoch-*; do
+for epoch_dir in ${checkpoint_base_dir}beta-${beta}-lr-${lr}-iteration-${iteration}-epoch-0.4/epoch-*; do
   epoch=$(basename "$epoch_dir")
   echo $epoch_dir
   
   # proceed only if the epoch is exactly 0.1
-  if [[ "$epoch" == "epoch-0.4" ]]; then
+  if [[ "$epoch" == "epoch-0.5" ]]; then
     echo "Processing epoch: $epoch"
     
     # Check if epoch has already been processed

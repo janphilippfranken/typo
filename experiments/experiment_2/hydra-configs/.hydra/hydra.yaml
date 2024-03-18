@@ -113,17 +113,17 @@ hydra:
     - hydra.mode=RUN
     task:
     - typo.beta=0.0
-    - wandb.name=typo-beta-0.0-lr-1e-7-iteration-4-epoch-0.3
-    - training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-4-epoch-0.3
+    - wandb.name=typo-beta-0.0-lr-1e-7-iteration-5-epoch-0.4
+    - training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-5-epoch-0.4
     - training.lr=1e-7
-    - data_path=data/iteration_3
-    - helpful=helpful-beta-0.0-lr-1e-7-iteration-3-epoch-0.3-from-iteration-2-epoch-0.2.json
-    - harmless=harmless-beta-0.0-lr-1e-7-iteration-3-epoch-0.3-from-iteration-2-epoch-0.2.json
+    - data_path=data/iteration_4
+    - helpful=helpful-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json
+    - harmless=harmless-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json
     - n_examples=1000
   job:
     name: train_typo
     chdir: null
-    override_dirname: data_path=data/iteration_3,harmless=harmless-beta-0.0-lr-1e-7-iteration-3-epoch-0.3-from-iteration-2-epoch-0.2.json,helpful=helpful-beta-0.0-lr-1e-7-iteration-3-epoch-0.3-from-iteration-2-epoch-0.2.json,n_examples=1000,training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-4-epoch-0.3,training.lr=1e-7,typo.beta=0.0,wandb.name=typo-beta-0.0-lr-1e-7-iteration-4-epoch-0.3
+    override_dirname: data_path=data/iteration_4,harmless=harmless-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json,helpful=helpful-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json,n_examples=1000,training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-5-epoch-0.4,training.lr=1e-7,typo.beta=0.0,wandb.name=typo-beta-0.0-lr-1e-7-iteration-5-epoch-0.4
     id: ???
     num: ???
     config_name: train_typo

@@ -17,12 +17,12 @@ model_config:
   download_dir: null
   dtype: auto
   quantization: null
-  tensor_parallel_size: 2
+  tensor_parallel_size: 1
 
 dataset: 
   path: Anthropic/hh-rlhf
   data_dir: null
-  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
+  cache_dir: /home/jphilipp/research_projects/typo_files/hh-rlhf
   split: train
 
 constitution_key: null

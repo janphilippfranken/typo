@@ -1,2 +1,8 @@
-- wandb.name=dpo
-- training_args.output_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/dpo-baseline
+- typo.beta=0.0
+- wandb.name=typo-beta-0.0-lr-1e-7-iteration-1
+- training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-3/typo/beta-0.0-lr-1e-7-iteration-1
+- training.lr=1e-7
+- data_path=data/base
+- helpful=helpful-beta-0.0-lr-1e-7-iteration-0-epoch-0.0.json
+- harmless=harmless-beta-0.0-lr-1e-7-iteration-0-epoch-0.0.json
+- n_examples=1000
