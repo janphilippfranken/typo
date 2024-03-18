@@ -217,6 +217,15 @@ def main(args: DictConfig) -> None:
             
         except Exception as e:
             print('content issue?', e)
+            print("appending 0.5")
+            win_rates_helpful.append(0.5)
+            win_rates_harmless.append(0.5)
+            with open(f'{args.output_dir}/{args.helpful_win_rates_file_name}.json', 'w') as file:
+                json.dump(win_rates_helpful, file, indent=4)
+                
+            with open(f'{args.output_dir}/{args.harmless_win_rates_file_name}.json', 'w') as file:
+                json.dump(win_rates_harmless, file, indent=4)
+            
             continue
 
 if __name__ == "__main__":
