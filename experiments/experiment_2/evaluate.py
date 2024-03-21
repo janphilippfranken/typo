@@ -87,7 +87,12 @@ def main(args: DictConfig) -> None:
                     constitution=constitution_shuffled.strip(),
                     question=question_harmless.strip(),
                 )  
-            
+                
+                prompt_helpful = question_helpful + f"\n\nAssistant:"
+
+                prompt_harmless = question_harmless + f"\n\nAssistant:"
+                # breakpoint()
+                
                 batch_prompts.extend([prompt_helpful, prompt_harmless])
                 batch_questions.append([question_helpful, question_harmless])
 
