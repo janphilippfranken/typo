@@ -1,0 +1,37 @@
+model:
+  model_type: huggingface
+  name: mistral_7b_base
+  model_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1
+  tokenizer_config:
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /home/jphilipp/research_projects/typo_files/pretrained_models/Mistral-7B-v0.1
+    model_max_length: 2048
+data_path: data/iteration_4
+helpful: helpful-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json
+harmless: harmless-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json
+n_examples: 1000
+n_responses: 2
+n_constitutions: 2
+wandb:
+  project: typo-exp-2
+  name: typo-beta-0.0-lr-1e-7-iteration-5-epoch-0.4
+  log: true
+typo:
+  beta: 0.0
+training:
+  evaluate_before_training: false
+  evaluate: false
+  n_epochs: 1
+  lr: 1.0e-07
+  train_batch_size: 1
+  eval_batch_size: 1
+  train_split: 1.0
+  checkpoint_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-5-epoch-0.4
+  max_grad_norm: 1.0
+  num_warmup_steps: 1
+  gradient_accumulation_steps: 16
+  save_after_n_steps: 50
+  seed: 42
+  model_archive: null

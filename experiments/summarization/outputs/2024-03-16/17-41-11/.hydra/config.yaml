@@ -1,0 +1,29 @@
+output_dir: data/iteration_2
+file_name: helpful-beta-1.0-lr-1e-6-iteration-2
+iteration: 2
+start_example: 0
+max_example: 4000
+batch_size: 4000
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config:
+  model: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-1/beta-1.0-lr-1e-6-iteration-2/epoch-1
+  download_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-1/beta-1.0-lr-1e-6-iteration-2/epoch-1
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: Anthropic/hh-rlhf
+  data_dir: helpful-base
+  cache_dir: /home/jphilipp/research_projects/typo_files/hh-rlhf
+  split: train
+constitution_key: helpful
+filter:
+- The assistant
+- sorry
+- Response
+- '[insert'
+- ']'

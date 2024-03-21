@@ -1,0 +1,28 @@
+output_dir: results/responses
+file_name: evaluation-beta-0.0-lr-1e-7-iteration-1-epoch-epoch-0.1
+start_example: 0
+max_example: 250
+batch_size: 250
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-1/epoch-0.1
+  download_dir: /home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-1/epoch-0.1
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+dataset_helpful:
+  path: Anthropic/hh-rlhf
+  data_dir: helpful-base
+  cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+  split: test
+dataset_harmless:
+  path: Anthropic/hh-rlhf
+  data_dir: harmless-base
+  cache_dir: /home/jphilipp/research_projects/typo_files/datasets/hh-rlhf
+  split: test
+temperatures:
+- 0.0
+constitution_key: helpful
