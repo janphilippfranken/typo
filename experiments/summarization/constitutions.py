@@ -4,39 +4,58 @@ from itertools import permutations, product
 
 # Define the principles
 principles = {
-    "concise": "The summary of the post should be concise and to the point.",
-    "funny": "The summary of the post should include jokes and humor.",
+    "concise": "Is concise. It is around 2-3 sentences long.",
+    "funny": "Is funny. It includes humor and jokes.",
 }
 
 not_principles = {
-    "concise": "The summary of the post should be detailed and lengthy.",
-    "funny": "The summary of the post should be serious and formal.",
+    "concise": "Is long. It includes details and redundancy.",
+    "funny": "Is serious. It is formal and lacks humor.",
 }
 
 constitutions = []
 
 for num_principles in range(2, len(principles) + 1):
     for permutation in permutations(principles.keys(), num_principles):
-        contrasted_principle = permutation[-1]  # The last principle is always contrasted
-        for combo in product([True, False], repeat=num_principles - 1):  # Generating positive/negative text for the first n-1 principles based on the combo flags
-            pos_or_neg_text = ["pos" if flag else "neg" for flag in combo]
-            # Creating identifiers for all principles, including the name and whether it's positive or negative
+        # Both positive against one positive and one negative
+        for i in range(num_principles):
+            combo_positive = [True] * num_principles
+            combo_negative = [True] * num_principles
+            combo_negative[i] = False
+
             identifiers = {
-                "positive": [f"{pos_or_neg_text[i]} {permutation[i]}" for i in range(num_principles - 1)] + [f"pos {contrasted_principle}"],
-                "negative": [f"{pos_or_neg_text[i]} {permutation[i]}" for i in range(num_principles - 1)] + [f"neg {contrasted_principle}"]
+                "positive": [f"pos {principle}" for principle in permutation],
+                "negative": [f"{'pos' if flag else 'neg'} {principle}" for flag, principle in zip(combo_negative, permutation)]
             }
-            # Preparing principles for positive and negative statements
-            positive_principles = [principles[key] if combo[i] else not_principles[key] for i, key in enumerate(permutation[:-1])]
-            negative_principles = [principles[key] if combo[i] else not_principles[key] for i, key in enumerate(permutation[:-1])]
-            # Adding the contrasted principle
-            positive_principles.append(principles[contrasted_principle])
-            negative_principles.append(not_principles[contrasted_principle])
+
+            positive_principles = [principles[key] for key in permutation]
+            negative_principles = [principles[key] if combo_negative[i] else not_principles[key] for i, key in enumerate(permutation)]
+
             new_constitution = {
                 "positive": " \n".join([f"{i+1}. {principle}" for i, principle in enumerate(positive_principles)]),
                 "negative": " \n".join([f"{i+1}. {principle}" for i, principle in enumerate(negative_principles)]),
                 "identifiers": identifiers
             }
             constitutions.append(new_constitution)
+
+        # Both positive against both negative
+        combo_positive = [True] * num_principles
+        combo_negative = [False] * num_principles
+
+        identifiers = {
+            "positive": [f"pos {principle}" for principle in permutation],
+            "negative": [f"neg {principle}" for principle in permutation]
+        }
+
+        positive_principles = [principles[key] for key in permutation]
+        negative_principles = [not_principles[key] for key in permutation]
+
+        new_constitution = {
+            "positive": " \n".join([f"{i+1}. {principle}" for i, principle in enumerate(positive_principles)]),
+            "negative": " \n".join([f"{i+1}. {principle}" for i, principle in enumerate(negative_principles)]),
+            "identifiers": identifiers
+        }
+        constitutions.append(new_constitution)
 
 # Write the new constitutions to json files in a different directory
 for i, constitution in enumerate(constitutions):

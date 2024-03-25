@@ -1,25 +1,25 @@
-output_dir: data/base
-file_name: base
+output_dir: data/iteration_2
+file_name: iteration_2_epoch_0.43
 
 constitution_dir: constitutions
 
 iteration: 0
 start_example: 0
-max_example: 5000
-batch_size: 1
+max_example: 10000
+batch_size: 10000
 
 generation_config:
-  max_new_tokens: 350
+  max_new_tokens: 150
   top_p: 0.9
   temperature: 0.0
-  num_return_sequences: 1 
+  num_return_sequences: 1
 
 model_config:
-  model: "mistralai/Mixtral-8x7B-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
+  model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-0.1/epoch-0.43"
+  download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-0.1/epoch-0.43"
   dtype: auto
   quantization: null
-  tensor_parallel_size: 2
+  tensor_parallel_size: 4
 
 dataset: 
   path: openai/summarize_from_feedback
@@ -33,8 +33,3 @@ filter: # for efficiency, we filter these formatting errors or generic 'i'm sorr
   - "[insert"
   - "[]"
   - "]"
-  - "1. "
-  - "2. "
-  - "3. "
-  - "4. "
-  - "5. "
