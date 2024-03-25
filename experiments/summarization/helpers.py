@@ -17,8 +17,8 @@ def format_responses(
 ):  
     formatted_responses = ["", ""]
     try:
-        formatted_responses[0] = responses[0].split("\n\nHuman")[0].strip().split('###')[0].strip()
-        formatted_responses[1] = responses[1].split("\n\nHuman")[0].strip().split('###')[0].strip()
+        formatted_responses[0] = responses[0].strip().split("</END>")[0].strip()
+        formatted_responses[1] = responses[1].strip().split("</END>")[0].strip()
     except:
         print('Error in formatting responses. Skipping example.')
     return formatted_responses 

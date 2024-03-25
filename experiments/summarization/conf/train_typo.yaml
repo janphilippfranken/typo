@@ -4,8 +4,7 @@ hydra:
 
 # data
 data_path: data
-helpful: null
-harmless: null
+data_file: null
 n_examples: null
 n_responses: 2
 n_constitutions: 2
@@ -14,7 +13,7 @@ defaults:
   - model: mistral_7b_base
 
 wandb:
-  project: typo-exp-2
+  project: typo-summarization
   name: typo
   log: true
 
@@ -33,6 +32,6 @@ training:
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16
-  save_after_n_steps: 50
+  save_after_n_steps: 25
   seed: 42
   model_archive: null 

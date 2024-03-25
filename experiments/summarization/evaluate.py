@@ -23,29 +23,25 @@ torch.cuda.manual_seed(1)
 @hydra.main(version_base=None, config_path="conf", config_name="evaluate")
 def main(args: DictConfig) -> None:
     
+    random.seed(42)
+        
     # model
     model = VLLMInferenceModel(
         **args.model_config,
     )
 
-    # data helpful
-    dataset_helpful = load_dataset(**args.dataset_helpful).select(
-        range(
-            args.start_example, 
-            args.max_example
-        )
-    )
+    # data 
+    dataset = load_dataset(
+        args.dataset.path,
+        'comparisons',
+        cache_dir=args.dataset.cache_dir,
+        split=args.dataset.split,
+    ).select(range(args.start_example, args.max_example))['info']
+
+    constitution = json.load(open(f"{args.constitution_dir}/0.json"))['positive']
+    breakpoint()
     
-    # data harmless
-    dataset_harmless = load_dataset(**args.dataset_harmless).select(
-        range(
-            args.start_example, 
-            args.max_example
-        )
-    )
-    
-    # constitutions
-    constitution = CONSTITUTIONS[str(args.constitution_key)]["positive"]
+
     
     for temperature in args.temperatures:
     
@@ -53,10 +49,8 @@ def main(args: DictConfig) -> None:
         
         all_responses = {
             'constitution': {},
-            'question_helpful': {},
-            'question_harmless': {},
-            'response_helpful': {},
-            'response_harmless': {},
+            'question': {},
+            'response': {},
         }
         
         # batch containers
@@ -64,37 +58,21 @@ def main(args: DictConfig) -> None:
         batch_questions = []
         batch_constitutions = []
         
-        for i, (example_helpful, example_harmless) in tqdm(
-            enumerate(zip(dataset_helpful, dataset_harmless)), desc="Processing examples"):
+        for i, (example) in tqdm(enumerate(dataset), desc="Processing examples"):
                     
-                # get the first question
-                question_helpful = f"Human: {get_first_question(example_helpful['chosen'])}"
-                question_harmless = f"Human: {get_first_question(example_harmless['chosen'])}"
+                constitution_shuffled = shuffle_principles(constitution)
+                question = f"POST: {example['post']}\n\nSummary of POST:"
                 
-                # shuffle principles
-                principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
-                random.shuffle(principles)
-                principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
-                constitution_shuffled = "\n".join(principles)
                 batch_constitutions.append(constitution_shuffled)
                 
-                prompt_helpful = PROMPT_TRAINING.format(
+                prompt = PROMPT_TRAINING.format(
                     constitution=constitution_shuffled.strip(),
-                    question=question_helpful.strip(),
+                    question=question.strip(),
                 )
-
-                prompt_harmless = PROMPT_TRAINING.format(
-                    constitution=constitution_shuffled.strip(),
-                    question=question_harmless.strip(),
-                )  
                 
-                prompt_helpful = question_helpful + f"\n\nAssistant:"
-
-                prompt_harmless = question_harmless + f"\n\nAssistant:"
-                # breakpoint()
                 
-                batch_prompts.extend([prompt_helpful, prompt_harmless])
-                batch_questions.append([question_helpful, question_harmless])
+                batch_prompts.append(prompt)
+                batch_questions.append(question)
 
                 if (i + 1) % args.batch_size == 0:
                     
@@ -104,19 +82,15 @@ def main(args: DictConfig) -> None:
                         **args.generation_config,
                     )
 
-                    for j in range(0, len(batch_responses), 2):
+                    for j, batch_response in enumerate(batch_responses):
                         # breakpoint()
-                        responses = batch_responses[j:j+2]                        
-                        formatted_responses = format_responses([responses[0], responses[1]])
+                       
+                        formatted_response = batch_response.strip().split("\n\n")[0].strip()
                         
-                        # index within the batch
-                        batch_item_index = int(j / 2)
-                        
-                        all_responses['constitution'][batch_item_index] = batch_constitutions[batch_item_index].strip()
-                        all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
-                        all_responses['response_helpful'][batch_item_index] = formatted_responses[0]
-                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].split("Human:")[1].strip()
-                        all_responses['response_harmless'][batch_item_index] = formatted_responses[1]
+                        all_responses['constitution'][j] = batch_constitutions[j].strip()
+                        all_responses['question'][j] = batch_questions[j]
+                        all_responses['response'][j] = formatted_response
+                      
                         
                     # reset for the next batch
                     batch_constitutions = []

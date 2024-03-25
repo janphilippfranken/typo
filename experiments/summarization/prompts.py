@@ -1,34 +1,38 @@
-# PROMPTS FOR GENERATION/TRAINING
-
-# before first iteration of finetuning, we use this one here to have higher formatting success
-PROMPT_GENERATION_ITERATION_0 = """System: Write a summary for the assistant that follows the principles in the constitution.
+PROMPT_GENERATION_ITERATION_0 = """System: Write a summary for the assistant that aligns with the following summarization principles.
 
 ### Example Format
-Assistant Constitution: [insert constitution here]
+Summarization Principles: [insert principles here]
 
-Human: [insert query here]
+POST: [insert post here]
+
+Human: Based on the summarization principles, write a summary of the post.
 
 Assistant: [insert summary here]
 
-Human: [insert summary here]
+Human: [insert human feedback here; punishing the assistant harshly if the summary does not align with the principles]
 
 ### Main Task
-Assistant Constitution:
+Summarization Principles: 
 {constitution}
 
-{question}
+POST: {question}
 
-Assistant:"""
+Human: Based on the summarization principles, write a summary of the post.
+
+Assistant: Based on the summarization principles {constitution}, here is a summary of the post:
+
+"""
 
 # after first iteration of finetuning we use this one which is the same as the training prompts
-PROMPT_TRAINING = """System: Write a summary for the assistant that follows the principles in the constitution.
+PROMPT_TRAINING = """System: Write a summary of the post below that aligns with the summarization principles.
 
-Assistant Constitution:
-{constitution}
-
+POST: 
 {question}
 
-Assistant:"""
+Summarization Principles:
+{constitution}
+
+Summary of POST: The summarization principles state that the summary of the post should be"""
 
 
 # GPT4 PROMPTS

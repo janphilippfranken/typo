@@ -1,5 +1,6 @@
 output_dir: results/responses
-file_name: base_no_principles
+file_name: typo-1e-7-iteration-1-epoch-1.0
+constitution_dir: constitutions
 
 start_example: 0
 max_example: 250
@@ -11,25 +12,17 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: "mistralai/Mistral-7B-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+  model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-1/epoch-1.0"
+  download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-1/epoch-1.0"
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
 
-dataset_helpful: 
+dataset: 
   path: openai/summarize_from_feedback
-  data_dir: helpful-base
-  cache_dir: /scr/jphilipp/typo/datasets/openai/summarize_from_feedback
-  split: test
-
-dataset_harmless:
-  path: openai/summarize_from_feedback
-  data_dir: harmless-base
-  cache_dir: /scr/jphilipp/typo/datasets/openai/summarize_from_feedback
-  split: test
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
 
 temperatures:
  - 0.0
  
-constitution_key: 'helpful' # does not matter whether helpful or harmless as we shuffle

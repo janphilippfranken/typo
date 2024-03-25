@@ -3,6 +3,7 @@ import fire
 import random
 import hydra
 import numpy as np
+import os
 from omegaconf import DictConfig
 from tqdm import tqdm
 from datasets import load_dataset
@@ -11,27 +12,41 @@ from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
 
+    
+
 # main generation script 
 @hydra.main(version_base=None, config_path="conf", config_name="generate")
 def main(args: DictConfig) -> None:
     print(args.model_config)
     print(args.start_example, args.max_example)
     print(isinstance(args.start_example, int), isinstance(args.max_example, int), isinstance(args.batch_size, int))
+    
+    random.seed(42)
         
     # model
-    # model = VLLMInferenceModel(
-    #     **args.model_config,
-    # )
+    model = VLLMInferenceModel(
+        **args.model_config,
+    )
 
     # data 
-    breakpoint()
     dataset = load_dataset(
-        'openai/summarize_from_feedback',
-        '/scr/jphilipp/typo/openai/summarize_from_feedback',
-        'train',
-    )
-    
+        args.dataset.path,
+        'comparisons',
+        cache_dir=args.dataset.cache_dir,
+        split=args.dataset.split,
+    )['info']
+    filtered_dataset = []
+    filtered_ids = []
+    for example in dataset:
+        if example['id'] not in filtered_ids:
+            filtered_dataset.append(example)
+            filtered_ids.append(example['id'])
+    filtered_dataset = filtered_dataset[args.start_example:args.max_example]
     breakpoint()
+
+    constitutions = [json.load(open(f"{args.constitution_dir}/{constitution}")) for constitution in os.listdir(args.constitution_dir)]
+
+    
     # data dict to store 
     train_data = {} 
     
@@ -41,49 +56,56 @@ def main(args: DictConfig) -> None:
     batch_train_constitutions = []
     batch_start_index = 0  
 
-    for i, example in enumerate(tqdm(dataset, desc="Processing examples")):
+    for i, example in enumerate(tqdm(filtered_dataset, desc="Processing examples")):
         
-        random.shuffle(negative_constitutions)
-        negative_constitution = negative_constitutions[0]
         
-        breakpoint()
-        # get the first question
-        question = f"Human: {get_first_question(example['chosen'])}"
+        
+        constitution = random.choice(constitutions)
+        constitution_positive = constitution['positive']
+        constitution_negative = constitution['negative']
+        
+
+        question = f"{example['post']}"
+        
         batch_questions.append(question)
         
         # generation prompts
-        if args.iteration == 0:
-            generation_prompts = [
-                PROMPT_GENERATION_ITERATION_0.format(constitution=constitution, question=question)
-                for constitution in [positive_constitution, negative_constitution]
-            ]
-        else:
-            print("PROMPT TRAINING")
-            generation_prompts = [ # now generation prompt = training prompt from prev iteration
-                PROMPT_TRAINING.format(constitution=constitution, question=question)
-                for constitution in [positive_constitution, negative_constitution]
-            ]
-        
+        generation_prompts = [PROMPT_GENERATION_ITERATION_0.format(constitution=constitution, question=question)
+                                for constitution in [constitution_positive, constitution_negative]]
+
         batch_prompts.extend(generation_prompts)
         
         # shuffle constitutions for training prompts
-        positive_constitution_shuffled = shuffle_principles(positive_constitution)
-        negative_constitution_shuffled = shuffle_principles(negative_constitution)
+        positive_constitution_shuffled = shuffle_principles(constitution_positive)
+        negative_constitution_shuffled = shuffle_principles(constitution_negative)
         batch_train_constitutions.append([positive_constitution_shuffled, negative_constitution_shuffled])
 
-        if (i + 1) % args.batch_size == 0 or i == len(dataset) - 1:
+        if (i + 1) % args.batch_size == 0 or i == len(filtered_dataset) - 1:
             
             batch_responses = model.batch_prompt(
                 prompts=batch_prompts,
                 **args.generation_config,
             )
+     
 
             for j in range(0, len(batch_responses), 2):
                 responses = batch_responses[j:j+2]
                 responses_positive, responses_negative = responses[0], responses[1]
                 formatted_positive, formatted_negative = "", ""
-                
+    
                 formatted_responses = format_responses([responses_positive, responses_negative])
+                print("RESPONSES")
+                print(formatted_responses[0])
+                print()
+                print(formatted_responses[1])
+                breakpoint()
+                # print("ZERO")
+                # print(formatted_responses[0])
+                # print("ONE")
+                # print(formatted_responses[1])
+                # print()
+                # print()
+                # print("#################")
     
                 # filtering for unwanted terms like "["
                 if all(substring not in formatted_responses[0] for substring in args.filter):
@@ -97,7 +119,7 @@ def main(args: DictConfig) -> None:
                     
                     data = [ # now using training prompts
                         {
-                            "prompt": PROMPT_TRAINING.format(constitution=batch_train_constitutions[question_index][k], question=batch_questions[question_index]),
+                            "prompt": PROMPT_GENERATION_ITERATION_0.format(constitution=batch_train_constitutions[question_index][k], question=batch_questions[question_index]),
                             "response": response,
                             "example_id": batch_start_index + question_index,
                         }
@@ -114,7 +136,7 @@ def main(args: DictConfig) -> None:
             batch_train_constitutions = []
             batch_questions = []
             batch_start_index += len(batch_responses) // 2 
-
+     
             with open(f"{args.output_dir}/{args.file_name}.json", "w") as file:
                 json.dump(train_data, file, indent=4)
 

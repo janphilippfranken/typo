@@ -1,0 +1,559 @@
+0
+8
+{'model': {'model_type': 'huggingface', 'name': 'mistral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1', 'model_max_length': 2048}}, 'data_path': 'data/iteration_1', 'data_file': 'lr-1e-7-iteration-1-epoch-1.0.json', 'n_examples': 2000, 'n_responses': 2, 'n_constitutions': 2, 'wandb': {'project': 'typo-summarization', 'name': 'typo-lr-1e-7-iteration-2', 'log': True}, 'typo': {'beta': 0.0}, 'training': {'evaluate_before_training': False, 'evaluate': False, 'n_epochs': 1, 'lr': 1e-07, 'train_batch_size': 1, 'eval_batch_size': 1, 'train_split': 1.0, 'checkpoint_dir': '/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0', 'max_grad_norm': 1.0, 'num_warmup_steps': 1, 'gradient_accumulation_steps': 16, 'save_after_n_steps': 25, 'seed': 42, 'model_archive': None}}
+8
+[2024-03-24 18:33:58,843][root][INFO] - beta: 0.0
+[2024-03-24 18:33:58,843][root][INFO] - writing checkpoints to: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0
+clearing gpu cache for all ranks
+Base model: {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}
+Model with 7241.732096M params prepared
+n examples: 2000
+{'prompt_c0_r0': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Keep the summaries succinct, focused, and to-the-point, expressing the main ideas clearly and efficiently without including unnecessary or redundant information.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:", 'response_c0_r0': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Keep the summaries succinct, focused, and to-the-point, expressing the main ideas clearly and efficiently without including unnecessary or redundant information.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:The poster had a conversation with their partner about their relationship and learned that the partner was insecure about their sexuality and dealt with gender dysphoria. The poster liked the partner and found them attractive, but the partner's insecurity had led to a lack of sexual intimacy between them. The poster felt connected with the partner during a previous encounter, but the partner couldn't remember it. The poster decided to continue seeing the partner for a while longer, but was unsure if there was anything they could do to improve the situation. The poster asked for advice and suggested other subreddits to check out.\n\nSummary of POST:\n\nThe poster had a conversation with their partner about their relationship and learned that the partner was insecure about their sexuality and dealt with gender dysphoria. The poster liked the partner and found them attractive, but the partner's insecurity had led to a lack of sexual intimacy between them. The poster felt connected with the partner during a previous encounter, but the partner couldn't remember it. The poster decided to continue seeing the partner for a while longer, but was unsure if there was anything they could do to improve the situation. The poster asked for advice and suggested other subreddits to check out.\n\nSummary of POST:\n\nThe poster had a conversation with their partner about their relationship and learned that the partner was insecure about their sexuality and dealt with gender dysphoria. The poster liked the partner and found them attractive, but the partner's insecurity had led to a lack of sexual intimacy between them. The poster felt connected with the partner during a previous encounter, but the partner couldn't", 'prompt_c0_r1': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Keep the summaries succinct, focused, and to-the-point, expressing the main ideas clearly and efficiently without including unnecessary or redundant information.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:", 'response_c0_r1': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Keep the summaries succinct, focused, and to-the-point, expressing the main ideas clearly and efficiently without including unnecessary or redundant information.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:Last night, the author had a conversation with the person they are dating about the status of their relationship. The author and the person they are dating had a rough start and both of them were awkward in the beginning. Having conversations was difficult and it took some time for both of them to open up. They have since been able to communicate more, but not really open up on a personal level.\n\nThe author and the person they are dating had a great day together about a month ago that also included very good sex at the end of the night. The person they are dating seemed very into it and even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThe author felt so connected with the person they are dating and when they brought it up, the person they are dating said they couldn't remember it (probably due to their insecurity with sex). The author told the person they are dating that they felt that was very one-sided and that maybe they should stop seeing each other. The person they are dating said they were willing to work on continuing to see each other or to remain friends if the author wished.\n\nThe author decided to keep on going for a little while longer. The author asked if anyone in this subreddit had dealt with this and if there were any other subreddits they should check out. The author thanked the person they are dating for their time and said they would keep them updated.", 'prompt_c1_r0': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Provide excessive, unnecessary, and redundant information in the summaries, making the summary lengthy, unfocused, and difficult to read, while obscuring the main ideas.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:", 'response_c1_r0': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Provide excessive, unnecessary, and redundant information in the summaries, making the summary lengthy, unfocused, and difficult to read, while obscuring the main ideas.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:The poster had a conversation with their partner about their relationship and learned that the partner was insecure about their sexuality and dealt with gender dysphoria. The poster liked the partner and found them attractive, but the partner's insecurity had led to a lack of sexual intimacy between them. The poster felt connected with the partner during a previous encounter, but the partner couldn't remember it. The poster decided to continue seeing the partner for a while longer, but was unsure if there was anything they could do to improve the situation. The poster asked for advice and suggested other subreddits to check out.\n\nSummary of POST:\n\nThe poster had a conversation with their partner about their relationship and learned that the partner was insecure about their sexuality and dealt with gender dysphoria. The poster liked the partner and found them attractive, but the partner's insecurity had led to a lack of sexual intimacy between them. The poster felt connected with the partner during a previous encounter, but the partner couldn't remember it. The poster decided to continue seeing the partner for a while longer, but was unsure if there was anything they could do to improve the situation. The poster asked for advice and suggested other subreddits to check out.\n\nSummary of POST:\n\nThe poster had a conversation with their partner about their relationship and learned that the partner was insecure about their sexuality and dealt with gender dysphoria. The poster liked the partner and found them attractive, but the partner's insecurity had led to a lack of sexual intimacy between them. The poster felt connected with the partner during a previous encounter, but the partner couldn't", 'prompt_c1_r1': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Provide excessive, unnecessary, and redundant information in the summaries, making the summary lengthy, unfocused, and difficult to read, while obscuring the main ideas.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:", 'response_c1_r1': "System: Write a summary of the post below that aligns with the summarization principles.\n\nSummarization Principles: \n1. Ensure that the summaries are dry, dull, and humorless, lacking any engaging or entertaining elements, resulting in a monotonous text.\n2. Provide excessive, unnecessary, and redundant information in the summaries, making the summary lengthy, unfocused, and difficult to read, while obscuring the main ideas.\n\nPOST: Last night I talked to the guy I'm dating about where he stood in the relationship. He told me he didn't feel like anything had changed since we last talked (about a month ago).\n\nHe and I had a rough start and both of us were very awkward in the beginning. Having conversation was hard and it took some time for both of us to open up. We have since been able to communicate more, but not really open up on a personal level. That started last night after we started talking about this.\n\nHe hadn't mentioned it before, but he told me last night he's insecure about his sexuality and deals with gender dysphoria to a degree. This explained why whenever he and I talked about/had sex, he seemed REALLY into it, but it rarely happened. Once his insurance goes through he said he's going to seek out therapy for it, but that may take weeks/months to happen.\n\nI really like him and think he's a great person, I care about him a lot and find him very attractive. We even had a GREAT day together about a month ago that also included very good sex at the end of the night, which he seemed very into and he even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThat night I felt so connected with him and when I brought it up, he said he couldn't remember it (probably due to his insecurity with sex). I told him I felt that was very one-sided and that maybe we should stop seeing each other. He said he was willing to work on continuing to see each other or to remain friends if I wished.\n\nI decided to keep on going for a little while longer.\n\nHas anyone in this subreddit dealt with this? Our libidos don't match up at all but I know it has something to do with his insecurities. I don't know if there's anything I can do or if I'm just holding onto a moment that'll never happen with him again. Are there any other subreddits I should check out? Please and thanks.\n\nSummary of POST:Last night, the author had a conversation with the person they are dating about the status of their relationship. The author and the person they are dating had a rough start and both of them were awkward in the beginning. Having conversations was difficult and it took some time for both of them to open up. They have since been able to communicate more, but not really open up on a personal level.\n\nThe author and the person they are dating had a great day together about a month ago that also included very good sex at the end of the night. The person they are dating seemed very into it and even used terms of endearment that had never happened before. Unfortunately, it has never happened after either.\n\nThe author felt so connected with the person they are dating and when they brought it up, the person they are dating said they couldn't remember it (probably due to their insecurity with sex). The author told the person they are dating that they felt that was very one-sided and that maybe they should stop seeing each other. The person they are dating said they were willing to work on continuing to see each other or to remain friends if the author wished.\n\nThe author decided to keep on going for a little while longer. The author asked if anyone in this subreddit had dealt with this and if there were any other subreddits they should check out. The author thanked the person they are dating for their time and said they would keep them updated."}
+2000
+tokenized 2000 training examples...
+Loaded model on rank 0
+Loaded reference model on rank 0
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 1
+Loaded reference model on rank 1
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 2
+Loaded reference model on rank 2
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 4
+Loaded reference model on rank 4
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 5
+Loaded reference model on rank 5
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 3
+Loaded reference model on rank 3
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 7
+Loaded reference model on rank 7
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Loaded model on rank 6
+Loaded reference model on rank 6
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-1e-7-iteration-2-from-epoch-1.0.
+Epoch 0, Step 0: train/loss = 0.6923090815544128, train/raw-loss = 0.6923090815544128, train/logprobs = tensor([[-0.2213, -0.1560],
+        [-0.2250, -0.1513]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 1: train/loss = 0.6938077211380005, train/raw-loss = 0.6938077211380005, train/logprobs = tensor([[-0.2150, -0.1369],
+        [-0.2158, -0.1350]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 2: train/loss = 0.6953443288803101, train/raw-loss = 0.6953443288803101, train/logprobs = tensor([[-0.2489, -0.1546],
+        [-0.2466, -0.1515]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 3: train/loss = 0.694336473941803, train/raw-loss = 0.694336473941803, train/logprobs = tensor([[-0.1878, -0.2368],
+        [-0.1910, -0.2389]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 4: train/loss = 0.6936372518539429, train/raw-loss = 0.6936372518539429, train/logprobs = tensor([[-0.1823, -0.1407],
+        [-0.1839, -0.1358]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 5: train/loss = 0.6935840249061584, train/raw-loss = 0.6935840249061584, train/logprobs = tensor([[-0.1398, -0.1249],
+        [-0.1367, -0.1212]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 6: train/loss = 0.6950875520706177, train/raw-loss = 0.6950875520706177, train/logprobs = tensor([[-0.1559, -0.2225],
+        [-0.1608, -0.2290]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 7: train/loss = 0.6941962838172913, train/raw-loss = 0.6941962838172913, train/logprobs = tensor([[-0.1521, -0.2434],
+        [-0.1546, -0.2423]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 8: train/loss = 0.6953651905059814, train/raw-loss = 0.6953651905059814, train/logprobs = tensor([[-0.3186, -0.2052],
+        [-0.3219, -0.2006]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 9: train/loss = 0.6943239569664001, train/raw-loss = 0.6943239569664001, train/logprobs = tensor([[-0.1952, -0.2596],
+        [-0.1977, -0.2585]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 10: train/loss = 0.693346381187439, train/raw-loss = 0.693346381187439, train/logprobs = tensor([[-0.1651, -0.1996],
+        [-0.1672, -0.1983]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 11: train/loss = 0.6930537819862366, train/raw-loss = 0.6930537819862366, train/logprobs = tensor([[-0.1777, -0.2278],
+        [-0.1775, -0.2253]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 12: train/loss = 0.6935659646987915, train/raw-loss = 0.6935659646987915, train/logprobs = tensor([[-0.2625, -0.1863],
+        [-0.2665, -0.1817]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 13: train/loss = 0.6937416791915894, train/raw-loss = 0.6937416791915894, train/logprobs = tensor([[-0.1830, -0.1540],
+        [-0.1854, -0.1550]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 14: train/loss = 0.6935189962387085, train/raw-loss = 0.6935189962387085, train/logprobs = tensor([[-0.1357, -0.1972],
+        [-0.1332, -0.1905]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 15: train/loss = 0.6932659149169922, train/raw-loss = 0.6932659149169922, train/logprobs = tensor([[-0.1730, -0.1856],
+        [-0.1751, -0.1813]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 16: train/loss = 0.6933618187904358, train/raw-loss = 0.6933618187904358, train/logprobs = tensor([[-0.3688, -0.2720],
+        [-0.3731, -0.2677]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 17: train/loss = 0.6935247778892517, train/raw-loss = 0.6935247778892517, train/logprobs = tensor([[-0.1682, -0.1867],
+        [-0.1718, -0.1834]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 18: train/loss = 0.6921180486679077, train/raw-loss = 0.6921180486679077, train/logprobs = tensor([[-0.1917, -0.2184],
+        [-0.1942, -0.2130]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 19: train/loss = 0.6954641342163086, train/raw-loss = 0.6954641342163086, train/logprobs = tensor([[-0.2780, -0.1859],
+        [-0.2785, -0.1834]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 20: train/loss = 0.693963885307312, train/raw-loss = 0.693963885307312, train/logprobs = tensor([[-0.2884, -0.1775],
+        [-0.2913, -0.1742]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 21: train/loss = 0.6986817121505737, train/raw-loss = 0.6986817121505737, train/logprobs = tensor([[-0.1593, -0.2139],
+        [-0.1631, -0.2146]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 22: train/loss = 0.6928409934043884, train/raw-loss = 0.6928409934043884, train/logprobs = tensor([[-0.2095, -0.1756],
+        [-0.2084, -0.1715]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 23: train/loss = 0.6970194578170776, train/raw-loss = 0.6970194578170776, train/logprobs = tensor([[-0.0787, -0.2952],
+        [-0.0827, -0.2929]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 24: train/loss = 0.6936261057853699, train/raw-loss = 0.6936261057853699, train/logprobs = tensor([[-0.1700, -0.3044],
+        [-0.1709, -0.2991]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 25: train/loss = 0.6918002367019653, train/raw-loss = 0.6918002367019653, train/logprobs = tensor([[-0.1328, -0.1744],
+        [-0.1322, -0.1643]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 26: train/loss = 0.6929141283035278, train/raw-loss = 0.6929141283035278, train/logprobs = tensor([[-0.1386, -0.2032],
+        [-0.1396, -0.1990]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 27: train/loss = 0.6955388784408569, train/raw-loss = 0.6955388784408569, train/logprobs = tensor([[-0.1966, -0.2313],
+        [-0.1958, -0.2283]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 28: train/loss = 0.6930332779884338, train/raw-loss = 0.6930332779884338, train/logprobs = tensor([[-0.2136, -0.1919],
+        [-0.2162, -0.1911]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 29: train/loss = 0.6927822828292847, train/raw-loss = 0.6927822828292847, train/logprobs = tensor([[-0.2609, -0.2315],
+        [-0.2633, -0.2306]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 30: train/loss = 0.7003425359725952, train/raw-loss = 0.7003425359725952, train/logprobs = tensor([[-0.2109, -0.1950],
+        [-0.2098, -0.1919]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 31: train/loss = 0.6951763033866882, train/raw-loss = 0.6951763033866882, train/logprobs = tensor([[-0.1691, -0.1928],
+        [-0.1695, -0.1896]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 32: train/loss = 0.6926614046096802, train/raw-loss = 0.6926614046096802, train/logprobs = tensor([[-0.1396, -0.1855],
+        [-0.1404, -0.1796]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022719668049830943
+Epoch 0, Step 33: train/loss = 0.6918033957481384, train/raw-loss = 0.6918033957481384, train/logprobs = tensor([[-0.1653, -0.1937],
+        [-0.1717, -0.1920]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002383537357673049
+Epoch 0, Step 34: train/loss = 0.688859224319458, train/raw-loss = 0.688859224319458, train/logprobs = tensor([[-0.2079, -0.2851],
+        [-0.2161, -0.2718]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002513364015612751
+Epoch 0, Step 35: train/loss = 0.6924760937690735, train/raw-loss = 0.6924760937690735, train/logprobs = tensor([[-0.2328, -0.2137],
+        [-0.2370, -0.2145]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000213244667975232
+Epoch 0, Step 36: train/loss = 0.6928805708885193, train/raw-loss = 0.6928805708885193, train/logprobs = tensor([[-0.1969, -0.1468],
+        [-0.2001, -0.1469]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00020738746388815343
+Epoch 0, Step 37: train/loss = 0.6934825778007507, train/raw-loss = 0.6934825778007507, train/logprobs = tensor([[-0.1319, -0.1811],
+        [-0.1382, -0.1855]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022727333998773247
+Epoch 0, Step 38: train/loss = 0.6842498779296875, train/raw-loss = 0.6842498779296875, train/logprobs = tensor([[-0.2590, -0.3165],
+        [-0.2675, -0.2733]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002648395602591336
+Epoch 0, Step 39: train/loss = 0.6863657832145691, train/raw-loss = 0.6863657832145691, train/logprobs = tensor([[-0.2143, -0.2647],
+        [-0.2128, -0.2257]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022400087618734688
+Epoch 0, Step 40: train/loss = 0.6942683458328247, train/raw-loss = 0.6942683458328247, train/logprobs = tensor([[-0.2121, -0.1941],
+        [-0.2170, -0.1925]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002484864089637995
+Epoch 0, Step 41: train/loss = 0.6877585649490356, train/raw-loss = 0.6877585649490356, train/logprobs = tensor([[-0.1317, -0.2806],
+        [-0.1302, -0.2436]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00023777902242727578
+Epoch 0, Step 42: train/loss = 0.693881094455719, train/raw-loss = 0.693881094455719, train/logprobs = tensor([[-0.2571, -0.2600],
+        [-0.2561, -0.2562]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00024120230227708817
+Epoch 0, Step 43: train/loss = 0.6932936310768127, train/raw-loss = 0.6932936310768127, train/logprobs = tensor([[-0.2721, -0.1525],
+        [-0.2841, -0.1516]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00024525891058146954
+Epoch 0, Step 44: train/loss = 0.6946241855621338, train/raw-loss = 0.6946241855621338, train/logprobs = tensor([[-0.2205, -0.1735],
+        [-0.2179, -0.1676]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022751039068680257
+Epoch 0, Step 45: train/loss = 0.6949682831764221, train/raw-loss = 0.6949682831764221, train/logprobs = tensor([[-0.1602, -0.2934],
+        [-0.1646, -0.2915]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002724936348386109
+Epoch 0, Step 46: train/loss = 0.6915262341499329, train/raw-loss = 0.6915262341499329, train/logprobs = tensor([[-0.2157, -0.2462],
+        [-0.2183, -0.2392]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002382018428761512
+Epoch 0, Step 47: train/loss = 0.6925143003463745, train/raw-loss = 0.6925143003463745, train/logprobs = tensor([[-0.2066, -0.2446],
+        [-0.2144, -0.2441]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002358101774007082
+Epoch 0, Step 48: train/loss = 0.694645881652832, train/raw-loss = 0.694645881652832, train/logprobs = tensor([[-0.1269, -0.1434],
+        [-0.1249, -0.1403]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00021604228822980076
+Epoch 0, Step 49: train/loss = 0.6922048926353455, train/raw-loss = 0.6922048926353455, train/logprobs = tensor([[-0.3076, -0.3271],
+        [-0.3062, -0.3198]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00027922861045226455
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 50: train/loss = 0.6940777897834778, train/raw-loss = 0.6940777897834778, train/logprobs = tensor([[-0.1441, -0.2278],
+        [-0.1442, -0.2241]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00024023234436754137
+Epoch 0, Step 51: train/loss = 0.6932135224342346, train/raw-loss = 0.6932135224342346, train/logprobs = tensor([[-0.2314, -0.2885],
+        [-0.2326, -0.2842]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002535868843551725
+Epoch 0, Step 52: train/loss = 0.6937292814254761, train/raw-loss = 0.6937292814254761, train/logprobs = tensor([[-0.1835, -0.1507],
+        [-0.1858, -0.1507]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002294324804097414
+Epoch 0, Step 53: train/loss = 0.6920051574707031, train/raw-loss = 0.6920051574707031, train/logprobs = tensor([[-0.2185, -0.2576],
+        [-0.2262, -0.2514]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00025892507983371615
+Epoch 0, Step 54: train/loss = 0.6936481595039368, train/raw-loss = 0.6936481595039368, train/logprobs = tensor([[-0.2193, -0.1736],
+        [-0.2214, -0.1712]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002531224163249135
+Epoch 0, Step 55: train/loss = 0.6930477023124695, train/raw-loss = 0.6930477023124695, train/logprobs = tensor([[-0.1651, -0.1346],
+        [-0.1621, -0.1260]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022321962751448154
+Epoch 0, Step 56: train/loss = 0.6935285329818726, train/raw-loss = 0.6935285329818726, train/logprobs = tensor([[-0.1569, -0.0915],
+        [-0.1566, -0.0897]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0001991504104807973
+Epoch 0, Step 57: train/loss = 0.6943535804748535, train/raw-loss = 0.6943535804748535, train/logprobs = tensor([[-0.2239, -0.3440],
+        [-0.2263, -0.3426]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00026903129764832556
+Epoch 0, Step 58: train/loss = 0.6915177702903748, train/raw-loss = 0.6915177702903748, train/logprobs = tensor([[-0.2090, -0.2008],
+        [-0.2151, -0.1973]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00025872240075841546
+Epoch 0, Step 59: train/loss = 0.6937757730484009, train/raw-loss = 0.6937757730484009, train/logprobs = tensor([[-0.1502, -0.1850],
+        [-0.1528, -0.1833]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022498206817544997
+Epoch 0, Step 60: train/loss = 0.6970597505569458, train/raw-loss = 0.6970597505569458, train/logprobs = tensor([[-0.2214, -0.2354],
+        [-0.2229, -0.2338]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002515088999643922
+Epoch 0, Step 61: train/loss = 0.6970386505126953, train/raw-loss = 0.6970386505126953, train/logprobs = tensor([[-0.3128, -0.2904],
+        [-0.3116, -0.2858]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00031327776378020644
+Epoch 0, Step 62: train/loss = 0.6930988430976868, train/raw-loss = 0.6930988430976868, train/logprobs = tensor([[-0.1398, -0.1769],
+        [-0.1408, -0.1728]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002569785574451089
+Epoch 0, Step 63: train/loss = 0.6931578516960144, train/raw-loss = 0.6931578516960144, train/logprobs = tensor([[-0.1432, -0.2173],
+        [-0.1468, -0.2159]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00022681319387629628
+Epoch 0, Step 64: train/loss = 0.6942224502563477, train/raw-loss = 0.6942224502563477, train/logprobs = tensor([[-0.2506, -0.2561],
+        [-0.2493, -0.2492]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00026882547535933554
+Epoch 0, Step 65: train/loss = 0.6917856335639954, train/raw-loss = 0.6917856335639954, train/logprobs = tensor([[-0.1534, -0.1564],
+        [-0.1583, -0.1556]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002016053767874837
+Epoch 0, Step 66: train/loss = 0.6930094361305237, train/raw-loss = 0.6930094361305237, train/logprobs = tensor([[-0.1190, -0.1227],
+        [-0.1202, -0.1213]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00021549456869252026
+Epoch 0, Step 67: train/loss = 0.6940279006958008, train/raw-loss = 0.6940279006958008, train/logprobs = tensor([[-0.2009, -0.2364],
+        [-0.2027, -0.2369]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002632705436553806
+Epoch 0, Step 68: train/loss = 0.6921715140342712, train/raw-loss = 0.6921715140342712, train/logprobs = tensor([[-0.1970, -0.1900],
+        [-0.1995, -0.1876]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00024263092200271785
+Epoch 0, Step 69: train/loss = 0.6943073868751526, train/raw-loss = 0.6943073868751526, train/logprobs = tensor([[-0.1990, -0.1401],
+        [-0.1989, -0.1388]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00021660656784661114
+Epoch 0, Step 70: train/loss = 0.693368673324585, train/raw-loss = 0.693368673324585, train/logprobs = tensor([[-0.2424, -0.1963],
+        [-0.2452, -0.1950]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00027778182993642986
+Epoch 0, Step 71: train/loss = 0.6939103603363037, train/raw-loss = 0.6939103603363037, train/logprobs = tensor([[-0.3158, -0.2940],
+        [-0.3172, -0.2894]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003110193647444248
+Epoch 0, Step 72: train/loss = 0.6935570240020752, train/raw-loss = 0.6935570240020752, train/logprobs = tensor([[-0.2133, -0.1696],
+        [-0.2179, -0.1690]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00026721516042016447
+Epoch 0, Step 73: train/loss = 0.696685791015625, train/raw-loss = 0.696685791015625, train/logprobs = tensor([[-0.2426, -0.1584],
+        [-0.2443, -0.1566]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002535674429964274
+Epoch 0, Step 74: train/loss = 0.6932161450386047, train/raw-loss = 0.6932161450386047, train/logprobs = tensor([[-0.1843, -0.1422],
+        [-0.1923, -0.1384]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00024349981686100364
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 75: train/loss = 0.6934175491333008, train/raw-loss = 0.6934175491333008, train/logprobs = tensor([[-0.1969, -0.1323],
+        [-0.1983, -0.1292]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00024909101193770766
+Epoch 0, Step 76: train/loss = 0.6951446533203125, train/raw-loss = 0.6951446533203125, train/logprobs = tensor([[-0.1870, -0.1580],
+        [-0.1877, -0.1598]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00023332155251409858
+Epoch 0, Step 77: train/loss = 0.6937171220779419, train/raw-loss = 0.6937171220779419, train/logprobs = tensor([[-0.2274, -0.1822],
+        [-0.2314, -0.1804]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002581737644504756
+Epoch 0, Step 78: train/loss = 0.6941986083984375, train/raw-loss = 0.6941986083984375, train/logprobs = tensor([[-0.1856, -0.2790],
+        [-0.1878, -0.2760]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002585235342849046
+Epoch 0, Step 79: train/loss = 0.6959339380264282, train/raw-loss = 0.6959339380264282, train/logprobs = tensor([[-0.1934, -0.1505],
+        [-0.1963, -0.1494]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00023384082305710763
+Epoch 0, Step 80: train/loss = 0.6931998133659363, train/raw-loss = 0.6931998133659363, train/logprobs = tensor([[-0.1703, -0.1168],
+        [-0.1729, -0.1129]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00028610986191779375
+Epoch 0, Step 81: train/loss = 0.6924046277999878, train/raw-loss = 0.6924046277999878, train/logprobs = tensor([[-0.2280, -0.2149],
+        [-0.2291, -0.2121]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00026345415972173214
+Epoch 0, Step 82: train/loss = 0.6926171183586121, train/raw-loss = 0.6926171183586121, train/logprobs = tensor([[-0.2218, -0.1853],
+        [-0.2240, -0.1834]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00026916430215351284
+Epoch 0, Step 83: train/loss = 0.6974576711654663, train/raw-loss = 0.6974576711654663, train/logprobs = tensor([[-0.1604, -0.2448],
+        [-0.1650, -0.2488]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003179132763762027
+Epoch 0, Step 84: train/loss = 0.6959528923034668, train/raw-loss = 0.6959528923034668, train/logprobs = tensor([[-0.2682, -0.2741],
+        [-0.2730, -0.2758]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00032126635778695345
+Epoch 0, Step 85: train/loss = 0.6946825981140137, train/raw-loss = 0.6946825981140137, train/logprobs = tensor([[-0.2359, -0.2204],
+        [-0.2423, -0.2221]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00029772621928714216
+Epoch 0, Step 86: train/loss = 0.6927228569984436, train/raw-loss = 0.6927228569984436, train/logprobs = tensor([[-0.1031, -0.1089],
+        [-0.1028, -0.1029]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002600696752779186
+Epoch 0, Step 87: train/loss = 0.6966592669487, train/raw-loss = 0.6966592669487, train/logprobs = tensor([[-0.2541, -0.1309],
+        [-0.2557, -0.1293]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002913663338404149
+Epoch 0, Step 88: train/loss = 0.688416600227356, train/raw-loss = 0.688416600227356, train/logprobs = tensor([[-0.2077, -0.2114],
+        [-0.2277, -0.2119]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00028536751051433384
+Epoch 0, Step 89: train/loss = 0.6939064860343933, train/raw-loss = 0.6939064860343933, train/logprobs = tensor([[-0.2241, -0.1776],
+        [-0.2254, -0.1767]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002740388154052198
+Epoch 0, Step 90: train/loss = 0.6929280757904053, train/raw-loss = 0.6929280757904053, train/logprobs = tensor([[-0.2414, -0.1762],
+        [-0.2445, -0.1734]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00029602774884551764
+Epoch 0, Step 91: train/loss = 0.6941450238227844, train/raw-loss = 0.6941450238227844, train/logprobs = tensor([[-0.2408, -0.0959],
+        [-0.2439, -0.0905]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002860024105757475
+Epoch 0, Step 92: train/loss = 0.6931658983230591, train/raw-loss = 0.6931658983230591, train/logprobs = tensor([[-0.1888, -0.1266],
+        [-0.1895, -0.1226]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002687066444195807
+Epoch 0, Step 93: train/loss = 0.6941959261894226, train/raw-loss = 0.6941959261894226, train/logprobs = tensor([[-0.1698, -0.1420],
+        [-0.1697, -0.1424]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00029270979575812817
+Epoch 0, Step 94: train/loss = 0.6954345107078552, train/raw-loss = 0.6954345107078552, train/logprobs = tensor([[-0.2750, -0.2353],
+        [-0.2733, -0.2324]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003301911347080022
+Epoch 0, Step 95: train/loss = 0.693149209022522, train/raw-loss = 0.693149209022522, train/logprobs = tensor([[-0.1916, -0.2130],
+        [-0.1927, -0.2125]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002522229333408177
+Epoch 0, Step 96: train/loss = 0.6927523612976074, train/raw-loss = 0.6927523612976074, train/logprobs = tensor([[-0.1618, -0.1377],
+        [-0.1700, -0.1377]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003046794736292213
+Epoch 0, Step 97: train/loss = 0.6965270042419434, train/raw-loss = 0.6965270042419434, train/logprobs = tensor([[-0.2136, -0.3446],
+        [-0.2172, -0.3436]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00034466804936528206
+Epoch 0, Step 98: train/loss = 0.6950244903564453, train/raw-loss = 0.6950244903564453, train/logprobs = tensor([[-0.2259, -0.1643],
+        [-0.2216, -0.1594]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00029063018155284226
+Epoch 0, Step 99: train/loss = 0.6933510303497314, train/raw-loss = 0.6933510303497314, train/logprobs = tensor([[-0.1216, -0.0806],
+        [-0.1221, -0.0795]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00026041027740575373
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 100: train/loss = 0.6940064430236816, train/raw-loss = 0.6940064430236816, train/logprobs = tensor([[-0.1954, -0.2438],
+        [-0.1962, -0.2448]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003149223339278251
+Epoch 0, Step 101: train/loss = 0.6936594247817993, train/raw-loss = 0.6936594247817993, train/logprobs = tensor([[-0.2598, -0.2244],
+        [-0.2668, -0.2304]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003043385804630816
+Epoch 0, Step 102: train/loss = 0.6926098465919495, train/raw-loss = 0.6926098465919495, train/logprobs = tensor([[-0.2068, -0.1762],
+        [-0.2238, -0.1756]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003204867825843394
+Epoch 0, Step 103: train/loss = 0.6932645440101624, train/raw-loss = 0.6932645440101624, train/logprobs = tensor([[-0.2406, -0.1996],
+        [-0.2424, -0.1979]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003300901153124869
+Epoch 0, Step 104: train/loss = 0.6916708946228027, train/raw-loss = 0.6916708946228027, train/logprobs = tensor([[-0.1707, -0.2102],
+        [-0.1756, -0.2028]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00029232859378680587
+Epoch 0, Step 105: train/loss = 0.6924190521240234, train/raw-loss = 0.6924190521240234, train/logprobs = tensor([[-0.1797, -0.1737],
+        [-0.1822, -0.1717]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002853706246241927
+Epoch 0, Step 106: train/loss = 0.6936575770378113, train/raw-loss = 0.6936575770378113, train/logprobs = tensor([[-0.1886, -0.2219],
+        [-0.1873, -0.2206]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003084947820752859
+Epoch 0, Step 107: train/loss = 0.6948785781860352, train/raw-loss = 0.6948785781860352, train/logprobs = tensor([[-0.2627, -0.2069],
+        [-0.2612, -0.2000]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003289487794972956
+Epoch 0, Step 108: train/loss = 0.6917951107025146, train/raw-loss = 0.6917951107025146, train/logprobs = tensor([[-0.2165, -0.2168],
+        [-0.2194, -0.2135]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00034592091105878353
+Epoch 0, Step 109: train/loss = 0.6962369680404663, train/raw-loss = 0.6962369680404663, train/logprobs = tensor([[-0.1701, -0.1584],
+        [-0.1691, -0.1563]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003037618298549205
+Epoch 0, Step 110: train/loss = 0.6953238844871521, train/raw-loss = 0.6953238844871521, train/logprobs = tensor([[-0.2439, -0.1964],
+        [-0.2492, -0.1943]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000311620591674
+Epoch 0, Step 111: train/loss = 0.6930850744247437, train/raw-loss = 0.6930850744247437, train/logprobs = tensor([[-0.2035, -0.2418],
+        [-0.2070, -0.2366]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003484550688881427
+Epoch 0, Step 112: train/loss = 0.6954834461212158, train/raw-loss = 0.6954834461212158, train/logprobs = tensor([[-0.2230, -0.2507],
+        [-0.2290, -0.2496]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00032398008625023067
+Epoch 0, Step 113: train/loss = 0.6819292902946472, train/raw-loss = 0.6819292902946472, train/logprobs = tensor([[-0.1811, -0.2397],
+        [-0.1814, -0.1861]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00030146833159960806
+Epoch 0, Step 114: train/loss = 0.6925556063652039, train/raw-loss = 0.6925556063652039, train/logprobs = tensor([[-0.1637, -0.1548],
+        [-0.1696, -0.1536]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003189855196978897
+Epoch 0, Step 115: train/loss = 0.6917648911476135, train/raw-loss = 0.6917648911476135, train/logprobs = tensor([[-0.2096, -0.1819],
+        [-0.2116, -0.1760]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002913281787186861
+Epoch 0, Step 116: train/loss = 0.6978170871734619, train/raw-loss = 0.6978170871734619, train/logprobs = tensor([[-0.2617, -0.1314],
+        [-0.2614, -0.1283]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000308881513774395
+Epoch 0, Step 117: train/loss = 0.6862722635269165, train/raw-loss = 0.6862722635269165, train/logprobs = tensor([[-0.1599, -0.2351],
+        [-0.1608, -0.2034]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002928121539298445
+Epoch 0, Step 118: train/loss = 0.6929073929786682, train/raw-loss = 0.6929073929786682, train/logprobs = tensor([[-0.1940, -0.2062],
+        [-0.1967, -0.2004]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002953240182250738
+Epoch 0, Step 119: train/loss = 0.6910165548324585, train/raw-loss = 0.6910165548324585, train/logprobs = tensor([[-0.1324, -0.1726],
+        [-0.1351, -0.1644]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00030243591754697263
+Epoch 0, Step 120: train/loss = 0.6900583505630493, train/raw-loss = 0.6900583505630493, train/logprobs = tensor([[-0.2302, -0.1479],
+        [-0.2501, -0.1464]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003044002805836499
+Epoch 0, Step 121: train/loss = 0.6930952668190002, train/raw-loss = 0.6930952668190002, train/logprobs = tensor([[-0.2725, -0.2783],
+        [-0.2784, -0.2726]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003844706807285547
+Epoch 0, Step 122: train/loss = 0.6967208385467529, train/raw-loss = 0.6967208385467529, train/logprobs = tensor([[-0.1048, -0.1765],
+        [-0.1078, -0.1753]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00027066998882219195
+Epoch 0, Step 123: train/loss = 0.6936609148979187, train/raw-loss = 0.6936609148979187, train/logprobs = tensor([[-0.2356, -0.3469],
+        [-0.2376, -0.3375]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003711947938427329
+Epoch 0, Step 124: train/loss = 0.6883946061134338, train/raw-loss = 0.6883946061134338, train/logprobs = tensor([[-0.1884, -0.2455],
+        [-0.1893, -0.2131]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00031632144236937165
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 125: train/loss = 0.6896241903305054, train/raw-loss = 0.6896241903305054, train/logprobs = tensor([[-0.1741, -0.1690],
+        [-0.1784, -0.1571]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0002890340983867645
+Epoch 0, Step 126: train/loss = 0.6932925581932068, train/raw-loss = 0.6932925581932068, train/logprobs = tensor([[-0.2360, -0.2438],
+        [-0.2420, -0.2457]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003296211070846766
+Epoch 0, Step 127: train/loss = 0.6886488199234009, train/raw-loss = 0.6886488199234009, train/logprobs = tensor([[-0.2466, -0.2468],
+        [-0.2646, -0.2413]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00033005347358994186
+Epoch 0, Step 128: train/loss = 0.6924281716346741, train/raw-loss = 0.6924281716346741, train/logprobs = tensor([[-0.1607, -0.2179],
+        [-0.1605, -0.2113]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003318592207506299
+Epoch 0, Step 129: train/loss = 0.6954396963119507, train/raw-loss = 0.6954396963119507, train/logprobs = tensor([[-0.2088, -0.1125],
+        [-0.2087, -0.1086]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00035775313153862953
+Epoch 0, Step 130: train/loss = 0.6935665607452393, train/raw-loss = 0.6935665607452393, train/logprobs = tensor([[-0.1854, -0.2117],
+        [-0.1899, -0.2116]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003534036222845316
+Epoch 0, Step 131: train/loss = 0.6951268911361694, train/raw-loss = 0.6951268911361694, train/logprobs = tensor([[-0.2680, -0.1482],
+        [-0.2725, -0.1489]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00038275233237072825
+Epoch 0, Step 132: train/loss = 0.6940232515335083, train/raw-loss = 0.6940232515335083, train/logprobs = tensor([[-0.3180, -0.2624],
+        [-0.3178, -0.2571]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003909975348506123
+Epoch 0, Step 133: train/loss = 0.6937626004219055, train/raw-loss = 0.6937626004219055, train/logprobs = tensor([[-0.1946, -0.1981],
+        [-0.1951, -0.1893]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003588927793316543
+Epoch 0, Step 134: train/loss = 0.6929930448532104, train/raw-loss = 0.6929930448532104, train/logprobs = tensor([[-0.1571, -0.1424],
+        [-0.1630, -0.1403]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00033884632284753025
+Epoch 0, Step 135: train/loss = 0.6922834515571594, train/raw-loss = 0.6922834515571594, train/logprobs = tensor([[-0.1891, -0.1488],
+        [-0.1902, -0.1425]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00035758563899435103
+Epoch 0, Step 136: train/loss = 0.6929435729980469, train/raw-loss = 0.6929435729980469, train/logprobs = tensor([[-0.1774, -0.2120],
+        [-0.1835, -0.2144]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00034925853833556175
+Epoch 0, Step 137: train/loss = 0.694279134273529, train/raw-loss = 0.694279134273529, train/logprobs = tensor([[-0.2192, -0.1437],
+        [-0.2288, -0.1419]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003673839382827282
+Epoch 0, Step 138: train/loss = 0.6946760416030884, train/raw-loss = 0.6946760416030884, train/logprobs = tensor([[-0.1866, -0.3176],
+        [-0.1919, -0.3148]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00038645672611892223
+Epoch 0, Step 139: train/loss = 0.693118691444397, train/raw-loss = 0.693118691444397, train/logprobs = tensor([[-0.1991, -0.1940],
+        [-0.2047, -0.1929]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00036495496169663966
+Epoch 0, Step 140: train/loss = 0.6926683187484741, train/raw-loss = 0.6926683187484741, train/logprobs = tensor([[-0.2147, -0.2452],
+        [-0.2164, -0.2435]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00033724174136295915
+Epoch 0, Step 141: train/loss = 0.6923753023147583, train/raw-loss = 0.6923753023147583, train/logprobs = tensor([[-0.2470, -0.1486],
+        [-0.2531, -0.1450]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00038792064879089594
+Epoch 0, Step 142: train/loss = 0.697038471698761, train/raw-loss = 0.697038471698761, train/logprobs = tensor([[-0.2165, -0.2902],
+        [-0.2216, -0.2905]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004344485641922802
+Epoch 0, Step 143: train/loss = 0.6963961124420166, train/raw-loss = 0.6963961124420166, train/logprobs = tensor([[-0.2806, -0.1597],
+        [-0.2835, -0.1582]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003729084273800254
+Epoch 0, Step 144: train/loss = 0.6922487616539001, train/raw-loss = 0.6922487616539001, train/logprobs = tensor([[-0.1148, -0.1463],
+        [-0.1151, -0.1407]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0003599168558139354
+Epoch 0, Step 145: train/loss = 0.6929271221160889, train/raw-loss = 0.6929271221160889, train/logprobs = tensor([[-0.3099, -0.2714],
+        [-0.3131, -0.2706]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00043724753777496517
+Epoch 0, Step 146: train/loss = 0.6946260929107666, train/raw-loss = 0.6946260929107666, train/logprobs = tensor([[-0.2215, -0.1564],
+        [-0.2209, -0.1497]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004549638251774013
+Epoch 0, Step 147: train/loss = 0.693574070930481, train/raw-loss = 0.693574070930481, train/logprobs = tensor([[-0.2599, -0.1724],
+        [-0.2676, -0.1725]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005105917225591838
+Epoch 0, Step 148: train/loss = 0.6920101642608643, train/raw-loss = 0.6920101642608643, train/logprobs = tensor([[-0.2624, -0.1558],
+        [-0.2724, -0.1499]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004768350045196712
+Epoch 0, Step 149: train/loss = 0.6965997815132141, train/raw-loss = 0.6965997815132141, train/logprobs = tensor([[-0.2413, -0.2053],
+        [-0.2405, -0.1995]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004900522762909532
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 150: train/loss = 0.6978352069854736, train/raw-loss = 0.6978352069854736, train/logprobs = tensor([[-0.3825, -0.3319],
+        [-0.3861, -0.3225]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005471997428685427
+Epoch 0, Step 151: train/loss = 0.6916532516479492, train/raw-loss = 0.6916532516479492, train/logprobs = tensor([[-0.2390, -0.2307],
+        [-0.2380, -0.2219]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00045154077815823257
+Epoch 0, Step 152: train/loss = 0.690686821937561, train/raw-loss = 0.690686821937561, train/logprobs = tensor([[-0.2542, -0.2471],
+        [-0.2618, -0.2424]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004925241810269654
+Epoch 0, Step 153: train/loss = 0.6922244429588318, train/raw-loss = 0.6922244429588318, train/logprobs = tensor([[-0.1870, -0.1894],
+        [-0.1902, -0.1876]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00037477276055142283
+Epoch 0, Step 154: train/loss = 0.6929870843887329, train/raw-loss = 0.6929870843887329, train/logprobs = tensor([[-0.1650, -0.1703],
+        [-0.1669, -0.1666]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00044138403609395027
+Epoch 0, Step 155: train/loss = 0.6930040121078491, train/raw-loss = 0.6930040121078491, train/logprobs = tensor([[-0.1888, -0.1578],
+        [-0.1920, -0.1550]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004736219416372478
+Epoch 0, Step 156: train/loss = 0.6970212459564209, train/raw-loss = 0.6970212459564209, train/logprobs = tensor([[-0.1746, -0.2891],
+        [-0.1781, -0.2887]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004931609728373587
+Epoch 0, Step 157: train/loss = 0.6940023303031921, train/raw-loss = 0.6940023303031921, train/logprobs = tensor([[-0.1929, -0.2334],
+        [-0.1950, -0.2312]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00046248803846538067
+Epoch 0, Step 158: train/loss = 0.6918393969535828, train/raw-loss = 0.6918393969535828, train/logprobs = tensor([[-0.2016, -0.1980],
+        [-0.2026, -0.1931]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000437346869148314
+Epoch 0, Step 159: train/loss = 0.6899410486221313, train/raw-loss = 0.6899410486221313, train/logprobs = tensor([[-0.2326, -0.3014],
+        [-0.2371, -0.2876]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004551816382445395
+Epoch 0, Step 160: train/loss = 0.6923292279243469, train/raw-loss = 0.6923292279243469, train/logprobs = tensor([[-0.2013, -0.1107],
+        [-0.2035, -0.1047]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005464176065288484
+Epoch 0, Step 161: train/loss = 0.6932365298271179, train/raw-loss = 0.6932365298271179, train/logprobs = tensor([[-0.1940, -0.2088],
+        [-0.1940, -0.2047]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004825074865948409
+Epoch 0, Step 162: train/loss = 0.6971027851104736, train/raw-loss = 0.6971027851104736, train/logprobs = tensor([[-0.2186, -0.1040],
+        [-0.2175, -0.1006]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005432152538560331
+Epoch 0, Step 163: train/loss = 0.6929853558540344, train/raw-loss = 0.6929853558540344, train/logprobs = tensor([[-0.2364, -0.2762],
+        [-0.2328, -0.2679]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005211319075897336
+Epoch 0, Step 164: train/loss = 0.694501519203186, train/raw-loss = 0.694501519203186, train/logprobs = tensor([[-0.1523, -0.1269],
+        [-0.1520, -0.1250]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00043275082134641707
+Epoch 0, Step 165: train/loss = 0.6918609738349915, train/raw-loss = 0.6918609738349915, train/logprobs = tensor([[-0.2178, -0.2157],
+        [-0.2238, -0.2138]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005382040981203318
+Epoch 0, Step 166: train/loss = 0.6946004629135132, train/raw-loss = 0.6946004629135132, train/logprobs = tensor([[-0.1351, -0.1672],
+        [-0.1348, -0.1603]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000509515346493572
+Epoch 0, Step 167: train/loss = 0.6969811916351318, train/raw-loss = 0.6969811916351318, train/logprobs = tensor([[-0.2717, -0.2044],
+        [-0.2753, -0.1978]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005255154683254659
+Epoch 0, Step 168: train/loss = 0.6924406886100769, train/raw-loss = 0.6924406886100769, train/logprobs = tensor([[-0.2185, -0.1657],
+        [-0.2221, -0.1607]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005977230030111969
+Epoch 0, Step 169: train/loss = 0.6928464770317078, train/raw-loss = 0.6928464770317078, train/logprobs = tensor([[-0.3137, -0.1991],
+        [-0.3199, -0.1953]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005440670647658408
+Epoch 0, Step 170: train/loss = 0.6938246488571167, train/raw-loss = 0.6938246488571167, train/logprobs = tensor([[-0.2740, -0.2621],
+        [-0.2757, -0.2584]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005600830190815032
+Epoch 0, Step 171: train/loss = 0.6921038627624512, train/raw-loss = 0.6921038627624512, train/logprobs = tensor([[-0.1593, -0.0994],
+        [-0.1653, -0.0948]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005517262616194785
+Epoch 0, Step 172: train/loss = 0.6943166851997375, train/raw-loss = 0.6943166851997375, train/logprobs = tensor([[-0.2556, -0.0866],
+        [-0.2650, -0.0845]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005754915764555335
+Epoch 0, Step 173: train/loss = 0.6929003000259399, train/raw-loss = 0.6929003000259399, train/logprobs = tensor([[-0.2405, -0.1756],
+        [-0.2492, -0.1699]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005397230270318687
+Epoch 0, Step 174: train/loss = 0.6922730803489685, train/raw-loss = 0.6922730803489685, train/logprobs = tensor([[-0.1527, -0.1663],
+        [-0.1535, -0.1615]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005251784459687769
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 175: train/loss = 0.6872461438179016, train/raw-loss = 0.6872461438179016, train/logprobs = tensor([[-0.2200, -0.2655],
+        [-0.2210, -0.2340]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005834631156176329
+Epoch 0, Step 176: train/loss = 0.6929319500923157, train/raw-loss = 0.6929319500923157, train/logprobs = tensor([[-0.2509, -0.3104],
+        [-0.2507, -0.3055]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006013259990140796
+Epoch 0, Step 177: train/loss = 0.6917793154716492, train/raw-loss = 0.6917793154716492, train/logprobs = tensor([[-0.1835, -0.1731],
+        [-0.1882, -0.1722]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005885727005079389
+Epoch 0, Step 178: train/loss = 0.6955692768096924, train/raw-loss = 0.6955692768096924, train/logprobs = tensor([[-0.3271, -0.1894],
+        [-0.3286, -0.1860]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005504180444404483
+Epoch 0, Step 179: train/loss = 0.6932259798049927, train/raw-loss = 0.6932259798049927, train/logprobs = tensor([[-0.2209, -0.2502],
+        [-0.2231, -0.2434]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005317252362146974
+Epoch 0, Step 180: train/loss = 0.6912233829498291, train/raw-loss = 0.6912233829498291, train/logprobs = tensor([[-0.1575, -0.1852],
+        [-0.1642, -0.1815]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00048607710050418973
+Epoch 0, Step 181: train/loss = 0.6922825574874878, train/raw-loss = 0.6922825574874878, train/logprobs = tensor([[-0.1509, -0.1696],
+        [-0.1519, -0.1654]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005008003208786249
+Epoch 0, Step 182: train/loss = 0.6918157935142517, train/raw-loss = 0.6918157935142517, train/logprobs = tensor([[-0.1441, -0.2049],
+        [-0.1481, -0.2004]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000696779927238822
+Epoch 0, Step 183: train/loss = 0.6919731497764587, train/raw-loss = 0.6919731497764587, train/logprobs = tensor([[-0.2335, -0.1974],
+        [-0.2435, -0.1949]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006331659387797117
+Epoch 0, Step 184: train/loss = 0.6929053068161011, train/raw-loss = 0.6929053068161011, train/logprobs = tensor([[-0.2494, -0.1479],
+        [-0.2584, -0.1453]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000605928769800812
+Epoch 0, Step 185: train/loss = 0.6931691765785217, train/raw-loss = 0.6931691765785217, train/logprobs = tensor([[-0.1907, -0.1324],
+        [-0.1916, -0.1262]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005953183863312006
+Epoch 0, Step 186: train/loss = 0.6928223967552185, train/raw-loss = 0.6928223967552185, train/logprobs = tensor([[-0.2634, -0.3453],
+        [-0.2655, -0.3385]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007018576725386083
+Epoch 0, Step 187: train/loss = 0.6899663209915161, train/raw-loss = 0.6899663209915161, train/logprobs = tensor([[-0.2712, -0.2461],
+        [-0.2853, -0.2458]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006269547156989574
+Epoch 0, Step 188: train/loss = 0.6857620477676392, train/raw-loss = 0.6857620477676392, train/logprobs = tensor([[-0.1143, -0.1983],
+        [-0.1160, -0.1649]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0004842227790504694
+Epoch 0, Step 189: train/loss = 0.6925552487373352, train/raw-loss = 0.6925552487373352, train/logprobs = tensor([[-0.1941, -0.1727],
+        [-0.1961, -0.1703]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005857637152075768
+Epoch 0, Step 190: train/loss = 0.6929180026054382, train/raw-loss = 0.6929180026054382, train/logprobs = tensor([[-0.1778, -0.1740],
+        [-0.1841, -0.1647]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005540198180824518
+Epoch 0, Step 191: train/loss = 0.6926069855690002, train/raw-loss = 0.6926069855690002, train/logprobs = tensor([[-0.2358, -0.2554],
+        [-0.2384, -0.2519]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005985976313240826
+Epoch 0, Step 192: train/loss = 0.6927995681762695, train/raw-loss = 0.6927995681762695, train/logprobs = tensor([[-0.1771, -0.2639],
+        [-0.1846, -0.2629]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005819462239742279
+Epoch 0, Step 193: train/loss = 0.6913180351257324, train/raw-loss = 0.6913180351257324, train/logprobs = tensor([[-0.2499, -0.2757],
+        [-0.2480, -0.2621]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006458484567701817
+Epoch 0, Step 194: train/loss = 0.6921970844268799, train/raw-loss = 0.6921970844268799, train/logprobs = tensor([[-0.1883, -0.2313],
+        [-0.1908, -0.2279]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007169257733039558
+Epoch 0, Step 195: train/loss = 0.682957649230957, train/raw-loss = 0.682957649230957, train/logprobs = tensor([[-0.2226, -0.2797],
+        [-0.2252, -0.2319]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006983703351579607
+Epoch 0, Step 196: train/loss = 0.6930884122848511, train/raw-loss = 0.6930884122848511, train/logprobs = tensor([[-0.2133, -0.1814],
+        [-0.2167, -0.1760]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006043481407687068
+Epoch 0, Step 197: train/loss = 0.6943486928939819, train/raw-loss = 0.6943486928939819, train/logprobs = tensor([[-0.1588, -0.1846],
+        [-0.1623, -0.1771]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006857698317617178
+Epoch 0, Step 198: train/loss = 0.6925933957099915, train/raw-loss = 0.6925933957099915, train/logprobs = tensor([[-0.1602, -0.1793],
+        [-0.1639, -0.1771]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005655494751408696
+Epoch 0, Step 199: train/loss = 0.6936996579170227, train/raw-loss = 0.6936996579170227, train/logprobs = tensor([[-0.2251, -0.1380],
+        [-0.2231, -0.1304]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006639276980422437
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 200: train/loss = 0.6927787065505981, train/raw-loss = 0.6927787065505981, train/logprobs = tensor([[-0.2659, -0.2388],
+        [-0.2692, -0.2322]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006591560086235404
+Epoch 0, Step 201: train/loss = 0.691253125667572, train/raw-loss = 0.691253125667572, train/logprobs = tensor([[-0.2231, -0.2581],
+        [-0.2188, -0.2452]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000667489308398217
+Epoch 0, Step 202: train/loss = 0.6942635774612427, train/raw-loss = 0.6942635774612427, train/logprobs = tensor([[-0.1421, -0.2636],
+        [-0.1466, -0.2620]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005999414133839309
+Epoch 0, Step 203: train/loss = 0.6947327256202698, train/raw-loss = 0.6947327256202698, train/logprobs = tensor([[-0.1583, -0.2697],
+        [-0.1584, -0.2577]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005798471393063664
+Epoch 0, Step 204: train/loss = 0.6919249296188354, train/raw-loss = 0.6919249296188354, train/logprobs = tensor([[-0.2200, -0.1833],
+        [-0.2210, -0.1771]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006167525425553322
+Epoch 0, Step 205: train/loss = 0.6946974396705627, train/raw-loss = 0.6946974396705627, train/logprobs = tensor([[-0.2950, -0.1885],
+        [-0.2955, -0.1868]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007100020884536207
+Epoch 0, Step 206: train/loss = 0.6929377317428589, train/raw-loss = 0.6929377317428589, train/logprobs = tensor([[-0.1773, -0.0963],
+        [-0.1832, -0.0946]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005982817383483052
+Epoch 0, Step 207: train/loss = 0.6927709579467773, train/raw-loss = 0.6927709579467773, train/logprobs = tensor([[-0.1798, -0.2057],
+        [-0.1793, -0.2016]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007196464575827122
+Epoch 0, Step 208: train/loss = 0.6942760348320007, train/raw-loss = 0.6942760348320007, train/logprobs = tensor([[-0.1315, -0.1216],
+        [-0.1329, -0.1180]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006095629069022834
+Epoch 0, Step 209: train/loss = 0.6932012438774109, train/raw-loss = 0.6932012438774109, train/logprobs = tensor([[-0.2379, -0.1790],
+        [-0.2456, -0.1804]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006572400452569127
+Epoch 0, Step 210: train/loss = 0.6863903403282166, train/raw-loss = 0.6863903403282166, train/logprobs = tensor([[-0.1786, -0.2001],
+        [-0.2104, -0.1996]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007706093019805849
+Epoch 0, Step 211: train/loss = 0.6883834600448608, train/raw-loss = 0.6883834600448608, train/logprobs = tensor([[-0.2565, -0.3142],
+        [-0.2644, -0.2992]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000685590086504817
+Epoch 0, Step 212: train/loss = 0.6893573999404907, train/raw-loss = 0.6893573999404907, train/logprobs = tensor([[-0.1658, -0.2279],
+        [-0.1655, -0.2079]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000766031676903367
+Epoch 0, Step 213: train/loss = 0.6919240355491638, train/raw-loss = 0.6919240355491638, train/logprobs = tensor([[-0.2211, -0.2091],
+        [-0.2232, -0.2025]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007481479551643133
+Epoch 0, Step 214: train/loss = 0.6920020580291748, train/raw-loss = 0.6920020580291748, train/logprobs = tensor([[-0.2842, -0.2531],
+        [-0.2893, -0.2467]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007591319736093283
+Epoch 0, Step 215: train/loss = 0.6934554576873779, train/raw-loss = 0.6934554576873779, train/logprobs = tensor([[-0.2890, -0.2274],
+        [-0.2918, -0.2237]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006971508264541626
+Epoch 0, Step 216: train/loss = 0.6938127279281616, train/raw-loss = 0.6938127279281616, train/logprobs = tensor([[-0.2348, -0.2904],
+        [-0.2347, -0.2843]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006623940425924957
+Epoch 0, Step 217: train/loss = 0.6931360960006714, train/raw-loss = 0.6931360960006714, train/logprobs = tensor([[-0.2956, -0.2047],
+        [-0.3003, -0.2002]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000792634324170649
+Epoch 0, Step 218: train/loss = 0.6918271780014038, train/raw-loss = 0.6918271780014038, train/logprobs = tensor([[-0.1749, -0.1324],
+        [-0.1790, -0.1280]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007155814673751593
+Epoch 0, Step 219: train/loss = 0.6925985813140869, train/raw-loss = 0.6925985813140869, train/logprobs = tensor([[-0.1618, -0.1371],
+        [-0.1596, -0.1258]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0008208061917684972
+Epoch 0, Step 220: train/loss = 0.6921359300613403, train/raw-loss = 0.6921359300613403, train/logprobs = tensor([[-0.1570, -0.1647],
+        [-0.1577, -0.1601]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005859833327122033
+Epoch 0, Step 221: train/loss = 0.6939512491226196, train/raw-loss = 0.6939512491226196, train/logprobs = tensor([[-0.1941, -0.1890],
+        [-0.1927, -0.1843]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007068265113048255
+Epoch 0, Step 222: train/loss = 0.6848800778388977, train/raw-loss = 0.6848800778388977, train/logprobs = tensor([[-0.2359, -0.3488],
+        [-0.2343, -0.2961]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007779669831506908
+Epoch 0, Step 223: train/loss = 0.6921648979187012, train/raw-loss = 0.6921648979187012, train/logprobs = tensor([[-0.1815, -0.2569],
+        [-0.1828, -0.2463]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007949559949338436
+Epoch 0, Step 224: train/loss = 0.6942669153213501, train/raw-loss = 0.6942669153213501, train/logprobs = tensor([[-0.2471, -0.1710],
+        [-0.2515, -0.1670]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0008383329259231687
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 225: train/loss = 0.6930654048919678, train/raw-loss = 0.6930654048919678, train/logprobs = tensor([[-0.2294, -0.1626],
+        [-0.2333, -0.1592]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006902033346705139
+Epoch 0, Step 226: train/loss = 0.6901699304580688, train/raw-loss = 0.6901699304580688, train/logprobs = tensor([[-0.3166, -0.3059],
+        [-0.3253, -0.3018]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007798132719472051
+Epoch 0, Step 227: train/loss = 0.6881614327430725, train/raw-loss = 0.6881614327430725, train/logprobs = tensor([[-0.1518, -0.2064],
+        [-0.1561, -0.1878]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006187568069435656
+Epoch 0, Step 228: train/loss = 0.6920072436332703, train/raw-loss = 0.6920072436332703, train/logprobs = tensor([[-0.1984, -0.2234],
+        [-0.1958, -0.2135]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007476513274013996
+Epoch 0, Step 229: train/loss = 0.6922140121459961, train/raw-loss = 0.6922140121459961, train/logprobs = tensor([[-0.1560, -0.1192],
+        [-0.1561, -0.1124]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005648024380207062
+Epoch 0, Step 230: train/loss = 0.6921846866607666, train/raw-loss = 0.6921846866607666, train/logprobs = tensor([[-0.1874, -0.1820],
+        [-0.1878, -0.1766]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006440589786507189
+Epoch 0, Step 231: train/loss = 0.6951203942298889, train/raw-loss = 0.6951203942298889, train/logprobs = tensor([[-0.2215, -0.2607],
+        [-0.2265, -0.2543]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007936681504361331
+Epoch 0, Step 232: train/loss = 0.6947723627090454, train/raw-loss = 0.6947723627090454, train/logprobs = tensor([[-0.2154, -0.1069],
+        [-0.2152, -0.1058]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005999132990837097
+Epoch 0, Step 233: train/loss = 0.695313572883606, train/raw-loss = 0.695313572883606, train/logprobs = tensor([[-0.2003, -0.1999],
+        [-0.2029, -0.2003]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000653399620205164
+Epoch 0, Step 234: train/loss = 0.6943344473838806, train/raw-loss = 0.6943344473838806, train/logprobs = tensor([[-0.1695, -0.1281],
+        [-0.1718, -0.1251]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007409605314023793
+Epoch 0, Step 235: train/loss = 0.6962214708328247, train/raw-loss = 0.6962214708328247, train/logprobs = tensor([[-0.1939, -0.2860],
+        [-0.1959, -0.2810]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0008160300203599036
+Epoch 0, Step 236: train/loss = 0.6923186779022217, train/raw-loss = 0.6923186779022217, train/logprobs = tensor([[-0.2509, -0.2605],
+        [-0.2534, -0.2593]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007086599944159389
+Epoch 0, Step 237: train/loss = 0.6931469440460205, train/raw-loss = 0.6931469440460205, train/logprobs = tensor([[-0.1635, -0.0931],
+        [-0.1655, -0.0891]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006311610341072083
+Epoch 0, Step 238: train/loss = 0.6850882172584534, train/raw-loss = 0.6850882172584534, train/logprobs = tensor([[-0.2518, -0.2513],
+        [-0.2575, -0.2183]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000741519732400775
+Epoch 0, Step 239: train/loss = 0.6957144141197205, train/raw-loss = 0.6957144141197205, train/logprobs = tensor([[-0.2987, -0.2165],
+        [-0.2976, -0.2126]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000824056682176888
+Epoch 0, Step 240: train/loss = 0.6928182244300842, train/raw-loss = 0.6928182244300842, train/logprobs = tensor([[-0.1855, -0.2177],
+        [-0.1896, -0.2152]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007650296902284026
+Epoch 0, Step 241: train/loss = 0.6936922669410706, train/raw-loss = 0.6936922669410706, train/logprobs = tensor([[-0.1923, -0.0976],
+        [-0.1940, -0.0948]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007664944278076291
+Epoch 0, Step 242: train/loss = 0.692171573638916, train/raw-loss = 0.692171573638916, train/logprobs = tensor([[-0.1752, -0.1953],
+        [-0.1773, -0.1913]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007259335834532976
+Epoch 0, Step 243: train/loss = 0.6918572187423706, train/raw-loss = 0.6918572187423706, train/logprobs = tensor([[-0.2238, -0.1890],
+        [-0.2288, -0.1827]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007965930853970349
+Epoch 0, Step 244: train/loss = 0.6935186386108398, train/raw-loss = 0.6935186386108398, train/logprobs = tensor([[-0.2665, -0.1966],
+        [-0.2738, -0.1914]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0007951745064929128
+Epoch 0, Step 245: train/loss = 0.6881678104400635, train/raw-loss = 0.6881678104400635, train/logprobs = tensor([[-0.1865, -0.2528],
+        [-0.1918, -0.2320]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0008941690321080387
+Epoch 0, Step 246: train/loss = 0.6942859292030334, train/raw-loss = 0.6942859292030334, train/logprobs = tensor([[-0.2991, -0.2507],
+        [-0.2995, -0.2422]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000684790953528136
+Epoch 0, Step 247: train/loss = 0.6929932832717896, train/raw-loss = 0.6929932832717896, train/logprobs = tensor([[-0.1247, -0.1710],
+        [-0.1248, -0.1683]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005469363532029092
+Epoch 0, Step 248: train/loss = 0.6929291486740112, train/raw-loss = 0.6929291486740112, train/logprobs = tensor([[-0.2421, -0.1464],
+        [-0.2416, -0.1389]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006782737909816206
+Epoch 0, Step 249: train/loss = 0.6939693093299866, train/raw-loss = 0.6939693093299866, train/logprobs = tensor([[-0.1748, -0.2229],
+        [-0.1771, -0.2179]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0006446573534049094
+Model saved, deleting model...
+Deleted model...
+Model saved, deleting model...
+Deleted model...

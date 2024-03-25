@@ -1,10 +1,12 @@
 output_dir: data/base
 file_name: base
 
+constitution_dir: constitutions
+
 iteration: 0
 start_example: 0
-max_example: 2000
-batch_size: 2000
+max_example: 5000
+batch_size: 1
 
 generation_config:
   max_new_tokens: 350
@@ -13,11 +15,11 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: "mistralai/Mistral-7B-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+  model: "mistralai/Mixtral-8x7B-v0.1"
+  download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
   dtype: auto
   quantization: null
-  tensor_parallel_size: 1
+  tensor_parallel_size: 2
 
 dataset: 
   path: openai/summarize_from_feedback
@@ -29,4 +31,10 @@ filter: # for efficiency, we filter these formatting errors or generic 'i'm sorr
   - sorry
   - Response
   - "[insert"
+  - "[]"
   - "]"
+  - "1. "
+  - "2. "
+  - "3. "
+  - "4. "
+  - "5. "

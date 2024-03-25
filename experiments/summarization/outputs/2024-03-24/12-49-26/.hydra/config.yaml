@@ -1,0 +1,28 @@
+output_dir: data/base
+file_name: base
+constitution_dir: constitutions
+iteration: 0
+start_example: 0
+max_example: 2000
+batch_size: 2000
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config:
+  model: mistralai/Mistral-7B-v0.1
+  download_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: train
+filter:
+- The assistant
+- sorry
+- Response
+- '[insert'
+- ']'
