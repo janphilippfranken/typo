@@ -1,0 +1,29 @@
+output_dir: data/iteration_3
+file_name: iteration-3-epoch-0.2
+constitution_dir: constitutions
+iteration: 3
+start_example: 5000
+max_example: 7500
+batch_size: 2500
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-3-from-epoch-0.5/epoch-0.2
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-3-from-epoch-0.5/epoch-0.2
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 4
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: train
+filter:
+- The assistant
+- sorry
+- Response
+- '[insert'
+- '[]'
+- ']'
