@@ -1,34 +1,42 @@
-PROMPT_GENERATION_ITERATION_0 = """{question}
+PROMPT_GENERATION_ITERATION_0 = """System: Summarize the post below according to the principles in the constitution.
 
-Below is a summary of the above POST. Importantly, the summary:
+### Example Format
+Summarization Constitution: [insert constitution here]
+
+POST: [insert query here]
+
+Summary: [insert summary here]
+
+Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
+
+### Main Task
+Summarization Constitution: 
 {constitution}
 
-{principle_1} and {principle_2} summary of the POST: """
-
-
-# after first iteration of finetuning we use this one which is the same as the training prompts
-PROMPT_TRAINING = """System: Write a summary of the post below that aligns with the summarization principles.
-
-The summary:
-{constitution}
-
-POST: 
 {question}
 
-Summary of POST:"""
+Summary: The post"""
 
+
+PROMPT_TRAINING = """System: Summarize the post below according to the principles in the constitution.
+
+Summarization Constitution: 
+{constitution}
+
+{question}
+
+Summary:"""
 
 # GPT4 PROMPTS
 SYSTEM_MESSAGE = "You are an expert in evaluating reddit post summaries, particularly skilled in analyzing their alignment with summarization principles."
 
 GPT4_WIN_RATE = """For the following Reddit post, which summary is more aligned with the summarization principles?
 
-### PRINCIPLES
-The summary:
-{constitution}
-
 ### REDDIT POST
 {post}
+
+### SUMMARIZATION PRINCIPLES
+{constitution}
 
 ### SUMMARIES
 Summary A: {summary_a}
@@ -42,7 +50,5 @@ Second, on a new line, state only "A" or "B" to indicate which summary aligns be
 Your response should use the format:
 
 Comparison: <step-by-step comparison and explanation>
-
-Important: You MUST pick one! You can not say both are equally good or bad.
 
 Final Response: <"A" or "B">"""

@@ -4,13 +4,15 @@ from itertools import permutations, product
 
 # Define the principles
 principles = {
-    "concise": "Is concise. It is around 2-3 sentences long.",
-    "funny": "Is funny. It includes humor and jokes.",
+    "concise": "Summaries should be brief and to-the-point, capturing the essence of the original content without unnecessary details or verbosity.",
+    "comprehensive": "Summaries should cover all the key points and central ideas of the original content, providing a complete overview while omitting less important or peripheral information.", 
+    # "humorous": "Summaries must be highly amusing and packed with witty, laugh-out-loud humor throughout."
 }
 
 not_principles = {
-    "concise": "Is long. It includes details and redundancy.",
-    "funny": "Is serious. It is formal and lacks humor.",
+    "concise": "Summaries should be verbose and long-winded, including unnecessary details and repetitive information.",
+    "comprehensive": "Summaries should lack key points and central ideas, omitting significant aspects of the original content.",
+    # "humorous": "Summaries should thoroughly boring and unfunny."
 }
 
 constitutions = []

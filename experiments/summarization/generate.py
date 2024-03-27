@@ -53,58 +53,32 @@ def main(args: DictConfig) -> None:
     batch_prompts = []
     batch_questions = []
     batch_train_constitutions = []
-    batch_train_principles_positive_formatted = []
-    batch_train_principles_negative_formatted = []
     batch_start_index = 0  
 
     for i, example in enumerate(tqdm(filtered_dataset, desc="Processing examples")):
         constitution = random.choice(constitutions)
         constitution_positive = constitution['positive']
         constitution_negative = constitution['negative']
-        constitution_positive_identifiers = constitution['identifiers']['positive']
-        constitution_negative_identifiers = constitution['identifiers']['negative']
-        principles_positive = [(identifier.split(" ")[0].strip(), identifier.split(" ")[1].strip()) for identifier in constitution_positive_identifiers]
-        principles_negative = [(identifier.split(" ")[0].strip(), identifier.split(" ")[1].strip()) for identifier in constitution_negative_identifiers]
-        
-        principles_positive_formatted = []
-        for principle_pair in principles_positive:
-            if principle_pair[0] == "pos":
-                principles_positive_formatted.append(principle_pair[1])
-            elif principle_pair[0] == "neg":
-                if principle_pair[1] == 'funny':
-                    principles_positive_formatted.append('serious')
-                elif principle_pair[1] == 'concise':
-                    principles_positive_formatted.append('long')
-                    
-        principles_negative_formatted = []
-        for principle_pair in principles_negative:
-            if principle_pair[0] == "pos":
-                principles_negative_formatted.append(principle_pair[1])
-            elif principle_pair[0] == "neg":
-                if principle_pair[1] == 'funny':
-                    principles_negative_formatted.append('serious')
-                elif principle_pair[1] == 'concise':
-                    principles_negative_formatted.append('long')
 
-        question = f"SUBREDDIT: r/{example['subreddit']}\nTITLE: {example['title']}\nPOST: {example['post']}"
+        question = f"POST: {example['post']}"
         batch_questions.append(question)
         
         # generation prompts
-        generation_prompts = [PROMPT_GENERATION_ITERATION_0.format(principle_1=principles[0], principle_2=principles[1], constitution=constitution, question=question)
-                                for constitution, principles in zip([constitution_positive, constitution_negative], [principles_positive_formatted, principles_negative_formatted ])]
+        generation_prompts = [
+            PROMPT_GENERATION_ITERATION_0.format(constitution=constitution, question=question)
+            for constitution in [constitution_positive, constitution_negative]
+        ]
         batch_prompts.extend(generation_prompts)
+        # breakpoint()
 
         # shuffle constitutions for training prompts
         positive_constitution_shuffled = shuffle_principles(constitution_positive)
         negative_constitution_shuffled = shuffle_principles(constitution_negative)
         batch_train_constitutions.append([positive_constitution_shuffled, negative_constitution_shuffled])
 
-        # add training principles
-        batch_train_principles_positive_formatted.append(principles_positive_formatted)
-        batch_train_principles_negative_formatted.append(principles_negative_formatted)
 
         if (i + 1) % args.batch_size == 0 or i == len(filtered_dataset) - 1:
-            
+            # breakpoint()
             batch_responses = model.batch_prompt(
                 prompts=batch_prompts,
                 **args.generation_config,
@@ -132,13 +106,13 @@ def main(args: DictConfig) -> None:
                         
                         data =[ # now using training prompts
                             {
-                                "prompt": PROMPT_GENERATION_ITERATION_0.format(principle_1=principles[0], principle_2=principles[1], constitution=batch_train_constitutions[question_index][k], question=batch_questions[question_index]),
+                                "prompt": PROMPT_TRAINING.format(constitution=batch_train_constitutions[question_index][k], question=batch_questions[question_index]),
                                 "response": response,
                                 "example_id": batch_start_index + question_index,
                             }
-                            for k, principles, response in zip(
+                            for k, response in zip(
                                 range(2),
-                                [batch_train_principles_positive_formatted[question_index], batch_train_principles_negative_formatted[question_index]],
+
                                 [formatted_positive, formatted_negative]
                             )
                         ]

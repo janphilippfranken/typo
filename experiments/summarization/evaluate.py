@@ -43,18 +43,7 @@ def main(args: DictConfig) -> None:
     
     constitution = json.load(open(f"{args.constitution_dir}/0.json"))
     constitution_positive = constitution['positive']
-    constitution_positive_identifiers = constitution['identifiers']['positive']
-    principles_positive = [(identifier.split(" ")[0].strip(), identifier.split(" ")[1].strip()) for identifier in constitution_positive_identifiers]
-    
-    principles_positive_formatted = []
-    for principle_pair in principles_positive:
-        if principle_pair[0] == "pos":
-            principles_positive_formatted.append(principle_pair[1])
-        elif principle_pair[0] == "neg":
-            if principle_pair[1] == 'funny':
-                principles_positive_formatted.append('serious')
-            elif principle_pair[1] == 'concise':
-                principles_positive_formatted.append('long')
+  
     
     for temperature in args.temperatures:
         print(temperature)
@@ -71,12 +60,10 @@ def main(args: DictConfig) -> None:
         
         for i, (example) in tqdm(enumerate(filtered_dataset), desc="Processing examples"):
             constitution_shuffled = shuffle_principles(constitution_positive)
-            question = f"SUBREDDIT: r/{example['subreddit']}\nTITLE: {example['title']}\nPOST: {example['post']}"
+            question = f"POST: {example['post']}"
             batch_constitutions.append(constitution_shuffled)
             
             prompt = PROMPT_GENERATION_ITERATION_0.format(
-                principle_1=principles_positive_formatted[0],
-                principle_2=principles_positive_formatted[1],
                 constitution=constitution_shuffled.strip(),
                 question=question.strip(),
             )
@@ -91,7 +78,12 @@ def main(args: DictConfig) -> None:
                 )
                 
                 for j, batch_response in enumerate(batch_responses):
-                    formatted_response = batch_response.strip().split("\n\n")[0].strip()
+                    # breakpoint()
+                    
+                    formatted_response = f"The post {batch_response.strip().split('Human: ')[0].strip()}"
+                    if '###' in formatted_response:
+                        formatted_response = f"{formatted_response.split('###')[0].strip()}"
+                    # breakpoint()
                     all_responses['constitution'][j] = batch_constitutions[j].strip()
                     all_responses['question'][j] = batch_questions[j]
                     all_responses['response'][j] = formatted_response

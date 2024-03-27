@@ -61,10 +61,12 @@ def main(args: DictConfig) -> None:
     # print(len(constitutions))
     random.seed(1)
     np.random.seed(1)
+    prompts = []
+    numbers = []
     
     for i, (constitution, question) in enumerate(zip(constitutions, questions)):
     
-        if i >= 250: 
+        if i >= 500: 
             continue
         
         principles = [principle.strip()[3:] for i, principle in enumerate(constitution.split("\n"))]
@@ -86,6 +88,7 @@ def main(args: DictConfig) -> None:
                     summary_a=model_baseline['response'][str(i)],
                     summary_b=model_test['response'][str(i)],
                 )
+                # breakpoint()
 
                 
                 
@@ -119,6 +122,7 @@ def main(args: DictConfig) -> None:
                     summary_b=model_baseline['response'][str(i)],
                     summary_a=model_test['response'][str(i)],
                 )
+                # breakpoint()
 
                 responses = model.batch_prompt(
                     system_message=SYSTEM_MESSAGE,

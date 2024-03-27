@@ -5,7 +5,8 @@ from typing import (
 )
 
 import asyncio
-
+import time
+import openai
 
 import logging 
 
@@ -94,22 +95,37 @@ class GPT4Agent():
             A dictionary containing the code model's response and the cost of the performed API call
         """
         messages = self.get_prompt(system_message=system_message, user_message=message)
+        success = False
+        logging.warning("WARNING: Inserted hack for win-rates only. This wont work with other use-cases. Please fix...")    
+        # had to change this as i was getting model errors indefinitely; so now just returning Final Response: C (i.e. no response)
+        for i in range(3):
+            if i < 3:
+                try:
+                    response = await self.get_response(messages=messages)
+                    success = True
+                    break
+                except:
+                    time.sleep(1)
+            else:
+                print("API call failed.")
 
-        response = await self.get_response(messages=messages)
-
-        cost = self.calc_cost(response=response)
-        logging.info(f"Cost for running gpt4: {cost}")
-       
-        full_response = {
-            'response': response,
-            'response_str': [r.message.content for r in response.choices],
-            'cost': cost
-        }
-        # Update total cost and store response
-        self.total_inference_cost += cost
-        self.all_responses.append(full_response)
-    
-        return full_response['response_str']
+        if success == True:
+            cost = self.calc_cost(response=response)
+            logging.info(f"Cost for running gpt4: {cost}")
+        
+            full_response = {
+                'response': response,
+                'response_str': [r.message.content for r in response.choices],
+                'cost': cost
+            }
+            # Update total cost and store response
+            self.total_inference_cost += cost
+            self.all_responses.append(full_response)
+        
+            return full_response['response_str']
+        
+        elif success == False:
+            return "Final Response: C"
     
     async def batch_prompt_sync(
         self, 
