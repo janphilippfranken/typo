@@ -111,13 +111,13 @@ def main(args: DictConfig) -> None:
     # breakpoint()
     
     formatted_responses = []
-    breakpoint()
+
     for response in responses:
         try:
             formatted_responses.append(response[0].split('Final Response:')[1].strip())
         except:
             formatted_responses.append("C")
-    breakpoint()
+
     for formatted_response, number, length in zip(formatted_responses, numbers, lengths):
         print(formatted_response, number)
         if number == 0:

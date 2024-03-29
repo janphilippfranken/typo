@@ -115,7 +115,7 @@ class GPT4Agent():
         self, 
         system_message: str,
         message: str,
-        max_attempts: int=3,
+        max_attempts: int=5,
     ) -> Dict[str, Any]:
         """Runs the Agent for win-rates only
 
@@ -139,7 +139,7 @@ class GPT4Agent():
                 except:
                     time.sleep(1)
             else:
-                print("API call failed.")
+                logging.warning("API call failed.")
 
         if success == True:
             cost = self.calc_cost(response=response)
