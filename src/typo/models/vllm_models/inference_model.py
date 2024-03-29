@@ -62,7 +62,6 @@ class VLLMInferenceModel():
             
             tokenized_responses_input_ids = tokenized_responses.input_ids.tolist()
             
-            # weird but somehow this was fast
             sampling_params = SamplingParams(
                 temperature=0.0,
                 max_tokens=1,

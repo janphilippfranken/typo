@@ -6,7 +6,6 @@ from typing import (
 
 import asyncio
 import time
-import openai
 
 import logging 
 
@@ -85,21 +84,54 @@ class GPT4Agent():
         system_message: str,
         message: str,
     ) -> Dict[str, Any]:
-        """Runs the Code Agent
+        """Runs the Agent.
 
         Args:
             system_message (str): The system message to use
             message (str): The user message to use
 
         Returns:
-            A dictionary containing the code model's response and the cost of the performed API call
+            A dictionary containing the model's response and the cost of the performed API call
+        """
+        messages = self.get_prompt(system_message=system_message, user_message=message)
+
+        response = await self.get_response(messages=messages)
+
+        cost = self.calc_cost(response=response)
+        logging.info(f"Cost for running gpt4: {cost}")
+       
+        full_response = {
+            'response': response,
+            'response_str': [r.message.content for r in response.choices],
+            'cost': cost
+        }
+        # Update total cost and store response
+        self.total_inference_cost += cost
+        self.all_responses.append(full_response)
+    
+        return full_response['response_str']
+    
+    async def run_win_rates(
+        self, 
+        system_message: str,
+        message: str,
+        max_attempts: int=3,
+    ) -> Dict[str, Any]:
+        """Runs the Agent for win-rates only
+
+        Args:
+            system_message (str): The system message to use
+            message (str): The user message to use
+
+        Returns:
+            A dictionary containing the model's response and the cost of the performed API call
         """
         messages = self.get_prompt(system_message=system_message, user_message=message)
         success = False
-        logging.warning("WARNING: Inserted hack for win-rates only. This wont work with other use-cases. Please fix...")    
-        # had to change this as i was getting model errors indefinitely; so now just returning Final Response: C (i.e. no response)
-        for i in range(3):
-            if i < 3:
+        logging.warning("WARNING: Using win rate only run. This won't work for other tasks...")    
+        
+        for i in range(max_attempts):
+            if i < max_attempts:
                 try:
                     response = await self.get_response(messages=messages)
                     success = True
@@ -131,6 +163,7 @@ class GPT4Agent():
         self, 
         system_message: str, 
         messages: List[str],
+        win_rates: bool,
     ) -> List[str]:
         """Handles async API calls for batch prompting.
 
@@ -139,15 +172,19 @@ class GPT4Agent():
             messages (List[str]): A list of user messages
 
         Returns:
-            A list of responses from the code model for each message
+            A list of responses from the model for each message
         """
-        responses = [self.run(system_message, message) for message in messages]
+        if win_rates == True:
+            responses = [self.run_win_rates(system_message, message) for message in messages]
+        elif win_rates == False:
+            responses = [self.run(system_message, message) for message in messages]
         return await asyncio.gather(*responses)
 
     def batch_prompt(
         self, 
         system_message: str, 
         messages: List[str], 
+        win_rates: bool=False,
     ) -> List[str]:
         """=
         Synchronous wrapper for batch_prompt.
@@ -157,9 +194,9 @@ class GPT4Agent():
             messages (List[str]): A list of user messages
 
         Returns:
-            A list of responses from the code model for each message
+            A list of responses from the model for each message
         """
         loop = asyncio.get_event_loop()
         if loop.is_running():
             raise RuntimeError(f"Loop is already running.")
-        return loop.run_until_complete(self.batch_prompt_sync(system_message, messages))
+        return loop.run_until_complete(self.batch_prompt_sync(system_message, messages, win_rates))
