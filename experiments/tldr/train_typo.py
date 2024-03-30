@@ -159,6 +159,7 @@ def main(args: DictConfig) -> None:
         config=args,
         local_rank=local_rank,
         world_size=world_size,
+        save_option="hf",
     )
     
     trainer.train()

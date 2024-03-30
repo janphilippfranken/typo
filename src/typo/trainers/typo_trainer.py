@@ -16,7 +16,7 @@ import wandb
 from omegaconf import DictConfig
 
 import torch
-from torch.optim import AdamW
+from torch.optim import AdamW, RMSprop
 import torch.nn.functional as F
 import torch.distributed as dist
 from torch.utils.data import DataLoader
@@ -178,6 +178,7 @@ def prepare_logits_labels(
     )
 
     labels = responses.clone()
+    print(labels.shape)
         
     mask = _get_mask(
         attention_mask=prompt_attention_mask,
@@ -240,6 +241,7 @@ class TYPOTrainer:
         eval_dataset: List[Dict],
         local_rank: int,
         world_size: int,
+        save_option: str,
     ):  
         """Intialize the TYPOTrainer.
         
@@ -258,6 +260,7 @@ class TYPOTrainer:
         self.config = config
         self.local_rank = local_rank
         self.world_size = world_size
+        self.save_option = save_option
         
         # data loaders 
         self.train_dataloader = DataLoader(
@@ -278,7 +281,11 @@ class TYPOTrainer:
         )
 
         # optimizer 
-        self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
+        if self.save_option ==  "hf":
+            self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
+        elif self.save_option == "pt":
+            print('RMSprop')
+            self.optimizer = RMSprop(model.parameters(), lr=config.training.lr)
         
         # scheduler 
         self.scheduler = get_scheduler(
@@ -306,16 +313,20 @@ class TYPOTrainer:
         checkpoint_dir = os.path.join(self.config.training.checkpoint_dir, f"epoch-{epoch}")
         os.makedirs(checkpoint_dir, exist_ok=True)
         
-        save_model = AutoModelForCausalLM.from_pretrained(
-            **self.config.model.model_config,
-        )
-        save_model.load_state_dict(state)
-        save_model.save_pretrained(checkpoint_dir)
-        self.tokenizer.save_pretrained(checkpoint_dir)
+        if self.save_option == "hf": # this is prob not necessary...
+            save_model = AutoModelForCausalLM.from_pretrained(
+                **self.config.model.model_config,
+            )
+            save_model.load_state_dict(state)
+            save_model.save_pretrained(checkpoint_dir)
+            self.tokenizer.save_pretrained(checkpoint_dir)
+            
+            print("Model saved, deleting model...")
+            del save_model
+            print("Deleted model...")
         
-        print("Model saved, deleting model...")
-        del save_model
-        print("Deleted model...")
+        elif self.save_option == "pt":
+            torch.save(state, os.path.join(checkpoint_dir, "model.pt"))
 
     def save_checkpoint(self, epoch):
         """

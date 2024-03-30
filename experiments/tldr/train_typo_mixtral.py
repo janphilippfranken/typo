@@ -80,7 +80,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     if rank == 0:
         print(f"n examples: {len(dataset_list)}")
 
-    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list]
+    train_dataset = [tokenize_func_mixtral(example, tokenizer, max_length=512) for example in dataset_list]
     random.shuffle(train_dataset)
     if rank == 0:
         print(len(train_dataset))
@@ -96,6 +96,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
         config=args,
         local_rank=rank,
         world_size=world_size,
+        save_option="pt",
     )
     
     trainer.train()
