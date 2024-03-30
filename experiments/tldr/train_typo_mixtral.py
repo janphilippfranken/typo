@@ -52,6 +52,10 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     init_distributed(rank, world_size)
     if rank == 0:
         print("Initialized process group...")
+        
+        if args.wandb.log:
+            print("WANDB")
+            wandb.init(project=args.wandb.project, name=args.wandb.name)
 
     # tokenizer
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
@@ -121,12 +125,6 @@ def main(args: DictConfig) -> None:
     
     # nans 
     torch.autograd.set_detect_anomaly(True)
-
-    # wandb
-    args_dict = OmegaConf.to_container(args, resolve=True)
-    if args.wandb.log:
-        wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
-
 
     # seeds
     torch.cuda.manual_seed(args.training.seed)

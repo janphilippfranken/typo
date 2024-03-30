@@ -111,11 +111,18 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task: []
+    task:
+    - typo.beta=0.0
+    - wandb.name=typo-lr-1e-7-iteration-1
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-1e-7-iteration-1
+    - training.lr=1e-7
+    - data_path=data/base
+    - data_file=base_mixtral_from_mistral_principles.json
+    - n_examples=2000
   job:
     name: train_typo_mixtral
     chdir: null
-    override_dirname: ''
+    override_dirname: data_file=base_mixtral_from_mistral_principles.json,data_path=data/base,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-1e-7-iteration-1,training.lr=1e-7,typo.beta=0.0,wandb.name=typo-lr-1e-7-iteration-1
     id: ???
     num: ???
     config_name: train_typo_mixtral
