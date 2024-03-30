@@ -11,7 +11,7 @@ import torch.distributed as dist
 import hydra
 from omegaconf import DictConfig, OmegaConf
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from transformers.models.mixtral.modeling_mixtral import MixtralDecoderLayer
+from transformers.models.mixtral.llama.modeling_llama import LlamaDecoderLayer
 from torch.distributed.fsdp import (
     FullyShardedDataParallel as FSDP,
     MixedPrecision,
@@ -29,7 +29,7 @@ import wandb
 from typo.trainers.typo_trainer import TYPOTrainer
 from helpers import *
 
-def get_policy(blocks={MixtralDecoderLayer}):
+def get_policy(blocks={LlamaDecoderLayer}):
     """Wrapping policy setup."""
     return functools.partial(
         transformer_auto_wrap_policy, transformer_layer_cls=blocks
@@ -81,7 +81,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
         device_id=torch.cuda.current_device(),
         limit_all_gathers=False,
     )
-    check_fn = lambda submodule: isinstance(submodule, MixtralDecoderLayer)
+    check_fn = lambda submodule: isinstance(submodule, LlamaDecoderLayer)
     apply_activation_checkpointing(model, checkpoint_wrapper_fn=non_reentrant_wrapper, check_fn=check_fn)
     
     print(f"wrapped model {rank}...")

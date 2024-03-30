@@ -5,7 +5,7 @@
 #SBATCH --nodelist=cocoflops-hgx-1          
 #SBATCH --gres=gpu:8                       
 #SBATCH --mem=512GB                       
-#SBATCH --cpus-per-task=64               
+#SBATCH --cpus-per-task=96               
 #SBATCH --time=256:00:00                    
 #SBATCH --output=train_typo.out         
 #SBATCH --error=train_typo.err           
@@ -21,7 +21,7 @@ export MASTER_ADDR=cocoflops-hgx-1
 export CUDA_LAUNCH_BLOCKING=1
 
 beta=0.0
-lr=5e-7
+lr=1e-7
 iteration=1
 checkpoint_dir="/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-${lr}-iteration-${iteration}"
 

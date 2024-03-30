@@ -178,7 +178,6 @@ def prepare_logits_labels(
     )
 
     labels = responses.clone()
-    print(labels.shape)
         
     mask = _get_mask(
         attention_mask=prompt_attention_mask,
@@ -281,12 +280,12 @@ class TYPOTrainer:
         )
 
         # optimizer 
-        if self.save_option ==  "hf":
+        if self.save_option == "hf":
             self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
-        elif self.save_option == "pt":
-            print('RMSprop')
-            self.optimizer = RMSprop(model.parameters(), lr=config.training.lr)
         
+        elif self.save_option == "pt":
+            self.optimizer = RMSprop(model.parameters(), lr=config.training.lr)
+ 
         # scheduler 
         self.scheduler = get_scheduler(
             name="linear", 
