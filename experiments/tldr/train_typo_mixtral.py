@@ -97,6 +97,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
         local_rank=rank,
         world_size=world_size,
     )
+    
     trainer.train()
 
 # main training script 
@@ -111,22 +112,20 @@ def main(args: DictConfig) -> None:
     if args.wandb.log:
         wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
 
+
     # seeds
     torch.cuda.manual_seed(args.training.seed)
     torch.manual_seed(args.training.seed)
     random.seed(args.training.seed)
 
     # get model
-    model = AutoModelForCausalLM.from_pretrained(**args.model.model_config)
+    model = AutoModelForCausalLM.from_pretrained(**args.model.model_config, torch_dtype=torch.float16)
 
-    # world size 
+    # run with resource limits
     world_size = torch.cuda.device_count()
-    
-    # resource limits for mp
     soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
     resource.setrlimit(resource.RLIMIT_NOFILE, (hard, hard))
-    
-    # run workers
+    print(f'setting RLIMIT_NOFILE soft limit to {hard} from {soft}')
     mp.spawn(worker_main, nprocs=world_size, args=(world_size, args, model))
 
 if __name__ == "__main__":
