@@ -1,12 +1,12 @@
-output_dir: data/iteration_3
-file_name: iteration-3-epoch-0.2
+output_dir: data/base
+file_name: base_mixtral_from_mistral_principles
 
-constitution_dir: constitutions
+constitution_dir: constitutions_mistral
 
-iteration: 3
-start_example: 5000
-max_example: 7500
-batch_size: 2500
+iteration: 4
+start_example: 0
+max_example: 5000
+batch_size: 5000
 
 generation_config:
   max_new_tokens: 350
@@ -16,9 +16,10 @@ generation_config:
 
 model_config:
   # model: "mistralai/Mixtral-8x7B-v0.1"
+  # /scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1
   # download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
-  model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-3-from-epoch-0.5/epoch-0.2"
-  download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-3-from-epoch-0.5/epoch-0.2"
+  model: "mistralai/Mixtral-8x7B-v0.1"
+  download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
   dtype: auto
   quantization: null
   tensor_parallel_size: 4

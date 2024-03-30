@@ -2,32 +2,32 @@ model:
   model_type: huggingface
   name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
+    cache_dir: /scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
+    cache_dir: /scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1
     model_max_length: 2048
-data_path: data/iteration_3
-data_file: iteration-3-epoch-0.2.json
-n_examples: 2000
+data_path: data/base
+data_file: base_mixtral_from_mistral_principles.json
+n_examples: null
 n_responses: 2
 n_constitutions: 2
 wandb:
-  project: typo-summarization
-  name: typo-lr-5e-7-iteration-4
-  log: true
+  project: typo-summarization-mixtral
+  name: typo
+  log: false
 typo:
   beta: 0.0
 training:
   evaluate_before_training: false
   evaluate: false
   n_epochs: 1
-  lr: 5.0e-07
+  lr: 1.0e-07
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-4-from-epoch-0.2
+  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-1e-7-iteration-1
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16

@@ -34,8 +34,8 @@ for num_principles in range(2, len(principles) + 1):
             negative_principles = [principles[key] if combo_negative[i] else not_principles[key] for i, key in enumerate(permutation)]
 
             new_constitution = {
-                "positive": " \n".join([f"{i+1}. {principle}" for i, principle in enumerate(positive_principles)]),
-                "negative": " \n".join([f"{i+1}. {principle}" for i, principle in enumerate(negative_principles)]),
+                "positive": "\n".join([f"{i+1}. {principle}" for i, principle in enumerate(positive_principles)]),
+                "negative": "\n".join([f"{i+1}. {principle}" for i, principle in enumerate(negative_principles)]),
                 "identifiers": identifiers
             }
             constitutions.append(new_constitution)

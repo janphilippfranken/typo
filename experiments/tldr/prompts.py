@@ -52,3 +52,7 @@ Your response should use the format:
 Comparison: <step-by-step comparison and explanation>
 
 Final Response: <"A" or "B">"""
+
+
+
+PROMPT_MISTRAL_POSITIVE = """I am writing a constitution for how to summarize reddit posts. The constitution consists of two principles: 1. Comprehensive and 2. Concise. Return both principles and a good definition of them so I can use them for aligning a super-human model. Moreover, using the same format, return two antitheses that I can use as a contrastive prompt. Use the format: 1. [principle]: Summaries should be..."""

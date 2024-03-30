@@ -1,0 +1,724 @@
+{
+    "os": "Linux-5.4.0-162-generic-x86_64-with-glibc2.31",
+    "python": "3.10.0",
+    "heartbeatAt": "2024-03-30T01:30:40.855269",
+    "startedAt": "2024-03-30T01:30:40.297370",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "typo.beta=0.0",
+        "wandb.name=typo-lr-1e-7-iteration-1",
+        "training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-1e-7-iteration-1",
+        "training.lr=1e-7",
+        "data_path=data/base",
+        "data_file=base_mixtral_from_mistral_principles.json",
+        "n_examples=2000"
+    ],
+    "state": "running",
+    "program": "/sailhome/jphilipp/research_projects/typo/experiments/tldr/train_typo.py",
+    "codePathLocal": "train_typo.py",
+    "codePath": "experiments/tldr/train_typo.py",
+    "git": {
+        "remote": "git@github.com:janphilippfranken/scai-tuning.git",
+        "commit": "13876452b6b4b2650379ce8a15b89bb943738d1d"
+    },
+    "email": "janphilipp.franken@gmail.com",
+    "root": "/sailhome/jphilipp/research_projects/typo",
+    "host": "cocoflops-hgx-1",
+    "username": "jphilipp",
+    "executable": "/scr/jphilipp/miniconda3/envs/typo/bin/python",
+    "cpu_count": 64,
+    "cpu_count_logical": 128,
+    "cpu_freq": {
+        "current": 1625.5405234374998,
+        "min": 1500.0,
+        "max": 2800.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2848.983,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 3573.424,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2852.536,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2809.636,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1499.819,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.905,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.279,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1493.728,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2386.43,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2109.481,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2395.274,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2331.292,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 3573.99,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2850.405,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2858.786,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2857.26,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1910.989,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2503.044,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1802.096,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2219.78,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1499.129,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1491.965,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1496.712,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.655,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1674.683,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1576.373,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1542.202,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1612.778,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2859.607,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2850.489,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 3574.352,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2857.157,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1499.319,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.111,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1499.104,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1496.598,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1495.986,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1496.565,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1496.073,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.636,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1495.567,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1495.853,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1496.437,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.594,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.782,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.165,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.385,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.394,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.562,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.086,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1497.341,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1498.375,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.628,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1495.679,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1524.709,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1522.161,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1524.235,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.944,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.466,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.012,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1523.863,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.928,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.013,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.013,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2388.542,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 3412.661,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2847.596,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2281.476,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1513.972,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1499.614,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1524.675,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1523.717,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2625.737,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2102.5,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2527.546,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1711.159,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 3574.106,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2890.043,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2859.706,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2857.609,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2806.935,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2115.35,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2104.568,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2151.546,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1519.614,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1504.581,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1519.948,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1499.181,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1508.395,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1605.841,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1586.354,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1843.247,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1858.717,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2785.845,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2636.461,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 2724.041,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1554.211,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.633,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1566.803,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.746,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1523.316,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.524,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1522.406,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1524.617,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.016,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.615,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1524.904,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.968,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.173,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.729,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1522.2,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.07,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1523.588,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.158,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.261,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1523.891,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.318,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.597,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.775,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.81,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.69,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1527.9,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.946,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1524.328,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.696,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1525.354,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1526.382,
+            "min": 1500.0,
+            "max": 2800.0
+        },
+        {
+            "current": 1520.635,
+            "min": 1500.0,
+            "max": 2800.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 437.88097381591797,
+            "used": 117.46250534057617
+        }
+    },
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "gpu_count": 8,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        },
+        {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "memory_total": 85899345920
+        }
+    ],
+    "memory": {
+        "total": 1007.7270240783691
+    }
+}

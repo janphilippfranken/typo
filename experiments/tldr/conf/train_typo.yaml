@@ -10,10 +10,10 @@ n_responses: 2
 n_constitutions: 2
 
 defaults:
-  - model: mistral_7b_base
+  - model: mixtral_8x7b_base
 
 wandb:
-  project: typo-summarization
+  project: typo-summarization-mixtral
   name: typo
   log: true
 
@@ -24,7 +24,7 @@ training:
   evaluate_before_training: false
   evaluate: false
   n_epochs: 1
-  lr: 5e-7
+  lr: 1e-7
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0

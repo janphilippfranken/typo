@@ -351,8 +351,10 @@ class TYPOTrainer:
         
         # get logprobs for reference model 
         with torch.no_grad():
-            
-            ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch)
+            if reference_model is not None:
+                ref_logits, ref_labels = prepare_logits_labels(reference_model, self.tokenizer, batch)
+            else:
+                ref_logits, ref_labels = None, None
 
         # typo loss
         loss = typo_loss(logprobs=batch_logprobs)
@@ -368,15 +370,20 @@ class TYPOTrainer:
         # compute policy and reference metrics
         loss, batch_logprobs, logits, ref_logits  = self.compute_metrics(self.model, self.reference_model, batch)
             
-        kl_div = kl_divergence(
-            policy_logits=logits,
-            ref_logits=ref_logits,
-        )
-      
-        # loss = loss + beta * kl
-        adjusted_loss = loss + self.config.typo.beta * kl_div
+        if ref_logits is not None:
+            kl_div = kl_divergence(
+                policy_logits=logits,
+                ref_logits=ref_logits,
+            )
 
-        return loss, adjusted_loss, batch_logprobs, kl_div
+            # loss = loss + beta * kl
+            adjusted_loss = loss + self.config.typo.beta * kl_div
+            
+            return loss, adjusted_loss, batch_logprobs, kl_div
+            
+        else:
+            
+            return loss, loss, batch_logprobs, torch.tensor([0.0], device=self.local_rank)
         
     def evaluate(self):
         """Evaluate the model."""
@@ -434,7 +441,8 @@ class TYPOTrainer:
 
     def train(self):
         """Train the model."""
-        self.reference_model.eval()
+        if self.reference_model is not None:
+            self.reference_model.eval()
         
         if self.config.training.evaluate_before_training:
             self.evaluate()

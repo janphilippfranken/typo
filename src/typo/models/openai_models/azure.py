@@ -12,7 +12,7 @@ class AsyncAzureChatLLM:
         self,
         azure_endpoint: str,
         api_version: str,
-        retry_interval: int = 20,
+        retry_interval: int = 60,
         max_retries: int = 3,
     ):
         """
@@ -47,4 +47,4 @@ class AsyncAzureChatLLM:
                     await asyncio.sleep(self.retry_interval)
                     retries += 1
                 else:
-                    raise e
+                    return False

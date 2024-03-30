@@ -127,38 +127,31 @@ class GPT4Agent():
             A dictionary containing the model's response and the cost of the performed API call
         """
         messages = self.get_prompt(system_message=system_message, user_message=message)
-        success = False
-        logging.warning("WARNING: Using win rate only run. This won't work for other tasks...")    
-        
-        for i in range(max_attempts):
-            if i < max_attempts:
-                try:
-                    response = await self.get_response(messages=messages)
-                    success = True
-                    break
-                except:
-                    time.sleep(1)
-            else:
-                logging.warning("API call failed.")
+        response = await self.get_response(messages=messages)
 
-        if success == True:
-            cost = self.calc_cost(response=response)
-            logging.info(f"Cost for running gpt4: {cost}")
-        
-            full_response = {
-                'response': response,
-                'response_str': [r.message.content for r in response.choices],
-                'cost': cost
-            }
-            # Update total cost and store response
-            self.total_inference_cost += cost
-            self.all_responses.append(full_response)
-        
-            return full_response['response_str']
-        
-        elif success == False:
+        if response is False:
+            logging.warning("API call failed after maximum retries. Returning default response.")
             return "Final Response: C"
-    
+        
+        else:
+            try:   
+                cost = self.calc_cost(response=response)
+                logging.info(f"Cost for running gpt4: {cost}")
+            
+                full_response = {
+                    'response': response,
+                    'response_str': [r.message.content for r in response.choices],
+                    'cost': cost
+                }
+                # Update total cost and store response
+                self.total_inference_cost += cost
+                self.all_responses.append(full_response)
+        
+                return full_response['response_str']
+        
+            except:
+                return "Final Response: C"
+        
     async def batch_prompt_sync(
         self, 
         system_message: str, 
@@ -184,7 +177,7 @@ class GPT4Agent():
         self, 
         system_message: str, 
         messages: List[str], 
-        win_rates: bool=False,
+        win_rates: bool=True,
     ) -> List[str]:
         """=
         Synchronous wrapper for batch_prompt.

@@ -67,7 +67,8 @@ def main(args: DictConfig) -> None:
             messages = [
                 {"role": "user", "content": f"Summarize the post below according to the principles in the constitution..\n\nSummarization Constitution:\n{constitution_shuffled}\n\n{question}\n\nSummary:"},
             ]
-
+          
+            breakpoint()
             encoded = model.tokenizer.decode(model.tokenizer.apply_chat_template(messages))
           
 
@@ -100,8 +101,8 @@ def main(args: DictConfig) -> None:
                 batch_prompts = []
                 batch_questions = []
         
-        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
-            json.dump(all_responses, file, indent=4)
+        # with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
+        #     json.dump(all_responses, file, indent=4)
 
 
 if __name__ == "__main__":

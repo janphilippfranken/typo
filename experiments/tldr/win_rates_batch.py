@@ -107,6 +107,7 @@ def main(args: DictConfig) -> None:
     responses = model.batch_prompt(
         system_message=SYSTEM_MESSAGE,
         messages=prompts,
+        win_rates=True,
     )
     # breakpoint()
     
