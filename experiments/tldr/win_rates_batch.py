@@ -30,6 +30,7 @@ def main(args: DictConfig) -> None:
     print("BASELINE", args.baseline)
     print("TEST", args.test)
     
+    breakpoint()
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
         pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
