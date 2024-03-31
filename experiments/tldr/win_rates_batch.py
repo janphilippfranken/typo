@@ -38,8 +38,7 @@ def main(args: DictConfig) -> None:
     )
     
     win_rates = []
-    length = []
-    
+  
     llm = AsyncAzureChatLLM(
         azure_endpoint="https://philipp.openai.azure.com/",
         api_version="2023-05-15",
@@ -63,7 +62,8 @@ def main(args: DictConfig) -> None:
     np.random.seed(1)
     prompts = []
     numbers = []
-    lengths = []
+    lengths_base = []
+    lengths_test = []
     
     for i, (constitution, question) in enumerate(zip(constitutions, questions)):
         print('running')
@@ -75,8 +75,12 @@ def main(args: DictConfig) -> None:
         random.shuffle(principles)
         principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
         constitution_shuffled = "\n".join(principles) 
-        length = len(tokenizer.encode(model_test['response'][str(i)]))
-        lengths.append(length)
+       
+        length_base = len(tokenizer.encode(model_baseline['response'][str(i)]))
+        lengths_base.append(length_base)
+       
+        length_test = len(tokenizer.encode(model_test['response'][str(i)]))
+        lengths_test.append(length_test)
     
 
         rand_number = np.random.randint(2)
@@ -119,35 +123,35 @@ def main(args: DictConfig) -> None:
         except:
             formatted_responses.append("C")
 
-    for formatted_response, number, length in zip(formatted_responses, numbers, lengths):
+    for formatted_response, number, length_base, length_test in zip(formatted_responses, numbers, lengths_base, lengths_test):
         print(formatted_response, number)
         if number == 0:
 
             
             if 'A' in formatted_response and 'B' not in formatted_response:
-                win_rates.append((0, length))
+                win_rates.append((0, length_base, length_test))
                 
             elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates.append((0.5, length))
+                win_rates.append((0.5, length_base, length_test))
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
-                win_rates.append((1, length))
+                win_rates.append((1, length_base, length_test))
             else:
                 print("ERROR")
-                win_rates.append((0.5, length))
+                win_rates.append((0.5, length_base, length_test))
         
         elif number == 1:
             if 'A' in formatted_response and 'B' not in formatted_response:
-                win_rates.append((1, length))
+                win_rates.append((1, length_base, length_test))
                 
             elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates.append((0.5, length))
+                win_rates.append((0.5, length_base, length_test))
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
-                win_rates.append((0, length))
+                win_rates.append((0, length_base, length_test))
             else:
                 print("ERROR")
-                win_rates.append((0.5, length))
+                win_rates.append((0.5, length_base, length_test))
                 
 
     with open(f'{args.output_dir}/{args.win_rates_file_name}.json', 'w') as file:

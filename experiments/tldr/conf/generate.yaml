@@ -1,11 +1,11 @@
-output_dir: data/iteration_2
-file_name: iteration-2-epoch-0.38-mixtral-8x7b-5e-7-from-epoch-0.25
+output_dir: data/iteration_1
+file_name: iteration-1-epoch-0.12-mixtral-8x7b-5e-7-opus
 
-constitution_dir: constitutions_mistral
+constitution_dir: constitutions_opus
 
-iteration: 4
-start_example: 0
-max_example: 2500
+iteration: 2
+start_example: 2500
+max_example: 5000
 batch_size: 2500
 
 generation_config:
@@ -18,8 +18,8 @@ model_config:
   # model: "mistralai/Mixtral-8x7B-v0.1"
   # /scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1
   # download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
-  model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-2-from-epoch-0.25/epoch-0.38/hf
-  download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-2-from-epoch-0.25/epoch-0.38/hf
+  model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus/epoch-0.12/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus/epoch-0.12/hf
   dtype: auto
   quantization: null
   tensor_parallel_size: 4

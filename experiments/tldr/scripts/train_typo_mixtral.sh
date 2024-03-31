@@ -22,16 +22,16 @@ cd ~/research_projects/typo/experiments/tldr
 
 beta=0.0
 lr=5e-7
-iteration=3
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-${lr}-iteration-${iteration}-from-epoch-0.38"
+iteration=2
+checkpoint_dir="/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-${lr}-iteration-${iteration}-opus-from-epoch-0.12"
 
 python train_typo_mixtral.py \
     typo.beta=$beta \
-    wandb.name="typo-lr-${lr}-iteration-${iteration}" \
+    wandb.name="typo-lr-${lr}-iteration-${iteration}-opus" \
     training.checkpoint_dir="$checkpoint_dir" \
     training.lr=$lr \
-    data_path="data/iteration_2" \
-    data_file="iteration-2-epoch-0.38-mixtral-8x7b-5e-7-from-epoch-0.25.json" \
+    data_path="data/base" \
+    data_file="base_mixtral_from_opus_principles.json" \
     n_examples=2000 
 
     

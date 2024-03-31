@@ -29,6 +29,7 @@ def main(args: DictConfig) -> None:
     
     print("BASELINE", args.baseline)
     print("TEST", args.test)
+    breakpoint()
     
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
@@ -39,8 +40,7 @@ def main(args: DictConfig) -> None:
     
     win_rates_helpful = []
     win_rates_harmless = []
-    length = []
-    
+
     llm = AsyncAzureChatLLM(
         azure_endpoint="https://philipp.openai.azure.com/",
         api_version="2023-05-15",
@@ -67,8 +67,10 @@ def main(args: DictConfig) -> None:
     prompts_helpful = []
     prompts_harmless = []
     numbers = []
-    lengths_helpful = []
-    lengths_harmless = []
+    lengths_helpful_base = []
+    lengths_harmless_base = []
+    lengths_helpful_test = []
+    lengths_harmless_test = []
     
     for i, (constitution, question_helpful, question_harmless) in enumerate(zip(constitutions, questions_helpful, question_harmless)):
         print('running')
@@ -80,10 +82,17 @@ def main(args: DictConfig) -> None:
         random.shuffle(principles)
         principles = [f"{i+1}. " + principle for i, principle in enumerate(principles)]
         constitution_shuffled = "\n".join(principles) 
-        length_helpful = len(tokenizer.encode(model_test['response_helpful'][str(i)]))
-        lengths_helpful.append(length_helpful)
-        length_harmless = len(tokenizer.encode(model_test['response_harmless'][str(i)]))
-        lengths_harmless.append(length_harmless)
+        
+        length_helpful_base = len(tokenizer.encode(model_baseline['response_helpful'][str(i)]))
+        lengths_helpful_base.append(length_helpful_base)
+        length_harmless_base = len(tokenizer.encode(model_baseline['response_harmless'][str(i)]))
+        lengths_harmless_base.append(length_harmless_base)
+        
+        length_helpful_test = len(tokenizer.encode(model_test['response_helpful'][str(i)]))
+        lengths_helpful_test.append(length_helpful_test)
+        length_harmless_test = len(tokenizer.encode(model_test['response_harmless'][str(i)]))
+        lengths_harmless_test.append(length_harmless_test)
+        
 
         rand_number = np.random.randint(2)
         numbers.append(rand_number)
@@ -150,35 +159,35 @@ def main(args: DictConfig) -> None:
         except:
             formatted_responses_helpful.append("C")
 
-    for formatted_response, number, length in zip(formatted_responses_helpful, numbers, lengths_helpful):
+    for formatted_response, number, length_base, length_test in zip(formatted_responses_helpful, numbers, lengths_helpful_base, lengths_helpful_test):
         print(formatted_response, number)
         if number == 0:
 
             
             if 'A' in formatted_response and 'B' not in formatted_response:
-                win_rates_helpful.append((0, length))
+                win_rates_helpful.append((0, length_base, length_test))
                 
             elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates_helpful.append((0.5, length))
+                win_rates_helpful.append((0.5, length_base, length_test))
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
-                win_rates_helpful.append((1, length))
+                win_rates_helpful.append((1, length_base, length_test))
             else:
                 print("ERROR")
-                win_rates_helpful.append((0.5, length))
+                win_rates_helpful.append((0.5, length_base, length_test))
         
         elif number == 1:
             if 'A' in formatted_response and 'B' not in formatted_response:
-                win_rates_helpful.append((1, length))
+                win_rates_helpful.append((1, length_base, length_test))
                 
             elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates_helpful.append((0.5, length))
+                win_rates_helpful.append((0.5, length_base, length_test))
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
-                win_rates_helpful.append((0, length))
+                win_rates_helpful.append((0, length_base, length_test))
             else:
                 print("ERROR")
-                win_rates_helpful.append((0.5, length))
+                win_rates_helpful.append((0.5, length_base, length_test))
                 
 
     with open(f'{args.output_dir}/{args.win_rates_file_name}-helpful.json', 'w') as file:
@@ -193,33 +202,33 @@ def main(args: DictConfig) -> None:
         except:
             formatted_responses_harmless.append("C")
 
-    for formatted_response, number, length in zip(formatted_responses_harmless, numbers, lengths_harmless):
+    for formatted_response, number, length_base, length_test in zip(formatted_responses_harmless, numbers, lengths_harmless_base, lengths_harmless_test):
         print(formatted_response, number)
         if number == 0:
             if 'A' in formatted_response and 'B' not in formatted_response:
-                win_rates_harmless.append((0, length))
+                win_rates_harmless.append((0, length_base, length_test))
                 
             elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates_harmless.append((0.5, length))
+                win_rates_harmless.append((0.5, length_base, length_test))
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
-                win_rates_harmless.append((1, length))
+                win_rates_harmless.append((1, length_base, length_test))
             else:
                 print("ERROR")
-                win_rates_harmless.append((0.5, length))
+                win_rates_harmless.append((0.5, length_base, length_test))
         
         elif number == 1:
             if 'A' in formatted_response and 'B' not in formatted_response:
-                win_rates_harmless.append((1, length))
+                win_rates_harmless.append((1, length_base, length_test))
                 
             elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates_harmless.append((0.5, length))
+                win_rates_harmless.append((0.5, length_base, length_test))
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
-                win_rates_harmless.append((0, length))
+                win_rates_harmless.append((0, length_base, length_test))
             else:
                 print("ERROR")
-                win_rates_harmless.append((0.5, length))
+                win_rates_harmless.append((0.5, length_base, length_test))
                 
     with open(f'{args.output_dir}/{args.win_rates_file_name}-harmless.json', 'w') as file:
         json.dump(win_rates_harmless, file, indent=4)

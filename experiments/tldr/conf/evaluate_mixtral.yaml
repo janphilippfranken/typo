@@ -1,6 +1,6 @@
 output_dir: results/responses
-file_name: iteration-3-epoch-0.89-mixtral-8x7b-5e-7-from-0.38
-constitution_dir: constitutions_mistral
+file_name: iteration-1-opus-mixtral-8x7b-v0.1-epoch-0.25-0.0
+constitution_dir: constitutions_opus
 
 start_example: 0
 max_example: 250
@@ -15,12 +15,12 @@ model_config_hf:
   pretrained_model_name_or_path: "mistralai/Mixtral-8x7B-v0.1"
   cache_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
 
-state_dict: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.38/epoch-0.89/model.pt
-save_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.38/epoch-0.89/hf
+state_dict: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus/epoch-0.25/model.pt
+save_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus/epoch-0.25/hf
  
 model_config_vllm:
-  model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.38/epoch-0.89/hf
-  download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.38/epoch-0.89/hf
+  model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus/epoch-0.25/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus/epoch-0.25/hf
   dtype: auto
   quantization: null
   tensor_parallel_size: 2
