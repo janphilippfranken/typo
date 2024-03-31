@@ -113,16 +113,16 @@ hydra:
     - hydra.mode=RUN
     task:
     - typo.beta=0.0
-    - wandb.name=typo-lr-5e-7-iteration-1
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus
+    - wandb.name=typo-lr-5e-7-iteration-2-opus
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-2-opus-from-epoch-0.12
     - training.lr=5e-7
-    - data_path=data/base
-    - data_file=base_mixtral_from_opus_principles.json
+    - data_path=data/iteration_1
+    - data_file=iteration-1-epoch-0.12-mixtral-8x7b-5e-7-opus.json
     - n_examples=2000
   job:
     name: train_typo_mixtral
     chdir: null
-    override_dirname: data_file=base_mixtral_from_opus_principles.json,data_path=data/base,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1-opus,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-1
+    override_dirname: data_file=iteration-1-epoch-0.12-mixtral-8x7b-5e-7-opus.json,data_path=data/iteration_1,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-2-opus-from-epoch-0.12,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-2-opus
     id: ???
     num: ???
     config_name: train_typo_mixtral
