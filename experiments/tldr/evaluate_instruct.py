@@ -43,6 +43,7 @@ def main(args: DictConfig) -> None:
     
     constitution = json.load(open(f"{args.constitution_dir}/0.json"))
     constitution_positive = constitution['positive']
+    print(constitution_positive)
   
     
     for temperature in args.temperatures:
@@ -68,7 +69,7 @@ def main(args: DictConfig) -> None:
                 {"role": "user", "content": f"Summarize the post below according to the principles in the constitution..\n\nSummarization Constitution:\n{constitution_shuffled}\n\n{question}\n\nSummary:"},
             ]
           
-            breakpoint()
+            # breakpoint()
             encoded = model.tokenizer.decode(model.tokenizer.apply_chat_template(messages))
           
 
@@ -101,8 +102,8 @@ def main(args: DictConfig) -> None:
                 batch_prompts = []
                 batch_questions = []
         
-        # with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
-        #     json.dump(all_responses, file, indent=4)
+        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
+            json.dump(all_responses, file, indent=4)
 
 
 if __name__ == "__main__":
