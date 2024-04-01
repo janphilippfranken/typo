@@ -1,28 +1,22 @@
 output_dir: results/responses
 file_name: mixtral_instruct_opus_constitution
 constitution_dir: constitutions_opus
-
 start_example: 0
 max_example: 250
 batch_size: 250
-
 generation_config:
   max_new_tokens: 350
   top_p: 0.9
-  num_return_sequences: 1 
-
+  num_return_sequences: 1
 model_config:
-  model: "mistralai/Mixtral-8x7B-Instruct-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-7xB-Instruct-v0.1"
+  model: mistralai/Mixtral-8x7B-Instruct-v0.1
+  download_dir: /scr/jphilipp/typo/pretrained_models/Mixtral-7xB-Instruct-v0.1
   dtype: auto
   quantization: null
   tensor_parallel_size: 2
-
-dataset: 
+dataset:
   path: openai/summarize_from_feedback
   cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
   split: validation
-
 temperatures:
- - 0.0
- 
+- 0.0
