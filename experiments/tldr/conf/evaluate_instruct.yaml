@@ -1,6 +1,6 @@
 output_dir: results/responses
-file_name: mixtral_instruct_opus_constitution
-constitution_dir: constitutions_opus
+file_name: mistral_instruct_mistral_constitution
+constitution_dir: constitutions_mistral
 
 start_example: 0
 max_example: 250
@@ -12,8 +12,8 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: "mistralai/Mixtral-8x7B-Instruct-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-7xB-Instruct-v0.1"
+  model: "mistralai/Mistral-7B-Instruct-v0.1"
+  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-Instruct-v0.1"
   dtype: auto
   quantization: null
   tensor_parallel_size: 2
