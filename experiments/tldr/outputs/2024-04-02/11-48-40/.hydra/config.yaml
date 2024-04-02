@@ -1,0 +1,21 @@
+output_dir: results/mutual_information
+file_name: iteration-2-epoch-0.5-mistral-human-constitution-from-0.3
+source_dir_positive: results/responses
+source_file_positive: iteration-2-epoch-0.5-temperature-0.0
+constitution_dir: constitutions
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-1-from-0.3/epoch-0.5/
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-1-from-0.3/epoch-0.5/
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0
