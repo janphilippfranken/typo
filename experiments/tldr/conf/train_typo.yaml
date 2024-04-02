@@ -10,10 +10,10 @@ n_responses: 2
 n_constitutions: 2
 
 defaults:
-  - model: mixtral_8x7b_base
+  - model: mistral_7b_base
 
 wandb:
-  project: typo-summarization-mixtral
+  project: typo-summarization-mistral
   name: typo
   log: true
 
@@ -32,6 +32,6 @@ training:
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16
-  save_after_n_steps: 25
+  save_after_n_steps: 32
   seed: 42
   model_archive: null 

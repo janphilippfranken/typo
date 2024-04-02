@@ -113,17 +113,17 @@ hydra:
     - hydra.mode=RUN
     task:
     - typo.beta=0.0
-    - wandb.name=typo-beta-0.0-lr-1e-7-iteration-5-epoch-0.4
-    - training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-5-epoch-0.4
-    - training.lr=1e-7
-    - data_path=data/iteration_4
-    - helpful=helpful-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json
-    - harmless=harmless-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json
-    - n_examples=1000
+    - wandb.name=typo-lr-5e-7-iteration-1
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1
+    - training.lr=5e-7
+    - data_path=data/base
+    - helpful=helpful.json
+    - harmless=harmless.json
+    - n_examples=2000
   job:
     name: train_typo
     chdir: null
-    override_dirname: data_path=data/iteration_4,harmless=harmless-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json,helpful=helpful-beta-0.0-lr-1e-7-iteration-4-epoch-0.4-from-iteration-3-epoch-0.3.json,n_examples=1000,training.checkpoint_dir=/home/jphilipp/research_projects/typo_files/trained_models/checkpoints-exp-2/beta-0.0-lr-1e-7-iteration-5-epoch-0.4,training.lr=1e-7,typo.beta=0.0,wandb.name=typo-beta-0.0-lr-1e-7-iteration-5-epoch-0.4
+    override_dirname: data_path=data/base,harmless=harmless.json,helpful=helpful.json,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-1
     id: ???
     num: ???
     config_name: train_typo
@@ -137,18 +137,18 @@ hydra:
   runtime:
     version: 1.3.2
     version_base: '1.3'
-    cwd: /home/jphilipp/research_projects/typo/experiments/experiment_2
+    cwd: /sailhome/jphilipp/research_projects/typo/experiments/hh-rlhf
     config_sources:
     - path: hydra.conf
       schema: pkg
       provider: hydra
-    - path: /home/jphilipp/research_projects/typo/experiments/experiment_2/conf
+    - path: /sailhome/jphilipp/research_projects/typo/experiments/hh-rlhf/conf
       schema: file
       provider: main
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /home/jphilipp/research_projects/typo/experiments/experiment_2/hydra-configs
+    output_dir: /sailhome/jphilipp/research_projects/typo/experiments/hh-rlhf/hydra-configs
     choices:
       model: mistral_7b_base
       hydra/env: default

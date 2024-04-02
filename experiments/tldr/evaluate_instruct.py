@@ -66,7 +66,7 @@ def main(args: DictConfig) -> None:
             
             
             messages = [
-                {"role": "user", "content": f"Summarize the post below according to the principles in the constitution..\n\nSummarization Constitution:\n{constitution_shuffled}\n\n{question}\n\nSummary:"},
+                {"role": "user", "content": f"Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution:\n{constitution_shuffled}\n\n{question}\n\nSummary:"},
             ]
           
             # breakpoint()

@@ -113,19 +113,19 @@ hydra:
     - hydra.mode=RUN
     task:
     - typo.beta=0.0
-    - wandb.name=typo-lr-5e-7-iteration-1-opus
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus
+    - wandb.name=typo-lr-5e-7-iteration-3
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25
     - training.lr=5e-7
-    - data_path=data/base
-    - data_file=base_mixtral_from_opus_principles.json
+    - data_path=data/iteration_2
+    - data_file=iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-from-0.12.json
     - n_examples=2000
   job:
-    name: train_typo_mixtralv2
+    name: train_typo
     chdir: null
-    override_dirname: data_file=base_mixtral_from_opus_principles.json,data_path=data/base,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-1-opus
+    override_dirname: data_file=iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-from-0.12.json,data_path=data/iteration_2,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-3
     id: ???
     num: ???
-    config_name: train_typo_mixtralv2
+    config_name: train_typo
     env_set: {}
     env_copy: []
     config:
@@ -149,7 +149,7 @@ hydra:
       provider: schema
     output_dir: /sailhome/jphilipp/research_projects/typo/experiments/tldr/hydra-configs
     choices:
-      model: mixtral_8x7b_base
+      model: mistral_7b_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

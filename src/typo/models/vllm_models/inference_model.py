@@ -59,6 +59,7 @@ class VLLMInferenceModel():
                 padding="max_length",
                 max_length=tokenized_responses.input_ids.shape[1],
             )
+
             
             tokenized_responses_input_ids = tokenized_responses.input_ids.tolist()
             

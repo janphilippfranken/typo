@@ -1,10 +1,10 @@
-output_dir: data/base
-file_name: null
+output_dir: data/iteration_1
+file_name: iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution
 
-iteration: null
-start_example: null
-max_example: null
-batch_size: null
+iteration: 1
+start_example: 10000
+max_example: 20000
+batch_size: 10000
 
 generation_config:
   max_new_tokens: 350
@@ -17,7 +17,7 @@ model_config:
   download_dir: null
   dtype: auto
   quantization: null
-  tensor_parallel_size: 1
+  tensor_parallel_size: 2
 
 dataset: 
   path: Anthropic/hh-rlhf

@@ -14,7 +14,7 @@ defaults:
   - model: mistral_7b_base
 
 wandb:
-  project: typo-exp-2
+  project: typo-hh-rlhf
   name: typo
   log: true
 
@@ -25,7 +25,7 @@ training:
   evaluate_before_training: false
   evaluate: false
   n_epochs: 1
-  lr: 1e-7
+  lr: 5e-7
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
@@ -33,6 +33,6 @@ training:
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16
-  save_after_n_steps: 50
+  save_after_n_steps: 32
   seed: 42
   model_archive: null 

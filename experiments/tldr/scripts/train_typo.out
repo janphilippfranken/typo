@@ -1,54 +1,257 @@
-setting RLIMIT_NOFILE soft limit to 131072 from 1024
-4 initializing distributed
-wrapping model 4...
-wrapped model 4...
-Loaded model on rank 4
-Loaded reference model on rank 4
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-1 initializing distributed
-wrapping model 1...
-wrapped model 1...
+0
+8
+{'model': {'model_type': 'huggingface', 'name': 'mistral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1', 'model_max_length': 2048}}, 'data_path': 'data/iteration_2', 'data_file': 'iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-from-0.12.json', 'n_examples': 2000, 'n_responses': 2, 'n_constitutions': 2, 'wandb': {'project': 'typo-summarization-mistral', 'name': 'typo-lr-5e-7-iteration-3', 'log': True}, 'typo': {'beta': 0.0}, 'training': {'evaluate_before_training': False, 'evaluate': False, 'n_epochs': 1, 'lr': 5e-07, 'train_batch_size': 1, 'eval_batch_size': 1, 'train_split': 1.0, 'checkpoint_dir': '/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25', 'max_grad_norm': 1.0, 'num_warmup_steps': 1, 'gradient_accumulation_steps': 16, 'save_after_n_steps': 32, 'seed': 42, 'model_archive': None}}
+8
+[2024-04-02 13:18:50,325][root][INFO] - beta: 0.0
+[2024-04-02 13:18:50,325][root][INFO] - writing checkpoints to: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25
+clearing gpu cache for all ranks
+Base model: {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}
+Model with 7241.732096M params prepared
+n examples: 2000
+{'prompt_c0_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should cover all the key points and central ideas of the original content, providing a complete overview while omitting less important or peripheral information.\n2. Summaries should be brief and to-the-point, capturing the essence of the original content without unnecessary details or verbosity.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c0_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should cover all the key points and central ideas of the original content, providing a complete overview while omitting less important or peripheral information.\n2. Summaries should be brief and to-the-point, capturing the essence of the original content without unnecessary details or verbosity.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post discusses a long-distance relationship and a planned trip involving the author's boyfriend and mother. The author expresses concerns about their mother's reaction to the trip and the potential impact on their relationship.", 'prompt_c0_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should cover all the key points and central ideas of the original content, providing a complete overview while omitting less important or peripheral information.\n2. Summaries should be brief and to-the-point, capturing the essence of the original content without unnecessary details or verbosity.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c0_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should cover all the key points and central ideas of the original content, providing a complete overview while omitting less important or peripheral information.\n2. Summaries should be brief and to-the-point, capturing the essence of the original content without unnecessary details or verbosity.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post discusses a long-distance relationship between the author and their boyfriend. The author plans to visit their boyfriend in the USA, but their mother is concerned about the author's safety and wants to accompany them on the trip. The author agrees to their mother's request and invites her to join them on the trip. However, the author's mother becomes upset when she learns that the author has booked a flight to return home on their own, despite her mother's initial objections. The author expresses frustration with their mother's behavior and seeks advice on how to handle the situation.", 'prompt_c1_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be verbose and long-winded, including unnecessary details and repetitive information.\n2. Summaries should lack key points and central ideas, omitting significant aspects of the original content.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c1_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be verbose and long-winded, including unnecessary details and repetitive information.\n2. Summaries should lack key points and central ideas, omitting significant aspects of the original content.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post discusses a long-distance relationship and a planned trip involving the author's boyfriend and mother. The author expresses concerns about their mother's reaction to the trip and the potential impact on their relationship.", 'prompt_c1_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be verbose and long-winded, including unnecessary details and repetitive information.\n2. Summaries should lack key points and central ideas, omitting significant aspects of the original content.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c1_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be verbose and long-winded, including unnecessary details and repetitive information.\n2. Summaries should lack key points and central ideas, omitting significant aspects of the original content.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post discusses a long-distance relationship between the author and their boyfriend. The author plans to visit their boyfriend in the USA, but their mother is concerned about the author's safety and wants to accompany them on the trip. The author agrees to their mother's request and invites her to join them on the trip. However, the author's mother becomes upset when she learns that the author has booked a flight to return home on their own, despite her mother's initial objections. The author expresses frustration with their mother's behavior and seeks advice on how to handle the situation."}
 Loaded model on rank 1
 Loaded reference model on rank 1
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-6 initializing distributed
-wrapping model 6...
-wrapped model 6...
-Loaded model on rank 6
-Loaded reference model on rank 6
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-2 initializing distributed
-wrapping model 2...
-wrapped model 2...
-Loaded model on rank 2
-Loaded reference model on rank 2
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-7 initializing distributed
-wrapping model 7...
-wrapped model 7...
-Loaded model on rank 7
-Loaded reference model on rank 7
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-3 initializing distributed
-wrapping model 3...
-wrapped model 3...
-Loaded model on rank 3
-Loaded reference model on rank 3
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-5 initializing distributed
-wrapping model 5...
-wrapped model 5...
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
 Loaded model on rank 5
 Loaded reference model on rank 5
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
-0 initializing distributed
-Initialized process group...
-WANDB
-wrapping model 0...
-wrapped model 0...
-n examples: 2000
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
+Loaded model on rank 4
+Loaded reference model on rank 4
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
+Loaded model on rank 7
+Loaded reference model on rank 7
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
+Loaded model on rank 6
+Loaded reference model on rank 6
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
 2000
 tokenized 2000 training examples...
 Loaded model on rank 0
 Loaded reference model on rank 0
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus.
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
+Loaded model on rank 2
+Loaded reference model on rank 2
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
+Loaded model on rank 3
+Loaded reference model on rank 3
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25.
+Epoch 0, Step 0: train/loss = 0.6885102987289429, train/raw-loss = 0.6885102987289429, train/logprobs = tensor([[-0.6957, -0.6463],
+        [-0.7406, -0.6694]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 1: train/loss = 0.6923092603683472, train/raw-loss = 0.6923092603683472, train/logprobs = tensor([[-0.6629, -0.6456],
+        [-0.6893, -0.6666]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 2: train/loss = 0.691839337348938, train/raw-loss = 0.691839337348938, train/logprobs = tensor([[-0.6579, -0.6504],
+        [-0.6957, -0.6768]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 3: train/loss = 0.6939026713371277, train/raw-loss = 0.6939026713371277, train/logprobs = tensor([[-0.6278, -0.6927],
+        [-0.6508, -0.7163]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 4: train/loss = 0.6914900541305542, train/raw-loss = 0.6914900541305542, train/logprobs = tensor([[-0.6127, -0.6690],
+        [-0.6404, -0.6877]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 5: train/loss = 0.6894784569740295, train/raw-loss = 0.6894784569740295, train/logprobs = tensor([[-0.7053, -0.6258],
+        [-0.7369, -0.6390]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 6: train/loss = 0.6909259557723999, train/raw-loss = 0.6909259557723999, train/logprobs = tensor([[-0.6509, -0.6546],
+        [-0.6797, -0.6711]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 7: train/loss = 0.6917433738708496, train/raw-loss = 0.6917433738708496, train/logprobs = tensor([[-0.6409, -0.6144],
+        [-0.6683, -0.6335]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 8: train/loss = 0.6923928260803223, train/raw-loss = 0.6923928260803223, train/logprobs = tensor([[-0.6444, -0.6393],
+        [-0.6681, -0.6581]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 9: train/loss = 0.6940035820007324, train/raw-loss = 0.6940035820007324, train/logprobs = tensor([[-0.7103, -0.6758],
+        [-0.7381, -0.7018]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 10: train/loss = 0.6941587328910828, train/raw-loss = 0.6941587328910828, train/logprobs = tensor([[-0.7437, -0.7427],
+        [-0.7683, -0.7706]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 11: train/loss = 0.6928069591522217, train/raw-loss = 0.6928069591522217, train/logprobs = tensor([[-0.6713, -0.6123],
+        [-0.6974, -0.6347]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 12: train/loss = 0.6887890696525574, train/raw-loss = 0.6887890696525574, train/logprobs = tensor([[-0.7441, -0.7105],
+        [-0.7699, -0.7171]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 13: train/loss = 0.6913150548934937, train/raw-loss = 0.6913150548934937, train/logprobs = tensor([[-0.6484, -0.5897],
+        [-0.6769, -0.6051]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 14: train/loss = 0.6927604079246521, train/raw-loss = 0.6927604079246521, train/logprobs = tensor([[-0.6502, -0.6433],
+        [-0.6796, -0.6688]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 15: train/loss = 0.6926313638687134, train/raw-loss = 0.6926313638687134, train/logprobs = tensor([[-0.7059, -0.6987],
+        [-0.7436, -0.7314]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 16: train/loss = 0.6920357942581177, train/raw-loss = 0.6920357942581177, train/logprobs = tensor([[-0.6548, -0.5714],
+        [-0.6827, -0.5897]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 17: train/loss = 0.6923375129699707, train/raw-loss = 0.6923375129699707, train/logprobs = tensor([[-0.7090, -0.6888],
+        [-0.7443, -0.7195]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 18: train/loss = 0.689437747001648, train/raw-loss = 0.689437747001648, train/logprobs = tensor([[-0.6776, -0.6426],
+        [-0.7148, -0.6586]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 19: train/loss = 0.6909929513931274, train/raw-loss = 0.6909929513931274, train/logprobs = tensor([[-0.6776, -0.7083],
+        [-0.7084, -0.7277]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 20: train/loss = 0.6920090317726135, train/raw-loss = 0.6920090317726135, train/logprobs = tensor([[-0.6715, -0.6680],
+        [-0.7080, -0.6973]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 21: train/loss = 0.6921485662460327, train/raw-loss = 0.6921485662460327, train/logprobs = tensor([[-0.7121, -0.6765],
+        [-0.7415, -0.6968]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 22: train/loss = 0.6915254592895508, train/raw-loss = 0.6915254592895508, train/logprobs = tensor([[-0.6459, -0.6326],
+        [-0.6902, -0.6692]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 23: train/loss = 0.693489670753479, train/raw-loss = 0.693489670753479, train/logprobs = tensor([[-0.6283, -0.6908],
+        [-0.6708, -0.7312]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 24: train/loss = 0.69461989402771, train/raw-loss = 0.69461989402771, train/logprobs = tensor([[-0.6721, -0.7168],
+        [-0.7124, -0.7583]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 25: train/loss = 0.6918946504592896, train/raw-loss = 0.6918946504592896, train/logprobs = tensor([[-0.7248, -0.6954],
+        [-0.7463, -0.7103]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 26: train/loss = 0.6921112537384033, train/raw-loss = 0.6921112537384033, train/logprobs = tensor([[-0.6134, -0.6791],
+        [-0.6519, -0.7112]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 27: train/loss = 0.6916986703872681, train/raw-loss = 0.6916986703872681, train/logprobs = tensor([[-0.6207, -0.6011],
+        [-0.6443, -0.6163]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 28: train/loss = 0.6912527084350586, train/raw-loss = 0.6912527084350586, train/logprobs = tensor([[-0.6767, -0.6599],
+        [-0.7094, -0.6798]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 29: train/loss = 0.6895002126693726, train/raw-loss = 0.6895002126693726, train/logprobs = tensor([[-0.6674, -0.5770],
+        [-0.7055, -0.5935]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 30: train/loss = 0.6943753957748413, train/raw-loss = 0.6943753957748413, train/logprobs = tensor([[-0.7026, -0.6614],
+        [-0.7330, -0.6951]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 31: train/loss = 0.694620668888092, train/raw-loss = 0.694620668888092, train/logprobs = tensor([[-0.5771, -0.6185],
+        [-0.6093, -0.6508]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 32: train/loss = 0.6901045441627502, train/raw-loss = 0.6901045441627502, train/logprobs = tensor([[-0.5761, -0.6107],
+        [-0.6065, -0.6270]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000532040256075561
+Epoch 0, Step 33: train/loss = 0.6892643570899963, train/raw-loss = 0.6892643570899963, train/logprobs = tensor([[-0.6932, -0.6489],
+        [-0.7232, -0.6619]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.000526327348779887
+Epoch 0, Step 34: train/loss = 0.6925515532493591, train/raw-loss = 0.6925515532493591, train/logprobs = tensor([[-0.6455, -0.6863],
+        [-0.6770, -0.7117]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005568439373746514
+Epoch 0, Step 35: train/loss = 0.6891031861305237, train/raw-loss = 0.6891031861305237, train/logprobs = tensor([[-0.6841, -0.6021],
+        [-0.7200, -0.6179]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005267035448923707
+Epoch 0, Step 36: train/loss = 0.692390501499176, train/raw-loss = 0.692390501499176, train/logprobs = tensor([[-0.6543, -0.6256],
+        [-0.6779, -0.6419]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005840288940817118
+Epoch 0, Step 37: train/loss = 0.6927227973937988, train/raw-loss = 0.6927227973937988, train/logprobs = tensor([[-0.6545, -0.6511],
+        [-0.6766, -0.6702]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005024239071644843
+Epoch 0, Step 38: train/loss = 0.6896790266036987, train/raw-loss = 0.6896790266036987, train/logprobs = tensor([[-0.6631, -0.6443],
+        [-0.6915, -0.6575]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005273619899526238
+Epoch 0, Step 39: train/loss = 0.6901973485946655, train/raw-loss = 0.6901973485946655, train/logprobs = tensor([[-0.6244, -0.5758],
+        [-0.6574, -0.5946]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005955056985840201
+Epoch 0, Step 40: train/loss = 0.6905547380447388, train/raw-loss = 0.6905547380447388, train/logprobs = tensor([[-0.6389, -0.6606],
+        [-0.6774, -0.6873]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005611678352579474
+Epoch 0, Step 41: train/loss = 0.69322669506073, train/raw-loss = 0.69322669506073, train/logprobs = tensor([[-0.6561, -0.6486],
+        [-0.6885, -0.6743]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005186705966480076
+Epoch 0, Step 42: train/loss = 0.6925028562545776, train/raw-loss = 0.6925028562545776, train/logprobs = tensor([[-0.6886, -0.6450],
+        [-0.7135, -0.6623]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005648872465826571
+Epoch 0, Step 43: train/loss = 0.6891200542449951, train/raw-loss = 0.6891200542449951, train/logprobs = tensor([[-0.6455, -0.6187],
+        [-0.6832, -0.6381]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005428639706224203
+Epoch 0, Step 44: train/loss = 0.6933648586273193, train/raw-loss = 0.6933648586273193, train/logprobs = tensor([[-0.6609, -0.5752],
+        [-0.6834, -0.5906]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005807715933769941
+Epoch 0, Step 45: train/loss = 0.6920398473739624, train/raw-loss = 0.6920398473739624, train/logprobs = tensor([[-0.6801, -0.6605],
+        [-0.7054, -0.6799]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005378975765779614
+Epoch 0, Step 46: train/loss = 0.6929001808166504, train/raw-loss = 0.6929001808166504, train/logprobs = tensor([[-0.6813, -0.7069],
+        [-0.7050, -0.7263]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005405594129115343
+Epoch 0, Step 47: train/loss = 0.6912567019462585, train/raw-loss = 0.6912567019462585, train/logprobs = tensor([[-0.6473, -0.6020],
+        [-0.6674, -0.6117]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0005586757324635983
+Epoch 0, Step 48: train/loss = 0.6901932954788208, train/raw-loss = 0.6901932954788208, train/logprobs = tensor([[-0.6680, -0.6847],
+        [-0.7040, -0.7058]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.001299254479818046
+Epoch 0, Step 49: train/loss = 0.6959211826324463, train/raw-loss = 0.6959211826324463, train/logprobs = tensor([[-0.6742, -0.6106],
+        [-0.6994, -0.6423]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013725601602345705
+Epoch 0, Step 50: train/loss = 0.6901277303695679, train/raw-loss = 0.6901277303695679, train/logprobs = tensor([[-0.6252, -0.6620],
+        [-0.6548, -0.6763]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013476149179041386
+Epoch 0, Step 51: train/loss = 0.691214382648468, train/raw-loss = 0.691214382648468, train/logprobs = tensor([[-0.6975, -0.6235],
+        [-0.7211, -0.6336]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013691114727407694
+Epoch 0, Step 52: train/loss = 0.6894777417182922, train/raw-loss = 0.6894777417182922, train/logprobs = tensor([[-0.7335, -0.6826],
+        [-0.7736, -0.7014]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0011711796978488564
+Epoch 0, Step 53: train/loss = 0.6918129324913025, train/raw-loss = 0.6918129324913025, train/logprobs = tensor([[-0.7210, -0.7205],
+        [-0.7529, -0.7450]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013983305543661118
+Epoch 0, Step 54: train/loss = 0.6893399953842163, train/raw-loss = 0.6893399953842163, train/logprobs = tensor([[-0.7115, -0.6465],
+        [-0.7405, -0.6572]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013770967489108443
+Epoch 0, Step 55: train/loss = 0.6874321699142456, train/raw-loss = 0.6874321699142456, train/logprobs = tensor([[-0.6395, -0.6072],
+        [-0.6819, -0.6227]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.001279185526072979
+Epoch 0, Step 56: train/loss = 0.689767599105835, train/raw-loss = 0.689767599105835, train/logprobs = tensor([[-0.6462, -0.6529],
+        [-0.6811, -0.6715]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013326144544407725
+Epoch 0, Step 57: train/loss = 0.6917307376861572, train/raw-loss = 0.6917307376861572, train/logprobs = tensor([[-0.6869, -0.6721],
+        [-0.7037, -0.6816]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0013714426895603538
+Epoch 0, Step 58: train/loss = 0.6899572014808655, train/raw-loss = 0.6899572014808655, train/logprobs = tensor([[-0.5998, -0.5373],
+        [-0.6197, -0.5423]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.001300919335335493
+Epoch 0, Step 59: train/loss = 0.6905182600021362, train/raw-loss = 0.6905182600021362, train/logprobs = tensor([[-0.6945, -0.7012],
+        [-0.7167, -0.7108]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.001438916428014636
+Epoch 0, Step 60: train/loss = 0.6916496157646179, train/raw-loss = 0.6916496157646179, train/logprobs = tensor([[-0.7455, -0.6814],
+        [-0.7727, -0.7001]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00121244415640831
+Epoch 0, Step 61: train/loss = 0.689549446105957, train/raw-loss = 0.689549446105957, train/logprobs = tensor([[-0.6368, -0.6071],
+        [-0.6592, -0.6142]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0014783964725211263
+Epoch 0, Step 62: train/loss = 0.6920981407165527, train/raw-loss = 0.6920981407165527, train/logprobs = tensor([[-0.6793, -0.6829],
+        [-0.7103, -0.7076]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.001362916431389749
+Epoch 0, Step 63: train/loss = 0.6903570890426636, train/raw-loss = 0.6903570890426636, train/logprobs = tensor([[-0.6782, -0.6421],
+        [-0.7066, -0.6562]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0011835379991680384
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 64: train/loss = 0.6907082796096802, train/raw-loss = 0.6907082796096802, train/logprobs = tensor([[-0.6298, -0.5983],
+        [-0.6445, -0.6018]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0062150233425199986
+Epoch 0, Step 65: train/loss = 0.6853126883506775, train/raw-loss = 0.6853126883506775, train/logprobs = tensor([[-0.6296, -0.5864],
+        [-0.6677, -0.5909]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.006666750647127628
+Epoch 0, Step 66: train/loss = 0.6889370083808899, train/raw-loss = 0.6889370083808899, train/logprobs = tensor([[-0.6429, -0.6636],
+        [-0.6782, -0.6800]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005737933795899153
+Epoch 0, Step 67: train/loss = 0.6901392936706543, train/raw-loss = 0.6901392936706543, train/logprobs = tensor([[-0.5814, -0.6139],
+        [-0.6031, -0.6215]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005596686154603958
+Epoch 0, Step 68: train/loss = 0.6883798241615295, train/raw-loss = 0.6883798241615295, train/logprobs = tensor([[-0.6289, -0.6303],
+        [-0.6596, -0.6408]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005516589153558016
+Epoch 0, Step 69: train/loss = 0.6899563670158386, train/raw-loss = 0.6899563670158386, train/logprobs = tensor([[-0.6434, -0.6899],
+        [-0.6666, -0.6974]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0060540176928043365
+Epoch 0, Step 70: train/loss = 0.6869819164276123, train/raw-loss = 0.6869819164276123, train/logprobs = tensor([[-0.6586, -0.6405],
+        [-0.6841, -0.6377]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.006241208408027887
+Epoch 0, Step 71: train/loss = 0.6865028142929077, train/raw-loss = 0.6865028142929077, train/logprobs = tensor([[-0.7085, -0.6825],
+        [-0.7366, -0.6812]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005275807809084654
+Epoch 0, Step 72: train/loss = 0.6904994249343872, train/raw-loss = 0.6904994249343872, train/logprobs = tensor([[-0.7270, -0.6761],
+        [-0.7442, -0.6815]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.006855479441583157
+Epoch 0, Step 73: train/loss = 0.6885320544242859, train/raw-loss = 0.6885320544242859, train/logprobs = tensor([[-0.6166, -0.6621],
+        [-0.6426, -0.6678]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005413730628788471
+Epoch 0, Step 74: train/loss = 0.6908445358276367, train/raw-loss = 0.6908445358276367, train/logprobs = tensor([[-0.6251, -0.5875],
+        [-0.6435, -0.5957]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005950517021119595
+Epoch 0, Step 75: train/loss = 0.6894679069519043, train/raw-loss = 0.6894679069519043, train/logprobs = tensor([[-0.6564, -0.6594],
+        [-0.6802, -0.6672]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0056734331883490086
+Epoch 0, Step 76: train/loss = 0.6881149411201477, train/raw-loss = 0.6881149411201477, train/logprobs = tensor([[-0.6686, -0.6809],
+        [-0.7048, -0.6941]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005782578606158495
+Epoch 0, Step 77: train/loss = 0.685767412185669, train/raw-loss = 0.685767412185669, train/logprobs = tensor([[-0.6396, -0.6411],
+        [-0.6680, -0.6376]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.005626665893942118
+Epoch 0, Step 78: train/loss = 0.6889140009880066, train/raw-loss = 0.6889140009880066, train/logprobs = tensor([[-0.6938, -0.6700],
+        [-0.7073, -0.6652]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.006143965292721987
+Epoch 0, Step 79: train/loss = 0.6868095993995667, train/raw-loss = 0.6868095993995667, train/logprobs = tensor([[-0.6640, -0.6389],
+        [-0.6954, -0.6439]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.006455355789512396
+Epoch 0, Step 80: train/loss = 0.6906369924545288, train/raw-loss = 0.6906369924545288, train/logprobs = tensor([[-0.6201, -0.6494],
+        [-0.6357, -0.6514]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.008523788303136826
+Epoch 0, Step 81: train/loss = 0.6870436668395996, train/raw-loss = 0.6870436668395996, train/logprobs = tensor([[-0.6222, -0.6298],
+        [-0.6410, -0.6223]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.007799168583005667
+Epoch 0, Step 82: train/loss = 0.6856511831283569, train/raw-loss = 0.6856511831283569, train/logprobs = tensor([[-0.6363, -0.6481],
+        [-0.6693, -0.6495]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.007659873925149441
+Epoch 0, Step 83: train/loss = 0.6892737746238708, train/raw-loss = 0.6892737746238708, train/logprobs = tensor([[-0.6917, -0.6874],
+        [-0.7130, -0.6878]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.008612788282334805
+Epoch 0, Step 84: train/loss = 0.6879213452339172, train/raw-loss = 0.6879213452339172, train/logprobs = tensor([[-0.6686, -0.6925],
+        [-0.7035, -0.7028]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.007809035014361143
+Epoch 0, Step 85: train/loss = 0.687591552734375, train/raw-loss = 0.687591552734375, train/logprobs = tensor([[-0.6009, -0.5794],
+        [-0.6366, -0.5901]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.008425191976130009
+Epoch 0, Step 86: train/loss = 0.6862119436264038, train/raw-loss = 0.6862119436264038, train/logprobs = tensor([[-0.6520, -0.6352],
+        [-0.6840, -0.6359]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.007711114827543497
+Epoch 0, Step 87: train/loss = 0.6907292604446411, train/raw-loss = 0.6907292604446411, train/logprobs = tensor([[-0.6253, -0.6472],
+        [-0.6362, -0.6479]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.009255995973944664
+Epoch 0, Step 88: train/loss = 0.6905527114868164, train/raw-loss = 0.6905527114868164, train/logprobs = tensor([[-0.6355, -0.6494],
+        [-0.6594, -0.6626]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.008886098861694336
+Epoch 0, Step 89: train/loss = 0.6867504119873047, train/raw-loss = 0.6867504119873047, train/logprobs = tensor([[-0.6540, -0.6437],
+        [-0.6852, -0.6469]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0074436115100979805
+Epoch 0, Step 90: train/loss = 0.6904674768447876, train/raw-loss = 0.6904674768447876, train/logprobs = tensor([[-0.6412, -0.6421],
+        [-0.6581, -0.6465]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.007920295000076294
+Epoch 0, Step 91: train/loss = 0.6915152072906494, train/raw-loss = 0.6915152072906494, train/logprobs = tensor([[-0.6280, -0.5971],
+        [-0.6557, -0.6168]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.007326556835323572
+Epoch 0, Step 92: train/loss = 0.6894809007644653, train/raw-loss = 0.6894809007644653, train/logprobs = tensor([[-0.6664, -0.6334],
+        [-0.6809, -0.6298]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.008822420611977577
+Epoch 0, Step 93: train/loss = 0.6837161779403687, train/raw-loss = 0.6837161779403687, train/logprobs = tensor([[-0.5887, -0.6364],
+        [-0.6238, -0.6246]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.00792656559497118
+Epoch 0, Step 94: train/loss = 0.6882930994033813, train/raw-loss = 0.6882930994033813, train/logprobs = tensor([[-0.6879, -0.6154],
+        [-0.7087, -0.6114]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0077642458491027355
+Epoch 0, Step 95: train/loss = 0.6889327168464661, train/raw-loss = 0.6889327168464661, train/logprobs = tensor([[-0.7024, -0.7017],
+        [-0.7255, -0.7049]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.008473658934235573
+Model saved, deleting model...
+Deleted model...
+Epoch 0, Step 96: train/loss = 0.6882196664810181, train/raw-loss = 0.6882196664810181, train/logprobs = tensor([[-0.6748, -0.6915],
+        [-0.6984, -0.6935]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.014662308618426323
+Epoch 0, Step 97: train/loss = 0.6857830882072449, train/raw-loss = 0.6857830882072449, train/logprobs = tensor([[-0.7235, -0.7354],
+        [-0.7332, -0.7116]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.012318170629441738
+Epoch 0, Step 98: train/loss = 0.6902455687522888, train/raw-loss = 0.6902455687522888, train/logprobs = tensor([[-0.5572, -0.5824],
+        [-0.5610, -0.5735]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.013285690918564796
+Epoch 0, Step 99: train/loss = 0.6913595199584961, train/raw-loss = 0.6913595199584961, train/logprobs = tensor([[-0.5617, -0.5722],
+        [-0.5644, -0.5652]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.014821561984717846
+Epoch 0, Step 100: train/loss = 0.6924901604652405, train/raw-loss = 0.6924901604652405, train/logprobs = tensor([[-0.6139, -0.6040],
+        [-0.6189, -0.6027]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.01464133057743311
+Epoch 0, Step 101: train/loss = 0.6872327327728271, train/raw-loss = 0.6872327327728271, train/logprobs = tensor([[-0.6452, -0.5985],
+        [-0.6574, -0.5822]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.012945405207574368
+Epoch 0, Step 102: train/loss = 0.6881000995635986, train/raw-loss = 0.6881000995635986, train/logprobs = tensor([[-0.5757, -0.6198],
+        [-0.5893, -0.6079]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.012880598194897175
+Epoch 0, Step 103: train/loss = 0.6858383417129517, train/raw-loss = 0.6858383417129517, train/logprobs = tensor([[-0.6506, -0.6651],
+        [-0.6849, -0.6668]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.012806396931409836
+Epoch 0, Step 104: train/loss = 0.6822622418403625, train/raw-loss = 0.6822622418403625, train/logprobs = tensor([[-0.6189, -0.6336],
+        [-0.6471, -0.6161]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.011220574378967285
+Epoch 0, Step 105: train/loss = 0.6896914839744568, train/raw-loss = 0.6896914839744568, train/logprobs = tensor([[-0.6865, -0.6782],
+        [-0.6885, -0.6648]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.014472558163106441
+Epoch 0, Step 106: train/loss = 0.6899770498275757, train/raw-loss = 0.6899770498275757, train/logprobs = tensor([[-0.6217, -0.6262],
+        [-0.6425, -0.6327]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.012843615375459194

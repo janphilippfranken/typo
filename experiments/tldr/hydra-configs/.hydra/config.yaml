@@ -2,20 +2,20 @@ model:
   model_type: huggingface
   name: mistral_7b_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mixtral-8x7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1
+    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
+    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
     model_max_length: 2048
-data_path: data/base
-data_file: base_mixtral_from_opus_principles.json
+data_path: data/iteration_2
+data_file: iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-from-0.12.json
 n_examples: 2000
 n_responses: 2
 n_constitutions: 2
 wandb:
-  project: typo-summarization-mixtral-v2
-  name: typo-lr-5e-7-iteration-1-opus
+  project: typo-summarization-mistral
+  name: typo-lr-5e-7-iteration-3
   log: true
 typo:
   beta: 0.0
@@ -27,10 +27,10 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization-v2/typo-5e-7-iteration-1-opus
+  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16
-  save_after_n_steps: 16
+  save_after_n_steps: 32
   seed: 42
   model_archive: null
