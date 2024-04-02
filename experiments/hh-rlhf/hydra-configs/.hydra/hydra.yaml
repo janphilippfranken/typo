@@ -113,17 +113,17 @@ hydra:
     - hydra.mode=RUN
     task:
     - typo.beta=0.0
-    - wandb.name=typo-lr-5e-7-iteration-1
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1
+    - wandb.name=typo-lr-5e-7-iteration-2
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-2-from-epoch-0.12
     - training.lr=5e-7
-    - data_path=data/base
-    - helpful=helpful.json
-    - harmless=harmless.json
-    - n_examples=2000
+    - data_path=data/iteration_1
+    - helpful=iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution-helpful.json
+    - harmless=iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution-harmless.json
+    - n_examples=1000
   job:
     name: train_typo
     chdir: null
-    override_dirname: data_path=data/base,harmless=harmless.json,helpful=helpful.json,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-1
+    override_dirname: data_path=data/iteration_1,harmless=iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution-harmless.json,helpful=iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution-helpful.json,n_examples=1000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-2-from-epoch-0.12,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-2
     id: ???
     num: ???
     config_name: train_typo

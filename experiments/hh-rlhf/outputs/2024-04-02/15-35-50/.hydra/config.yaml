@@ -1,0 +1,29 @@
+output_dir: data/iteration_1
+file_name: iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution-helpful
+iteration: 1
+start_example: 10000
+max_example: 20000
+batch_size: 10000
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config:
+  model: null
+  download_dir: null
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: Anthropic/hh-rlhf
+  data_dir: helpful-base
+  cache_dir: /home/jphilipp/research_projects/typo_files/hh-rlhf
+  split: train
+constitution_key: helpful
+filter:
+- The assistant
+- sorry
+- Response
+- '[insert'
+- ']'

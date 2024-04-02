@@ -1,9 +1,9 @@
-output_dir: data/iteration_1
-file_name: iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution
+output_dir: data/iteration_2
+file_name: iteration-2-epoch-0.25-from-epoch-0.12-fixed-epoch-mistral-human-constitution-harmless
 
 iteration: 1
-start_example: 10000
-max_example: 20000
+start_example: 0
+max_example: 10000
 batch_size: 10000
 
 generation_config:
@@ -13,19 +13,19 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: null
-  download_dir: null
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-2-from-epoch-0.12/epoch-0.25
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-2-from-epoch-0.12/epoch-0.25
   dtype: auto
   quantization: null
   tensor_parallel_size: 2
 
 dataset: 
   path: Anthropic/hh-rlhf
-  data_dir: null
-  cache_dir: /home/jphilipp/research_projects/typo_files/hh-rlhf
+  data_dir: harmless-base
+  cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: train
 
-constitution_key: null
+constitution_key: harmless
 
 filter: # for efficiency, we filter these formatting errors or generic 'i'm sorry' responses.
   - The assistant
