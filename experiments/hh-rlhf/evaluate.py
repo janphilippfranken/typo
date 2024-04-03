@@ -78,20 +78,16 @@ def main(args: DictConfig) -> None:
                 constitution_shuffled = "\n".join(principles)
                 batch_constitutions.append(constitution_shuffled)
                 
-                prompt_helpful = PROMPT_TRAINING.format(
+                prompt_helpful = PROMPT_GENERATION_ITERATION_0.format(
                     constitution=constitution_shuffled.strip(),
                     question=question_helpful.strip(),
                 )
 
-                prompt_harmless = PROMPT_TRAINING.format(
+                prompt_harmless = PROMPT_GENERATION_ITERATION_0.format(
                     constitution=constitution_shuffled.strip(),
                     question=question_harmless.strip(),
                 )  
                 
-                prompt_helpful = question_helpful + f"\n\nAssistant:"
-
-                prompt_harmless = question_harmless + f"\n\nAssistant:"
-                # breakpoint()
                 
                 batch_prompts.extend([prompt_helpful, prompt_harmless])
                 batch_questions.append([question_helpful, question_harmless])
@@ -115,7 +111,7 @@ def main(args: DictConfig) -> None:
                         all_responses['constitution'][batch_item_index] = batch_constitutions[batch_item_index].strip()
                         all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
                         all_responses['response_helpful'][batch_item_index] = formatted_responses[0]
-                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].split("Human:")[1].strip()
+                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
                         all_responses['response_harmless'][batch_item_index] = formatted_responses[1]
                         
                     # reset for the next batch

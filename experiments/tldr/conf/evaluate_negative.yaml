@@ -1,4 +1,4 @@
-output_dir: results/responses_negative
+output_dir: results_fixed/responses_negative
 file_name: base-mistral-human-constitution-temperature-0.0
 constitution_dir: constitutions
 
@@ -15,8 +15,8 @@ generation_config:
 model_config:
   model: "mistralai/Mistral-7B-v0.1"
   download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
-  # model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-5-from-epoch-0.2/epoch-0.5/"
-  # download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-5-from-epoch-0.2/epoch-0.5/"
+  # model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
+  # download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
   dtype: auto
   quantization: null
   tensor_parallel_size: 1

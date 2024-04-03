@@ -1,8 +1,12 @@
-output_dir: results/mutual_information
-file_name: iteration-5-epoch-0.2-mistral-human-constitution-from-0.2
+output_dir: results_fixed/mutual_information
+file_name: iteration-3-full
 
-source_dir_positive: results/responses
-source_file_positive: iteration-5-epoch-0.2-temperature-0.0
+source_dir_positive: results_fixed/responses
+source_file_positive: iteration-3-epoch-0.38-from-epoch-0.25-mistral-human-constitution-temperature-0.0.json
+
+source_dir_negative: results_fixed/responses_negative
+
+source_file_negative: iteration-3-epoch-0.38-from-epoch-0.25-mistral-human-constitution-negative-temperature-0.0-negative.json
 
 constitution_dir: constitutions
 
@@ -14,8 +18,8 @@ generation_config:
 model_config:
   # model: "mistralai/Mistral-7B-v0.1"
   # download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
-  model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-5-from-epoch-0.2/epoch-0.2"
-  download_dir: "//scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization/typo-5e-7-iteration-5-from-epoch-0.2/epoch-0.2"
+  model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
+  download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
