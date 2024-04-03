@@ -37,11 +37,11 @@ def main(args: DictConfig) -> None:
     log_probs_negative = []
 
     for constitution, question, response in tqdm(zip(data["constitution"], data["question"], data["response"])):
-        prompt = PROMPT_GENERATION_ITERATION_0.format(constitution=data["constitution"][constitution], question=data["question"][question])
+        prompt = PROMPT_TRAINING.format(constitution=data["constitution"][constitution], question=data["question"][question])
         response_formatted = f"{prompt}{data['response'][response]}"
         logprob_pos = model.batch_log_probs([prompt], [response_formatted])
 
-        prompt_negative = PROMPT_GENERATION_ITERATION_0.format(constitution=constitution_negative, question=data["question"][question])
+        prompt_negative = PROMPT_TRAINING.format(constitution=constitution_negative, question=data["question"][question])
         response_formatted = f"{prompt_negative}{data['response'][response]}"
         logprob_neg = model.batch_log_probs([prompt_negative], [response_formatted])
 
@@ -68,7 +68,7 @@ def main(args: DictConfig) -> None:
     mut_inf = [r1 - r2 for r1, r2 in zip(mut_inf_1, mut_inf_2)]
 
     with open(f"{args.output_dir}/{args.file_name}-mutual-information.json", "w") as file:
-        json.dump(mut_inf, file, indent=4)
+        json.dump((mut_inf, np.mean(mut_inf), np.std(mut_inf) / np.sqrt(len(mut_inf))), file, indent=4)
 
 if __name__ == "__main__":
     fire.Fire(main())
