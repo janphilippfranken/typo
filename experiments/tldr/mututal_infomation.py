@@ -52,11 +52,11 @@ def main(args: DictConfig) -> None:
     log_probs_negative_negative = []
 
     for constitution, question, response in tqdm(zip(data_negative["constitution"], data_negative["question"], data_negative["response"])):
-        prompt = PROMPT_GENERATION_ITERATION_0.format(constitution=data_negative["constitution"][constitution], question=data_negative["question"][question])
+        prompt = PROMPT_TRAINING.format(constitution=data_negative["constitution"][constitution], question=data_negative["question"][question])
         response_formatted = f"{prompt}{data_negative['response'][response]}"
         logprob_pos = model.batch_log_probs([prompt], [response_formatted])
 
-        prompt_negative = PROMPT_GENERATION_ITERATION_0.format(constitution=constitution_positive, question=data_negative["question"][question])
+        prompt_negative = PROMPT_TRAINING.format(constitution=constitution_positive, question=data_negative["question"][question])
         response_formatted = f"{prompt_negative}{data_negative['response'][response]}"
         logprob_neg = model.batch_log_probs([prompt_negative], [response_formatted])
 
