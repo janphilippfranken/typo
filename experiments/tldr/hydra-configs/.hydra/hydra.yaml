@@ -114,15 +114,15 @@ hydra:
     task:
     - typo.beta=0.0
     - wandb.name=typo-lr-5e-7-iteration-3
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25
+    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-mistral-principles/typo-5e-7-iteration-3-from-epoch-0.25
     - training.lr=5e-7
     - data_path=data/iteration_2
-    - data_file=iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-from-0.12.json
+    - data_file=iteration-2-epoch-0.25-fixed-epoch-mistral-mistral-constitution-from-0.12.json
     - n_examples=2000
   job:
     name: train_typo
     chdir: null
-    override_dirname: data_file=iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-from-0.12.json,data_path=data/iteration_2,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed/typo-5e-7-iteration-3-from-epoch-0.25,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-3
+    override_dirname: data_file=iteration-2-epoch-0.25-fixed-epoch-mistral-mistral-constitution-from-0.12.json,data_path=data/iteration_2,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-mistral-principles/typo-5e-7-iteration-3-from-epoch-0.25,training.lr=5e-7,typo.beta=0.0,wandb.name=typo-lr-5e-7-iteration-3
     id: ???
     num: ???
     config_name: train_typo
