@@ -1,11 +1,11 @@
 output_dir: results_fixed/mutual_information
-file_name: base
+file_name: iteration-1
 
 source_dir_positive: results_fixed/responses
-source_file_positive: base-temperature-0.0.json
+source_file_positive: iteration-1-epoch-0.12-mistral-human-constitution-temperature-0.0.json
 
 source_dir_negative: results_fixed/responses_negative
-source_file_negative: base-temperature-0.0-negative.json
+source_file_negative: iteration-1-temperature-0.0-negative.json
 
 constitution_dir: constitutions
 
@@ -15,10 +15,10 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: "mistralai/Mistral-7B-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
-  # model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
-  # download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
+  # model: "mistralai/Mistral-7B-v0.1"
+  # download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1/epoch-0.12
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1/epoch-0.12
   dtype: auto
   quantization: null
   tensor_parallel_size: 1

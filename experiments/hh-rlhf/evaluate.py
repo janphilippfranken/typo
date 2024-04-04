@@ -111,7 +111,7 @@ def main(args: DictConfig) -> None:
                         all_responses['constitution'][batch_item_index] = batch_constitutions[batch_item_index].strip()
                         all_responses['question_helpful'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
                         all_responses['response_helpful'][batch_item_index] = formatted_responses[0]
-                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][0].split("Human:")[1].strip()
+                        all_responses['question_harmless'][batch_item_index] = batch_questions[batch_item_index][1].split("Human:")[1].strip()
                         all_responses['response_harmless'][batch_item_index] = formatted_responses[1]
                         
                     # reset for the next batch
