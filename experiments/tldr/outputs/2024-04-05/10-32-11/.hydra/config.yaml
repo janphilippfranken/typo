@@ -1,0 +1,23 @@
+output_dir: results_fixed/mutual_information
+file_name: iteration-1-mixtral-mistral-constitution-mutual-information
+source_dir_positive: results_fixed/responses
+source_file_positive: iteration-1-epoch-0.12-mixtral-mistral-constitution-temperature-0.0.json
+source_dir_negative: results_fixed/responses_negative
+source_file_negative: iteration-1-epoch-0.12-mixtral-mistral-constitution-temperature-0.0-negative.json
+constitution_dir: constitutions_mistral
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1/epoch-0.12/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1/epoch-0.12/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0

@@ -1,0 +1,37 @@
+output_dir: results_fixed/responses_negative
+file_name: base-mixtral-mistral-constitution
+constitution_dir: constitutions_mistral
+
+start_example: 0
+max_example: 250
+batch_size: 250
+
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1 
+
+# model_config_hf:
+#   pretrained_model_name_or_path: "mistralai/Mixtral-8x7B-v0.1"
+#   cache_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
+
+# state_dict: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38/model.pt
+# save_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38/hf
+ 
+model_config_vllm:
+  # model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1/epoch-0.12/hf
+  # download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-1/epoch-0.12/hf
+  model: "mistralai/Mixtral-8x7B-v0.1"
+  download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+
+dataset: 
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+
+temperatures:
+ - 0.0
+ 

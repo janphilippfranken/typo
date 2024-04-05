@@ -63,13 +63,13 @@ def main(args: DictConfig) -> None:
         log_probs_positive_negative.append(logprob_pos.item())
         log_probs_negative_negative.append(logprob_neg.item())
 
-    # mut_inf_1 = [r1 - r2 for r1, r2 in zip(log_probs_positive, log_probs_negative)]
-    # mut_inf_2 = [r2 - r1 for r1, r2 in zip(log_probs_positive_negative, log_probs_negative_negative)]
-    # mut_inf = [r1 - r2 for r1, r2 in zip(mut_inf_1, mut_inf_2)]
+    mut_inf_1 = [r1 - r2 for r1, r2 in zip(log_probs_positive, log_probs_negative)]
+    mut_inf_2 = [r2 - r1 for r1, r2 in zip(log_probs_positive_negative, log_probs_negative_negative)]
+    mut_inf = [r1 - r2 for r1, r2 in zip(mut_inf_1, mut_inf_2)]
     # this here is the same as above just needst o be divided by 2 instead of 4
-    mut_inf_1 = [r1 - np.mean([r1, r2]) for r1, r2 in zip(log_probs_positive, log_probs_negative)]
-    mut_inf_2 = [r2 - np.mean([r1, r2]) for r1, r2 in zip(log_probs_negative_negative, log_probs_positive_negative)]
-    mut_inf = [r1 + r2 for r1, r2 in zip(mut_inf_1, mut_inf_2)]
+    # mut_inf_1 = [r1 - np.mean([r1, r2]) for r1, r2 in zip(log_probs_positive, log_probs_negative)]
+    # mut_inf_2 = [r2 - np.mean([r1, r2]) for r1, r2 in zip(log_probs_negative_negative, log_probs_positive_negative)]
+    # mut_inf = [r1 + r2 for r1, r2 in zip(mut_inf_1, mut_inf_2)]
     breakpoint()
 
     with open(f"{args.output_dir}/{args.file_name}-mutual-information.json", "w") as file:
