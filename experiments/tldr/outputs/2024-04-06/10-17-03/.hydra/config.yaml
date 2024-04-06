@@ -1,0 +1,23 @@
+output_dir: results_fixed/mutual_information
+file_name: iteration-3-mistral-mistral-constitution-mutual-information-v3
+source_dir_positive: results_fixed/responses
+source_file_positive: iteration-3-epoch-0.25-from-epoch-0.25-mistral-mistral-constitution-v3-temperature-0.0.json
+source_dir_negative: results_fixed/responses_negative
+source_file_negative: iteration-3-epoch-0.25-from-epoch-0.25-mistral-mistral-constitution-v3-negative-temperature-0.0-negative.json
+constitution_dir: constitutions_mistral
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-mistral-principles/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.25
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-mistral-principles/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.25
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0
