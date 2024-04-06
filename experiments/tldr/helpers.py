@@ -36,6 +36,25 @@ def format_responses(responses):
     return formatted_responses
 
 
+def format_responses_cot(responses):
+    formatted_responses = ["", ""]
+    try:
+        formatted_responses[0] = f"{responses[0].strip().split('Summary: ')[1].strip().split('Human: ')[0].strip()}"
+        formatted_responses[1] = f"{responses[1].strip().split('Summary: ')[1].strip().split('Human: ')[0].strip()}"
+        
+        if '###' in formatted_responses[0]:
+            formatted_responses[0] = f"{formatted_responses[0].split('###')[0].strip()}"
+            
+        
+        if '###' in formatted_responses[1]:
+            formatted_responses[1] = f"{formatted_responses[1].split('###')[0].strip()}"
+            
+    except:
+        print('Error in formatting responses. Skipping example.')
+    
+    return formatted_responses
+
+
 def format_example(
     example: List[Dict],
 ) -> Dict:
