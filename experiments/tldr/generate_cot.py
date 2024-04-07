@@ -92,10 +92,12 @@ def main(args: DictConfig) -> None:
                 responses = batch_responses[j:j+2]
                 responses_positive, responses_negative = responses[0], responses[1]
                 formatted_positive, formatted_negative = "", ""
-    
+                # breakpoint()
                 formatted_responses = format_responses_cot([responses_positive, responses_negative])
-
-    
+                print(formatted_responses[0])
+                print(formatted_responses[1])
+                # breakpoint()
+                    
                 # filtering for unwanted terms like "["
                 if all(substring not in formatted_responses[0] for substring in args.filter):
                     formatted_positive = formatted_responses[0]

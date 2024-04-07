@@ -24,12 +24,9 @@ Summarization Constitution: [insert constitution here]
 
 POST: [insert original post here]
 
-Chain of Thought: [Let's think step by step about how to apply each principle from the constitution to the summary:
-Principle 1: [Explain how this principle will be incorporated]
-Principle 2: [Explain how this principle will be incorporated]
-Principle 3: [Explain how this principle will be incorporated]
+Chain of Thought: [Let's think step by step about how to apply each principle from the constitution to the summary]
 
-Summary: [Insert final summary of the post here, clearly incorporating the stylistic elements and adhering to the principles outlined in the constitution]
+Summary: [Insert summary adhering to the principles outlined in the constitution here]
 
 Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
 
@@ -39,7 +36,7 @@ Summarization Constitution:
 
 {question}
 
-Chain of Thought: Principle 1"""
+Chain of Thought: Principle 1 states"""
 
 
 PROMPT_TRAINING = """System: Summarize the post below according to the principles in the constitution.
@@ -53,7 +50,7 @@ Summary:"""
 
 
 
-PROMPT_EVAL_COT= """System: Summarize the post below according to the principles in the constitution.
+PROMPT_EVAL_COT = """System: Summarize the post below according to the principles in the constitution.
 
 ### Example Format
 Summarization Constitution: [insert constitution here]
