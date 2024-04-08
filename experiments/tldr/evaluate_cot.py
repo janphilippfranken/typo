@@ -79,7 +79,7 @@ def main(args: DictConfig) -> None:
                 for j, batch_response in enumerate(batch_responses):
                     # breakpoint()
                     # breakpoint()
-                    formatted_response = f"{batch_response.strip().split('Human: ')[0].strip()}"
+                    formatted_response = f"The {batch_response.strip().split('Human: ')[0].strip()}"
                     if '###' in formatted_response:
                         formatted_response = f"{formatted_response.split('###')[0].strip()}"
                     

@@ -34,7 +34,7 @@ Summarization Constitution:
 
 {question}
 
-Summary:"""
+Summary: The"""
 
 PROMPT_GENERATION_ITERATION_0_COT = """System: Summarize the post below according to the principles outlined in the constitution.
 

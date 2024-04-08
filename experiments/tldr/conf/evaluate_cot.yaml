@@ -1,5 +1,5 @@
 output_dir: results_cot/responses
-file_name: base-diff-prompt
+file_name: iteration-3-epoch-0.38-diff-prompt-2
 constitution_dir: constitutions
 
 start_example: 0
@@ -13,10 +13,10 @@ generation_config:
 
  
 model_config:
-  model: "mistralai/Mistral-7B-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
-  # model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
-  # download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
+  # model: "mistralai/Mistral-7B-v0.1"
+  # download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+  model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
+  download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
