@@ -62,7 +62,7 @@ def main(args: DictConfig) -> None:
             question = f"POST: {example['post']}"
             batch_constitutions.append(constitution_shuffled)
             
-            prompt = PROMPT_GENERATION_ITERATION_0_COT.format(
+            prompt = PROMPT_GENERATION_ITERATION_0_COT_EVAL.format(
                 constitution=constitution_shuffled.strip(),
                 question=question.strip(),
             )
@@ -79,8 +79,10 @@ def main(args: DictConfig) -> None:
                 for j, batch_response in enumerate(batch_responses):
                     # breakpoint()
                     # breakpoint()
-                    formatted_responses = format_responses_cot([batch_response, batch_response])
-                    formatted_response = formatted_responses[0]
+                    formatted_response = f"{batch_response.strip().split('Human: ')[0].strip()}"
+                    if '###' in formatted_response:
+                        formatted_response = f"{formatted_response.split('###')[0].strip()}"
+                    
                     # breakpoint()
                     all_responses['constitution'][j] = batch_constitutions[j].strip()
                     all_responses['question'][j] = batch_questions[j]
