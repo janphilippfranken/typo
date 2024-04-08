@@ -1,9 +1,9 @@
-output_dir: data/iteration_1
-file_name: iteration-1-epoch-0.12-fixed-epoch-mistral-human-constitution-cot
+output_dir: data/iteration_2
+file_name: iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-cot
 
 constitution_dir: constitutions
 
-iteration: 1
+iteration: 2
 start_example: 0
 max_example: 5000
 batch_size: 5000
@@ -18,8 +18,8 @@ model_config:
   # model: "mistralai/Mistral-7B-v0.1"
   # download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
   # download_dir: "/scr/jphilipp/typo/pretrained_models/Mixtral-8x7B-v0.1"
-  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-5e-7-iteration-1/epoch-0.12
-  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-5e-7-iteration-1/epoch-0.12
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot-from-epoch-0.12/typo-5e-7-iteration-2/epoch-0.25
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot-from-epoch-0.12/typo-5e-7-iteration-2/epoch-0.25
   dtype: auto
   quantization: null
   tensor_parallel_size: 2

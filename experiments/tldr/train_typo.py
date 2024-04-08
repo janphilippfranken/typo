@@ -92,8 +92,8 @@ def main(args: DictConfig) -> None:
     model = AutoModelForCausalLM.from_pretrained(
         **args.model.model_config)
     
-    reference_model = AutoModelForCausalLM.from_pretrained(
-        **args.model.model_config)
+    # reference_model = AutoModelForCausalLM.from_pretrained(
+    #     **args.model.model_config)
     
     # load archived .pt file 
     if args.training.model_archive:
@@ -123,15 +123,15 @@ def main(args: DictConfig) -> None:
         limit_all_gathers=False,
     )
     
-    reference_model = FSDP(
-        reference_model,
-        auto_wrap_policy=get_policy(), 
-        mixed_precision=mp_policy,
-        backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
-        sharding_strategy=ShardingStrategy.FULL_SHARD,
-        device_id=torch.cuda.current_device(),
-        limit_all_gathers=False,
-    )
+    # reference_model = FSDP(
+    #     reference_model,
+    #     auto_wrap_policy=get_policy(), 
+    #     mixed_precision=mp_policy,
+    #     backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
+    #     sharding_strategy=ShardingStrategy.FULL_SHARD,
+    #     device_id=torch.cuda.current_device(),
+    #     limit_all_gathers=False,
+    # )
     
     # get data
     dataset_dict = json.load(open(os.path.join(args.data_path, args.data_file)))
@@ -152,7 +152,8 @@ def main(args: DictConfig) -> None:
     # train
     trainer = TYPOTrainer(
         model=model,
-        reference_model=reference_model,
+        # reference_model=reference_model,
+        reference_model=None,
         tokenizer=tokenizer,
         train_dataset=train_dataset,
         eval_dataset=[],
