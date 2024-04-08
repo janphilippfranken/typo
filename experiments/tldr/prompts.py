@@ -26,7 +26,7 @@ POST: [insert query here]
 
 Summary: [insert summary here]
 
-Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
+Human: Thank you!
 
 ### Main Task
 Summarization Constitution: 
