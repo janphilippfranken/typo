@@ -86,7 +86,7 @@ def tokenize_func(
         for tokenized_key in ["input_ids", "attention_mask"]:
             tokenized_example[f"{prompt_key}_{tokenized_key}"] = tokenized_prompt[tokenized_key].squeeze(0)
             tokenized_example[f"{response_key}_{tokenized_key}"] = tokenized_response[tokenized_key].squeeze(0)
-        
+    
     return tokenized_example
 
 import random

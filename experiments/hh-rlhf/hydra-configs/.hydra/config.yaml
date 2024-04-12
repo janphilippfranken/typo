@@ -11,12 +11,12 @@ model:
 data_path: data/iteration_2
 helpful: iteration-2-epoch-0.25-from-epoch-0.12-fixed-epoch-mistral-human-constitution-helpful.json
 harmless: iteration-2-epoch-0.25-from-epoch-0.12-fixed-epoch-mistral-human-constitution-harmless.json
-n_examples: 1000
+n_examples: 2000
 n_responses: 2
 n_constitutions: 2
 wandb:
   project: typo-hh-rlhf
-  name: typo-lr-5e-7-iteration-3
+  name: typo
   log: true
 typo:
   beta: 0.0
@@ -28,7 +28,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25
+  checkpoint_dir: null
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16

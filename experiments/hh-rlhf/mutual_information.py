@@ -30,7 +30,8 @@ def main(args: DictConfig) -> None:
     model = VLLMInferenceModel(**args.model_config)
 
     constitution_positive = CONSTITUTIONS[str(args.constitution_key)]["positive"]
-    constitution_negative = CONSTITUTIONS[str(args.constitution_key)]["negative"]
+    constitution_negative = CONSTITUTIONS[str(args.constitution_key)]["negative"][1]
+    breakpoint()
 
     log_probs_positive_helpful = []
     log_probs_negative_helpful = []
