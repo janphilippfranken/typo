@@ -62,6 +62,7 @@ def main(args: DictConfig) -> None:
     
     constitution = json.load(open(f"{args.constitution_dir}/2.json"))
     constitution_positive = constitution['negative']
+    breakpoint()
   
     
     for temperature in args.temperatures:

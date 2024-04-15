@@ -1,0 +1,27 @@
+output_dir: results_fixed/mutual_information_clean
+file_name: instruct-mistral-opus-constitution
+source_dir_positive: results_fixed/responses
+source_file_positive: instruct-mistral-opus-constitution-temperature-0.0.json
+source_dir_negative_both: results_fixed/responses_negative
+source_file_negative_both: instruct-mistral-opus-constitution-neg-concise-neg-comprehensive-temperature-0.0.json
+source_dir_negative_0: results_fixed/responses_negative
+source_file_negative_0: instruct-mistral-opus-constitution-neg-concise-pos-comprehensive-temperature-0.0.json
+source_dir_negative_1: results_fixed/responses_negative
+source_file_negative_1: instruct-mistral-opus-constitution-pos-concise-neg-comprehensive-temperature-0.0.json
+constitution_dir: constitutions_opus
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: mistralai/Mistral-7B-Instruct-v0.1
+  download_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-Instruct-v0.1
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0

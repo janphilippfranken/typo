@@ -1,0 +1,22 @@
+output_dir: results_fixed/responses_negative
+file_name: iteration-2-epoch-0.25-from-epoch-0.12-mixtral-opus-constitution-pos-concise-neg-comprehensive
+constitution_dir: constitutions_opus
+start_example: 0
+max_example: 250
+batch_size: 250
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config_vllm:
+  model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-2-opus-from-epoch-0.12/epoch-0.25/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-2-opus-from-epoch-0.12/epoch-0.25/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0

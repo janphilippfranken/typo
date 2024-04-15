@@ -1,0 +1,29 @@
+output_dir: results_fixed/mutual_information_clean
+file_name: base-mistral-mistral-constitution
+
+constitution_dir: constitutions_mistral
+
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1 
+
+model_config:
+  model: "mistralai/Mistral-7B-v0.1"
+  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+  # model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38/hf
+  # download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38/hf
+  # model: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-mistral-principles/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
+  # download_dir: "/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-mistral-principles/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38"
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+
+dataset: 
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+
+temperatures:
+ - 0.0
+ 

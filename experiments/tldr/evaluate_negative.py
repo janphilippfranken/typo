@@ -41,8 +41,9 @@ def main(args: DictConfig) -> None:
             filtered_ids.append(example['id'])
     filtered_dataset = filtered_dataset[args.start_example:args.max_example]
     
-    constitution = json.load(open(f"{args.constitution_dir}/2.json"))
+    constitution = json.load(open(f"{args.constitution_dir}/1.json"))
     constitution_positive = constitution['negative']
+    breakpoint()
   
     
     for temperature in args.temperatures:

@@ -1,13 +1,22 @@
-output_dir: results_fixed/mutual_information
+output_dir: results_fixed/mutual_information_clean
 file_name: instruct-mistral-mistral-constitution
+
 
 source_dir_positive: results_fixed/responses
 source_file_positive: instruct-mistral-mistral-constitution-temperature-0.0.json
 
-source_dir_negative: results_fixed/responses_negative
-source_file_negative: instruct-mistral-mistral-constitution-negative-temperature-0.0.json
+source_dir_negative_both: results_fixed/responses_negative
+source_file_negative_both: instruct-mistral-mistral-constitution-negative-temperature-0.0.json
 
-constitution_dir: constitutions
+
+source_dir_negative_0: results_fixed/responses_negative
+source_file_negative_0: instruct-mistral-mistral-constitution-neg-concise-pos-comprehensive-temperature-0.0.json
+
+source_dir_negative_1: results_fixed/responses_negative
+source_file_negative_1: instruct-mistral-mistral-constitution-pos-concise-neg-comprehensive-temperature-0.0.json
+
+
+constitution_dir: constitutions_mistral
 
 generation_config:
   max_new_tokens: 350

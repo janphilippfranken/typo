@@ -23,7 +23,7 @@ export CUDA_LAUNCH_BLOCKING=1
 beta=0.0
 lr=5e-7
 iteration=3
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-cot/typo-${lr}-iteration-${iteration}-from-epoch-0.25"
+checkpoint_dir="/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-${lr}-iteration-${iteration}-from-epoch-0.25"
 
 torchrun --nproc_per_node=4 train_typo.py \
     typo.beta=$beta \
@@ -31,5 +31,5 @@ torchrun --nproc_per_node=4 train_typo.py \
     training.checkpoint_dir="$checkpoint_dir" \
     training.lr=$lr \
     data_path="data/iteration_2" \
-    data_file="iteration-2-epoch-0.25-fixed-epoch-mistral-human-constitution-cot.json" \
+    data_file="iteration-2-epoch-0.25-from-epoch-0.12-fixed-mistral-from-opus-principles.json" \
     n_examples=2000 
