@@ -1,35 +1,29 @@
 output_dir: results_fixed/responses_negative
-file_name: instruct-neg-helpful-pos-harmless
-
+file_name: iteration-1-pos-helpful-neg-harmless
+constitution_dir: constitutions
 start_example: 0
 max_example: 250
 batch_size: 250
-
 generation_config:
   max_new_tokens: 350
   top_p: 0.9
-  num_return_sequences: 1 
-
+  num_return_sequences: 1
 model_config:
-  model: "mistralai/Mistral-7B-Instruct-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-Instruct-v0.1"
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1/epoch-0.12
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1/epoch-0.12
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
-
-dataset_helpful: 
+dataset_helpful:
   path: Anthropic/hh-rlhf
   data_dir: helpful-base
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: test
-
 dataset_harmless:
   path: Anthropic/hh-rlhf
   data_dir: harmless-base
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: test
-
 temperatures:
- - 0.0
- 
-constitution_key: 'helpful' 
+- 0.0
+constitution_key: helpful

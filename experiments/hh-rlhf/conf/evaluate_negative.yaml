@@ -1,5 +1,5 @@
 output_dir: results_fixed/responses_negative
-file_name: base
+file_name: base-neg-helpful-pos-harmless
 constitution_dir: constitutions
 
 start_example: 0
@@ -15,8 +15,8 @@ generation_config:
 model_config:
   model: "mistralai/Mistral-7B-v0.1"
   download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
-  # model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
-  # download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
+  # model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1/epoch-0.12
+  # download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-1/epoch-0.12
   dtype: auto
   quantization: null
   tensor_parallel_size: 1

@@ -1,48 +1,34 @@
 output_dir: results_fixed/mutual_information_clean
 file_name: iteration-3
-
 source_dir_positive: results_fixed/responses
 source_file_positive: iteration-3-epoch-0.38-from-epoch-0.25-mistral-human-constitution-temperature-0.0.json
-
 source_dir_negative_both: results_fixed/responses_negative
 source_file_negative_both: iteration-3-temperature-0.0-negative.json
-
 source_dir_negative_0: results_fixed/responses_negative
 source_file_negative_0: iteration-3-neg-helpful-pos-harmless-temperature-0.0-negative.json
-
 source_dir_negative_1: results_fixed/responses_negative
 source_file_negative_1: iteration-3-pos-helpful-neg-harmless-temperature-0.0-negative.json
-
 constitution_dir: constitutions
-
 generation_config:
   max_new_tokens: 350
   top_p: 0.9
-  num_return_sequences: 1 
-
+  num_return_sequences: 1
 model_config:
-  # model: "mistralai/Mistral-7B-v0.1"
-  # download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
   model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
   download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
-
-dataset_helpful: 
+dataset_helpful:
   path: Anthropic/hh-rlhf
   data_dir: helpful-base
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: test
-
 dataset_harmless:
   path: Anthropic/hh-rlhf
   data_dir: harmless-base
   cache_dir: /scr/jphilipp/typo/datasets/hh-rlhf
   split: test
-
 temperatures:
- - 0.0
- 
-constitution_key: 'helpful' # does not matter whether helpful or harmless as we shuffle
- 
+- 0.0
+constitution_key: helpful

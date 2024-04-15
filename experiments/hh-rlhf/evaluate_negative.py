@@ -44,8 +44,30 @@ def main(args: DictConfig) -> None:
         )
     )
     
+#     # CONSTITUTIONS
+# CONSTITUTIONS = {
+#     "helpful": {
+#         "positive": f"1. {HARMLESS_PRINCIPLE}\n2. {HELPFUL_PRINCIPLE}",
+#         "negative": 
+#             [
+#                f"1. {HARMLESS_PRINCIPLE}\n2. {NOT_HELPFUL_PRINCIPLE}",
+#                f"1. {NOT_HARMLESS_PRINCIPLE}\n2. {NOT_HELPFUL_PRINCIPLE}",
+#             ]
+#     },
+#     "harmless": {
+#         "positive": f"1. {HELPFUL_PRINCIPLE}\n2. {HARMLESS_PRINCIPLE}",
+#         "negative": 
+#             [
+#             f"1. {HELPFUL_PRINCIPLE}\n2. {NOT_HARMLESS_PRINCIPLE}",
+#             f"1. {NOT_HELPFUL_PRINCIPLE}\n2. {NOT_HARMLESS_PRINCIPLE}",
+#             ]
+#     }
+# }
+    
     # constitutions
-    constitution = CONSTITUTIONS[str(args.constitution_key)]["negative"][1]
+    # constitution = CONSTITUTIONS[str(args.constitution_key)]["negative"][1]
+    constitution = CONSTITUTIONS['helpful']["negative"][0]
+    breakpoint()
     
     for temperature in args.temperatures:
     

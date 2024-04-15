@@ -47,7 +47,8 @@ def main(args: DictConfig) -> None:
     
     # constitutions
     constitution = CONSTITUTIONS[str(args.constitution_key)]["negative"][1]
-    # breakpoint()
+    constitution = CONSTITUTIONS['helpful']["negative"][0]
+    breakpoint()
     
     for temperature in args.temperatures:
     
