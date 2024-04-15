@@ -16,7 +16,7 @@ torch.manual_seed(1)
 torch.cuda.manual_seed(1)
 
 # main evaluation script
-@hydra.main(version_base=None, config_path="conf", config_name="mutual_information")
+@hydra.main(version_base=None, config_path="conf", config_name="mutual_information_instruct")
 def main(args: DictConfig) -> None:
     # data
     with open(f"{args.source_dir_positive}/{args.source_file_positive}", "r") as file:
