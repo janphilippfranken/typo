@@ -16,12 +16,10 @@ from prompts import *
 def format_responses_cot(response):
     formatted_response = ""
     try:
-        formatted_response = response.split("Summary:")[1].strip().split("Human:")[0].strip()
+        formatted_response = response.split("Summary:")[1].strip().split("\n\n")[0].strip()
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
-        
-        
         
 
 # main generation script 
@@ -99,7 +97,7 @@ def main(args: DictConfig) -> None:
         
         # generation prompts
         generation_prompts = [
-            PROMPT_GENERATION_ITERATION_0.format(constitution=constitution, question=question)
+            PROMPT_GENERATION_ITERATION_0_COT.format(constitution=constitution, question=question)
             for constitution in [constitution_positive, constitution_negative]
         ]
         batch_prompts.extend(generation_prompts)
@@ -116,8 +114,7 @@ def main(args: DictConfig) -> None:
             batch_responses = model.batch_prompt(
                 prompts=batch_prompts,
                 **args.generation_config,
-            )
-     
+            ) 
 
             for j in range(0, len(batch_responses), 2):
                 responses = batch_responses[j:j+2]
@@ -125,7 +122,7 @@ def main(args: DictConfig) -> None:
                 formatted_positive, formatted_negative = "", ""
     
                 formatted_responses = [format_responses_cot(response) for response in [responses_positive, responses_negative]]
-                breakpoint()
+                # breakpoint()
     
                 # filtering for unwanted terms like "["
                 if all(substring not in formatted_responses[0] for substring in args.filter):

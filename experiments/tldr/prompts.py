@@ -1,30 +1,11 @@
 PROMPT_GENERATION_ITERATION_0 = """System: Summarize the post below according to the principles in the constitution.
 
-### Example Format
-Summarization Constitution: [insert constitution here]
-
-POST: [insert query here]
-
-Summary: [insert summary here]
-
-Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
-
-### Main Task
-Summarization Constitution: 
-{constitution}
-
-{question}
-
-Summary: The post"""
-
-PROMPT_GENERATION_ITERATION_0_COT = """System: Summarize the post below according to the principles in the constitution.
-
 ### Format
 Summarization Constitution: [insert constitution here]
 
 POST: [insert post here]
 
-Reasoning: [insert reasoning here]
+Reasoning: [insert reasoning for how to summarize here]
 
 Summary: [insert summary here]
 
@@ -35,7 +16,29 @@ Summarization Constitution: {constitution}
 
 {question}
 
-Reasoning: The tips for how to summarize state that"""
+Reasoning: {reasoning}
+
+Summary: The post"""
+
+PROMPT_GENERATION_ITERATION_0_COT = """System: Summarize the post below according to the principles in the constitution.
+
+### Format
+Summarization Constitution: [insert constitution here]
+
+POST: [insert post here]
+
+Reasoning: [insert reasoning for how to summarize here]
+
+Summary: [insert summary here]
+
+Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
+
+### Main Task
+Summarization Constitution: {constitution}
+
+{question}
+
+Reasoning: First, I will state my reasoning here, then, on a new line, I will write 'Summary:' and include a summary of the post that aligns with the principles in the constitution. The constitution states that"""
 
 
 
