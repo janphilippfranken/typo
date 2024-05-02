@@ -10,11 +10,11 @@ n_responses: 2
 n_constitutions: 2
 
 defaults:
-  - model: llama_8b_base
+  - model: llama_70b_base
 
 wandb:
-  project: sami-summarization-llama
-  name: sami
+  project: typo-summarization-llama-70
+  name: typo
   log: true
 
 typo:
@@ -23,15 +23,15 @@ typo:
 training:
   evaluate_before_training: false
   evaluate: false
-  n_epochs: 1
+  n_epochs: 3
   lr: 5e-7
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: "/scr/jphilipp/typo/trained_models/Meta-Llama-3-8B/checkpoints-sumarization/typo-5e-7-iteration-1"
+  checkpoint_dir: "/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-5e-7-iteration-1"
   max_grad_norm: 1.0
   num_warmup_steps: 1
-  gradient_accumulation_steps: 32
-  save_after_n_steps: 64
+  gradient_accumulation_steps: 22
+  save_after_n_steps: 86
   seed: 42
   model_archive: null 

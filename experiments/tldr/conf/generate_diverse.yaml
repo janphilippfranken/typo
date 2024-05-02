@@ -5,8 +5,8 @@ constitution_dir: constitutions_opus_diverse
 
 iteration: 0
 start_example: 0
-max_example: 3000
-batch_size: 3000
+max_example: 10000
+batch_size: 10000
 
 generation_config:
   max_new_tokens: 500
@@ -19,7 +19,7 @@ model_config:
   download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
   dtype: auto
   quantization: null
-  tensor_parallel_size: 4
+  tensor_parallel_size: 8
 
 dataset: 
   path: openai/summarize_from_feedback

@@ -1,36 +1,36 @@
 model:
   model_type: huggingface
-  name: mistral_7b_base
+  name: llama_70b_base
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
+    cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
   tokenizer_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-v0.1
-    cache_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
+    cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
     model_max_length: 2048
-data_path: data/iteration_2
-data_file: iteration_2_mistral_from_opus_principles_diverse.json
+data_path: data/base
+data_file: base_llama_70_from_opus_principles_diverse_cot.json
 n_examples: 2000
 n_responses: 2
 n_constitutions: 2
 wandb:
-  project: typo-summarization-opus-mistral-diverse
-  name: typo-lr-5e-7-iteration-3
+  project: typo-summarization-llama-70
+  name: typo-lr-5e-7-iteration-1-opus-diverse
   log: true
 typo:
   beta: 0.0
 training:
   evaluate_before_training: false
   evaluate: false
-  n_epochs: 1
+  n_epochs: 3
   lr: 5.0e-07
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3
+  checkpoint_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-5e-7-iteration-1-opus-diverse
   max_grad_norm: 1.0
   num_warmup_steps: 1
-  gradient_accumulation_steps: 32
-  save_after_n_steps: 64
+  gradient_accumulation_steps: 22
+  save_after_n_steps: 86
   seed: 42
   model_archive: null

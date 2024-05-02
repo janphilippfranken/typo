@@ -72,7 +72,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     
     non_reentrant_wrapper = functools.partial(
         checkpoint_wrapper,
-        offload_to_cpu=False,
+        # offload_to_cpu=False,
         checkpoint_impl=CheckpointImpl.NO_REENTRANT,
     )
     
@@ -86,7 +86,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
         limit_all_gathers=False,
     )
     check_fn = lambda submodule: isinstance(submodule, LlamaDecoderLayer)
-    # apply_activation_checkpointing(model, checkpoint_wrapper_fn=non_reentrant_wrapper, check_fn=check_fn)
+    apply_activation_checkpointing(model, checkpoint_wrapper_fn=non_reentrant_wrapper, check_fn=check_fn)
     
     print(f"wrapped model {rank}...")
 
@@ -137,6 +137,7 @@ def main(args: DictConfig) -> None:
 
     # run with resource limits
     world_size = torch.cuda.device_count()
+    print("WORLD SIZE", world_size,"MODEL", args.model.model_config)
     soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
     resource.setrlimit(resource.RLIMIT_NOFILE, (hard, hard))
     print(f'setting RLIMIT_NOFILE soft limit to {hard} from {soft}')
