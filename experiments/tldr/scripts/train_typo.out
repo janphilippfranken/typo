@@ -1,455 +1,513 @@
 0
 4
-{'model': {'model_type': 'huggingface', 'name': 'mistral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1', 'model_max_length': 2048}}, 'data_path': 'data/iteration_2', 'data_file': 'iteration-2-epoch-0.25-from-epoch-0.12-fixed-mistral-from-opus-principles.json', 'n_examples': 2000, 'n_responses': 2, 'n_constitutions': 2, 'wandb': {'project': 'typo-summarization-opus-mistral', 'name': 'typo-lr-5e-7-iteration-3', 'log': True}, 'typo': {'beta': 0.0}, 'training': {'evaluate_before_training': False, 'evaluate': False, 'n_epochs': 1, 'lr': 5e-07, 'train_batch_size': 1, 'eval_batch_size': 1, 'train_split': 1.0, 'checkpoint_dir': '/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-5e-7-iteration-3-from-epoch-0.25', 'max_grad_norm': 1.0, 'num_warmup_steps': 1, 'gradient_accumulation_steps': 32, 'save_after_n_steps': 64, 'seed': 42, 'model_archive': None}}
+{'model': {'model_type': 'huggingface', 'name': 'mistral_7b_base', 'model_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}, 'tokenizer_config': {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1', 'model_max_length': 2048}}, 'data_path': 'data/iteration_2', 'data_file': 'iteration_2_mistral_from_opus_principles_diverse.json', 'n_examples': 2000, 'n_responses': 2, 'n_constitutions': 2, 'wandb': {'project': 'typo-summarization-opus-mistral-diverse', 'name': 'typo-lr-5e-7-iteration-3', 'log': True}, 'typo': {'beta': 0.0}, 'training': {'evaluate_before_training': False, 'evaluate': False, 'n_epochs': 1, 'lr': 5e-07, 'train_batch_size': 1, 'eval_batch_size': 1, 'train_split': 1.0, 'checkpoint_dir': '/scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3', 'max_grad_norm': 1.0, 'num_warmup_steps': 1, 'gradient_accumulation_steps': 32, 'save_after_n_steps': 64, 'seed': 42, 'model_archive': None}}
 4
-[2024-04-14 15:31:51,333][root][INFO] - beta: 0.0
-[2024-04-14 15:31:51,333][root][INFO] - writing checkpoints to: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-5e-7-iteration-3-from-epoch-0.25
+[2024-05-01 18:29:40,850][root][INFO] - beta: 0.0
+[2024-05-01 18:29:40,850][root][INFO] - writing checkpoints to: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3
 clearing gpu cache for all ranks
 Base model: {'pretrained_model_name_or_path': 'mistralai/Mistral-7B-v0.1', 'cache_dir': '/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1'}
 Model with 7241.732096M params prepared
 n examples: 2000
-{'prompt_c0_r0': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be thorough and capture all the essential information, main points, and key details presented in the original Reddit post, ensuring that the reader gains a complete understanding of the content without needing to read the entire post.\n2. Summaries should be brief, to-the-point, and efficiently convey the core message of the Reddit post using clear, succinct language while avoiding unnecessary details, repetition, or excessive wordiness, allowing the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:', 'response_c0_r0': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be thorough and capture all the essential information, main points, and key details presented in the original Reddit post, ensuring that the reader gains a complete understanding of the content without needing to read the entire post.\n2. Summaries should be brief, to-the-point, and efficiently convey the core message of the Reddit post using clear, succinct language while avoiding unnecessary details, repetition, or excessive wordiness, allowing the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:The post discusses a landlord\'s alleged harassment and defamation of a tenant. The tenant provides evidence and requests further action from the property management group and the human rights board of Canada. The post also includes a website link and references to the human rights code of Manitoba.', 'prompt_c0_r1': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be thorough and capture all the essential information, main points, and key details presented in the original Reddit post, ensuring that the reader gains a complete understanding of the content without needing to read the entire post.\n2. Summaries should be brief, to-the-point, and efficiently convey the core message of the Reddit post using clear, succinct language while avoiding unnecessary details, repetition, or excessive wordiness, allowing the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:', 'response_c0_r1': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be thorough and capture all the essential information, main points, and key details presented in the original Reddit post, ensuring that the reader gains a complete understanding of the content without needing to read the entire post.\n2. Summaries should be brief, to-the-point, and efficiently convey the core message of the Reddit post using clear, succinct language while avoiding unnecessary details, repetition, or excessive wordiness, allowing the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:The post discusses a landlord\'s actions and the author\'s response. The author provides evidence and requests further action. The summary should include the main points and key details presented in the original Reddit post, providing a clear and concise understanding of the content.', 'prompt_c1_r0': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be partial and omit important information, main points, and key details presented in the original Reddit post, leaving the reader with an inadequate understanding of the content and requiring them to read the entire post for clarity.\n2. Summaries should be lengthy, meandering, and inefficiently convey the core message of the Reddit post using convoluted, repetitive language while including unnecessary details and excessive wordiness, making it difficult for the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:', 'response_c1_r0': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be partial and omit important information, main points, and key details presented in the original Reddit post, leaving the reader with an inadequate understanding of the content and requiring them to read the entire post for clarity.\n2. Summaries should be lengthy, meandering, and inefficiently convey the core message of the Reddit post using convoluted, repetitive language while including unnecessary details and excessive wordiness, making it difficult for the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:The post discusses a landlord\'s alleged harassment and defamation of a tenant. The tenant provides evidence and requests further action from the property management group and the human rights board of Canada. The post also includes a website link and references to the human rights code of Manitoba.', 'prompt_c1_r1': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be partial and omit important information, main points, and key details presented in the original Reddit post, leaving the reader with an inadequate understanding of the content and requiring them to read the entire post for clarity.\n2. Summaries should be lengthy, meandering, and inefficiently convey the core message of the Reddit post using convoluted, repetitive language while including unnecessary details and excessive wordiness, making it difficult for the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:', 'response_c1_r1': 'System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Summaries should be partial and omit important information, main points, and key details presented in the original Reddit post, leaving the reader with an inadequate understanding of the content and requiring them to read the entire post for clarity.\n2. Summaries should be lengthy, meandering, and inefficiently convey the core message of the Reddit post using convoluted, repetitive language while including unnecessary details and excessive wordiness, making it difficult for the reader to quickly grasp the main ideas.\n\nPOST: My landlord left a falsified message taped to my door for all neighbours to are pretending to be another tenant. \n\nEvidence: \nShe used the same font and size that she uses for all her notes\nOnly she would know where we live and correlate it with where we park\nNeighbours have no problem with us \n\nWe requested from the property management group to have the video tapes looked at and they stated hey did not have time to go on a "wild goose chase" I want evidence hard evidence and they denied me. \n\nI want to pursue this further particularly  with the human rights board of Canada based in harrassment and predjusice that goes against the human rights code. \n\nThe letter calls us assholes, says we were raised in a barn, says because we are young we should be more competent, calls us pigs, days we make all the neighbours sick. \n\nIt is defamatory as it was pasted for everyone to see. Also we were not born in Canada. \n\nPlease see this website for your information on his situation.  \n\nAlso this letter was taped on our door for everyone to see. It was prejudice and defamatory on many levels Adressed in the the human rights code of Manitoba. It was defamation of character for it to be visible To everyone. Please see the following "\nIt is also contrary to The Code for anyone responsible for rental housing to knowingly permit or fail to take reasonable steps to terminate harassment of one participant by another participant - such as harassment of one tenant by another tenant. (Please also see the sample policies on Discrimination and Harassment at the end of these guidelines.)"\n\nSummary:The post discusses a landlord\'s actions and the author\'s response. The author provides evidence and requests further action. The summary should include the main points and key details presented in the original Reddit post, providing a clear and concise understanding of the content.'}
-Loaded model on rank 2
-Loaded reference model on rank 2
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-5e-7-iteration-3-from-epoch-0.25.
-Loaded model on rank 3
-Loaded reference model on rank 3
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-5e-7-iteration-3-from-epoch-0.25.
+{'prompt_c0_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Distill the original post down to its bare essentials, using the fewest words possible while still preserving the core meaning.\n2. Rely solely on text to summarize the post, without incorporating emojis to enhance the message or emotional tone.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c0_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Distill the original post down to its bare essentials, using the fewest words possible while still preserving the core meaning.\n2. Rely solely on text to summarize the post, without incorporating emojis to enhance the message or emotional tone.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post summarizes a situation where the author's mother is upset about the author's plans to travel to the United States to meet her boyfriend. The author has booked a flight to the west coast and plans to stay with her boyfriend for a few days before returning to the east coast to meet her mother. The mother is concerned about the author flying alone and has expressed her disapproval of the plan. The author feels that she has done everything she can to make her mother comfortable with the trip and is frustrated by her mother's attempts to sabotage the plans. The author asks for thoughts and opinions on the situation.", 'prompt_c0_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Distill the original post down to its bare essentials, using the fewest words possible while still preserving the core meaning.\n2. Rely solely on text to summarize the post, without incorporating emojis to enhance the message or emotional tone.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c0_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Distill the original post down to its bare essentials, using the fewest words possible while still preserving the core meaning.\n2. Rely solely on text to summarize the post, without incorporating emojis to enhance the message or emotional tone.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post summarizes the situation of a long-distance relationship between a couple, where the girlfriend is planning to visit her boyfriend in the USA. The summary includes the details of the trip, the concerns of the girlfriend's mother, and the girlfriend's efforts to make her mother comfortable with the trip. The summary also includes the girlfriend's frustration with her mother's behavior and the need for support and advice.", 'prompt_c1_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Include extraneous details or elaborate explanations that detract from the summary's simplicity and impact.\n2. Convey the main ideas and emotions of the original post using a combination of emojis and concise text in the summary.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c1_r0': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Include extraneous details or elaborate explanations that detract from the summary's simplicity and impact.\n2. Convey the main ideas and emotions of the original post using a combination of emojis and concise text in the summary.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post summarizes a situation where the author's mother is upset about the author's plans to travel to the United States to meet her boyfriend. The author has booked a flight to the west coast and plans to stay with her boyfriend for a few days before returning to the east coast to meet her mother. The mother is concerned about the author flying alone and has expressed her disapproval of the plan. The author feels that she has done everything she can to make her mother comfortable with the trip and is frustrated by her mother's attempts to sabotage the plans. The author asks for thoughts and opinions on the situation.", 'prompt_c1_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Include extraneous details or elaborate explanations that detract from the summary's simplicity and impact.\n2. Convey the main ideas and emotions of the original post using a combination of emojis and concise text in the summary.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:", 'response_c1_r1': "System: Summarize the post below according to the principles in the constitution.\n\nSummarization Constitution: \n1. Include extraneous details or elaborate explanations that detract from the summary's simplicity and impact.\n2. Convey the main ideas and emotions of the original post using a combination of emojis and concise text in the summary.\n\nPOST: My boyfriend and I are long distance. We have a trip planned this summer which involves me going over to him in the USA. This will be the second time I have actually been with him in person. I am flying from the UK with my mum to the east coast. The original plan was for me to fly over to my boyfriend in the west coast (my parents are holidaying on the east coast) but because my mum was freaking out so much about me going to meet my boyfriend i said we can all road trip there together. I even invited her on the trip with us. I have given her all of our dates so that she can travel around with us.\n\nThe plan was for me to stay on the 4th July and fly back on the 5th. Mum knew this. I told her I had booked a flight back already from the west coast to east coast (where she would pick me up and we would fly back to the UK together). She has gone mad at me because she can't believe I would book a flight when she told me she didn't want me flying on my own. At the time I had booked it she told me she wasn't gonna road trip with us. She knew the trip was happening.......how else was I to get home if I don't fly? \n\nI am fine flying on my own it doesn't bother me at all. I feel like I have done everything I can to make her feel comfortable with this trip and she is just trying to sabotage it. Thoughts??\n\nSummary:The post summarizes the situation of a long-distance relationship between a couple, where the girlfriend is planning to visit her boyfriend in the USA. The summary includes the details of the trip, the concerns of the girlfriend's mother, and the girlfriend's efforts to make her mother comfortable with the trip. The summary also includes the girlfriend's frustration with her mother's behavior and the need for support and advice."}
 2000
 tokenized 2000 training examples...
 Loaded model on rank 0
 Loaded reference model on rank 0
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-5e-7-iteration-3-from-epoch-0.25.
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3.
 Loaded model on rank 1
 Loaded reference model on rank 1
-Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-fixed-opus-principles/typo-5e-7-iteration-3-from-epoch-0.25.
-Epoch 0, Step 0: train/loss = 0.6915311813354492, train/raw-loss = 0.6915311813354492, train/logprobs = tensor([[-0.6572, -0.6759],
-        [-0.6668, -0.6768]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 1: train/loss = 0.6873867511749268, train/raw-loss = 0.6873867511749268, train/logprobs = tensor([[-0.6568, -0.7316],
-        [-0.6734, -0.7235]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 2: train/loss = 0.6920117139816284, train/raw-loss = 0.6920117139816284, train/logprobs = tensor([[-0.6952, -0.6602],
-        [-0.6989, -0.6557]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 3: train/loss = 0.6907674670219421, train/raw-loss = 0.6907674670219421, train/logprobs = tensor([[-0.7635, -0.7514],
-        [-0.7738, -0.7516]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 4: train/loss = 0.6900240182876587, train/raw-loss = 0.6900240182876587, train/logprobs = tensor([[-0.6657, -0.6569],
-        [-0.6621, -0.6398]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 5: train/loss = 0.6877387166023254, train/raw-loss = 0.6877387166023254, train/logprobs = tensor([[-0.6643, -0.6710],
-        [-0.6843, -0.6663]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 6: train/loss = 0.689416766166687, train/raw-loss = 0.689416766166687, train/logprobs = tensor([[-0.7166, -0.7350],
-        [-0.7342, -0.7342]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 7: train/loss = 0.6928220391273499, train/raw-loss = 0.6928220391273499, train/logprobs = tensor([[-0.6653, -0.5717],
-        [-0.6696, -0.5667]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 8: train/loss = 0.6863219141960144, train/raw-loss = 0.6863219141960144, train/logprobs = tensor([[-0.7016, -0.7991],
-        [-0.7267, -0.7923]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 9: train/loss = 0.6832035183906555, train/raw-loss = 0.6832035183906555, train/logprobs = tensor([[-0.6338, -0.6805],
-        [-0.6470, -0.6529]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 10: train/loss = 0.6938512921333313, train/raw-loss = 0.6938512921333313, train/logprobs = tensor([[-0.7230, -0.6357],
-        [-0.7387, -0.6360]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 11: train/loss = 0.6853495240211487, train/raw-loss = 0.6853495240211487, train/logprobs = tensor([[-0.7282, -0.7281],
-        [-0.7416, -0.7078]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 12: train/loss = 0.6812267303466797, train/raw-loss = 0.6812267303466797, train/logprobs = tensor([[-0.6713, -0.7225],
-        [-0.6872, -0.6877]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 13: train/loss = 0.694811999797821, train/raw-loss = 0.694811999797821, train/logprobs = tensor([[-0.7250, -0.6369],
-        [-0.7241, -0.6360]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 14: train/loss = 0.6914800405502319, train/raw-loss = 0.6914800405502319, train/logprobs = tensor([[-0.6530, -0.6527],
-        [-0.6656, -0.6571]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 15: train/loss = 0.6965487003326416, train/raw-loss = 0.6965487003326416, train/logprobs = tensor([[-0.5626, -0.5580],
-        [-0.5565, -0.5555]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 16: train/loss = 0.689893901348114, train/raw-loss = 0.689893901348114, train/logprobs = tensor([[-0.7502, -0.7533],
-        [-0.7710, -0.7604]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 17: train/loss = 0.6909846067428589, train/raw-loss = 0.6909846067428589, train/logprobs = tensor([[-0.7555, -0.7109],
-        [-0.7545, -0.7001]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 18: train/loss = 0.6929636597633362, train/raw-loss = 0.6929636597633362, train/logprobs = tensor([[-0.6277, -0.7594],
-        [-0.6417, -0.7671]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 19: train/loss = 0.6893280744552612, train/raw-loss = 0.6893280744552612, train/logprobs = tensor([[-0.7095, -0.7357],
-        [-0.7337, -0.7436]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 20: train/loss = 0.6898913383483887, train/raw-loss = 0.6898913383483887, train/logprobs = tensor([[-0.7303, -0.7641],
-        [-0.7563, -0.7699]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 21: train/loss = 0.6906851530075073, train/raw-loss = 0.6906851530075073, train/logprobs = tensor([[-0.7523, -0.7775],
-        [-0.7675, -0.7809]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 22: train/loss = 0.6915114521980286, train/raw-loss = 0.6915114521980286, train/logprobs = tensor([[-0.7633, -0.7547],
-        [-0.7877, -0.7684]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 23: train/loss = 0.6931668519973755, train/raw-loss = 0.6931668519973755, train/logprobs = tensor([[-0.5833, -0.6443],
-        [-0.5983, -0.6444]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 24: train/loss = 0.6867599487304688, train/raw-loss = 0.6867599487304688, train/logprobs = tensor([[-0.6545, -0.6630],
-        [-0.6728, -0.6553]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 25: train/loss = 0.6874484419822693, train/raw-loss = 0.6874484419822693, train/logprobs = tensor([[-0.6869, -0.7312],
-        [-0.6981, -0.7150]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 26: train/loss = 0.6912411451339722, train/raw-loss = 0.6912411451339722, train/logprobs = tensor([[-0.6801, -0.6416],
-        [-0.6882, -0.6398]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 27: train/loss = 0.6660712361335754, train/raw-loss = 0.6660712361335754, train/logprobs = tensor([[-0.7613, -0.7021],
-        [-0.7764, -0.5944]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 28: train/loss = 0.6889764070510864, train/raw-loss = 0.6889764070510864, train/logprobs = tensor([[-0.7059, -0.6747],
-        [-0.7228, -0.6722]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 29: train/loss = 0.6883395910263062, train/raw-loss = 0.6883395910263062, train/logprobs = tensor([[-0.6649, -0.7563],
-        [-0.6893, -0.7557]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 30: train/loss = 0.6900163292884827, train/raw-loss = 0.6900163292884827, train/logprobs = tensor([[-0.6890, -0.7587],
-        [-0.6962, -0.7510]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 31: train/loss = 0.6849647760391235, train/raw-loss = 0.6849647760391235, train/logprobs = tensor([[-0.7752, -0.6716],
-        [-0.8127, -0.6695]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 32: train/loss = 0.6877295970916748, train/raw-loss = 0.6877295970916748, train/logprobs = tensor([[-0.6743, -0.7574],
-        [-0.6933, -0.7528]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 33: train/loss = 0.6909604072570801, train/raw-loss = 0.6909604072570801, train/logprobs = tensor([[-0.6884, -0.6237],
-        [-0.6958, -0.6199]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 34: train/loss = 0.6863176822662354, train/raw-loss = 0.6863176822662354, train/logprobs = tensor([[-0.6866, -0.6528],
-        [-0.7093, -0.6468]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 35: train/loss = 0.69158935546875, train/raw-loss = 0.69158935546875, train/logprobs = tensor([[-0.6516, -0.7366],
-        [-0.6587, -0.7315]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 36: train/loss = 0.6545060873031616, train/raw-loss = 0.6545060873031616, train/logprobs = tensor([[-0.6788, -0.8395],
-        [-0.6972, -0.6709]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 37: train/loss = 0.6852449774742126, train/raw-loss = 0.6852449774742126, train/logprobs = tensor([[-0.6729, -0.7771],
-        [-0.6949, -0.7644]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 38: train/loss = 0.6913604736328125, train/raw-loss = 0.6913604736328125, train/logprobs = tensor([[-0.7209, -0.6624],
-        [-0.7368, -0.6657]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 39: train/loss = 0.690779447555542, train/raw-loss = 0.690779447555542, train/logprobs = tensor([[-0.7347, -0.6884],
-        [-0.7502, -0.6862]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 40: train/loss = 0.6880178451538086, train/raw-loss = 0.6880178451538086, train/logprobs = tensor([[-0.7131, -0.6963],
-        [-0.7401, -0.7007]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 41: train/loss = 0.6895164847373962, train/raw-loss = 0.6895164847373962, train/logprobs = tensor([[-0.6321, -0.7230],
-        [-0.6514, -0.7181]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 42: train/loss = 0.6928207874298096, train/raw-loss = 0.6928207874298096, train/logprobs = tensor([[-0.7365, -0.7648],
-        [-0.7562, -0.7670]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 43: train/loss = 0.6896495819091797, train/raw-loss = 0.6896495819091797, train/logprobs = tensor([[-0.7432, -0.7664],
-        [-0.7440, -0.7507]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 44: train/loss = 0.6877701282501221, train/raw-loss = 0.6877701282501221, train/logprobs = tensor([[-0.6649, -0.6920],
-        [-0.6864, -0.6906]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 45: train/loss = 0.684478759765625, train/raw-loss = 0.684478759765625, train/logprobs = tensor([[-0.7276, -0.6670],
-        [-0.7482, -0.6490]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 46: train/loss = 0.6891303658485413, train/raw-loss = 0.6891303658485413, train/logprobs = tensor([[-0.6862, -0.7420],
-        [-0.7070, -0.7427]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 47: train/loss = 0.6888693571090698, train/raw-loss = 0.6888693571090698, train/logprobs = tensor([[-0.6926, -0.6799],
-        [-0.7071, -0.6765]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 48: train/loss = 0.6876243352890015, train/raw-loss = 0.6876243352890015, train/logprobs = tensor([[-0.6280, -0.6427],
-        [-0.6355, -0.6236]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 49: train/loss = 0.6895215511322021, train/raw-loss = 0.6895215511322021, train/logprobs = tensor([[-0.6819, -0.7472],
-        [-0.6959, -0.7446]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 50: train/loss = 0.6907930374145508, train/raw-loss = 0.6907930374145508, train/logprobs = tensor([[-0.6404, -0.6429],
-        [-0.6432, -0.6315]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 51: train/loss = 0.6911553144454956, train/raw-loss = 0.6911553144454956, train/logprobs = tensor([[-0.6888, -0.7140],
-        [-0.7028, -0.7191]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 52: train/loss = 0.6904650926589966, train/raw-loss = 0.6904650926589966, train/logprobs = tensor([[-0.7264, -0.7129],
-        [-0.7411, -0.7161]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 53: train/loss = 0.6883136630058289, train/raw-loss = 0.6883136630058289, train/logprobs = tensor([[-0.5952, -0.6080],
-        [-0.6153, -0.6081]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 54: train/loss = 0.6865129470825195, train/raw-loss = 0.6865129470825195, train/logprobs = tensor([[-0.7076, -0.7148],
-        [-0.7159, -0.6962]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 55: train/loss = 0.690466046333313, train/raw-loss = 0.690466046333313, train/logprobs = tensor([[-0.6334, -0.7327],
-        [-0.6532, -0.7364]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 56: train/loss = 0.6894312500953674, train/raw-loss = 0.6894312500953674, train/logprobs = tensor([[-0.7294, -0.7845],
-        [-0.7386, -0.7761]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 57: train/loss = 0.6896811723709106, train/raw-loss = 0.6896811723709106, train/logprobs = tensor([[-0.6345, -0.6240],
-        [-0.6407, -0.6157]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 58: train/loss = 0.687821626663208, train/raw-loss = 0.687821626663208, train/logprobs = tensor([[-0.6566, -0.6326],
-        [-0.6839, -0.6375]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 59: train/loss = 0.6894110441207886, train/raw-loss = 0.6894110441207886, train/logprobs = tensor([[-0.5859, -0.5954],
-        [-0.6021, -0.5961]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 60: train/loss = 0.6898066401481628, train/raw-loss = 0.6898066401481628, train/logprobs = tensor([[-0.6807, -0.7702],
-        [-0.7009, -0.7721]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 61: train/loss = 0.6883016228675842, train/raw-loss = 0.6883016228675842, train/logprobs = tensor([[-0.7353, -0.7322],
-        [-0.7436, -0.7176]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 62: train/loss = 0.6894551515579224, train/raw-loss = 0.6894551515579224, train/logprobs = tensor([[-0.6524, -0.7074],
-        [-0.6617, -0.6979]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 63: train/loss = 0.6964987516403198, train/raw-loss = 0.6964987516403198, train/logprobs = tensor([[-0.6190, -0.8276],
-        [-0.6296, -0.8297]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3.
+Loaded model on rank 3
+Loaded reference model on rank 3
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3.
+Loaded model on rank 2
+Loaded reference model on rank 2
+Writing checkpoints to /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/checkpoints-summarization-diverse/typo-5e-7-iteration-3.
+Epoch 0, Step 0: train/loss = 0.6898741126060486, train/raw-loss = 0.6898741126060486, train/logprobs = tensor([[-0.4845, -0.5959],
+        [-0.4776, -0.5675]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 1: train/loss = 0.6910042762756348, train/raw-loss = 0.6910042762756348, train/logprobs = tensor([[-0.5608, -0.5971],
+        [-0.5391, -0.5596]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 2: train/loss = 0.6866564750671387, train/raw-loss = 0.6866564750671387, train/logprobs = tensor([[-0.7044, -0.5535],
+        [-0.7226, -0.5339]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 3: train/loss = 0.6703957319259644, train/raw-loss = 0.6703957319259644, train/logprobs = tensor([[-0.5620, -0.5476],
+        [-0.6618, -0.5415]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 4: train/loss = 0.6935981512069702, train/raw-loss = 0.6935981512069702, train/logprobs = tensor([[-0.4687, -0.5323],
+        [-0.4756, -0.5350]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 5: train/loss = 0.6902509331703186, train/raw-loss = 0.6902509331703186, train/logprobs = tensor([[-0.6383, -0.5540],
+        [-0.6532, -0.5546]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 6: train/loss = 0.6995086669921875, train/raw-loss = 0.6995086669921875, train/logprobs = tensor([[-0.5752, -0.5705],
+        [-0.5569, -0.5490]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 7: train/loss = 0.6957937479019165, train/raw-loss = 0.6957937479019165, train/logprobs = tensor([[-0.3832, -0.5017],
+        [-0.3845, -0.5032]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 8: train/loss = 0.6865003108978271, train/raw-loss = 0.6865003108978271, train/logprobs = tensor([[-0.6183, -0.7932],
+        [-0.5833, -0.6970]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 9: train/loss = 0.6908296346664429, train/raw-loss = 0.6908296346664429, train/logprobs = tensor([[-0.6471, -0.5379],
+        [-0.6645, -0.5362]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 10: train/loss = 0.6832737326622009, train/raw-loss = 0.6832737326622009, train/logprobs = tensor([[-0.5541, -0.5232],
+        [-0.6004, -0.4952]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 11: train/loss = 0.6921807527542114, train/raw-loss = 0.6921807527542114, train/logprobs = tensor([[-0.6786, -0.6659],
+        [-0.6695, -0.6460]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 12: train/loss = 0.695781946182251, train/raw-loss = 0.695781946182251, train/logprobs = tensor([[-0.5220, -0.5867],
+        [-0.5119, -0.5682]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 13: train/loss = 0.6998904347419739, train/raw-loss = 0.6998904347419739, train/logprobs = tensor([[-0.5489, -0.4807],
+        [-0.5092, -0.4564]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 14: train/loss = 0.6989067792892456, train/raw-loss = 0.6989067792892456, train/logprobs = tensor([[-0.6256, -0.6700],
+        [-0.6731, -0.7336]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 15: train/loss = 0.657020092010498, train/raw-loss = 0.657020092010498, train/logprobs = tensor([[-0.6122, -0.6578],
+        [-0.8130, -0.6580]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 16: train/loss = 0.6242038607597351, train/raw-loss = 0.6242038607597351, train/logprobs = tensor([[-0.4345, -0.5787],
+        [-0.8249, -0.5321]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 17: train/loss = 0.6909195184707642, train/raw-loss = 0.6909195184707642, train/logprobs = tensor([[-0.5773, -0.5831],
+        [-0.5924, -0.5874]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 18: train/loss = 0.687233567237854, train/raw-loss = 0.687233567237854, train/logprobs = tensor([[-0.5450, -0.5998],
+        [-0.5649, -0.5684]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 19: train/loss = 0.6957350373268127, train/raw-loss = 0.6957350373268127, train/logprobs = tensor([[-0.5447, -0.5733],
+        [-0.5635, -0.5844]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 20: train/loss = 0.6897016763687134, train/raw-loss = 0.6897016763687134, train/logprobs = tensor([[-0.5888, -0.5937],
+        [-0.6013, -0.5879]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 21: train/loss = 0.6874725222587585, train/raw-loss = 0.6874725222587585, train/logprobs = tensor([[-0.6115, -0.7529],
+        [-0.5998, -0.6990]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 22: train/loss = 0.6985258460044861, train/raw-loss = 0.6985258460044861, train/logprobs = tensor([[-0.6348, -0.7129],
+        [-0.6233, -0.6836]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 23: train/loss = 0.6839227676391602, train/raw-loss = 0.6839227676391602, train/logprobs = tensor([[-0.6166, -0.7562],
+        [-0.6899, -0.7680]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 24: train/loss = 0.6890225410461426, train/raw-loss = 0.6890225410461426, train/logprobs = tensor([[-0.6104, -0.5453],
+        [-0.6350, -0.5482]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 25: train/loss = 0.6885402798652649, train/raw-loss = 0.6885402798652649, train/logprobs = tensor([[-0.6975, -0.4464],
+        [-0.7280, -0.4329]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 26: train/loss = 0.6825952529907227, train/raw-loss = 0.6825952529907227, train/logprobs = tensor([[-0.4919, -0.4501],
+        [-0.5326, -0.4421]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 27: train/loss = 0.6858230233192444, train/raw-loss = 0.6858230233192444, train/logprobs = tensor([[-0.6468, -0.6641],
+        [-0.6665, -0.6464]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 28: train/loss = 0.6831705570220947, train/raw-loss = 0.6831705570220947, train/logprobs = tensor([[-0.7574, -0.7560],
+        [-0.7598, -0.7171]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 29: train/loss = 0.6922651529312134, train/raw-loss = 0.6922651529312134, train/logprobs = tensor([[-0.5031, -0.4294],
+        [-0.5139, -0.4301]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 30: train/loss = 0.6911754608154297, train/raw-loss = 0.6911754608154297, train/logprobs = tensor([[-0.5998, -0.7343],
+        [-0.6091, -0.7286]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 31: train/loss = 0.6679726839065552, train/raw-loss = 0.6679726839065552, train/logprobs = tensor([[-0.5470, -0.6339],
+        [-0.6960, -0.6446]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 32: train/loss = 0.683484673500061, train/raw-loss = 0.683484673500061, train/logprobs = tensor([[-0.6567, -0.6428],
+        [-0.6578, -0.5938]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 33: train/loss = 0.6877567172050476, train/raw-loss = 0.6877567172050476, train/logprobs = tensor([[-0.6455, -0.6622],
+        [-0.6430, -0.6374]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 34: train/loss = 0.6970694065093994, train/raw-loss = 0.6970694065093994, train/logprobs = tensor([[-0.6431, -0.3869],
+        [-0.6565, -0.3923]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 35: train/loss = 0.6792324781417847, train/raw-loss = 0.6792324781417847, train/logprobs = tensor([[-0.6168, -0.7284],
+        [-0.6239, -0.6693]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 36: train/loss = 0.6621147394180298, train/raw-loss = 0.6621147394180298, train/logprobs = tensor([[-0.5328, -0.6939],
+        [-0.6591, -0.6800]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 37: train/loss = 0.688753068447113, train/raw-loss = 0.688753068447113, train/logprobs = tensor([[-0.7137, -0.5832],
+        [-0.7298, -0.5727]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 38: train/loss = 0.6884973645210266, train/raw-loss = 0.6884973645210266, train/logprobs = tensor([[-0.5357, -0.6790],
+        [-0.5611, -0.6664]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 39: train/loss = 0.6755744218826294, train/raw-loss = 0.6755744218826294, train/logprobs = tensor([[-0.6644, -0.7237],
+        [-0.6726, -0.6567]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 40: train/loss = 0.692375898361206, train/raw-loss = 0.692375898361206, train/logprobs = tensor([[-0.5771, -0.4847],
+        [-0.5792, -0.4714]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 41: train/loss = 0.6840686202049255, train/raw-loss = 0.6840686202049255, train/logprobs = tensor([[-0.6321, -0.6980],
+        [-0.6184, -0.6410]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 42: train/loss = 0.6901111006736755, train/raw-loss = 0.6901111006736755, train/logprobs = tensor([[-0.6570, -0.7548],
+        [-0.6681, -0.7502]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 43: train/loss = 0.6897071003913879, train/raw-loss = 0.6897071003913879, train/logprobs = tensor([[-0.6023, -0.5727],
+        [-0.5977, -0.5344]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 44: train/loss = 0.6860837340354919, train/raw-loss = 0.6860837340354919, train/logprobs = tensor([[-0.5271, -0.5446],
+        [-0.5229, -0.5059]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 45: train/loss = 0.6838610172271729, train/raw-loss = 0.6838610172271729, train/logprobs = tensor([[-0.6850, -0.7331],
+        [-0.7070, -0.7134]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 46: train/loss = 0.6626357436180115, train/raw-loss = 0.6626357436180115, train/logprobs = tensor([[-0.6667, -0.8155],
+        [-0.6979, -0.6599]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 47: train/loss = 0.700826108455658, train/raw-loss = 0.700826108455658, train/logprobs = tensor([[-0.5310, -0.6348],
+        [-0.4927, -0.6124]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 48: train/loss = 0.693268895149231, train/raw-loss = 0.693268895149231, train/logprobs = tensor([[-0.5650, -0.5381],
+        [-0.5594, -0.5297]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 49: train/loss = 0.6887608766555786, train/raw-loss = 0.6887608766555786, train/logprobs = tensor([[-0.6888, -0.7992],
+        [-0.7020, -0.7855]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 50: train/loss = 0.6863585710525513, train/raw-loss = 0.6863585710525513, train/logprobs = tensor([[-0.6888, -0.5498],
+        [-0.7422, -0.5669]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 51: train/loss = 0.6647992134094238, train/raw-loss = 0.6647992134094238, train/logprobs = tensor([[-0.5534, -0.7155],
+        [-0.5644, -0.5992]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 52: train/loss = 0.6289108991622925, train/raw-loss = 0.6289108991622925, train/logprobs = tensor([[-0.5927, -0.9625],
+        [-0.6295, -0.6440]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 53: train/loss = 0.6907914876937866, train/raw-loss = 0.6907914876937866, train/logprobs = tensor([[-0.6631, -0.5418],
+        [-0.6667, -0.5283]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 54: train/loss = 0.691230833530426, train/raw-loss = 0.691230833530426, train/logprobs = tensor([[-0.6207, -0.5971],
+        [-0.6307, -0.5971]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 55: train/loss = 0.6872907280921936, train/raw-loss = 0.6872907280921936, train/logprobs = tensor([[-0.3123, -0.5024],
+        [-0.3084, -0.4596]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 56: train/loss = 0.6369401216506958, train/raw-loss = 0.6369401216506958, train/logprobs = tensor([[-0.7285, -0.7925],
+        [-0.7351, -0.4229]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 57: train/loss = 0.6947140693664551, train/raw-loss = 0.6947140693664551, train/logprobs = tensor([[-0.4980, -0.5703],
+        [-0.4925, -0.5634]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 58: train/loss = 0.6324595212936401, train/raw-loss = 0.6324595212936401, train/logprobs = tensor([[-0.5881, -1.0083],
+        [-0.5764, -0.6342]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 59: train/loss = 0.687703013420105, train/raw-loss = 0.687703013420105, train/logprobs = tensor([[-0.5743, -0.5521],
+        [-0.6016, -0.5469]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 60: train/loss = 0.6223872900009155, train/raw-loss = 0.6223872900009155, train/logprobs = tensor([[-0.5857, -0.7938],
+        [-0.8591, -0.7317]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 61: train/loss = 0.7026512622833252, train/raw-loss = 0.7026512622833252, train/logprobs = tensor([[-0.7150, -0.6091],
+        [-0.6861, -0.5996]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 62: train/loss = 0.685556948184967, train/raw-loss = 0.685556948184967, train/logprobs = tensor([[-0.6917, -0.5417],
+        [-0.7586, -0.5631]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 63: train/loss = 0.6886497139930725, train/raw-loss = 0.6886497139930725, train/logprobs = tensor([[-0.6413, -0.6682],
+        [-0.6231, -0.6299]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
 Model saved, deleting model...
 Deleted model...
-Epoch 0, Step 64: train/loss = 0.6723841428756714, train/raw-loss = 0.6723841428756714, train/logprobs = tensor([[-0.7154, -0.7561],
-        [-0.7191, -0.6699]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 65: train/loss = 0.6903432607650757, train/raw-loss = 0.6903432607650757, train/logprobs = tensor([[-0.6895, -0.7317],
-        [-0.7058, -0.7306]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 66: train/loss = 0.6916139125823975, train/raw-loss = 0.6916139125823975, train/logprobs = tensor([[-0.6672, -0.6547],
-        [-0.6899, -0.6655]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 67: train/loss = 0.6891210675239563, train/raw-loss = 0.6891210675239563, train/logprobs = tensor([[-0.7068, -0.6490],
-        [-0.7177, -0.6386]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 68: train/loss = 0.6917795538902283, train/raw-loss = 0.6917795538902283, train/logprobs = tensor([[-0.6009, -0.7408],
-        [-0.6098, -0.7226]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 69: train/loss = 0.6882215738296509, train/raw-loss = 0.6882215738296509, train/logprobs = tensor([[-0.6994, -0.5947],
-        [-0.7280, -0.5964]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 70: train/loss = 0.6908582448959351, train/raw-loss = 0.6908582448959351, train/logprobs = tensor([[-0.6931, -0.6387],
-        [-0.6950, -0.6289]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 71: train/loss = 0.6897077560424805, train/raw-loss = 0.6897077560424805, train/logprobs = tensor([[-0.7254, -0.7706],
-        [-0.7439, -0.7735]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 72: train/loss = 0.6858009099960327, train/raw-loss = 0.6858009099960327, train/logprobs = tensor([[-0.6414, -0.5775],
-        [-0.6760, -0.5760]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 73: train/loss = 0.6860694885253906, train/raw-loss = 0.6860694885253906, train/logprobs = tensor([[-0.6214, -0.6817],
-        [-0.6383, -0.6686]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 74: train/loss = 0.6787139177322388, train/raw-loss = 0.6787139177322388, train/logprobs = tensor([[-0.7375, -0.6885],
-        [-0.7599, -0.6469]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 75: train/loss = 0.69176185131073, train/raw-loss = 0.69176185131073, train/logprobs = tensor([[-0.7143, -0.7554],
-        [-0.7297, -0.7611]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 76: train/loss = 0.6902496218681335, train/raw-loss = 0.6902496218681335, train/logprobs = tensor([[-0.7124, -0.7011],
-        [-0.7386, -0.7147]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 77: train/loss = 0.6858255863189697, train/raw-loss = 0.6858255863189697, train/logprobs = tensor([[-0.7409, -0.7436],
-        [-0.7597, -0.7277]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 78: train/loss = 0.6884346008300781, train/raw-loss = 0.6884346008300781, train/logprobs = tensor([[-0.7471, -0.7129],
-        [-0.7612, -0.7066]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 79: train/loss = 0.6872351169586182, train/raw-loss = 0.6872351169586182, train/logprobs = tensor([[-0.7012, -0.6624],
-        [-0.7236, -0.6598]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 80: train/loss = 0.690410852432251, train/raw-loss = 0.690410852432251, train/logprobs = tensor([[-0.7058, -0.7643],
-        [-0.7320, -0.7643]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 81: train/loss = 0.6886816620826721, train/raw-loss = 0.6886816620826721, train/logprobs = tensor([[-0.6994, -0.6614],
-        [-0.7088, -0.6495]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 82: train/loss = 0.687944769859314, train/raw-loss = 0.687944769859314, train/logprobs = tensor([[-0.6157, -0.6402],
-        [-0.6276, -0.6302]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 83: train/loss = 0.689190149307251, train/raw-loss = 0.689190149307251, train/logprobs = tensor([[-0.6814, -0.5639],
-        [-0.7004, -0.5607]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 84: train/loss = 0.688267707824707, train/raw-loss = 0.688267707824707, train/logprobs = tensor([[-0.6900, -0.6672],
-        [-0.7191, -0.6743]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 85: train/loss = 0.6883823275566101, train/raw-loss = 0.6883823275566101, train/logprobs = tensor([[-0.6438, -0.6115],
-        [-0.6549, -0.6026]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 86: train/loss = 0.694186270236969, train/raw-loss = 0.694186270236969, train/logprobs = tensor([[-0.6315, -0.7839],
-        [-0.6350, -0.7840]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 87: train/loss = 0.6900396943092346, train/raw-loss = 0.6900396943092346, train/logprobs = tensor([[-0.7693, -0.7691],
-        [-0.7835, -0.7685]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 88: train/loss = 0.6936413645744324, train/raw-loss = 0.6936413645744324, train/logprobs = tensor([[-0.6408, -0.8356],
-        [-0.6486, -0.8273]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 89: train/loss = 0.687379777431488, train/raw-loss = 0.687379777431488, train/logprobs = tensor([[-0.7768, -0.7268],
-        [-0.8005, -0.7255]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 90: train/loss = 0.6903784275054932, train/raw-loss = 0.6903784275054932, train/logprobs = tensor([[-0.7051, -0.6809],
-        [-0.7186, -0.6792]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 91: train/loss = 0.6642827987670898, train/raw-loss = 0.6642827987670898, train/logprobs = tensor([[-0.6531, -0.9042],
-        [-0.6729, -0.7811]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 92: train/loss = 0.6875759959220886, train/raw-loss = 0.6875759959220886, train/logprobs = tensor([[-0.6845, -0.7472],
-        [-0.7006, -0.7359]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 93: train/loss = 0.6910611391067505, train/raw-loss = 0.6910611391067505, train/logprobs = tensor([[-0.7093, -0.7198],
-        [-0.7166, -0.7144]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 94: train/loss = 0.6891811490058899, train/raw-loss = 0.6891811490058899, train/logprobs = tensor([[-0.7334, -0.7322],
-        [-0.7606, -0.7397]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 95: train/loss = 0.6863012909889221, train/raw-loss = 0.6863012909889221, train/logprobs = tensor([[-0.7428, -0.6725],
-        [-0.7605, -0.6562]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 96: train/loss = 0.6867222785949707, train/raw-loss = 0.6867222785949707, train/logprobs = tensor([[-0.6477, -0.6896],
-        [-0.6640, -0.6794]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 97: train/loss = 0.6874368786811829, train/raw-loss = 0.6874368786811829, train/logprobs = tensor([[-0.7173, -0.7382],
-        [-0.7345, -0.7319]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 98: train/loss = 0.6910868883132935, train/raw-loss = 0.6910868883132935, train/logprobs = tensor([[-0.6682, -0.6568],
-        [-0.6818, -0.6610]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 99: train/loss = 0.6894083023071289, train/raw-loss = 0.6894083023071289, train/logprobs = tensor([[-0.7032, -0.6919],
-        [-0.7009, -0.6723]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 100: train/loss = 0.6908008456230164, train/raw-loss = 0.6908008456230164, train/logprobs = tensor([[-0.7376, -0.7173],
-        [-0.7478, -0.7116]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 101: train/loss = 0.6888909339904785, train/raw-loss = 0.6888909339904785, train/logprobs = tensor([[-0.6660, -0.7208],
-        [-0.6868, -0.7157]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 102: train/loss = 0.6875698566436768, train/raw-loss = 0.6875698566436768, train/logprobs = tensor([[-0.7299, -0.7531],
-        [-0.7362, -0.7354]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 103: train/loss = 0.6832592487335205, train/raw-loss = 0.6832592487335205, train/logprobs = tensor([[-0.6951, -0.8003],
-        [-0.7137, -0.7755]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 104: train/loss = 0.6567096710205078, train/raw-loss = 0.6567096710205078, train/logprobs = tensor([[-0.6254, -0.7089],
-        [-0.6373, -0.5541]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 105: train/loss = 0.6898663640022278, train/raw-loss = 0.6898663640022278, train/logprobs = tensor([[-0.6646, -0.6589],
-        [-0.6759, -0.6567]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 106: train/loss = 0.6790362596511841, train/raw-loss = 0.6790362596511841, train/logprobs = tensor([[-0.6530, -0.6567],
-        [-0.6682, -0.6138]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 107: train/loss = 0.6829495429992676, train/raw-loss = 0.6829495429992676, train/logprobs = tensor([[-0.6915, -0.6694],
-        [-0.7110, -0.6427]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 108: train/loss = 0.6520311236381531, train/raw-loss = 0.6520311236381531, train/logprobs = tensor([[-0.7051, -0.7434],
-        [-0.7097, -0.5379]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 109: train/loss = 0.6917651295661926, train/raw-loss = 0.6917651295661926, train/logprobs = tensor([[-0.6458, -0.6614],
-        [-0.6600, -0.6674]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 110: train/loss = 0.6878458857536316, train/raw-loss = 0.6878458857536316, train/logprobs = tensor([[-0.6203, -0.6226],
-        [-0.6294, -0.6086]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 111: train/loss = 0.687767744064331, train/raw-loss = 0.687767744064331, train/logprobs = tensor([[-0.5911, -0.5963],
-        [-0.5940, -0.5757]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 112: train/loss = 0.6899726390838623, train/raw-loss = 0.6899726390838623, train/logprobs = tensor([[-0.7446, -0.6871],
-        [-0.7575, -0.6854]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 113: train/loss = 0.6860902905464172, train/raw-loss = 0.6860902905464172, train/logprobs = tensor([[-0.6510, -0.7291],
-        [-0.6812, -0.7226]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 114: train/loss = 0.684473991394043, train/raw-loss = 0.684473991394043, train/logprobs = tensor([[-0.6158, -0.7103],
-        [-0.6236, -0.6816]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 115: train/loss = 0.689206600189209, train/raw-loss = 0.689206600189209, train/logprobs = tensor([[-0.5983, -0.6358],
-        [-0.6106, -0.6282]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 116: train/loss = 0.688701868057251, train/raw-loss = 0.688701868057251, train/logprobs = tensor([[-0.6798, -0.7260],
-        [-0.6933, -0.7203]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 117: train/loss = 0.6882897019386292, train/raw-loss = 0.6882897019386292, train/logprobs = tensor([[-0.6473, -0.7733],
-        [-0.6609, -0.7532]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 118: train/loss = 0.6842913627624512, train/raw-loss = 0.6842913627624512, train/logprobs = tensor([[-0.6520, -0.6662],
-        [-0.6741, -0.6516]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 119: train/loss = 0.683283805847168, train/raw-loss = 0.683283805847168, train/logprobs = tensor([[-0.7310, -0.8378],
-        [-0.7417, -0.8049]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 120: train/loss = 0.6909202933311462, train/raw-loss = 0.6909202933311462, train/logprobs = tensor([[-0.6459, -0.6595],
-        [-0.6524, -0.6566]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 121: train/loss = 0.6890513300895691, train/raw-loss = 0.6890513300895691, train/logprobs = tensor([[-0.6198, -0.7243],
-        [-0.6503, -0.7284]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 122: train/loss = 0.6937646269798279, train/raw-loss = 0.6937646269798279, train/logprobs = tensor([[-0.7520, -0.7481],
-        [-0.7615, -0.7491]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 123: train/loss = 0.6844793558120728, train/raw-loss = 0.6844793558120728, train/logprobs = tensor([[-0.6220, -0.6508],
-        [-0.6269, -0.6146]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 124: train/loss = 0.6900957226753235, train/raw-loss = 0.6900957226753235, train/logprobs = tensor([[-0.7568, -0.7304],
-        [-0.7616, -0.7207]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 125: train/loss = 0.6841838359832764, train/raw-loss = 0.6841838359832764, train/logprobs = tensor([[-0.6711, -0.7113],
-        [-0.6874, -0.6884]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 126: train/loss = 0.6879792809486389, train/raw-loss = 0.6879792809486389, train/logprobs = tensor([[-0.6500, -0.6801],
-        [-0.6557, -0.6645]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 127: train/loss = 0.6906769275665283, train/raw-loss = 0.6906769275665283, train/logprobs = tensor([[-0.7396, -0.7308],
-        [-0.7448, -0.7221]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 64: train/loss = 0.6909371614456177, train/raw-loss = 0.6909371614456177, train/logprobs = tensor([[-0.6957, -0.4684],
+        [-0.7325, -0.4662]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 65: train/loss = 0.6902444958686829, train/raw-loss = 0.6902444958686829, train/logprobs = tensor([[-0.6569, -0.6227],
+        [-0.6873, -0.6398]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 66: train/loss = 0.6929521560668945, train/raw-loss = 0.6929521560668945, train/logprobs = tensor([[-0.6727, -0.5634],
+        [-0.6602, -0.5415]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 67: train/loss = 0.6889170408248901, train/raw-loss = 0.6889170408248901, train/logprobs = tensor([[-0.6172, -0.5895],
+        [-0.6128, -0.5645]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 68: train/loss = 0.6943157911300659, train/raw-loss = 0.6943157911300659, train/logprobs = tensor([[-0.6592, -0.5364],
+        [-0.6581, -0.5219]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 69: train/loss = 0.6875702142715454, train/raw-loss = 0.6875702142715454, train/logprobs = tensor([[-0.6734, -0.6105],
+        [-0.6831, -0.5897]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 70: train/loss = 0.6901465654373169, train/raw-loss = 0.6901465654373169, train/logprobs = tensor([[-0.6609, -0.6753],
+        [-0.6637, -0.6370]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 71: train/loss = 0.6870702505111694, train/raw-loss = 0.6870702505111694, train/logprobs = tensor([[-0.6053, -0.5816],
+        [-0.6471, -0.5958]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 72: train/loss = 0.671028733253479, train/raw-loss = 0.671028733253479, train/logprobs = tensor([[-0.6433, -0.5583],
+        [-0.7152, -0.5233]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 73: train/loss = 0.6708750128746033, train/raw-loss = 0.6708750128746033, train/logprobs = tensor([[-0.6442, -0.6816],
+        [-0.7392, -0.6801]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 74: train/loss = 0.6894275546073914, train/raw-loss = 0.6894275546073914, train/logprobs = tensor([[-0.5389, -0.5512],
+        [-0.5513, -0.5470]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 75: train/loss = 0.6918761730194092, train/raw-loss = 0.6918761730194092, train/logprobs = tensor([[-0.6144, -0.5035],
+        [-0.6383, -0.5167]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 76: train/loss = 0.6882181763648987, train/raw-loss = 0.6882181763648987, train/logprobs = tensor([[-0.5196, -0.5193],
+        [-0.5267, -0.5022]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 77: train/loss = 0.6896584033966064, train/raw-loss = 0.6896584033966064, train/logprobs = tensor([[-0.5495, -0.7192],
+        [-0.5739, -0.7193]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 78: train/loss = 0.6915420293807983, train/raw-loss = 0.6915420293807983, train/logprobs = tensor([[-0.7073, -0.6206],
+        [-0.7280, -0.6180]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 79: train/loss = 0.6935215592384338, train/raw-loss = 0.6935215592384338, train/logprobs = tensor([[-0.5953, -0.5775],
+        [-0.5781, -0.5575]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 80: train/loss = 0.6918988227844238, train/raw-loss = 0.6918988227844238, train/logprobs = tensor([[-0.5506, -0.5826],
+        [-0.5737, -0.5997]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 81: train/loss = 0.6872387528419495, train/raw-loss = 0.6872387528419495, train/logprobs = tensor([[-0.6813, -0.5762],
+        [-0.7081, -0.5654]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 82: train/loss = 0.693395733833313, train/raw-loss = 0.693395733833313, train/logprobs = tensor([[-0.6685, -0.6816],
+        [-0.6831, -0.6940]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 83: train/loss = 0.6912912726402283, train/raw-loss = 0.6912912726402283, train/logprobs = tensor([[-0.4945, -0.5012],
+        [-0.5000, -0.4981]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 84: train/loss = 0.6879821419715881, train/raw-loss = 0.6879821419715881, train/logprobs = tensor([[-0.4942, -0.4693],
+        [-0.5196, -0.4689]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 85: train/loss = 0.6226237416267395, train/raw-loss = 0.6226237416267395, train/logprobs = tensor([[-0.6878, -0.9267],
+        [-0.6812, -0.5100]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 86: train/loss = 0.6849452257156372, train/raw-loss = 0.6849452257156372, train/logprobs = tensor([[-0.5503, -0.6977],
+        [-0.5677, -0.6729]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 87: train/loss = 0.6145349144935608, train/raw-loss = 0.6145349144935608, train/logprobs = tensor([[-0.7446, -0.6726],
+        [-1.1928, -0.6485]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 88: train/loss = 0.6702134609222412, train/raw-loss = 0.6702134609222412, train/logprobs = tensor([[-0.5729, -0.7502],
+        [-0.5865, -0.6530]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 89: train/loss = 0.6821480393409729, train/raw-loss = 0.6821480393409729, train/logprobs = tensor([[-0.6510, -0.7530],
+        [-0.6571, -0.7120]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 90: train/loss = 0.6756568551063538, train/raw-loss = 0.6756568551063538, train/logprobs = tensor([[-0.6499, -0.5336],
+        [-0.7437, -0.5440]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 91: train/loss = 0.6545343399047852, train/raw-loss = 0.6545343399047852, train/logprobs = tensor([[-0.6105, -0.7536],
+        [-0.6194, -0.5641]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 92: train/loss = 0.6894422769546509, train/raw-loss = 0.6894422769546509, train/logprobs = tensor([[-0.5639, -0.5728],
+        [-0.5713, -0.5644]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 93: train/loss = 0.6949036121368408, train/raw-loss = 0.6949036121368408, train/logprobs = tensor([[-0.6664, -0.5831],
+        [-0.6356, -0.5543]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 94: train/loss = 0.6704549789428711, train/raw-loss = 0.6704549789428711, train/logprobs = tensor([[-0.5153, -0.4931],
+        [-0.6538, -0.5204]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 95: train/loss = 0.685497522354126, train/raw-loss = 0.685497522354126, train/logprobs = tensor([[-0.5594, -0.5875],
+        [-0.5733, -0.5602]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 96: train/loss = 0.6891001462936401, train/raw-loss = 0.6891001462936401, train/logprobs = tensor([[-0.6843, -0.5712],
+        [-0.6970, -0.5563]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 97: train/loss = 0.6599776744842529, train/raw-loss = 0.6599776744842529, train/logprobs = tensor([[-0.6065, -0.5049],
+        [-0.7350, -0.4701]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 98: train/loss = 0.6914570927619934, train/raw-loss = 0.6914570927619934, train/logprobs = tensor([[-0.4824, -0.5622],
+        [-0.4955, -0.5600]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 99: train/loss = 0.6887605786323547, train/raw-loss = 0.6887605786323547, train/logprobs = tensor([[-0.4345, -0.5968],
+        [-0.4315, -0.5665]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 100: train/loss = 0.6693059206008911, train/raw-loss = 0.6693059206008911, train/logprobs = tensor([[-0.6594, -0.5495],
+        [-0.7590, -0.5353]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 101: train/loss = 0.6813336610794067, train/raw-loss = 0.6813336610794067, train/logprobs = tensor([[-0.6789, -0.6472],
+        [-0.6934, -0.6018]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 102: train/loss = 0.6824694871902466, train/raw-loss = 0.6824694871902466, train/logprobs = tensor([[-0.5166, -0.6140],
+        [-0.5714, -0.6175]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 103: train/loss = 0.6896764039993286, train/raw-loss = 0.6896764039993286, train/logprobs = tensor([[-0.6754, -0.7220],
+        [-0.6782, -0.7066]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 104: train/loss = 0.6906009912490845, train/raw-loss = 0.6906009912490845, train/logprobs = tensor([[-0.6763, -0.5600],
+        [-0.6703, -0.5355]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 105: train/loss = 0.6898738145828247, train/raw-loss = 0.6898738145828247, train/logprobs = tensor([[-0.5365, -0.5630],
+        [-0.5419, -0.5481]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 106: train/loss = 0.689590573310852, train/raw-loss = 0.689590573310852, train/logprobs = tensor([[-0.5242, -0.4457],
+        [-0.5392, -0.4420]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 107: train/loss = 0.6915960311889648, train/raw-loss = 0.6915960311889648, train/logprobs = tensor([[-0.5608, -0.6083],
+        [-0.5843, -0.6230]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 108: train/loss = 0.6902822256088257, train/raw-loss = 0.6902822256088257, train/logprobs = tensor([[-0.7943, -0.7178],
+        [-0.8089, -0.7172]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 109: train/loss = 0.6954312324523926, train/raw-loss = 0.6954312324523926, train/logprobs = tensor([[-0.4595, -0.5861],
+        [-0.4677, -0.5973]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 110: train/loss = 0.6998907327651978, train/raw-loss = 0.6998907327651978, train/logprobs = tensor([[-0.6980, -0.6209],
+        [-0.6476, -0.5863]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 111: train/loss = 0.6497026681900024, train/raw-loss = 0.6497026681900024, train/logprobs = tensor([[-0.5887, -0.8150],
+        [-0.6029, -0.6018]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 112: train/loss = 0.6561307907104492, train/raw-loss = 0.6561307907104492, train/logprobs = tensor([[-0.5988, -0.7381],
+        [-0.6001, -0.5752]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 113: train/loss = 0.6911526918411255, train/raw-loss = 0.6911526918411255, train/logprobs = tensor([[-0.6448, -0.6333],
+        [-0.6623, -0.6316]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 114: train/loss = 0.6885810494422913, train/raw-loss = 0.6885810494422913, train/logprobs = tensor([[-0.6129, -0.6303],
+        [-0.6319, -0.6265]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 115: train/loss = 0.6828180551528931, train/raw-loss = 0.6828180551528931, train/logprobs = tensor([[-0.6203, -0.5817],
+        [-0.6468, -0.5558]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 116: train/loss = 0.6830636858940125, train/raw-loss = 0.6830636858940125, train/logprobs = tensor([[-0.5824, -0.6029],
+        [-0.5987, -0.5754]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 117: train/loss = 0.6864463090896606, train/raw-loss = 0.6864463090896606, train/logprobs = tensor([[-0.4930, -0.6187],
+        [-0.4975, -0.5915]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 118: train/loss = 0.6850572824478149, train/raw-loss = 0.6850572824478149, train/logprobs = tensor([[-0.6901, -0.6591],
+        [-0.7127, -0.6344]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 119: train/loss = 0.653709352016449, train/raw-loss = 0.653709352016449, train/logprobs = tensor([[-0.6013, -0.6510],
+        [-0.5911, -0.4389]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 120: train/loss = 0.6947365999221802, train/raw-loss = 0.6947365999221802, train/logprobs = tensor([[-0.6180, -0.6155],
+        [-0.6382, -0.6066]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 121: train/loss = 0.6902818083763123, train/raw-loss = 0.6902818083763123, train/logprobs = tensor([[-0.4975, -0.6291],
+        [-0.5366, -0.6494]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 122: train/loss = 0.6741482615470886, train/raw-loss = 0.6741482615470886, train/logprobs = tensor([[-0.7763, -0.5746],
+        [-0.8831, -0.5666]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 123: train/loss = 0.67706698179245, train/raw-loss = 0.67706698179245, train/logprobs = tensor([[-0.6061, -0.6920],
+        [-0.6410, -0.6577]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 124: train/loss = 0.692224383354187, train/raw-loss = 0.692224383354187, train/logprobs = tensor([[-0.5930, -0.5554],
+        [-0.5926, -0.5452]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 125: train/loss = 0.6620491743087769, train/raw-loss = 0.6620491743087769, train/logprobs = tensor([[-0.5018, -0.6042],
+        [-0.5576, -0.5237]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 126: train/loss = 0.6931312680244446, train/raw-loss = 0.6931312680244446, train/logprobs = tensor([[-0.6094, -0.5538],
+        [-0.6014, -0.5327]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 127: train/loss = 0.69135582447052, train/raw-loss = 0.69135582447052, train/logprobs = tensor([[-0.4038, -0.6506],
+        [-0.4073, -0.6191]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
 Model saved, deleting model...
 Deleted model...
-Epoch 0, Step 128: train/loss = 0.6752187609672546, train/raw-loss = 0.6752187609672546, train/logprobs = tensor([[-0.6884, -0.6971],
-        [-0.7065, -0.6226]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 129: train/loss = 0.6845260858535767, train/raw-loss = 0.6845260858535767, train/logprobs = tensor([[-0.6906, -0.8095],
-        [-0.7100, -0.7844]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 130: train/loss = 0.6862062215805054, train/raw-loss = 0.6862062215805054, train/logprobs = tensor([[-0.6176, -0.7904],
-        [-0.6247, -0.7521]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 131: train/loss = 0.6892476081848145, train/raw-loss = 0.6892476081848145, train/logprobs = tensor([[-0.6718, -0.7326],
-        [-0.6769, -0.7177]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 132: train/loss = 0.6826992034912109, train/raw-loss = 0.6826992034912109, train/logprobs = tensor([[-0.6170, -0.6981],
-        [-0.6311, -0.6685]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 133: train/loss = 0.6894148588180542, train/raw-loss = 0.6894148588180542, train/logprobs = tensor([[-0.6599, -0.6634],
-        [-0.6667, -0.6545]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 134: train/loss = 0.6820744276046753, train/raw-loss = 0.6820744276046753, train/logprobs = tensor([[-0.7022, -0.7920],
-        [-0.7064, -0.7481]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 135: train/loss = 0.6819434762001038, train/raw-loss = 0.6819434762001038, train/logprobs = tensor([[-0.6187, -0.5921],
-        [-0.6355, -0.5609]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 136: train/loss = 0.6871123313903809, train/raw-loss = 0.6871123313903809, train/logprobs = tensor([[-0.6986, -0.6842],
-        [-0.7170, -0.6771]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 137: train/loss = 0.6903632879257202, train/raw-loss = 0.6903632879257202, train/logprobs = tensor([[-0.6396, -0.6962],
-        [-0.6440, -0.6850]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 138: train/loss = 0.6880841255187988, train/raw-loss = 0.6880841255187988, train/logprobs = tensor([[-0.7294, -0.7095],
-        [-0.7193, -0.6781]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 139: train/loss = 0.6855272054672241, train/raw-loss = 0.6855272054672241, train/logprobs = tensor([[-0.7089, -0.7407],
-        [-0.7295, -0.7297]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 140: train/loss = 0.688235342502594, train/raw-loss = 0.688235342502594, train/logprobs = tensor([[-0.6717, -0.7005],
-        [-0.6816, -0.6876]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 141: train/loss = 0.6889691948890686, train/raw-loss = 0.6889691948890686, train/logprobs = tensor([[-0.7359, -0.6758],
-        [-0.7494, -0.6686]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 142: train/loss = 0.6846518516540527, train/raw-loss = 0.6846518516540527, train/logprobs = tensor([[-0.7091, -0.7009],
-        [-0.7048, -0.6512]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 143: train/loss = 0.6844239830970764, train/raw-loss = 0.6844239830970764, train/logprobs = tensor([[-0.6488, -0.6993],
-        [-0.6780, -0.6917]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 144: train/loss = 0.6886848211288452, train/raw-loss = 0.6886848211288452, train/logprobs = tensor([[-0.6099, -0.6864],
-        [-0.6060, -0.6613]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 145: train/loss = 0.6876069903373718, train/raw-loss = 0.6876069903373718, train/logprobs = tensor([[-0.6934, -0.6518],
-        [-0.6915, -0.6239]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 146: train/loss = 0.6856716871261597, train/raw-loss = 0.6856716871261597, train/logprobs = tensor([[-0.7161, -0.7033],
-        [-0.7312, -0.6877]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 147: train/loss = 0.6859942674636841, train/raw-loss = 0.6859942674636841, train/logprobs = tensor([[-0.6199, -0.6189],
-        [-0.6226, -0.5903]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 148: train/loss = 0.6909844875335693, train/raw-loss = 0.6909844875335693, train/logprobs = tensor([[-0.6817, -0.7645],
-        [-0.6902, -0.7564]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 149: train/loss = 0.6878974437713623, train/raw-loss = 0.6878974437713623, train/logprobs = tensor([[-0.6065, -0.6888],
-        [-0.6140, -0.6720]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 150: train/loss = 0.6928392648696899, train/raw-loss = 0.6928392648696899, train/logprobs = tensor([[-0.7114, -0.6914],
-        [-0.7068, -0.6844]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 151: train/loss = 0.6932128071784973, train/raw-loss = 0.6932128071784973, train/logprobs = tensor([[-0.6099, -0.6311],
-        [-0.6106, -0.6264]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 152: train/loss = 0.6804319620132446, train/raw-loss = 0.6804319620132446, train/logprobs = tensor([[-0.6738, -0.7393],
-        [-0.6982, -0.7094]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 153: train/loss = 0.6888514757156372, train/raw-loss = 0.6888514757156372, train/logprobs = tensor([[-0.5391, -0.6774],
-        [-0.5352, -0.6488]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 154: train/loss = 0.6913402676582336, train/raw-loss = 0.6913402676582336, train/logprobs = tensor([[-0.6403, -0.5751],
-        [-0.6340, -0.5592]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 155: train/loss = 0.6869174838066101, train/raw-loss = 0.6869174838066101, train/logprobs = tensor([[-0.5595, -0.6044],
-        [-0.5626, -0.5817]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 156: train/loss = 0.688368022441864, train/raw-loss = 0.688368022441864, train/logprobs = tensor([[-0.7196, -0.6820],
-        [-0.7406, -0.6820]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 157: train/loss = 0.6722133159637451, train/raw-loss = 0.6722133159637451, train/logprobs = tensor([[-0.7864, -0.7990],
-        [-0.7885, -0.7049]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 158: train/loss = 0.6862468719482422, train/raw-loss = 0.6862468719482422, train/logprobs = tensor([[-0.6469, -0.7139],
-        [-0.6620, -0.6990]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 159: train/loss = 0.6860463619232178, train/raw-loss = 0.6860463619232178, train/logprobs = tensor([[-0.6910, -0.7356],
-        [-0.6997, -0.7143]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 160: train/loss = 0.6863546371459961, train/raw-loss = 0.6863546371459961, train/logprobs = tensor([[-0.7470, -0.7659],
-        [-0.7545, -0.7422]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 161: train/loss = 0.6843070983886719, train/raw-loss = 0.6843070983886719, train/logprobs = tensor([[-0.7000, -0.7384],
-        [-0.7208, -0.7198]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 162: train/loss = 0.6864701509475708, train/raw-loss = 0.6864701509475708, train/logprobs = tensor([[-0.6117, -0.5864],
-        [-0.6150, -0.5623]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 163: train/loss = 0.6864169836044312, train/raw-loss = 0.6864169836044312, train/logprobs = tensor([[-0.6364, -0.6412],
-        [-0.6503, -0.6206]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 164: train/loss = 0.6860868334770203, train/raw-loss = 0.6860868334770203, train/logprobs = tensor([[-0.6782, -0.6096],
-        [-0.6872, -0.5824]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 165: train/loss = 0.6909754276275635, train/raw-loss = 0.6909754276275635, train/logprobs = tensor([[-0.5917, -0.6984],
-        [-0.5967, -0.6919]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 166: train/loss = 0.6822121143341064, train/raw-loss = 0.6822121143341064, train/logprobs = tensor([[-0.6998, -0.7009],
-        [-0.7123, -0.6663]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 167: train/loss = 0.6836956739425659, train/raw-loss = 0.6836956739425659, train/logprobs = tensor([[-0.6523, -0.6821],
-        [-0.6691, -0.6599]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 168: train/loss = 0.6847915053367615, train/raw-loss = 0.6847915053367615, train/logprobs = tensor([[-0.5913, -0.6406],
-        [-0.5949, -0.6097]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 169: train/loss = 0.679648756980896, train/raw-loss = 0.679648756980896, train/logprobs = tensor([[-0.6572, -0.6840],
-        [-0.6704, -0.6382]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 170: train/loss = 0.6821679472923279, train/raw-loss = 0.6821679472923279, train/logprobs = tensor([[-0.6526, -0.7665],
-        [-0.6830, -0.7476]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 171: train/loss = 0.6874317526817322, train/raw-loss = 0.6874317526817322, train/logprobs = tensor([[-0.5726, -0.6869],
-        [-0.5864, -0.6731]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 172: train/loss = 0.6824751496315002, train/raw-loss = 0.6824751496315002, train/logprobs = tensor([[-0.6635, -0.6452],
-        [-0.6927, -0.6273]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 173: train/loss = 0.6837025880813599, train/raw-loss = 0.6837025880813599, train/logprobs = tensor([[-0.7367, -0.8842],
-        [-0.7539, -0.8588]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 174: train/loss = 0.6896889805793762, train/raw-loss = 0.6896889805793762, train/logprobs = tensor([[-0.5894, -0.7545],
-        [-0.5981, -0.7391]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 175: train/loss = 0.6844637393951416, train/raw-loss = 0.6844637393951416, train/logprobs = tensor([[-0.6637, -0.6859],
-        [-0.6733, -0.6589]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 176: train/loss = 0.6851853132247925, train/raw-loss = 0.6851853132247925, train/logprobs = tensor([[-0.6763, -0.6294],
-        [-0.6715, -0.5895]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 177: train/loss = 0.6844218373298645, train/raw-loss = 0.6844218373298645, train/logprobs = tensor([[-0.6718, -0.6896],
-        [-0.6573, -0.6388]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 178: train/loss = 0.6875516772270203, train/raw-loss = 0.6875516772270203, train/logprobs = tensor([[-0.6073, -0.6982],
-        [-0.5995, -0.6612]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 179: train/loss = 0.6882678866386414, train/raw-loss = 0.6882678866386414, train/logprobs = tensor([[-0.5670, -0.6266],
-        [-0.5812, -0.6162]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 180: train/loss = 0.6862213611602783, train/raw-loss = 0.6862213611602783, train/logprobs = tensor([[-0.6702, -0.6741],
-        [-0.6716, -0.6459]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 181: train/loss = 0.6922253370285034, train/raw-loss = 0.6922253370285034, train/logprobs = tensor([[-0.6737, -0.7009],
-        [-0.6734, -0.6965]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 182: train/loss = 0.683295726776123, train/raw-loss = 0.683295726776123, train/logprobs = tensor([[-0.7198, -0.7206],
-        [-0.7337, -0.6939]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 183: train/loss = 0.6877211332321167, train/raw-loss = 0.6877211332321167, train/logprobs = tensor([[-0.6093, -0.6321],
-        [-0.6130, -0.6135]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 184: train/loss = 0.6596277952194214, train/raw-loss = 0.6596277952194214, train/logprobs = tensor([[-0.7995, -0.9797],
-        [-0.8285, -0.8571]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 185: train/loss = 0.6899579167366028, train/raw-loss = 0.6899579167366028, train/logprobs = tensor([[-0.5590, -0.5915],
-        [-0.5540, -0.5716]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 186: train/loss = 0.6919711828231812, train/raw-loss = 0.6919711828231812, train/logprobs = tensor([[-0.6812, -0.7350],
-        [-0.6846, -0.7295]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 187: train/loss = 0.685467004776001, train/raw-loss = 0.685467004776001, train/logprobs = tensor([[-0.7004, -0.6234],
-        [-0.7085, -0.5961]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 188: train/loss = 0.6762368083000183, train/raw-loss = 0.6762368083000183, train/logprobs = tensor([[-0.6228, -0.7185],
-        [-0.6260, -0.6452]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 189: train/loss = 0.6867351531982422, train/raw-loss = 0.6867351531982422, train/logprobs = tensor([[-0.5870, -0.6334],
-        [-0.6084, -0.6265]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 190: train/loss = 0.6820711493492126, train/raw-loss = 0.6820711493492126, train/logprobs = tensor([[-0.6695, -0.7006],
-        [-0.6800, -0.6636]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 191: train/loss = 0.6870030760765076, train/raw-loss = 0.6870030760765076, train/logprobs = tensor([[-0.7091, -0.7809],
-        [-0.7141, -0.7591]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 128: train/loss = 0.6801358461380005, train/raw-loss = 0.6801358461380005, train/logprobs = tensor([[-0.6553, -0.5969],
+        [-0.7244, -0.5785]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 129: train/loss = 0.6873788237571716, train/raw-loss = 0.6873788237571716, train/logprobs = tensor([[-0.6726, -0.6784],
+        [-0.6882, -0.6660]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 130: train/loss = 0.693886399269104, train/raw-loss = 0.693886399269104, train/logprobs = tensor([[-0.4749, -0.5886],
+        [-0.4659, -0.5717]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 131: train/loss = 0.6616843938827515, train/raw-loss = 0.6616843938827515, train/logprobs = tensor([[-0.6237, -0.7012],
+        [-0.6159, -0.5454]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 132: train/loss = 0.6845299005508423, train/raw-loss = 0.6845299005508423, train/logprobs = tensor([[-0.4524, -0.5788],
+        [-0.4591, -0.5351]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 133: train/loss = 0.6900540590286255, train/raw-loss = 0.6900540590286255, train/logprobs = tensor([[-0.5248, -0.4928],
+        [-0.5167, -0.4631]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 134: train/loss = 0.6911560297012329, train/raw-loss = 0.6911560297012329, train/logprobs = tensor([[-0.4437, -0.3782],
+        [-0.4580, -0.3809]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 135: train/loss = 0.6908754110336304, train/raw-loss = 0.6908754110336304, train/logprobs = tensor([[-0.5671, -0.4433],
+        [-0.5895, -0.4497]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 136: train/loss = 0.6865177154541016, train/raw-loss = 0.6865177154541016, train/logprobs = tensor([[-0.6532, -0.5895],
+        [-0.6939, -0.5915]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 137: train/loss = 0.6633759140968323, train/raw-loss = 0.6633759140968323, train/logprobs = tensor([[-0.6567, -0.7174],
+        [-0.7560, -0.6602]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 138: train/loss = 0.6583325862884521, train/raw-loss = 0.6583325862884521, train/logprobs = tensor([[-0.6626, -0.7903],
+        [-0.7875, -0.7605]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 139: train/loss = 0.6928533315658569, train/raw-loss = 0.6928533315658569, train/logprobs = tensor([[-0.4751, -0.5433],
+        [-0.4883, -0.5513]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 140: train/loss = 0.6877659559249878, train/raw-loss = 0.6877659559249878, train/logprobs = tensor([[-0.6074, -0.5557],
+        [-0.6114, -0.5331]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 141: train/loss = 0.6970581412315369, train/raw-loss = 0.6970581412315369, train/logprobs = tensor([[-0.5883, -0.5484],
+        [-0.5760, -0.5448]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 142: train/loss = 0.6850143671035767, train/raw-loss = 0.6850143671035767, train/logprobs = tensor([[-0.3958, -0.4737],
+        [-0.4092, -0.4483]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 143: train/loss = 0.6815840005874634, train/raw-loss = 0.6815840005874634, train/logprobs = tensor([[-0.6097, -0.6144],
+        [-0.6538, -0.6087]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 144: train/loss = 0.6853491067886353, train/raw-loss = 0.6853491067886353, train/logprobs = tensor([[-0.6302, -0.6630],
+        [-0.6386, -0.6384]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 145: train/loss = 0.6907126307487488, train/raw-loss = 0.6907126307487488, train/logprobs = tensor([[-0.4533, -0.4755],
+        [-0.4611, -0.4655]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 146: train/loss = 0.684706449508667, train/raw-loss = 0.684706449508667, train/logprobs = tensor([[-0.6372, -0.6594],
+        [-0.7020, -0.6823]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 147: train/loss = 0.684306263923645, train/raw-loss = 0.684306263923645, train/logprobs = tensor([[-0.6315, -0.5786],
+        [-0.6532, -0.5597]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 148: train/loss = 0.6766224503517151, train/raw-loss = 0.6766224503517151, train/logprobs = tensor([[-0.5577, -0.5111],
+        [-0.6093, -0.4870]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 149: train/loss = 0.6931664347648621, train/raw-loss = 0.6931664347648621, train/logprobs = tensor([[-0.6116, -0.5436],
+        [-0.6402, -0.5682]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 150: train/loss = 0.6878385543823242, train/raw-loss = 0.6878385543823242, train/logprobs = tensor([[-0.6178, -0.5688],
+        [-0.6223, -0.5457]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 151: train/loss = 0.6712974309921265, train/raw-loss = 0.6712974309921265, train/logprobs = tensor([[-0.4910, -0.5715],
+        [-0.5877, -0.5571]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 152: train/loss = 0.6763963103294373, train/raw-loss = 0.6763963103294373, train/logprobs = tensor([[-0.6328, -0.7824],
+        [-0.6706, -0.7324]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 153: train/loss = 0.6857197284698486, train/raw-loss = 0.6857197284698486, train/logprobs = tensor([[-0.5193, -0.5993],
+        [-0.5300, -0.5689]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 154: train/loss = 0.6590051054954529, train/raw-loss = 0.6590051054954529, train/logprobs = tensor([[-0.6022, -0.5231],
+        [-0.7716, -0.5215]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 155: train/loss = 0.6850411891937256, train/raw-loss = 0.6850411891937256, train/logprobs = tensor([[-0.5518, -0.6943],
+        [-0.5457, -0.6406]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 156: train/loss = 0.6874400973320007, train/raw-loss = 0.6874400973320007, train/logprobs = tensor([[-0.4755, -0.5132],
+        [-0.4933, -0.5049]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 157: train/loss = 0.6888024210929871, train/raw-loss = 0.6888024210929871, train/logprobs = tensor([[-0.5277, -0.5638],
+        [-0.5359, -0.5406]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 158: train/loss = 0.6946196556091309, train/raw-loss = 0.6946196556091309, train/logprobs = tensor([[-0.6162, -0.4706],
+        [-0.6133, -0.4633]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 159: train/loss = 0.691430926322937, train/raw-loss = 0.691430926322937, train/logprobs = tensor([[-0.5288, -0.4923],
+        [-0.5633, -0.5171]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 160: train/loss = 0.6938329935073853, train/raw-loss = 0.6938329935073853, train/logprobs = tensor([[-0.5080, -0.4906],
+        [-0.5175, -0.4890]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 161: train/loss = 0.685562252998352, train/raw-loss = 0.685562252998352, train/logprobs = tensor([[-0.6264, -0.6161],
+        [-0.6471, -0.6017]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 162: train/loss = 0.6948572993278503, train/raw-loss = 0.6948572993278503, train/logprobs = tensor([[-0.7489, -0.6137],
+        [-0.7492, -0.6077]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 163: train/loss = 0.6862733364105225, train/raw-loss = 0.6862733364105225, train/logprobs = tensor([[-0.4810, -0.5294],
+        [-0.4980, -0.5127]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 164: train/loss = 0.6841214895248413, train/raw-loss = 0.6841214895248413, train/logprobs = tensor([[-0.5207, -0.6304],
+        [-0.5378, -0.6059]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 165: train/loss = 0.6903398036956787, train/raw-loss = 0.6903398036956787, train/logprobs = tensor([[-0.6027, -0.4756],
+        [-0.6138, -0.4686]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 166: train/loss = 0.692267894744873, train/raw-loss = 0.692267894744873, train/logprobs = tensor([[-0.5361, -0.4919],
+        [-0.5344, -0.4823]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 167: train/loss = 0.658800482749939, train/raw-loss = 0.658800482749939, train/logprobs = tensor([[-0.6867, -0.6964],
+        [-0.8709, -0.7088]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 168: train/loss = 0.6739338636398315, train/raw-loss = 0.6739338636398315, train/logprobs = tensor([[-0.6856, -0.4699],
+        [-0.7274, -0.4082]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 169: train/loss = 0.6829143166542053, train/raw-loss = 0.6829143166542053, train/logprobs = tensor([[-0.5785, -0.6896],
+        [-0.5822, -0.6453]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 170: train/loss = 0.6888655424118042, train/raw-loss = 0.6888655424118042, train/logprobs = tensor([[-0.4586, -0.5003],
+        [-0.4830, -0.4734]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 171: train/loss = 0.6854957342147827, train/raw-loss = 0.6854957342147827, train/logprobs = tensor([[-0.5766, -0.5998],
+        [-0.6078, -0.5992]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 172: train/loss = 0.6761870384216309, train/raw-loss = 0.6761870384216309, train/logprobs = tensor([[-0.5257, -0.6446],
+        [-0.5520, -0.5965]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 173: train/loss = 0.6917076110839844, train/raw-loss = 0.6917076110839844, train/logprobs = tensor([[-0.4290, -0.4470],
+        [-0.4464, -0.4542]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 174: train/loss = 0.7008388638496399, train/raw-loss = 0.7008388638496399, train/logprobs = tensor([[-0.5784, -0.6411],
+        [-0.6150, -0.7025]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 175: train/loss = 0.6845138669013977, train/raw-loss = 0.6845138669013977, train/logprobs = tensor([[-0.4956, -0.5588],
+        [-0.5066, -0.5332]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 176: train/loss = 0.6852937340736389, train/raw-loss = 0.6852937340736389, train/logprobs = tensor([[-0.5514, -0.5966],
+        [-0.5773, -0.5871]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 177: train/loss = 0.6811827421188354, train/raw-loss = 0.6811827421188354, train/logprobs = tensor([[-0.6412, -0.5367],
+        [-0.6901, -0.5318]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 178: train/loss = 0.6795517206192017, train/raw-loss = 0.6795517206192017, train/logprobs = tensor([[-0.6839, -0.6261],
+        [-0.7230, -0.6051]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 179: train/loss = 0.6713576316833496, train/raw-loss = 0.6713576316833496, train/logprobs = tensor([[-0.5197, -0.6951],
+        [-0.4953, -0.5503]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 180: train/loss = 0.6460858583450317, train/raw-loss = 0.6460858583450317, train/logprobs = tensor([[-0.4747, -0.6174],
+        [-0.6951, -0.6123]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 181: train/loss = 0.6906235218048096, train/raw-loss = 0.6906235218048096, train/logprobs = tensor([[-0.4674, -0.5779],
+        [-0.4913, -0.5866]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 182: train/loss = 0.6872963905334473, train/raw-loss = 0.6872963905334473, train/logprobs = tensor([[-0.4660, -0.5138],
+        [-0.4748, -0.4934]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 183: train/loss = 0.6965935230255127, train/raw-loss = 0.6965935230255127, train/logprobs = tensor([[-0.6023, -0.5467],
+        [-0.5778, -0.5311]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 184: train/loss = 0.6880634427070618, train/raw-loss = 0.6880634427070618, train/logprobs = tensor([[-0.4945, -0.5703],
+        [-0.5123, -0.5593]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 185: train/loss = 0.6884219646453857, train/raw-loss = 0.6884219646453857, train/logprobs = tensor([[-0.4113, -0.6232],
+        [-0.4382, -0.6148]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 186: train/loss = 0.6847522854804993, train/raw-loss = 0.6847522854804993, train/logprobs = tensor([[-0.6917, -0.6520],
+        [-0.7242, -0.6481]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 187: train/loss = 0.6238970756530762, train/raw-loss = 0.6238970756530762, train/logprobs = tensor([[-0.6166, -0.4901],
+        [-1.0391, -0.4820]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 188: train/loss = 0.6926832795143127, train/raw-loss = 0.6926832795143127, train/logprobs = tensor([[-0.3199, -0.5193],
+        [-0.3274, -0.5147]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 189: train/loss = 0.6933616995811462, train/raw-loss = 0.6933616995811462, train/logprobs = tensor([[-0.5119, -0.4407],
+        [-0.5033, -0.4302]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 190: train/loss = 0.6929194927215576, train/raw-loss = 0.6929194927215576, train/logprobs = tensor([[-0.3949, -0.4620],
+        [-0.3991, -0.4601]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 191: train/loss = 0.667632520198822, train/raw-loss = 0.667632520198822, train/logprobs = tensor([[-0.5533, -0.5636],
+        [-0.6581, -0.5513]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
 Model saved, deleting model...
 Deleted model...
-Epoch 0, Step 192: train/loss = 0.6881787180900574, train/raw-loss = 0.6881787180900574, train/logprobs = tensor([[-0.5477, -0.5146],
-        [-0.5425, -0.4876]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 193: train/loss = 0.683059573173523, train/raw-loss = 0.683059573173523, train/logprobs = tensor([[-0.7624, -0.8854],
-        [-0.7522, -0.8300]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 194: train/loss = 0.6922934055328369, train/raw-loss = 0.6922934055328369, train/logprobs = tensor([[-0.6214, -0.5691],
-        [-0.6214, -0.5506]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 195: train/loss = 0.6808984279632568, train/raw-loss = 0.6808984279632568, train/logprobs = tensor([[-0.6512, -0.6533],
-        [-0.6499, -0.6001]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 196: train/loss = 0.6848605871200562, train/raw-loss = 0.6848605871200562, train/logprobs = tensor([[-0.6111, -0.7198],
-        [-0.6214, -0.6941]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 197: train/loss = 0.6855059266090393, train/raw-loss = 0.6855059266090393, train/logprobs = tensor([[-0.5410, -0.6171],
-        [-0.5321, -0.5755]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 198: train/loss = 0.6845892667770386, train/raw-loss = 0.6845892667770386, train/logprobs = tensor([[-0.6013, -0.6207],
-        [-0.5937, -0.5779]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 199: train/loss = 0.6804124712944031, train/raw-loss = 0.6804124712944031, train/logprobs = tensor([[-0.7227, -0.7134],
-        [-0.7305, -0.6631]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 200: train/loss = 0.6878703832626343, train/raw-loss = 0.6878703832626343, train/logprobs = tensor([[-0.6201, -0.6189],
-        [-0.6179, -0.5952]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 201: train/loss = 0.6798003911972046, train/raw-loss = 0.6798003911972046, train/logprobs = tensor([[-0.6903, -0.7434],
-        [-0.6903, -0.6872]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 202: train/loss = 0.6836426258087158, train/raw-loss = 0.6836426258087158, train/logprobs = tensor([[-0.6877, -0.8104],
-        [-0.6903, -0.7574]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 203: train/loss = 0.6858763098716736, train/raw-loss = 0.6858763098716736, train/logprobs = tensor([[-0.7640, -0.7446],
-        [-0.7621, -0.7106]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 204: train/loss = 0.6845302581787109, train/raw-loss = 0.6845302581787109, train/logprobs = tensor([[-0.5930, -0.7104],
-        [-0.5829, -0.6618]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 205: train/loss = 0.6850210428237915, train/raw-loss = 0.6850210428237915, train/logprobs = tensor([[-0.6639, -0.7029],
-        [-0.6645, -0.6661]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 206: train/loss = 0.6835533380508423, train/raw-loss = 0.6835533380508423, train/logprobs = tensor([[-0.7479, -0.8178],
-        [-0.7674, -0.7973]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 207: train/loss = 0.6879482269287109, train/raw-loss = 0.6879482269287109, train/logprobs = tensor([[-0.6096, -0.7618],
-        [-0.5893, -0.7035]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 208: train/loss = 0.6915666460990906, train/raw-loss = 0.6915666460990906, train/logprobs = tensor([[-0.6040, -0.5742],
-        [-0.6064, -0.5675]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 209: train/loss = 0.6853296756744385, train/raw-loss = 0.6853296756744385, train/logprobs = tensor([[-0.6205, -0.6853],
-        [-0.6182, -0.6493]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 210: train/loss = 0.6863242387771606, train/raw-loss = 0.6863242387771606, train/logprobs = tensor([[-0.5369, -0.6188],
-        [-0.5464, -0.5990]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
-Epoch 0, Step 211: train/loss = 0.6885946989059448, train/raw-loss = 0.6885946989059448, train/logprobs = tensor([[-0.5881, -0.7211],
-        [-0.5790, -0.6876]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 192: train/loss = 0.6891454458236694, train/raw-loss = 0.6891454458236694, train/logprobs = tensor([[-0.5100, -0.4930],
+        [-0.5040, -0.4682]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 193: train/loss = 0.6795241236686707, train/raw-loss = 0.6795241236686707, train/logprobs = tensor([[-0.5267, -0.5832],
+        [-0.5446, -0.5426]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 194: train/loss = 0.6684650182723999, train/raw-loss = 0.6684650182723999, train/logprobs = tensor([[-0.5411, -0.5501],
+        [-0.5956, -0.5014]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 195: train/loss = 0.6702245473861694, train/raw-loss = 0.6702245473861694, train/logprobs = tensor([[-0.6649, -0.6917],
+        [-0.6992, -0.6278]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 196: train/loss = 0.6784241199493408, train/raw-loss = 0.6784241199493408, train/logprobs = tensor([[-0.5130, -0.6572],
+        [-0.5292, -0.6090]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 197: train/loss = 0.685906171798706, train/raw-loss = 0.685906171798706, train/logprobs = tensor([[-0.5175, -0.5813],
+        [-0.5043, -0.5207]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 198: train/loss = 0.6582359075546265, train/raw-loss = 0.6582359075546265, train/logprobs = tensor([[-0.4816, -0.5064],
+        [-0.6432, -0.5027]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 199: train/loss = 0.6915108561515808, train/raw-loss = 0.6915108561515808, train/logprobs = tensor([[-0.5150, -0.5146],
+        [-0.5301, -0.5136]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 200: train/loss = 0.68232661485672, train/raw-loss = 0.68232661485672, train/logprobs = tensor([[-0.6278, -0.5935],
+        [-0.6246, -0.5419]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 201: train/loss = 0.6939537525177002, train/raw-loss = 0.6939537525177002, train/logprobs = tensor([[-0.5756, -0.3138],
+        [-0.6000, -0.3116]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 202: train/loss = 0.6896810531616211, train/raw-loss = 0.6896810531616211, train/logprobs = tensor([[-0.7036, -0.5521],
+        [-0.7158, -0.5287]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 203: train/loss = 0.6767573952674866, train/raw-loss = 0.6767573952674866, train/logprobs = tensor([[-0.5801, -0.5563],
+        [-0.6423, -0.5347]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 204: train/loss = 0.6923578977584839, train/raw-loss = 0.6923578977584839, train/logprobs = tensor([[-0.2997, -0.3350],
+        [-0.3140, -0.3392]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 205: train/loss = 0.6886197328567505, train/raw-loss = 0.6886197328567505, train/logprobs = tensor([[-0.5089, -0.4042],
+        [-0.5202, -0.3886]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 206: train/loss = 0.6787934303283691, train/raw-loss = 0.6787934303283691, train/logprobs = tensor([[-0.4499, -0.6473],
+        [-0.4625, -0.5819]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 207: train/loss = 0.6872113943099976, train/raw-loss = 0.6872113943099976, train/logprobs = tensor([[-0.5167, -0.5250],
+        [-0.5483, -0.5313]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 208: train/loss = 0.6921519041061401, train/raw-loss = 0.6921519041061401, train/logprobs = tensor([[-0.6991, -0.5378],
+        [-0.6878, -0.5093]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 209: train/loss = 0.6583290100097656, train/raw-loss = 0.6583290100097656, train/logprobs = tensor([[-0.5861, -0.6354],
+        [-0.7173, -0.6098]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 210: train/loss = 0.6780104637145996, train/raw-loss = 0.6780104637145996, train/logprobs = tensor([[-0.6290, -0.6590],
+        [-0.6720, -0.6397]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 211: train/loss = 0.6682072877883911, train/raw-loss = 0.6682072877883911, train/logprobs = tensor([[-0.5211, -0.6504],
+        [-0.5406, -0.5604]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 212: train/loss = 0.6185325384140015, train/raw-loss = 0.6185325384140015, train/logprobs = tensor([[-0.5599, -0.9196],
+        [-0.5779, -0.5002]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 213: train/loss = 0.6880189776420593, train/raw-loss = 0.6880189776420593, train/logprobs = tensor([[-0.3801, -0.5993],
+        [-0.4092, -0.5879]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 214: train/loss = 0.6853623390197754, train/raw-loss = 0.6853623390197754, train/logprobs = tensor([[-0.6515, -0.5675],
+        [-0.6595, -0.5401]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 215: train/loss = 0.6553313732147217, train/raw-loss = 0.6553313732147217, train/logprobs = tensor([[-0.5584, -0.8351],
+        [-0.5885, -0.6874]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 216: train/loss = 0.6756471991539001, train/raw-loss = 0.6756471991539001, train/logprobs = tensor([[-0.5873, -0.7409],
+        [-0.5883, -0.6665]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 217: train/loss = 0.6894810199737549, train/raw-loss = 0.6894810199737549, train/logprobs = tensor([[-0.5929, -0.5635],
+        [-0.6099, -0.5630]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 218: train/loss = 0.6859073638916016, train/raw-loss = 0.6859073638916016, train/logprobs = tensor([[-0.5665, -0.5653],
+        [-0.5914, -0.5593]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 219: train/loss = 0.6853564977645874, train/raw-loss = 0.6853564977645874, train/logprobs = tensor([[-0.4983, -0.4562],
+        [-0.5190, -0.4271]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 220: train/loss = 0.6802870035171509, train/raw-loss = 0.6802870035171509, train/logprobs = tensor([[-0.4870, -0.4433],
+        [-0.5252, -0.4250]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 221: train/loss = 0.6580820083618164, train/raw-loss = 0.6580820083618164, train/logprobs = tensor([[-0.6757, -0.8483],
+        [-0.8621, -0.8237]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 222: train/loss = 0.690822958946228, train/raw-loss = 0.690822958946228, train/logprobs = tensor([[-0.5591, -0.6375],
+        [-0.5580, -0.6161]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 223: train/loss = 0.6872400641441345, train/raw-loss = 0.6872400641441345, train/logprobs = tensor([[-0.5282, -0.5706],
+        [-0.5474, -0.5646]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 224: train/loss = 0.6613576412200928, train/raw-loss = 0.6613576412200928, train/logprobs = tensor([[-0.5358, -0.5319],
+        [-0.6713, -0.5231]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 225: train/loss = 0.6896185874938965, train/raw-loss = 0.6896185874938965, train/logprobs = tensor([[-0.5532, -0.5157],
+        [-0.5981, -0.5356]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 226: train/loss = 0.6871628761291504, train/raw-loss = 0.6871628761291504, train/logprobs = tensor([[-0.6169, -0.5414],
+        [-0.6343, -0.5259]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 227: train/loss = 0.6609494686126709, train/raw-loss = 0.6609494686126709, train/logprobs = tensor([[-0.4244, -0.5346],
+        [-0.5348, -0.5053]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 228: train/loss = 0.682243824005127, train/raw-loss = 0.682243824005127, train/logprobs = tensor([[-0.5676, -0.6224],
+        [-0.5457, -0.5525]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 229: train/loss = 0.6898025870323181, train/raw-loss = 0.6898025870323181, train/logprobs = tensor([[-0.3834, -0.4966],
+        [-0.3838, -0.4792]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 230: train/loss = 0.6771982908248901, train/raw-loss = 0.6771982908248901, train/logprobs = tensor([[-0.5659, -0.5297],
+        [-0.5752, -0.4703]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 231: train/loss = 0.6824056506156921, train/raw-loss = 0.6824056506156921, train/logprobs = tensor([[-0.5501, -0.8802],
+        [-0.5639, -0.8270]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 232: train/loss = 0.6757270097732544, train/raw-loss = 0.6757270097732544, train/logprobs = tensor([[-0.5617, -0.6431],
+        [-0.5933, -0.6009]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 233: train/loss = 0.6664426922798157, train/raw-loss = 0.6664426922798157, train/logprobs = tensor([[-0.5352, -0.6967],
+        [-0.6255, -0.6713]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 234: train/loss = 0.6917505264282227, train/raw-loss = 0.6917505264282227, train/logprobs = tensor([[-0.5865, -0.5689],
+        [-0.6022, -0.5756]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 235: train/loss = 0.6882236003875732, train/raw-loss = 0.6882236003875732, train/logprobs = tensor([[-0.6774, -0.5169],
+        [-0.7034, -0.5055]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 236: train/loss = 0.6748836040496826, train/raw-loss = 0.6748836040496826, train/logprobs = tensor([[-0.6337, -0.6479],
+        [-0.6374, -0.5729]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 237: train/loss = 0.690240740776062, train/raw-loss = 0.690240740776062, train/logprobs = tensor([[-0.4750, -0.5837],
+        [-0.5266, -0.6173]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 238: train/loss = 0.6854619383811951, train/raw-loss = 0.6854619383811951, train/logprobs = tensor([[-0.4841, -0.5132],
+        [-0.4879, -0.4839]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 239: train/loss = 0.6254127621650696, train/raw-loss = 0.6254127621650696, train/logprobs = tensor([[-0.6372, -0.5520],
+        [-0.9732, -0.5283]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0
+Epoch 0, Step 240: train/loss = 0.6892247796058655, train/raw-loss = 0.6892247796058655, train/logprobs = tensor([[-0.4813, -0.4826],
+        [-0.5100, -0.4859]], device='cuda:0', grad_fn=<DivBackward0>), KL = 0.0

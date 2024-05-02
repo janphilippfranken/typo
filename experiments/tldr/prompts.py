@@ -17,45 +17,26 @@ Summarization Constitution:
 
 Summary: The post"""
 
-PROMPT_GENERATION_ITERATION_0_COT_EVAL = """System: Summarize the post below according to the principles in the constitution.
+PROMPT_GENERATION_ITERATION_0_COT = """System: Summarize the post below according to the principles in the constitution.
 
-### Example Format
+### Format
 Summarization Constitution: [insert constitution here]
 
-POST: [insert query here]
+POST: [insert post here]
+
+Reasoning: [insert reasoning here]
 
 Summary: [insert summary here]
-
-Human: Thank you!
-
-### Main Task
-Summarization Constitution: 
-{constitution}
-
-{question}
-
-Summary: The"""
-
-PROMPT_GENERATION_ITERATION_0_COT = """System: Summarize the post below according to the principles outlined in the constitution.
-
-### Example Format
-Summarization Constitution: [insert constitution here]
-
-POST: [insert original post here]
-
-Chain of Thought: [Let's think step by step about how to apply each principle from the constitution to the summary]
-
-Summary: [Insert summary adhering to the principles outlined in the constitution here]
 
 Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
 
 ### Main Task
-Summarization Constitution: 
-{constitution}
+Summarization Constitution: {constitution}
 
 {question}
 
-Chain of Thought: Principle 1 states"""
+Reasoning: The tips for how to summarize state that"""
+
 
 
 PROMPT_TRAINING = """System: Summarize the post below according to the principles in the constitution.

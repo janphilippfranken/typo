@@ -11,7 +11,7 @@ import torch.distributed as dist
 import hydra
 from omegaconf import DictConfig, OmegaConf
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from transformers.models.mixtral.llama.modeling_llama import LlamaDecoderLayer
+from transformers.models.llama.modeling_llama import LlamaDecoderLayer
 from torch.distributed.fsdp import (
     FullyShardedDataParallel as FSDP,
     MixedPrecision,
@@ -39,7 +39,7 @@ def init_distributed(
     rank: int,
     world_size: int,
     master_addr: str = "localhost",
-    port: int = 12355,
+    port: int = 55123,
     backend: str = "nccl",
 ):
     print(rank, "initializing distributed")
@@ -52,6 +52,10 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     init_distributed(rank, world_size)
     if rank == 0:
         print("Initialized process group...")
+        
+        if args.wandb.log:
+            print("WANDB")
+            wandb.init(project=args.wandb.project, name=args.wandb.name)
 
     # tokenizer
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
@@ -82,7 +86,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
         limit_all_gathers=False,
     )
     check_fn = lambda submodule: isinstance(submodule, LlamaDecoderLayer)
-    apply_activation_checkpointing(model, checkpoint_wrapper_fn=non_reentrant_wrapper, check_fn=check_fn)
+    # apply_activation_checkpointing(model, checkpoint_wrapper_fn=non_reentrant_wrapper, check_fn=check_fn)
     
     print(f"wrapped model {rank}...")
 
@@ -116,17 +120,11 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     trainer.train()
 
 # main training script 
-@hydra.main(version_base=None, config_path="conf", config_name="train_typo_mixtral")
+@hydra.main(version_base=None, config_path="conf", config_name="train_typo_llama")
 def main(args: DictConfig) -> None:
     
     # nans 
     torch.autograd.set_detect_anomaly(True)
-
-    # wandb
-    args_dict = OmegaConf.to_container(args, resolve=True)
-    if args.wandb.log:
-        wandb.init(project=args.wandb.project, name=args.wandb.name, config=args_dict)
-
 
     # seeds
     torch.cuda.manual_seed(args.training.seed)

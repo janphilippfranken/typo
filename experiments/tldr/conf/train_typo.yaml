@@ -13,8 +13,8 @@ defaults:
   - model: mistral_7b_base
 
 wandb:
-  project: typo-summarization-opus-mistral
-  name: typo
+  project: typo-summarization-opus-mistral-diverse
+  name: typo-mistral-diverse
   log: true
 
 typo:
@@ -24,7 +24,7 @@ training:
   evaluate_before_training: false
   evaluate: false
   n_epochs: 1
-  lr: 1e-7
+  lr: 5e-7
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
