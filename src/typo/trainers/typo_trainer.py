@@ -521,7 +521,7 @@ class TYPOTrainer:
                             self.evaluate()
                         self.save_checkpoint(round(step / len(self.train_dataloader), 2))
                                 
-        # evaluate at end of each epoch and save checkpoint 
-        if self.config.training.evaluate:
-            self.evaluate()
-        self.save_checkpoint(epoch + 1)
+            # evaluate at end of each epoch and save checkpoint 
+            if self.config.training.evaluate:
+                self.evaluate()
+            self.save_checkpoint(epoch + 1)

@@ -1,0 +1,26 @@
+output_dir: data/base
+file_name: base_mistral_prism
+preferences: prism_data/preferences/prism_users.json
+conversations: prism_data/conversations/prism_prompts_responses.json
+iteration: 1
+start_example: 0
+max_example: 10000
+batch_size: 10000
+generation_config:
+  max_new_tokens: 500
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config:
+  model: mistralai/Mistral-7B-v0.1
+  download_dir: /scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+filter:
+- The assistant
+- sorry
+- Response
+- '[insert'
+- '[]'
+- ']'

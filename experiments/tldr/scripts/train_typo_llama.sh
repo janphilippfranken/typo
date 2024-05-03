@@ -21,7 +21,7 @@ cd ~/research_projects/typo/experiments/tldr
 # export CUDA_LAUNCH_BLOCKING=1
 
 beta=0.0
-lr=5e-7
+lr=1e-6
 iteration=1
 checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-${lr}-iteration-${iteration}-opus-diverse"
 

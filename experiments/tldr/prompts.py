@@ -5,8 +5,6 @@ Summarization Constitution: [insert constitution here]
 
 POST: [insert post here]
 
-Reasoning: [insert reasoning for how to summarize here]
-
 Summary: [insert summary here]
 
 Human: Thank you for this great summary! I appreciate that you followed the principles in the constitution. 
@@ -15,8 +13,6 @@ Human: Thank you for this great summary! I appreciate that you followed the prin
 Summarization Constitution: {constitution}
 
 {question}
-
-Reasoning: {reasoning}
 
 Summary: The post"""
 
@@ -40,6 +36,34 @@ Summarization Constitution: {constitution}
 
 Reasoning: First, I will state my reasoning here, then, on a new line, I will write 'Summary:' and include a summary of the post that aligns with the principles in the constitution. The constitution states that"""
 
+
+PROMPT_GENERATION_ITERATION_0_COT_PRISM = """System: Write a personalized response to the user query that aligns with the user's preferences for how the Assistant should respond.
+
+### Example Format
+User Preferences for how the Assistant should respond: [insert preferences here]
+
+User Query: [insert user query here]
+
+Assistant Reasoning: [insert assistant reasoning]
+
+Assistant Response: [insert assistant response]
+
+User: Thank you for the personalized response!
+
+### Main Task
+User Preferences for how the Assistant should respond: {user}
+
+User Query: {query}
+
+Assistant Reasoning: First, I will repeat the user's preferences here and how I will use my knowledge of them to write a personalized response. Then, on a new line, I will write 'Assistant Response:' and include my response to the user. The user preferences state that the user """
+
+PROMPT_TRAINING_PRISM = """System: Write a personalized response to the user query that aligns with the user's preferences for how the Assistant should respond.
+
+User Preferences for how the Assistant should respond: {user}
+
+User Query: {query}
+
+Assistant Response:"""
 
 
 PROMPT_TRAINING = """System: Summarize the post below according to the principles in the constitution.
