@@ -8,26 +8,26 @@ model:
     pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
     cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
     model_max_length: 2048
-data_path: data/base
-data_file: base_llama_70_from_opus_principles_diverse_cot.json
+data_path: data/iteration_2
+data_file: iteration_2_llama_70_from_opus_principles_diverse_cot.json
 n_examples: 2000
 n_responses: 2
 n_constitutions: 2
 wandb:
   project: typo-summarization-llama-70
-  name: typo-lr-1e-6-iteration-1-opus-diverse
+  name: typo-lr-1e-6-iteration-3-opus-diverse
   log: true
 typo:
   beta: 0.0
 training:
   evaluate_before_training: false
   evaluate: false
-  n_epochs: 3
+  n_epochs: 1
   lr: 1.0e-06
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse
+  checkpoint_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-3-opus-diverse
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 16

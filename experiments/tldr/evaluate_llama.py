@@ -21,6 +21,7 @@ def format_responses_cot(response):
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
+        
 
 
 # main evaluation script
@@ -28,24 +29,24 @@ def format_responses_cot(response):
 def main(args: DictConfig) -> None:
     random.seed(42)
     
-    save_model = AutoModelForCausalLM.from_pretrained(
-        **args.model_config_hf,
-        torch_dtype=torch.float16,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(
-        **args.model_config_hf,
-    )
+    # save_model = AutoModelForCausalLM.from_pretrained(
+    #     **args.model_config_hf,
+    #     torch_dtype=torch.float16,
+    # )
+    # tokenizer = AutoTokenizer.from_pretrained(
+    #     **args.model_config_hf,
+    # )
 
-    state_dict = torch.load(args.state_dict, map_location='cpu')
+    # state_dict = torch.load(args.state_dict, map_location='cpu')
     # # breakpoint()
-    save_model.load_state_dict(state_dict)
-    save_model.save_pretrained(args.save_dir)
-    tokenizer.save_pretrained(args.save_dir)
-    breakpoint()
+    # save_model.load_state_dict(state_dict)
+    # save_model.save_pretrained(args.save_dir)
+    # tokenizer.save_pretrained(args.save_dir)
+    # breakpoint()
     
-    del save_model
-    del tokenizer
-    del state_dict
+    # del save_model
+    # del tokenizer
+    # del state_dict
     
     # model
     model = VLLMInferenceModel(
@@ -123,7 +124,7 @@ def main(args: DictConfig) -> None:
                 for j, batch_response in enumerate(batch_responses):
                     # breakpoint()     
                     formatted_response = format_responses_cot(batch_response)
-                    
+                   
                     all_responses['constitution'][j] = batch_constitutions[j].strip()
                     all_responses['question'][j] = batch_questions[j]
                     all_responses['response'][j] = formatted_response

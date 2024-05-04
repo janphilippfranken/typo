@@ -33,8 +33,8 @@ def main(args: DictConfig) -> None:
     breakpoint()
     # get tokenizer    
     tokenizer = AutoTokenizer.from_pretrained(
-        pretrained_model_name_or_path="mistralai/Mistral-7B-v0.1",
-        cache_dir="/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1",
+        pretrained_model_name_or_path="meta-llama/Meta-Llama-3-70B",
+        cache_dir="/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B",
         model_max_length=2048,
     )
     
@@ -86,6 +86,8 @@ def main(args: DictConfig) -> None:
 
         rand_number = np.random.randint(2)
         numbers.append(rand_number)
+        
+        # breakpoint()
         
         if rand_number == 0:
         
