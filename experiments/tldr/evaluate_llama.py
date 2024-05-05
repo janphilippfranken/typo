@@ -70,7 +70,7 @@ def main(args: DictConfig) -> None:
 
 
     constitutions = json.load(open(f"{args.constitution_dir}/constitutions.json"))
-    constitutions = [v for _, v in constitutions.items()][:15]
+    constitutions = [v for _, v in constitutions.items()][15:] # used first 15 during training
     
     for temperature in args.temperatures:
         print(temperature)
