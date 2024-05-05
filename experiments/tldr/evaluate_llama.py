@@ -28,25 +28,25 @@ def format_responses_cot(response):
 @hydra.main(version_base=None, config_path="conf", config_name="evaluate_llama")
 def main(args: DictConfig) -> None:
     random.seed(42)
-    
-    # save_model = AutoModelForCausalLM.from_pretrained(
-    #     **args.model_config_hf,
-    #     torch_dtype=torch.float16,
-    # )
-    # tokenizer = AutoTokenizer.from_pretrained(
-    #     **args.model_config_hf,
-    # )
+    print(args.state_dict)
+    save_model = AutoModelForCausalLM.from_pretrained(
+        **args.model_config_hf,
+        torch_dtype=torch.float16,
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        **args.model_config_hf,
+    )
 
-    # state_dict = torch.load(args.state_dict, map_location='cpu')
-    # # breakpoint()
-    # save_model.load_state_dict(state_dict)
-    # save_model.save_pretrained(args.save_dir)
-    # tokenizer.save_pretrained(args.save_dir)
+    state_dict = torch.load(args.state_dict, map_location='cpu')
     # breakpoint()
+    save_model.load_state_dict(state_dict)
+    save_model.save_pretrained(args.save_dir)
+    tokenizer.save_pretrained(args.save_dir)
+    breakpoint()
     
-    # del save_model
-    # del tokenizer
-    # del state_dict
+    del save_model
+    del tokenizer
+    del state_dict
     
     # model
     model = VLLMInferenceModel(

@@ -101,6 +101,7 @@ class VLLMInferenceModel():
         top_p: Optional[float] = 0.9,
         temperature: Optional[float] = 0.0,
         num_return_sequences: Optional[int] = 1,
+        is_instruct = False,
     ) -> List[str]:
         """Batched text generation."""       
         sampling_params = SamplingParams(
@@ -108,6 +109,7 @@ class VLLMInferenceModel():
             top_p=top_p,
             max_tokens=max_new_tokens,
             n=num_return_sequences,
+            stop_token_ids=[self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")] if is_instruct else None,
         )
         
         outputs = self.model.generate(

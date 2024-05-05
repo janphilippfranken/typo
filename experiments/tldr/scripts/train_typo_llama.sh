@@ -23,7 +23,7 @@ cd ~/research_projects/typo/experiments/tldr
 beta=0.0
 lr=1e-6
 iteration=3
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-${lr}-iteration-${iteration}-opus-diverse"
+checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-${lr}-iteration-${iteration}-opus-diverse-from-epoch-0.51"
 
 python train_llama.py \
     typo.beta=$beta \
@@ -31,5 +31,5 @@ python train_llama.py \
     training.checkpoint_dir="$checkpoint_dir" \
     training.lr=$lr \
     data_path="data/iteration_2" \
-    data_file="iteration_2_llama_70_from_opus_principles_diverse_cot.json" \
+    data_file="iteration_2_llama_70_from_opus_principles_diverse_cot_epoch_0.51.json" \
     n_examples=2000 

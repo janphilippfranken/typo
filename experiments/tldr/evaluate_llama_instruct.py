@@ -112,8 +112,14 @@ def main(args: DictConfig) -> None:
                 question=question.strip(),
             )
             
+            messages = [
+                {"role": "user", "content": prompt}
+            ]
+            prompt = model.tokenizer.apply_chat_template(messages, tokenize=False)
+
+
             # chat_prompt = tokenizer
-            breakpoint()
+            # breakpoint()
             
             batch_prompts.append(prompt)
             batch_questions.append(question)
@@ -122,11 +128,13 @@ def main(args: DictConfig) -> None:
                 batch_responses = model.batch_prompt(
                     prompts=batch_prompts,
                     temperature=temperature,
+                    is_instruct=True,
                     **args.generation_config,
                 )
                 
                 for j, batch_response in enumerate(batch_responses):
-                    # breakpoint()     
+                    # breakpoint()   
+                    # batch_response = model.tokenizer.decode(batch_response, skip_special_tokens=True)  
                     formatted_response = format_responses_cot(batch_response)
                    
                     all_responses['constitution'][j] = batch_constitutions[j].strip()
