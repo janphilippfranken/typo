@@ -111,21 +111,14 @@ hydra:
   overrides:
     hydra:
     - hydra.mode=RUN
-    task:
-    - typo.beta=0.0
-    - wandb.name=typo-lr-1e-6-iteration-3-opus-diverse
-    - training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-3-opus-diverse-from-epoch-0.51
-    - training.lr=1e-6
-    - data_path=data/iteration_2
-    - data_file=iteration_2_llama_70_from_opus_principles_diverse_cot_epoch_0.51.json
-    - n_examples=2000
+    task: []
   job:
-    name: train_llama
+    name: train_typo
     chdir: null
-    override_dirname: data_file=iteration_2_llama_70_from_opus_principles_diverse_cot_epoch_0.51.json,data_path=data/iteration_2,n_examples=2000,training.checkpoint_dir=/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-3-opus-diverse-from-epoch-0.51,training.lr=1e-6,typo.beta=0.0,wandb.name=typo-lr-1e-6-iteration-3-opus-diverse
+    override_dirname: ''
     id: ???
     num: ???
-    config_name: train_typo_llama
+    config_name: train_typo
     env_set: {}
     env_copy: []
     config:
@@ -149,7 +142,7 @@ hydra:
       provider: schema
     output_dir: /sailhome/jphilipp/research_projects/typo/experiments/tldr/hydra-configs
     choices:
-      model: llama_70b_base
+      model: llama_8b_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

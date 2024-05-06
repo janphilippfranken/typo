@@ -59,7 +59,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
 
     # tokenizer
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
-    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.pad_token = tokenizer.eos_token # note we do mask the first occurrence of the eos token in the trainer
     tokenizer.padding_side = "right"
 
     # fsdp 
@@ -93,7 +93,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     # data 
     dataset_dict = json.load(open(os.path.join(args.data_path, args.data_file)))
     dataset_list = [
-        format_example(example) for example in dataset_dict.values()
+        format_example(example, tokenizer) for example in dataset_dict.values()
     ][:args.n_examples]
     if rank == 0:
         print(f"n examples: {len(dataset_list)}")

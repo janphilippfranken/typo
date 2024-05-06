@@ -58,6 +58,7 @@ def typo_loss(logprobs: torch.FloatTensor) -> torch.FloatTensor:
 def _get_mask(
     attention_mask: torch.LongTensor,
     labels: torch.LongTensor,
+    model: torch.nn.Module,
     pad_token_id: int,
 ) -> torch.BoolTensor:
     """Returns a mask for the loss computation.
@@ -65,14 +66,22 @@ def _get_mask(
     Args:
         attention_mask: The attention mask of the prompt without final response. Shape: (batch_size, sequence_length).
         labels: The labels of the prompt including the final response. Shape: (batch_size, sequence_length).
+        model: torch.nn.Module
         pad_token_id: The id of the padding token.
     
     Returns:
         mask: The mask for the loss computation. Shape: (batch_size, sequence_length).
     """
     prompt_mask = attention_mask.to(torch.bool) # mask prompt 
-    response_mask = labels == pad_token_id      # mask padding
     
+    # find first occurrence of pad which is eos token and do not mask that 
+    is_pad = labels == pad_token_id
+    cumsum_pad = torch.cumsum(is_pad, dim=1)
+    eos_mask = cumsum_pad == 1
+    eos_mask = eos_mask.to(model.device)
+    response_mask = torch.logical_and(is_pad, ~eos_mask)
+    response_mask = torch.logical_and(labels == pad_token_id, torch.logical_not(eos_mask))  # mask padding
+     
     return torch.logical_or(
         prompt_mask,       # mask prompt
         torch.logical_and( # mask padding but not prompt
@@ -102,6 +111,7 @@ def _get_batch_logprobs(
     labels = labels[:, 1:].clone()
     logits = logits[:, :-1]
     loss_mask = (labels == ignore_idx)
+    
                                                                                                                                                                           
     per_token_logprobs = -F.cross_entropy( 
         input=logits.reshape(-1, logits.size(-1)),
@@ -182,6 +192,7 @@ def prepare_logits_labels(
     mask = _get_mask(
         attention_mask=prompt_attention_mask,
         labels=labels, 
+        model=model,
         pad_token_id=tokenizer.pad_token_id,
     )
 
@@ -212,7 +223,7 @@ class TYPODataCollator:
             (len(instance[key]) for instance in instances for key in unique_keys),
             default=0
         )
-
+        
         for key in unique_keys:
             
             values = [

@@ -57,6 +57,7 @@ def format_responses_cot(responses):
 
 def format_example(
     example: List[Dict],
+    tokenizer: transformers.PreTrainedTokenizer,
 ) -> Dict:
     """Formats example into a dictionary with keys for each constitution and response."""
     formatted_example = {}
@@ -72,7 +73,7 @@ def format_example(
 
             prompt_response = f"{prompt}{response}"
             formatted_example[f"prompt_c{i}_r{j}"] = prompt  
-            formatted_example[f"response_c{i}_r{j}"] = prompt_response
+            formatted_example[f"response_c{i}_r{j}"] = prompt_response + tokenizer.eos_token
             
     return formatted_example
 

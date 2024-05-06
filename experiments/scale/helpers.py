@@ -5,6 +5,7 @@ import transformers
 
 def format_example(
     example: List[Dict],
+    tokenizer: transformers.PreTrainedTokenizer,
 ) -> Dict:
     """Formats example into a dictionary with keys for each constitution and response."""
     formatted_example = {}
@@ -15,7 +16,7 @@ def format_example(
         
         for j, response in enumerate(example): 
     
-            response = response["response"]
+            response = response["response"] + tokenizer.eos_token
 
             prompt_response = f"{prompt}{response}"
             formatted_example[f"prompt_c{i}_r{j}"] = prompt  
@@ -52,7 +53,7 @@ def tokenize_func(
             return_tensors="pt",
             padding="max_length",
             max_length=tokenized_responses[i].input_ids.shape[1], # pad to the length of response
-        )
+        ) 
         for i, prompt in enumerate(prompts)
     ]
     

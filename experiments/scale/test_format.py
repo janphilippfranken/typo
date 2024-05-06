@@ -38,13 +38,14 @@ def main(args: DictConfig) -> None:
         model_max_length=2048,
     )
     tokenizer.pad_token = tokenizer.eos_token
-    
+    # tokenizer.add_special_tokens({"pad_token": "<|pad_token|>"})
+    breakpoint()
     dataset_dict = json.load(open(os.path.join(args.data_path, args.data_file)))
     dataset_list = [
-        format_example(example) for example in dataset_dict.values()
+        format_example(example, tokenizer) for example in dataset_dict.values()
     ][:args.n_examples]
     
-    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:10]]
+    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:1]]
     breakpoint()
 
 if __name__ == "__main__":

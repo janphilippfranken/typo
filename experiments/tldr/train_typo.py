@@ -135,7 +135,7 @@ def main(args: DictConfig) -> None:
     
     # get data
     dataset_dict = json.load(open(os.path.join(args.data_path, args.data_file)))
-    dataset_list = [format_example(example) for example in dataset_dict.values()][:args.n_examples]
+    dataset_list = [format_example(example, tokenizer) for example in dataset_dict.values()][:args.n_examples]
     
     if local_rank == 0:
         print(f"n examples: {len(dataset_list)}")
