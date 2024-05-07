@@ -1,0 +1,44 @@
+output_dir: training_data/base
+file_name: base_mix_2_epoch_0.6
+constitution_dir: constitutions_opus_diverse
+iteration: 0
+start_example_helpful: 2500
+max_example_helpful: 5000
+start_example_harmless: 2500
+max_example_harmless: 5000
+start_example_prism: 2500
+max_example_prism: 5000
+start_example_star_gate: 2500
+max_example_star_gate: 5000
+batch_size: 10000
+n_examples: 10000
+generation_config:
+  max_new_tokens: 500
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+model_config_hf:
+  pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
+  cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
+state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse/typo-1e-6-iteration-1/epoch-0.6/model.pt
+save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse/typo-1e-6-iteration-1/epoch-0.6/hf
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse/typo-1e-6-iteration-1/epoch-0.6/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse/typo-1e-6-iteration-1/epoch-0.6/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 4
+filter:
+- The assistant
+- 'Assistant:'
+- 'Human:'
+- Response
+- '[insert'
+- '[]'
+- ']'
+- The post
+- principles
+- constitution
+- System Instructions
+- system instructions
+- System instructions

@@ -23,7 +23,7 @@ cd ~/research_projects/typo/experiments/scale
 beta=0.0
 lr=1e-6
 iteration=1
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse/typo-${lr}-iteration-${iteration}"
+checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-${lr}-iteration-${iteration}"
 
 python train_llama.py \
     typo.beta=$beta \
@@ -31,5 +31,5 @@ python train_llama.py \
     training.checkpoint_dir="$checkpoint_dir" \
     training.lr=$lr \
     data_path="training_data/base" \
-    data_file="base_mix_1.json" \
+    data_file="base_mix_ultra_harmless.json" \
     n_examples=5120

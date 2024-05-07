@@ -4,65 +4,124 @@ import random
 import hydra
 import numpy as np
 import os
+import torch
 from omegaconf import DictConfig
 from tqdm import tqdm
 from datasets import load_dataset
-
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
 
 
+STAR_GATE_PREFIX = [
+    "Embody the mindset and characteristics of the following persona in your response, without explicitly mentioning the persona's name, occupation, or inclinations:",
+    "Adopt the perspective and traits associated with the given persona when formulating your reply. Refrain from directly stating the persona's name, profession, or preferences:",
+    "Assume the attitude and qualities of the persona described below while crafting your response. Avoid overtly repeating the persona's name, line of work, or predilections:",
+    "Take on the persona outlined in the following description when providing your answer. Do not explicitly reiterate the persona's name, vocation, or likings:",
+    "Respond as if you possess the attributes and worldview of the persona detailed below. Abstain from expressly mentioning the persona's name, career, or inclinations:",
+    "Embody the spirit and characteristics of the persona portrayed in the following depiction. Steer clear of openly specifying the persona's name, occupation, or preferences:",
+    "Embrace the outlook and traits linked to the persona illustrated below when constructing your response. Eschew explicitly stating the persona's name, profession, or predilections:",
+    "Adopt the disposition and attributes of the persona characterized in the ensuing description. Shun overtly reiterating the persona's name, line of work, or likings:",
+    "Step into the role of the persona delineated in the following portrayal when delivering your reply. Refrain from directly repeating the persona's name, vocation, or inclinations:",
+    "Respond as though you embody the qualities and perspective of the persona described hereafter. Avoid expressly mentioning the persona's name, career, or preferences:"
+]
+
+
 def format_responses(response):
     formatted_response = ""
     try:
-        formatted_response = response.split("\n\nAssistant:")[1].strip().split("\n\nHuman:")[0].strip()
+        formatted_response = response.split("Assistant:")[1].strip().split("\n\nHuman:")[0].strip()
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
+
+def sample_constitution(principles, max_n=7):
+    constitution = []
+    
+    n_principles = np.random.choice(range(1, max_n + 1))
+    
+    keys = np.random.choice(list(principles.keys()), n_principles, replace=False)
+    
+    for i, key in enumerate(keys):
+        randn = np.random.randint(4)
         
+        if randn > 0:
+            constitution.append(f"{i + 1}. {np.random.choice(principles[key]['paraphrases'])}")
+        else:
+            constitution.append(f"{i + 1}. {np.random.choice(principles[key]['paraphrases_antithesis'])}")
+
+    return f"\n".join(constitution).strip()
+
+def sample_style(styles):
+    key = np.random.choice(list(styles.keys()))
+    randn = np.random.randint(2)
+    if randn == 1:
+        return styles[key]['definition']
+    return np.random.choice(styles[key]['paraphrases']).strip()
+            
+def sample_prism(prism_personas):
+    users = list(prism_personas.keys())
+    return prism_personas[np.random.choice(users)].strip()
+
+def sample_star_gate(star_gate):
+    prefix = np.random.choice(STAR_GATE_PREFIX)
+    return f"{prefix} {np.random.choice(star_gate)}".strip()
         
-STAR_GATE_PREFIX = "Respond like someone with the following persona. Do *not* repeat the persona name or preferences in your response: "
 
 # main generation script 
 @hydra.main(version_base=None, config_path="conf", config_name="generate")
 def main(args: DictConfig) -> None:
     
     # seed 
-    np.random.seed(42)
+    np.random.seed(1)
+    
+    # save_model = AutoModelForCausalLM.from_pretrained(
+    #     **args.model_config_hf,
+    #     torch_dtype=torch.float16,
+    # )
+    # tokenizer = AutoTokenizer.from_pretrained(
+    #     **args.model_config_hf,
+    # )
+
+    # state_dict = torch.load(args.state_dict, map_location='cpu')
+    # # breakpoint()
+    # save_model.load_state_dict(state_dict)
+    # save_model.save_pretrained(args.save_dir)
+    # tokenizer.save_pretrained(args.save_dir)
+
+    
+    # del save_model
+    # del tokenizer
+    # del state_dict
+    
         
     # model
     model = VLLMInferenceModel(
         **args.model_config,
     )
+    # breakpoint()
 
     # data 
-    prompts_helpful = json.load(open("prompts/hh_rlhf/prompts_helpful.json"))[args.start_example_helpful:args.max_example_helpful]
-    prompts_harmless = json.load(open("prompts/hh_rlhf/prompts_harmless.json"))[args.start_example_harmless:args.max_example_harmless]
-    prompts_prism = json.load(open("prompts/prism/prompts.json"))['prompt'][args.start_example_prism:args.max_example_prism]
-    prompts_star_gate = json.load(open("prompts/star_gate/prompts.json"))[args.start_example_star_gate:args.max_example_star_gate]
+    prompts_ultrachat = json.load(open("prompts/queries/ultra.json"))[args.start_example_ultra:args.max_example_ultra]
+    prompts_harmless = json.load(open("prompts/queries/harmless.json"))[args.start_example_harmless:args.max_example_harmless]
+    prompts_prism = json.load(open("prompts/queries/prism.json"))['prompt'][args.start_example_prism:args.max_example_prism]
+
+    prompt_probs = [0.75, 0.1, 0.15]
     
     prompts = [
-        prompts_helpful, 
+        prompts_ultrachat,
         prompts_harmless,
         prompts_prism,
-        prompts_star_gate
     ]
-    
-    prompt_probs = [0.25, 0.25, 0.25, 0.25]
     
     # constitutions
-    users_prism = json.load(open("prompts/prism/users.json"))
-    users_star_gate = json.load(open("prompts/star_gate/users.json"))
-    ways_of_speaking = json.load(open("prompts/response_styles/way_of_speaking.json"))
-    
-    constitutions = [
-        users_prism,
-        users_star_gate,
-        ways_of_speaking,
-    ]
-    
-    constitution_probs =  [.8, .1, .1]
+    principles = json.load(open("prompts/constitutions/principles.json"))
+    prism_personas = json.load(open("prompts/constitutions/prism_personas.json"))
+    styles = json.load(open("prompts/constitutions/styles.json"))
+    star_gate =  json.load(open("prompts/constitutions/star_gate.json"))
+   
+    constitution_probs =  [.5, 0.3, 0.1, 0.1]
     
     # data dict to store 
     train_data = {} 
@@ -75,27 +134,35 @@ def main(args: DictConfig) -> None:
 
     for i in tqdm(range(args.n_examples)):
         
-        
-        c1_idx = np.random.choice([0, 1, 2], p=constitution_probs)
-        c2_idx = np.random.choice([0, 1, 2], p=constitution_probs)
+
+        c1_idx = np.random.choice([0, 1, 2, 3], p=constitution_probs)
+        c2_idx = np.random.choice([0, 1, 2, 3], p=constitution_probs)
         
         
         if c1_idx == 0:
-            c1 = np.random.choice(list(constitutions[c1_idx].values()), 1, replace=False)[0]
-        if c1_idx == 1:
-            c1 = STAR_GATE_PREFIX + np.random.choice(constitutions[c1_idx], 1, replace=False)[0]
-        if c1_idx == 2:
-            c1 = np.random.choice(list(constitutions[c1_idx].values()), 1, replace=False)[0]['definition']
+            c1 = sample_constitution(principles=principles)
+        elif c1_idx == 1:
+            c1 = sample_prism(prism_personas=prism_personas)
+        elif c1_idx == 2:
+            c1 = sample_style(styles=styles)
+        elif c1_idx == 3:
+            c1 = sample_star_gate(star_gate=star_gate)
             
         if c2_idx == 0:
-            c2 = np.random.choice(list(constitutions[c2_idx].values()), 1, replace=False)[0]
-        if c2_idx == 1:
-            c2 = STAR_GATE_PREFIX + np.random.choice(constitutions[c2_idx], 1, replace=False)[0]
-        if c2_idx == 2:
-            c2 = np.random.choice(list(constitutions[c2_idx].values()), 1, replace=False)[0]['definition']
-
-        prompt_idx = np.random.choice([0, 1, 2, 3], p=prompt_probs)
+            c2 = sample_constitution(principles=principles)
+        elif c2_idx == 1:
+            c2 = sample_prism(prism_personas=prism_personas)
+        elif c2_idx == 2:
+            c2 = sample_style(styles=styles)
+        elif c2_idx == 3:
+            c2 = sample_star_gate(star_gate=star_gate)
+            
+            
+        prompt_idx = np.random.choice([0, 1, 2,], p=prompt_probs)
+        
         question = np.random.choice(prompts[prompt_idx], 1)[0].strip()
+        
+        # breakpoint()
             
         batch_questions.append(question)
         
@@ -123,8 +190,8 @@ def main(args: DictConfig) -> None:
                 formatted_positive, formatted_negative = "", ""
     
                 formatted_responses = [format_responses(response) for response in [responses_positive, responses_negative]]
+                # breakpoint()
 
-    
                 # filtering for unwanted terms like "["
                 if all(substring not in formatted_responses[0] for substring in args.filter):
                     formatted_positive = formatted_responses[0]
