@@ -13,6 +13,8 @@ from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
 
+import logging
+logging.basicConfig(level=logging.INFO)
 
 STAR_GATE_PREFIX = [
     "Embody the mindset and characteristics of the following persona in your response, without explicitly mentioning the persona's name, occupation, or inclinations:",
@@ -37,21 +39,44 @@ def format_responses(response):
     return formatted_response
 
 def sample_constitution(principles, max_n=7):
-    constitution = []
+    constitution_1 = []
+    constitution_2 = []
     
-    n_principles = np.random.choice(range(1, max_n + 1))
+    n_principles_1 = np.random.choice(range(1, max_n + 1))
+    n_principles_2 = np.random.choice(range(1, max_n + 1))
     
-    keys = np.random.choice(list(principles.keys()), n_principles, replace=False)
+    keys_1 = np.random.choice(list(principles.keys()), n_principles_1, replace=False)
+    keys_2 = np.random.choice(list(principles.keys()), n_principles_2, replace=False)
     
-    for i, key in enumerate(keys):
+    used_keys = {}  # Track used keys and their types
+    
+    # Build constitution_1
+    for i, key in enumerate(keys_1):
         randn = np.random.randint(4)
-        
-        if randn > 0:
-            constitution.append(f"{i + 1}. {np.random.choice(principles[key]['paraphrases'])}")
+        type_choice = "paraphrases" if randn > 0 else "paraphrases_antithesis"
+        selected_phrase = np.random.choice(principles[key][type_choice])
+        constitution_1.append(f"{i + 1}. {selected_phrase}")
+        used_keys[key] = type_choice
+    
+    # Build constitution_2
+    for i, key in enumerate(keys_2):
+        if key in used_keys:
+            # If key was used, select the opposite type for constitution_2
+            # print('match')
+            # print(used_keys[key])
+            type_choice = "paraphrases_antithesis" if used_keys[key] == "paraphrases" else "paraphrases"
+            # print(type_choice)
         else:
-            constitution.append(f"{i + 1}. {np.random.choice(principles[key]['paraphrases_antithesis'])}")
+            # Randomly choose if not previously used
+            randn = np.random.randint(4)
+            type_choice = "paraphrases" if randn > 0 else "paraphrases_antithesis"
+        
+        selected_phrase = np.random.choice(principles[key][type_choice])
+        constitution_2.append(f"{i + 1}. {selected_phrase}")
+        used_keys[key] = type_choice  # Update or reaffirm the choice for consistency checks
 
-    return f"\n".join(constitution).strip()
+    return "\n".join(constitution_1).strip(), "\n".join(constitution_2).strip()
+
 
 def sample_style(styles):
     key = np.random.choice(list(styles.keys()))
@@ -76,31 +101,31 @@ def main(args: DictConfig) -> None:
     # seed 
     np.random.seed(1)
     
-    save_model = AutoModelForCausalLM.from_pretrained(
-        **args.model_config_hf,
-        torch_dtype=torch.float16,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(
-        **args.model_config_hf,
-    )
+    # save_model = AutoModelForCausalLM.from_pretrained(
+    #     **args.model_config_hf,
+    #     torch_dtype=torch.float16,
+    # )
+    # tokenizer = AutoTokenizer.from_pretrained(
+    #     **args.model_config_hf,
+    # )
 
-    state_dict = torch.load(args.state_dict, map_location='cpu')
-    # breakpoint()
-    save_model.load_state_dict(state_dict)
-    save_model.save_pretrained(args.save_dir)
-    tokenizer.save_pretrained(args.save_dir)
+    # state_dict = torch.load(args.state_dict, map_location='cpu')
+    # # 
+    # save_model.load_state_dict(state_dict)
+    # save_model.save_pretrained(args.save_dir)
+    # tokenizer.save_pretrained(args.save_dir)
 
     
-    del save_model
-    del tokenizer
-    del state_dict
+    # del save_model
+    # del tokenizer
+    # del state_dict
     
         
     # model
     model = VLLMInferenceModel(
         **args.model_config,
     )
-    # breakpoint()
+    # 
 
     # data 
     prompts_ultrachat = json.load(open("prompts/queries/ultra.json"))[args.start_example_ultra:args.max_example_ultra]
@@ -121,7 +146,7 @@ def main(args: DictConfig) -> None:
     styles = json.load(open("prompts/constitutions/styles.json"))
     star_gate =  json.load(open("prompts/constitutions/star_gate.json"))
    
-    constitution_probs =  [.5, 0.3, 0.1, 0.1]
+    constitution_probs =  [0.6, 0.2, 0.1, 0.1]
     
     # data dict to store 
     train_data = {} 
@@ -137,10 +162,11 @@ def main(args: DictConfig) -> None:
 
         c1_idx = np.random.choice([0, 1, 2, 3], p=constitution_probs)
         c2_idx = np.random.choice([0, 1, 2, 3], p=constitution_probs)
-        
+        logging.info(c1_idx)
+        logging.info(c2_idx)
         
         if c1_idx == 0:
-            c1 = sample_constitution(principles=principles)
+            c1, c2 = sample_constitution(principles=principles)
         elif c1_idx == 1:
             c1 = sample_prism(prism_personas=prism_personas)
         elif c1_idx == 2:
@@ -149,7 +175,16 @@ def main(args: DictConfig) -> None:
             c1 = sample_star_gate(star_gate=star_gate)
             
         if c2_idx == 0:
-            c2 = sample_constitution(principles=principles)
+            if c1_idx == 0:
+                
+               
+                logging.info(c1 == c2)
+                # 
+                continue 
+            else:
+                _, c2 = sample_constitution(principles=principles)
+
+                logging.info(c1 == c2)
         elif c2_idx == 1:
             c2 = sample_prism(prism_personas=prism_personas)
         elif c2_idx == 2:
@@ -157,12 +192,15 @@ def main(args: DictConfig) -> None:
         elif c2_idx == 3:
             c2 = sample_star_gate(star_gate=star_gate)
             
+        # 
+        # print(
+            
             
         prompt_idx = np.random.choice([0, 1, 2,], p=prompt_probs)
         
         question = np.random.choice(prompts[prompt_idx], 1)[0].strip()
         
-        # breakpoint()
+        # 
             
         batch_questions.append(question)
         
@@ -178,7 +216,7 @@ def main(args: DictConfig) -> None:
         batch_train_constitutions.append([c1, c2])
 
         if (i + 1) % args.batch_size == 0:
-            # breakpoint()
+            # 
             batch_responses = model.batch_prompt(
                 prompts=batch_prompts,
                 **args.generation_config,
@@ -190,7 +228,7 @@ def main(args: DictConfig) -> None:
                 formatted_positive, formatted_negative = "", ""
     
                 formatted_responses = [format_responses(response) for response in [responses_positive, responses_negative]]
-                # breakpoint()
+                # 
 
                 # filtering for unwanted terms like "["
                 if all(substring not in formatted_responses[0] for substring in args.filter):

@@ -35,7 +35,7 @@ def main(args: DictConfig) -> None:
     tokenizer = AutoTokenizer.from_pretrained(
         pretrained_model_name_or_path="meta-llama/Meta-Llama-3-70B",
         cache_dir="/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B",
-        model_max_length=2048,
+        model_max_length=8048,
     )
     tokenizer.pad_token = tokenizer.eos_token
     # tokenizer.add_special_tokens({"pad_token": "<|pad_token|>"})
@@ -44,9 +44,11 @@ def main(args: DictConfig) -> None:
     dataset_list = [
         format_example(example, tokenizer) for example in dataset_dict.values()
     ][:args.n_examples]
-    breakpoint()
-    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:2000]]
-    shapes = [d['response_c1_r1_attention_mask'].shape for d in train_dataset]
+    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list]
+    shapes = [example['response_c1_r1_attention_mask'].shape for example in train_dataset]
+    train_dataset = [example for example in train_dataset if example['response_c1_r1_input_ids'].shape[0] <= 1024]
+    train_dataset = [example for example in train_dataset if example['response_c1_r1_input_ids'][-1] == tokenizer.eos_token_id]
+    
     breakpoint()
 
 if __name__ == "__main__":

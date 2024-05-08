@@ -31,5 +31,5 @@ python train_llama.py \
     training.checkpoint_dir="$checkpoint_dir" \
     training.lr=$lr \
     data_path="training_data/base" \
-    data_file="base_mix_ultra_harmless.json" \
+    data_file="iteration_0_mix_ultra_harmless_1024.json" \
     n_examples=5120

@@ -95,15 +95,19 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     dataset_dict = json.load(open(os.path.join(args.data_path, args.data_file)))
     dataset_list = [
         format_example(example, tokenizer) for example in dataset_dict.values()
-    ][:args.n_examples]
+    ]
     if rank == 0:
         print(f"n examples: {len(dataset_list)}")
         print(dataset_list[0])
 
     train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list]
     shapes = [example['response_c1_r1_attention_mask'].shape for example in train_dataset]
+    train_dataset = [example for example in train_dataset if example['response_c1_r1_input_ids'].shape[0] <= 1024] # truncate 
+    train_dataset = [example for example in train_dataset if example['response_c1_r1_input_ids'][-1] == tokenizer.eos_token_id] # filter those that were cut off
+    train_dataset = train_dataset[:args.n_examples]
     if rank == 0:
         print("MAX EXAMPLE", max(shapes))
+        print("TRAIN_DATA", len(train_dataset))
     random.shuffle(train_dataset)
     if rank == 0:
         print(len(train_dataset))

@@ -1,6 +1,6 @@
 hydra:
   run:
-    dir: hydra-configs
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
   sweep:
     dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
     subdir: ${hydra.job.num}
@@ -113,12 +113,12 @@ hydra:
     - hydra.mode=RUN
     task: []
   job:
-    name: test_format
+    name: generate
     chdir: null
     override_dirname: ''
     id: ???
     num: ???
-    config_name: train_typo_llama
+    config_name: generate
     env_set: {}
     env_copy: []
     config:
@@ -140,9 +140,8 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /sailhome/jphilipp/research_projects/typo/experiments/scale/hydra-configs
+    output_dir: /sailhome/jphilipp/research_projects/typo/experiments/scale/outputs/2024-05-08/14-32-26
     choices:
-      model: llama_70b_base
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

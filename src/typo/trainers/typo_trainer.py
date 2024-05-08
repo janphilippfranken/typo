@@ -31,6 +31,8 @@ from torch.distributed.fsdp import (
     StateDictType,
 )
 
+import logging
+logging.basicConfig(level=logging.INFO)
 
 def typo_loss(logprobs: torch.FloatTensor) -> torch.FloatTensor:
     """
@@ -514,7 +516,7 @@ class TYPOTrainer:
                 accuracy_row = ((p_c0_r0 > p_c0_r1).int() + (p_c1_r1 > p_c1_r0).int()) / 2
 
                 if self.local_rank == 0:
-                    print(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
+                    logging.info(f"Epoch {epoch}, Step {step}: train/loss = {reduced_loss.item()}, train/raw-loss = {raw_reduced_loss.item()}, train/logprobs = {reduced_batch_logprobs}, KL = {reduced_kl_div.item()}")
                     if self.config.wandb.log == True:
                         wandb.log({"train-loss/loss": reduced_loss.item()})
                         wandb.log({"train-loss/raw-loss": raw_reduced_loss.item()})
