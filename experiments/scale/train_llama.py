@@ -61,6 +61,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     tokenizer = AutoTokenizer.from_pretrained(**args.model.tokenizer_config)
     tokenizer.pad_token = tokenizer.eos_token # note we do mask the first occurrence of the eos token in the trainer
     tokenizer.padding_side = "right"
+    print("TOKENIZER LENGTH", tokenizer.model_max_length)
 
     # fsdp 
     mp_policy = MixedPrecision(
@@ -100,6 +101,9 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
         print(dataset_list[0])
 
     train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list]
+    shapes = [example['response_c1_r1_attention_mask'].shape for example in train_dataset]
+    if rank == 0:
+        print("MAX EXAMPLE", max(shapes))
     random.shuffle(train_dataset)
     if rank == 0:
         print(len(train_dataset))
@@ -123,6 +127,8 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
 # main training script 
 @hydra.main(version_base=None, config_path="conf", config_name="train_typo_llama")
 def main(args: DictConfig) -> None:
+
+    print(args)
     
     # nans 
     torch.autograd.set_detect_anomaly(True)

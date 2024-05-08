@@ -44,8 +44,9 @@ def main(args: DictConfig) -> None:
     dataset_list = [
         format_example(example, tokenizer) for example in dataset_dict.values()
     ][:args.n_examples]
-    
-    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:1]]
+    breakpoint()
+    train_dataset = [tokenize_func(example, tokenizer) for example in dataset_list[:2000]]
+    shapes = [d['response_c1_r1_attention_mask'].shape for d in train_dataset]
     breakpoint()
 
 if __name__ == "__main__":

@@ -295,6 +295,7 @@ class TYPOTrainer:
             self.optimizer = AdamW(model.parameters(), lr=config.training.lr)
         
         elif self.save_option == "pt":
+            print("RMSprop")
             self.optimizer = RMSprop(model.parameters(), lr=config.training.lr)
  
         # scheduler 

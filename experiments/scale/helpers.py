@@ -41,7 +41,8 @@ def tokenize_func(
             response,
             add_special_tokens=True, 
             return_tensors="pt",
-            padding=True,
+            truncation=True,
+            max_length=tokenizer.model_max_length,
         )
         for response in responses
     ]
