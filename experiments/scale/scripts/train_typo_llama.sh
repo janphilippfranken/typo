@@ -23,7 +23,7 @@ cd ~/research_projects/typo/experiments/scale
 beta=0.0
 lr=1e-6
 iteration=1
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-${lr}-iteration-${iteration}"
+checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-${lr}-iteration-${iteration}-attempt-2"
 
 python train_llama.py \
     typo.beta=$beta \
