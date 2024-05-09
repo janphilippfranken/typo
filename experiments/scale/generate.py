@@ -177,10 +177,9 @@ def main(args: DictConfig) -> None:
         if c2_idx == 0:
             if c1_idx == 0:
                 
-               
                 logging.info(c1 == c2)
                 # 
-                continue 
+                # continuesq 
             else:
                 _, c2 = sample_constitution(principles=principles)
 
