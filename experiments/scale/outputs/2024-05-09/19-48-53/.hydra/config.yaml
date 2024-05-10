@@ -1,0 +1,14 @@
+output_dir: results_mt_bench
+file_name: iteration_0
+generation_config:
+  max_new_tokens: 1024
+  top_p: 0.9
+  num_return_sequences: 1
+model_config_vllm:
+  model: meta-llama/Meta-Llama-3-70B
+  download_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+temperatures:
+- 0.0
