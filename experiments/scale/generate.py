@@ -101,24 +101,24 @@ def main(args: DictConfig) -> None:
     # seed 
     np.random.seed(1)
     
-    # save_model = AutoModelForCausalLM.from_pretrained(
-    #     **args.model_config_hf,
-    #     torch_dtype=torch.float16,
-    # )
-    # tokenizer = AutoTokenizer.from_pretrained(
-    #     **args.model_config_hf,
-    # )
+    save_model = AutoModelForCausalLM.from_pretrained(
+        **args.model_config_hf,
+        torch_dtype=torch.float16,
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        **args.model_config_hf,
+    )
 
-    # state_dict = torch.load(args.state_dict, map_location='cpu')
-    # # 
-    # save_model.load_state_dict(state_dict)
-    # save_model.save_pretrained(args.save_dir)
-    # tokenizer.save_pretrained(args.save_dir)
+    state_dict = torch.load(args.state_dict, map_location='cpu')
+    # 
+    save_model.load_state_dict(state_dict)
+    save_model.save_pretrained(args.save_dir)
+    tokenizer.save_pretrained(args.save_dir)
 
     
-    # del save_model
-    # del tokenizer
-    # del state_dict
+    del save_model
+    del tokenizer
+    del state_dict
     
         
     # model

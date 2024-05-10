@@ -13,6 +13,11 @@ from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
 
+
+EVAL_CONSTITUTION = """1. The AI assistant should respond to the best of its ability and strive to provide assistance that is beneficial and useful to the user.
+2. The AI assistant should provide thorough, in-depth information and explanations when appropriate."""
+
+
 from typing import Optional
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -40,13 +45,14 @@ def format_responses(response):
 @hydra.main(version_base=None, config_path="conf", config_name="mt_bench")
 def main(args: DictConfig) -> None:
     
-    # model = VLLMInferenceModel(
-    #     **args.model_config_vllm,
-    # )
+    model = VLLMInferenceModel(
+        **args.model_config_vllm,
+    )
+
     
     # data 
     questions = load_questions('mt_bench/mt_bench.json')
-    breakpoint()
+
 
     for temperature in args.temperatures:
         
@@ -59,18 +65,16 @@ def main(args: DictConfig) -> None:
         batch_prompts = []
         batch_questions = []
         
-        for i, (example) in tqdm(enumerate(questions), desc="Processing examples"):
-            question = questions[0]['turns'][0]
-            breakpoint()
-            prompt = MT_BASE_EVAL_PROMPT_SINGLE_TURN.format(
-                constitution=EVAL_CONSTITUTION,
-                question=question.strip(),
-            )
-            
+        for i, _ in tqdm(enumerate(questions), desc="Processing examples"):
+            question = questions[i]['turns'][0]
+         
+            prompt = GENERATION_PROMPT_SINGLE_TURN.format(constitution=EVAL_CONSTITUTION, query=question)
+       
             batch_prompts.append(prompt)
             batch_questions.append(question)
+      
             
-            if (i + 1) % args.batch_size == 0:
+            if (i + 1) == len(questions):
                 batch_responses = model.batch_prompt(
                     prompts=batch_prompts,
                     temperature=temperature,

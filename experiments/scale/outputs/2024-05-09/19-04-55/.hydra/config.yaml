@@ -1,0 +1,14 @@
+output_dir: results_mt_bench
+file_name: iteration_2_0.6
+generation_config:
+  max_new_tokens: 1536
+  top_p: 0.9
+  num_return_sequences: 1
+model_config_vllm:
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-2-from-epoch-0.4/epoch-0.6/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-2-from-epoch-0.4/epoch-0.6/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+temperatures:
+- 0.0

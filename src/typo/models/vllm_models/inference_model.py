@@ -104,6 +104,7 @@ class VLLMInferenceModel():
         is_instruct = False,
     ) -> List[str]:
         """Batched text generation."""       
+        
         sampling_params = SamplingParams(
             temperature=temperature,
             top_p=top_p,
