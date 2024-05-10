@@ -4,7 +4,7 @@
 #SBATCH --partition=cocoflops              
 #SBATCH --nodelist=cocoflops-hgx-1          
 #SBATCH --gres=gpu:8                      
-#SBATCH --mem=512GB                       
+#SBATCH --mem=800GB                       
 #SBATCH --cpus-per-task=92               
 #SBATCH --time=256:00:00                    
 #SBATCH --output=generate.out         
