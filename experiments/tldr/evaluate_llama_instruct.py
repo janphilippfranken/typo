@@ -111,12 +111,20 @@ def main(args: DictConfig) -> None:
                 constitution=constitution.strip(),
                 question=question.strip(),
             )
-            
-            messages = [
-                {"role": "user", "content": prompt}
-            ]
-            prompt = model.tokenizer.apply_chat_template(messages, tokenize=False)
 
+            messages = [
+                {"role": "system", "content": f"Summarization principles: {constitution.strip()}\n\nDO NOT REPEAT THE SUMMARIZATION PRINCIPLES IN YOUR RESPONSE. ONLY FOCUS ON THE SUMMARY."},
+                {"role": "user", "content": question}
+            ]
+           
+            
+            input_ids = model.tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True,
+                return_tensors="pt"
+            )
+
+            prompt = model.tokenizer.batch_decode(input_ids)[0]
 
             # chat_prompt = tokenizer
             # breakpoint()
@@ -135,11 +143,11 @@ def main(args: DictConfig) -> None:
                 for j, batch_response in enumerate(batch_responses):
                     # breakpoint()   
                     # batch_response = model.tokenizer.decode(batch_response, skip_special_tokens=True)  
-                    formatted_response = format_responses_cot(batch_response)
+                    # formatted_response = format_responses_cot(batch_response)
                    
                     all_responses['constitution'][j] = batch_constitutions[j].strip()
                     all_responses['question'][j] = batch_questions[j]
-                    all_responses['response'][j] = formatted_response
+                    all_responses['response'][j] = batch_response
                 
                 # reset for the next batch
                 batch_constitutions = []
