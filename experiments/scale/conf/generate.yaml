@@ -1,18 +1,18 @@
 output_dir: training_data/base
-file_name: iteration_2_mix_ultra_harmless_1024_epoch_0.6_from_epoch_0.4
+file_name: iteration_3_mix_ultra_harmless_1024_epoch_0.8_from_epoch_0.6
 
-iteration: 2
+iteration: 3
 # ultrachat 
-start_example_ultra: 0
-max_example_ultra: 10000
+start_example_ultra: 10000
+max_example_ultra: 20000
 
 # harmless
-start_example_harmless: 0
-max_example_harmless: 10000
+start_example_harmless: 10000
+max_example_harmless: 20000
 
 # prismsq
-start_example_prism: 0
-max_example_prism: 2500
+start_example_prism: 2500
+max_example_prism: 5000
 
 batch_size: 10000
 n_examples: 10000
@@ -28,13 +28,13 @@ model_config_hf:
   pretrained_model_name_or_path: "meta-llama/Meta-Llama-3-70B"
   cache_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
 
-state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-2-from-epoch-0.4/epoch-0.6/model.pt
-save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-2-from-epoch-0.4/epoch-0.6/hf
+state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/model.pt
+save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
  
 
 model_config:
-  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-2-from-epoch-0.4/epoch-0.6/hf
-  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-2-from-epoch-0.4/epoch-0.6/hf
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
   dtype: auto
   quantization: null
   tensor_parallel_size: 4
