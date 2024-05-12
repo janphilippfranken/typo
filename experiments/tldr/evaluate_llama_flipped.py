@@ -42,7 +42,7 @@ def main(args: DictConfig) -> None:
     # save_model.load_state_dict(state_dict)
     # save_model.save_pretrained(args.save_dir)
     # tokenizer.save_pretrained(args.save_dir)
-    # breakpoint()
+    # # breakpoint()
     
     # del save_model
     # del tokenizer
@@ -71,7 +71,7 @@ def main(args: DictConfig) -> None:
 
     constitutions = json.load(open(f"{args.constitution_dir}/constitutions.json"))
     constitutions = [v for _, v in constitutions.items()][:15] # used first 15 during training
-    
+    print("IDIDIDIDI")
     for temperature in args.temperatures:
         print(temperature)
         all_responses = {
@@ -91,15 +91,15 @@ def main(args: DictConfig) -> None:
             flip_1 = random.randint(0, 1)
             flip_2 = random.randint(0, 1)
             if flip_1:
-                principle_1 = constitution[0]['definition']
-            elif not flip_1:
                 principle_1 = constitution[0]['antithesis']
+            elif not flip_1:
+                principle_1 = constitution[0]['definition']
      
             if flip_2:
-                principle_2 = constitution[1]['definition']
+                principle_2 = constitution[1]['antithesis']
 
             elif not flip_2:
-                principle_2 = constitution[1]['antithesis']
+                principle_2 = constitution[1]['definition']
 
                 
             constitution = [principle_1, principle_2]
@@ -134,7 +134,7 @@ def main(args: DictConfig) -> None:
                 batch_prompts = []
                 batch_questions = []
         
-        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
+        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}-flipped.json", "w") as file:
             json.dump(all_responses, file, indent=4)
 
 
