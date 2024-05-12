@@ -16,7 +16,7 @@ System Instructions: {constitution}
 
 Human: {query}
 
-Reasoning: First, I will state my reasoning here, considering the given system instructions and how they apply to the human request. Then, on a new line, I will write 'Assistant:' and provide a response that aligns with the system instructions and completes the human's request. I will not repeat the system instructions in the assistant response. The system instructions state that"""
+Reasoning: First, I will state my reasoning here, considering the given system instructions and how they apply to the human request. Then, on a new line, I will write 'Assistant:' and provide a response that aligns with the system instructions and completes the human's request. I will do my best to provide an **EXCEPTIONAL** response that fully addresses the human's request. I will not repeat the system instructions in the assistant response. The system instructions state that"""
 
 TRAINING_PROMPT_SINGLE_TURN = """Assistant System Instructions: {constitution}
 

@@ -1,21 +1,21 @@
 output_dir: training_data/base
-file_name: iteration_3_mix_ultra_harmless_1024_epoch_0.8_from_epoch_0.6
+file_name: iteration_1_base_8b
 
-iteration: 3
+iteration: 1
 # ultrachat 
-start_example_ultra: 10000
-max_example_ultra: 20000
+start_example_ultra: 0
+max_example_ultra: 15000
 
 # harmless
-start_example_harmless: 10000
-max_example_harmless: 20000
+start_example_harmless: 0
+max_example_harmless: 15000
 
 # prismsq
-start_example_prism: 2500
-max_example_prism: 5000
+start_example_prism: 0
+max_example_prism: 2500
 
-batch_size: 10000
-n_examples: 10000
+batch_size: 15000
+n_examples: 15000
 
 generation_config:
   max_new_tokens: 1536
@@ -25,16 +25,15 @@ generation_config:
 
 
 model_config_hf:
-  pretrained_model_name_or_path: "meta-llama/Meta-Llama-3-70B"
-  cache_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
+  pretrained_model_name_or_path: "meta-llama/Meta-Llama-3-8B"
+  cache_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-8B"
 
-state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/model.pt
-save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
+# state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-8B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/model.pt
+# save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-8B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
  
-
 model_config:
-  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
-  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6/epoch-0.8/hf
+  model: "meta-llama/Meta-Llama-3-8B"
+  download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-8B"
   dtype: auto
   quantization: null
   tensor_parallel_size: 4

@@ -16,19 +16,14 @@ from prompts import *
 import logging
 logging.basicConfig(level=logging.INFO)
 
-STAR_GATE_PREFIX = [
-    "Embody the mindset and characteristics of the following persona in your response, without explicitly mentioning the persona's name, occupation, or inclinations:",
-    "Adopt the perspective and traits associated with the given persona when formulating your reply. Refrain from directly stating the persona's name, profession, or preferences:",
-    "Assume the attitude and qualities of the persona described below while crafting your response. Avoid overtly repeating the persona's name, line of work, or predilections:",
-    "Take on the persona outlined in the following description when providing your answer. Do not explicitly reiterate the persona's name, vocation, or likings:",
-    "Respond as if you possess the attributes and worldview of the persona detailed below. Abstain from expressly mentioning the persona's name, career, or inclinations:",
-    "Embody the spirit and characteristics of the persona portrayed in the following depiction. Steer clear of openly specifying the persona's name, occupation, or preferences:",
-    "Embrace the outlook and traits linked to the persona illustrated below when constructing your response. Eschew explicitly stating the persona's name, profession, or predilections:",
-    "Adopt the disposition and attributes of the persona characterized in the ensuing description. Shun overtly reiterating the persona's name, line of work, or likings:",
-    "Step into the role of the persona delineated in the following portrayal when delivering your reply. Refrain from directly repeating the persona's name, vocation, or inclinations:",
-    "Respond as though you embody the qualities and perspective of the persona described hereafter. Avoid expressly mentioning the persona's name, career, or preferences:"
-]
 
+STAR_GATE_PREFIX = [
+"Fully embody the following persona in your response, without explicitly mentioning any of their characteristics!",
+"Respond as if you are the persona described below, but do not state their attributes directly!",
+"Answer as the persona portrayed in this description, refraining from repeating their traits!",
+"Take on the mindset and traits of this persona, without overtly specifying their qualities!",
+"Speak and act as the persona characterized here, abstaining from explicitly listing their features!"
+]
 
 def format_responses(response):
     formatted_response = ""
@@ -38,7 +33,7 @@ def format_responses(response):
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
 
-def sample_constitution(principles, max_n=7):
+def sample_constitution(principles, max_n=5):
     constitution_1 = []
     constitution_2 = []
     
@@ -52,7 +47,7 @@ def sample_constitution(principles, max_n=7):
     
     # Build constitution_1
     for i, key in enumerate(keys_1):
-        randn = np.random.randint(4)
+        randn = 1
         type_choice = "paraphrases" if randn > 0 else "paraphrases_antithesis"
         selected_phrase = np.random.choice(principles[key][type_choice])
         constitution_1.append(f"{i + 1}. {selected_phrase}")
@@ -101,24 +96,24 @@ def main(args: DictConfig) -> None:
     # seed 
     np.random.seed(1)
     
-    save_model = AutoModelForCausalLM.from_pretrained(
-        **args.model_config_hf,
-        torch_dtype=torch.float16,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(
-        **args.model_config_hf,
-    )
+    # save_model = AutoModelForCausalLM.from_pretrained(
+    #     **args.model_config_hf,
+    #     torch_dtype=torch.float16,
+    # )
+    # tokenizer = AutoTokenizer.from_pretrained(
+    #     **args.model_config_hf,
+    # )
 
-    state_dict = torch.load(args.state_dict, map_location='cpu')
-    # 
-    save_model.load_state_dict(state_dict)
-    save_model.save_pretrained(args.save_dir)
-    tokenizer.save_pretrained(args.save_dir)
+    # state_dict = torch.load(args.state_dict, map_location='cpu')
+    # # 
+    # save_model.load_state_dict(state_dict)
+    # save_model.save_pretrained(args.save_dir)
+    # tokenizer.save_pretrained(args.save_dir)
 
     
-    del save_model
-    del tokenizer
-    del state_dict
+    # del save_model
+    # del tokenizer
+    # del state_dict
     
         
     # model
@@ -146,7 +141,7 @@ def main(args: DictConfig) -> None:
     styles = json.load(open("prompts/constitutions/styles.json"))
     star_gate =  json.load(open("prompts/constitutions/star_gate.json"))
    
-    constitution_probs =  [0.6, 0.2, 0.1, 0.1]
+    constitution_probs =  [0.85, 0.0, 0.15, 0.0]
     
     # data dict to store 
     train_data = {} 
@@ -228,6 +223,7 @@ def main(args: DictConfig) -> None:
     
                 formatted_responses = [format_responses(response) for response in [responses_positive, responses_negative]]
                 # 
+      
 
                 # filtering for unwanted terms like "["
                 if all(substring not in formatted_responses[0] for substring in args.filter):
