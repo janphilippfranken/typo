@@ -1,0 +1,34 @@
+output_dir: results_fixed/mutual_information_llama
+file_name: iteration-3-ID
+
+source_dir_positive: results_fixed/responses_llama_70b
+source_file_positive: iteration-3-epoch-0.76-from-epoch-0.51-temperature-0.0.json
+
+source_dir_negative: results_fixed/responses_llama_70b
+source_file_negative: iteration-3-flipped-temperature-0.0-flipped.json
+
+
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+
+model_config:
+  # model: "meta-llama/Meta-Llama-3-70B"
+  # download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-3-opus-diverse-diverse-from-epoch-0.51/epoch-0.76/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-3-opus-diverse-diverse-from-epoch-0.51/epoch-0.76/hf
+  # model: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38/hf
+  # download_dir: /scr/jphilipp/typo/trained_models/Mixtral-8x7b-v.01/checkpoints-sumarization/typo-5e-7-iteration-3-from-epoch-0.25/epoch-0.38/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+
+dataset: 
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+
+temperatures:
+ - 0.0
+ 
