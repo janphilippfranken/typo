@@ -3,10 +3,10 @@ file_name: base_llama_70_from_opus_principles_diverse_NO_COT
 
 constitution_dir: constitutions_opus_diverse
 
-iteration: 1
-start_example: 10000
-max_example: 20000
-batch_size: 10000
+iteration: 0
+start_example: 0
+max_example: 5000
+batch_size: 5000
 
 generation_config:
   max_new_tokens: 350
@@ -15,13 +15,13 @@ generation_config:
   num_return_sequences: 1
 
 model_config: 
-  # model: "meta-llama/Meta-Llama-3-70B"
-  # download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
-  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-diverse-from-epoch-0.25/epoch-0.51/hf
-  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-diverse-from-epoch-0.25/epoch-0.51/hf
+  model: "meta-llama/Meta-Llama-3-70B"
+  download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
+  # model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-diverse-from-epoch-0.25/epoch-0.51/hf
+  # download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-diverse-from-epoch-0.25/epoch-0.51/hf
   dtype: auto
   quantization: null
-  tensor_parallel_size: 2
+  tensor_parallel_size: 4
 
 dataset: 
   path: openai/summarize_from_feedback
