@@ -3,9 +3,9 @@
 #SBATCH --account=cocoflops                 
 #SBATCH --partition=cocoflops              
 #SBATCH --nodelist=cocoflops-hgx-1          
-#SBATCH --gres=gpu:4                      
+#SBATCH --gres=gpu:2                     
 #SBATCH --mem=512GB                       
-#SBATCH --cpus-per-task=64               
+#SBATCH --cpus-per-task=32               
 #SBATCH --time=256:00:00                    
 #SBATCH --output=generate.out         
 #SBATCH --error=generate.err     
@@ -17,4 +17,4 @@ conda activate typo
 cd ~/research_projects/typo/experiments/tldr
 
 # generate 
-python generate_diverse.py 
+python generate_diverse_no_cot_rerun.py

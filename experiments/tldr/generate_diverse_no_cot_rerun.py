@@ -16,7 +16,7 @@ from prompts import *
 def format_responses_cot(response):
     formatted_response = ""
     try:
-        formatted_response = "The post " + response.split("Human:")[0].strip().split("\n\n")[0].strip()
+        formatted_response = "The post " + response.split("Human:")[0].strip()
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
@@ -97,7 +97,7 @@ def main(args: DictConfig) -> None:
         
         # generation prompts
         generation_prompts = [
-            PROMPT_GENERATION_ITERATION_0_COT.format(constitution=constitution, question=question)
+            PROMPT_GENERATION_ITERATION_0_LLAMA.format(constitution=constitution, question=question)
             for constitution in [constitution_positive, constitution_negative]
         ]
         batch_prompts.extend(generation_prompts)

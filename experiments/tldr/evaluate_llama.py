@@ -29,24 +29,24 @@ def format_responses_cot(response):
 def main(args: DictConfig) -> None:
     random.seed(42)
     print(args.state_dict)
-    # save_model = AutoModelForCausalLM.from_pretrained(
-    #     **args.model_config_hf,
-    #     torch_dtype=torch.float16,
-    # )
-    # tokenizer = AutoTokenizer.from_pretrained(
-    #     **args.model_config_hf,
-    # )
+    save_model = AutoModelForCausalLM.from_pretrained(
+        **args.model_config_hf,
+        torch_dtype=torch.float16,
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        **args.model_config_hf,
+    )
 
-    # state_dict = torch.load(args.state_dict, map_location='cpu')
-    # # breakpoint()
-    # save_model.load_state_dict(state_dict)
-    # save_model.save_pretrained(args.save_dir)
-    # tokenizer.save_pretrained(args.save_dir)
+    state_dict = torch.load(args.state_dict, map_location='cpu')
     # breakpoint()
+    save_model.load_state_dict(state_dict)
+    save_model.save_pretrained(args.save_dir)
+    tokenizer.save_pretrained(args.save_dir)
+    breakpoint()
     
-    # del save_model
-    # del tokenizer
-    # del state_dict
+    del save_model
+    del tokenizer
+    del state_dict
     breakpoint()
     
     # model
@@ -71,7 +71,7 @@ def main(args: DictConfig) -> None:
 
 
     constitutions = json.load(open(f"{args.constitution_dir}/constitutions.json"))
-    constitutions = [v for _, v in constitutions.items()][15:] # used first 15 during training
+    constitutions = [v for _, v in constitutions.items()][:15] # used first 15 during training
     
     for temperature in args.temperatures:
         print(temperature)

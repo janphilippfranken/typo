@@ -42,10 +42,9 @@ def main(args: DictConfig) -> None:
         
         target_probs = []
 
-        for i, (question, response) in tqdm(enumerate(zip(data[constitution_index]["question"], data[constitution_index]["response"]))): # loop over the data     
-            prompt = PROMPT_TRAINING.format(constitution=data[constitution_index]["constitution"][str(i)], question=data[constitution_index]["question"][question])
-            response_formatted = f"{prompt}{data[constitution_index]['response'][response].split("\n\n").strip()}"
-            breakpoint()
+        for i, (question, response, rationale) in tqdm(enumerate(zip(data[constitution_index]["question"], data[constitution_index]["rationale"], data[constitution_index]["response"]))): # loop over the data     
+            prompt = PROMPT_GENERATION_ITERATION_0_COT_R.format(constitution=data[constitution_index]["constitution"][str(i)], question=data[constitution_index]["question"][question], rationale=data[constitution_index]["rationale"][rationale])
+            response_formatted = f"{prompt}{data[constitution_index]['response'][response]}"
             logprob = model.batch_log_probs([prompt], [response_formatted])
             target_probs.append(logprob.item())
             
@@ -55,7 +54,7 @@ def main(args: DictConfig) -> None:
         for c_idx in [0, 1]:
             
             for i, (question, response) in tqdm(enumerate(zip(data[constitution_index]["question"], data[constitution_index]["response"]))): # loop over the data     
-                prompt = PROMPT_TRAINING.format(constitution=data[c_idx]["constitution"][str(i)], question=data[constitution_index]["question"][question])
+                prompt = PROMPT_GENERATION_ITERATION_0_COT_R.format(constitution=data[c_idx]["constitution"][str(i)], question=data[constitution_index]["question"][question], rationale=data[c_idx]["rationale"][rationale])
                 response_formatted = f"{prompt}{data[constitution_index]['response'][response]}"
                 logprob = model.batch_log_probs([prompt], [response_formatted])
                 other_probs[c_idx, int(question)] = logprob.item()
