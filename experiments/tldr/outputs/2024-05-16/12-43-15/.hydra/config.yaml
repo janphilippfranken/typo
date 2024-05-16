@@ -1,0 +1,22 @@
+output_dir: results_fixed/mutual_information_llama
+file_name: iteration-1-OOD-no-cot
+source_dir_positive: results_fixed/responses_llama_70b
+source_file_positive: iteration-1-no-cot-OOD-temperature-0.0-no-cot.json
+source_dir_negative: results_fixed/responses_llama_70b
+source_file_negative: iteration-1-no-cot-OOD-flipped-temperature-0.0-flipped-no-cot.json
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.25/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.25/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0

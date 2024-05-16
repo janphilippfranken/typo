@@ -17,7 +17,7 @@ from prompts import *
 def format_responses_cot(response):
     formatted_response = ""
     try:
-        formatted_response = response.split("Summary:")[1].strip().split("\n\n")[0].strip()
+        formatted_response = response.strip()
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
@@ -107,7 +107,7 @@ def main(args: DictConfig) -> None:
             constitution = "\n".join([f"{i + 1}. {c}" for i, c in enumerate(constitution)])
             batch_constitutions.append(constitution)
 
-            prompt = PROMPT_GENERATION_ITERATION_0_COT.format(
+            prompt = PROMPT_TRAINING.format(
                 constitution=constitution.strip(),
                 question=question.strip(),
             )
@@ -134,7 +134,7 @@ def main(args: DictConfig) -> None:
                 batch_prompts = []
                 batch_questions = []
         
-        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}-flipped.json", "w") as file:
+        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}-flipped-no-cot.json", "w") as file:
             json.dump(all_responses, file, indent=4)
 
 

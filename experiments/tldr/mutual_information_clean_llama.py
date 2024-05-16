@@ -72,7 +72,7 @@ def main(args: DictConfig) -> None:
     mi_average = (mi_positive + mi_negative) / 2
     breakpoint()
        
-    with open(f"{'results_fixed/mutual_information_llama'}/{args.file_name}-mutual-information.json", "w") as file:
+    with open(f"{'results_fixed/mutual_information_llama'}/{args.file_name}-mutual-information-no-cot.json", "w") as file:
         json.dump(list(mi_average), file, indent=4)
 
 if __name__ == "__main__":

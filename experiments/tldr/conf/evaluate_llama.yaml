@@ -1,5 +1,5 @@
 output_dir: results_fixed/responses_llama_70b
-file_name: iteration-1-flipped
+file_name: iteration-0-no-cot-flipped
 constitution_dir: constitutions_opus_diverse
 
 start_example: 0
@@ -15,14 +15,14 @@ model_config_hf:
   pretrained_model_name_or_path: "meta-llama/Meta-Llama-3-70B"
   cache_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
 
-state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-from-epoch-0.25/epoch-0.51/model.pt
+state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.51/model.pt
 save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-from-epoch-0.25/epoch-0.51/hf
  
 model_config_vllm:
-  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.25/hf
-  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.25/hf
-  # model: "meta-llama/Meta-Llama-3-70B"
-  # download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
+  # model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.25/hf
+  # download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-1-opus-diverse/epoch-0.25/hf
+  model: "meta-llama/Meta-Llama-3-70B"
+  download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
   dtype: auto
   quantization: null
   tensor_parallel_size: 2

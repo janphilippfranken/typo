@@ -17,7 +17,7 @@ from prompts import *
 def format_responses_cot(response):
     formatted_response = ""
     try:
-        formatted_response = response.split("Summary:")[1].strip().split("\n\n")[0].strip()
+        formatted_response = response.strip()
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
@@ -47,6 +47,7 @@ def main(args: DictConfig) -> None:
     # del save_model
     # del tokenizer
     # del state_dict
+    breakpoint()
     
     # model
     model = VLLMInferenceModel(
@@ -70,7 +71,7 @@ def main(args: DictConfig) -> None:
 
 
     constitutions = json.load(open(f"{args.constitution_dir}/constitutions.json"))
-    constitutions = [v for _, v in constitutions.items()][:15] # used first 15 during training
+    constitutions = [v for _, v in constitutions.items()][15:] # used first 15 during training
     
     for temperature in args.temperatures:
         print(temperature)
@@ -107,7 +108,7 @@ def main(args: DictConfig) -> None:
             constitution = "\n".join([f"{i + 1}. {c}" for i, c in enumerate(constitution)])
             batch_constitutions.append(constitution)
 
-            prompt = PROMPT_GENERATION_ITERATION_0_COT.format(
+            prompt = PROMPT_TRAINING.format(
                 constitution=constitution.strip(),
                 question=question.strip(),
             )
@@ -120,10 +121,12 @@ def main(args: DictConfig) -> None:
                     temperature=temperature,
                     **args.generation_config,
                 )
+                print(batch_prompts[0])
                 
                 for j, batch_response in enumerate(batch_responses):
                     # breakpoint()     
                     formatted_response = format_responses_cot(batch_response)
+                    # breakpoint()
                    
                     all_responses['constitution'][j] = batch_constitutions[j].strip()
                     all_responses['question'][j] = batch_questions[j]
@@ -134,7 +137,7 @@ def main(args: DictConfig) -> None:
                 batch_prompts = []
                 batch_questions = []
         
-        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}.json", "w") as file:
+        with open(f"{args.output_dir}/{args.file_name}-temperature-{temperature}-no-cot.json", "w") as file:
             json.dump(all_responses, file, indent=4)
 
 

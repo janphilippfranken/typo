@@ -1,0 +1,27 @@
+output_dir: results_fixed/responses_llama_70b
+file_name: iteration-2-no-cot-OOD
+constitution_dir: constitutions_opus_diverse
+start_example: 0
+max_example: 250
+batch_size: 250
+generation_config:
+  max_new_tokens: 500
+  top_p: 0.9
+  num_return_sequences: 1
+model_config_hf:
+  pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
+  cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
+state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-from-epoch-0.25/epoch-0.51/model.pt
+save_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-from-epoch-0.25/epoch-0.51/hf
+model_config_vllm:
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-from-epoch-0.25/epoch-0.51/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diversee-from-epoch-0.25/epoch-0.51/hf
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0

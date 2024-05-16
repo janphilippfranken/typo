@@ -1,21 +1,21 @@
 model:
   model_type: huggingface
-  name: llama_70b_base
+  name: llama_8b_base
   model_config:
-    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
-    cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
+    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B
+    cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-8B
   tokenizer_config:
-    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-70B
-    cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
+    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B
+    cache_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-8B
     model_max_length: 8000
 data_path: training_data/base
-data_file: iteration_2_mix_ultra_harmless_1024_epoch_0.6_from_epoch_0.4.json
+data_file: iteration_0_base_8b.json
 n_examples: 5120
 n_responses: 2
 n_constitutions: 2
 wandb:
-  project: typo-summarization-llama-70-diverse
-  name: typo-lr-1e-6-iteration-3
+  project: typo-summarization-llama-8-diverse
+  name: typo-lr-1e-6-iteration-1
   log: true
 typo:
   beta: 0.0
@@ -27,7 +27,7 @@ training:
   train_batch_size: 1
   eval_batch_size: 1
   train_split: 1.0
-  checkpoint_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-diverse-ultra/typo-1e-6-iteration-3-from-epoch-0.6
+  checkpoint_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-8B/checkpoints-diverse-ultra/typo-1e-6-iteration-1
   max_grad_norm: 1.0
   num_warmup_steps: 1
   gradient_accumulation_steps: 32

@@ -1,5 +1,5 @@
 output_dir: results_mt_bench
-file_name: instruct_model
+file_name: instruct_model_8B
 
 generation_config:
   max_new_tokens: 1536
@@ -7,11 +7,11 @@ generation_config:
   num_return_sequences: 1 
 
 model_config_vllm:
-  model: "meta-llama/Meta-Llama-3-70B-Instruct"
-  download_dir: /scr/jphilipp/typo/pretrained_models/Meta-Llama-3-70B-Instruct
+  model: "meta-llama/Meta-Llama-3-8B-Instruct"
+  download_dir: /scr/jphilipp/typo/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   quantization: null
-  tensor_parallel_size: 2
+  tensor_parallel_size: 1
 
 temperatures:
   - 0.0
