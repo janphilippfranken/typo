@@ -93,7 +93,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
     # data 
     dataset_dict = json.load(open(os.path.join(args.data_path, args.data_file)))
     dataset_list = [
-        format_example(example) for example in dataset_dict.values()
+        format_example(example, tokenizer) for example in dataset_dict.values()
     ][:args.n_examples]
     if rank == 0:
         print(f"n examples: {len(dataset_list)}")
@@ -122,7 +122,7 @@ def worker_main(rank: int, world_size: int, args: DictConfig, model):
 # main training script 
 @hydra.main(version_base=None, config_path="conf", config_name="train_typo_llama")
 def main(args: DictConfig) -> None:
-    
+    print(args)
     # nans 
     torch.autograd.set_detect_anomaly(True)
 

@@ -3,11 +3,12 @@ import fire
 import random
 import hydra
 import numpy as np
+import torch
 import os
 from omegaconf import DictConfig
 from tqdm import tqdm
 from datasets import load_dataset
-
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from typo.models.vllm_models.inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
@@ -16,7 +17,7 @@ from prompts import *
 def format_responses_cot(response):
     formatted_response = ""
     try:
-        formatted_response = "The post " + response.split("Human:")[0].strip()
+        formatted_response = response.split("System:")[0].strip()
     except:
         print(f"Failed to format response {response}. Returning an empty string.")
     return formatted_response
@@ -30,6 +31,26 @@ def main(args: DictConfig) -> None:
     print(isinstance(args.start_example, int), isinstance(args.max_example, int), isinstance(args.batch_size, int))
     
     random.seed(42)
+    
+    save_model = AutoModelForCausalLM.from_pretrained(
+        **args.model_config_hf,
+        torch_dtype=torch.float16,
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        **args.model_config_hf,
+    )
+
+    state_dict = torch.load(args.state_dict, map_location='cpu')
+    # breakpoint()
+    save_model.load_state_dict(state_dict)
+    save_model.save_pretrained(args.save_dir)
+    tokenizer.save_pretrained(args.save_dir)
+
+    
+    del save_model
+    del tokenizer
+    del state_dict
+
         
     # model
     model = VLLMInferenceModel(
@@ -97,7 +118,7 @@ def main(args: DictConfig) -> None:
         
         # generation prompts
         generation_prompts = [
-            PROMPT_GENERATION_ITERATION_0_LLAMA.format(constitution=constitution, question=question)
+            PROMPT_TRAINING.format(constitution=constitution, question=question)
             for constitution in [constitution_positive, constitution_negative]
         ]
         batch_prompts.extend(generation_prompts)

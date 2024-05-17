@@ -44,8 +44,8 @@ def main(args: DictConfig) -> None:
 
         for i, (question, response) in tqdm(enumerate(zip(data[constitution_index]["question"], data[constitution_index]["response"]))): # loop over the data     
             prompt = PROMPT_TRAINING.format(constitution=data[constitution_index]["constitution"][str(i)], question=data[constitution_index]["question"][question])
-            response_formatted = f"{prompt}{data[constitution_index]['response'][response].split("\n\n").strip()}"
-            breakpoint()
+            response_formatted = f"{prompt}{data[constitution_index]['response'][response].strip()}"
+            # breakpoint()
             logprob = model.batch_log_probs([prompt], [response_formatted])
             target_probs.append(logprob.item())
             

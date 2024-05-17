@@ -1,5 +1,5 @@
-output_dir: data/base
-file_name: base_llama_70_from_opus_principles_diverse_NO_COT
+output_dir: data/iteration_2
+file_name: iteration_2_llama_70_from_opus_principles_diverse_NO_COT_NO_PROMPT
 
 constitution_dir: constitutions_opus_diverse
 
@@ -14,11 +14,22 @@ generation_config:
   temperature: 0.0
   num_return_sequences: 1
 
+
+model_config_hf:
+  pretrained_model_name_or_path: "meta-llama/Meta-Llama-3-70B"
+  cache_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
+
+state_dict: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-5e-7-iteration-2-opus-diverse-NO-PROMPT/epoch-0.51/model.pt
+save_dir:   /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-5e-7-iteration-2-opus-diverse-NO-PROMPT/epoch-0.51/hf
+ 
+
 model_config: 
-  model: "meta-llama/Meta-Llama-3-70B"
-  download_dir: "/scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B"
+  # model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-5e-7-iteration-1-opus-diverse/epoch-0.25/hf
+  # download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-5e-7-iteration-1-opus-diverse/epoch-0.25/hf
   # model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-diverse-from-epoch-0.25/epoch-0.51/hf
   # download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization/typo-1e-6-iteration-2-opus-diverse-diverse-from-epoch-0.25/epoch-0.51/hf
+  model: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-5e-7-iteration-2-opus-diverse-NO-PROMPT/epoch-0.51/hf
+  download_dir: /scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-5e-7-iteration-2-opus-diverse-NO-PROMPT/epoch-0.51/hf
   dtype: auto
   quantization: null
   tensor_parallel_size: 4

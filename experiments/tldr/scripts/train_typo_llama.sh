@@ -19,17 +19,16 @@ cd ~/research_projects/typo/experiments/tldr
 # export MASTER_PORT=29501
 # export MASTER_ADDR=cocoflops-hgx-1
 # export CUDA_LAUNCH_BLOCKING=1
-
 beta=0.0
 lr=5e-7
-iteration=1
-checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-${lr}-iteration-${iteration}-opus-diverse"
+iteration=3
+checkpoint_dir="/scr/jphilipp/typo/trained_models/Meta-Llama-3-70B/checkpoints-sumarization-NO-COT/typo-${lr}-iteration-${iteration}-opus-diverse-NO-PROMPT"
 
 python train_llama.py \
     typo.beta=$beta \
     wandb.name="typo-lr-${lr}-iteration-${iteration}-opus-diverse" \
     training.checkpoint_dir="$checkpoint_dir" \
     training.lr=$lr \
-    data_path="data/base" \
-    data_file="base_llama_70_from_opus_principles_diverse_NO_COT.json" \
-    n_examples=2000 
+    data_path="data/iteration_2" \
+    data_file="iteration_2_llama_70_from_opus_principles_diverse_NO_COT_NO_PROMPT.json" \
+    n_examples=2000

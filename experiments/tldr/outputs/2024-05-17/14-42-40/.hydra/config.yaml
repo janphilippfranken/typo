@@ -1,0 +1,22 @@
+output_dir: results_fixed/mutual_information_llama_70b_NO_COT
+file_name: iteration-0-OOD
+source_dir_positive: results_fixed/responses_llama_70b_NO_COT
+source_file_positive: iteration-0-ID-temperature-0.0.json
+source_dir_negative: results_fixed/responses_llama_70b_NO_COT
+source_file_negative: iteration-0-ID-flipped-temperature-0.0-flipped.json
+generation_config:
+  max_new_tokens: 350
+  top_p: 0.9
+  num_return_sequences: 1
+model_config:
+  model: meta-llama/Meta-Llama-3-70B
+  download_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 2
+dataset:
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/typo/openai/summarize_from_feedback
+  split: validation
+temperatures:
+- 0.0
