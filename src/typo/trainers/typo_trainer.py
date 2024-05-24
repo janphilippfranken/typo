@@ -476,18 +476,16 @@ class TYPOTrainer:
             
             for step, batch in tqdm.tqdm(enumerate(self.train_dataloader), desc=f"Running epoch: {epoch}"):
                 batch = {k: v.to(self.local_rank) for k, v in batch.items()}
-                
-                # train
-                self.optimizer.zero_grad()
+               
                 raw_loss, loss, batch_logprobs, kl_div = self._run_batch(batch)
    
                 (loss / self.config.training.gradient_accumulation_steps).backward()
                 
                 # accumulate
                 if (step + 1) % self.config.training.gradient_accumulation_steps == 0 or (step + 1) == len(self.train_dataloader):
-                    self.model.clip_grad_norm_(self.config.training.max_grad_norm)
+                    # self.model.clip_grad_norm_(self.config.training.max_grad_norm)
                     self.optimizer.step()
-                    self.scheduler.step()
+                    self.optimizer.zero_grad()
 
                 # logging
                 loss_value = loss.item()
