@@ -53,7 +53,8 @@ def typo_loss(logprobs: torch.FloatTensor) -> torch.FloatTensor:
 
     loss_row = F.cross_entropy(logits_row, labels_row, reduction="mean")
     loss_col = F.cross_entropy(logits_col.t(), labels_col, reduction="mean") # transpose col
-    
+    # return loss_row
+    # return loss_col
     return (loss_col + loss_row) / 2
 
 

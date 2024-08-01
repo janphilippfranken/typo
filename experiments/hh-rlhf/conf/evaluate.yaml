@@ -1,5 +1,5 @@
 output_dir: results_fixed/responses
-file_name: base
+file_name: iteration-2-epoch-0.25-from-epoch-0.12-mistral-human-constitution-sanity-check-4-gpus
 
 start_example: 0
 max_example: 250
@@ -11,8 +11,8 @@ generation_config:
   num_return_sequences: 1 
 
 model_config:
-  model: "mistralai/Mistral-7B-v0.1"
-  download_dir: "/scr/jphilipp/typo/pretrained_models/Mistral-7B-v0.1"
+  model: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-2-from-epoch-0.12-sanity-check-4-gpus/epoch-0.25
+  download_dir: /scr/jphilipp/typo/trained_models/Mistral-7B-v0.1/hh-rlhf-fixed/typo-5e-7-iteration-2-from-epoch-0.12-sanity-check-4-gpus/epoch-0.25
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
